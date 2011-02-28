@@ -1,17 +1,13 @@
 cd ~
 rm .bashrc
 rm .bash_profile
-rm .bash_history
 rm .profile
 rm .screenrc
 rm .vim
-rm .viminfo
 rm .vimrc
 ln -s Dotfiles/bash/bashrc .bashrc
 ln -s Dotfiles/bash/bash_profile .bash_profile
-ln -s Dotfiles/bash/bash_history .bash_history
 ln -s Dotfiles/bash/profile .profile
 ln -s Dotfiles/screen/screenrc .screenrc
 ln -s Dotfiles/vim/vim .vim
-ln -s Dotfiles/vim/viminfo .viminfo
 ln -s Dotfiles/vim/vimrc .vimrc
