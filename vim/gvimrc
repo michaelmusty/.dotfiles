@@ -1,0 +1,5 @@
+try
+    set guifont=Inconsolata\ 10
+catch
+endtry
+set guioptions=aci

@@ -5,9 +5,11 @@ rm .profile
 rm .screenrc
 rm .vim
 rm .vimrc
+rm .gvimrc
 ln -s Dotfiles/bash/bashrc .bashrc
 ln -s Dotfiles/bash/bash_profile .bash_profile
 ln -s Dotfiles/bash/profile .profile
 ln -s Dotfiles/screen/screenrc .screenrc
 ln -s Dotfiles/vim/vim .vim
 ln -s Dotfiles/vim/vimrc .vimrc
+ln -s Dotfiles/vim/gvimrc .gvimrc
