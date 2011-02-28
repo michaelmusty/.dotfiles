@@ -1,5 +1,2 @@
-try
-    set guifont=Inconsolata\ 10
-catch
-endtry
+set guifont=Inconsolata\ 10
 set guioptions=aci
