@@ -47,6 +47,7 @@ nnoremap <leader>w :set wrap!<CR>
 set backspace=indent,eol,start
 set scrolloff=1
 set shortmess+=I
+set visualbell t_vb=
 
 " Spelling
 if has("spell")
