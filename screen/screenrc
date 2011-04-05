@@ -1,9 +1,12 @@
-startup_message off
-vbell off
-hardstatus on
-hardstatus alwayslastline
-hardstatus string "%{Wk}%-w%{wb}%n %t%{-}%+w %=%{..R} %H %{..B} %D %d/%m %c "
+altscreen on
 autodetach on
+defflow off
+defutf8 on
+hardstatus alwayslastline
+hardstatus on
+hardstatus string "%{Wk}%-w%{wb}%n %t%{-}%+w %=%{..R} %H %{..B} %D %d/%m %c "
 msgminwait 0
 msgwait 0
+startup_message off
 term xterm-256color
+vbell off
