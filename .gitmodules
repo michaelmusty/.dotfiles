@@ -18,3 +18,6 @@
 	path = vim/bundle/dessert
 	url = git://github.com/tejr/dessert.git
     ignore = dirty
+[submodule "vim/bundle/tcomment"]
+	path = vim/bundle/tcomment
+	url = git://github.com/tomtom/tcomment_vim.git
