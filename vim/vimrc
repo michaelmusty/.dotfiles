@@ -1,3 +1,9 @@
+" Plugins
+if exists("g:loaded_pathogen")
+    call pathogen#runtime_append_all_bundles()
+    call pathogen#helptags()
+endif
+
 " Colors
 if has("syntax") && ((&t_Co > 15) || has("gui_running"))
     set background=dark
