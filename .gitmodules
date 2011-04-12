@@ -21,3 +21,4 @@
 [submodule "vim/bundle/dessert"]
 	path = vim/bundle/dessert
 	url = git://github.com/tejr/dessert.git
+    ignore = dirty
