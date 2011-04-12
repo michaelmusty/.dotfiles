@@ -6,3 +6,9 @@
 	path = vim/bundle/surround
 	url = http://github.com/tpope/vim-surround.git
     ignore = dirty
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
