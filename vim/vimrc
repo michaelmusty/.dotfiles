@@ -2,14 +2,17 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Filetypes
+if has("autocmd")
+    filetype on
+    filetype plugin on
+    filetype indent on
+endif
+
 " Colors
-if has("syntax") && ((&t_Co > 15) || has("gui_running"))
-    set background=dark
+if has("syntax")
     syntax enable
-    if (&t_Co > 255) || has("gui_running")
-        colorscheme desert256
-        highlight Pmenu ctermfg=0 ctermbg=8
-    endif
+    colorscheme dessert
 endif
 
 " Command
@@ -30,19 +33,11 @@ if has("multi_byte")
     set encoding=utf-8
 endif
 
-" Filetypes
-if has("autocmd")
-    filetype on
-    filetype plugin on
-    filetype indent on
-endif
-
 " Indenting
 set autoindent
 set smartindent
 
 " Leaders
-nnoremap <leader>c :set cursorline! cursorcolumn!<CR>
 nnoremap <leader>h :set hlsearch!<CR>
 nnoremap <leader>l :set list!<CR>
 nnoremap <leader>n :set number!<CR>
