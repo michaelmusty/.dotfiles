@@ -1,18 +1,24 @@
 [submodule "vim/bundles/fugitive"]
 	path = vim/bundles/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
+    ignore = dirty
 [submodule "vim/bundles/repeat"]
 	path = vim/bundles/repeat
 	url = http://github.com/tpope/vim-repeat.git
+    ignore = dirty
 [submodule "vim/bundles/surround"]
 	path = vim/bundles/surround
 	url = http://github.com/tpope/vim-surround.git
+    ignore = dirty
 [submodule "vim/bundles/unimpaired"]
 	path = vim/bundles/unimpaired
 	url = http://github.com/tpope/vim-unimpaired.git
+    ignore = dirty
 [submodule "vim/bundles/nerdcommenter"]
 	path = vim/bundles/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
+    ignore = dirty
 [submodule "vim/bundles/nerdtree"]
 	path = vim/bundles/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
+    ignore = dirty
