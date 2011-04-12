@@ -69,3 +69,6 @@ set nowrap
 if has("linebreak")
     set linebreak
 endif
+
+" Visual
+set virtualedit+=block
