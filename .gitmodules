@@ -26,3 +26,6 @@
 	path = vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
     ignore = dirty
+[submodule "vim/bundle/taglist"]
+	path = vim/bundle/taglist
+	url = git://github.com/vim-scripts/taglist.vim
