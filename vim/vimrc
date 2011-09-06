@@ -2,8 +2,8 @@
 set nocompatible
 
 " Plugins
-call pathogen#infect()
-call pathogen#helptags()
+silent! call pathogen#infect()
+silent! call pathogen#helptags()
 
 " Filetypes
 if has("autocmd")
@@ -15,7 +15,10 @@ endif
 " Colors
 if has("syntax")
     syntax enable
-    colorscheme dessert
+    try
+        colorscheme dessert
+    catch
+    endtry
 endif
 
 " Command
