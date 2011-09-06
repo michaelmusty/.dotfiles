@@ -1,3 +1,6 @@
 " GUI
-set guifont=Inconsolata\ 14
+try
+    set guifont=Inconsolata\ 14
+catch
+endtry
 set guioptions=aci
