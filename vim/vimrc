@@ -39,6 +39,9 @@ if has("multi_byte")
     set encoding=utf-8
 endif
 
+" History
+set history=100
+
 " Indenting
 set autoindent
 set smartindent
