@@ -108,4 +108,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-alias screen ='screen -U'
+alias screen='screen -U'

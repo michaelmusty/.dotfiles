@@ -1,12 +1,12 @@
 [submodule "vim/bundle/dessert"]
 	path = vim/bundle/dessert
-	url = git://github.com/tejr/dessert.git
+	url = https://github.com/tejr/dessert.git
     ignore = dirty
 [submodule "vim/bundle/repeat"]
 	path = vim/bundle/repeat
-	url = http://github.com/tpope/vim-repeat.git
+	url = https://github.com/tpope/vim-repeat.git
     ignore = dirty
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
-	url = http://github.com/tpope/vim-surround.git
+	url = https://github.com/tpope/vim-surround.git
     ignore = dirty
