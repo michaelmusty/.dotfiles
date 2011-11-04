@@ -10,3 +10,6 @@
 	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
     ignore = dirty
+[submodule "vim/bundle/conque"]
+	path = vim/bundle/conque
+	url = https://github.com/rson/vim-conque.git
