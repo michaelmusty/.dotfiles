@@ -78,6 +78,10 @@ endif
 set splitbelow
 set splitright
 
+" Swapfile
+set swapfile
+set directory=$HOME/.vim/swap,/tmp
+
 " Typos
 command WQ wq
 command Wq wq
