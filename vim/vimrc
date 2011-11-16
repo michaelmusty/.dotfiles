@@ -70,6 +70,12 @@ endif
 set splitbelow
 set splitright
 
+" Typos
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
 " Whitespace
 set expandtab
 set nojoinspaces
