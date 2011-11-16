@@ -12,6 +12,10 @@ if has("autocmd")
     filetype indent on
 endif
 
+" Backups
+set backup
+set backupdir=$HOME/.vim/backup,/tmp
+
 " Colors
 if has("syntax")
     syntax enable
@@ -26,6 +30,10 @@ if has("cmdline_info")
     set ruler
     set showcmd
 endif
+
+" Completion
+set wildmode=longest,list
+set wildmenu
 
 " Cursors
 map <up> <nop>
@@ -76,6 +84,12 @@ command Wq wq
 command W w
 command Q q
 
+" Undo
+if has("persistent_undo")
+    set undofile
+    set undodir=$HOME/.vim/undo,/tmp
+endif
+
 " Whitespace
 set expandtab
 set nojoinspaces
@@ -91,3 +105,4 @@ endif
 
 " Visual
 set virtualedit+=block
+
