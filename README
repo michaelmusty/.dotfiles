@@ -1,13 +1,22 @@
-cd ~
+cd
 rm -r .vim
 rm .bashrc
+rm .bash_aliases
+rm .bash_logout
 rm .profile
+rm .gitconfig
 rm .screenrc
+rm .tmux.conf
 rm .vimrc
 rm .gvimrc
 ln -s Dotfiles/vim/vim .vim
 ln -s Dotfiles/bash/bashrc .bashrc
+ln -s Dotfiles/bash/bash_aliases .bash_aliases
+ln -s Dotfiles/bash/bash_logout .bash_logout
 ln -s Dotfiles/bash/profile .profile
+ln -s Dotfiles/git/gitconfig .gitconfig
 ln -s Dotfiles/screen/screenrc .screenrc
+ln -s Dotfiles/tmux/tmux.conf .tmux.conf
 ln -s Dotfiles/vim/vimrc .vimrc
 ln -s Dotfiles/vim/gvimrc .gvimrc
+
