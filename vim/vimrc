@@ -75,10 +75,12 @@ set splitbelow
 set splitright
 
 " Typos
-command WQ wq
-command Wq wq
 command W w
+command Wq wq
+command WQ wq
 command Q q
+command QA qa
+command Qa qa
 
 " Whitespace
 set expandtab
