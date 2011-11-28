@@ -1,16 +1,15 @@
 " Compatibility
 set nocompatible
 
-" Plugins
-silent! call pathogen#infect()
-silent! call pathogen#helptags()
-
 " Filetypes
 if has("autocmd")
     filetype on
     filetype plugin on
     filetype indent on
 endif
+
+" Backups
+set nobackup
 
 " Colors
 if has("syntax")
@@ -46,10 +45,6 @@ endif
 " History
 set history=100
 
-" Indenting
-set autoindent
-set smartindent
-
 " Leaders
 nnoremap <leader>h :set hlsearch!<CR>
 nnoremap <leader>l :set list!<CR>
@@ -58,6 +53,9 @@ nnoremap <leader>p :set paste!<CR>
 nnoremap <leader>r :set relativenumber!<CR>
 nnoremap <leader>s :set spell!<CR>
 nnoremap <leader>w :set wrap!<CR>
+
+" Macros
+set lazyredraw
 
 " Miscellaneous
 set backspace=indent,eol,start
@@ -73,6 +71,9 @@ endif
 " Splits
 set splitbelow
 set splitright
+
+" Swaps
+set noswapfile
 
 " Typos
 command W w
