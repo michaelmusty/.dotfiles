@@ -240,7 +240,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("LineNr", "444444", "", "")
     call <SID>X("ModeMsg", "daa520", "", "")
     call <SID>X("MoreMsg", "2e8b57", "", "")
-    call <SID>X("NonText", "444444", "000000", "bold")
+    call <SID>X("NonText", "444444", "000000", "")
     call <SID>X("Question", "00ff7f", "", "")
     call <SID>X("Search", "f5deb3", "cd853f", "")
     call <SID>X("SpecialKey", "9acd32", "", "")
@@ -259,9 +259,9 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("Comment", "77bedb", "", "")
     call <SID>X("Constant", "ffa0a0", "", "")
     call <SID>X("Identifier", "98fb98", "", "none")
-    call <SID>X("Statement", "f0e68c", "", "bold")
+    call <SID>X("Statement", "f0e68c", "", "")
     call <SID>X("PreProc", "cd5c5c", "", "")
-    call <SID>X("Type", "bdb76b", "", "bold")
+    call <SID>X("Type", "bdb76b", "", "")
     call <SID>X("Special", "ffdead", "", "")
     "Underlined
     call <SID>X("Ignore", "666666", "", "")
@@ -283,29 +283,29 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 else
     " color terminal definitions
     hi SpecialKey    ctermfg=darkgreen
-    hi NonText       cterm=bold ctermfg=8
+    hi NonText       cterm= ctermfg=8
     hi Directory     ctermfg=darkcyan
-    hi ErrorMsg      cterm=bold ctermfg=7 ctermbg=1
+    hi ErrorMsg      cterm= ctermfg=7 ctermbg=1
     hi IncSearch     cterm=NONE ctermfg=yellow ctermbg=green
     hi Search        cterm=NONE ctermfg=grey ctermbg=blue
     hi MoreMsg       ctermfg=darkgreen
     hi ModeMsg       cterm=NONE ctermfg=brown
     hi LineNr        ctermfg=8
     hi Question      ctermfg=green
-    hi StatusLine    cterm=bold,reverse
+    hi StatusLine    cterm=,reverse
     hi StatusLineNC  cterm=reverse
     hi VertSplit     cterm=reverse
     hi Title         ctermfg=5
     hi Visual        cterm=reverse
-    hi VisualNOS     cterm=bold,underline
+    hi VisualNOS     cterm=,underline
     hi WarningMsg    ctermfg=1
     hi WildMenu      ctermfg=0 ctermbg=3
     hi Folded        ctermfg=darkgrey ctermbg=NONE
     hi FoldColumn    ctermfg=darkgrey ctermbg=NONE
     hi DiffAdd       ctermbg=4
     hi DiffChange    ctermbg=5
-    hi DiffDelete    cterm=bold ctermfg=4 ctermbg=6
-    hi DiffText      cterm=bold ctermbg=1
+    hi DiffDelete    cterm= ctermfg=4 ctermbg=6
+    hi DiffText      cterm= ctermbg=1
     hi Comment       ctermfg=darkcyan
     hi Constant      ctermfg=brown
     hi Special       ctermfg=5
@@ -315,6 +315,6 @@ else
     hi Type          ctermfg=2
     hi Underlined    cterm=underline ctermfg=5
     hi Ignore        ctermfg=darkgrey
-    hi Error         cterm=bold ctermfg=7 ctermbg=1
+    hi Error         cterm= ctermfg=7 ctermbg=1
     hi Pmenu         ctermfg=0 ctermbg=8
 endif
