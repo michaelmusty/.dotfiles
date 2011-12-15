@@ -47,6 +47,7 @@ set history=100
 
 " Leaders
 nnoremap <leader>h :set hlsearch!<CR>
+nnoremap <leader>i :set incsearch!<CR>
 nnoremap <leader>l :set list!<CR>
 nnoremap <leader>n :set number!<CR>
 nnoremap <leader>p :set paste!<CR>
@@ -61,6 +62,11 @@ set lazyredraw
 set backspace=indent,eol,start
 set shortmess+=I
 set visualbell t_vb=
+
+" Search
+set hlsearch
+set incsearch
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 " Spelling
 if has("spell")
