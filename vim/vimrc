@@ -33,12 +33,6 @@ if has("wildmenu")
     set wildmenu
 endif
 
-" Cursors
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
 " Encoding
 set fileformats=unix,dos,mac
 if has("multi_byte")
