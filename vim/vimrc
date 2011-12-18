@@ -28,8 +28,10 @@ if has("cmdline_info")
 endif
 
 " Completion
-set wildmode=longest,list
-set wildmenu
+if has("wildmenu")
+    set wildmode=longest,list
+    set wildmenu
+endif
 
 " Cursors
 map <up> <nop>
@@ -75,8 +77,12 @@ if has("spell")
 endif
 
 " Splits
-set splitbelow
-set splitright
+if has("windows")
+    set splitbelow
+    if has("vertsplit")
+        set splitright
+    endif
+endif
 
 " Swaps
 set noswapfile
@@ -103,5 +109,7 @@ if has("linebreak")
 endif
 
 " Visual
-set virtualedit+=block
+if has("virtualedit")
+    set virtualedit+=block
+endif
 
