@@ -242,7 +242,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("MoreMsg", "2e8b57", "", "")
     call <SID>X("NonText", "444444", "000000", "")
     call <SID>X("Question", "00ff7f", "", "")
-    call <SID>X("Search", "f5deb3", "cd853f", "")
+    call <SID>X("Search", "ffddbb", "995500", "")
     call <SID>X("SpecialKey", "9acd32", "", "")
     call <SID>X("StatusLine", "c2bfa5", "000000", "reverse")
     call <SID>X("StatusLineNC", "c2bfa5", "7f7f7f", "reverse")

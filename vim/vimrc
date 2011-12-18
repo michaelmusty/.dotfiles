@@ -10,6 +10,7 @@ endif
 
 " Backups
 set nobackup
+set nowritebackup
 
 " Colors
 if has("syntax")
