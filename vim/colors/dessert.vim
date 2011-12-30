@@ -233,7 +233,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     "DiffDelete
     "DiffText
     "ErrorMsg
-    call <SID>X("VertSplit", "c2bfa5", "7f7f7f", "reverse")
+    call <SID>X("VertSplit", "444444", "7f7f7f", "")
     call <SID>X("Folded", "ffd700", "4d4d4d", "")
     call <SID>X("FoldColumn", "d2b48c", "4d4d4d", "")
     call <SID>X("IncSearch", "445599", "aabbff", "")
@@ -244,9 +244,12 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("Question", "00ff7f", "", "")
     call <SID>X("Search", "aabbff", "334499", "")
     call <SID>X("SpecialKey", "9acd32", "", "")
-    call <SID>X("StatusLine", "c2bfa5", "000000", "reverse")
-    call <SID>X("StatusLineNC", "c2bfa5", "7f7f7f", "reverse")
-    call <SID>X("Title", "cd5c5c", "", "")
+    call <SID>X("StatusLine", "444444", "ffffff", "")
+    call <SID>X("StatusLineNC", "444444", "000000", "")
+    call <SID>X("TabLine", "000000", "444444", "none")
+    call <SID>X("TabLineSel", "ffffff", "444444", "none")
+    call <SID>X("TabLineFill", "444444", "000000", "")
+    call <SID>X("Title", "888888", "", "")
     call <SID>X("Visual", "6b8e23", "f0e68c", "reverse")
     "VisualNOS
     call <SID>X("WarningMsg", "fa8072", "", "")
@@ -318,3 +321,4 @@ else
     hi Error         cterm= ctermfg=7 ctermbg=1
     hi Pmenu         ctermfg=0 ctermbg=8
 endif
+

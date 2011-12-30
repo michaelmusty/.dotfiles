@@ -12,6 +12,9 @@ endif
 set nobackup
 set nowritebackup
 
+" Buffers
+set hidden
+
 " Colors
 if has("syntax")
     syntax enable
@@ -21,7 +24,7 @@ if has("syntax")
     endtry
 endif
 
-" Command
+" Commands
 if has("cmdline_info")
     set ruler
     set showcmd
@@ -29,8 +32,12 @@ endif
 
 " Completion
 if has("wildmenu")
-    set wildmode=longest,list
+    set wildignore+=*.a,*.o
+    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+    set wildignore+=.DS_Store,.git,.hg,.svn
+    set wildignore+=*~,*.sw,*.tmp
     set wildmenu
+    set wildmode=longest,list
 endif
 
 " Encoding
@@ -38,6 +45,16 @@ set fileformats=unix,dos,mac
 if has("multi_byte")
     set encoding=utf-8
 endif
+
+" Formatting
+set expandtab
+set formatoptions+=coqnr1
+set nojoinspaces
+set shiftround
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set textwidth=78
 
 " History
 set history=100
@@ -55,10 +72,17 @@ nnoremap <leader>w :set wrap!<CR>
 " Macros
 set lazyredraw
 
+" Numbering
+set number
+
 " Miscellaneous
 set backspace=indent,eol,start
+set modelines=0
 set shortmess+=I
 set visualbell t_vb=
+
+" Scrolling
+set sidescroll=1
 
 " Search
 set hlsearch
@@ -70,13 +94,8 @@ if has("spell")
     set spelllang=en_nz
 endif
 
-" Splits
-if has("windows")
-    set splitbelow
-    if has("vertsplit")
-        set splitright
-    endif
-endif
+" Status
+set laststatus=2
 
 " Swaps
 set noswapfile
@@ -89,12 +108,16 @@ command Q q
 command QA qa
 command Qa qa
 
-" Whitespace
-set expandtab
-set nojoinspaces
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+" Windows
+if has("windows")
+    set showtabline=2
+    set splitbelow
+    if has("vertsplit")
+        set fillchars=
+        set splitright
+    endif
+    au VimResized * exe "normal! \<C-w>="
+endif
 
 " Wrapping
 set nowrap
