@@ -72,9 +72,6 @@ nnoremap <leader>w :set wrap!<CR>
 " Macros
 set lazyredraw
 
-" Numbering
-set number
-
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
@@ -95,9 +92,6 @@ if has("spell")
     set spelllang=en_nz
 endif
 
-" Status
-set laststatus=2
-
 " Swaps
 set noswapfile
 
@@ -111,7 +105,8 @@ command Qa qa
 
 " Windows
 if has("windows")
-    set showtabline=2
+    set laststatus=1
+    set showtabline=1
     set splitbelow
     if has("vertsplit")
         set fillchars=
