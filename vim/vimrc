@@ -79,6 +79,7 @@ set number
 set backspace=indent,eol,start
 set modelines=0
 set shortmess+=I
+set ttyfast
 set visualbell t_vb=
 
 " Scrolling
