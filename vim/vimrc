@@ -4,8 +4,8 @@ set nocompatible
 " Filetypes
 if has("autocmd")
     filetype on
-    filetype plugin on
     filetype indent on
+    filetype plugin on
 endif
 
 " Backups
@@ -18,16 +18,14 @@ set hidden
 " Colors
 if has("syntax")
     syntax enable
-    try
-        colorscheme dessert
-    catch
-    endtry
+    silent! colorscheme sahara
 endif
 
 " Commands
 if has("cmdline_info")
     set ruler
     set showcmd
+    set showmode
 endif
 
 " Completion
@@ -35,7 +33,7 @@ if has("wildmenu")
     set wildignore+=*.a,*.o
     set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
     set wildignore+=.DS_Store,.git,.hg,.svn
-    set wildignore+=*~,*.sw,*.tmp
+    set wildignore+=*~,*.swp,*.tmp
     set wildmenu
     set wildmode=longest,list
 endif
@@ -54,10 +52,10 @@ set shiftround
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-set textwidth=78
+set textwidth=80
 
 " History
-set history=100
+set history=1000
 
 " Leaders
 nnoremap <leader>h :set hlsearch!<CR>
@@ -85,7 +83,7 @@ set sidescroll=1
 " Search
 set hlsearch
 set incsearch
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+nnoremap <C-l> :nohlsearch<CR><C-l>
 
 " Spelling
 if has("spell")
@@ -96,12 +94,13 @@ endif
 set noswapfile
 
 " Typos
-command W w
-command Wq wq
-command WQ wq
-command Q q
-command QA qa
-command Qa qa
+cnoreabbrev E w
+cnoreabbrev W w
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev Q q
+cnoreabbrev QA qa
+cnoreabbrev Qa qa
 
 " Windows
 if has("windows")
@@ -109,10 +108,9 @@ if has("windows")
     set showtabline=1
     set splitbelow
     if has("vertsplit")
-        set fillchars=
+        set fillchars=""
         set splitright
     endif
-    au VimResized * exe "normal! \<C-w>="
 endif
 
 " Wrapping
