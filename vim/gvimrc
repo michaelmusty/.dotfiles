@@ -1,6 +1,5 @@
 " GUI
-try
-    set guifont=Inconsolata\ 14
-catch
-endtry
+silent! set guifont=Inconsolata\ 14
 set guioptions=aci
+set visualbell t_vb=
+
