@@ -10,7 +10,9 @@ endif
 
 " Backups
 set nobackup
-set nowritebackup
+if has("writebackup")
+    set nowritebackup
+endif
 
 " Buffers
 set hidden
@@ -28,16 +30,6 @@ if has("cmdline_info")
     set showmode
 endif
 
-" Completion
-if has("wildmenu")
-    set wildignore+=*.a,*.o
-    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-    set wildignore+=.DS_Store,.git,.hg,.svn
-    set wildignore+=*~,*.swp,*.tmp
-    set wildmenu
-    set wildmode=longest,list
-endif
-
 " Encoding
 set fileformats=unix,dos,mac
 if has("multi_byte")
@@ -46,7 +38,7 @@ endif
 
 " Formatting
 set expandtab
-set formatoptions+=coqnr1
+set formatoptions=croqn1
 set nojoinspaces
 set shiftround
 set shiftwidth=4
@@ -67,6 +59,10 @@ nnoremap <leader>r :set relativenumber!<CR>
 nnoremap <leader>s :set spell!<CR>
 nnoremap <leader>w :set wrap!<CR>
 
+" Lines
+nnoremap j gj
+nnoremap k gk
+
 " Macros
 set lazyredraw
 
@@ -83,7 +79,7 @@ set sidescroll=1
 " Search
 set hlsearch
 set incsearch
-nnoremap <C-l> :nohlsearch<CR><C-l>
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 " Spelling
 if has("spell")
@@ -94,13 +90,23 @@ endif
 set noswapfile
 
 " Typos
-cnoreabbrev E w
+cnoreabbrev E e
 cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev Q q
 cnoreabbrev QA qa
 cnoreabbrev Qa qa
+
+" Wildmenu
+if has("wildmenu")
+    set wildignore+=*.a,*.o
+    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+    set wildignore+=.DS_Store,.git,.hg,.svn
+    set wildignore+=*~,*.swp,*.tmp
+    set wildmenu
+    set wildmode=longest,list
+endif
 
 " Windows
 if has("windows")
