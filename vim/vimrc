@@ -63,9 +63,6 @@ nnoremap <leader>w :set wrap!<CR>
 nnoremap j gj
 nnoremap k gk
 
-" Macros
-set lazyredraw
-
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
