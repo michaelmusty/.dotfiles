@@ -14,9 +14,6 @@ if has("writebackup")
     set nowritebackup
 endif
 
-" Buffers
-set hidden
-
 " Colors
 if has("syntax")
     syntax enable
@@ -67,6 +64,7 @@ nnoremap k gk
 set backspace=indent,eol,start
 set modelines=0
 set shortmess+=I
+set noesckeys
 set ttyfast
 set visualbell t_vb=
 
@@ -77,6 +75,11 @@ set sidescroll=1
 set hlsearch
 set incsearch
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+augroup vimrc
+    autocmd!
+    autocmd InsertEnter * :setlocal nohlsearch
+    autocmd InsertLeave * :setlocal hlsearch
+augroup END
 
 " Spelling
 if has("spell")
