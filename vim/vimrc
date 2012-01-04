@@ -46,44 +46,47 @@ set textwidth=80
 " History
 set history=1000
 
-" Leaders
-nnoremap <leader>h :set hlsearch!<CR>
-nnoremap <leader>i :set incsearch!<CR>
-nnoremap <leader>l :set list!<CR>
-nnoremap <leader>n :set number!<CR>
-nnoremap <leader>p :set paste!<CR>
-nnoremap <leader>r :set relativenumber!<CR>
-nnoremap <leader>s :set spell!<CR>
-nnoremap <leader>w :set wrap!<CR>
-
-" Lines
-nnoremap j gj
-nnoremap k gk
-
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
-set shortmess+=I
 set noesckeys
+set nolist
+set nopaste
+set shortmess+=I
 set ttyfast
 set visualbell t_vb=
+nnoremap <leader>l :set list!<CR>
+nnoremap <leader>p :set paste!<CR>
+
+" Numbers
+set nonumber
+set norelativenumber
+nnoremap <leader>n :set number!<CR>
+nnoremap <leader>r :set relativenumber!<CR>
 
 " Scrolling
 set sidescroll=1
 
 " Search
-set hlsearch
-set incsearch
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-augroup vimrc
-    autocmd!
-    autocmd InsertEnter * :setlocal nohlsearch
-    autocmd InsertLeave * :setlocal hlsearch
-augroup END
+if has("extra_search")
+    set hlsearch
+    set incsearch
+    nnoremap <leader>h :set hlsearch!<CR>
+    nnoremap <leader>i :set incsearch!<CR>
+    nnoremap <C-l> :nohlsearch<CR><C-l>
+    if has("autocmd")
+        augroup vimrc
+            autocmd!
+            autocmd InsertEnter * :setlocal nohlsearch
+            autocmd InsertLeave * :setlocal hlsearch
+        augroup END
+    endif
+endif
 
 " Spelling
 if has("spell")
     set spelllang=en_nz
+    nnoremap <leader>s :set spell!<CR>
 endif
 
 " Swaps
@@ -121,6 +124,9 @@ endif
 
 " Wrapping
 set nowrap
+nnoremap j gj
+nnoremap k gk
+nnoremap <leader>w :set wrap!<CR>
 if has("linebreak")
     set linebreak
     set showbreak=...
