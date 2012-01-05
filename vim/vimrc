@@ -60,9 +60,7 @@ nnoremap <leader>p :set paste!<CR>
 
 " Numbers
 set nonumber
-set norelativenumber
 nnoremap <leader>n :set number!<CR>
-nnoremap <leader>r :set relativenumber!<CR>
 
 " Scrolling
 set sidescroll=1
