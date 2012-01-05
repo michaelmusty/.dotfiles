@@ -75,8 +75,8 @@ if has("extra_search")
     if has("autocmd")
         augroup vimrc
             autocmd!
-            autocmd! InsertEnter * :setlocal nohlsearch
-            autocmd! InsertLeave * :setlocal hlsearch
+            silent! autocmd InsertEnter * :setlocal nohlsearch
+            silent! autocmd InsertLeave * :setlocal hlsearch
         augroup END
     endif
 endif
