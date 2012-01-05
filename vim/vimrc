@@ -112,12 +112,12 @@ endif
 " Windows
 if has("windows")
     set laststatus=1
-    set showtabline=1
     set splitbelow
     if has("vertsplit")
         set fillchars=""
         set splitright
     endif
+    silent! set showtabline=1
 endif
 
 " Wrapping
