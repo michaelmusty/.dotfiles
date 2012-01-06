@@ -35,7 +35,6 @@ endif
 
 " Formatting
 set expandtab
-set formatoptions=croqn1
 set nojoinspaces
 set shiftround
 set shiftwidth=4
