@@ -3,8 +3,5 @@
     email = tom@sanctum.geek.nz
 
 [color]
-    status = auto
-    branch = auto
-    interactive = auto
-    diff = auto
+    ui = true
 
