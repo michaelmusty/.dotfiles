@@ -1,9 +1,9 @@
 cd
-rm -r .vim
-rm .vimrc
-rm .gvimrc
-rm .gitconfig
-rm .screenrc
+rm -fr .vim
+rm -f .vimrc
+rm -f .gvimrc
+rm -f .gitconfig
+rm -f .screenrc
 ln -s Dotfiles/vim .vim
 ln -s Dotfiles/vim/vimrc .vimrc
 ln -s Dotfiles/vim/gvimrc .gvimrc
