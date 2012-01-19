@@ -7,3 +7,9 @@
 [submodule "vim/bundle/sahara"]
 	path = vim/bundle/sahara
 	url = git://github.com/tejr/sahara.git
+[submodule "vim/bundle/repeat"]
+	path = vim/bundle/repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = git://github.com/tpope/vim-surround.git
