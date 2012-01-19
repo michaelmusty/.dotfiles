@@ -1,6 +1,9 @@
 " Compatibility
 set nocompatible
 
+" Plugins
+silent! call pathogen#infect()
+
 " Filetypes
 if has("autocmd")
     filetype on
