@@ -21,6 +21,9 @@ endif
 if has("syntax")
     syntax enable
     silent! colorscheme sahara
+    if has("folding")
+        set fillchars=diff:\ ,fold:\ ,vert:\ 
+    endif
 endif
 
 " Commands
@@ -117,7 +120,6 @@ if has("windows")
     set laststatus=1
     set splitbelow
     if has("vertsplit")
-        set fillchars=""
         set splitright
     endif
     silent! set showtabline=1
