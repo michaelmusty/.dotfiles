@@ -4,9 +4,9 @@ rm -f .vimrc
 rm -f .gvimrc
 rm -f .gitconfig
 rm -f .screenrc
-ln -s Dotfiles/vim .vim
-ln -s Dotfiles/vim/vimrc .vimrc
-ln -s Dotfiles/vim/gvimrc .gvimrc
-ln -s Dotfiles/git/gitconfig .gitconfig
-ln -s Dotfiles/screen/screenrc .screenrc
+ln -s .dotfiles/vim .vim
+ln -s .dotfiles/vim/vimrc .vimrc
+ln -s .dotfiles/vim/gvimrc .gvimrc
+ln -s .dotfiles/git/gitconfig .gitconfig
+ln -s .dotfiles/screen/screenrc .screenrc
 
