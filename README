@@ -1,9 +1,19 @@
-cd
+Personal repository of independent dotfiles.
+
+This is for all my personal configuration files that migrate well from machine
+to machine. Note the presence of submodules, which means after checking out I
+need to do something like:
+
+$ git submodule init
+$ git submodule update
+
+Then it's a matter of symlinking everything in:
+
 rm -fr .vim
-rm -f .vimrc
-rm -f .gvimrc
-rm -f .gitconfig
-rm -f .screenrc
+rm -fr .vimrc
+rm -fr .gvimrc
+rm -fr .gitconfig
+rm -fr .screenrc
 ln -s .dotfiles/vim .vim
 ln -s .dotfiles/vim/vimrc .vimrc
 ln -s .dotfiles/vim/gvimrc .gvimrc
