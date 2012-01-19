@@ -6,4 +6,4 @@
 	url = http://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/sahara"]
 	path = vim/bundle/sahara
-	url = git@github.com:tejr/sahara.git
+	url = http://github.com/tejr/sahara.git
