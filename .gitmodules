@@ -16,6 +16,3 @@
 [submodule "vim/bundle/unimpaired"]
 	path = vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
-[submodule "vim/bundle/eunuch"]
-	path = vim/bundle/eunuch
-	url = git://github.com/tpope/vim-eunuch.git
