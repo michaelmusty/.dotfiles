@@ -60,10 +60,7 @@ silent! runtime macros/matchit.vim
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
-set noesckeys
 set shortmess+=I
-set ttyfast
-set visualbell t_vb=
 
 " Numbers
 set nonumber
@@ -100,6 +97,11 @@ endif
 
 " Swaps
 set noswapfile
+
+" Terminal
+set noesckeys
+set ttyfast
+set visualbell t_vb=
 
 " Typos
 command! -bang E e<bang>
