@@ -114,6 +114,10 @@ command! -bang WA wa<bang>
 command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
 
+" Unmaps
+noremap <F1> <nop>
+nnoremap K <nop>
+
 " Wildmenu
 if has("wildmenu")
     set wildignore+=*.a,*.o
