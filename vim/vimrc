@@ -54,6 +54,9 @@ set history=1000
 set nolist
 nnoremap <leader>l :set list!<CR>
 
+" Matching
+silent! runtime macros/matchit.vim
+
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
