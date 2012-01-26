@@ -50,15 +50,17 @@ set tabstop=4
 " History
 set history=1000
 
+" List
+set nolist
+nnoremap <leader>l :set list!<CR>
+
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
 set noesckeys
-set nolist
 set shortmess+=I
 set ttyfast
 set visualbell t_vb=
-nnoremap <leader>l :set list!<CR>
 
 " Numbers
 set nonumber
