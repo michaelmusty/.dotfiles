@@ -152,6 +152,9 @@ if has("linebreak")
     set showbreak=...
 endif
 
+" Yanking
+nnoremap Y y$
+
 " Visual
 if has("virtualedit")
     set virtualedit+=block
