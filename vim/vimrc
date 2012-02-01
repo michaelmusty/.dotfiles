@@ -47,6 +47,10 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+" Heresy
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
 " History
 set history=1000
 
