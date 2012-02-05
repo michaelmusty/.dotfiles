@@ -4,8 +4,7 @@ This is for all my personal configuration files that migrate well from machine
 to machine. Note the presence of submodules, which means after checking out I
 need to do something like:
 
-git submodule init
-git submodule update
+git submodule update --init
 
 Then it's a matter of symlinking everything in:
 
