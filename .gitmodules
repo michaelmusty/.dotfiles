@@ -30,3 +30,6 @@
 	path = vim/bundle/commentary
 	url = git://github.com/tpope/vim-commentary.git
     ignore = untracked
+[submodule "vim/bundle/nextag"]
+	path = vim/bundle/nextag
+	url = git://github.com/tejr/nextag.git
