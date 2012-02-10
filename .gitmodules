@@ -1,32 +1,32 @@
 [submodule "vim/bundle/sahara"]
 	path = vim/bundle/sahara
 	url = git://github.com/tejr/sahara.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/pathogen"]
 	path = vim/bundle/pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/repeat"]
 	path = vim/bundle/repeat
 	url = git://github.com/tpope/vim-repeat.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = git://github.com/tpope/vim-surround.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/unimpaired"]
 	path = vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/speeddating"]
 	path = vim/bundle/speeddating
 	url = git://github.com/tpope/vim-speeddating.git
-    ignore = dirty
+    ignore = untracked
 [submodule "vim/bundle/commentary"]
 	path = vim/bundle/commentary
 	url = git://github.com/tpope/vim-commentary.git
-    ignore = dirty
+    ignore = untracked
