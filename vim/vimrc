@@ -104,9 +104,9 @@ set ttyfast
 set visualbell t_vb=
 
 " Typos
-command! -bang E e<bang>
+command! -bang -nargs=? E e<bang> <args>
+command! -bang -nargs=? W w<bang> <args>
 command! -bang Q q<bang>
-command! -bang W w<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 command! -bang Wa wa<bang>
