@@ -33,3 +33,6 @@
 [submodule "vim/bundle/nextag"]
 	path = vim/bundle/nextag
 	url = git://github.com/tejr/nextag.git
+[submodule "vim/bundle/abolish"]
+	path = vim/bundle/abolish
+	url = git://github.com/tpope/vim-abolish.git
