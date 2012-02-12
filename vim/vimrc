@@ -3,6 +3,7 @@ set nocompatible
 
 " Plugins
 silent! call pathogen#infect()
+silent! call pathogen#helptags()
 
 " Filetypes
 if has("autocmd")
