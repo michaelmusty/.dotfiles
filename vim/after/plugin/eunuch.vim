@@ -1,3 +1,3 @@
 " Discard Eunuch's remapping of :W.
-command! -bang -nargs=? -complete=file W w<bang> <args>
+command! -bang -complete=file -nargs=? W w<bang> <args>
 
