@@ -42,3 +42,7 @@
 	path = vim/bundle/eunuch
 	url = git://github.com/tpope/vim-eunuch.git
     ignore = untracked
+[submodule "vim/bundle/kimble"]
+	path = vim/bundle/kimble
+	url = git://github.com/tejr/kimble.git
+    ignore = untracked
