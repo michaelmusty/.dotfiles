@@ -22,11 +22,7 @@ endif
 if has("syntax")
     syntax enable
     set background=dark
-    silent! try
-        silent! colorscheme sahara
-    silent! catch
-        silent! colorscheme torte
-    silent! endtry
+    silent! colorscheme sahara
     if has("folding")
         set fillchars=diff:\ ,fold:\ ,vert:\ 
     endif
