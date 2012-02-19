@@ -13,9 +13,11 @@ rm -fr .vimrc
 rm -fr .gvimrc
 rm -fr .gitconfig
 rm -fr .screenrc
+rm -fr .tmux.conf
 ln -s .dotfiles/vim .vim
 ln -s .dotfiles/vim/vimrc .vimrc
 ln -s .dotfiles/vim/gvimrc .gvimrc
 ln -s .dotfiles/git/gitconfig .gitconfig
 ln -s .dotfiles/screen/screenrc .screenrc
+ln -s .dotfiles/tmux/tmux.conf .tmux.conf
 
