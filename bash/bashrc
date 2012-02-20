@@ -27,8 +27,8 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # SSH agent setup, if available.
-if [ -e ~/.bash_sshagent ]; then
-    . ~/.bash_sshagent
+if [ -e ~/.ssh/agent ]; then
+    . ~/.ssh/agent
 fi
 
 # Turn off annoying and useless flow control keys.
