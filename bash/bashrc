@@ -1,0 +1,42 @@
+# Don't do anything if not running interactively.
+[ -z "$PS1" ] && return
+
+# Don't put duplicate lines in history, and keep plenty of it.
+HISTCONTROL=ignoreboth
+HISTSIZE=5000
+
+# Append rather than overwrite Bash history.
+shopt -s histappend
+
+# Update columns and rows if window size changes.
+shopt -s checkwinsize
+
+# Simple prompt.
+PS1='\u@\h:\w\$ '
+
+# Use colors for ls and grep, if available.
+if [ -x /usr/bin/dircolors ]; then
+    eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
+# Use completion, if available.
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# SSH agent setup, if available.
+if [ -e ~/.bash_sshagent ]; then
+    . ~/.bash_sshagent
+fi
+
+# Turn off annoying and useless flow control keys.
+stty -ixon
+
+# Use vim as my text editor, if available.
+hash vim &>/dev/null
+if [ $? -eq 0 ]; then
+    export EDITOR=vim
+fi
+

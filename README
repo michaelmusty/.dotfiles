@@ -1,21 +1,11 @@
 Personal repository of independent dotfiles.
 
 This is for all my personal configuration files that migrate well from machine
-to machine. Note the presence of submodules, which means after checking out I
-need to do something like:
+to machine.
 
-git submodule update --init
+Then it's a matter of loading git submodules, deleting stock files and
+symlinking everything in, which can be done with the included "dotfiles"
+script:
 
-Then it's a matter of symlinking everything in:
-
-rm -fr .vim
-rm -fr .vimrc
-rm -fr .gvimrc
-rm -fr .gitconfig
-rm -fr .tmux.conf
-ln -s .dotfiles/vim .vim
-ln -s .dotfiles/vim/vimrc .vimrc
-ln -s .dotfiles/vim/gvimrc .gvimrc
-ln -s .dotfiles/git/gitconfig .gitconfig
-ln -s .dotfiles/tmux/tmux.conf .tmux.conf
+$ bash .dotfiles/install.sh
 
