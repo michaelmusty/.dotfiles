@@ -1,18 +1,33 @@
 # Don't do anything if not running interactively.
 [ -z "$PS1" ] && return
 
-# Don't put duplicate lines in history, and keep plenty of it.
-HISTCONTROL=ignoreboth
-HISTSIZE=5000
+# Keep plenty of history.
+unset HISTFILESIZE
+HISTSIZE=1000000
 
-# Append rather than overwrite Bash history.
-shopt -s histappend
+# Ignore duplicate commands and whitespace in history.
+HISTCONTROL=ignoreboth
+
+# Keep the times of the commands in history.
+HISTTIMEFORMAT="%F %T "
+
+# Add all commands to the history immediately.
+PROMPT_COMMAND="history -a; history -n"
+
+# Autocorrect fudged paths in cd calls.
+shopt -s cdspell
 
 # Update columns and rows if window size changes.
 shopt -s checkwinsize
 
+# Put multi-line commands onto one line of history.
+shopt -s cmdhist
+
+# Append rather than overwrite Bash history.
+shopt -s histappend
+
 # Simple prompt.
-PS1='\u@\h:\w\$ '
+PS1="\u@\h:\w\$ "
 
 # Use colors for ls and grep, if available.
 if [ -x /usr/bin/dircolors ]; then
@@ -22,7 +37,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # Use completion, if available.
-if [ -f /etc/bash_completion ]; then
+if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
