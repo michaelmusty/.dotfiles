@@ -9,10 +9,16 @@ HISTSIZE=1000000
 HISTCONTROL=ignoreboth
 
 # Keep the times of the commands in history.
-HISTTIMEFORMAT="%F %T "
+HISTTIMEFORMAT='%F %T '
+
+# Ignore certain commands for the history.
+HISTIGNORE='ls:ls -l:ls -la:fg:bg:jobs:history'
 
 # Add all commands to the history immediately.
-PROMPT_COMMAND="history -a; history -n"
+PROMPT_COMMAND='history -a; history -n'
+
+# Don't check for mail all the time, it's irritating.
+unset MAILCHECK
 
 # Autocorrect fudged paths in cd calls.
 shopt -s cdspell
@@ -26,8 +32,11 @@ shopt -s cmdhist
 # Append rather than overwrite Bash history.
 shopt -s histappend
 
+# Never beep at me.
+setterm -bfreq 0
+
 # Simple prompt.
-PS1="\u@\h:\w\$ "
+PS1='\u@\h:\w\$ '
 
 # Use colors for ls and grep, if available.
 if [ -x /usr/bin/dircolors ]; then
@@ -49,9 +58,9 @@ fi
 # Turn off annoying and useless flow control keys.
 stty -ixon
 
-# Use vim as my text editor, if available.
-hash vim &>/dev/null
+# Use vi as my text editor, if available.
+hash vi &>/dev/null
 if [ $? -eq 0 ]; then
-    export EDITOR=vim
+    export EDITOR=vi
 fi
 
