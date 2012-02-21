@@ -10,6 +10,11 @@ if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# Add machine-specific locale file if it exists.
+if [ -e "$HOME/.bash_locale" ]; then
+    . "$HOME/.bash_locale"
+fi
+
 # None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
 
