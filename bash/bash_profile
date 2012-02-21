@@ -10,7 +10,6 @@ if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# Environment variables.
-export LANG=en_NZ.UTF-8
+# None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
 
