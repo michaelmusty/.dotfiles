@@ -1,19 +1,21 @@
 #!/bin/bash
-cd $HOME/.dotfiles
-git submodule update --init
-cd $HOME
-rm -f .bashrc
-rm -f .bash_profile .bash_login .profile
-rm -f .gitconfig
-rm -f .tmux.conf
-rm -f .vimrc
-rm -f .gvimrc
-rm -fr .vim
-ln -s .dotfiles/bash/bashrc .bashrc
-ln -s .dotfiles/bash/bash_profile .bash_profile
-ln -s .dotfiles/git/gitconfig .gitconfig
-ln -s .dotfiles/tmux/tmux.conf .tmux.conf
-ln -s .dotfiles/vim/vimrc .vimrc
-ln -s .dotfiles/vim/gvimrc .gvimrc
-ln -s .dotfiles/vim .vim
+
+# Check out submodules. The --git-dir option doesn't work here.
+cd "${HOME}/.dotfiles"
+git submodule --quiet update --init
+cd "${OLDPWD}"
+
+# Link in files, replacing whatever's already there.
+ln -fs ".dotfiles/bash/bashrc"       "${HOME}/.bashrc"
+ln -fs ".dotfiles/bash/bash_profile" "${HOME}/.bash_profile"
+ln -fs ".dotfiles/git/gitconfig"     "${HOME}/.gitconfig"
+ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
+ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
+ln -fs ".dotfiles/vim/gvimrc"        "${HOME}/.gvimrc"
+
+# Link in directories, removing whatever's already there first.
+if [ -e "${HOME}/.vim" ]; then
+    rm -r "${HOME}/.vim"
+fi
+ln -fs ".dotfiles/vim" "${HOME}/.vim"
 
