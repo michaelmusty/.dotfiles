@@ -1,5 +1,9 @@
 " GUI
-silent! set guifont=Inconsolata\ 14
+if has("unix")
+    silent! set guifont=Inconsolata\ 14
+else
+    silent! set guifont=Consolas:h12
+endif
 set guioptions=aci
 set visualbell t_vb=
 
