@@ -32,9 +32,6 @@ shopt -s cmdhist
 # Append rather than overwrite Bash history.
 shopt -s histappend
 
-# Never beep at me.
-setterm -bfreq 0
-
 # Simple prompt.
 PS1='\u@\h:\w\$ '
 
@@ -57,6 +54,9 @@ fi
 
 # Turn off annoying and useless flow control keys.
 stty -ixon
+
+# Never beep at me.
+setterm -bfreq 0
 
 # Use vi as my text editor, if available.
 hash vi &>/dev/null
