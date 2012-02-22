@@ -9,7 +9,7 @@ HISTSIZE=1000000
 HISTCONTROL=ignoreboth
 
 # Keep the times of the commands in history.
-HISTTIMEFORMAT='%F %T '
+HISTTIMEFORMAT='%F %T  '
 
 # Ignore certain commands for the history.
 HISTIGNORE='ls:ls -l:ls -la:fg:bg:jobs:history'
