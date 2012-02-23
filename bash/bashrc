@@ -39,6 +39,7 @@ esac
 
 # Simple prompt.
 PS1='\u@\h:\w\$ '
+PS2='...'
 
 # Use colors for ls and grep, if available.
 if [ -x /usr/bin/dircolors ]; then
