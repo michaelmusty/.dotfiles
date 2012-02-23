@@ -75,7 +75,7 @@ case "$TERM" in
 
     # Set title of screen/tmux window.
     screen*)
-        PS1="\[\ek\h\e\\\\\]"${PS1}
+        PS1="\ek\h\e\\\\"${PS1}
         ;;
 
     # Set xterm title, use 256 colors.
