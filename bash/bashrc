@@ -69,3 +69,18 @@ if [ $? -eq 0 ]; then
     export EDITOR=vi
 fi
 
+# Terminal-specific settings.
+case "$TERM" in
+
+    # Set title of screen/tmux window.
+    screen*)
+        printf "\033k$(hostname)\033\\"
+        ;;
+
+    # Set xterm title, use 256 colors.
+    xterm*)
+        PS1="\[\e]0;\h\a\]${PS1}"
+        TERM=xterm-256color
+        ;;
+esac
+
