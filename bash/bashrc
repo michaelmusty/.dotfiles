@@ -68,11 +68,6 @@ fi
 # Terminal-specific settings.
 case "$TERM" in
 
-    # Set title of screen/tmux window.
-    screen*)
-        PS1="\[\ek\h\e\\\\\a\]"${PS1}
-        ;;
-
     # Set xterm title, use 256 colors.
     xterm*)
         PS1="\[\e]0;\h\a\]"${PS1}
