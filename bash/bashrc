@@ -15,7 +15,7 @@ HISTTIMEFORMAT='%F %T  '
 HISTIGNORE='ls:ls -l:ls -la:fg:bg:jobs:history'
 
 # Add all commands to the history immediately.
-PROMPT_COMMAND='history -a; history -n'
+PROMPT_COMMAND='history -a;history -n'
 
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
@@ -72,6 +72,11 @@ case "$TERM" in
     xterm*)
         PS1="\[\e]0;\h\a\]"${PS1}
         TERM=xterm-256color
+        ;;
+
+    # Set screen window title.
+    screen*)
+        PROMPT_COMMAND="printf '\033k$(hostname)\033\\';"${PROMPT_COMMAND}
         ;;
 esac
 
