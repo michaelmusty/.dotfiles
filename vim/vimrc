@@ -73,7 +73,8 @@ set nopaste
 nnoremap <leader>p :set paste!<CR>
 
 " Scrolling
-set sidescroll=1
+set scrolloff=0
+set sidescrolloff=16
 
 " Search
 if has("extra_search")
