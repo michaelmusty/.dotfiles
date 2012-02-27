@@ -43,6 +43,7 @@ endif
 
 " Formatting
 set expandtab
+set smarttab
 set nojoinspaces
 set shiftround
 set shiftwidth=4
