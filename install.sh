@@ -8,6 +8,7 @@ cd "${OLDPWD}"
 # Link in files, replacing whatever's already there.
 ln -fs ".dotfiles/bash/bashrc"       "${HOME}/.bashrc"
 ln -fs ".dotfiles/bash/bash_profile" "${HOME}/.bash_profile"
+ln -fs ".dotfiles/bash/bash_logout"  "${HOME}/.bash_logout"
 ln -fs ".dotfiles/git/gitconfig"     "${HOME}/.gitconfig"
 ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
