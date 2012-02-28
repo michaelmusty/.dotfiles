@@ -10,9 +10,9 @@ if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# Add machine-specific locale file if it exists.
-if [ -e "$HOME/.bash_locale" ]; then
-    . "$HOME/.bash_locale"
+# Add machine-specific local file if it exists.
+if [ -e "$HOME/.bash_local" ]; then
+    . "$HOME/.bash_local"
 fi
 
 # None of this UTF8 drawing characters nonsense.
