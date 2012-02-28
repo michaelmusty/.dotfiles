@@ -75,6 +75,9 @@ nnoremap <leader>n :set number!<CR>
 set nopaste
 nnoremap <leader>p :set paste!<CR>
 
+" Reading
+set autoread
+
 " Scrolling
 set scrolloff=0
 set sidescrolloff=16
