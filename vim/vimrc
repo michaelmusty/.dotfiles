@@ -60,10 +60,12 @@ nnoremap <leader>l :set list!<CR>
 " Matching
 silent! runtime macros/matchit.vim
 
+" Messages
+set shortmess+=I
+
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
-set shortmess+=I
 
 " Numbers
 set nonumber
