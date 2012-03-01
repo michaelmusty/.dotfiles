@@ -21,3 +21,6 @@ if [ -e "${HOME}/.vim" ]; then
 fi
 ln -fs ".dotfiles/vim" "${HOME}/.vim"
 
+# Touch tmux local conf file.
+touch ~/.tmux.conf.local
+
