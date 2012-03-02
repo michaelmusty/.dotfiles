@@ -32,6 +32,12 @@ shopt -s checkwinsize
 # Put multi-line commands onto one line of history.
 shopt -s cmdhist
 
+# Include dotfiles in pattern matching.
+shopt -s dotglob
+
+# Enable advanced pattern matching.
+shopt -s extglob
+
 # Append rather than overwrite Bash history.
 shopt -s histappend
 
