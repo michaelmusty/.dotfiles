@@ -1,2 +1,3 @@
 set editing-mode emacs
+set show-all-if-ambiguous on
 
