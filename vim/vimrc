@@ -134,6 +134,7 @@ nnoremap K <nop>
 if has("wildmenu")
     set wildmenu
     set wildmode=longest:list
+    set wildignorecase
     if has ("wildignore")
         set wildignore+=*.a,*.o
         set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
