@@ -17,6 +17,9 @@ HISTIGNORE='ls:ls -l:ls -la:fg:bg:jobs:history'
 # Add all commands to the history immediately.
 PROMPT_COMMAND='history -a;history -n'
 
+# Allow my home directory as a base for relative cd calls.
+CDPATH=.:~
+
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
 
