@@ -1,7 +1,8 @@
-set editing-mode emacs
-set show-all-if-ambiguous on
+set bell-style none
 set completion-ignore-case on
 set completion-map-case on
 set completion-query-items -1
+set editing-mode emacs
+set expand-tilde on
 set page-completions off
-
+set show-all-if-ambiguous on
