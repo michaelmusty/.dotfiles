@@ -11,9 +11,6 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
 
-# Ignore certain commands for the history.
-HISTIGNORE='ls:ls -l:ls -la:fg:bg:jobs:history'
-
 # Add all commands to the history immediately.
 PROMPT_COMMAND='history -a;history -n'
 
