@@ -120,6 +120,8 @@ if has("user_commands")
     command! -bang -complete=file -nargs=? WQ wq<bang> <args>
     command! -bang -complete=file -nargs=? Wq wq<bang> <args>
     command! -bang Q q<bang>
+    command! -bang Qa qa<bang>
+    command! -bang QA qa<bang>
     command! -bang WA wa<bang>
     command! -bang WQ wq<bang>
     command! -bang Wa wa<bang>
