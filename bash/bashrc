@@ -12,7 +12,7 @@ HISTCONTROL=ignoreboth
 HISTTIMEFORMAT='%F %T  '
 
 # Add all commands to the history immediately.
-PROMPT_COMMAND='history -a;history -n'
+PROMPT_COMMAND='history -n;history -a'
 
 # Allow my home directory as a base for relative cd calls.
 CDPATH=.:~
