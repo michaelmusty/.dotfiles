@@ -66,10 +66,7 @@ stty -ixon
 setterm -bfreq 0
 
 # Use vi as my text editor, if available.
-hash vi &>/dev/null
-if [ $? -eq 0 ]; then
-    export EDITOR=vi
-fi
+hash vi &>/dev/null && export EDITOR=vi
 
 # Terminal-specific settings.
 case "$TERM" in
