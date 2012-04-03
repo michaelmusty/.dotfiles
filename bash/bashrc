@@ -11,9 +11,6 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
 
-# Add all commands to the history immediately.
-PROMPT_COMMAND='history -n;history -a'
-
 # Allow my home directory as a base for relative cd calls.
 CDPATH=.:~
 
