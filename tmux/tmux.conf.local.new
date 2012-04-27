@@ -1,5 +1,0 @@
-# Use the same colours for windows with alerts.
-set-window-option -g window-status-activity-attr none
-set-window-option -g window-status-activity-fg colour248
-set-window-option -g window-status-activity-bg colour237
-
