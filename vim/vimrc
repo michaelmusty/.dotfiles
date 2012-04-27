@@ -10,7 +10,6 @@ if has("autocmd")
     filetype on
     filetype indent on
     filetype plugin on
-    autocmd BufNewFile,BufRead *.au,*.nz setfiletype bindzone
 endif
 
 " Backups
