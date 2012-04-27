@@ -10,6 +10,7 @@ if has("autocmd")
     filetype on
     filetype indent on
     filetype plugin on
+    autocmd BufNewFile,BufRead *.au,*.nz setfiletype bindzone
 endif
 
 " Backups
@@ -56,6 +57,8 @@ set history=1000
 " List
 set nolist
 nnoremap <leader>l :set list!<CR>
+
+" Localisation
 
 " Matching
 silent! runtime macros/matchit.vim
@@ -173,5 +176,10 @@ nnoremap Y y$
 " Visual
 if has("virtualedit")
     set virtualedit+=block
+endif
+
+" Local
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
 endif
 
