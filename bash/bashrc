@@ -11,9 +11,6 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
 
-# Allow my home directory as a base for relative cd calls.
-CDPATH=.:~
-
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
 
