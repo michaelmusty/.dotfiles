@@ -37,11 +37,11 @@ PS1='\u@\h:\w\$ '
 PS2='...'
 
 # Use colors for ls and grep, if available.
-if [ -x /usr/bin/dircolors ]; then
+if hash dircolors &>/dev/null; then
     eval "$(dircolors -b)"
     ls --help | grep -q -- --color && alias ls='ls --color=auto'
-    grep --help | grep -q -- --color && alias grep='grep --color=auto'
 fi
+grep --help | grep -q -- --color && alias grep='grep --color=auto'
 
 # Use completion, if available.
 if [ -e /etc/bash_completion ]; then
