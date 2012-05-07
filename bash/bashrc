@@ -39,8 +39,8 @@ PS2='...'
 # Use colors for ls and grep, if available.
 if [ -x /usr/bin/dircolors ]; then
     eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
+    ls --help | grep -q -- --color && alias ls='ls --color=auto'
+    grep --help | grep -q -- --color && alias grep='grep --color=auto'
 fi
 
 # Use completion, if available.
