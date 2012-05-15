@@ -45,6 +45,9 @@ if grep --help | grep -q -- --color; then
     alias grep='grep --color=auto'
 fi
 
+# Protect innocent MySQL databases from my stupidity.
+alias mysql='mysql --safe-updates'
+
 # Use completion, if available.
 if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
