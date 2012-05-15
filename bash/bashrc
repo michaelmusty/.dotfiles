@@ -36,17 +36,33 @@ shopt -s histappend
 PS1='\u@\h:\w\$ '
 PS2='...'
 
-# Use colors for ls and grep, if available.
-if ls --help | grep -q -- --color && hash dircolors &>/dev/null; then
-    eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+# Set up options for ls; use color.
+LS_OPTS=
+if ls --help | grep -- --color &>/dev/null; then
+    hash dircolors &>/dev/null && eval "$(dircolors -b)"
+    LS_OPTS="$LS_OPTS --color"
 fi
-if grep --help | grep -q -- --color; then
-    alias grep='grep --color=auto'
+alias ls="ls $LS_OPTS"
+
+# Set up options for grep; exclude version control files, use color.
+GREP_OPTS=
+if grep --help | grep -- --exclude &>/dev/null; then
+    for PATTERN in .git .gitignore .gitmodules; do
+        GREP_OPTS="$GREP_OPTS --exclude=$PATTERN"
+    done
 fi
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+    for PATTERN in .cvs .git .hg .svn; do
+        GREP_OPTS="$GREP_OPTS --exclude-dir=$PATTERN"
+    done
+fi
+if grep --help | grep -- --color &>/dev/null; then
+    GREP_OPTS="$GREP_OPTS --color"
+fi
+alias grep="grep $GREP_OPTS"
 
 # Protect innocent MySQL databases from my stupidity.
-alias mysql='mysql --safe-updates'
+alias mysql="mysql --safe-updates"
 
 # Use completion, if available.
 if [ -e /etc/bash_completion ]; then
