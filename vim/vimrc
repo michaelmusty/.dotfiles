@@ -170,13 +170,13 @@ endif
 " Writing
 nnoremap ZW :w!<CR>
 
-" Yanking
-nnoremap Y y$
-
 " Visual
 if has("virtualedit")
     set virtualedit+=block
 endif
+
+" Yanking
+nnoremap Y y$
 
 " Local
 if filereadable(glob("~/.vimrc.local"))
