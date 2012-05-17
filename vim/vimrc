@@ -130,6 +130,11 @@ endif
 noremap <F1> <nop>
 nnoremap K <nop>
 
+" Visual
+if has("virtualedit")
+    set virtualedit+=block
+endif
+
 " Wildmenu
 if has("wildmenu")
     set wildmenu
@@ -169,11 +174,6 @@ endif
 
 " Writing
 nnoremap ZW :w!<CR>
-
-" Visual
-if has("virtualedit")
-    set virtualedit+=block
-endif
 
 " Yanking
 nnoremap Y y$
