@@ -167,6 +167,9 @@ if has("linebreak")
     set showbreak=...
 endif
 
+" Writing
+nnoremap ZW :w!<CR>
+
 " Yanking
 nnoremap Y y$
 
