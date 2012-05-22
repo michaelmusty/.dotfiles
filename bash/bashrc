@@ -86,6 +86,10 @@ stty -ixon
 # Never beep at me.
 setterm -bfreq 0
 
+# Use shots for hostname completion, if available.
+hash shots &>/dev/null && complete -C shots \
+    dig ftp host nc netcat ping telnet
+
 # Use vi as my text editor, if available.
 hash vi &>/dev/null && export EDITOR=vi
 
