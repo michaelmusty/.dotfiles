@@ -73,6 +73,10 @@ alias mysql="mysql --safe-updates"
 # Use completion, if available.
 if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
+
+    # Use shots for hostname completion, if available.
+    hash shots &>/dev/null && complete -F _known_hosts -W "$(shots)" \
+        dig fping ftp host mtr nc netcat ping ping6 telnet traceroute
 fi
 
 # SSH agent setup, if available.
@@ -85,10 +89,6 @@ stty -ixon
 
 # Never beep at me.
 setterm -bfreq 0
-
-# Use shots for hostname completion, if available.
-hash shots &>/dev/null && complete -W "$(shots)" \
-    dig ftp host nc netcat ping telnet
 
 # Use vi as my text editor, if available.
 hash vi &>/dev/null && export EDITOR=vi
