@@ -15,5 +15,5 @@ There's an installation script, but it hoses your existing files, so don't run i
 License
 -------
 
-Copyright (c) Tom Ryder. Distributed under an [MIT License](http://www.opensource.org/licenses/MIT). Buy me a beer sometime.
+Copyright (c) [Tom Ryder](http://www.sanctum.geek.nz/about/tom-ryder/). Distributed under the same terms as Vim itself. See `:help license`.
 
