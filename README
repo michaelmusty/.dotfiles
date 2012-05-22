@@ -1,9 +1,0 @@
-Personal repository of independent dotfiles.
-
-This is for all my personal configuration files that migrate well from machine
-to machine.
-
-$ cd
-$ git clone git://github.com/tejr/dotfiles.git .dotfiles
-$ bash .dotfiles/install.sh
-
