@@ -23,20 +23,20 @@ shopt checkwinsize &>/dev/null && shopt -s checkwinsize
 # Put multi-line commands onto one line of history.
 shopt cmdhist &>/dev/null && shopt -s cmdhist
 
+# Autocorrect fudged paths during completion.
+shopt dirspell &>/dev/null && shopt -s dirspell
+
 # Include dotfiles in pattern matching.
 shopt dotglob &>/dev/null && shopt -s dotglob
 
 # Enable advanced pattern matching.
 shopt extglob &>/dev/null && shopt -s extglob
 
-# Append rather than overwrite Bash history.
-shopt histappend &>/dev/null && shopt -s histappend
-
-# Autocorrect fudged paths during completion.
-shopt dirspell &>/dev/null && shopt -s dirspell
-
 # Enable double-starring paths.
 shopt globstar &>/dev/null && shopt -s globstar
+
+# Append rather than overwrite Bash history.
+shopt histappend &>/dev/null && shopt -s histappend
 
 # Simple prompt.
 PS1='\u@\h:\w\$ '
