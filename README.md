@@ -10,7 +10,7 @@ These are not really built for other people to use, but if you know a thing or t
 
 There's an installation script, but it hoses your existing files, so don't run it without reading it first. You'll also need to have a recent enough version of Git to support [submodules](http://git-scm.com/book/en/Git-Tools-Submodules).
 
-    $ bash .dotfiles/install.sh
+    $ .dotfiles/install.sh
 
 License
 -------
