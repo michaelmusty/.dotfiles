@@ -87,7 +87,7 @@ stty -ixon
 setterm -bfreq 0
 
 # Use shots for hostname completion, if available.
-hash shots &>/dev/null && complete -C shots \
+hash shots &>/dev/null && complete -W "$(shots)" \
     dig ftp host nc netcat ping telnet
 
 # Use vi as my text editor, if available.
