@@ -15,28 +15,28 @@ HISTTIMEFORMAT='%F %T  '
 unset MAILCHECK
 
 # Autocorrect fudged paths in cd calls.
-shopt cdspell &>/dev/null && shopt -s cdspell
+shopt -s cdspell &>/dev/null
 
 # Update columns and rows if window size changes.
-shopt checkwinsize &>/dev/null && shopt -s checkwinsize
+shopt -s checkwinsize &>/dev/null
 
 # Put multi-line commands onto one line of history.
-shopt cmdhist &>/dev/null && shopt -s cmdhist
+shopt -s cmdhist &>/dev/null
 
 # Autocorrect fudged paths during completion.
-shopt dirspell &>/dev/null && shopt -s dirspell
+shopt -s dirspell &>/dev/null
 
 # Include dotfiles in pattern matching.
-shopt dotglob &>/dev/null && shopt -s dotglob
+shopt -s dotglob &>/dev/null
 
 # Enable advanced pattern matching.
-shopt extglob &>/dev/null && shopt -s extglob
+shopt -s extglob &>/dev/null
 
 # Enable double-starring paths.
-shopt globstar &>/dev/null && shopt -s globstar
+shopt -s globstar &>/dev/null
 
 # Append rather than overwrite Bash history.
-shopt histappend &>/dev/null && shopt -s histappend
+shopt -s histappend &>/dev/null
 
 # Simple prompt.
 PS1='\u@\h:\w\$ '
