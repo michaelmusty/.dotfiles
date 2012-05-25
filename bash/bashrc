@@ -46,7 +46,7 @@ PS2='...'
 LS_OPTS=
 if ls --help | grep -- --color &>/dev/null; then
     hash dircolors &>/dev/null && eval "$(dircolors -b)"
-    LS_OPTS="$LS_OPTS --color"
+    LS_OPTS="$LS_OPTS --color=auto"
 fi
 alias ls="ls $LS_OPTS"
 
@@ -63,7 +63,7 @@ if grep --help | grep -- --exclude-dir &>/dev/null; then
     done
 fi
 if grep --help | grep -- --color &>/dev/null; then
-    GREP_OPTS="$GREP_OPTS --color"
+    GREP_OPTS="$GREP_OPTS --color=auto"
 fi
 alias grep="grep $GREP_OPTS"
 
