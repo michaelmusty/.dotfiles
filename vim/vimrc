@@ -129,6 +129,7 @@ endif
 " Unmaps
 noremap <F1> <nop>
 nnoremap K <nop>
+nnoremap Q <nop>
 
 " Visual
 if has("virtualedit")
