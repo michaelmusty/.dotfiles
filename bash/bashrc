@@ -70,6 +70,9 @@ alias grep="grep $GREP_OPTS"
 # Protect innocent MySQL databases from my stupidity.
 alias mysql="mysql --safe-updates"
 
+# I always do this and I hate slow train.
+alias sl="ls"
+
 # Use completion, if available.
 if [ -e /etc/bash_completion ]; then
     . /etc/bash_completion
