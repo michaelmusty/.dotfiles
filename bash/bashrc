@@ -6,7 +6,7 @@ export EDITOR=vi
 
 # Keep plenty of history.
 unset HISTFILESIZE
-HISTSIZE=1000000
+HISTSIZE=1000
 
 # Ignore duplicate commands and whitespace in history.
 HISTCONTROL=ignoreboth
