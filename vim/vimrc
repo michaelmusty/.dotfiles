@@ -57,6 +57,12 @@ set history=1000
 set nolist
 nnoremap <leader>l :set list!<CR>
 
+" Markdown
+augroup markdown
+    au!
+    autocmd Syntax markdown setlocal textwidth=80
+augroup END
+
 " Matching
 silent! runtime macros/matchit.vim
 
