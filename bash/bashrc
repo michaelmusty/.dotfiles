@@ -1,6 +1,9 @@
 # Don't do anything if not running interactively.
 [ -z "$PS1" ] && return
 
+# Use vi as my text editor.
+export EDITOR=vi
+
 # Keep plenty of history.
 unset HISTFILESIZE
 HISTSIZE=1000000
@@ -38,54 +41,11 @@ shopt -s globstar &>/dev/null
 # Append rather than overwrite Bash history.
 shopt -s histappend &>/dev/null
 
-# Simple prompt.
-PS1='\u@\h:\w\$ '
-PS2='...'
-
-# Set up options for ls; use color.
-LS_OPTS=
-if ls --help | grep -- --color &>/dev/null; then
-    hash dircolors &>/dev/null && eval "$(dircolors -b)"
-    LS_OPTS="$LS_OPTS --color=auto"
-fi
-alias ls="ls $LS_OPTS"
-
-# Set up options for grep; exclude version control files, use color.
-GREP_OPTS=
-if grep --help | grep -- --exclude &>/dev/null; then
-    for PATTERN in .git .gitignore .gitmodules; do
-        GREP_OPTS="$GREP_OPTS --exclude=$PATTERN"
-    done
-fi
-if grep --help | grep -- --exclude-dir &>/dev/null; then
-    for PATTERN in .cvs .git .hg .svn; do
-        GREP_OPTS="$GREP_OPTS --exclude-dir=$PATTERN"
-    done
-fi
-if grep --help | grep -- --color &>/dev/null; then
-    GREP_OPTS="$GREP_OPTS --color=auto"
-fi
-alias grep="grep $GREP_OPTS"
-
-# Protect innocent MySQL databases from my stupidity.
-alias mysql="mysql --safe-updates"
-
-# I always do this and I hate slow train.
-alias sl="ls"
-
 # Use completion, if available.
-if [ -e /etc/bash_completion ]; then
-    . /etc/bash_completion
-
-    # Use shots for hostname completion, if available.
-    hash shots &>/dev/null && complete -F _known_hosts -W "$(shots)" \
-        dig fping ftp host mtr nc netcat ping ping6 telnet traceroute
-fi
+[[ -e /etc/bash_completion ]] && . /etc/bash_completion
 
 # SSH agent setup, if available.
-if [ -e ~/.ssh/agent ]; then
-    . ~/.ssh/agent
-fi
+[[ -e ~/.ssh/agent ]] && . ~/.ssh/agent
 
 # Turn off annoying and useless flow control keys.
 stty -ixon
@@ -93,21 +53,75 @@ stty -ixon
 # Never beep at me.
 setterm -bfreq 0
 
-# Use vi as my text editor, if available.
-hash vi &>/dev/null && export EDITOR=vi
+# Sensible prompts, we'll work out colors shortly.
+PS1='\u@\h:\w\$'
+PS2='...'
 
-# Terminal-specific settings.
+# Start stacking up options for ls and grep.
+LS_OPTS=
+GREP_OPTS=
+
+# If we're using an xterm, force 256 colors.
 case "$TERM" in
-
-    # Set xterm title, use 256 colors.
     xterm*)
-        PS1="\[\e]0;\h\a\]"${PS1}
         TERM=xterm-256color
         ;;
+esac
 
-    # Set screen window title.
-    screen*)
-        PROMPT_COMMAND="printf '\033k$(hostname)\033\\';"${PROMPT_COMMAND}
+# If we have a color terminal, do colory things.
+case "$TERM" in 
+    *color)
+
+        # Change prompt color depending on whether I'm root or not.
+        if [[ $EUID -eq 0 ]]; then
+            PS1='\[\e[1;31m\]'${PS1}'\[\e[0m\]'
+        else
+            PS1='\[\e[1;32m\]'${PS1}'\[\e[0m\]'
+        fi
+
+        # Get colouring for ls and grep if available.
+        hash dircolors &>/dev/null && eval "$(dircolors -b)"
+        if ls --help | grep -- --color &>/dev/null; then
+            LS_OPTS="${LS_OPTS} --color=auto"
+        fi
+        if grep --help | grep -- --color &>/dev/null; then
+            GREP_OPTS="${GREP_OPTS} --color=auto"
+        fi
         ;;
 esac
+
+# Set up more options for grep; exclude version control files.
+if grep --help | grep -- --exclude &>/dev/null; then
+    for PATTERN in .git .gitignore .gitmodules; do
+        GREP_OPTS="${GREP_OPTS} --exclude=${PATTERN}"
+    done
+fi
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+    for PATTERN in .cvs .git .hg .svn; do
+        GREP_OPTS="${GREP_OPTS} --exclude-dir=${PATTERN}"
+    done
+fi
+
+# Alias ls and grep with the options we've collected.
+alias ls="ls ${LS_OPTS}"
+alias grep="grep ${GREP_OPTS}"
+
+# Protect innocent MySQL databases from my stupidity.
+alias mysql='mysql --safe-updates'
+
+# I always do this, and I hate slow train.
+alias sl='ls'
+
+# Set window titles in various terminals.
+case "$TERM" in
+    screen*)
+        PS1='\[\ek\h\e\\\]'${PS1}
+        ;;
+    xterm*)
+        PS1='\[\e]0;\h\a\]'${PS1}
+        ;;
+esac
+
+# Add space suffix to the prompt now that we're done hacking it up.
+PS1="${PS1} "
 

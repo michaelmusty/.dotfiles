@@ -1,0 +1,124 @@
+# Use emacs keybindings for shell.
+bindkey -e
+
+# Use vi as my text editor.
+export EDITOR=vi
+
+# Keep plenty of history.
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# Don't worry too much about sending me long lists.
+LISTMAX=500
+
+# Append history lines directly.
+setopt appendhistory
+
+# Push a directory onto the stack whenever changed.
+setopt autopushd 
+
+# Allow completing options for aliases.
+setopt completealiases
+
+# Use special globbing features.
+setopt extendedglob
+
+# Save a lot more information to the history file.
+setopt extendedhistory
+
+# Ignore duplicate history.
+setopt histignorealldups
+
+# Ignore duplicate directories on the stack.
+setopt pushdignoredups
+
+# Always retrieve history from file, not memory.
+setopt sharehistory
+
+# Put completions above my prompt, not below it.
+unsetopt alwayslastprompt
+
+# Don't beep at me.
+unsetopt beep
+
+# Don't put filetype suffices in lists.
+unsetopt listtypes
+
+# Use zsh's built-in autocompletion.
+autoload -Uz compinit && compinit
+
+# Make completion expand and correct helpfully.
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+
+# SSH agent setup, if available.
+[[ -e ~/.ssh/agent ]] && . ~/.ssh/agent
+
+# Sensible prompts, we'll work out colours shortly.
+PS1="%n@%m:%~%(!.#.$)"
+PS2="..."
+
+# Start stacking up options for ls and grep.
+LS_OPTS=
+GREP_OPTS=
+
+# If we're using an xterm, force 256 colors.
+if [[ $TERM == xterm* ]]; then
+   TERM=xterm-256color
+fi
+
+# If we have a color terminal, do colory things.
+if [[ $TERM == *color ]]; then
+
+    # Change prompt color depending on whether I'm root or not.
+    PS1="%{%(!.%F{red}.%F{green})%B%}${PS1}%{%b%f%}"
+
+    # Get colouring for ls and grep if available.
+    hash dircolors &>/dev/null && eval "$(dircolors -b)"
+    if ls --help | grep -- --color &>/dev/null; then
+        LS_OPTS="${LS_OPTS} --color=auto"
+    fi
+    if grep --help | grep -- --color &>/dev/null; then
+       GREP_OPTS="${GREP_OPTS} --color=auto"
+    fi
+
+    # Use same colors for completion.
+    zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+    zstyle ':completion:*' list-colors ''
+fi
+
+# Set up more options for grep; exclude version control files.
+if grep --help | grep -- --exclude &>/dev/null; then
+    for PATTERN in .git .gitignore .gitmodules; do
+        GREP_OPTS="${GREP_OPTS} --exclude=${PATTERN}"
+    done
+fi
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+    for PATTERN in .cvs .git .hg .svn; do
+        GREP_OPTS="${GREP_OPTS} --exclude-dir=${PATTERN}"
+    done
+fi
+
+# Alias ls and grep with the options we've collected.
+alias ls="ls ${LS_OPTS}"
+alias grep="grep ${GREP_OPTS}"
+
+# Protect innocent MySQL databases from my stupidity.
+alias mysql='mysql --safe-updates'
+
+# I always do this, and I hate slow train.
+alias sl='ls'
+
+# Set window titles in various terminals. Doesn't work yet.
+case $TERM in
+    screen*)
+        precmd () {print -Pn "\ek%m\e\\"}
+        ;;
+    xterm*)
+        precmd () {print -Pn "\e]0;%m\a"}
+        ;;
+esac
+
+# Add space suffix to the prompt now that we're done hacking it up.
+PS1="${PS1} "
+

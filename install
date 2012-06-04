@@ -14,6 +14,8 @@ ln -fs ".dotfiles/readline/inputrc"  "${HOME}/.inputrc"
 ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
 ln -fs ".dotfiles/vim/gvimrc"        "${HOME}/.gvimrc"
+ln -fs ".dotfiles/zsh/zshenv"        "${HOME}/.zshenv"
+ln -fs ".dotfiles/zsh/zshrc"         "${HOME}/.zshrc"
 
 # Link in directories, removing whatever's already there first.
 if [ -e "${HOME}/.vim" ]; then

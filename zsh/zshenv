@@ -1,0 +1,13 @@
+# Add ~/bin to the path if it exists.
+if [[ -d "$HOME/bin" ]]; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Add machine-specific local file if it exists.
+if [[ -e "$HOME/.zshenv_local" ]]; then
+    . "$HOME/.zshenv_local"
+fi
+
+# None of this UTF8 drawing characters nonsense.
+export NCURSES_NO_UTF8_ACS=1
+
