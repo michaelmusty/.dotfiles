@@ -55,7 +55,7 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 [[ -e ~/.ssh/agent ]] && . ~/.ssh/agent
 
 # Sensible prompts, we'll work out colours shortly.
-PS1="%n@%m:%~%(!.#.$)"
+PS1="[%n@%m:%~]%(!.#.$)"
 PS2="..."
 
 # Start stacking up options for ls and grep.
