@@ -14,8 +14,16 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
 
-# Read in and submit history on each newline.
-PROMPT_COMMAND="history -n; history -a; ${PROMPT_COMMAND}"
+# Read in and submit history on each newline. Broken in old Bash.
+case "$BASH_VERSION" in
+
+    # This is broken in older versions of Bash which I occasionally have to
+    # use; some nasty bug adds screeds of history repeatedly, probably caused
+    # by the history -n part. Seems okay in versions 3 and up.
+    [3-4].*)
+        PROMPT_COMMAND="history -n; history -a; ${PROMPT_COMMAND}"
+        ;;
+esac
 
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
