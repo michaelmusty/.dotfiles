@@ -54,7 +54,7 @@ stty -ixon
 setterm -bfreq 0
 
 # Sensible prompts, we'll work out colors shortly.
-PS1='\u@\h:\w\$'
+PS1='[\u@\h:\w]\$'
 PS2='...'
 
 # Start stacking up options for ls and grep.
