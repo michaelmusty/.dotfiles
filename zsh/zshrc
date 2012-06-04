@@ -42,11 +42,17 @@ unsetopt alwayslastprompt
 # Don't beep at me.
 unsetopt beep
 
+# Don't use flow control.
+unsetopt flowcontrol
+
 # Don't put filetype suffices in lists.
 unsetopt listtypes
 
 # Use zsh's built-in autocompletion.
-autoload -Uz compinit && compinit
+autoload -Uz zutil
+autoload -Uz compinit
+autoload -Uz complist
+compinit
 
 # Make completion expand and correct helpfully.
 zstyle ':completion:*' completer _expand _complete _correct _approximate
