@@ -1,12 +1,12 @@
 # Don't do anything if not running interactively.
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 # Use vi as my text editor.
 export EDITOR=vi
 
 # Keep plenty of history.
 unset HISTFILESIZE
-HISTSIZE=1000
+HISTSIZE=1000000
 
 # Ignore duplicate commands and whitespace in history.
 HISTCONTROL=ignoreboth
@@ -44,44 +44,37 @@ shopt -s globstar &>/dev/null
 # Append rather than overwrite Bash history.
 shopt -s histappend &>/dev/null
 
-# Use completion, if available.
-[[ -e /etc/bash_completion ]] && . /etc/bash_completion
-
-# SSH agent setup, if available.
-[[ -e ~/.ssh/agent ]] && . ~/.ssh/agent
+# Never beep at me.
+hash setterm &>/dev/null && setterm -bfreq 0
 
 # Turn off annoying and useless flow control keys.
-stty -ixon
+hash stty &>/dev/null && stty -ixon
 
-# Never beep at me.
-setterm -bfreq 0
+# Use completion, if available.
+[[ -e /etc/bash_completion ]] && source /etc/bash_completion
+
+# SSH agent setup, if available.
+[[ -e "${HOME}/.ssh/agent" ]] && source "${HOME}/.ssh/agent"
 
 # If we're using an xterm, force 256 colors.
-case "$TERM" in
-    xterm*)
-        TERM=xterm-256color
-        ;;
-esac
+[[ "$TERM" == xterm* ]] && TERM=xterm-256color
 
-# Start stacking up options for ls and grep.
-LS_OPTS=
-GREP_OPTS=
+# Figure out how many colors we have.
+hash tput && COLORS=$(tput colors)
 
 # If we have a color terminal, we'll use color for ls and grep.
-case "$TERM" in 
-    *color)
-        hash dircolors &>/dev/null && eval "$(dircolors -b)"
-        if ls --help | grep -- --color &>/dev/null; then
-            LS_OPTS="${LS_OPTS} --color=auto"
-        fi
-        if grep --help | grep -- --color &>/dev/null; then
-            GREP_OPTS="${GREP_OPTS} --color=auto"
-        fi
-        ;;
-esac
+if [[ $COLORS -ge 8 ]]; then
+    hash dircolors &>/dev/null && eval "$(dircolors -b)"
+    if ls --help | grep -- --color &>/dev/null; then
+        LS_OPTS="${LS_OPTS} --color=auto"
+    fi
+    if grep --help | grep -- --color &>/dev/null; then
+        GREP_OPTS="${GREP_OPTS} --color=auto"
+    fi
+fi
 
 # Set up more options for grep; exclude version control files.
-if grep --help | grep -- --exclude &>/dev/null; then
+if ls --help | grep -- --exclude &>/dev/null; then
     for PATTERN in .git .gitignore .gitmodules; do
         GREP_OPTS="${GREP_OPTS} --exclude=${PATTERN}"
     done
@@ -92,32 +85,23 @@ if grep --help | grep -- --exclude-dir &>/dev/null; then
     done
 fi
 
-# Alias ls and grep with the options we've collected.
-alias ls="ls ${LS_OPTS}"
-alias grep="grep ${GREP_OPTS}"
-
-# Protect innocent MySQL databases from my stupidity.
-alias mysql='mysql --safe-updates'
-
-# I always do this, and I hate slow train.
-alias sl='ls'
-
 # Uncolored bits of my prompt, we'll color them if appropriate shortly.
 PS1='[\u@\h:\w]\$'
 
 # Save some color codes based on our colour space.
-case "$TERM" in
-    *color)
-        COLOR_ROOT='\[\e[1;31m\]'
-        COLOR_USER='\[\e[1;32m\]'
-        COLOR_UNDO='\[\e[0m\]'
-        ;;
-    *)
-        COLOR_ROOT=
-        COLOR_USER=
-        COLOR_UNDO=
-        ;;
-esac
+if [[ $COLORS -ge 256 ]]; then
+    COLOR_ROOT='\[\e[38;5;9m\]'
+    COLOR_USER='\[\e[38;5;10m\]'
+    COLOR_UNDO='\[\e[0m\]'
+elif [[ $COLORS -ge 8 ]]; then
+    COLOR_ROOT='\[\e[1;31m\]'
+    COLOR_USER='\[\e[1;32m\]'
+    COLOR_UNDO='\[\e[0m\]'
+else
+    COLOR_ROOT=
+    COLOR_USER=
+    COLOR_UNDO=
+fi
 
 # Change prompt color depending on whether I'm root or not.
 if [[ $EUID -eq 0 ]]; then
@@ -131,11 +115,17 @@ PS1="${PS1} "
 
 # Set window titles in various terminals.
 case "$TERM" in
-    screen*)
-        PS1='\[\ek\h\e\\\]'${PS1}
-        ;;
-    xterm*)
-        PS1='\[\e]0;\h\a\]'${PS1}
-        ;;
+    screen*) PS1='\[\ek\h\e\\\]'${PS1};;
+    xterm*)  PS1='\[\e]0;\h\a\]'${PS1};;
 esac
+
+# Alias ls and grep with the options we've collected.
+alias ls="ls ${LS_OPTS}"
+alias grep="grep ${GREP_OPTS}"
+
+# Protect innocent MySQL databases from my stupidity.
+alias mysql='mysql --safe-updates'
+
+# I always do this, and I hate slow train.
+alias sl='ls'
 

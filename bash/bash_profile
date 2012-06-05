@@ -1,19 +1,10 @@
-# If running Bash, source .bashrc.
-if [ -n "$BASH_VERSION" ]; then
-    if [ -e "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
+# Source .bashrc if it exists.
+[[ -e "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
-# Add ~/bin to the path if it exists.
-if [ -d "$HOME/bin" ]; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# Add machine-specific local file if it exists.
-if [ -e "$HOME/.bash_local" ]; then
-    . "$HOME/.bash_local"
-fi
+# Add various paths if they exit.
+[[ -d "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}"
+[[ -d "/usr/local/mysql/bin" ]] && PATH="/usr/local/mysql/bin:${PATH}"
+[[ -d "/usr/local/pgsql/bin" ]] && PATH="/usr/local/pgsql/bin:${PATH}"
 
 # None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
