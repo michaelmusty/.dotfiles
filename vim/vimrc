@@ -10,6 +10,12 @@ if has("autocmd")
     filetype on
     filetype indent on
     filetype plugin on
+
+    " Markdown
+    augroup markdown
+        au!
+        autocmd Syntax markdown setlocal textwidth=80
+    augroup END
 endif
 
 " Backups
@@ -56,12 +62,6 @@ set history=1000
 " List
 set nolist
 nnoremap <leader>l :set list!<CR>
-
-" Markdown
-augroup markdown
-    au!
-    autocmd Syntax markdown setlocal textwidth=80
-augroup END
 
 " Matching
 silent! runtime macros/matchit.vim
