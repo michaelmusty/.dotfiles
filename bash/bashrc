@@ -56,14 +56,6 @@ stty -ixon
 # Never beep at me.
 setterm -bfreq 0
 
-# Sensible prompts, we'll work out colors shortly.
-PS1='[\u@\h:\w]\$'
-PS2='...'
-
-# Start stacking up options for ls and grep.
-LS_OPTS=
-GREP_OPTS=
-
 # If we're using an xterm, force 256 colors.
 case "$TERM" in
     xterm*)
@@ -71,18 +63,13 @@ case "$TERM" in
         ;;
 esac
 
-# If we have a color terminal, do colory things.
+# Start stacking up options for ls and grep.
+LS_OPTS=
+GREP_OPTS=
+
+# If we have a color terminal, we'll use color for ls and grep.
 case "$TERM" in 
     *color)
-
-        # Change prompt color depending on whether I'm root or not.
-        if [[ $EUID -eq 0 ]]; then
-            PS1='\[\e[1;31m\]'${PS1}'\[\e[0m\]'
-        else
-            PS1='\[\e[1;32m\]'${PS1}'\[\e[0m\]'
-        fi
-
-        # Get colouring for ls and grep if available.
         hash dircolors &>/dev/null && eval "$(dircolors -b)"
         if ls --help | grep -- --color &>/dev/null; then
             LS_OPTS="${LS_OPTS} --color=auto"
@@ -115,6 +102,33 @@ alias mysql='mysql --safe-updates'
 # I always do this, and I hate slow train.
 alias sl='ls'
 
+# Uncolored bits of my prompt, we'll color them if appropriate shortly.
+PS1='[\u@\h:\w]\$'
+
+# Save some color codes based on our colour space.
+case "$TERM" in
+    *color)
+        COLOR_ROOT='\[\e[1;31m\]'
+        COLOR_USER='\[\e[1;32m\]'
+        COLOR_UNDO='\[\e[0m\]'
+        ;;
+    *)
+        COLOR_ROOT=
+        COLOR_USER=
+        COLOR_UNDO=
+        ;;
+esac
+
+# Change prompt color depending on whether I'm root or not.
+if [[ $EUID -eq 0 ]]; then
+    PS1=${COLOR_ROOT}${PS1}${COLOR_UNDO}
+else
+    PS1=${COLOR_USER}${PS1}${COLOR_UNDO}
+fi
+
+# Add space suffice to prompt.
+PS1="${PS1} "
+
 # Set window titles in various terminals.
 case "$TERM" in
     screen*)
@@ -124,7 +138,4 @@ case "$TERM" in
         PS1='\[\e]0;\h\a\]'${PS1}
         ;;
 esac
-
-# Add space suffix to the prompt now that we're done hacking it up.
-PS1="${PS1} "
 
