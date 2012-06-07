@@ -119,6 +119,15 @@ case "$TERM" in
     xterm*)  PS1='\[\e]0;\h\a\]'${PS1};;
 esac
 
+# If we're a screen terminal within a 256 color outer, force a 256 color
+# screen terminal too. This deals with a tmux race condition bug.
+case "$CONTAINING_TERM" in
+    *256color) 
+        TERM=screen-256color
+        unset CONTAINING_TERM
+        ;;
+esac
+
 # Alias ls and grep with the options we've collected.
 alias ls="ls ${LS_OPTS}"
 alias grep="grep ${GREP_OPTS}"
