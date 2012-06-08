@@ -87,41 +87,30 @@ fi
 
 # Function to display branch of a Git repository.
 function prompt_git {
-    BRANCH="$(git symbolic-ref HEAD 2>/dev/null)"
-    if [[ -n "$BRANCH" ]]; then
-        CHANGES=$(git status 2>/dev/null | grep '# \(Untracked\|Changes\|Changed but not updated\)')
-        if [[ -n "$CHANGES" ]]; then
-            STATUS="!"
-        fi
-        echo -n "(git:${BRANCH##*/}${STATUS})"
-        return 0
-    fi
-    return 1
+    git branch &>/dev/null || return 1
+    BRANCH="$(git symbolic-ref HEAD)"
+    [[ -n "$(git status | grep 'working directory clean')" ]] || STATUS="!"
+    echo -n "(git:${BRANCH##*/}${STATUS})"
+    return 0
 }
 
 # Function to display branch of an SVN working copy.
 function prompt_svn {
-    URL="$(svn info 2>/dev/null | awk -F': ' '$1 == "URL" {print $2}')"
-    if [[ -n "$URL" ]]; then
-        ROOT="$(svn info 2>/dev/null | awk -F': ' '$1 == "Repository Root" {print $2}')/"
-        CHANGES="$(svn status 2>/dev/null)"
-        if [[ -n "$CHANGES" ]]; then
-            STATUS="!"
-        fi
-        echo -n "(svn:${URL/$ROOT}${STATUS})"
-        return 0
-    fi
-    return 1
+    svn info &>/dev/null || return 1
+    URL="$(svn info | awk -F': ' '$1 == "URL" {print $2}')"
+    ROOT="$(svn info | awk -F': ' '$1 == "Repository Root" {print $2}')/"
+    [[ -n "$(svn status)" ]] && STATUS="!"
+    echo -n "(svn:${URL/$ROOT}${STATUS})"
+    return 0
 }
 
 # Function to display branch of a Mercurial repository.
 function prompt_hg {
-    BRANCH="$(hg branch 2>/dev/null)"
-    if [[ -n "$BRANCH" ]]; then
-        echo -n "(hg:${BRANCH})"
-        return 0
-    fi
-    return 1
+    hg branch &>/dev/null || return 1
+    BRANCH="$(hg branch)"
+    [[ -n "$(hg status)" ]] && STATUS="!"
+    echo -n "(hg:${BRANCH}${STATUS})"
+    return 0
 }
 
 # Function that calls each of the above in order of how likely I am to be
