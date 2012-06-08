@@ -28,7 +28,7 @@ if has("autocmd")
     " Markdown
     augroup markdown
         au!
-        autocmd Syntax markdown setlocal textwidth=79
+        autocmd Filetype markdown setlocal formatoptions+=t
         if exists("&colorcolumn")
             autocmd Filetype markdown setlocal colorcolumn=+1
         endif
@@ -71,6 +71,7 @@ endif
 
 " Formatting
 set expandtab
+set formatoptions=croqan1j
 set smarttab
 set nojoinspaces
 set shiftround
