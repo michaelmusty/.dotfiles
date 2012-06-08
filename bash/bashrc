@@ -85,8 +85,33 @@ if grep --help | grep -- --exclude-dir &>/dev/null; then
     done
 fi
 
+# Function to display branch of a Git repository.
+function prompt_git {
+    BRANCH="$(git symbolic-ref HEAD 2>/dev/null)"
+    if [[ -n "$BRANCH" ]]; then
+        CHANGES=$(git status 2>/dev/null | grep '# \(Untracked\|Changes\|Changed but not updated:\)')
+        if [[ -n "$CHANGES" ]]; then
+            STATUS="!"
+        fi
+        echo -n "(git:${BRANCH##*/}${STATUS})"
+    fi
+}
+
+# Function to display branch of an SVN working copy.
+function prompt_svn {
+    URL="$(svn info 2>/dev/null | awk -F': ' '$1 == "URL" {print $2}')"
+    if [[ -n "$URL" ]]; then
+        ROOT="$(svn info 2>/dev/null | awk -F': ' '$1 == "Repository Root" {print $2}')/"
+        CHANGES="$(svn status 2>/dev/null)"
+        if [[ -n "$CHANGES" ]]; then
+            STATUS="!"
+        fi
+        echo -n "(svn:${URL/$ROOT}${STATUS})"
+    fi
+}
+
 # Uncolored bits of my prompt, we'll color them if appropriate shortly.
-PS1='[\u@\h:\w]\$'
+PS1='[\u@\h:\w]$(prompt_git)$(prompt_svn)\$'
 
 # Save some color codes based on our colour space.
 if [[ $COLORS -ge 256 ]]; then
