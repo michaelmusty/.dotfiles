@@ -2,9 +2,14 @@
 [[ -e "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
 # Add various paths if they exit.
-[[ -d "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}"
-[[ -d "/usr/local/mysql/bin" ]] && PATH="/usr/local/mysql/bin:${PATH}"
-[[ -d "/usr/local/pgsql/bin" ]] && PATH="/usr/local/pgsql/bin:${PATH}"
+DIRS="${HOME}/bin
+      /usr/local/apache/bin
+      /usr/local/mysql/bin
+      /usr/local/nagios/bin
+      /usr/local/pgsql/bin"
+for DIR in $DIRS; do
+    [[ -d "$DIR" ]] && PATH="${DIR}:${PATH}"
+done
 
 # None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
