@@ -105,6 +105,12 @@ set report=0
 set nonumber
 nnoremap <leader>n :setlocal number!<CR>
 
+" Objects
+onoremap ir i[
+onoremap ar a[
+vnoremap ir i[
+vnoremap ar a[
+
 " Paste
 set nopaste
 set pastetoggle=<F10>
