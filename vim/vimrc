@@ -79,6 +79,7 @@ set shiftround
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+nnoremap J mzJ`z
 
 " History
 set history=1000
