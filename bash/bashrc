@@ -94,19 +94,12 @@ function prompt_git {
             STATUS="!"
         fi
         echo -n "(git:${BRANCH##*/}${STATUS})"
+        return 0
     fi
-}
-
-# Function to display branch of a Mercurial repository.
-function prompt_hg {
-    BRANCH="$(hg branch 2>/dev/null)"
-    if [[ -n "$BRANCH" ]]; then
-        echo -n "(hg:${BRANCH})"
-    fi
+    return 1
 }
 
 # Function to display branch of an SVN working copy.
-
 function prompt_svn {
     URL="$(svn info 2>/dev/null | awk -F': ' '$1 == "URL" {print $2}')"
     if [[ -n "$URL" ]]; then
@@ -116,11 +109,29 @@ function prompt_svn {
             STATUS="!"
         fi
         echo -n "(svn:${URL/$ROOT}${STATUS})"
+        return 0
     fi
+    return 1
+}
+
+# Function to display branch of a Mercurial repository.
+function prompt_hg {
+    BRANCH="$(hg branch 2>/dev/null)"
+    if [[ -n "$BRANCH" ]]; then
+        echo -n "(hg:${BRANCH})"
+        return 0
+    fi
+    return 1
+}
+
+# Function that calls each of the above in order of how likely I am to be
+# using that kind of repository, to save some cycles.
+function prompt_vcs {
+    prompt_git || prompt_svn || prompt_hg
 }
 
 # Uncolored bits of my prompt, we'll color them if appropriate shortly.
-PS1='[\u@\h:\w]$(prompt_git)$(prompt_hg)$(prompt_svn)\$'
+PS1='[\u@\h:\w]$(prompt_vcs)\$'
 
 # Save some color codes based on our colour space.
 if [[ $COLORS -ge 256 ]]; then
