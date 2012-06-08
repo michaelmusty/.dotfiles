@@ -57,9 +57,11 @@ hash stty &>/dev/null && stty -ixon
 [[ -e "${HOME}/.ssh/agent" ]] && source "${HOME}/.ssh/agent"
 
 # If we're using an xterm, force 256 colors.
-[[ "$TERM" == xterm* ]] && TERM=xterm-256color
+case "$TERM" in
+    xterm*) TERM=xterm-256color;;
+esac
 
-# Figure out how many colors we have.
+# Figure out how many colors we have now.
 hash tput && COLORS=$(tput colors)
 
 # If we have a color terminal, we'll use color for ls and grep.
