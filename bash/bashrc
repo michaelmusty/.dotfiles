@@ -89,7 +89,7 @@ fi
 function prompt_git {
     BRANCH="$(git symbolic-ref HEAD 2>/dev/null)"
     if [[ -n "$BRANCH" ]]; then
-        CHANGES=$(git status 2>/dev/null | grep '# \(Untracked\|Changes\|Changed but not updated:\)')
+        CHANGES=$(git status 2>/dev/null | grep '# \(Untracked\|Changes\|Changed but not updated\)')
         if [[ -n "$CHANGES" ]]; then
             STATUS="!"
         fi
@@ -97,7 +97,16 @@ function prompt_git {
     fi
 }
 
+# Function to display branch of a Mercurial repository.
+function prompt_hg {
+    BRANCH="$(hg branch 2>/dev/null)"
+    if [[ -n "$BRANCH" ]]; then
+        echo -n "(hg:${BRANCH})"
+    fi
+}
+
 # Function to display branch of an SVN working copy.
+
 function prompt_svn {
     URL="$(svn info 2>/dev/null | awk -F': ' '$1 == "URL" {print $2}')"
     if [[ -n "$URL" ]]; then
@@ -111,7 +120,7 @@ function prompt_svn {
 }
 
 # Uncolored bits of my prompt, we'll color them if appropriate shortly.
-PS1='[\u@\h:\w]$(prompt_git)$(prompt_svn)\$'
+PS1='[\u@\h:\w]$(prompt_git)$(prompt_hg)$(prompt_svn)\$'
 
 # Save some color codes based on our colour space.
 if [[ $COLORS -ge 256 ]]; then
