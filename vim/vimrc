@@ -74,7 +74,9 @@ endif
 
 " Formatting
 set expandtab
-set formatoptions=croqan1j
+set formatoptions=croqn1
+silent! set formatoptions+=a
+silent! set formatoptions+=j
 set smarttab
 set nojoinspaces
 set shiftround
