@@ -30,7 +30,7 @@ if has("autocmd")
         au!
         autocmd Syntax markdown setlocal textwidth=79
         if exists("&colorcolumn")
-            autocmd Syntax markdown setlocal colorcolumn=80
+            autocmd Filetype markdown setlocal colorcolumn=+1
         endif
     augroup END
 endif
