@@ -59,6 +59,10 @@ if has("cmdline_info")
     set showmode
 endif
 
+" Completion
+inoremap <C-F> <C-X><C-F>
+inoremap <C-]> <C-X><C-]>
+
 " Encoding
 set fileformats=unix,dos,mac
 if has("multi_byte")
