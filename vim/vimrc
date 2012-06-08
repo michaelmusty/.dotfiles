@@ -29,6 +29,7 @@ if has("autocmd")
     augroup markdown
         au!
         autocmd Filetype markdown setlocal formatoptions+=t
+        autocmd Filetype markdown setlocal textwidth=79
         if exists("&colorcolumn")
             autocmd Filetype markdown setlocal colorcolumn=+1
         endif
