@@ -107,7 +107,7 @@ nnoremap <leader>n :set number!<CR>
 
 " Paste
 set nopaste
-nnoremap <leader>p :set paste!<CR>
+set pastetoggle=<F10>
 
 " Reading
 set autoread
