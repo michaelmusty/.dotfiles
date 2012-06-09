@@ -45,11 +45,13 @@ endif
 " Colors
 if has("syntax")
     syntax enable
-    set synmaxcol=500
     set background=dark
     silent! colorscheme sahara
     if has("folding")
         set fillchars=diff:\ ,fold:\ ,vert:\ 
+    endif
+    if exists("&synmaxcol")
+        set synmaxcol=500
     endif
 endif
 
