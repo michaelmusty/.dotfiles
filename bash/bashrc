@@ -122,8 +122,14 @@ function prompt_vcs {
     return $?
 }
 
+# Function to return the number of backgrounded jobs.
+function prompt_jobs {
+    [[ -n "$(jobs)" ]] && echo -n "{$(jobs | wc -l | sed 's/ //g')}"
+    return $?
+}
+
 # Uncolored bits of my prompt, we'll color them if appropriate shortly.
-PS1='[\u@\h:\w]$(prompt_vcs)\$'
+PS1='[\u@\h:\w]$(prompt_vcs)$(prompt_jobs)\$'
 
 # Save some color codes based on our colour space.
 if [[ $COLORS -ge 256 ]]; then
