@@ -99,7 +99,7 @@ function prompt_git {
     [[ -n "$(git status 2>/dev/null | \
         grep -F 'working directory clean')" ]] || STATUS="!"
     echo -n "(git:${BRANCH:-unknown}${STATUS})"
-    return 0
+    return $?
 }
 
 # Function to display branch of an SVN working copy.
@@ -115,7 +115,7 @@ function prompt_svn {
     BRANCH=${BRANCH%%/*}
     [[ -n "$(svn status 2>/dev/null)" ]] && STATUS="!"
     echo -n "(svn:${BRANCH:-unknown}${STATUS})"
-    return 0
+    return $?
 }
 
 # Function to display branch of a Mercurial repository.
@@ -124,7 +124,7 @@ function prompt_hg {
     BRANCH="$(hg branch 2>/dev/null)"
     [[ -n "$(hg status 2>/dev/null)" ]] && STATUS="!"
     echo -n "(hg:${BRANCH:-unknown}${STATUS})"
-    return 0
+    return $?
 }
 
 # Function that calls each of the above in order of how likely I am to be
