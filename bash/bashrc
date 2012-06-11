@@ -90,10 +90,11 @@ fi
 # Function to display branch of a Git repository.
 function prompt_git {
     git branch &>/dev/null || return 1
-    BRANCH="$(git symbolic-ref HEAD 2>/dev/null)"
+    HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
+    BRANCH="${HEAD##*/}"
     [[ -n "$(git status 2>/dev/null | \
-        grep 'working directory clean')" ]] || STATUS="!"
-    echo -n "(git:${BRANCH##*/}${STATUS})"
+        grep -F 'working directory clean')" ]] || STATUS="!"
+    echo -n "(git:${BRANCH:-unknown}${STATUS})"
     return 0
 }
 
@@ -103,9 +104,13 @@ function prompt_svn {
     URL="$(svn info 2>/dev/null | \
         awk -F': ' '$1 == "URL" {print $2}')"
     ROOT="$(svn info 2>/dev/null | \
-        awk -F': ' '$1 == "Repository Root" {print $2}')/"
+        awk -F': ' '$1 == "Repository Root" {print $2}')"
+    BRANCH=${URL/$ROOT}
+    BRANCH=${BRANCH#/}
+    BRANCH=${BRANCH#branches/}
+    BRANCH=${BRANCH%%/*}
     [[ -n "$(svn status 2>/dev/null)" ]] && STATUS="!"
-    echo -n "(svn:${URL/$ROOT}${STATUS})"
+    echo -n "(svn:${BRANCH:-unknown}${STATUS})"
     return 0
 }
 
@@ -114,7 +119,7 @@ function prompt_hg {
     hg branch &>/dev/null || return 1
     BRANCH="$(hg branch 2>/dev/null)"
     [[ -n "$(hg status 2>/dev/null)" ]] && STATUS="!"
-    echo -n "(hg:${BRANCH}${STATUS})"
+    echo -n "(hg:${BRANCH:-unknown}${STATUS})"
     return 0
 }
 
