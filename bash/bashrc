@@ -15,7 +15,7 @@ HISTCONTROL=ignoreboth
 HISTTIMEFORMAT='%F %T  '
 
 # Add history entries immediately, not on exit.
-PROMPT_COMMAND="history -a; ${PROMPT_COMMAND}"
+PROMPT_COMMAND='history -a'
 
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
@@ -63,6 +63,10 @@ esac
 
 # Figure out how many colors we have now.
 hash tput && COLORS=$(tput colors)
+
+# Reset options for ls and grep.
+LS_OPTS=
+GREP_OPTS=
 
 # If we have a color terminal, we'll use color for ls and grep.
 if [[ $COLORS -ge 8 ]]; then

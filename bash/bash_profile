@@ -8,7 +8,13 @@ DIRS="${HOME}/bin
       /usr/local/nagios/bin
       /usr/local/pgsql/bin"
 for DIR in $DIRS; do
-    [[ -d "$DIR" ]] && PATH="${DIR}:${PATH}"
+    if [[ -d "$DIR" ]] && [[ ":${PATH}:" != *":${DIR}:"* ]]; then
+        if [[ -n "$PATH" ]]; then
+            PATH="${DIR}:${PATH}"
+        else
+            PATH=$DIR
+        fi
+    fi
 done
 
 # None of this UTF8 drawing characters nonsense.
