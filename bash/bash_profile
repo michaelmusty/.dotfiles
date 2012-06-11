@@ -1,7 +1,7 @@
 # Source .bashrc if it exists.
-[[ -e "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
+[[ -e "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
 
-# Add various paths if they exit.
+# Add various paths if they exist.
 DIRS="${HOME}/bin
       /usr/local/apache/bin
       /usr/local/mysql/bin

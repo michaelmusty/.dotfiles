@@ -165,7 +165,7 @@ else
     PS1=${COLOR_USER}${PS1}${COLOR_UNDO}
 fi
 
-# Add space suffice to prompt.
+# Add space separator to end of prompt.
 PS1="${PS1} "
 
 # Set window titles in various terminals.
