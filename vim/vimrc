@@ -88,12 +88,12 @@ set tabstop=4
 nnoremap J mzJ`z
 function! ToggleFormatFlag(flag)
     let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
-    exec 'setlocal formatoptions' l:operation . a:flag
+    silent! exec 'setlocal formatoptions' l:operation . a:flag
     setlocal formatoptions?
 endfunction
-nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
-nnoremap <silent> <leader>c :<C-U>call ToggleFormatFlag('c')<CR>
-nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
+for s:formatflag in ['a', 'c', 't']
+    execute 'nnoremap <silent> <leader>' . s:formatflag .' :<C-U>call ToggleFormatFlag("'. s:formatflag .'")<CR>'
+endfor
 
 " History
 set history=1000
