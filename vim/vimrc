@@ -91,9 +91,9 @@ function! ToggleFormatFlag(flag)
     silent! exec 'setlocal formatoptions' l:operation . a:flag
     setlocal formatoptions?
 endfunction
-for s:formatflag in ['a', 'c', 't']
-    execute 'nnoremap <silent> <leader>' . s:formatflag .' :<C-U>call ToggleFormatFlag("'. s:formatflag .'")<CR>'
-endfor
+nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
+nnoremap <silent> <leader>c :<C-U>call ToggleFormatFlag('c')<CR>
+nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
 
 " History
 set history=1000
