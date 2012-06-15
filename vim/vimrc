@@ -51,7 +51,7 @@ if has("syntax")
         set fillchars=diff:\ ,fold:\ ,vert:\ 
     endif
     if exists("&synmaxcol")
-        set synmaxcol=500
+        set synmaxcol=3000
     endif
 endif
 
