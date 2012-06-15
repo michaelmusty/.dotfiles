@@ -96,11 +96,8 @@ function prompt_git {
     git branch &>/dev/null || return 1
     HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
     BRANCH="${HEAD##*/}"
-    STATUS=
     [[ -n "$(git status 2>/dev/null | \
-        grep -F 'branch is ahead of')" ]] && STATUS="${STATUS}>"
-    [[ -n "$(git status 2>/dev/null | \
-        grep -F 'working directory clean')" ]] || STATUS="${STATUS}!"
+        grep -F 'working directory clean')" ]] || STATUS="!"
     echo -n "(git:${BRANCH:-unknown}${STATUS})"
     return $?
 }
