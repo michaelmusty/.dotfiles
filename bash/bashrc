@@ -193,3 +193,6 @@ alias mysql='mysql --safe-updates'
 # I always do this, and I hate slow train.
 alias sl='ls'
 
+# I actually use ed now and then. Go figure.
+alias ed='ed -p "ed> "'
+
