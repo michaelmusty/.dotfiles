@@ -14,9 +14,6 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
 
-# Add history entries immediately, not on exit.
-PROMPT_COMMAND='history -a'
-
 # Don't check for mail all the time, it's irritating.
 unset MAILCHECK
 
@@ -61,8 +58,32 @@ case "$TERM" in
     xterm*) TERM=xterm-256color;;
 esac
 
+# If we're a screen terminal within a 256 color outer, force a 256 color
+# screen terminal too. This deals with a tmux race condition bug.
+case "$CONTAINING_TERM" in
+    *256color)
+        TERM=screen-256color
+        unset CONTAINING_TERM
+        ;;
+esac
+
 # Figure out how many colors we have now.
 hash tput && COLORS=$(tput colors)
+
+# Save some color codes based on our colour space.
+if [[ $COLORS -ge 256 ]]; then
+    COLOR_ROOT='\[\e[38;5;9m\]'
+    COLOR_USER='\[\e[38;5;10m\]'
+    COLOR_UNDO='\[\e[0m\]'
+elif [[ $COLORS -ge 8 ]]; then
+    COLOR_ROOT='\[\e[1;31m\]'
+    COLOR_USER='\[\e[1;32m\]'
+    COLOR_UNDO='\[\e[0m\]'
+else
+    COLOR_ROOT=
+    COLOR_USER=
+    COLOR_UNDO=
+fi
 
 # Reset options for ls and grep.
 LS_OPTS=
@@ -127,8 +148,7 @@ function prompt_hg {
     return $?
 }
 
-# Function that calls each of the above in order of how likely I am to be
-# using that kind of repository, to save some cycles.
+# Function that calls each of the above.
 function prompt_vcs {
     prompt_git || prompt_svn || prompt_hg
     return $?
@@ -140,48 +160,42 @@ function prompt_jobs {
     return $?
 }
 
-# Uncolored bits of my prompt, we'll color them if appropriate shortly.
-PS1='[\u@\h:\w]$(prompt_vcs)$(prompt_jobs)\$'
+# Function turns off my full-featured prompt for a minimal one.
+function prompt_off {
+    unset PROMPT_COMMAND
+    PS1='\$ '
+    return 0
+}
 
-# Save some color codes based on our colour space.
-if [[ $COLORS -ge 256 ]]; then
-    COLOR_ROOT='\[\e[38;5;9m\]'
-    COLOR_USER='\[\e[38;5;10m\]'
-    COLOR_UNDO='\[\e[0m\]'
-elif [[ $COLORS -ge 8 ]]; then
-    COLOR_ROOT='\[\e[1;31m\]'
-    COLOR_USER='\[\e[1;32m\]'
-    COLOR_UNDO='\[\e[0m\]'
-else
-    COLOR_ROOT=
-    COLOR_USER=
-    COLOR_UNDO=
-fi
+# Function turns on my full-featured prompt, run by default.
+function prompt_on {
 
-# Change prompt color depending on whether I'm root or not.
-if [[ $EUID -eq 0 ]]; then
-    PS1=${COLOR_ROOT}${PS1}${COLOR_UNDO}
-else
-    PS1=${COLOR_USER}${PS1}${COLOR_UNDO}
-fi
+    # Add history entries immediately, not on exit.
+    PROMPT_COMMAND='history -a'
 
-# Add space separator to end of prompt.
-PS1="${PS1} "
+    # Uncolored bits of my prompt, we'll color them if appropriate shortly.
+    PS1='[\u@\h:\w]$(prompt_vcs)$(prompt_jobs)\$'
 
-# Set window titles in various terminals.
-case "$TERM" in
-    screen*) PS1='\[\ek\h\e\\\]'${PS1};;
-    xterm*)  PS1='\[\e]0;\h\a\]'${PS1};;
-esac
+    # Change prompt color depending on whether I'm root or not.
+    if [[ $EUID -eq 0 ]]; then
+        PS1=${COLOR_ROOT}${PS1}${COLOR_UNDO}
+    else
+        PS1=${COLOR_USER}${PS1}${COLOR_UNDO}
+    fi
 
-# If we're a screen terminal within a 256 color outer, force a 256 color
-# screen terminal too. This deals with a tmux race condition bug.
-case "$CONTAINING_TERM" in
-    *256color) 
-        TERM=screen-256color
-        unset CONTAINING_TERM
-        ;;
-esac
+    # Add space separator to end of prompt.
+    PS1="${PS1} "
+
+    # Set window titles in various terminals.
+    case "$TERM" in
+        screen*) PS1='\[\ek\h\e\\\]'${PS1};;
+        xterm*)  PS1='\[\e]0;\h\a\]'${PS1};;
+    esac
+
+    # Done.
+    return 0
+}
+prompt_on
 
 # Alias ls and grep with the options we've collected.
 alias ls="ls ${LS_OPTS}"
