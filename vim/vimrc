@@ -226,6 +226,7 @@ endif
 
 " Writing
 nnoremap ZW :w!<CR>
+nnoremap ZA :wa!<CR>
 
 " Yanking
 nnoremap Y y$
