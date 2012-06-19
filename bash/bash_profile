@@ -1,22 +1,3 @@
-# Source .bashrc if it exists.
+# Just source .bashrc if it exists.
 [[ -e "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
-
-# Add various paths if they exist.
-DIRS="${HOME}/bin
-      /usr/local/apache/bin
-      /usr/local/mysql/bin
-      /usr/local/nagios/bin
-      /usr/local/pgsql/bin"
-for DIR in $DIRS; do
-    if [[ -d "$DIR" ]] && [[ ":${PATH}:" != *":${DIR}:"* ]]; then
-        if [[ -n "$PATH" ]]; then
-            PATH="${DIR}:${PATH}"
-        else
-            PATH=$DIR
-        fi
-    fi
-done
-
-# None of this UTF8 drawing characters nonsense.
-export NCURSES_NO_UTF8_ACS=1
 

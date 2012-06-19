@@ -4,6 +4,9 @@
 # Use vi as my text editor.
 export EDITOR=vi
 
+# None of this UTF8 drawing characters nonsense.
+export NCURSES_NO_UTF8_ACS=1
+
 # Keep plenty of history.
 unset HISTFILESIZE
 HISTSIZE=1000000
@@ -52,6 +55,22 @@ hash stty &>/dev/null && stty -ixon
 
 # SSH agent setup, if available.
 [[ -e "${HOME}/.ssh/agent" ]] && source "${HOME}/.ssh/agent"
+
+# Add various paths if they exist and aren't already in here.
+DIRS="${HOME}/bin
+      /usr/local/apache/bin
+      /usr/local/mysql/bin
+      /usr/local/nagios/bin
+      /usr/local/pgsql/bin"
+for DIR in $DIRS; do
+    if [[ -d "$DIR" ]] && [[ ":${PATH}:" != *":${DIR}:"* ]]; then
+        if [[ -n "$PATH" ]]; then
+            PATH="${DIR}:${PATH}"
+        else
+            PATH=$DIR
+        fi
+    fi
+done
 
 # If we're using an xterm, force 256 colors.
 case "$TERM" in
