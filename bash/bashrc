@@ -223,7 +223,7 @@ function prompt {
 
         # Job count prompt function.
         jobs)
-            [[ -n "$(jobs)" ]] && printf '{%d}' $(jobs | wc -l | sed 's/ //g')
+            [[ -n "$(jobs)" ]] && printf '{%d}' $(jobs | sed -n '$=')
             ;;
     esac
 }
