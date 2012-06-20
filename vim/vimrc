@@ -77,7 +77,6 @@ endif
 " Formatting
 set expandtab
 set formatoptions=croqn1
-silent! set formatoptions+=a
 silent! set formatoptions+=j
 set smarttab
 set nojoinspaces
