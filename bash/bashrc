@@ -231,3 +231,6 @@ function prompt {
 # Start with full-fledged prompt.
 prompt on
 
+# Run local file if it exists.
+[[ -e "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
+
