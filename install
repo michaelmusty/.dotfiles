@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check out submodules. The --git-dir option doesn't work here.
 cd "${HOME}/.dotfiles"
