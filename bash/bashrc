@@ -145,7 +145,7 @@ alias mysql='mysql --safe-updates'
 alias sl='ls'
 
 # I actually use ed now and then. Go figure.
-alias ed='ed -p "ed> "'
+alias ed='ed -p:'
 
 # Decide on color for prompt.
 if [[ $EUID -eq 0 ]]; then
