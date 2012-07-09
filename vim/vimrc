@@ -61,8 +61,8 @@ if has("cmdline_info")
     set showcmd
     set showmode
 endif
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
 " Completion
 inoremap <C-F> <C-X><C-F>
