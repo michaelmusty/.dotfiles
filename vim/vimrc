@@ -104,6 +104,10 @@ nnoremap <leader>l :setlocal list!<CR>
 " Matching
 silent! runtime macros/matchit.vim
 
+" Netrw
+let g:netrw_silent = 1
+let g:netrw_liststyle = 3
+
 " Messages
 set shortmess+=I
 
