@@ -85,14 +85,16 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 nnoremap J mzJ`z
-function! ToggleFormatFlag(flag)
-    let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
-    silent! exec 'setlocal formatoptions' l:operation . a:flag
-    setlocal formatoptions?
-endfunction
-nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
-nnoremap <silent> <leader>c :<C-U>call ToggleFormatFlag('c')<CR>
-nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
+if has("eval")
+    function! ToggleFormatFlag(flag)
+        let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
+        silent! exec 'setlocal formatoptions' l:operation . a:flag
+        setlocal formatoptions?
+    endfunction
+    nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
+    nnoremap <silent> <leader>c :<C-U>call ToggleFormatFlag('c')<CR>
+    nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
+endif
 
 " History
 set history=1000
@@ -105,8 +107,10 @@ nnoremap <leader>l :setlocal list!<CR>
 silent! runtime macros/matchit.vim
 
 " Netrw
-let g:netrw_silent = 1
-let g:netrw_liststyle = 3
+if has("eval")
+    let g:netrw_silent = 1
+    let g:netrw_liststyle = 3
+endif
 
 " Messages
 set shortmess+=I
