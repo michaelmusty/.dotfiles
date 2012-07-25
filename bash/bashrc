@@ -147,6 +147,9 @@ alias sl='ls'
 # I actually use ed now and then. Go figure.
 alias ed='ed -p:'
 
+# Make gdb shut up.
+alias gdb='gdb -q'
+
 # Decide on color for prompt.
 if [[ $EUID -eq 0 ]]; then
     COLOR_PROMPT=${COLOR_ROOT}
