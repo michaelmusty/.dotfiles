@@ -42,3 +42,9 @@
 	path = vim/bundle/markdown
 	url = git://github.com/tpope/vim-markdown.git
     ignore = dirty
+[submodule "vim/bundle/tmux"]
+	path = vim/bundle/tmux
+	url = git://github.com/tejr/vim-tmux.git
+[submodule "vim/bundle/nagios"]
+	path = vim/bundle/nagios
+	url = git://github.com/tejr/vim-nagios.git
