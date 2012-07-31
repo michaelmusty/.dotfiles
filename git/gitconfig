@@ -1,6 +1,7 @@
 [user]
     name = Tom Ryder
     email = tom@sanctum.geek.nz
+    signingkey = 255AAC13
 
 [color]
     ui = true

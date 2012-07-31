@@ -7,6 +7,9 @@ export EDITOR=vi
 # None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
 
+# My GPG key ID for convenience.
+export GPGKEY=255AAC13
+
 # Keep plenty of history.
 unset HISTFILESIZE
 HISTSIZE=1000000
