@@ -153,6 +153,15 @@ alias ed='ed -p:'
 # Make gdb shut up.
 alias gdb='gdb -q'
 
+# Attach to existing tmux session rather than create a new one if possible.
+function tmux {
+    if [[ -n "$*" ]]; then
+        command tmux $*
+    else
+        command tmux attach &>/dev/null || command tmux
+    fi
+}
+
 # Decide on color for prompt.
 if [[ $EUID -eq 0 ]]; then
     COLOR_PROMPT=${COLOR_ROOT}
