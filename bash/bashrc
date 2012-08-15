@@ -26,11 +26,20 @@ unset MAILCHECK
 # Autocorrect fudged paths in cd calls.
 shopt -s cdspell &>/dev/null
 
+# Update the hash table properly.
+shopt -s checkhash &>/dev/null
+
+# Warn me about stopped jobs when exiting.
+shopt -s checkjobs &>/dev/null
+
 # Update columns and rows if window size changes.
 shopt -s checkwinsize &>/dev/null
 
 # Put multi-line commands onto one line of history.
 shopt -s cmdhist &>/dev/null
+
+# Expand globbing and variables for directory completion.
+shopt -s direxpand &>/dev/null
 
 # Autocorrect fudged paths during completion.
 shopt -s dirspell &>/dev/null
@@ -46,6 +55,9 @@ shopt -s globstar &>/dev/null
 
 # Append rather than overwrite Bash history.
 shopt -s histappend &>/dev/null
+
+# Ignore me if I try to complete an empty line.
+shopt -s no_empty_command_completion &>/dev/null
 
 # Never beep at me.
 hash setterm &>/dev/null && setterm -bfreq 0
