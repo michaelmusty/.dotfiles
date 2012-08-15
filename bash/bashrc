@@ -3,6 +3,10 @@
 
 # Use vi as my text editor.
 export EDITOR=vi
+export VISUAL=$EDITOR
+
+# Use less as my pager.
+export PAGER=less
 
 # None of this UTF8 drawing characters nonsense.
 export NCURSES_NO_UTF8_ACS=1
