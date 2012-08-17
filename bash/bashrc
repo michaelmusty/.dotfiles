@@ -125,7 +125,7 @@ fi
 
 # Reset options for ls and grep.
 lsopts=
-grepopts=
+grepopts='-I'
 
 # If we have a color terminal, we'll use color for ls and grep.
 if [[ $colors -ge 8 ]]; then
