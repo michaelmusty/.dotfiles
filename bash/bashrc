@@ -5,11 +5,11 @@
 export EDITOR=vi
 export VISUAL=$EDITOR
 
-# Use less as my pager.
-export PAGER=less
-
 # My GPG key ID for convenience.
 export GPGKEY=255AAC13
+
+# Use less as my pager if available.
+hash less &>/dev/null && export PAGER=less
 
 # Keep plenty of history.
 HISTFILESIZE=1000000
