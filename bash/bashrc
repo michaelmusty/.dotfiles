@@ -1,7 +1,7 @@
 # Don't do anything if not running interactively.
 [[ -z "$PS1" ]] && return
 
-# Use vi as my text editor.
+# Use the system's implementation of vi as my text editor.
 export EDITOR=vi
 export VISUAL=$EDITOR
 
