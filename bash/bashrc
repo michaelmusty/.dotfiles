@@ -73,17 +73,17 @@ hash stty &>/dev/null && stty -ixon
 [[ -e "${HOME}/.ssh/agent" ]] && source "${HOME}/.ssh/agent"
 
 # Add various paths if they exist and aren't already in here.
-DIRS="${HOME}/bin
-      /usr/local/apache/bin
-      /usr/local/mysql/bin
-      /usr/local/nagios/bin
-      /usr/local/pgsql/bin"
-for DIR in $DIRS; do
-    if [[ -d "$DIR" ]] && [[ ":${PATH}:" != *":${DIR}:"* ]]; then
+pathdirs="${HOME}/bin
+         /usr/local/apache/bin
+         /usr/local/mysql/bin
+         /usr/local/nagios/bin
+         /usr/local/pgsql/bin"
+for pathdir in $pathdirs; do
+    if [[ -d "$pathdir" ]] && [[ ":${PATH}:" != *":${pathdir}:"* ]]; then
         if [[ -n "$PATH" ]]; then
-            PATH="${DIR}:${PATH}"
+            PATH="${pathdir}:${PATH}"
         else
-            PATH=$DIR
+            PATH=$pathdir
         fi
     fi
 done
@@ -95,64 +95,64 @@ esac
 
 # If we're a screen terminal within a 256 color outer, force a 256 color
 # screen terminal too. This deals with a tmux race condition bug.
-case "$CONTAINING_TERM" in
+case "$containing_term" in
     *256color)
         TERM=screen-256color
-        unset CONTAINING_TERM
         ;;
 esac
+unset containing_term
 
 # Figure out how many colors we have now.
-hash tput && COLORS=$(tput colors)
+hash tput && colors=$(tput colors)
 
 # Save some color codes based on our colour space.
-if [[ $COLORS -ge 256 ]]; then
-    COLOR_ROOT='\[\e[38;5;9m\]'
-    COLOR_SUDO='\[\e[38;5;11m\]'
-    COLOR_USER='\[\e[38;5;10m\]'
-    COLOR_NORM='\[\e[0m\]'
-elif [[ $COLORS -ge 8 ]]; then
-    COLOR_ROOT='\[\e[1;31m\]'
-    COLOR_SUDO='\[\e[1;33m\]'
-    COLOR_USER='\[\e[1;32m\]'
-    COLOR_NORM='\[\e[0m\]'
+if [[ $colors -ge 256 ]]; then
+    color_root='\[\e[38;5;9m\]'
+    color_sudo='\[\e[38;5;11m\]'
+    color_user='\[\e[38;5;10m\]'
+    color_norm='\[\e[0m\]'
+elif [[ $colors -ge 8 ]]; then
+    color_root='\[\e[1;31m\]'
+    color_sudo='\[\e[1;33m\]'
+    color_user='\[\e[1;32m\]'
+    color_norm='\[\e[0m\]'
 else
-    COLOR_ROOT=
-    COLOR_SUDO=
-    COLOR_USER=
-    COLOR_NORM=
+    color_root=
+    color_sudo=
+    color_user=
+    color_norm=
 fi
 
 # Reset options for ls and grep.
-LS_OPTS=
-GREP_OPTS=
+lsopts=
+grepopts=
 
 # If we have a color terminal, we'll use color for ls and grep.
-if [[ $COLORS -ge 8 ]]; then
+if [[ $colors -ge 8 ]]; then
     hash dircolors &>/dev/null && eval "$(dircolors -b)"
     if ls --help | grep -- --color &>/dev/null; then
-        LS_OPTS="${LS_OPTS} --color=auto"
+        lsopts="${lsopts} --color=auto"
     fi
     if grep --help | grep -- --color &>/dev/null; then
-        GREP_OPTS="${GREP_OPTS} --color=auto"
+        grepopts="${grepopts} --color=auto"
     fi
 fi
 
 # Set up more options for grep; exclude version control files.
 if ls --help | grep -- --exclude &>/dev/null; then
-    for PATTERN in .git .gitignore .gitmodules; do
-        GREP_OPTS="${GREP_OPTS} --exclude=${PATTERN}"
+    for pattern in .git .gitignore .gitmodules; do
+        grepopts="${grepopts} --exclude=${pattern}"
     done
 fi
 if grep --help | grep -- --exclude-dir &>/dev/null; then
-    for PATTERN in .cvs .git .hg .svn; do
-        GREP_OPTS="${GREP_OPTS} --exclude-dir=${PATTERN}"
+    for pattern in .cvs .git .hg .svn; do
+        grepopts="${grepopts} --exclude-dir=${pattern}"
     done
 fi
 
 # Alias ls and grep with the options we've collected.
-alias ls="ls ${LS_OPTS}"
-alias grep="grep ${GREP_OPTS}"
+alias ls="ls ${lsopts}"
+alias grep="grep ${grepopts}"
 
 # Protect innocent MySQL databases from my stupidity.
 alias mysql='mysql --safe-updates'
@@ -177,11 +177,11 @@ function tmux {
 
 # Decide on color for prompt.
 if [[ $EUID -eq 0 ]]; then
-    COLOR_PROMPT=${COLOR_ROOT}
+    color_prompt=${color_root}
 elif [[ -n $SUDO_USER ]]; then
-    COLOR_PROMPT=${COLOR_SUDO}
+    color_prompt=${color_sudo}
 else
-    COLOR_PROMPT=${COLOR_USER}
+    color_prompt=${color_user}
 fi
 
 # Frontend to controlling prompt.
@@ -192,7 +192,7 @@ function prompt {
         on) 
             PROMPT_COMMAND='history -a'
             PS1='[\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
-            PS1="${COLOR_PROMPT}${PS1}${COLOR_NORM} "
+            PS1="${color_prompt}${PS1}${color_norm} "
             case "$TERM" in
                 screen*) PS1='\[\ek\h\e\\\]'${PS1};;
                 xterm*)  PS1='\[\e]0;\h\a\]'${PS1};;
@@ -209,33 +209,33 @@ function prompt {
         git)
             git branch &>/dev/null || return 1
             HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
-            BRANCH="${HEAD##*/}"
+            branch="${HEAD##*/}"
             [[ -n "$(git status 2>/dev/null | \
-                grep -F 'working directory clean')" ]] || STATUS="!"
-            printf '(git:%s)' "${BRANCH:-unknown}${STATUS}"
+                grep -F 'working directory clean')" ]] || state="!"
+            printf '(git:%s)' "${branch:-unknown}${state}"
             ;;
 
         # Mercurial prompt function.
         hg)
             hg branch &>/dev/null || return 1
-            BRANCH="$(hg branch 2>/dev/null)"
-            [[ -n "$(hg status 2>/dev/null)" ]] && STATUS="!"
-            printf '(hg:%s)' "${BRANCH:-unknown}${STATUS}"
+            branch="$(hg branch 2>/dev/null)"
+            [[ -n "$(hg status 2>/dev/null)" ]] && state="!"
+            printf '(hg:%s)' "${branch:-unknown}${state}"
             ;;
 
         # Subversion prompt function.
         svn)
             svn info &>/dev/null || return 1
-            URL="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "URL" {print $2}')"
-            ROOT="$(svn info 2>/dev/null | \
+            url="$(svn info 2>/dev/null | \
+                awk -F': ' '$1 == "url" {print $2}')"
+            root="$(svn info 2>/dev/null | \
                 awk -F': ' '$1 == "Repository Root" {print $2}')"
-            BRANCH=${URL/$ROOT}
-            BRANCH=${BRANCH#/}
-            BRANCH=${BRANCH#branches/}
-            BRANCH=${BRANCH%%/*}
-            [[ -n "$(svn status 2>/dev/null)" ]] && STATUS="!"
-            printf '(svn:%s)' "${BRANCH:-unknown}${STATUS}"
+            branch=${url/$root}
+            branch=${branch#/}
+            branch=${branch#branches/}
+            branch=${branch%%/*}
+            [[ -n "$(svn status 2>/dev/null)" ]] && state="!"
+            printf '(svn:%s)' "${branch:-unknown}${state}"
             ;;
 
         # VCS wrapper prompt function.
@@ -245,8 +245,8 @@ function prompt {
 
         # Return status prompt function.
         return)
-            RETURN=$? 
-            [[ $RETURN -ne 0 ]] && printf '<%d>' ${RETURN}
+            ret=$? 
+            [[ $ret -ne 0 ]] && printf '<%d>' ${ret}
             ;;
 
         # Job count prompt function.
