@@ -8,9 +8,6 @@ export VISUAL=$EDITOR
 # Use less as my pager.
 export PAGER=less
 
-# None of this UTF8 drawing characters nonsense.
-export NCURSES_NO_UTF8_ACS=1
-
 # My GPG key ID for convenience.
 export GPGKEY=255AAC13
 
