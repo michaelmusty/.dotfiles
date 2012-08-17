@@ -139,7 +139,7 @@ if [[ $colors -ge 8 ]]; then
 fi
 
 # Set up more options for grep; exclude version control files.
-if ls --help | grep -- --exclude &>/dev/null; then
+if grep --help | grep -- --exclude &>/dev/null; then
     for pattern in .git .gitignore .gitmodules; do
         grepopts="${grepopts} --exclude=${pattern}"
     done
