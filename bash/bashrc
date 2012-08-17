@@ -58,7 +58,7 @@ shopt -s globstar &>/dev/null
 shopt -s histappend &>/dev/null
 
 # Ignore me if I try to complete an empty line.
-shopt -s no_empty_command_completion &>/dev/null
+shopt -s no_empty_cmd_completion &>/dev/null
 
 # Never beep at me.
 hash setterm &>/dev/null && setterm -bfreq 0
