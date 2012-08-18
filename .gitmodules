@@ -48,3 +48,6 @@
 [submodule "vim/bundle/nagios"]
 	path = vim/bundle/nagios
 	url = git://github.com/tejr/vim-nagios.git
+[submodule "vim/bundle/ctrlp"]
+	path = vim/bundle/ctrlp
+	url = https://github.com/kien/ctrlp.vim
