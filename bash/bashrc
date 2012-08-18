@@ -223,7 +223,7 @@ function prompt {
         svn)
             svn info &>/dev/null || return 1
             url="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "url" {print $2}')"
+                awk -F': ' '$1 == "URL" {print $2}')"
             root="$(svn info 2>/dev/null | \
                 awk -F': ' '$1 == "Repository Root" {print $2}')"
             branch=${url/$root}
