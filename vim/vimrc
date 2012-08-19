@@ -166,6 +166,7 @@ set noswapfile
 
 " Terminal
 set noesckeys
+set lazyredraw
 set ttyfast
 set visualbell t_vb=
 
