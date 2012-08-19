@@ -1,0 +1,7 @@
+URxvt*saveLines: 10000
+URxvt*foreground: White
+URxvt*background: Black
+URxvt*font: xft:Ubuntu Mono:pixelsize=18:antialias=true:hinting=true
+URxvt*scrollBar: false
+URxvt*scrollstyle: rxvt
+#URxvt*termName: xterm-256color
