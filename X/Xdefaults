@@ -8,6 +8,8 @@ URxvt*scrollTTyKeypress: true
 URxvt*secondaryScroll: true
 URxvt*cursorBlink: on
 URxvt*buffered: false
+URxvt*iso14755: false
+URxvt*iso14755_52: false
 
 ! black
 URxvt*color0  : #2E3436
