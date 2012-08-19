@@ -88,20 +88,6 @@ for pathdir in $pathdirs; do
     fi
 done
 
-# If we're using an xterm, force 256 colors.
-case "$TERM" in
-    xterm*) TERM=xterm-256color;;
-esac
-
-# If we're a screen terminal within a 256 color outer, force a 256 color
-# screen terminal too. This deals with a tmux race condition bug.
-case "$containing_term" in
-    *256color)
-        TERM=screen-256color
-        ;;
-esac
-unset containing_term
-
 # Figure out how many colors we have now.
 hash tput && colors=$(tput colors)
 
