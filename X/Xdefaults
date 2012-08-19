@@ -3,7 +3,12 @@ URxvt*background: #030303
 URxvt*foreground: #E0E0E0
 URxvt*font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true
 URxvt*scrollBar: false
-URxvt*scrollstyle: rxvt
+URxvt*scrollTTyOutput: false
+URxvt*scrollTTyKeypress: true
+URxvt*secondaryScroll: true
+URxvt*cursorBlink: on
+URxvt*buffered: false
+
 ! black
 URxvt*color0  : #2E3436
 URxvt*color8  : #555753
