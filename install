@@ -14,8 +14,10 @@ ln -fs ".dotfiles/readline/inputrc"   "${HOME}/.inputrc"
 ln -fs ".dotfiles/tmux/tmux.conf"     "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
 ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
-ln -fs ".dotfiles/X/Xresources"       "${HOME}/.Xresources"
 ln -fs ".dotfiles/X/Xmodmap"          "${HOME}/.Xmodmap"
+ln -fs ".dotfiles/X/Xresources"       "${HOME}/.Xresources"
+ln -fs ".dotfiles/X/xsession"         "${HOME}/.xsession"
+ln -fs ".dotfiles/X/xsessionrc"       "${HOME}/.xsessionrc"
 
 # Link in directories, removing whatever's already there first.
 [[ -e "${HOME}/.vim" ]] && rm -r "${HOME}/.vim"
