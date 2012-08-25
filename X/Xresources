@@ -5,7 +5,7 @@ Xft.hintstyle: hintnone
 Xft.rgba: none
 
 ! Urxvt
-URxvt.background: rgba:03/03/03/cc
+URxvt.background: #030303
 URxvt.buffered: false
 URxvt.color0  : #2E3436
 URxvt.color1  : #CC0000
@@ -25,7 +25,7 @@ URxvt.color8  : #555753
 URxvt.color9  : #EF2929
 URxvt.cursorBlink: on
 URxvt.depth: 32
-URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true
+URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=false
 URxvt.foreground: #E0E0E0
 URxvt.iso14755: false
 URxvt.iso14755_52: false
