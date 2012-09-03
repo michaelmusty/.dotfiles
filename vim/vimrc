@@ -22,6 +22,7 @@ if has("autocmd")
     nnoremap _rb :set filetype=ruby<CR>
     nnoremap _sh :set filetype=sh<CR>
     nnoremap _vi :set filetype=vim<CR>
+    nnoremap _xm :set filetype=xml<CR>
 
     " Markdown
     augroup markdown
