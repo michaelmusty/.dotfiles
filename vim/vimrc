@@ -36,14 +36,14 @@ if has("autocmd")
 endif
 
 " Backups
-if !strlen($SUDO_USER)
+if !strlen($SUDO_USER) && has("unix")
     set backup
     set backupext=.bak
     set backupdir^=~/.vim/backup//
     if !isdirectory($HOME . "/.vim/backup") && exists("*mkdir")
         call mkdir($HOME . "/.vim/backup", "p", 0700)
     endif
-    if has("autocmd")
+    if has("autocmd") && v:version > 700
         autocmd BufWritePre * let &backupext = '.' . strftime("%Y-%m-%d_%H:%M:%S") . '.bak'
     endif
 else
@@ -173,7 +173,7 @@ if has("spell")
 endif
 
 " Swaps
-if !strlen($SUDO_USER)
+if !strlen($SUDO_USER) && has("unix")
     set swapfile
     set directory^=~/.vim/swap//
     if !isdirectory($HOME . "/.vim/swap") && exists("*mkdir")
@@ -204,7 +204,7 @@ endif
 
 " Undo
 set undolevels=1000
-if !strlen($SUDO_USER) && has("persistent_undo")
+if !strlen($SUDO_USER) && has("unix") && has("persistent_undo")
     set undofile
     set undodir^=~/.vim/undo//
     if !isdirectory($HOME . "/.vim/undo") && exists("*mkdir")
