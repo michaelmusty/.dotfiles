@@ -45,9 +45,12 @@
 [submodule "vim/bundle/tmux"]
 	path = vim/bundle/tmux
 	url = git://github.com/tejr/vim-tmux.git
+    ignore = dirty
 [submodule "vim/bundle/nagios"]
 	path = vim/bundle/nagios
 	url = git://github.com/tejr/vim-nagios.git
+    ignore = dirty
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+    ignore = dirty
