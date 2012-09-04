@@ -36,8 +36,15 @@ if has("autocmd")
 endif
 
 " Backups
-set nobackup
-if has("writebackup")
+if empty($SUDO_USER)
+    set backup
+    set backupext=.bak
+    set backupdir^=~/.vim/backup//
+    if !isdirectory($HOME . "/.vim/backup")
+        call mkdir($HOME . "/.vim/backup", "p", 0700)
+    endif
+else
+    set nobackup
     set nowritebackup
 endif
 
@@ -163,7 +170,15 @@ if has("spell")
 endif
 
 " Swaps
-set noswapfile
+if empty($SUDO_USER)
+    set swapfile
+    set directory^=~/.vim/swap//
+    if !isdirectory($HOME . "/.vim/swap")
+        call mkdir($HOME . "/.vim/swap", "p", 0700)
+    endif
+else
+    set noswapfile
+endif
 
 " Terminal
 set noesckeys
@@ -182,6 +197,16 @@ if has("user_commands")
     command! -bang QA qa<bang>
     command! -bang Wa wa<bang>
     command! -bang WA wa<bang>
+endif
+
+" Undo
+set undolevels=1000
+if empty($SUDO_USER) && has("persistent_undo")
+    set undofile
+    set undodir^=~/.vim/undo//
+    if !isdirectory($HOME . "/.vim/undo")
+        call mkdir($HOME . "/.vim/undo", "p", 0700)
+    endif
 endif
 
 " Unmaps

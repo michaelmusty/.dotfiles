@@ -1,2 +1,5 @@
 vim/.netrwhist
 vim/spell/*.spl
+vim/backup/*
+vim/swap/*
+vim/undo/*
