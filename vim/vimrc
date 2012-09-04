@@ -43,6 +43,9 @@ if empty($SUDO_USER)
     if !isdirectory($HOME . "/.vim/backup")
         call mkdir($HOME . "/.vim/backup", "p", 0700)
     endif
+    if has("autocmd")
+        autocmd BufWritePre * let &backupext = '.' . strftime("%Y-%m-%d_%H:%M:%S") . '.bak'
+    endif
 else
     set nobackup
     set nowritebackup
