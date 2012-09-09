@@ -57,7 +57,7 @@ layouts =
 -- Tags
 tags = {
     awful.tag(
-        {"main",     "web",      "game",     "draw",     "vbox"}, 1,
+        {"web",      "office",   "game",     "draw",     "vbox"}, 1,
         {layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]}
     ),
     awful.tag(
@@ -330,7 +330,7 @@ awful.rules.rules = {
                                   x = 2800, 
                                   y = 0 } } },
     { rule = { class = "Chromium" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[1][1] } },
     { rule = { class = "Pidgin" },
       properties = { tag = tags[2][4] } },
     { rule = { class = "VirtualBox" },
