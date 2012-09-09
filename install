@@ -29,6 +29,6 @@ if [[ $1 == "-X" ]]; then
     ln -fs ".dotfiles/X/xsessionrc"  "${HOME}/.xsessionrc"
     mkdir -p "${HOME}/.config"
     [[ -e "${HOME}/.config/awesome" ]] && rm -r "${HOME}/.config/awesome"
-    ln -fs "../.dotfiles/awesome" "${HOME}/.config/awesom"
+    ln -fs "../.dotfiles/awesome" "${HOME}/.config/awesome"
 fi
 
