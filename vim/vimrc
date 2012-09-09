@@ -125,6 +125,7 @@ set shortmess+=I
 set backspace=indent,eol,start
 set modelines=0
 set report=0
+set shellslash
 
 " Numbers
 set nonumber
