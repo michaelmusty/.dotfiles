@@ -14,14 +14,21 @@ ln -fs ".dotfiles/readline/inputrc"   "${HOME}/.inputrc"
 ln -fs ".dotfiles/tmux/tmux.conf"     "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
 ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
-ln -fs ".dotfiles/X/Xmodmap"          "${HOME}/.Xmodmap"
-ln -fs ".dotfiles/X/Xresources"       "${HOME}/.Xresources"
-ln -fs ".dotfiles/X/xsession"         "${HOME}/.xsession"
-ln -fs ".dotfiles/X/xsessionrc"       "${HOME}/.xsessionrc"
 
 # Link in directories, removing whatever's already there first.
 [[ -e "${HOME}/.vim" ]] && rm -r "${HOME}/.vim"
 ln -fs ".dotfiles/vim" "${HOME}/.vim"
 [[ -e "${HOME}/.terminfo" ]] && rm -r "${HOME}/.terminfo"
 ln -fs ".dotfiles/terminfo" "${HOME}/.terminfo"
+
+# Optionally link in X and Awesome stuff.
+if [[ $1 == "-X" ]]; then
+    ln -fs ".dotfiles/X/Xmodmap"     "${HOME}/.Xmodmap"
+    ln -fs ".dotfiles/X/Xresources"  "${HOME}/.Xresources"
+    ln -fs ".dotfiles/X/xsession"    "${HOME}/.xsession"
+    ln -fs ".dotfiles/X/xsessionrc"  "${HOME}/.xsessionrc"
+    mkdir -p "${HOME}/.config"
+    [[ -e "${HOME}/.config/awesome" ]] && rm -r "${HOME}/.config/awesome"
+    ln -fs "../.dotfiles/awesome" "${HOME}/.config/awesom"
+fi
 
