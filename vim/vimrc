@@ -52,7 +52,7 @@ endif
 if has("syntax")
     syntax enable
     set background=dark
-    silent! colorscheme railscasts
+    silent! colorscheme sahara
     if has("folding")
         set fillchars=diff:\ ,fold:\ ,vert:\ 
     endif

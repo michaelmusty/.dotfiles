@@ -50,6 +50,7 @@
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
     ignore = dirty
-[submodule "vim/bundle/derailed"]
-	path = vim/bundle/derailed
-	url = git://github.com/tejr/derailed.git
+[submodule "vim/bundle/sahara"]
+	path = vim/bundle/sahara
+	url = git://github.com/tejr/sahara.git
+    ignore = dirty
