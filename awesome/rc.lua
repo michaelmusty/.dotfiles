@@ -313,9 +313,8 @@ root.keys(globalkeys)
 -- Rules for new windows
 awful.rules.rules = {
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = true, size_hints_honor = false,
+      properties = { focus = true,
+                     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "URxvt" },
@@ -346,20 +345,4 @@ client.add_signal("manage", function (c, startup)
         end
     end
 end)
-
--- Prevent borders on fullscreen or one-window tags
-for s = 1, screen.count() do screen[s]:add_signal("arrange", function ()
-    local clients = awful.client.visible(s)
-    local layout = awful.layout.getname(awful.layout.get(s))
-    if #clients > 0 then
-        for _, c in pairs(clients) do
-            if #clients == 1 then
-                clients[1].border_width = 0
-            else
-                clients[1].border_width = beautiful.border_width
-            end
-        end
-    end
-  end)
-end
 
