@@ -153,7 +153,7 @@ alias diff='diff -u'
 
 # Function to send an alert character.
 function alert {
-    echo -ne '\a'
+    builtin echo -ne '\a'
 }
 
 # Attach to existing tmux session rather than create a new one if possible.
