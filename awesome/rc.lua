@@ -57,12 +57,12 @@ layouts =
 -- Tags
 tags = {
     awful.tag(
-        {"web",      "office",   "game",     "draw",     "vbox"}, 1,
-        {layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]}
+        {"web",      "office",   "game",     "draw",     "torrent",   "vbox"}, 1,
+        {layouts[1], layouts[1], layouts[1], layouts[1], layouts[10], layouts[1]}
     ),
     awful.tag(
-        {"sanctum",  "inspire",   "media",    "chat",     "cast"}, 2,
-        {layouts[10], layouts[10], layouts[1], layouts[1], layouts[10]}
+        {"sanctum",  "inspire",    "chat",     "irc",       "media",    "cast"}, 2,
+        {layouts[10], layouts[10], layouts[1], layouts[10], layouts[1], layouts[10]}
     )
 }
 
@@ -323,7 +323,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Screenkey" },
       properties = { floating = true, 
-                     tag = tags[2][5],
+                     tag = tags[2][6],
                      geometry = { width = 400, 
                                   height = 75, 
                                   x = 2800, 
@@ -331,9 +331,9 @@ awful.rules.rules = {
     { rule = { class = "Chromium" },
       properties = { tag = tags[1][1] } },
     { rule = { class = "Pidgin" },
-      properties = { tag = tags[2][4] } },
+      properties = { tag = tags[2][3] } },
     { rule = { class = "VirtualBox" },
-      properties = { tag = tags[1][5] } }
+      properties = { tag = tags[1][6] } }
 }
 
 -- Only place new windows if they don't already have a position
