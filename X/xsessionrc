@@ -1,4 +1,3 @@
-urxvtd &
 xcompmgr -cF -r10 &
 xmodmap ~/.Xmodmap &
 xscreensaver &
