@@ -25,6 +25,7 @@ URxvt.color14: #34E2E2
 URxvt.color15: #EEEEEC
 URxvt.cursorBlink: on
 URxvt.depth: 32
+URxvt.fading: 40
 URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=false
 URxvt.foreground: #E0E0E0
 URxvt.iso14755: false
