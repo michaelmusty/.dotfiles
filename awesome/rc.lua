@@ -338,8 +338,18 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } }
 }
 
--- Only place new windows if they don't already have a position
+-- Management hooks
 client.add_signal("manage", function (c, startup)
+
+    -- Sloppy focus
+    c:add_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
+
+    -- Only place new windows if they don't already have a position
     if not startup then
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
