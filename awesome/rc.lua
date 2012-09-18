@@ -333,7 +333,9 @@ awful.rules.rules = {
     { rule = { class = "Pidgin" },
       properties = { tag = tags[2][3] } },
     { rule = { class = "VirtualBox" },
-      properties = { tag = tags[1][6] } }
+      properties = { tag = tags[1][6] } },
+    { rule = { class = "Transmission-gtk" },
+      properties = { tag = tags[1][5] } }
 }
 
 -- Only place new windows if they don't already have a position
