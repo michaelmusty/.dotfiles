@@ -54,3 +54,7 @@
 	path = vim/bundle/sahara
 	url = git://github.com/tejr/sahara.git
     ignore = dirty
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+    ignore = dirty
