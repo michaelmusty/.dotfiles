@@ -90,3 +90,5 @@ MRTG
 frontend
 NagiosGraph
 pre
+Nagiosgraph
+RSS
