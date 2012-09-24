@@ -151,8 +151,8 @@ alias gdb='gdb -q'
 # I always want a unified diff.
 alias diff='diff -u'
 
-# Function to send an alert character.
-function alert {
+# Function to send a bell character.
+function bell {
     builtin echo -ne '\a'
 }
 
@@ -181,7 +181,7 @@ function prompt {
         # Turn complex coloured prompt on.
         on) 
             PROMPT_COMMAND='history -a'
-            PS1='[\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
+            PS1='[\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)$(bell)\$'
             PS1="${color_prompt}${PS1}${color_norm} "
             case "$TERM" in
                 screen*) PS1='\[\ek\h\e\\\]'${PS1};;
