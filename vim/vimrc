@@ -48,6 +48,9 @@ else
     set nowritebackup
 endif
 
+" Clipboard
+set clipboard=unnamed
+
 " Colors
 if has("syntax")
     syntax enable
