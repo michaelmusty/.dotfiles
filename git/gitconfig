@@ -3,6 +3,9 @@
     email = tom@sanctum.geek.nz
     signingkey = 255AAC13
 
+[advice]
+    statusHints = false
+
 [color]
     ui = true
 
