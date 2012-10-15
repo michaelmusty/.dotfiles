@@ -197,7 +197,7 @@ function prompt {
             HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
             branch="${HEAD##*/}"
             [[ -n "$(git status 2>/dev/null | \
-                grep -F 'working directory clean')" ]] || state="!"
+                grep -F 'nothing to commit')" ]] || state="!"
             printf '(git:%s)' "${branch:-unknown}${state}"
             ;;
 
