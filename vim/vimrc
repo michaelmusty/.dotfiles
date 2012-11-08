@@ -24,6 +24,13 @@ if has("autocmd")
     nnoremap _vi :setlocal filetype=vim<CR>
     nnoremap _xm :setlocal filetype=xml<CR>
 
+    " Apache
+    augroup apache
+        autocmd!
+        autocmd BufNewFile,BufRead *{etc,local,lib}/apache*/*.conf setlocal filetype=apache
+        autocmd BufNewFile,BufRead *etc/apache*/sites-*/* setlocal filetype=apache
+    augroup END
+
     " Markdown
     augroup markdown
         autocmd!
