@@ -61,8 +61,8 @@ tags = {
         {layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],   layouts[1]}
     ),
     awful.tag(
-        {"1:sanctum", "2:inspire", "3:chat",   "4:music",  "5:video",   "6:cast"}, 2,
-        {layouts[10], layouts[10], layouts[1], layouts[1], layouts[10], layouts[10]}
+        {"1:sanctum", "2:inspire", "3:music",  "4:video",   "5:cast",    "6:misc"}, 2,
+        {layouts[10], layouts[10], layouts[1], layouts[10], layouts[10], layouts[1]}
     )
 }
 
