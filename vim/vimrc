@@ -78,6 +78,7 @@ cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
 " Completion
+set complete-=[i
 inoremap <C-F> <C-X><C-F>
 inoremap <C-]> <C-X><C-]>
 
@@ -119,20 +120,21 @@ nnoremap <leader>l :setlocal list!<CR>
 " Matching
 silent! runtime macros/matchit.vim
 
-" Netrw
-if has("eval")
-    let g:netrw_silent = 1
-    let g:netrw_liststyle = 3
-endif
-
 " Messages
 set shortmess+=I
 
 " Miscellaneous
 set backspace=indent,eol,start
 set modelines=0
+set nrformats-=octal
 set report=0
 set shellslash
+
+" Netrw
+if has("eval")
+    let g:netrw_silent = 1
+    let g:netrw_liststyle = 3
+endif
 
 " Numbers
 set nonumber
@@ -255,6 +257,7 @@ if has("windows")
 endif
 
 " Wrapping
+set display+=lastline
 set nowrap
 nnoremap j gj
 nnoremap k gk
