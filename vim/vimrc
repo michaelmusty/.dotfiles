@@ -55,6 +55,9 @@ else
     set nowritebackup
 endif
 
+" Clipboard
+set clipboard=autoselect,exclude:cons\\\|linux\\\|putty
+
 " Colors
 if has("syntax")
     syntax enable
