@@ -56,7 +56,7 @@ else
 endif
 
 " Clipboard
-set clipboard=autoselect,exclude:cons\\\|linux\\\|putty\\\|screen
+let &clipboard = 'autoselect,exclude:cons\|linux\|putty\|screen'
 
 " Colors
 if has("syntax")
