@@ -137,6 +137,7 @@ set shellslash
 if has("eval")
     let g:netrw_silent = 1
     let g:netrw_liststyle = 3
+    let g:netrw_list_hide = '^\.,\~$,^tags$'
 endif
 
 " Numbers
