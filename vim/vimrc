@@ -81,7 +81,7 @@ cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
 " Completion
-set complete-=[i
+set complete-=i
 inoremap <C-F> <C-X><C-F>
 inoremap <C-]> <C-X><C-]>
 
