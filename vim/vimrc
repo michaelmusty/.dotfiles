@@ -6,7 +6,7 @@ silent! call pathogen#infect()
 silent! call pathogen#helptags()
 
 " Filetypes
-if has("autocmd")
+if has('autocmd')
     filetype indent plugin on
 
     " Shortcuts
@@ -36,19 +36,19 @@ if has("autocmd")
         autocmd!
         autocmd Filetype markdown setlocal formatoptions+=t
         autocmd Filetype markdown setlocal textwidth=79
-        if exists("&colorcolumn")
+        if exists('&colorcolumn')
             autocmd Filetype markdown setlocal colorcolumn=+1
         endif
     augroup END
 endif
 
 " Backups
-if !strlen($SUDO_USER) && has("unix")
+if !strlen($SUDO_USER) && has('unix')
     set backup
     set backupext=.bak
     set backupdir^=~/.vim/backup//
-    if !isdirectory($HOME . "/.vim/backup") && exists("*mkdir")
-        call mkdir($HOME . "/.vim/backup", "p", 0700)
+    if !isdirectory($HOME . '/.vim/backup') && exists('*mkdir')
+        call mkdir($HOME . '/.vim/backup', 'p', 0700)
     endif
 else
     set nobackup
@@ -59,20 +59,20 @@ endif
 let &clipboard = 'autoselect,exclude:cons\|linux\|putty\|screen'
 
 " Colors
-if has("syntax")
+if has('syntax')
     syntax enable
     set background=dark
     silent! colorscheme sahara
-    if has("folding")
+    if has('folding')
         let &fillchars = 'diff: ,fold: ,vert: '
     endif
-    if exists("&synmaxcol")
+    if exists('&synmaxcol')
         set synmaxcol=3000
     endif
 endif
 
 " Commands
-if has("cmdline_info")
+if has('cmdline_info')
     set ruler
     set showcmd
     set showmode
@@ -87,7 +87,7 @@ inoremap <C-]> <C-X><C-]>
 
 " Encoding
 set fileformats=unix,dos,mac
-if has("multi_byte")
+if has('multi_byte')
     set encoding=utf-8
 endif
 
@@ -102,7 +102,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 nnoremap J mzJ`z
-if has("eval")
+if has('eval')
     function! ToggleFormatFlag(flag)
         let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
         silent! exec 'setlocal formatoptions' . l:operation . a:flag
@@ -134,7 +134,7 @@ set report=0
 set shellslash
 
 " Netrw
-if has("eval")
+if has('eval')
     let g:netrw_silent = 1
     let g:netrw_liststyle = 3
     let g:netrw_list_hide = '^\.,\~$,^tags$'
@@ -156,13 +156,13 @@ set scrolloff=0
 set sidescrolloff=16
 
 " Search
-if has("extra_search")
+if has('extra_search')
     set hlsearch
     set incsearch
     nnoremap <leader>h :set hlsearch!<CR>
     nnoremap <leader>i :set incsearch!<CR>
     nnoremap <C-l> :nohlsearch<CR><C-l>
-    if has("autocmd")
+    if has('autocmd')
         augroup vimrc
             autocmd!
             silent! autocmd InsertEnter * set nohlsearch
@@ -172,17 +172,17 @@ if has("extra_search")
 endif
 
 " Spelling
-if has("spell")
+if has('spell')
     set spelllang=en_nz
     nnoremap <leader>s :setlocal spell!<CR>
 endif
 
 " Swaps
-if !strlen($SUDO_USER) && has("unix")
+if !strlen($SUDO_USER) && has('unix')
     set swapfile
     set directory^=~/.vim/swap//
-    if !isdirectory($HOME . "/.vim/swap") && exists("*mkdir")
-        call mkdir($HOME . "/.vim/swap", "p", 0700)
+    if !isdirectory($HOME . '/.vim/swap') && exists('*mkdir')
+        call mkdir($HOME . '/.vim/swap', 'p', 0700)
     endif
 else
     set noswapfile
@@ -199,7 +199,7 @@ set ttimeout
 set ttimeoutlen=50
 
 " Typos
-if has("user_commands")
+if has('user_commands')
     command! -bang -complete=file -nargs=? E e<bang> <args>
     command! -bang -complete=file -nargs=? W w<bang> <args>
     command! -bang -complete=file -nargs=? WQ wq<bang> <args>
@@ -213,11 +213,11 @@ endif
 
 " Undo
 set undolevels=1000
-if !strlen($SUDO_USER) && has("unix") && has("persistent_undo")
+if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
     set undofile
     set undodir^=~/.vim/undo//
-    if !isdirectory($HOME . "/.vim/undo") && exists("*mkdir")
-        call mkdir($HOME . "/.vim/undo", "p", 0700)
+    if !isdirectory($HOME . '/.vim/undo') && exists('*mkdir')
+        call mkdir($HOME . '/.vim/undo', 'p', 0700)
     endif
 endif
 
@@ -227,33 +227,33 @@ nnoremap K <nop>
 nnoremap Q <nop>
 
 " Visual
-if has("virtualedit")
+if has('virtualedit')
     set virtualedit+=block
 endif
 
 " Wildmenu
-if has("wildmenu")
+if has('wildmenu')
     set wildmenu
     set wildmode=longest:list
-    if has("wildignore")
+    if has('wildignore')
         set wildignore+=*.a,*.o
         set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
         set wildignore+=.DS_Store,.git,.hg,.svn
         set wildignore+=*~,*.swp,*.tmp
     endif
-    if exists("&wildignorecase")
+    if exists('&wildignorecase')
         set wildignorecase
     endif
 endif
 
 " Windows
-if has("windows")
+if has('windows')
     set laststatus=1
     set splitbelow
-    if has("vertsplit")
+    if has('vertsplit')
         set splitright
     endif
-    if exists("&showtabline")
+    if exists('&showtabline')
         set showtabline=1
     endif
 endif
@@ -264,7 +264,7 @@ set nowrap
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w :set wrap!<CR>
-if has("linebreak")
+if has('linebreak')
     set linebreak
     set showbreak=...
 endif
@@ -277,7 +277,7 @@ nnoremap ZA :wa!<CR>
 nnoremap Y y$
 
 " Local
-if filereadable(glob("~/.vimrc.local"))
+if filereadable(glob('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
 
