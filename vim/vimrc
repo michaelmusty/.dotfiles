@@ -64,7 +64,7 @@ if has("syntax")
     set background=dark
     silent! colorscheme sahara
     if has("folding")
-        set fillchars=diff:\ ,fold:\ ,vert:\ 
+        let &fillchars = 'diff: ,fold: ,vert: '
     endif
     if exists("&synmaxcol")
         set synmaxcol=3000
@@ -105,7 +105,7 @@ nnoremap J mzJ`z
 if has("eval")
     function! ToggleFormatFlag(flag)
         let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
-        silent! exec 'setlocal formatoptions' l:operation . a:flag
+        silent! exec 'setlocal formatoptions' . l:operation . a:flag
         setlocal formatoptions?
     endfunction
     nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
