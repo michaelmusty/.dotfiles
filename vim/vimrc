@@ -194,6 +194,10 @@ set lazyredraw
 set ttyfast
 set visualbell t_vb=
 
+" Timeout
+set ttimeout
+set ttimeoutlen=50
+
 " Typos
 if has("user_commands")
     command! -bang -complete=file -nargs=? E e<bang> <args>
