@@ -30,7 +30,7 @@ end
 beautiful.init("/home/tom/.config/awesome/tyr/theme.lua")
 
 -- Standard terminal
-terminal = "urxvtcd"
+terminal = "st"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -318,6 +318,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "URxvt" },
+      properties = { opacity = 0.95 } },
+    { rule = { class = "st" },
       properties = { opacity = 0.95 } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
