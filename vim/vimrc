@@ -23,23 +23,6 @@ if has('autocmd')
     nnoremap _sh :setlocal filetype=sh<CR>
     nnoremap _vi :setlocal filetype=vim<CR>
     nnoremap _xm :setlocal filetype=xml<CR>
-
-    " Apache
-    augroup apache
-        autocmd!
-        autocmd BufNewFile,BufRead *{etc,local,lib}/apache*/*.conf setlocal filetype=apache
-        autocmd BufNewFile,BufRead *etc/apache*/sites-*/* setlocal filetype=apache
-    augroup END
-
-    " Markdown
-    augroup markdown
-        autocmd!
-        autocmd Filetype markdown setlocal formatoptions+=t
-        autocmd Filetype markdown setlocal textwidth=79
-        if exists('&colorcolumn')
-            autocmd Filetype markdown setlocal colorcolumn=+1
-        endif
-    augroup END
 endif
 
 " Backups
