@@ -33,8 +33,6 @@ URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=false
 URxvt.internalBorder: 0;
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt.matcher.button: 1
-URxvt.perl-ext-common: default,matcher
 URxvt.pointerBlank: true
 URxvt.saveLines: 10000
 URxvt.scrollBar: false
