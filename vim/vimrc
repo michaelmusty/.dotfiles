@@ -9,20 +9,26 @@ silent! call pathogen#helptags()
 if has('autocmd')
     filetype indent plugin on
 
-    " Shortcuts
-    nnoremap _ap :setlocal filetype=apache<CR>
-    nnoremap _bi :setlocal filetype=bindzone<CR>
-    nnoremap _cs :setlocal filetype=css<CR>
-    nnoremap _ht :setlocal filetype=html<CR>
-    nnoremap _js :setlocal filetype=javascript<CR>
-    nnoremap _md :setlocal filetype=markdown<CR>
-    nnoremap _pl :setlocal filetype=perl<CR>
-    nnoremap _ph :setlocal filetype=php<CR>
-    nnoremap _py :setlocal filetype=python<CR>
-    nnoremap _rb :setlocal filetype=ruby<CR>
-    nnoremap _sh :setlocal filetype=sh<CR>
-    nnoremap _vi :setlocal filetype=vim<CR>
-    nnoremap _xm :setlocal filetype=xml<CR>
+    " Filetype shortcuts
+    let s:typekeys = {
+    \   '_ap': 'apache',
+    \   '_bi': 'bindzone',
+    \   '_cs': 'css',
+    \   '_ht': 'html',
+    \   '_js': 'javascript',
+    \   '_md': 'markdown',
+    \   '_pl': 'perl',
+    \   '_ph': 'php',
+    \   '_py': 'python',
+    \   '_rb': 'ruby',
+    \   '_sh': 'sh',
+    \   '_vi': 'vim',
+    \   '_xm': 'xml',
+    \}
+    for [s:keys, s:type] in items(s:typekeys)
+        silent! exec 'nnoremap ' . s:shortcut
+            \ . ' :setlocal filetype=' . s:type . '<CR>'
+    endfor
 endif
 
 " Backups
