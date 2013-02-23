@@ -30,7 +30,7 @@ end
 beautiful.init("/home/tom/.config/awesome/tyr/theme.lua")
 
 -- Standard terminal
-terminal = "st"
+terminal = "urxvtcd"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
