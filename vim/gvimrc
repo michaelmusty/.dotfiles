@@ -2,7 +2,7 @@
 if has("unix")
     silent! set guifont=Ubuntu\ Mono\ 14
 else
-    silent! set guifont=Ubuntu\ Mono:h12
+    silent! set guifont=Consolas:h11
 endif
 set guioptions=aci
 set visualbell t_vb=
