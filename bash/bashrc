@@ -178,11 +178,6 @@ function prompt {
             PROMPT_COMMAND='history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
             PS1="${color_prompt}${PS1}${color_norm} "
-            case "$TERM" in
-                screen*) PS1='\[\ek\h\e\\\]'${PS1};;
-                xterm*) PS1='\[\e]0;\h\a\]'${PS1};;
-                rxvt*) PS1='\[\e]2;\h\a\]'${PS1};;
-            esac
             ;;
 
         # Revert to simple inexpensive prompt.
