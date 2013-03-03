@@ -325,15 +325,7 @@ awful.rules.rules = {
                      geometry = { width = 400, 
                                   height = 75, 
                                   x = 2800, 
-                                  y = 0 } } },
-    { rule = { class = "Chromium" },
-      properties = { tag = tags[1][1] } },
-    { rule = { class = "Pidgin" },
-      properties = { tag = tags[2][3] } },
-    { rule = { class = "VirtualBox" },
-      properties = { tag = tags[1][6] } },
-    { rule = { class = "Transmission-gtk" },
-      properties = { tag = tags[1][5] } }
+                                  y = 0 } } }
 }
 
 -- Management hooks
