@@ -151,6 +151,9 @@ alias gdb='gdb -q'
 # I always want a unified diff.
 alias diff='diff -u'
 
+# I don't like the X popup for the pass utility.
+alias pass='env DISPLAY= pass'
+
 # Attach to existing tmux session rather than create a new one if possible.
 function tmux {
     if [[ -n "$*" ]]; then
