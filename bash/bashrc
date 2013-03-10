@@ -5,9 +5,6 @@
 export EDITOR=vi
 export VISUAL=$EDITOR
 
-# My GPG key ID for convenience.
-export GPGKEY=255AAC13
-
 # Use less as my pager if available.
 hash less &>/dev/null && export PAGER=less
 
