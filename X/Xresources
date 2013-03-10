@@ -29,7 +29,7 @@ URxvt.buffered: false
 URxvt.cursorBlink: on
 URxvt.depth: 32
 URxvt.fading: 40
-URxvt.font: xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=false
+URxvt.font: xft:Ubuntu Mono:size=12:antialias=true:hinting=true
 URxvt.internalBorder: 0
 URxvt.iso14755: false
 URxvt.iso14755_52: false
