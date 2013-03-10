@@ -69,9 +69,6 @@ hash stty &>/dev/null && stty -ixon
 # Use completion, if available.
 [[ -e /etc/bash_completion ]] && source /etc/bash_completion
 
-# SSH agent setup, if available.
-[[ -e "${HOME}/.ssh/agent" ]] && source "${HOME}/.ssh/agent"
-
 # Add various paths if they exist and aren't already in here.
 pathdirs="${HOME}/bin
          /usr/local/apache/bin
