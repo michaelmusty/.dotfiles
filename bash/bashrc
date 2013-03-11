@@ -126,6 +126,9 @@ if grep --help | grep -- --exclude-dir &>/dev/null; then
     grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
 fi
 
+# Use UTF-8 linedrawing for passwd
+export TREE_CHARSET='utf-8'
+
 # Alias ls and grep with the options we've collected.
 alias ls="ls ${lsopts}"
 alias grep="grep ${grepopts}"
