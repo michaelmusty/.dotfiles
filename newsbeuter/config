@@ -1,5 +1,5 @@
 notify-program      "/usr/local/bin/alert"
-refresh-on-startup  yes
+auto-reload         yes
 reload-time         30
 user-agent          "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
 
