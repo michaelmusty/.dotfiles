@@ -1,17 +1,17 @@
-auto-reload     yes
-confirm-exit    yes
-notify-program  "/usr/local/bin/alert"
-reload-time     30
-user-agent      "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
+auto-reload   yes
+confirm-exit  yes
+notify-beep   yes
+reload-time   30
+user-agent    "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
 
 bind-key  j  next
 bind-key  k  prev
 bind-key  J  next-feed
 bind-key  K  prev-feed
 
-color  info        color210  color52
-color  background  white     black
-color  article     white     black
-color  listnormal  white     black
-color  listfocus   black     white
+color  info       color210 color52
+color  background white    black
+color  article    white    black
+color  listnormal white    black
+color  listfocus  black    white
 
