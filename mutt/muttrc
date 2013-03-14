@@ -1,0 +1,23 @@
+set folder    = "imaps://imap.gmail.com:993"
+set from      = "tej.ryder@gmail.com"
+set imap_user = "tej.ryder@gmail.com"
+set move      = no
+set postponed = "+[Gmail]/Drafts"
+set realname  = "Tom Ryder"
+set smtp_url  = "smtp://tej.ryder@smtp.gmail.com:587/"
+set spoolfile = "+INBOX"
+
+set my_password = `pass google.com/tej.ryder@gmail.com/mutt`
+set imap_pass   = $my_password
+set smtp_pass   = $my_password
+
+set certificate_file = ~/.mutt/certificates
+set header_cache     = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+
+set sort = 'reverse-date'
+
+color  status      color84   color22
+color  normal      white     black
+color  indicator   black     white
+
