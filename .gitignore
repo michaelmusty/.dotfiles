@@ -3,3 +3,6 @@ vim/spell/*.spl
 vim/backup/*
 vim/swap/*
 vim/undo/*
+newsbeuter/cache.*
+newsbeuter/history.*
+newsbeuter/urls

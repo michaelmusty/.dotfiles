@@ -1,0 +1,11 @@
+notify-program      "/usr/local/bin/alert"
+refresh-on-startup  yes
+reload-time         30
+user-agent          "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
+
+color  info        color210  color52
+color  background  color254  color232
+color  article     color254  color232
+color  listnormal  color254  color232
+color  listfocus   color232  color254
+
