@@ -1,7 +1,8 @@
-notify-program      "/usr/local/bin/alert"
-auto-reload         yes
-reload-time         30
-user-agent          "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
+auto-reload     yes
+confirm-exit    yes
+notify-program  "/usr/local/bin/alert"
+reload-time     30
+user-agent      "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
 
 bind-key  j  next
 bind-key  k  prev
