@@ -4,8 +4,8 @@ reload-time         30
 user-agent          "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
 
 color  info        color210  color52
-color  background  color254  color232
-color  article     color254  color232
-color  listnormal  color254  color232
-color  listfocus   color232  color254
+color  background  white     black
+color  article     white     black
+color  listnormal  white     black
+color  listfocus   black     white
 
