@@ -16,6 +16,8 @@ ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
 ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
 
 # Link in directories, removing whatever's already there first.
+[[ -e "${HOME}/.newsbeuter" ]] && rm -r "${HOME}/.newsbeuter"
+ln -fs ".dotfiles/newsbeuter" "${HOME}/.newsbeuter"
 [[ -e "${HOME}/.vim" ]] && rm -r "${HOME}/.vim"
 ln -fs ".dotfiles/vim" "${HOME}/.vim"
 [[ -e "${HOME}/.terminfo" ]] && rm -r "${HOME}/.terminfo"
