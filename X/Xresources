@@ -21,7 +21,6 @@ URxvt.scrollBar         : false
 URxvt.scrollTTyKeypress : true
 URxvt.scrollTTyOutput   : false
 URxvt.secondaryScroll   : true
-URxvt.skipBuiltinGlyphs : true
 URxvt.urgentOnBell      : true
 
 ! Common terminal colors
