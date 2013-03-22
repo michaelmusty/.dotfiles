@@ -1,2 +1,2 @@
-xmodmap ~/.Xmodmap &
+xmodmap ~/.Xmodmap
 xscreensaver &
