@@ -38,11 +38,6 @@ else
     set nowritebackup
 endif
 
-" Clipboard
-if has('eval')
-    let &clipboard = 'autoselect,exclude:cons\|linux\|putty\|screen'
-endif
-
 " Colors
 if has('syntax')
     syntax enable
