@@ -1,6 +1,6 @@
 " GUI
 if has("unix")
-    silent! set guifont=Ubuntu\ Mono\ 14
+    silent! set guifont=Ubuntu\ Mono\ 12
 else
     silent! set guifont=Consolas:h11
 endif
