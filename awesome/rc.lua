@@ -333,7 +333,7 @@ awful.rules.rules = {
                      geometry = { width = 400, 
                                   height = 75, 
                                   x = 2800, 
-                                  y = 0 } } }
+                                  y = 20 } } }
 }
 
 -- Management hooks
