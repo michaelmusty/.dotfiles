@@ -319,6 +319,8 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { class = "Exe" }, -- youtube fullscreen
+      properties = { floating = true }},
     { rule = { class = "Steam" },
       properties = { floating = true,
                      tag = tags[1][3] } },
