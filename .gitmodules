@@ -62,3 +62,15 @@
 	path = vim/bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
     ignore = dirty
+[submodule "vim/bundle/tbone"]
+	path = vim/bundle/tbone
+	url = git://github.com/tpope/vim-tbone.git
+[submodule "vim/bundle/characterize"]
+	path = vim/bundle/characterize
+	url = git://github.com/tpope/vim-characterize.git
+[submodule "vim/bundle/obsession"]
+	path = vim/bundle/obsession
+	url = git://github.com/tpope/vim-obsession.git
+[submodule "vim/bundle/capslock"]
+	path = vim/bundle/capslock
+	url = git://github.com/tpope/vim-capslock.git
