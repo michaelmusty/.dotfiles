@@ -3,7 +3,7 @@ Xft.antialias : 1
 Xft.dpi       : 96
 Xft.hinting   : -1
 Xft.hintstyle : hintnone
-Xft.rgba      : rgb
+Xft.rgba      : none
 
 ! Urxvt
 URxvt.buffered           : false
@@ -16,7 +16,6 @@ URxvt.font               : xft:Ubuntu Mono:size=12,xft:Deja Vu Sans Mono,xft:Loh
 URxvt.internalBorder     : 0
 URxvt.iso14755           : false
 URxvt.iso14755_52        : false
-URxvt.letterSpace        : -1
 URxvt.perl-ext           : clipboard
 URxvt.perl-ext-common    : clipboard
 URxvt.perl-lib           : /home/tom/.urxvt
