@@ -244,7 +244,7 @@ if has('windows')
 endif
 
 " Wrapping
-set display+=lastline
+set display=lastline
 set nowrap
 nnoremap j gj
 nnoremap k gk
