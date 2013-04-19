@@ -1,59 +1,51 @@
-# Paths
-set certificate_file = ~/.mutt/certificates
-set header_cache     = ~/.mutt/cache/headers
-set message_cachedir = ~/.mutt/cache/bodies
+# Names
+set realname      = 'Tom Ryder'
+set from          = 'tej.ryder@gmail.com'
+set use_from      = yes
+set envelope_from = yes
 
-# Servers and server options
-set folder    = 'imaps://imap.gmail.com:993'
-set from      = 'tej.ryder@gmail.com'
-set imap_user = 'tej.ryder@gmail.com'
-set smtp_url  = 'smtp://tej.ryder@smtp.gmail.com:587/'
-set hostname  = 'gmail.com'
-set realname  = 'Tom Ryder'
+# SMTP
+set sendmail = '/usr/bin/msmtp'
 
-# Credentials
-set my_password = `pass google.com/tej.ryder@gmail.com/mutt`
-set imap_pass   = $my_password
-set smtp_pass   = $my_password
+# Mailbox specifics
+set mbox_type    = 'Maildir'
+set folder       = '~/Mail'
+set spoolfile    = '+/'
+set header_cache = '~/.cache/mutt'
 
 # Intervals
-set mail_check     = 60
-set timeout        = 300
-set imap_keepalive = 300
-
-# Mailboxes
-set spoolfile = '+INBOX'
-set postponed = '+[Gmail]/Drafts'
-unset record
+set mail_check = 30
+set record     = '+.Sent'
+set postponed  = '+.Drafts'
+set sleep_time = 0
 
 # Options
-set beep         = no
-set beep_new     = yes
-set charset      = 'utf-8'
-set send_charset = 'utf-8'
-set delete       = yes
-set fast_reply   = yes
-set include      = yes
-set markers      = no
-set move         = no
-set quit         = 'ask-yes'
-set smart_wrap   = yes
-set sort         = 'reverse-threads'
-set sort_aux     = 'last-date-received'
+set beep            = no
+set beep_new        = yes
+set charset         = 'utf-8'
+set send_charset    = 'utf-8'
+set delete          = yes
+set fast_reply      = yes
+set include         = yes
+set markers         = no
+set move            = no
+set pipe_decode     = yes
+set quit            = yes
+set smart_wrap      = yes
+set sort            = 'reverse-threads'
+set sort_aux        = 'last-date-received'
+set thorough_search = yes
+set wait_key        = no
+unset confirmappend
 hdr_order Date From To Cc
 
-# Aliases
+# Alternates
+source ~/.mutt/alternates
 set reverse_name      = yes
 set use_envelope_from = yes
-alternates 'tej.ryder@gmail.com|tom@sanctum.geek.nz'
 
-# Macros
-macro index,pager e  "<save-message>=[Gmail]/All<quote-char> Mail<enter><enter>"  "Archive conversation"
-macro index,pager gi "<change-folder>=INBOX<enter>" "Go to Inbox"
-macro index,pager ga "<change-folder>=[Gmail]/All<quote-char> Mail<enter>" "Go to All Mail"
-macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to Starred Messages"
-macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to Drafts"
-macro index,pager gt "<change-folder>=[Gmail]/Sent<quote-char> Mail<enter>" "Go to Sent Mail"
+# Addresses
+set query_command = "abook --mutt-query '%s'"
 
 # Colors
 color status    color84 color22
