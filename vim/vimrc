@@ -65,6 +65,11 @@ set complete-=i
 inoremap <C-F> <C-X><C-F>
 inoremap <C-]> <C-X><C-]>
 
+" Digraphs
+if has('digraphs')
+    digraph ./ 8230
+endif
+
 " Encoding
 set fileformats=unix,dos,mac
 if has('multi_byte')
