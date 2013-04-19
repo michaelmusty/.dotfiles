@@ -1,9 +1,10 @@
+mutt/alternates
+newsbeuter/cache.*
+newsbeuter/history.*
+newsbeuter/urls
 urxvt/urxvtd-*
 vim/.netrwhist
 vim/spell/*
 vim/backup/*
 vim/swap/*
 vim/undo/*
-newsbeuter/cache.*
-newsbeuter/history.*
-newsbeuter/urls
