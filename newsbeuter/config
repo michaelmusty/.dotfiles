@@ -3,7 +3,6 @@ confirm-exit    yes
 notify-beep     yes
 reload-threads  5
 reload-time     180
-user-agent    "Liferea/1.4.14 (Linux; en_US.UTF8; http://liferea.sf.net/)"
 
 bind-key  j  next
 bind-key  k  prev
