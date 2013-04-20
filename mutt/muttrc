@@ -28,6 +28,7 @@ set delete          = yes
 set fast_reply      = yes
 set include         = yes
 set markers         = no
+set mask            = ''
 set move            = no
 set pipe_decode     = yes
 set quit            = yes
