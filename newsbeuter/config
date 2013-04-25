@@ -1,8 +1,7 @@
 auto-reload     yes
 confirm-exit    yes
-notify-beep     yes
 reload-threads  5
-reload-time     180
+reload-time     30
 
 bind-key  j  next
 bind-key  k  prev
