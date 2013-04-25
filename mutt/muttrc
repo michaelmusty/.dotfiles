@@ -30,6 +30,7 @@ set include         = yes
 set markers         = no
 set mask            = ''
 set move            = no
+set pager_format    = "%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
 set pipe_decode     = yes
 set quit            = yes
 set smart_wrap      = yes
