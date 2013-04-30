@@ -17,7 +17,7 @@ set postponed = '+.Drafts'
 set record    = '+.Sent'
 
 # Addresses
-set query_command = "abook --mutt-query '%s'"
+set query_command = "abook --mutt-query %s"
 
 # Alternates
 source ~/.mutt/alternates
