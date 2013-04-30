@@ -45,7 +45,6 @@ my_hdr X-PGP-Key: http://static.sanctum.geek.nz/thomas-ryder.asc
 
 # Interaction
 set wait_key = no
-set quit     = yes
 
 # Intervals
 set mail_check = 30
