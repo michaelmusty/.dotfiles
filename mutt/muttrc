@@ -31,10 +31,6 @@ color indicator black   white
 color normal    white   black
 color status    color84 color22
 
-# Encoding
-set charset     = 'utf-8'
-set pipe_decode = yes
-
 # Files
 set delete = yes
 set mask   = ''
