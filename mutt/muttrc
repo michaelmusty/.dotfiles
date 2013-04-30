@@ -21,7 +21,7 @@ set query_command = 'abook --mutt-query "%s"'
 
 # Alternates
 source ~/.mutt/alternates
-set reverse_name      = yes
+set reverse_name = yes
 
 # Alerts
 set beep     = no
