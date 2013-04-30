@@ -1,66 +1,92 @@
 # Names
-set realname      = 'Tom Ryder'
-set from          = 'tej.ryder@gmail.com'
-set use_from      = yes
-set envelope_from = yes
+set from     = 'tej.ryder@gmail.com'
+set realname = 'Tom Ryder'
+set use_from = yes
 
-# SMTP
+# SMTP implementation
 set sendmail = '/usr/bin/msmtp'
 
 # Mailbox specifics
-set mbox_type    = 'Maildir'
 set folder       = '~/Mail'
-set spoolfile    = '+/'
 set header_cache = '~/.cache/mutt'
+set mbox_type    = 'Maildir'
+set spoolfile    = '+/'
 
-# Intervals
-set mail_check = 30
-set record     = '+.Sent'
-set postponed  = '+.Drafts'
-set sleep_time = 0
+# Subdirectories
+set postponed = '+.Drafts'
+set record    = '+.Sent'
 
-# Options
-set beep            = no
-set beep_new        = yes
-set charset         = 'utf-8'
-set send_charset    = 'utf-8'
-set delete          = yes
-set fast_reply      = yes
-set include         = yes
-set markers         = no
-set mask            = ''
-set move            = no
-set pager_format    = "%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
-set pipe_decode     = yes
-set quit            = yes
-set smart_wrap      = yes
-set sort            = 'reverse-threads'
-set sort_aux        = 'last-date-received'
-set thorough_search = yes
-set wait_key        = no
-unset confirmappend
-hdr_order Date From To Cc
+# Addresses
+set query_command = 'abook --mutt-query "%s"'
 
 # Alternates
 source ~/.mutt/alternates
 set reverse_name      = yes
-set use_envelope_from = yes
 
-# Addresses
-set query_command = "abook --mutt-query '%s'"
+# Alerts
+set beep     = no
+set beep_new = yes
 
 # Colors
-color status    color84 color22
-color normal    white   black
 color indicator black   white
+color normal    white   black
+color status    color84 color22
 
-# GPG settings
-set crypt_verify_sig         = yes  # Verify all signatures automatically if key available
-set crypt_replysign          = yes  # Sign replies to signed messages
-set crypt_replysignencrypted = yes  # Encrypt replies to encrypted messages
+# Encoding
+set charset      = 'utf-8'
+set pipe_decode  = yes
+set send_charset = 'utf-8'
+
+# Files
+set delete = yes
+set mask   = ''
+set move   = no
+
+# Flags
+set mark_old = no
+
+# Headers
+hdr_order Date From To Cc
 my_hdr X-PGP-Key: http://static.sanctum.geek.nz/thomas-ryder.asc
 
-# GPG commands
+# Interaction
+set wait_key = no
+set quit     = yes
+
+# Intervals
+set mail_check = 30
+set sleep_time = 0
+
+# Menus
+set menu_context = 1
+
+# Pager
+set pager_context = 1
+set pager_format  = "%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
+set pager_stop    = yes
+
+# Presentation
+set markers    = no
+set smart_wrap = yes
+
+# Responses
+set fast_reply        = yes
+set forward_format    = 'Fw: %s'
+set include           = yes
+set use_envelope_from = yes
+
+# Searching/sorting
+set sort            = 'reverse-threads'
+set sort_aux        = 'last-date-received'
+set strict_threads  = yes
+set thorough_search = yes
+
+# Encryption settings
+set crypt_replysign          = yes
+set crypt_replysignencrypted = yes
+set crypt_verify_sig         = yes
+
+# PGP/GPG
 set pgp_use_gpg_agent        = yes
 set pgp_clearsign_command    = "gpg --no-verbose --batch --output - --armor --textmode --clearsign %?a?-u %a? %f"
 set pgp_decode_command       = "gpg %p --no-verbose --batch --output - %f"
