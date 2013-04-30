@@ -10,7 +10,7 @@ set sendmail = '/usr/bin/msmtp'
 set folder       = '~/Mail'
 set header_cache = '~/.cache/mutt'
 set mbox_type    = 'Maildir'
-set spoolfile    = '+/'
+set spoolfile    = '+'
 
 # Subdirectories
 set postponed = '+.Drafts'
