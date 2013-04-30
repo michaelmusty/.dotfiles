@@ -24,7 +24,6 @@ source ~/.mutt/alternates
 set reverse_name = yes
 
 # Alerts
-set beep     = no
 set beep_new = yes
 
 # Colors
