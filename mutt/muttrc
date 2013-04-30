@@ -62,6 +62,7 @@ set pager_stop    = yes
 # Presentation
 set markers    = no
 set smart_wrap = yes
+set tilde      = yes
 
 # Responses
 set fast_reply        = yes
