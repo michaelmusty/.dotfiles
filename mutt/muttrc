@@ -59,10 +59,11 @@ set pager_context = 1
 set pager_format  = "%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
 set pager_stop    = yes
 
-# Presentation
-set markers    = no
-set smart_wrap = yes
-set tilde      = yes
+# Presentation/formatting
+set markers     = no
+set smart_wrap  = yes
+set text_flowed = yes
+set tilde       = yes
 
 # Responses
 set fast_reply        = yes
