@@ -47,7 +47,7 @@ if has('syntax')
         let &fillchars = 'diff: ,fold: ,vert: '
     endif
     if exists('&synmaxcol')
-        set synmaxcol=3000
+        set synmaxcol=300
     endif
 endif
 
