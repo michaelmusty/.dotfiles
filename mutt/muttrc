@@ -8,16 +8,16 @@ set sendmail = '/usr/bin/msmtp'
 
 # Mailbox specifics
 set folder       = '~/Mail'
-set header_cache = '~/.cache/mutt'
+set header_cache = '~/.cache/mutt/headers'
 set mbox_type    = 'Maildir'
-set spoolfile    = '+'
 
-# Subdirectories
-set postponed = '+.Drafts'
-set record    = '+.Sent'
+# Special submailboxes
+set spoolfile = '=inbox'
+set postponed = '=drafts'
+set record    = '=sent'
 
 # Addresses
-set query_command = "abook --mutt-query %s"
+set query_command = 'abook --mutt-query %s'
 
 # Alternates
 source ~/.mutt/alternates
@@ -33,7 +33,6 @@ color status    color84 color22
 
 # Files
 set delete = yes
-set mask   = ''
 set move   = no
 
 # Flags
@@ -56,7 +55,7 @@ set menu_context = 1
 
 # Pager
 set pager_context = 1
-set pager_format  = "%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
+set pager_format  = '%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)'
 set pager_stop    = yes
 
 # Presentation/formatting
@@ -64,6 +63,8 @@ set markers     = no
 set smart_wrap  = yes
 set text_flowed = yes
 set tilde       = yes
+alternative_order text/plain text/html *
+auto_view text/html
 
 # Responses
 set fast_reply        = yes
@@ -84,17 +85,30 @@ set crypt_verify_sig         = yes
 
 # PGP/GPG
 set pgp_use_gpg_agent        = yes
-set pgp_clearsign_command    = "gpg --no-verbose --batch --output - --armor --textmode --clearsign %?a?-u %a? %f"
-set pgp_decode_command       = "gpg %p --no-verbose --batch --output - %f"
-set pgp_decrypt_command      = "gpg --no-verbose --batch --output - %f"
-set pgp_encrypt_only_command = "/usr/lib/mutt/pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x77BB8872 -- -r %r -- %f"
-set pgp_encrypt_sign_command = "/usr/lib/mutt/pgpewrap gpg --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x77BB8872 -- -r %r -- %f"
-set pgp_export_command       = "gpg --no-verbose --export --armor %r"
-set pgp_good_sign            = "^gpg: Good signature from"
-set pgp_import_command       = "gpg --no-verbose --import -v %f"
-set pgp_list_pubring_command = "gpg --no-verbose --batch --with-colons --list-keys %r"
-set pgp_list_secring_command = "gpg --no-verbose --batch --with-colons --list-secret-keys %r"
-set pgp_sign_command         = "gpg --no-verbose --batch --output - --armor --detach-sign --textmode %?a?-u % a? %f"
-set pgp_verify_command       = "gpg --no-verbose --batch --output - --verify %s %f"
-set pgp_verify_key_command   = "gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_clearsign_command    = 'gpg --no-verbose --batch --output - --armor --textmode --clearsign %?a?-u %a? %f'
+set pgp_decode_command       = 'gpg %p --no-verbose --batch --output - %f'
+set pgp_decrypt_command      = 'gpg --no-verbose --batch --output - %f'
+set pgp_encrypt_only_command = '/usr/lib/mutt/pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x77BB8872 -- -r %r -- %f'
+set pgp_encrypt_sign_command = '/usr/lib/mutt/pgpewrap gpg --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x77BB8872 -- -r %r -- %f'
+set pgp_export_command       = 'gpg --no-verbose --export --armor %r'
+set pgp_good_sign            = '^gpg: Good signature from'
+set pgp_import_command       = 'gpg --no-verbose --import -v %f'
+set pgp_list_pubring_command = 'gpg --no-verbose --batch --with-colons --list-keys %r'
+set pgp_list_secring_command = 'gpg --no-verbose --batch --with-colons --list-secret-keys %r'
+set pgp_sign_command         = 'gpg --no-verbose --batch --output - --armor --detach-sign --textmode %?a?-u % a? %f'
+set pgp_verify_command       = 'gpg --no-verbose --batch --output - --verify %s %f'
+set pgp_verify_key_command   = 'gpg --no-verbose --batch --fingerprint --check-sigs %r'
+
+# Vim-ish bindings
+bind index gg first-entry
+bind index G  last-entry
+bind pager gg top
+bind pager G  bottom
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind generic,index,browser,pager \Cf next-page
+bind generic,index,browser,pager \Cb previous-page
+
+# Show Mutt version
+push V
 
