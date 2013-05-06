@@ -1,3 +1,6 @@
-" Make emails slightly less of a pain to type
-setlocal formatoptions+=aw
+" Auto-format within textwidth
+setlocal formatoptions+=a
+
+" Use trailing whitespace to denote continued paragraph
+setlocal formatoptions+=w
 

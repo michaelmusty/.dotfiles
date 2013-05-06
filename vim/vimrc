@@ -78,8 +78,6 @@ endif
 
 " Formatting
 set expandtab
-set formatoptions=croqn1
-silent! set formatoptions+=j
 set smarttab
 set nojoinspaces
 set shiftround
@@ -87,16 +85,6 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 nnoremap J mzJ`z
-if has('eval')
-    function! ToggleFormatFlag(flag)
-        let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
-        silent! exec 'setlocal formatoptions' . l:operation . a:flag
-        setlocal formatoptions?
-    endfunction
-    nnoremap <silent> <leader>a :<C-U>call ToggleFormatFlag('a')<CR>
-    nnoremap <silent> <leader>c :<C-U>call ToggleFormatFlag('c')<CR>
-    nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
-endif
 
 " History
 set history=1000
