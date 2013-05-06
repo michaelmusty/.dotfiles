@@ -58,6 +58,9 @@ set quit          = ask-yes
 set mail_check = 5
 set sleep_time = 0
 
+# Mailboxes
+set confirmcreate = yes
+
 # Menus
 set menu_context = 1
 
