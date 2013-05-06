@@ -6,15 +6,15 @@ set use_from = yes
 # SMTP implementation
 set sendmail = '/usr/bin/msmtp'
 
-# Mailbox specifics
-set folder       = '~/Mail'
-set header_cache = '~/.cache/mutt/headers'
-set mbox_type    = 'Maildir'
+# Mailbox type and location
+set mbox_type = 'Maildir'
+set folder    = '~/Mail/'
 
-# Special submailboxes
-set spoolfile = '=inbox'
-set postponed = '=drafts'
-set record    = '=sent'
+# Submailboxes
+set spoolfile = '+inbox'
+set postponed = '+drafts'
+set record    = '+sent'
+mailboxes !
 
 # Addresses
 set query_command = 'abook --mutt-query %s'
@@ -26,10 +26,17 @@ set reverse_name = yes
 # Alerts
 set beep_new = yes
 
+# Caching
+set header_cache = '~/.cache/mutt/headers'
+
 # Colors
 color indicator black   white
 color normal    white   black
 color status    color84 color22
+
+# Completion
+bind editor <Tab> complete-query
+bind editor ^T    complete
 
 # Files
 set delete = yes
@@ -43,11 +50,12 @@ hdr_order Date From To Cc
 my_hdr X-PGP-Key: http://static.sanctum.geek.nz/thomas-ryder.asc
 
 # Interaction
-set wait_key = no
-set quit     = ask-yes
+set confirmappend = no
+set wait_key      = no
+set quit          = ask-yes
 
 # Intervals
-set mail_check = 30
+set mail_check = 5
 set sleep_time = 0
 
 # Menus
@@ -77,6 +85,9 @@ set sort            = 'reverse-threads'
 set sort_aux        = 'last-date-received'
 set strict_threads  = yes
 set thorough_search = yes
+
+# Signature
+set signature = '~/.mutt/signature'
 
 # Encryption settings
 set crypt_replysign          = yes
@@ -108,7 +119,4 @@ bind index,pager \Cu half-up
 bind index,pager \Cd half-down
 bind generic,index,browser,pager \Cf next-page
 bind generic,index,browser,pager \Cb previous-page
-
-# Show Mutt version
-push V
 
