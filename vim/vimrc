@@ -77,6 +77,7 @@ if has('multi_byte')
 endif
 
 " Formatting
+set autoindent
 set expandtab
 set smarttab
 set nojoinspaces
