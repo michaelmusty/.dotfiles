@@ -31,8 +31,9 @@ set header_cache = '~/.cache/mutt/headers'
 
 # Colors
 color indicator black   white
-color normal    white   black
-color status    color84 color22
+color normal    default default
+color status    white   color22
+color tree      default default
 
 # Completion
 bind editor <Tab> complete-query
