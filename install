@@ -6,23 +6,31 @@ git submodule --quiet update --init
 cd "${OLDPWD}"
 
 # Link in files, replacing whatever's already there.
-ln -fs ".dotfiles/bash/bashrc"        "${HOME}/.bashrc"
-ln -fs ".dotfiles/bash/bash_profile"  "${HOME}/.bash_profile"
-ln -fs ".dotfiles/bash/bash_logout"   "${HOME}/.bash_logout"
-ln -fs ".dotfiles/git/gitconfig"      "${HOME}/.gitconfig"
-ln -fs ".dotfiles/mutt/muttrc"        "${HOME}/.muttrc"
-ln -fs ".dotfiles/readline/inputrc"   "${HOME}/.inputrc"
-ln -fs ".dotfiles/tmux/tmux.conf"     "${HOME}/.tmux.conf"
-ln -fs ".dotfiles/vim/vimrc"          "${HOME}/.vimrc"
-ln -fs ".dotfiles/vim/gvimrc"         "${HOME}/.gvimrc"
+ln -fs ".dotfiles/bash/bashrc"       "${HOME}/.bashrc"
+ln -fs ".dotfiles/bash/bash_profile" "${HOME}/.bash_profile"
+ln -fs ".dotfiles/bash/bash_logout"  "${HOME}/.bash_logout"
+ln -fs ".dotfiles/git/gitconfig"     "${HOME}/.gitconfig"
+ln -fs ".dotfiles/mutt/muttrc"       "${HOME}/.muttrc"
+ln -fs ".dotfiles/readline/inputrc"  "${HOME}/.inputrc"
+ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
+ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
+ln -fs ".dotfiles/vim/gvimrc"        "${HOME}/.gvimrc"
 
-# Link in directories, removing whatever's already there first.
+# Link in Mutt stuff.
 [[ -e "${HOME}/.mutt" ]] && rm -r "${HOME}/.mutt"
 ln -fs ".dotfiles/mutt" "${HOME}/.mutt"
-[[ -e "${HOME}/.newsbeuter" ]] && rm -r "${HOME}/.newsbeuter"
-ln -fs ".dotfiles/newsbeuter" "${HOME}/.newsbeuter"
+
+# Link in Newsbeuter stuff, annoyingly it prefers XDG.
+mkdir -p "${HOME}/.config"
+mkdir -p "${HOME}/.local/share/newsbeuter"
+[[ -e "${HOME}/.config/newsbeuter" ]] && rm -r "${HOME}/.newsbeuter"
+ln -fs "../.dotfiles/newsbeuter" "${HOME}/.config/newsbeuter"
+
+# Link in Vim stuff.
 [[ -e "${HOME}/.vim" ]] && rm -r "${HOME}/.vim"
 ln -fs ".dotfiles/vim" "${HOME}/.vim"
+
+# Link in Terminfo database.
 [[ -e "${HOME}/.terminfo" ]] && rm -r "${HOME}/.terminfo"
 ln -fs ".dotfiles/terminfo" "${HOME}/.terminfo"
 
@@ -32,7 +40,6 @@ if [[ $1 == "-X" ]]; then
     ln -fs ".dotfiles/X/Xresources"  "${HOME}/.Xresources"
     ln -fs ".dotfiles/X/xsession"    "${HOME}/.xsession"
     ln -fs ".dotfiles/X/xsessionrc"  "${HOME}/.xsessionrc"
-    mkdir -p "${HOME}/.config"
     [[ -e "${HOME}/.config/awesome" ]] && rm -r "${HOME}/.config/awesome"
     ln -fs "../.dotfiles/awesome" "${HOME}/.config/awesome"
 fi
