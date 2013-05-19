@@ -50,6 +50,9 @@ set mark_old = no
 hdr_order Date From To Cc
 my_hdr X-PGP-Key: http://static.sanctum.geek.nz/thomas-ryder.asc
 
+# Index
+set index_format='%4C %Z %{%b %d %Y} %-15.15L (%?l?%4l&%4c?) %s'
+
 # Interaction
 set confirmappend = no
 set wait_key      = no
@@ -91,7 +94,8 @@ set strict_threads  = yes
 set thorough_search = yes
 
 # Signature
-set signature = '~/.mutt/signature'
+set signature  = '~/.mutt/signature'
+set sig_on_top = yes
 
 # Encryption settings
 set crypt_replysign          = yes
