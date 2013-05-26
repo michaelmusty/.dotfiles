@@ -152,8 +152,10 @@ alias diff='diff -u'
 function cd {
     if [[ -n "$2" ]]; then
         builtin cd "${PWD/$1/$2}"
+    elif [[ -n "$1" ]]; then
+        builtin cd "$1"
     else
-        builtin cd "$*"
+        builtin cd
     fi
 }
 
