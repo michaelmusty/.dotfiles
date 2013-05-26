@@ -75,12 +75,12 @@ pathdirs="${HOME}/.local/bin
           /usr/local/pgsql/bin"
 for pathdir in $pathdirs; do
     [[ -d "$pathdir" ]] \
-        && PATH="${pathdir}:${PATH}"
+        && export PATH="${pathdir}:${PATH}"
 done
 
-# Add various manual paths if they exist
+# Add home directory manual path if it exists
 [[ -d "${HOME}/.local/share/man" ]] \
-    && MANPATH="${HOME}/.local/share/man:${MANPATH}"
+    && export MANPATH="${HOME}/.local/share/man:${MANPATH}"
 
 # Figure out how many colors we have now.
 hash tput && colors=$(tput colors)
