@@ -148,6 +148,15 @@ alias gdb='gdb -q'
 # I always want a unified diff.
 alias diff='diff -u'
 
+# If given two arguments to cd, replace the first with the second in $PWD
+function cd {
+    if [[ -n "$2" ]]; then
+        builtin cd "${PWD/$1/$2}"
+    else
+        builtin cd "$*"
+    fi
+}
+
 # Attach to existing tmux session rather than create a new one if possible.
 function tmux {
     if [[ -n "$*" ]]; then
