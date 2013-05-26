@@ -66,21 +66,21 @@ hash stty &>/dev/null && stty -ixon
 # Use completion, if available.
 [[ -e /etc/bash_completion ]] && source /etc/bash_completion
 
-# Add various paths if they exist and aren't already in here.
-pathdirs="${HOME}/bin
-         /usr/local/apache/bin
-         /usr/local/mysql/bin
-         /usr/local/nagios/bin
-         /usr/local/pgsql/bin"
+# Add various binary paths if they exist
+pathdirs="${HOME}/.local/bin
+          ${HOME}/bin
+          /usr/local/apache/bin
+          /usr/local/mysql/bin
+          /usr/local/nagios/bin
+          /usr/local/pgsql/bin"
 for pathdir in $pathdirs; do
-    if [[ -d "$pathdir" ]] && [[ ":${PATH}:" != *":${pathdir}:"* ]]; then
-        if [[ -n "$PATH" ]]; then
-            PATH="${pathdir}:${PATH}"
-        else
-            PATH=$pathdir
-        fi
-    fi
+    [[ -d "$pathdir" ]] \
+        && PATH="${pathdir}:${PATH}"
 done
+
+# Add various manual paths if they exist
+[[ -d "${HOME}/.local/share/man" ]] \
+    && MANPATH="${HOME}/.local/share/man:${MANPATH}"
 
 # Figure out how many colors we have now.
 hash tput && colors=$(tput colors)
