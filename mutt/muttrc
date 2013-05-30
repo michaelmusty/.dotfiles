@@ -1,7 +1,8 @@
 # Names
-set from     = 'tej.ryder@gmail.com'
-set realname = 'Tom Ryder'
-set use_from = yes
+set from       = 'tom@sanctum.geek.nz'
+set realname   = 'Tom Ryder'
+set use_domain = yes
+set use_from   = yes
 
 # SMTP implementation
 set sendmail = '/usr/bin/msmtp'
@@ -20,7 +21,7 @@ mailboxes !
 set query_command = 'abook --mutt-query %s'
 
 # Alternates
-source ~/.mutt/alternates
+source ~/.mutt/muttrc.alternates
 set reverse_name = yes
 
 # Alerts
@@ -48,7 +49,6 @@ set mark_old = no
 
 # Headers
 hdr_order Date From To Cc
-my_hdr X-PGP-Key: http://static.sanctum.geek.nz/thomas-ryder.asc
 
 # Index
 set index_format='%4C %Z %{%b %d %Y} %-15.15L (%?l?%4l&%4c?) %s'
@@ -98,7 +98,9 @@ set signature  = '~/.mutt/signature'
 set sig_on_top = yes
 
 # Encryption settings
+set crypt_autosign           = yes
 set crypt_replysign          = yes
+set crypt_replyencrypt       = yes
 set crypt_replysignencrypted = yes
 set crypt_use_gpgme          = yes
 set crypt_verify_sig         = yes

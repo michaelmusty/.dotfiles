@@ -1,4 +1,5 @@
-mutt/alternates
+mutt/muttrc.alternates
+mutt/signature.*
 newsbeuter/cache.*
 newsbeuter/history.*
 newsbeuter/urls
