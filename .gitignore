@@ -1,7 +1,5 @@
 mutt/muttrc.alternates
 mutt/signature.*
-newsbeuter/cache.*
-newsbeuter/history.*
 newsbeuter/urls
 urxvt/urxvtd-*
 vim/.netrwhist
