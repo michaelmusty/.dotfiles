@@ -1,3 +1,5 @@
+gnupg/*
+!gnupg/*.conf
 mutt/muttrc.alternates
 mutt/signature.*
 newsbeuter/urls
