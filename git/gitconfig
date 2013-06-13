@@ -18,3 +18,5 @@
 [log]
     date = local
 
+[push]
+	default = matching
