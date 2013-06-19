@@ -1,13 +1,6 @@
 # Don't do anything if not running interactively.
 [[ -z "$PS1" ]] && return
 
-# Use the system's implementation of vi as my text editor.
-export EDITOR=vi
-export VISUAL=$EDITOR
-
-# Use less as my pager if available.
-hash less &>/dev/null && export PAGER=less
-
 # Keep plenty of history.
 HISTFILESIZE=1000000
 HISTSIZE=1000000
@@ -17,9 +10,6 @@ HISTCONTROL=ignoreboth
 
 # Keep the times of the commands in history.
 HISTTIMEFORMAT='%F %T  '
-
-# Don't check for mail all the time, it's irritating.
-unset MAILCHECK
 
 # Autocorrect fudged paths in cd calls.
 shopt -s cdspell &>/dev/null
@@ -66,22 +56,6 @@ hash stty &>/dev/null && stty -ixon
 # Use completion, if available.
 [[ -e /etc/bash_completion ]] && source /etc/bash_completion
 
-# Add various binary paths if they exist
-pathdirs="${HOME}/.local/bin
-          ${HOME}/bin
-          /usr/local/apache/bin
-          /usr/local/mysql/bin
-          /usr/local/nagios/bin
-          /usr/local/pgsql/bin"
-for pathdir in $pathdirs; do
-    [[ -d "$pathdir" ]] \
-        && export PATH="${pathdir}:${PATH}"
-done
-
-# Add home directory manual path if it exists
-[[ -d "${HOME}/.local/share/man" ]] \
-    && export MANPATH="${HOME}/.local/share/man:${MANPATH}"
-
 # Figure out how many colors we have now.
 hash tput && colors=$(tput colors)
 
@@ -125,9 +99,6 @@ fi
 if grep --help | grep -- --exclude-dir &>/dev/null; then
     grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
 fi
-
-# Use UTF-8 linedrawing for passwd
-export TREE_CHARSET='utf-8'
 
 # Alias ls and grep with the options we've collected.
 alias ls="ls ${lsopts}"
