@@ -31,7 +31,3 @@ do
     [ -d "$bindir" ] && export PATH="$bindir:$PATH"
 done
 
-# Manuals
-[ -d "$HOME/.local/share/man" ] \
-    && export MANPATH="$HOME/.local/share/man"
-
