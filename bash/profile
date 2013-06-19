@@ -35,6 +35,3 @@ done
 [ -d "$HOME/.local/share/man" ] \
     && export MANPATH="$HOME/.local/share/man"
 
-# Tree
-export TREE_CHARSET='utf-8'
-
