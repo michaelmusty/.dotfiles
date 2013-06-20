@@ -10,6 +10,7 @@ mutt/muttrc.alternates
 mutt/signature.*
 newsbeuter/urls
 sh/profile.d/*
+!sh/profile.d/browser.sh
 urxvt/urxvtd-*
 vim/.netrwhist
 vim/spell/*
