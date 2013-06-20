@@ -7,15 +7,19 @@ cd "${OLDPWD}"
 
 # Link in files, replacing whatever's already there.
 ln -fs ".dotfiles/bash/bashrc"       "${HOME}/.bashrc"
-ln -fs ".dotfiles/bash/bash_profile" "${HOME}/.bash_profile"
-ln -fs ".dotfiles/bash/bash_logout"  "${HOME}/.bash_logout"
-ln -fs ".dotfiles/bash/profile"      "${HOME}/.profile"
+ln -fs ".dotfiles/sh/profile"        "${HOME}/.profile"
 ln -fs ".dotfiles/git/gitconfig"     "${HOME}/.gitconfig"
 ln -fs ".dotfiles/mutt/muttrc"       "${HOME}/.muttrc"
 ln -fs ".dotfiles/readline/inputrc"  "${HOME}/.inputrc"
 ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
 ln -fs ".dotfiles/vim/gvimrc"        "${HOME}/.gvimrc"
+
+# Link in shell stuff.
+[[ -e "${HOME}/.bashrc.d" ]] && rm -r "$HOME/.bashrc.d"
+ln -fs ".dotfiles/bash/bashrc.d" "${HOME}/.bashrc.d"
+[[ -e "${HOME}/.profile.d" ]] && rm -r "$HOME/.profile.d"
+ln -fs ".dotfiles/sh/profile.d" "${HOME}/.profile.d"
 
 # Link in Mutt stuff.
 [[ -e "${HOME}/.mutt" ]] && rm -r "${HOME}/.mutt"

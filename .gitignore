@@ -1,8 +1,15 @@
+bash/bashrc.d/*
+!bash/bashrc.d/cd.bash
+!bash/bashrc.d/grep.bash
+!bash/bashrc.d/ls.bash
+!bash/bashrc.d/prompt.bash
+!bash/bashrc.d/tmux.bash
 gnupg/*
 !gnupg/*.conf
 mutt/muttrc.alternates
 mutt/signature.*
 newsbeuter/urls
+sh/profile.d/*
 urxvt/urxvtd-*
 vim/.netrwhist
 vim/spell/*

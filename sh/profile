@@ -1,0 +1,23 @@
+# Set editor
+export EDITOR='vi'
+export VISUAL="$EDITOR"
+
+# Set pager
+export PAGER='less'
+
+# Add ~/.local/bin to PATH
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+export PATH
+
+# Load any supplementary scripts
+if [[ -d "$HOME/.profile.d" ]]
+then
+    for file in $HOME/.profile.d/*
+    do
+        . $file
+    done
+fi
+
+# If running Bash, try to run .bashrc
+[ -n "$BASH" ] && [ -e "$HOME/.bashrc" ] && . $HOME/.bashrc
+

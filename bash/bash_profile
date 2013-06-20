@@ -1,6 +1,0 @@
-# Source the normal shell profile.
-[[ -e "${HOME}/.profile" ]] && source "${HOME}/.profile"
-
-# Then source .bashrc if it exists.
-[[ -e "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
-

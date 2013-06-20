@@ -1,224 +1,82 @@
-# Don't do anything if not running interactively.
+# Don't do anything if not running interactively
 [[ -z "$PS1" ]] && return
 
-# Keep plenty of history.
+# Keep plenty of history
 HISTFILESIZE=1000000
 HISTSIZE=1000000
 
-# Ignore duplicate commands and whitespace in history.
+# Ignore duplicate commands and whitespace in history
 HISTCONTROL=ignoreboth
 
-# Keep the times of the commands in history.
+# Keep the times of the commands in history
 HISTTIMEFORMAT='%F %T  '
 
-# Autocorrect fudged paths in cd calls.
+# Autocorrect fudged paths in cd calls
 shopt -s cdspell &>/dev/null
 
-# Update the hash table properly.
+# Update the hash table properly
 shopt -s checkhash &>/dev/null
 
-# Warn me about stopped jobs when exiting.
+# Warn me about stopped jobs when exiting
 shopt -s checkjobs &>/dev/null
 
-# Update columns and rows if window size changes.
+# Update columns and rows if window size changes
 shopt -s checkwinsize &>/dev/null
 
-# Put multi-line commands onto one line of history.
+# Put multi-line commands onto one line of history
 shopt -s cmdhist &>/dev/null
 
-# Expand globbing and variables for directory completion.
+# Expand globbing and variables for directory completion
 shopt -s direxpand &>/dev/null
 
-# Autocorrect fudged paths during completion.
+# Autocorrect fudged paths during completion
 shopt -s dirspell &>/dev/null
 
-# Include dotfiles in pattern matching.
+# Include dotfiles in pattern matching
 shopt -s dotglob &>/dev/null
 
-# Enable advanced pattern matching.
+# Enable advanced pattern matching
 shopt -s extglob &>/dev/null
 
-# Enable double-starring paths.
+# Enable double-starring paths
 shopt -s globstar &>/dev/null
 
-# Append rather than overwrite Bash history.
+# Append rather than overwrite Bash history
 shopt -s histappend &>/dev/null
 
-# Ignore me if I try to complete an empty line.
+# Ignore me if I try to complete an empty line
 shopt -s no_empty_cmd_completion &>/dev/null
 
-# Never beep at me.
-hash setterm &>/dev/null && setterm -bfreq 0
+# Never beep at me
+setterm -bfreq 0 &>/dev/null
 
-# Turn off annoying and useless flow control keys.
-hash stty &>/dev/null && stty -ixon
+# Turn off annoying and useless flow control keys
+stty -ixon &>/dev/null
 
-# Use completion, if available.
+# Use completion, if available
 [[ -e /etc/bash_completion ]] && source /etc/bash_completion
 
-# Figure out how many colors we have now.
-hash tput && colors=$(tput colors)
-
-# Save some color codes based on our colour space.
-if [[ $colors -ge 256 ]]; then
-    color_root='\[\e[38;5;9m\]'
-    color_sudo='\[\e[38;5;11m\]'
-    color_user='\[\e[38;5;10m\]'
-    color_norm='\[\e[0m\]'
-elif [[ $colors -ge 8 ]]; then
-    color_root='\[\e[1;31m\]'
-    color_sudo='\[\e[1;33m\]'
-    color_user='\[\e[1;32m\]'
-    color_norm='\[\e[0m\]'
-else
-    color_root=
-    color_sudo=
-    color_user=
-    color_norm=
-fi
-
-# Reset options for ls and grep.
-lsopts=
-grepopts='-I'
-
-# If we have a color terminal, we'll use color for ls and grep.
-if [[ $colors -ge 8 ]]; then
-    hash dircolors &>/dev/null && eval "$(dircolors -b)"
-    if ls --help | grep -- --color &>/dev/null; then
-        lsopts="${lsopts} --color=auto"
-    fi
-    if grep --help | grep -- --color &>/dev/null; then
-        grepopts="${grepopts} --color=auto"
-    fi
-fi
-
-# Set up more options for grep; exclude version control files.
-if grep --help | grep -- --exclude &>/dev/null; then
-    grepopts="${grepopts} --exclude=.git{,ignore,modules}"
-fi
-if grep --help | grep -- --exclude-dir &>/dev/null; then
-    grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
-fi
-
-# Alias ls and grep with the options we've collected.
-alias ls="ls ${lsopts}"
-alias grep="grep ${grepopts}"
-
-# Protect innocent MySQL databases from my stupidity.
-alias mysql='mysql --safe-updates'
-
-# I always do this, and I hate slow train.
-alias sl='ls'
-
-# I actually use ed now and then. Go figure.
-alias ed='ed -p:'
-
-# Make gdb shut up.
-alias gdb='gdb -q'
-
-# I always want a unified diff.
+# I always want a unified diff
 alias diff='diff -u'
 
-# If given two arguments to cd, replace the first with the second in $PWD
-function cd {
-    if [[ -n "$2" ]]; then
-        builtin cd "${PWD/$1/$2}"
-    elif [[ -n "$1" ]]; then
-        builtin cd "$1"
-    else
-        builtin cd
-    fi
-}
+# I actually use ed now and then, go figure
+alias ed='ed -p:'
 
-# Attach to existing tmux session rather than create a new one if possible.
-function tmux {
-    if [[ -n "$*" ]]; then
-        command tmux $*
-    else
-        command tmux attach -d &>/dev/null || command tmux
-    fi
-}
+# Make gdb shut up
+alias gdb='gdb -q'
 
-# Decide on color for prompt.
-if [[ $EUID -eq 0 ]]; then
-    color_prompt=${color_root}
-elif [[ -n $SUDO_USER ]]; then
-    color_prompt=${color_sudo}
-else
-    color_prompt=${color_user}
+# Protect innocent MySQL databases from my stupidity
+alias mysql='mysql --safe-updates'
+
+# I always do this, and I hate slow train
+alias sl='ls'
+
+# Load any supplementary scripts
+if [[ -d "$HOME/.bashrc.d" ]]
+then
+    for file in $HOME/.bashrc.d/*
+    do
+        source $file
+    done
 fi
-
-# Frontend to controlling prompt.
-function prompt {
-    case "$1" in
-
-        # Turn complex coloured prompt on.
-        on) 
-            PROMPT_COMMAND='history -a'
-            PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
-            PS1="${color_prompt}${PS1}${color_norm} "
-            ;;
-
-        # Revert to simple inexpensive prompt.
-        off)
-            PROMPT_COMMAND=
-            PS1='\[\a\]\$ '
-            ;;
-
-        # Git prompt function.
-        git)
-            git branch &>/dev/null || return 1
-            HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
-            branch="${HEAD##*/}"
-            [[ -n "$(git status 2>/dev/null | \
-                grep -F 'nothing to commit')" ]] || state="!"
-            printf '(git:%s)' "${branch:-unknown}${state}"
-            ;;
-
-        # Mercurial prompt function.
-        hg)
-            hg branch &>/dev/null || return 1
-            branch="$(hg branch 2>/dev/null)"
-            [[ -n "$(hg status 2>/dev/null)" ]] && state="!"
-            printf '(hg:%s)' "${branch:-unknown}${state}"
-            ;;
-
-        # Subversion prompt function.
-        svn)
-            svn info &>/dev/null || return 1
-            url="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "URL" {print $2}')"
-            root="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "Repository Root" {print $2}')"
-            branch=${url/$root}
-            branch=${branch#/}
-            branch=${branch#branches/}
-            branch=${branch%%/*}
-            [[ -n "$(svn status 2>/dev/null)" ]] && state="!"
-            printf '(svn:%s)' "${branch:-unknown}${state}"
-            ;;
-
-        # VCS wrapper prompt function.
-        vcs)
-            prompt git || prompt svn || prompt hg
-            ;;
-
-        # Return status prompt function.
-        return)
-            ret=$? 
-            [[ $ret -ne 0 ]] && printf '<%d>' ${ret}
-            ;;
-
-        # Job count prompt function.
-        jobs)
-            [[ -n "$(jobs)" ]] && printf '{%d}' $(jobs | sed -n '$=')
-            ;;
-    esac
-}
-
-# Run local file if it exists.
-[[ -e "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
-
-# Start with full-fledged prompt.
-prompt on
 
