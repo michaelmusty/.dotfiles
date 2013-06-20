@@ -28,7 +28,7 @@ ln -fs ".dotfiles/mutt" "${HOME}/.mutt"
 # Link in Newsbeuter stuff, annoyingly it prefers XDG.
 mkdir -p "${HOME}/.config"
 mkdir -p "${HOME}/.local/share/newsbeuter"
-[[ -e "${HOME}/.config/newsbeuter" ]] && rm -r "${HOME}/.newsbeuter"
+[[ -e "${HOME}/.config/newsbeuter" ]] && rm -r "${HOME}/.config/newsbeuter"
 ln -fs "../.dotfiles/newsbeuter" "${HOME}/.config/newsbeuter"
 
 # Link in Vim stuff.
