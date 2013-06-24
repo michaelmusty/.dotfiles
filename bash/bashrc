@@ -11,6 +11,10 @@ HISTCONTROL=ignoreboth
 # Keep the times of the commands in history
 HISTTIMEFORMAT='%F %T  '
 
+# Don't tell me about mail
+unset MAILCHECK
+shopt -u mailwarn
+
 # Autocorrect fudged paths in cd calls
 shopt -s cdspell &>/dev/null
 
