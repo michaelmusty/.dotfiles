@@ -10,7 +10,7 @@ export PAGER='less'
 export PATH
 
 # Load any supplementary scripts
-if [[ -d "$HOME/.profile.d" ]]
+if [ -d "$HOME/.profile.d" ]
 then
     for file in $HOME/.profile.d/*
     do
