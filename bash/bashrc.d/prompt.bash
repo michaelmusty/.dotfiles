@@ -1,7 +1,8 @@
 # Frontend to controlling prompt
 function prompt {
+    local ret=$?
     local colors=$(tput colors 2>/dev/null)
-    local color reset branch head state url root ret
+    local color reset branch head state url root
 
     if [[ $colors -ge 256 ]]; then
         color='\[\e[38;5;10m\]'
@@ -66,7 +67,6 @@ function prompt {
 
         # Return status prompt function
         return)
-            ret=$? 
             [[ $ret -ne 0 ]] && printf '<%d>' ${ret}
             ;;
 
