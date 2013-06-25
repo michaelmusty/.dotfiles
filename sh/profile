@@ -19,5 +19,5 @@ then
 fi
 
 # If running Bash, try to run .bashrc
-[ -n "$BASH" ] && [ -e "$HOME/.bashrc" ] && . $HOME/.bashrc
+[ -n "$BASH" -a -e "$HOME/.bashrc" ] && . $HOME/.bashrc
 
