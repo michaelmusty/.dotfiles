@@ -33,6 +33,7 @@ function prompt {
                 && return 1
             $(git rev-parse --is-inside-work-tree 2>/dev/null ) \
                 || return 1
+            git status &>/dev/null
             branch=$(git symbolic-ref --quiet HEAD 2>/dev/null ) \
                 || branch=$(git rev-parse --short HEAD 2>/dev/null ) \
                 || branch='unknown'
