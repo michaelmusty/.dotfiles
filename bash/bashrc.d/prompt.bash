@@ -29,11 +29,20 @@ function prompt {
 
         # Git prompt function
         git)
-            git branch &>/dev/null || return 1
+            $(git rev-parse --is-inside-git-dir 2>/dev/null ) \
+                && return 1
+            $(git rev-parse --is-inside-work-tree 2>/dev/null ) \
+                || return 1
             head="$(git symbolic-ref HEAD 2>/dev/null)"
             branch="${head##*/}"
-            [[ -n "$(git status 2>/dev/null | \
-                grep -F 'nothing to commit')" ]] || state="!"
+            $(git diff --quiet --ignore-submodules --cached ) \
+                || state=${state}+
+            $(git diff-files --quiet --ignore-submodules -- ) \
+                || state=${state}!
+            $(git rev-parse --verify refs/stash &>/dev/null ) \
+                && state=${state}^
+            [ -n "$(git ls-files --others --exclude-standard )" ] \
+                && state=${state}?
             printf '(git:%s)' "${branch:-unknown}${state}"
             ;;
 
