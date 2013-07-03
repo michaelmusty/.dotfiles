@@ -77,6 +77,10 @@ if has('multi_byte')
     set encoding=utf-8
 endif
 
+" Files
+set autoread
+set autowrite
+
 " Formatting
 set autoindent
 set expandtab
