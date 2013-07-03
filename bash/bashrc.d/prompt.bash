@@ -33,8 +33,9 @@ function prompt {
                 && return 1
             $(git rev-parse --is-inside-work-tree 2>/dev/null ) \
                 || return 1
-            head="$(git symbolic-ref HEAD 2>/dev/null)"
-            branch="${head##*/}"
+            branch=$(git symbolic-ref --quiet --short HEAD 2> /dev/null ) \
+                || branch=$(git rev-parse --short HEAD 2>/dev/null ) \
+                || branch="(unknown)"
             $(git diff --quiet --ignore-submodules --cached ) \
                 || state=${state}+
             $(git diff-files --quiet --ignore-submodules -- ) \
