@@ -162,6 +162,10 @@ if has('spell')
     nnoremap <leader>s :setlocal spell!<CR>
 endif
 
+" Substitution
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
 " Swaps
 if !strlen($SUDO_USER) && has('unix')
     set swapfile
