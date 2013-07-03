@@ -2,7 +2,7 @@
 function prompt {
     local ret=$?
     local colors=$(tput colors 2>/dev/null)
-    local color reset branch head state url root
+    local color reset branch state url root
 
     if [[ $colors -ge 256 ]]; then
         color='\[\e[38;5;10m\]'
