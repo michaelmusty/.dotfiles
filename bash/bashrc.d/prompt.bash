@@ -37,9 +37,9 @@ function prompt {
                 || branch=$(git rev-parse --short HEAD 2>/dev/null ) \
                 || branch='unknown'
             branch=${branch##*/}
-            $(git diff --quiet --ignore-submodules --cached ) \
+            git diff --quiet --ignore-submodules --cached \
                 || state=${state}+
-            $(git diff-files --quiet --ignore-submodules -- ) \
+            git diff-files --quiet --ignore-submodules -- \
                 || state=${state}!
             $(git rev-parse --verify refs/stash &>/dev/null ) \
                 && state=${state}^
