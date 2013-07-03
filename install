@@ -1,51 +1,60 @@
 #!/usr/bin/env bash
 
-# Check out submodules. The --git-dir option doesn't work here.
-cd "${HOME}/.dotfiles"
-git submodule --quiet update --init
-cd "${OLDPWD}"
+# Just stop if any problems
+set -o errexit
 
-# Link in files, replacing whatever's already there.
-ln -fs ".dotfiles/bash/bashrc"       "${HOME}/.bashrc"
-ln -fs ".dotfiles/sh/profile"        "${HOME}/.profile"
-ln -fs ".dotfiles/git/gitconfig"     "${HOME}/.gitconfig"
-ln -fs ".dotfiles/mutt/muttrc"       "${HOME}/.muttrc"
-ln -fs ".dotfiles/readline/inputrc"  "${HOME}/.inputrc"
-ln -fs ".dotfiles/tmux/tmux.conf"    "${HOME}/.tmux.conf"
-ln -fs ".dotfiles/vim/vimrc"         "${HOME}/.vimrc"
-ln -fs ".dotfiles/vim/gvimrc"        "${HOME}/.gvimrc"
+# Refuse to expand empty variables
+set -o nounset
+
+# Define dotfiles directory
+dotfiles=$HOME/.dotfiles
+
+# Check out submodules
+(cd $dotfiles && git submodule --quiet update --init )
+
+# Link in essentials
+ln -insv $dotfiles/bash/bashrc      $HOME/.bashrc
+ln -insv $dotfiles/bash/bashrc.d    $HOME/.bashrc.d
+ln -insv $dotfiles/readline/inputrc $HOME/.inputrc
+ln -insv $dotfiles/sh/profile       $HOME/.profile
+ln -insv $dotfiles/sh/profile.d     $HOME/.profile.d
+ln -insv $dotfiles/terminfo         $HOME/.terminfo
+ln -insv $dotfiles/vim/vimrc        $HOME/.vimrc
+ln -insv $dotfiles/vim              $HOME/.vim
 
 # Link in shell stuff.
-[[ -e "${HOME}/.bashrc.d" ]] && rm -r "$HOME/.bashrc.d"
-ln -fs ".dotfiles/bash/bashrc.d" "${HOME}/.bashrc.d"
-[[ -e "${HOME}/.profile.d" ]] && rm -r "$HOME/.profile.d"
-ln -fs ".dotfiles/sh/profile.d" "${HOME}/.profile.d"
-
-# Link in Mutt stuff.
-[[ -e "${HOME}/.mutt" ]] && rm -r "${HOME}/.mutt"
-ln -fs ".dotfiles/mutt" "${HOME}/.mutt"
-
-# Link in Newsbeuter stuff, annoyingly it prefers XDG.
-mkdir -p "${HOME}/.config"
-mkdir -p "${HOME}/.local/share/newsbeuter"
-[[ -e "${HOME}/.config/newsbeuter" ]] && rm -r "${HOME}/.config/newsbeuter"
-ln -fs "../.dotfiles/newsbeuter" "${HOME}/.config/newsbeuter"
-
-# Link in Vim stuff.
-[[ -e "${HOME}/.vim" ]] && rm -r "${HOME}/.vim"
-ln -fs ".dotfiles/vim" "${HOME}/.vim"
-
-# Link in Terminfo database.
-[[ -e "${HOME}/.terminfo" ]] && rm -r "${HOME}/.terminfo"
-ln -fs ".dotfiles/terminfo" "${HOME}/.terminfo"
-
-# Optionally link in X and Awesome stuff.
-if [[ $1 == "-X" ]]; then
-    ln -fs ".dotfiles/X/Xmodmap"     "${HOME}/.Xmodmap"
-    ln -fs ".dotfiles/X/Xresources"  "${HOME}/.Xresources"
-    ln -fs ".dotfiles/X/xsession"    "${HOME}/.xsession"
-    ln -fs ".dotfiles/X/xsessionrc"  "${HOME}/.xsessionrc"
-    [[ -e "${HOME}/.config/awesome" ]] && rm -r "${HOME}/.config/awesome"
-    ln -fs "../.dotfiles/awesome" "${HOME}/.config/awesome"
-fi
+while getopts :gmnptx opt
+do
+    case $opt in
+        g)
+            ln -insv $dotfiles/git/gitconfig $HOME/.gitconfig
+            ;;
+        m)
+            ln -insv $dotfiles/mutt/muttrc $HOME/.muttrc
+            ln -insv $dotfiles/mutt        $HOME/.mutt
+            ;;
+        n)
+            mkdir -pv $HOME/.config $HOME/.local/share/newsbeuter
+            ln -insv $dotfiles/newsbeuter $HOME/.config
+            ;;
+        p)
+            mkdir -pv $HOME/.gnupg
+            ln -insv $dotfiles/gnupg/gpg.conf       $HOME/.gnupg
+            ln -insv $dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg
+            ;;
+        t)
+            ln -insv $dotfiles/tmux/tmux.conf   $HOME/.tmux.conf
+            ;;
+        x)
+            mkdir -pv $HOME/.config
+            ln -insv $dotfiles/X/Xmodmap    $HOME/.Xmodmap
+            ln -insv $dotfiles/X/Xresources $HOME/.Xresources
+            ln -insv $dotfiles/X/xsession   $HOME/.xsession
+            ln -insv $dotfiles/X/xsessionrc $HOME/.xsessionrc
+            ln -insv $dotfiles/vim/gvimrc   $HOME/.gvimrc
+            ln -insv $dotfiles/awesome      $HOME/.config/awesome
+            ;;
+    esac
+done
+shift $((OPTIND-1))
 
