@@ -10,7 +10,7 @@ set -o nounset
 dotfiles=$HOME/.dotfiles
 
 # Check out submodules
-(cd $dotfiles && git submodule --quiet update --init )
+(cd $dotfiles && git submodule update --init )
 
 # Link in essentials
 ln -insv $dotfiles/bash/bashrc      $HOME/.bashrc
