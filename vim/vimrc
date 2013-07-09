@@ -176,7 +176,7 @@ endif
 
 " Substitution
 nnoremap & :&&<CR>
-xnoremap & :&&<CR>
+vnoremap & :&&<CR>
 
 " Swaps
 if !strlen($SUDO_USER) && has('unix')
