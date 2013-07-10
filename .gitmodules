@@ -77,3 +77,6 @@
 [submodule "vim/bundle/gnupg"]
 	path = vim/bundle/gnupg
 	url = git://github.com/jamessan/vim-gnupg
+[submodule "vim/bundle/twig"]
+	path = vim/bundle/twig
+	url = git://github.com/lunaru/vim-twig
