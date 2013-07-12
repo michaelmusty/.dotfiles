@@ -13,6 +13,7 @@ dotfiles=$HOME/.dotfiles
 (cd $dotfiles && git submodule update --init )
 
 # Link in essentials
+ln -insv $dotfiles/ack/ackrc         $HOME/.ackrc
 ln -insv $dotfiles/bash/bash_profile $HOME/.bash_profile
 ln -insv $dotfiles/bash/bashrc       $HOME/.bashrc
 ln -insv $dotfiles/bash/bashrc.d     $HOME/.bashrc.d
