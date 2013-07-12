@@ -58,7 +58,7 @@ setterm -bfreq 0 &>/dev/null
 stty -ixon &>/dev/null
 
 # Use completion, if available
-[[ -e /etc/bash_completion ]] && source /etc/bash_completion
+[[ -r /etc/bash_completion ]] && source /etc/bash_completion
 
 # I always want a unified diff
 alias diff='diff -u'

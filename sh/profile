@@ -18,6 +18,3 @@ then
     done
 fi
 
-# If running Bash, try to run .bashrc
-[ -n "$BASH" -a -e "$HOME/.bashrc" ] && . $HOME/.bashrc
-

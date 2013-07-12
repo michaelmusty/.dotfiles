@@ -1,0 +1,6 @@
+# Source Bourne shell profile if it exists
+[[ -r "$HOME/.profile" ]] && source $HOME/.profile
+
+# Source interactive Bash config if it exists
+[[ -r "$HOME/.bashrc" ]] && source $HOME/.bashrc
+
