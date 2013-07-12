@@ -15,6 +15,7 @@ dotfiles=$HOME/.dotfiles
 # Link in essentials
 ln -insv $dotfiles/bash/bashrc      $HOME/.bashrc
 ln -insv $dotfiles/bash/bashrc.d    $HOME/.bashrc.d
+ln -insv $dotfiles/curl/curlrc      $HOME/.curlrc
 ln -insv $dotfiles/readline/inputrc $HOME/.inputrc
 ln -insv $dotfiles/sh/profile       $HOME/.profile
 ln -insv $dotfiles/sh/profile.d     $HOME/.profile.d
