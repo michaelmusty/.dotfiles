@@ -13,15 +13,16 @@ dotfiles=$HOME/.dotfiles
 (cd $dotfiles && git submodule update --init )
 
 # Link in essentials
-ln -insv $dotfiles/bash/bashrc      $HOME/.bashrc
-ln -insv $dotfiles/bash/bashrc.d    $HOME/.bashrc.d
-ln -insv $dotfiles/curl/curlrc      $HOME/.curlrc
-ln -insv $dotfiles/readline/inputrc $HOME/.inputrc
-ln -insv $dotfiles/sh/profile       $HOME/.profile
-ln -insv $dotfiles/sh/profile.d     $HOME/.profile.d
-ln -insv $dotfiles/terminfo         $HOME/.terminfo
-ln -insv $dotfiles/vim/vimrc        $HOME/.vimrc
-ln -insv $dotfiles/vim              $HOME/.vim
+ln -insv $dotfiles/bash/bash_profile $HOME/.bash_profile
+ln -insv $dotfiles/bash/bashrc       $HOME/.bashrc
+ln -insv $dotfiles/bash/bashrc.d     $HOME/.bashrc.d
+ln -insv $dotfiles/curl/curlrc       $HOME/.curlrc
+ln -insv $dotfiles/readline/inputrc  $HOME/.inputrc
+ln -insv $dotfiles/sh/profile        $HOME/.profile
+ln -insv $dotfiles/sh/profile.d      $HOME/.profile.d
+ln -insv $dotfiles/terminfo          $HOME/.terminfo
+ln -insv $dotfiles/vim/vimrc         $HOME/.vimrc
+ln -insv $dotfiles/vim               $HOME/.vim
 
 # Link in shell stuff.
 while getopts :gmnptx opt
