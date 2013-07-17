@@ -58,10 +58,6 @@
 	path = vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
 	ignore = dirty
-[submodule "vim/bundle/gundo"]
-	path = vim/bundle/gundo
-	url = git://github.com/sjl/gundo.vim.git
-	ignore = dirty
 [submodule "vim/bundle/tbone"]
 	path = vim/bundle/tbone
 	url = git://github.com/tpope/vim-tbone.git
@@ -86,3 +82,7 @@
 	path = vim/bundle/twig
 	url = git://github.com/lunaru/vim-twig
 	ignore = dirty
+[submodule "vim/bundle/undotree"]
+	path = vim/bundle/undotree
+	url = git://github.com/mbbill/undotree
+    ignore = dirty
