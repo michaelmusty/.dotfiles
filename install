@@ -12,7 +12,13 @@ dotfiles=$HOME/.dotfiles
 # Check out submodules
 (cd $dotfiles && git submodule update --init )
 
-# Link in essentials
+# Create a binaries directory
+mkdir -p $HOME/.local/bin
+
+# Link in essential logical binaries
+ln -insv $dotfiles/ack/ack $HOME/.local/bin
+
+# Link in essential configuration files
 ln -insv $dotfiles/ack/ackrc         $HOME/.ackrc
 ln -insv $dotfiles/bash/bash_profile $HOME/.bash_profile
 ln -insv $dotfiles/bash/bashrc       $HOME/.bashrc
@@ -25,7 +31,7 @@ ln -insv $dotfiles/terminfo          $HOME/.terminfo
 ln -insv $dotfiles/vim/vimrc         $HOME/.vimrc
 ln -insv $dotfiles/vim               $HOME/.vim
 
-# Link in shell stuff.
+# Link in shell stuff
 while getopts :gmnptx opt
 do
     case $opt in
