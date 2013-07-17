@@ -3,19 +3,16 @@ Dotfiles
 
 Tom Ryder's personal repository of dotfiles. This is for those settings that
 migrate well from machine to machine and that I consider safe to publish.
+You're welcome to use them, but you'll probably want to fork it to remove
+anything peculiar to me or my setup that I've left in here.
 
-These are not really built for other people to use, but if you know a thing or
-two about Bash and Vim, you won't struggle.
+    $ git clone git://github.com/tejr/dotfiles.git ~/.dotfiles
 
-    $ cd 
-    $ git clone git://github.com/tejr/dotfiles.git .dotfiles
+There's an installation script, but it's pretty bare-bones, so don't run it
+without reading it first. You'll also need to have a recent enough version of
+Git to support [submodules][1].
 
-There's an installation script, but it's pretty bare-bones and might delete
-files you already have in place, so don't run it without reading it first.
-You'll also need to have a recent enough version of Git to support
-[submodules][1].
-
-    $ .dotfiles/install
+    $ ~/.dotfiles/install
 
 License
 -------
