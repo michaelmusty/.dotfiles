@@ -52,7 +52,7 @@ do
             ln -insv $dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg
             ;;
         t)
-            ln -insv $dotfiles/tmux/tmux.conf   $HOME/.tmux.conf
+            ln -insv $dotfiles/tmux/tmux.conf $HOME/.tmux.conf
             ;;
         x)
             mkdir -pv $HOME/.config
