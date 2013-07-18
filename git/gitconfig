@@ -26,4 +26,5 @@
     date = local
 
 [push]
-	default = matching
+    default = matching
+
