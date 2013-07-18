@@ -284,9 +284,9 @@ endif
 " Wrapping
 set display=lastline
 set nowrap
+nnoremap <leader>w :set wrap!<CR>
 nnoremap j gj
 nnoremap k gk
-nnoremap <leader>w :set wrap!<CR>
 if has('linebreak')
     set linebreak
     set showbreak=...
