@@ -158,8 +158,11 @@ endif
 
 " Spelling
 if has('spell')
-    set spelllang=en_nz
+    set nospell
     nnoremap <leader>s :setlocal spell!<CR>
+    set spelllang=en_nz
+    nnoremap <leader>u :setlocal spelllang=en_us<CR>
+    nnoremap <leader>z :setlocal spelllang=en_nz<CR>
 endif
 
 " State
