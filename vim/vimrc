@@ -1,15 +1,17 @@
-" Compatibility
+" Don't make any effort to be compatible with vi, use more sensible settings
 set nocompatible
 
-" Plugins
+" If Pathogen is available, call it to load all the plugins in .vim/bundles;
+" these are saved as submodules
 silent! call pathogen#infect()
 silent! call pathogen#helptags()
 
-" Filetypes
+" Load plugins and indentation for file types
 if has('autocmd')
     filetype indent plugin on
 
-    " Shortcuts
+    " Shortcuts to quickly switch to common file types; handy when using
+    " editing abstractions like sudoedit(8)
     nnoremap _ap :setlocal filetype=apache<CR>
     nnoremap _bi :setlocal filetype=bindzone<CR>
     nnoremap _cs :setlocal filetype=css<CR>
@@ -25,67 +27,149 @@ if has('autocmd')
     nnoremap _xm :setlocal filetype=xml<CR>
 endif
 
-" Backups
+" Use backup features if on a UNIX-like system and not using sudo(8)
 if !strlen($SUDO_USER) && has('unix')
+
+    " Keep backups with a .bak extension in ~/.vim/undo; the double-slash at
+    " the end of the directory is supposed to prod Vim into keeping the full
+    " path to the file in its backup filename to avoid collisions, but I don't
+    " think it actually works
     set backup
     set backupext=.bak
     set backupdir^=~/.vim/backup//
+
+    " This option already includes various temporary directories, but we
+    " append to it so that we don't back up anything in a shared memory
+    " filesystem either
     set backupskip+=*/shm/*
+
+    " Create the backup directory if necessary and possible
     if !isdirectory($HOME . '/.vim/backup') && exists('*mkdir')
         call mkdir($HOME . '/.vim/backup', 'p', 0700)
     endif
+
+" Don't use backups at all otherwise
 else
     set nobackup
     set nowritebackup
 endif
 
-" Colors
+" Options dependent on the syntax feature
 if has('syntax')
+
+    " Use syntax highlighting with a dark background
     syntax enable
     set background=dark
+
+    " Use my custom color scheme if possible
     silent! colorscheme sahara
+
+    " Get rid of visually noisy folding characters
     if has('folding')
         let &fillchars = 'diff: ,fold: ,vert: '
     endif
+
+    " Don't syntax highlight beyond 300 characters; mostly for efficiency
+    " reasons, but also useful for prodding me into breaking up unreadable
+    " long lines as well when writing code
     if exists('&synmaxcol')
         set synmaxcol=300
     endif
 endif
 
-" Commands
+" Command-line based features
 if has('cmdline_info')
+
+    " Show my current position in the status bar
     set ruler
+
+    " Show the keystrokes being entered in the screen
     set showcmd
+
+    " Show the mode we're using if not normal mode (e.g. --INSERT--)
     set showmode
 endif
+
+" Some mild heresy; use the familiar Readline bindings of ^A and ^E on the
+" command line to move to the start and end of the line respectively; note
+" that this also works when entering search terms
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
-" Completion
+" Don't try to complete strings from included files, just use the strings in
+" the open buffers; I'll open the file if I want to complete from it
 set complete-=i
+
+" I use the file completion feature quite a lot, but typing ^X ^F is
+" a bit unwieldy, so I abbreviate it to just ^F, the default behavior for
+" which I simply don't use
 inoremap <C-F> <C-X><C-F>
 
-" Digraphs
+" Vim lacks a built-in digraph for an ellipsis character (three dots); I like
+" to use the proper character in UTF-8 HTML documents so I nicked this from
+" Tim Pope
 if has('digraphs')
     digraph ./ 8230
 endif
 
-" Encoding
+" Try Mac line-endings if UNIX or DOS don't make sense; this has never
+" happened to me but who knows, it might one day
 set fileformats+=mac
+
+" Use UTF-8 by default wherever possible
 if has('multi_byte')
     set encoding=utf-8
 endif
 
-" Formatting
+" Adopt the indent of the last line on new lines; interestingly, plugins that
+" do clever things with indenting will often assume this is set
 set autoindent
+
+" Use tabs instead of spaces
 set expandtab
-set smarttab
-set nojoinspaces
-set shiftround
+
+" Indent with four spaces when an indent operation is used
 set shiftwidth=4
+
+" Insert four spaces when Tab is pressed
 set softtabstop=4
+
+" How many spaces to show for a literal tab when 'list' is unset
 set tabstop=4
+
+" Indent intelligently to 'shiftwidth' at the starts of lines with Tab, but
+" use 'tabstop' everywhere else
+set smarttab
+
+" When indenting lines with < or >, round the indent to a multiple of
+" shiftwidth, so even if the line is idented by one space it will indent
+" up to 4 and down to 0, for example
+set shiftround
+
+" Don't join lines with two spaces at the end of sentences; I don't two-space,
+" despite the noble Steve Losh's exhortations
+set nojoinspaces
+
+" Don't jump my screen around when I join lines, keep my cursor in the same
+" place; this is done by dropping a mark first and then immediately returning
+" to it; note that it wipes out your z mark, if you happen to use it
 nnoremap J mzJ`z
+
+"
+" Quick way to toggle flags in 'formatoptions' that I often want to change;
+" specifically:
+" 
+" a - Automatically format paragraphs, reapplying the wrap on every text
+"     insertion or deletion; sometimes I want this and sometimes I
+"     don't, it particularly varies when typing prose in Markdown that
+"     includes headings and code
+" c - Automatically wrap comments at 'textwidth' (which I allow the filetypes
+"     to set for me)
+" t - Automatically wrap text at 'textwidth' (as above)
+"
+" So I just have to type e.g. \a to toggle the auto-format flag on and off;
+" very handy
+"
 if has('eval')
     function! ToggleFormatFlag(flag)
         let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
@@ -97,55 +181,93 @@ if has('eval')
     nnoremap <silent> <leader>t :<C-U>call ToggleFormatFlag('t')<CR>
 endif
 
-" History
+" Keep plenty of command and search history, because disk space is cheap
 set history=2000
 
-" List
+" Don't show whitespace characters or end-of-line characters visually by
+" default, but make \l toggle between them
 set nolist
 nnoremap <leader>l :setlocal list!<CR>
 
-" Matching
+" Try to run the version of matchit.vim included in the distribution, if there
+" is one; extends % to match more than it does by default
 silent! runtime macros/matchit.vim
 
-" Messages
+" Don't show the Vim startup message, I have registered Vim and donated to
+" Uganda
 set shortmess+=I
 
-" Miscellaneous
+" Let me backspace over pretty much anything, even if it's not text I inserted
+" in the current session
 set backspace=indent,eol,start
+
+" Don't use modelines at all, they're apparently potential security problems
+" and I've never used them anyway
 set nomodeline
+
+" Don't assume a number with a leading zero is octal; it's far more likely a
+" zero-padded decimal, so increment and decrement with ^A and ^X on that basis
 set nrformats-=octal
+
+" Always tell me the number of lines changed by a command
 set report=0
+
+" Always use forward slashes, I very seldom need to use Vim on Windows for
+" more than scratch space anyway
 set shellslash
 
-" Netrw
+" Configure the netrw plugin included with Vim for file listings and network
+" editing
 if has('eval')
+
+    " Perform file transfers silently
     let g:netrw_silent = 1
+
+    " Use a tree-style file listing
     let g:netrw_liststyle = 3
+
+    " Don't list the current directory shortcut, and don't show tags files
     let g:netrw_list_hide = '^\.,^tags$'
 endif
 
-" Numbers
+" Don't show line numbers by default, but \n toggles them
 set nonumber
 nnoremap <leader>n :setlocal number!<CR>
 
-" Paste
+" Start paste mode with F10 to prevent console Vim from confusing a swathe of
+" pre-formatted pasted text with actual keyboard input, and thereby attempting
+" to indent it inappropriately
 set nopaste
 set pastetoggle=<F10>
 
-" Reading
+" If the Vim buffer for a file doesn't have any changes and Vim detects the
+" file has been altered, quietly update it
 set autoread
 
-" Scrolling
+" Allow the cursor to get to the top or bottom of the screen before scrolling
+" vertically, but set a reasonably wide gutter for scrolling horizontally; no
+" particular reason, just suits me better
 set scrolloff=0
 set sidescrolloff=16
 
-" Search
+" Some special settings for searching, if available
 if has('extra_search')
+
+    " Highlight search results, \h toggles this
     set hlsearch
+
+    " Searching as I enter my pattern, \i toggles this
     set incsearch
     nnoremap <leader>h :set hlsearch!<CR>
     nnoremap <leader>i :set incsearch!<CR>
+
+    " Pressing ^L will clear highlighting until the next search-related
+    " operation; quite good because the highlighting gets distracting after
+    " you've found what you wanted
     nnoremap <C-l> :nohlsearch<CR><C-l>
+
+    " Clear search highlighting as soon as I enter insert mode, and restore it
+    " once I leave it
     if has('autocmd')
         augroup highlight
             autocmd!
@@ -155,16 +277,24 @@ if has('extra_search')
     endif
 endif
 
-" Spelling
+" Configure spell checking features, if available
 if has('spell')
+
+    " Don't check spelling by default, but bind \s to toggle this
     set nospell
     nnoremap <leader>s :setlocal spell!<CR>
+
+    " Use New Zealand English for spelling by default (it's almost identical
+    " to British English), but bind \u to switch to US English and \z to
+    " switch back
     set spelllang=en_nz
     nnoremap <leader>u :setlocal spelllang=en_us<CR>
     nnoremap <leader>z :setlocal spelllang=en_nz<CR>
 endif
 
-" State
+" Don't keep .viminfo information for files in temporary directories or shared
+" memory filesystems; this is because they're used as scratch spaces for tools
+" like sudoedit(8) and pass(1) and hence could present a security problem
 if has('viminfo') && has('autocmd')
     augroup viminfoskip
         autocmd!
@@ -174,19 +304,30 @@ if has('viminfo') && has('autocmd')
     augroup END
 endif
 
-" Substitution
+" Preserve the flags for a pattern when repeating a substitution with &; I don't
+" really understand why this isn't a default, but there it is
 nnoremap & :&&<CR>
 vnoremap & :&&<CR>
 
-" Swaps
+" Swap files are used if using Unix and not using sudo(8); I very seldom need
+" them, but they are occasionally useful after a crash, and they don't really
+" get in the way if kept in their own directory
 if !strlen($SUDO_USER) && has('unix')
+
+    " Use swap files but keep them in ~/.vim/swap; the double-slash at the end
+    " of the directory prods Vim into keeping the full path to the file in its
+    " undo filename to avoid collisions
     set swapfile
     set directory^=~/.vim/swap//
+
+    " Create the ~/.vim/swap directory if necessary and possible
     if !isdirectory($HOME . '/.vim/swap') && exists('*mkdir')
         call mkdir($HOME . '/.vim/swap', 'p', 0700)
     endif
 
-    " Don't swap sensitive files
+    " Don't keep swap files for files in temporary directories or shared memory
+    " filesystems; this is because they're used as scratch spaces for tools
+    " like sudoedit(8) and pass(1) and hence could present a security problem
     if has('autocmd')
         augroup swapskip
             autocmd!
@@ -195,23 +336,40 @@ if !strlen($SUDO_USER) && has('unix')
                 \ setlocal noswapfile
         augroup END
     endif
+
+" Otherwise, don't use swap files at all
 else
     set noswapfile
 endif
 
-" Terminal
+" Don't bother about checking whether Escape is being used as a means to enter
+" a Meta-key combination, just register Escape immediately
 set noesckeys
+
+" Don't bother drawing the screen while executing macros or other automated or
+" scripted processes, just draw the screen as it is when the operation
+" completes
 set lazyredraw
+
+" Improve redrawing smoothness by assuming that my terminal is reasonably
+" fast
 set ttyfast
+
+" Never use any kind of bell, visual or not
 set visualbell t_vb=
 
-" Timeout
+" Require less than one second between keys for mappings to work correctly
 set timeout
 set timeoutlen=1000
+
+" Require less than a twentieth of a second between keys for key codes to work
+" correctly; I don't use Escape as a meta key anyway
 set ttimeout
 set ttimeoutlen=50
 
-" Typos
+" Tolerate typos like :Wq, :Q, or :Qa and do what I mean, including any
+" arguments or modifiers; I fat-finger these commands a lot because I type
+" them so rapidly, and they don't correspond to any other commands I use
 if has('user_commands')
     command! -bang -complete=file -nargs=? E e<bang> <args>
     command! -bang -complete=file -nargs=? W w<bang> <args>
@@ -224,11 +382,21 @@ if has('user_commands')
     command! -bang WA wa<bang>
 endif
 
-" Undo
+" Keep screeds of undo history
 set undolevels=2000
+
+" Keep undo history in a separate file if the feature is available, we're on
+" Unix, and not using sudo(8); this goes really well with undo visualization
+" plugins like Gundo or Undotree.
 if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
+
+    " Keep per-file undo history in ~/.vim/undo; the double-slash at the end
+    " of the directory prods Vim into keeping the full path to the file in its
+    " undo filename to avoid collisions
     set undofile
     set undodir^=~/.vim/undo//
+
+    " Create the ~/.vim/undo directory if necessary and possible
     if !isdirectory($HOME . '/.vim/undo') && exists('*mkdir')
         call mkdir($HOME . '/.vim/undo', 'p', 0700)
     endif
@@ -244,63 +412,109 @@ if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
     endif
 endif
 
-" Unmaps
+" Unmap F1, I don't use it, I prefer :help
 noremap <F1> <nop>
+
+" Unmap K, which normally pulls up the man(1) page for a given binary or
+" function; I don't find terribly helpful in most filetypes and often hit it
+" accidentally
 nnoremap K <nop>
+
+" Unmap Q, which normally starts an ex mode, which I've never wanted or needed
 nnoremap Q <nop>
 
-" Visual
+" When in visual block mode, let me move the cursor anywhere in the buffer;
+" don't restrict me only to regions with text
 if has('virtualedit')
     set virtualedit+=block
 endif
 
-" Wildmenu
+" Configuration for the command completion feature; rather than merely cycling
+" through possible completions with Tab, show them above the command line
 if has('wildmenu')
+
+    " Use the wild menu, both completing and showing all possible completions
+    " with a single Tab press, just as I've configured Bash to do
     set wildmenu
     set wildmode=longest:list
+
+    " Don't complete certain files that I'm not likely to want to manipulate
+    " from within Vim:
     if has('wildignore')
         set wildignore+=*.a,*.o
         set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
         set wildignore+=.DS_Store,.git,.hg,.svn
         set wildignore+=*~,*.swp,*.tmp
     endif
+
+    " Complete files without case sensitivity, if the option is available
     if exists('&wildignorecase')
         set wildignorecase
     endif
 endif
 
-" Windows
+" Configuration for window features
 if has('windows')
+
+    " Show the status in a distinct bar above the command line only if there's
+    " more than one window on the screen or in the current tab
     set laststatus=1
+
+    " New split windows appear below or to the right of the existing window,
+    " not above or to the left per the default
     set splitbelow
     if has('vertsplit')
         set splitright
     endif
+
+    " Only show the tab bar if there's more than one tab
     if exists('&showtabline')
         set showtabline=1
     endif
 endif
 
-" Wrapping
+" When wrapping text, if a line is so long that not all of it can be shown on
+" the screen, show as much as possible anyway; by default Vim fills the left
+" column with @ symbols instead, which I don't find very helpful
 set display=lastline
+
+" Don't wrap by default, but use \w to toggle it on or off quickly
 set nowrap
 nnoremap <leader>w :set wrap!<CR>
+
+" When wrapping, j and k should move by screen row, and not to the same
+" column number in the previous logical line, which feels very clumsy and is
+" seldom particularly helpful; you can use n| to jump to the nth column in a
+" line anyway if you need to
 nnoremap j gj
 nnoremap k gk
+
+" Break lines at word boundaries if possible and not simply at the last
+" character that will fit on the screen, preceding the next line with three
+" periods to make it obvious that it's a continuation of the previous line
 if has('linebreak')
     set linebreak
     set showbreak=...
 endif
 
-" Writing
+" Save a file automatically if I change buffers or perform operations with the
+" argument list; this is particularly helpful for me as I don't use 'hidden'
 set autowrite
+
+" I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
+" write of the current buffer, but doesn't quit, and ZA forces a write of all
+" buffers but doesn't quit
 nnoremap ZW :w!<CR>
 nnoremap ZA :wa!<CR>
 
-" Yanking
+" Change and delete with C and D both cut off the remainder of the line from
+" the cursor, but Y yanks the whole line, which is inconsistent (and can be
+" done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
 
-" Local
+" If a file named ~/.vimrc.local exists, source its configuration; this is
+" useful for defining FileType rules on systems which happen to have files of
+" a known type with atypical suffixes or locations
 if filereadable(glob('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
