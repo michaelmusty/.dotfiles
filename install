@@ -20,6 +20,7 @@ ln -insv $dotfiles/ack/ack $HOME/.local/bin
 
 # Link in essential configuration files
 ln -insv $dotfiles/ack/ackrc         $HOME/.ackrc
+ln -insv $dotfiles/bash/bash_logout  $HOME/.bash_logout
 ln -insv $dotfiles/bash/bash_profile $HOME/.bash_profile
 ln -insv $dotfiles/bash/bashrc       $HOME/.bashrc
 ln -insv $dotfiles/bash/bashrc.d     $HOME/.bashrc.d
