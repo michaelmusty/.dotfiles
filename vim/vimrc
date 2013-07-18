@@ -244,6 +244,10 @@ set pastetoggle=<F10>
 " file has been altered, quietly update it
 set autoread
 
+" Save a file automatically if I change buffers or perform operations with the
+" argument list; this is particularly helpful for me as I don't use 'hidden'
+set autowrite
+
 " Allow the cursor to get to the top or bottom of the screen before scrolling
 " vertically, but set a reasonably wide gutter for scrolling horizontally; no
 " particular reason, just suits me better
@@ -496,10 +500,6 @@ if has('linebreak')
     set linebreak
     set showbreak=...
 endif
-
-" Save a file automatically if I change buffers or perform operations with the
-" argument list; this is particularly helpful for me as I don't use 'hidden'
-set autowrite
 
 " I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
 " write of the current buffer, but doesn't quit, and ZA forces a write of all
