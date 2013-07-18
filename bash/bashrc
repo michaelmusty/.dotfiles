@@ -13,7 +13,7 @@ HISTTIMEFORMAT='%F %T  '
 
 # Don't tell me about mail
 unset MAILCHECK
-shopt -u mailwarn
+shopt -u mailwarn &>/dev/null
 
 # Autocorrect fudged paths in cd calls
 shopt -s cdspell &>/dev/null
