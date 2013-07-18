@@ -24,6 +24,7 @@ ln -insv $dotfiles/bash/bash_profile $HOME/.bash_profile
 ln -insv $dotfiles/bash/bashrc       $HOME/.bashrc
 ln -insv $dotfiles/bash/bashrc.d     $HOME/.bashrc.d
 ln -insv $dotfiles/curl/curlrc       $HOME/.curlrc
+ln -insv $dotfiles/git/gitconfig     $HOME/.gitconfig
 ln -insv $dotfiles/readline/inputrc  $HOME/.inputrc
 ln -insv $dotfiles/sh/profile        $HOME/.profile
 ln -insv $dotfiles/sh/profile.d      $HOME/.profile.d
@@ -36,7 +37,9 @@ while getopts :gmnptx opt
 do
     case $opt in
         g)
-            ln -insv $dotfiles/git/gitconfig $HOME/.gitconfig
+            mkdir -pv $HOME/.gnupg
+            ln -insv $dotfiles/gnupg/gpg.conf       $HOME/.gnupg
+            ln -insv $dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg
             ;;
         m)
             ln -insv $dotfiles/mutt/muttrc $HOME/.muttrc
@@ -45,11 +48,6 @@ do
         n)
             mkdir -pv $HOME/.config $HOME/.local/share/newsbeuter
             ln -insv $dotfiles/newsbeuter $HOME/.config
-            ;;
-        p)
-            mkdir -pv $HOME/.gnupg
-            ln -insv $dotfiles/gnupg/gpg.conf       $HOME/.gnupg
-            ln -insv $dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg
             ;;
         t)
             ln -insv $dotfiles/tmux/tmux.conf $HOME/.tmux.conf
