@@ -99,7 +99,7 @@ if has('eval')
 endif
 
 " History
-set history=1000
+set history=2000
 
 " List
 set nolist
@@ -226,7 +226,7 @@ if has('user_commands')
 endif
 
 " Undo
-set undolevels=1000
+set undolevels=2000
 if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
     set undofile
     set undodir^=~/.vim/undo//
