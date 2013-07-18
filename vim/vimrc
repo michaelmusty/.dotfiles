@@ -72,7 +72,7 @@ if has('digraphs')
 endif
 
 " Encoding
-set fileformats=unix,dos,mac
+set fileformats+=mac
 if has('multi_byte')
     set encoding=utf-8
 endif
