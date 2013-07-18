@@ -166,15 +166,13 @@ if has('spell')
 endif
 
 " State
-if has('viminfo')
-    if has('autocmd')
-        augroup viminfoskip
-            autocmd!
-            silent! autocmd BufNewFile,BufReadPre
-                \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                \ setlocal viminfo=
-        augroup END
-    endif
+if has('viminfo') && has('autocmd')
+    augroup viminfoskip
+        autocmd!
+        silent! autocmd BufNewFile,BufReadPre
+            \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+            \ setlocal viminfo=
+    augroup END
 endif
 
 " Substitution
