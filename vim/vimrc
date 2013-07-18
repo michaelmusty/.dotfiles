@@ -207,6 +207,8 @@ set ttyfast
 set visualbell t_vb=
 
 " Timeout
+set timeout
+set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=50
 
