@@ -57,11 +57,11 @@ endif
 " Options dependent on the syntax feature
 if has('syntax')
 
-    " Use syntax highlighting with a dark background
+    " Use syntax highlighting
     syntax enable
-    set background=dark
 
-    " Use my custom color scheme if possible
+    " Use my custom color scheme if possible, otherwise I'm happy with
+    " whatever the default is
     silent! colorscheme sahara
 
     " Get rid of visually noisy folding characters
