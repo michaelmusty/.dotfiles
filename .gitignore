@@ -1,4 +1,5 @@
 bash/bashrc.d/*
+!bash/bashrc.d/aliases.bash
 !bash/bashrc.d/cd.bash
 !bash/bashrc.d/grep.bash
 !bash/bashrc.d/ls.bash
