@@ -13,6 +13,7 @@ HISTTIMEFORMAT='%F %T  '
 
 # Don't tell me about mail
 unset MAILCHECK
+
 # Never beep at me
 setterm -bfreq 0 &>/dev/null
 
