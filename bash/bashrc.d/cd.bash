@@ -6,12 +6,10 @@ function cd {
         local opts="$opts -$opt"
     done
     shift $(($OPTIND-1))
-    if [[ -n "$2" ]]; then
+    if [[ $# -eq 2 ]]; then
         builtin cd $opts "${PWD/$1/$2}"
-    elif [[ -n "$1" ]]; then
-        builtin cd $opts "$1"
     else
-        builtin cd $opts
+        builtin cd $opts "$@"
     fi
 }
 
