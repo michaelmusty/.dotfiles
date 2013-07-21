@@ -64,11 +64,6 @@ if has('syntax')
     " whatever the default is
     silent! colorscheme sahara
 
-    " Get rid of visually noisy folding characters
-    if has('folding')
-        let &fillchars = 'diff: ,fold: ,vert: '
-    endif
-
     " Don't syntax highlight beyond 300 characters; mostly for efficiency
     " reasons, but also useful for prodding me into breaking up unreadable
     " long lines as well when writing code
@@ -474,6 +469,11 @@ if has('windows')
     " Only show the tab bar if there's more than one tab
     if exists('&showtabline')
         set showtabline=1
+    endif
+
+    " Get rid of visually noisy folding characters
+    if has('folding')
+        let &fillchars = 'diff: ,fold: ,vert: '
     endif
 endif
 
