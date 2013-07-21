@@ -477,6 +477,10 @@ if has('windows')
     endif
 endif
 
+" Use the tilde as an operator with motions, rather than just swapping the
+" case of the character under the cursor
+set tildeop
+
 " When wrapping text, if a line is so long that not all of it can be shown on
 " the screen, show as much as possible anyway; by default Vim fills the left
 " column with @ symbols instead, which I don't find very helpful
