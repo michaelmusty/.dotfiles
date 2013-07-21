@@ -34,7 +34,7 @@ ln -insv $dotfiles/vim/vimrc         $HOME/.vimrc
 ln -insv $dotfiles/vim               $HOME/.vim
 
 # Link in shell stuff
-while getopts :gmnptx opt
+while getopts :gmntx opt
 do
     case $opt in
         g)
