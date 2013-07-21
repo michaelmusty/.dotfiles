@@ -14,3 +14,6 @@ function __grepopts {
 # Alias grep with those options
 alias grep="grep $(__grepopts)"
 
+# Unset helper function
+unset __grepopts
+
