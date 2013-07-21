@@ -10,7 +10,7 @@ set -o nounset
 dotfiles=$HOME/.dotfiles
 
 # Check out submodules
-(cd $dotfiles && git submodule update --init )
+(cd $dotfiles && git submodule update --init)
 
 # Create a binaries directory
 mkdir -p $HOME/.local/bin
