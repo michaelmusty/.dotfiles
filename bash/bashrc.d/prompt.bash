@@ -29,22 +29,22 @@ function prompt {
 
         # Git prompt function
         git)
-            $(git rev-parse --is-inside-git-dir 2>/dev/null ) \
+            $(git rev-parse --is-inside-git-dir 2>/dev/null) \
                 && return 1
-            $(git rev-parse --is-inside-work-tree 2>/dev/null ) \
+            $(git rev-parse --is-inside-work-tree 2>/dev/null) \
                 || return 1
             git status &>/dev/null
-            branch=$(git symbolic-ref --quiet HEAD 2>/dev/null ) \
-                || branch=$(git rev-parse --short HEAD 2>/dev/null ) \
+            branch=$(git symbolic-ref --quiet HEAD 2>/dev/null) \
+                || branch=$(git rev-parse --short HEAD 2>/dev/null) \
                 || branch='unknown'
             branch=${branch##*/}
             git diff --quiet --ignore-submodules --cached \
                 || state=${state}+
             git diff-files --quiet --ignore-submodules -- \
                 || state=${state}!
-            $(git rev-parse --verify refs/stash &>/dev/null ) \
+            $(git rev-parse --verify refs/stash &>/dev/null) \
                 && state=${state}^
-            [ -n "$(git ls-files --others --exclude-standard )" ] \
+            [ -n "$(git ls-files --others --exclude-standard)" ] \
                 && state=${state}?
             printf '(git:%s)' "${branch:-unknown}${state}"
             ;;

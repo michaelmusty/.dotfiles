@@ -1,7 +1,7 @@
 # Function returns calculated options for grep
 function __grepopts {
     local grepopts='-I'
-    local grephelp=$(grep --help )
+    local grephelp=$(grep --help)
     echo $grephelp | grep -- --color &>/dev/null \
         && grepopts="${grepopts} --color=auto"
     echo $grephelp | grep -- --exclude &>/dev/null \
