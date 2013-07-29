@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# Just stop if any problems
-set -o errexit
-
-# Refuse to expand empty variables
-set -o nounset
-
 # Define dotfiles directory
 dotfiles="$HOME/.dotfiles"
 
