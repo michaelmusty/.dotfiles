@@ -137,7 +137,7 @@ set tabstop=4
 set smarttab
 
 " When indenting lines with < or >, round the indent to a multiple of
-" shiftwidth, so even if the line is idented by one space it will indent
+" 'shiftwidth', so even if the line is indented by one space it will indent
 " up to 4 and down to 0, for example
 set shiftround
 
@@ -517,7 +517,7 @@ nnoremap ZA :wa!<CR>
 nnoremap Y y$
 
 " If a file named ~/.vimrc.local exists, source its configuration; this is
-" useful for defining FileType rules on systems which happen to have files of
+" useful for defining filetype rules on systems which happen to have files of
 " a known type with atypical suffixes or locations
 if filereadable(glob('~/.vimrc.local'))
   source ~/.vimrc.local
