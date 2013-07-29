@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-# Define dotfiles directory
+# Define dotfiles directory and check it exists
 dotfiles="$HOME/.dotfiles"
+if [[ ! -n "$dotfiles" ]]
+then
+    echo "Could not find $dotfiles!" >&2
+fi
 
 # Check out submodules
 (cd -- "$dotfiles" && git submodule update --init)
