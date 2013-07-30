@@ -1,5 +1,5 @@
 " Replace Eunuch's remapping of :W
-if has("user_commands")
-    command! -bang -complete=file -nargs=? W w<bang> <args>
+if has('user_commands')
+  command! -bang -complete=file -nargs=? W w<bang> <args>
 endif
 

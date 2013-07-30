@@ -1,6 +1,6 @@
 " Only run this if function available
 if !exists(':AddTabularPattern')
-    finish
+  finish
 endif
 
 " Shortcut patterns for Tabular; first colon, semicolon, comma, equals sign
