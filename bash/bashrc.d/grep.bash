@@ -1,14 +1,14 @@
 # Function returns calculated options for grep
 __grepopts() {
     local grepopts='-I'
-    local grephelp=$(grep --help)
-    echo $grephelp | grep -- --color &>/dev/null \
+    local grephelp=$(grep --help 2>/dev/null)
+    [[ "$grephelp" == *--color* ]] \
         && grepopts="${grepopts} --color=auto"
-    echo $grephelp | grep -- --exclude &>/dev/null \
+    [[ "$grephelp" == *--exclude* ]] \
         && grepopts="${grepopts} --exclude=.git{,ignore,modules}"
-    echo $grephelp | grep -- --exclude-dir &>/dev/null \
+    [[ "$grephelp" == *--exclude-dir* ]] \
         && grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
-    echo $grepopts
+    printf '%s' $grepopts
 }
 
 # Alias grep with those options
