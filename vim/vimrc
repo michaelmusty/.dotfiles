@@ -516,6 +516,13 @@ nnoremap ZA :wa!<CR>
 " done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
 
+" Fedora's default environment adds a few auto commands that I don't like,
+" including the 'return to previous position in buffer' one; fortunately
+" they're nice enough to group the commands, so I can just clear them
+augroup fedora
+  autocmd!
+augroup END
+
 " If a file named ~/.vimrc.local exists, source its configuration; this is
 " useful for defining filetype rules on systems which happen to have files of
 " a known type with atypical suffixes or locations
