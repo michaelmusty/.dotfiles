@@ -1,10 +1,10 @@
 # Function returns calculated options for ls
 __lsopts() {
     local lsopts=
-    local lshelp=$(ls --help 2>/dev/null)
+    local lshelp="$(ls --help 2>/dev/null)"
     [[ "$lshelp" == *--color* ]] \
         && lsopts="${lsopts} --color=auto"
-    printf '%s' $lsopts
+    printf '%s' "$lsopts"
 }
 
 # Alias ls with these options
