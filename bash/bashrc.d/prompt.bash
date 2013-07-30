@@ -1,5 +1,5 @@
 # Frontend to controlling prompt
-function prompt {
+prompt() {
     local ret=$?
     local colors=$(tput colors 2>/dev/null)
     local color reset branch state url root

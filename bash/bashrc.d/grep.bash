@@ -1,5 +1,5 @@
 # Function returns calculated options for grep
-function __grepopts {
+__grepopts() {
     local grepopts='-I'
     local grephelp=$(grep --help)
     echo $grephelp | grep -- --color &>/dev/null \
