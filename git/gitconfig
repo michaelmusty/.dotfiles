@@ -13,6 +13,9 @@
 [advice]
     statusHints = false
 
+[alias]
+    ack = grep --break --heading --line-number --extended-regexp
+
 [color]
     ui = true
 
@@ -21,6 +24,10 @@
 
 [difftool]
     prompt = false
+
+[grep]
+	extendRegexp = true
+    lineNumber = true
 
 [log]
     date = local
