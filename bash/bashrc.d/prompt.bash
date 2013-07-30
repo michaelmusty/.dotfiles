@@ -1,7 +1,7 @@
 # Frontend to controlling prompt
 prompt() {
-    local ret=$?
-    local colors=$(tput colors 2>/dev/null)
+    local -i ret=$?
+    local -i colors=$(tput colors 2>/dev/null)
     local color reset branch state url root
 
     if [[ $colors -ge 256 ]]; then
