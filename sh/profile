@@ -1,9 +1,11 @@
 # Set editor
-export EDITOR='vi'
-export VISUAL="$EDITOR"
+EDITOR='vi'
+VISUAL="$EDITOR"
+export EDITOR VISUAL
 
 # Set pager
-export PAGER='less'
+PAGER='less'
+export PAGER
 
 # Add ~/.local/bin to PATH
 if [ -d "$HOME/.local/bin" ]; then
