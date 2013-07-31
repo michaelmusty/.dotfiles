@@ -2,7 +2,7 @@
 prompt() {
     local -i ret=$?
     local -i colors=$(tput colors 2>/dev/null)
-    local color reset branch state url root
+    local color reset branch state info url root
 
     if [[ $colors -ge 256 ]]; then
         color='\[\e[38;5;10m\]'
@@ -71,10 +71,11 @@ prompt() {
             if ! svn info &>/dev/null; then
                 return 1
             fi
-            url="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "URL" {print $2}')"
-            root="$(svn info 2>/dev/null | \
-                awk -F': ' '$1 == "Repository Root" {print $2}')"
+            info="$(svn info 2>/dev/null)"
+            url="$(awk -F': ' '$1 == "URL" {print $2}' \
+                <<<"$info")"
+            root="$(awk -F': ' '$1 == "Repository Root" {print $2}' \
+                <<<"$info")"
             branch=${url/$root}
             branch=${branch#/}
             branch=${branch#branches/}
