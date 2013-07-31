@@ -15,5 +15,7 @@ alias ls="ls $(__lsopts)"
 unset __lsopts
 
 # Apply color and exclusions to ls and grep
-eval "$(dircolors --sh)"
+if command -v dircolors >/dev/null; then
+    eval "$(dircolors --sh)"
+fi
 
