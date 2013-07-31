@@ -153,7 +153,7 @@ nnoremap J mzJ`z
 "
 " Quick way to toggle flags in 'formatoptions' that I often want to change;
 " specifically:
-" 
+"
 " a - Automatically format paragraphs, reapplying the wrap on every text
 "     insertion or deletion; sometimes I want this and sometimes I
 "     don't, it particularly varies when typing prose in Markdown that

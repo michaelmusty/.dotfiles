@@ -15,7 +15,7 @@ prompt() {
     case "$1" in
 
         # Turn complex coloured prompt on
-        on) 
+        on)
             PROMPT_COMMAND='history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
             PS1="${color}${PS1}${reset} "
