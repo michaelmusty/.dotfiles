@@ -1,5 +1,7 @@
 # Don't do anything if not running interactively
-[[ -z "$PS1" ]] && return
+if [[ -z "$PS1" ]]; then
+    return
+fi
 
 # Keep plenty of history
 HISTFILESIZE=1000000
@@ -21,13 +23,13 @@ setterm -bfreq 0 &>/dev/null
 stty -ixon &>/dev/null
 
 # Use completion, if available
-[[ -r /etc/bash_completion ]] && source /etc/bash_completion
+if [[ -r /etc/bash_completion ]]; then
+    source /etc/bash_completion
+fi
 
 # Load any supplementary scripts
-if [[ -d "$HOME/.bashrc.d" ]]
-then
-    for file in $HOME/.bashrc.d/*
-    do
+if [[ -d "$HOME/.bashrc.d" ]]; then
+    for file in $HOME/.bashrc.d/*; do
         source $file
     done
 fi

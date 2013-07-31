@@ -2,12 +2,15 @@
 __grepopts() {
     local grepopts='-I'
     local grephelp="$(grep --help 2>/dev/null)"
-    [[ "$grephelp" == *--color* ]] \
-        && grepopts="${grepopts} --color=auto"
-    [[ "$grephelp" == *--exclude* ]] \
-        && grepopts="${grepopts} --exclude=.git{,ignore,modules}"
-    [[ "$grephelp" == *--exclude-dir* ]] \
-        && grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
+    if [[ "$grephelp" == *--color* ]]; then
+        grepopts="${grepopts} --color=auto"
+    fi
+    if [[ "$grephelp" == *--exclude* ]]; then
+        grepopts="${grepopts} --exclude=.git{,ignore,modules}"
+    fi
+    if [[ "$grephelp" == *--exclude-dir* ]]; then
+        grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
+    fi
     printf '%s' "$grepopts"
 }
 

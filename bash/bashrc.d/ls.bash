@@ -2,8 +2,9 @@
 __lsopts() {
     local lsopts=
     local lshelp="$(ls --help 2>/dev/null)"
-    [[ "$lshelp" == *--color* ]] \
-        && lsopts="${lsopts} --color=auto"
+    if [[ "$lshelp" == *--color* ]]; then
+        lsopts="${lsopts} --color=auto"
+    fi
     printf '%s' "$lsopts"
 }
 

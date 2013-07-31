@@ -29,37 +29,48 @@ prompt() {
 
         # Git prompt function
         git)
-            $(git rev-parse --is-inside-git-dir 2>/dev/null) \
-                && return 1
-            $(git rev-parse --is-inside-work-tree 2>/dev/null) \
-                || return 1
+            if $(git rev-parse --is-inside-git-dir 2>/dev/null); then
+                return 1
+            fi
+            if ! $(git rev-parse --is-inside-work-tree 2>/dev/null); then
+                return 1
+            fi
             git status &>/dev/null
             branch=$(git symbolic-ref --quiet HEAD 2>/dev/null) \
                 || branch=$(git rev-parse --short HEAD 2>/dev/null) \
                 || branch='unknown'
             branch=${branch##*/}
-            git diff --quiet --ignore-submodules --cached \
-                || state=${state}+
-            git diff-files --quiet --ignore-submodules -- \
-                || state=${state}!
-            $(git rev-parse --verify refs/stash &>/dev/null) \
-                && state=${state}^
-            [ -n "$(git ls-files --others --exclude-standard)" ] \
-                && state=${state}?
+            if ! git diff --quiet --ignore-submodules --cached; then
+                state=${state}+
+            fi
+            if ! git diff-files --quiet --ignore-submodules --; then
+                state=${state}!
+            fi
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                state=${state}^
+            fi
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                state=${state}?
+            fi
             printf '(git:%s)' "${branch:-unknown}${state}"
             ;;
 
         # Mercurial prompt function
         hg)
-            hg branch &>/dev/null || return 1
-            branch="$(hg branch 2>/dev/null)"
-            [[ -n "$(hg status 2>/dev/null)" ]] && state="!"
+            if ! branch="$(hg branch 2>/dev/null)"; then
+                return 1
+            fi
+            if [[ -n "$(hg status 2>/dev/null)" ]]; then
+                state="!"
+            fi
             printf '(hg:%s)' "${branch:-unknown}${state}"
             ;;
 
         # Subversion prompt function
         svn)
-            svn info &>/dev/null || return 1
+            if ! svn info &>/dev/null; then
+                return 1
+            fi
             url="$(svn info 2>/dev/null | \
                 awk -F': ' '$1 == "URL" {print $2}')"
             root="$(svn info 2>/dev/null | \
@@ -68,7 +79,9 @@ prompt() {
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}
-            [[ -n "$(svn status 2>/dev/null)" ]] && state="!"
+            if [[ -n "$(svn status 2>/dev/null)" ]]; then
+                state="!"
+            fi
             printf '(svn:%s)' "${branch:-unknown}${state}"
             ;;
 
@@ -79,12 +92,16 @@ prompt() {
 
         # Return status prompt function
         return)
-            [[ $ret -ne 0 ]] && printf '<%d>' ${ret}
+            if [[ $ret -ne 0 ]]; then
+                printf '<%d>' ${ret}
+            fi
             ;;
 
         # Job count prompt function
         jobs)
-            [[ -n "$(jobs)" ]] && printf '{%d}' $(jobs | sed -n '$=')
+            if [[ -n "$(jobs)" ]]; then
+                printf '{%d}' $(jobs | sed -n '$=')
+            fi
             ;;
     esac
 }
