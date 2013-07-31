@@ -7,13 +7,13 @@ export EDITOR VISUAL
 PAGER='less'
 export PAGER
 
-# Add ~/.local/bin to PATH
+# Add ~/.local/bin to PATH if it exists
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 export PATH
 
-# Load any supplementary scripts
+# Load all supplementary scripts in ~/.profile.d
 if [ -d "$HOME/.profile.d" ]; then
     for file in $HOME/.profile.d/*; do
         . $file
