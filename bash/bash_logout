@@ -1,6 +1,6 @@
 # Clear console if possible when logging out
 if [[ "$SHLVL" = 1 ]]; then
-    command -v clear_console &>/dev/null \
+    command -v clear_console >/dev/null \
         && clear_console -q
 fi
 
