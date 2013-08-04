@@ -3,26 +3,38 @@ prompt() {
 
     # Variables for use only within this function
     local -i ret=$?
-    local -i colors=$(tput colors 2>/dev/null)
     local color reset branch state info url root
-
-    # Figure out how many colors we have to work with
-    if [[ $colors -ge 256 ]]; then
-        color='\[\e[38;5;10m\]'
-        reset='\[\e[0m\]'
-    elif [[ $colors -ge 8 ]]; then
-        color='\[\e[1;32m\]'
-        reset='\[\e[0m\]'
-    fi
 
     # What's done next depends on the first argument to the function
     case "$1" in
 
-        # Turn complex coloured prompt on
+        # Turn complex, colored prompt on
         on)
             PROMPT_COMMAND='history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
-            PS1="${color}${PS1}${reset} "
+
+            # If we have tput available, get some color codes
+            if command -v tput &>/dev/null; then
+
+                # Check if we have non-bold bright green available
+                if [[ "$(tput colors)" -gt 8 ]]; then
+                    color="$(tput setaf 10)"
+
+                # If we don't, fall back to the bold green
+                else
+                    color="$(tput setaf 2)$(tput bold)"
+                fi
+
+                # Reset color and attributes
+                reset="$(tput sgr0)"
+
+                # String it all together
+                PS1="\\[$color\\]$PS1\\[$reset\\] "
+
+            # No colors, just add a space
+            else
+                PS1="$PS1 "
+            fi
             ;;
 
         # Revert to simple inexpensive prompt

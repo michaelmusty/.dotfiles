@@ -2,7 +2,7 @@
 __grepopts() {
     local grepopts='-I'
     local grephelp="$(grep --help 2>/dev/null)"
-    if [[ "$grephelp" == *--color* ]]; then
+    if [[ "$grephelp" == *--color* && "$(tput colors)" -ge 8 ]]; then
         grepopts="${grepopts} --color=auto"
     fi
     if [[ "$grephelp" == *--exclude* ]]; then
