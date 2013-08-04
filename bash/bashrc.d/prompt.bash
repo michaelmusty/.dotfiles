@@ -11,7 +11,7 @@ prompt() {
         # Turn complex, colored prompt on
         on)
             PROMPT_COMMAND='history -a'
-            PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
+            PS1='\[\a\][\u@\h:\w]$(prompt ret)$(prompt vcs)$(prompt job)\$'
 
             # Check if we have non-bold bright green available
             if [[ "$(tput colors)" -gt 8 ]]; then
@@ -143,14 +143,14 @@ prompt() {
             ;;
 
         # Show the return status of the last command in angle brackets
-        return)
+        ret)
             if [[ $ret -ne 0 ]]; then
                 printf '<%d>' "$ret"
             fi
             ;;
 
         # Show the count of background jobs in curly brackets
-        jobs)
+        job)
             if [[ -n "$(jobs)" ]]; then
                 printf '{%d}' "$(jobs | sed -n '$=')"
             fi
