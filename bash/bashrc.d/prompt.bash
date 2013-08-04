@@ -13,28 +13,20 @@ prompt() {
             PROMPT_COMMAND='history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt return)$(prompt vcs)$(prompt jobs)\$'
 
-            # If we have tput available, get some color codes
-            if command -v tput &>/dev/null; then
+            # Check if we have non-bold bright green available
+            if [[ "$(tput colors)" -gt 8 ]]; then
+                color="$(tput setaf 10)"
 
-                # Check if we have non-bold bright green available
-                if [[ "$(tput colors)" -gt 8 ]]; then
-                    color="$(tput setaf 10)"
-
-                # If we don't, fall back to the bold green
-                else
-                    color="$(tput setaf 2)$(tput bold)"
-                fi
-
-                # Reset color and attributes
-                reset="$(tput sgr0)"
-
-                # String it all together
-                PS1="\\[$color\\]$PS1\\[$reset\\] "
-
-            # No colors, just add a space
+            # If we don't, fall back to the bold green
             else
-                PS1="$PS1 "
+                color="$(tput setaf 2)$(tput bold)"
             fi
+
+            # Reset color and attributes
+            reset="$(tput sgr0)"
+
+            # String it all together
+            PS1="\\[$color\\]$PS1\\[$reset\\] "
             ;;
 
         # Revert to simple inexpensive prompt
