@@ -7,7 +7,12 @@ __cd() {
     done
     shift "$(($OPTIND-1))"
     if [[ "$#" -eq 2 ]]; then
-        builtin cd $opts "${PWD/$1/$2}"
+        if [[ "$PWD" == *"$1"* ]]; then
+            builtin cd $opts "${PWD/$1/$2}"
+        else
+            printf 'bash: cd: could not replace substring\n'
+            return 1
+        fi
     else
         builtin cd $opts "$@"
     fi
