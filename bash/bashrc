@@ -32,9 +32,9 @@ if [[ -r /etc/bash_completion ]]; then
 fi
 
 # Load any supplementary scripts
-if [[ -d "$HOME/.bashrc.d" ]]; then
-    for file in $HOME/.bashrc.d/*; do
-        source $file
+if [[ -d "${HOME}/.bashrc.d" ]]; then
+    for file in "${HOME}/.bashrc.d"/*; do
+        source "$file"
     done
 fi
 
