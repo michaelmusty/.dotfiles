@@ -1,9 +1,10 @@
 # If given two arguments to cd, replace the first with the second in $PWD,
 # emulating a Zsh function that I often find useful; preserves options too
 __cd() {
+    local opts=
     while getopts lPe opt
     do
-        local opts="$opts -$opt"
+        opts="$opts -$opt"
     done
     shift $(($OPTIND-1))
     if [[ $# -eq 2 ]]; then
