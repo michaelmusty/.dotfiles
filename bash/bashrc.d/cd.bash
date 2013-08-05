@@ -2,7 +2,7 @@
 # emulating a Zsh function that I often find useful; preserves options too
 __cd() {
     local opts=
-    while getopts lPe opt; do
+    while getopts elP opt; do
         opts="$opts -$opt"
     done
     shift $(($OPTIND-1))
