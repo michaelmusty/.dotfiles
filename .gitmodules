@@ -58,25 +58,9 @@
 	path = vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
 	ignore = dirty
-[submodule "vim/bundle/tbone"]
-	path = vim/bundle/tbone
-	url = git://github.com/tpope/vim-tbone.git
-	ignore = dirty
 [submodule "vim/bundle/characterize"]
 	path = vim/bundle/characterize
 	url = git://github.com/tpope/vim-characterize.git
-	ignore = dirty
-[submodule "vim/bundle/obsession"]
-	path = vim/bundle/obsession
-	url = git://github.com/tpope/vim-obsession.git
-	ignore = dirty
-[submodule "vim/bundle/capslock"]
-	path = vim/bundle/capslock
-	url = git://github.com/tpope/vim-capslock.git
-	ignore = dirty
-[submodule "vim/bundle/gnupg"]
-	path = vim/bundle/gnupg
-	url = git://github.com/jamessan/vim-gnupg
 	ignore = dirty
 [submodule "vim/bundle/twig"]
 	path = vim/bundle/twig
@@ -89,3 +73,4 @@
 [submodule "vim/bundle/ack"]
 	path = vim/bundle/ack
 	url = git://github.com/mileszs/ack.vim
+    ignore = dirty
