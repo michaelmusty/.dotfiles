@@ -2,8 +2,7 @@
 
 # Define dotfiles directory and check it exists
 dotfiles="$HOME/.dotfiles"
-if [[ ! -n "$dotfiles" ]]
-then
+if [[ ! -n "$dotfiles" ]]; then
     echo "Could not find ${dotfiles}!" >&2
     exit 1
 fi
