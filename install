@@ -32,8 +32,7 @@ ln -insv -- "$dotfiles/vim/vimrc"         "$HOME/.vimrc"
 ln -insv -- "$dotfiles/vim"               "$HOME/.vim"
 
 # Link in shell stuff
-while getopts :gmntx opt
-do
+while getopts :gmntx opt; do
     case "$opt" in
         g)
             mkdir -pv -- "$HOME/.gnupg"
