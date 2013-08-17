@@ -10,7 +10,7 @@ __cd() {
         if [[ "$PWD" == *"$1"* ]]; then
             builtin cd "${opts[@]}" "${PWD/$1/$2}"
         else
-            printf 'bash: cd: could not replace substring\n' >&2
+            printf "bash: cd: could not replace substring\n" >&2
             return 1
         fi
     else
