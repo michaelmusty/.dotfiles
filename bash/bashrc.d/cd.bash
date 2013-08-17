@@ -3,10 +3,10 @@
 __cd() {
     local -a opts
     while getopts elP opt; do
-        opts["${#opts[@]}"]="-$opt"
+        opts[${#opts[@]}]="-$opt"
     done
-    shift "$(($OPTIND-1))"
-    if [[ "$#" -eq 2 ]]; then
+    shift $(($OPTIND-1))
+    if [[ $# -eq 2 ]]; then
         if [[ "$PWD" == *"$1"* ]]; then
             builtin cd "${opts[@]}" "${PWD/$1/$2}"
         else
