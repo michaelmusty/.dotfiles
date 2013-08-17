@@ -6,7 +6,7 @@ __cd() {
         opts[${#opts[@]}]="-$opt"
     done
     shift $(($OPTIND-1))
-    if [[ $# -eq 2 ]]; then
+    if (($# == 2)); then
         if [[ "$PWD" == *"$1"* ]]; then
             builtin cd "${opts[@]}" "${PWD/$1/$2}"
         else
