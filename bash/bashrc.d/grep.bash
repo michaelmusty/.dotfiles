@@ -3,7 +3,8 @@ __grepopts() {
     local -a grepopts
     local grephelp="$(grep --help 2>/dev/null)"
     grepopts[${#grepopts[@]}]='-I'
-    if [[ "$grephelp" == *--color* && "$(tput colors)" -ge 8 ]]; then
+    local -i colors="$(tput colors)"
+    if [[ "$grephelp" == *--color* ]] && ((colors >= 8)); then
         grepopts[${#grepopts[@]}]='--color=auto'
     fi
     if [[ "$grephelp" == *--exclude* ]]; then

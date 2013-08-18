@@ -2,7 +2,8 @@
 __lsopts() {
     local -a lsopts
     local lshelp="$(ls --help 2>/dev/null)"
-    if [[ "$lshelp" == *--color* && "$(tput colors)" -ge 8 ]]; then
+    local -i colors="$(tput colors)"
+    if [[ "$lshelp" == *--color* ]] && ((colors >= 8)); then
         lsopts[${#lsopts[@]}]='--color=auto'
     fi
     printf -- "${lsopts[*]}"
