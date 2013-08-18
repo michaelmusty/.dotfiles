@@ -1,17 +1,18 @@
 # Function returns calculated options for grep
 __grepopts() {
-    local grepopts='-I'
+    local -a grepopts
     local grephelp="$(grep --help 2>/dev/null)"
+    grepopts[${#grepopts[@]}]='-I'
     if [[ "$grephelp" == *--color* && "$(tput colors)" -ge 8 ]]; then
-        grepopts="${grepopts} --color=auto"
+        grepopts[${#grepopts[@]}]='--color=auto'
     fi
     if [[ "$grephelp" == *--exclude* ]]; then
-        grepopts="${grepopts} --exclude=.git{,ignore,modules}"
+        grepopts[${#grepopts[@]}]='--exclude=.git{,ignore,modules}'
     fi
     if [[ "$grephelp" == *--exclude-dir* ]]; then
-        grepopts="${grepopts} --exclude-dir=.{cvs,git,hg,svn}"
+        grepopts[${#grepopts[@]}]='--exclude-dir=.{cvs,git,hg,svn}'
     fi
-    printf '%s' "$grepopts"
+    printf -- "${grepopts[*]}"
 }
 
 # Alias grep with those options
