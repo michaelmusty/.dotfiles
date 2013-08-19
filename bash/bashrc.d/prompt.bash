@@ -2,7 +2,7 @@
 prompt() {
 
     # Variables for use only within this function
-    local -i ret="$?"
+    local -i ret=$?
     local color reset branch state info url root
 
     # What's done next depends on the first argument to the function
