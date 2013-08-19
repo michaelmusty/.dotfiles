@@ -3,6 +3,7 @@ prompt() {
 
     # Variables for use only within this function
     local -i ret=$?
+    local -i colors="$(tput colors)"
     local color reset branch state info url root
 
     # What's done next depends on the first argument to the function
@@ -14,7 +15,7 @@ prompt() {
             PS1='\[\a\][\u@\h:\w]$(prompt ret)$(prompt vcs)$(prompt job)\$'
 
             # Check if we have non-bold bright green available
-            if [[ "$(tput colors)" -gt 8 ]]; then
+            if ((colors > 8)); then
                 color="$(tput setaf 10)"
 
             # If we don't, fall back to the bold green
@@ -144,7 +145,7 @@ prompt() {
 
         # Show the return status of the last command in angle brackets
         ret)
-            if [[ $ret -ne 0 ]]; then
+            if ((ret > 0)); then
                 printf '<%d>' "$ret"
             fi
             ;;
