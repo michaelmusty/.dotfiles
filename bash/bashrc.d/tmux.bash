@@ -2,7 +2,7 @@
 tmux() {
 
     # If any arguments to function, just run tmux as normal with them
-    if [[ -n "$@" ]]; then
+    if (($# > 0)); then
         command tmux "$@"
 
     # If no arguments, attempt to attach to an existing session; if that fails,
