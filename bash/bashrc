@@ -1,5 +1,5 @@
 # Don't do anything if not running interactively
-if [[ -z "$PS1" ]]; then
+if [[ -z $PS1 ]]; then
     return
 fi
 
@@ -32,7 +32,7 @@ if [[ -r /etc/bash_completion ]]; then
 fi
 
 # Load any supplementary scripts
-if [[ -d "$HOME/.bashrc.d" ]]; then
+if [[ -d $HOME/.bashrc.d ]]; then
     for file in "$HOME/.bashrc.d"/*; do
         source "$file"
     done

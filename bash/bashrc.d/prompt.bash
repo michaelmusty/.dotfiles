@@ -96,7 +96,7 @@ prompt() {
 
             # If there are changes in the tree, add an exclamation mark to the
             # state
-            if [[ -n "$(hg status 2>/dev/null)" ]]; then
+            if [[ -n $(hg status 2>/dev/null) ]]; then
                 state="!"
             fi
 
@@ -129,7 +129,7 @@ prompt() {
 
             # If there are changes in the working directory, add an exclamation
             # mark to the state
-            if [[ -n "$(svn status 2>/dev/null)" ]]; then
+            if [[ -n $(svn status 2>/dev/null) ]]; then
                 state="!"
             fi
 
@@ -151,7 +151,7 @@ prompt() {
 
         # Show the count of background jobs in curly brackets
         job)
-            if [[ -n "$(jobs)" ]]; then
+            if [[ -n $(jobs) ]]; then
                 printf '{%d}' "$(jobs | sed -n '$=')"
             fi
             ;;

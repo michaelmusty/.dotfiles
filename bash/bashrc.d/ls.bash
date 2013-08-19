@@ -10,12 +10,12 @@ __lsopts() {
     # If the --color option is available and we have a terminal that supports
     # at least eight colors, add --color=auto to the options
     local -i colors="$(tput colors)"
-    if [[ "$lshelp" == *--color* ]] && ((colors >= 8)); then
+    if [[ $lshelp == *--color* ]] && ((colors >= 8)); then
         lsopts[${#lsopts[@]}]='--color=auto'
     fi
 
     # Print the options as a single string, space-delimited
-    printf -- "${lsopts[*]}"
+    printf '%s' "${lsopts[*]}"
 }
 
 # Alias ls with these options
