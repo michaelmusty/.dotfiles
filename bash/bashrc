@@ -21,9 +21,9 @@ if command -v setterm &>/dev/null; then
     setterm -bfreq 0
 fi
 
-# Turn off annoying and useless flow control keys
+# Turn off flow control and control character echo
 if command -v stty &>/dev/null; then
-    stty -ixon
+    stty -ixon -ctlecho
 fi
 
 # Use completion, if available
