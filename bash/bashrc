@@ -1,5 +1,5 @@
 # Don't do anything if not running interactively
-if [[ -z $PS1 ]]; then
+if [[ $- != *i* ]]; then
     return
 fi
 
