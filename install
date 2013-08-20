@@ -33,7 +33,7 @@ ln -insv -- "$dotfiles/vim"               "$HOME/.vim"
 
 # Link in shell stuff
 while getopts :gmntx opt; do
-    case "$opt" in
+    case $opt in
         g)
             mkdir -pv -- "$HOME/.gnupg"
             ln -insv -- "$dotfiles/gnupg/gpg.conf"       "$HOME/.gnupg"

@@ -6,7 +6,7 @@ prompt() {
     local color reset branch state info url root
 
     # What's done next depends on the first argument to the function
-    case "$1" in
+    case $1 in
 
         # Turn complex, colored prompt on
         on)
