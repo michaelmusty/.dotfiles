@@ -33,9 +33,9 @@ fi
 
 # Load any supplementary scripts
 if [[ -d $HOME/.bashrc.d ]]; then
-    for file in "$HOME"/.bashrc.d/*; do
-        source "$file"
+    for config in "$HOME"/.bashrc.d/*; do
+        source "$config"
     done
 fi
-unset file
+unset config
 

@@ -15,9 +15,9 @@ export PATH
 
 # Load all supplementary scripts in ~/.profile.d
 if [ -d "$HOME"/.profile.d ]; then
-    for file in "$HOME"/.profile.d/*; do
-        . "$file"
+    for config in "$HOME"/.profile.d/*; do
+        . "$config"
     done
 fi
-unset file
+unset config
 
