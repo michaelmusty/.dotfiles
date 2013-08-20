@@ -5,11 +5,11 @@ __lsopts() {
     local -a lsopts
 
     # Snarf the output of `ls --help` into a variable
-    local lshelp="$(ls --help 2>/dev/null)"
+    local lshelp=$(ls --help 2>/dev/null)
 
     # If the --color option is available and we have a terminal that supports
     # at least eight colors, add --color=auto to the options
-    local -i colors="$(tput colors)"
+    local -i colors=$(tput colors)
     if [[ $lshelp == *--color* ]] && ((colors >= 8)); then
         lsopts[${#lsopts[@]}]='--color=auto'
     fi

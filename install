@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define dotfiles directory and check it exists
-dotfiles="$HOME/.dotfiles"
+dotfiles=$HOME/.dotfiles
 if [[ ! -d $dotfiles ]]; then
     printf "Could not find $dotfiles!\n" >&2
     exit 1

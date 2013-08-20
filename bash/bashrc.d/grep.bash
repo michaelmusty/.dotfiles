@@ -5,7 +5,7 @@ __grepopts() {
     local -a grepopts
 
     # Snarf the output of `grep --help` into a variable
-    local grephelp="$(grep --help 2>/dev/null)"
+    local grephelp=$(grep --help 2>/dev/null)
 
     # Add option to ignore binary files
     grepopts[${#grepopts[@]}]='-I'
@@ -22,7 +22,7 @@ __grepopts() {
 
     # If the --color option is available and we have a terminal that supports
     # at least eight colors, add --color=auto to the options
-    local -i colors="$(tput colors)"
+    local -i colors=$(tput colors)
     if [[ $grephelp == *--color* ]] && ((colors >= 8)); then
         grepopts[${#grepopts[@]}]='--color=auto'
     fi

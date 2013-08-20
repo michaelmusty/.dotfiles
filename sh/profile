@@ -1,6 +1,6 @@
 # Set editor
 EDITOR='vi'
-VISUAL="$EDITOR"
+VISUAL=$EDITOR
 export EDITOR VISUAL
 
 # Set pager
