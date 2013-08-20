@@ -114,7 +114,7 @@ prompt() {
 
             # Determine the repository URL and root directory
             info=$(svn info 2>/dev/null)
-            url=$(awk -F': ' '$1 == URL" {print $2}' <<<"$info")
+            url=$(awk -F': ' '$1 == "URL" {print $2}' <<<"$info")
             root=$(awk -F': ' '$1 == "Repository Root" {print $2}' <<<"$info")
 
             # Remove the root from the URL to get what's hopefully the branch
