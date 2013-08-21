@@ -78,7 +78,7 @@ prompt() {
 
             # If there are any new unignored files in the working tree, add a
             # question mark to the state
-            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            if [[ -n $(git ls-files --others --exclude-standard) ]]; then
                 state=$state?
             fi
 
