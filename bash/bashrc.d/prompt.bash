@@ -32,7 +32,7 @@ prompt() {
         # Revert to simple inexpensive prompt
         off)
             PROMPT_COMMAND=
-            PS1='\[\a\]\$ '
+            PS1='\$ '
             ;;
 
         # Git prompt function
