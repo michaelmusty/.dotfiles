@@ -1,10 +1,36 @@
+# Never ring any sort of bell during line reading
 set bell-style none
-set completion-ignore-case on
-set completion-map-case on
+
+# Ignore case when matching and completing paths
+set completion-ignore-case On
+
+# Treat underscores and hyphens the same way for completion purposes
+set completion-map-case On
+
+# Show me up to 5,000 completion items, don't be shy
 set completion-query-items 5000
-set echo-control-characters off
+
+# Don't display control characters like ^C if I input them
+set echo-control-characters Off
+
+# Use Emacs-style bindings
 set editing-mode emacs
-set expand-tilde on
-set mark-symlinked-directories on
-set page-completions off
-set show-all-if-ambiguous on
+
+# Expand tilde to full path on completion
+set expand-tilde On
+
+# When completing directories, add a trailing slash
+set mark-directories On
+
+# Do the same for symlinked directories
+set mark-symlinked-directories On
+
+# Don't paginate possible completions
+set page-completions Off
+
+# Read completions left to right like ls(1)
+set print-completions-horizontally On
+
+# Show multiple completions on first tab press
+set show-all-if-ambiguous On
+
