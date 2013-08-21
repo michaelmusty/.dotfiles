@@ -15,7 +15,7 @@ __lsopts() {
     fi
 
     # Print the options as a single string, space-delimited
-    printf '%s' "${lsopts[*]}"
+    printf %s "${lsopts[*]}"
 }
 
 # Alias ls with these options

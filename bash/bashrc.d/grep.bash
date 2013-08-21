@@ -28,7 +28,7 @@ __grepopts() {
     fi
 
     # Print the options as a single string, space-delimited
-    printf '%s' "${grepopts[*]}"
+    printf %s "${grepopts[*]}"
 }
 
 # Alias grep with those options
