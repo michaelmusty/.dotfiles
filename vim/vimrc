@@ -369,6 +369,19 @@ set ttimeoutlen=50
 " Tolerate typos like :Wq, :Q, or :Qa and do what I mean, including any
 " arguments or modifiers; I fat-finger these commands a lot because I type
 " them so rapidly, and they don't correspond to any other commands I use
+"
+" <accolade> [12:04:16] tyrmored: man i type :W a hundred times a day
+"   <- what does that do?
+" <romainl> nothing
+" <tyrmored> accolade: it's me typing :w wrong; i have commands defined in my
+"   .vimrc to translate it
+" <accolade> k :)
+" <tyrmored> (i am not advising you do this)
+" <accolade> I will still hold you responsible if I do!
+" <tyrmored> dammit
+" <tyrmored> this always happens
+" <romainl> tyrmored, you are a public person, you have responsibilities
+"
 if has('user_commands')
   command! -bang -complete=file -nargs=? E e<bang> <args>
   command! -bang -complete=file -nargs=? W w<bang> <args>
