@@ -39,12 +39,14 @@ prompt() {
         git)
 
             # Exit if inside a .git directory
-            if $(git rev-parse --is-inside-git-dir 2>/dev/null); then
+            local isgd=$(git rev-parse --is-inside-git-dir 2>/dev/null)
+            if [[ $isgd == true ]]; then
                 return 1
             fi
 
             # Exit if not inside a working tree
-            if ! $(git rev-parse --is-inside-work-tree 2>/dev/null); then
+            local iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            if [[ $iswt != true ]]; then
                 return 1
             fi
 
