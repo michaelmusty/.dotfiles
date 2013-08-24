@@ -2,8 +2,9 @@
 prompt() {
 
     # Variables for use only within this function
+    local -a state=()
     local -i ret=$? colors=$(tput colors)
-    local color reset branch state info url root
+    local color reset branch info url root
 
     # What's done next depends on the first argument to the function
     case $1 in
@@ -66,28 +67,29 @@ prompt() {
             # If there are staged changes in the working tree, add a plus sign
             # to the state
             if ! git diff --quiet --ignore-submodules --cached; then
-                state=$state+
+                state[${#opts[@]}]='+'
             fi
 
             # If there are any modified tracked files in the working tree, add
             # an exclamation mark to the state
             if ! git diff-files --quiet --ignore-submodules --; then
-                state=$state!
+                state[${#opts[@]}]='!'
             fi
 
             # If there are any stashed changes, add a circumflex to the state
             if git rev-parse --verify refs/stash &>/dev/null; then
-                state=$state^
+                state[${#opts[@]}]='^'
             fi
 
             # If there are any new unignored files in the working tree, add a
             # question mark to the state
             if [[ -n $(git ls-files --others --exclude-standard) ]]; then
-                state=$state?
+                state[${#opts[@]}]='?'
             fi
 
             # Print the status in brackets with a git: prefix
-            printf '(git:%s)' "${branch:-unknown}${state}"
+            printf '(git:%s%s)' \
+                "${branch:-unknown}" "$(printf %s "${state[@]}")"
             ;;
 
         # Mercurial prompt function
@@ -101,11 +103,12 @@ prompt() {
             # If there are changes in the tree, add an exclamation mark to the
             # state
             if [[ -n $(hg status 2>/dev/null) ]]; then
-                state=!
+                state[${#opts[@]}]='!'
             fi
 
             # Print the status in brackets with an hg: prefix
-            printf '(hg:%s)' "${branch:-unknown}${state}"
+            printf '(hg:%s%s)' \
+                "${branch:-unknown}" "$(printf %s "${state[@]}")"
             ;;
 
         # Subversion prompt function
@@ -132,11 +135,12 @@ prompt() {
             # If there are changes in the working directory, add an exclamation
             # mark to the state
             if [[ -n $(svn status 2>/dev/null) ]]; then
-                state=!
+                state[${#opts[@]}]='!'
             fi
 
             # Print the state in brackets with an svn: prefix
-            printf '(svn:%s)' "${branch:-unknown}${state}"
+            printf '(svn:%s%s)' \
+                "${branch:-unknown}" "$(printf %s "${state[@]}")"
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
