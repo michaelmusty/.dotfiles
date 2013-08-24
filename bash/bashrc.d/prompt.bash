@@ -51,8 +51,10 @@ prompt() {
             fi
 
             # Read the repository's status to refresh its info; ignore all the
-            # output
-            git status &>/dev/null
+            # output; give up if this fails
+            if ! git status &>/dev/null; then
+                return 1
+            fi
 
             # Figure out the branch to show for HEAD, whether a symbolic
             # reference or a short SHA-1; chop off any leading path
