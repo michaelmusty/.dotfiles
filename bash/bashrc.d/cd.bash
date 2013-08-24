@@ -8,7 +8,7 @@ cd() {
     done
     shift $((OPTIND-1))
     if (($# == 2)); then
-        if [[ $PWD == *$1* ]]; then
+        if [[ $PWD == *"$1"* ]]; then
             builtin cd "${opts[@]}" "${PWD/$1/$2}"
         else
             printf %s "bash: cd: could not replace substring\n" >&2
