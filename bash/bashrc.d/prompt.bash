@@ -74,7 +74,7 @@ prompt() {
             fi
 
             # If there are any stashed changes, add a circumflex to the state
-            if $(git rev-parse --verify refs/stash &>/dev/null); then
+            if git rev-parse --verify refs/stash &>/dev/null; then
                 state=$state^
             fi
 
