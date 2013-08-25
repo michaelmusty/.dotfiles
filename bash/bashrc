@@ -17,14 +17,10 @@ HISTTIMEFORMAT='%F %T  '
 unset MAILCHECK
 
 # Never beep at me
-if command -v setterm &>/dev/null; then
-    setterm -bfreq 0
-fi
+setterm -bfreq 0 2>/dev/null
 
 # Turn off flow control and control character echo
-if command -v stty &>/dev/null; then
-    stty -ixon -ctlecho
-fi
+stty -ixon -ctlecho 2>/dev/null
 
 # Use completion, if available
 if [[ -r /etc/bash_completion ]]; then
