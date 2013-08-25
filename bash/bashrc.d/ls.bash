@@ -25,7 +25,7 @@ alias ls="ls $(__lsopts)"
 unset __lsopts
 
 # Define and store appropriate colors for ls
-if command -v dircolors &>/dev/null; then
+if hash dircolors 2>/dev/null; then
     eval "$(dircolors --sh)"
 fi
 
