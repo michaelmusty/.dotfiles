@@ -1,7 +1,7 @@
 " Don't make any effort to be compatible with vi, use more sensible settings
 set nocompatible
 
-" If Pathogen is available, call it to load all the plugins in .vim/bundles;
+" If Pathogen is available, call it to load all the plugins in .vim/bundle;
 " these are saved as submodules
 silent! call pathogen#infect()
 silent! call pathogen#helptags()
