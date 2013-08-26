@@ -153,6 +153,7 @@ prompt() {
             if ((ret > 0)); then
                 printf '<%d>' "$ret"
             fi
+            unset ret
             ;;
 
         # Show the count of background jobs in curly brackets
