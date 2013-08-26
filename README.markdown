@@ -25,19 +25,24 @@ Tools
 
 Configuration is included for:
 
-*   [ack][2] -- Perl alternative to `grep(1)`, including a copy of its standalone version
+*   [ack][2] -- Perl alternative to `grep(1)`, including a copy of its
+    standalone version
 *   [awesome][3] -- Tiling window manager
-*   [Bash][4] -- GNU Bourne-Again Shell, including a `~/.profile` configured to work with most Bourne-compatible shells
+*   [Bash][4] -- GNU Bourne-Again Shell, including a `~/.profile` configured to
+    work with most Bourne-compatible shells
 *   [cURL][5] -- Command-line tool for transferring data with URL syntax
 *   [Git][6] -- Distributed version control system
-*   [GnuPG][7] -- GNU Privacy Guard, for private communication and file encryption
+*   [GnuPG][7] -- GNU Privacy Guard, for private communication and file
+    encryption
 *   [Mutt][8] -- Terminal mail user agent
 *   [Newsbeuter][9] -- Terminal RSS/Atom feed reader
 *   [Perl::Critic][10] -- Static analysis tool for Perl code
-*   [Readline][11] -- GNU library for user input used by Bash, MySQL, and others
+*   [Readline][11] -- GNU library for user input used by Bash, MySQL, and
+    others
 *   [Taskwarrior][12] -- Command-line task list manager
 *   [tmux][13] -- Terminal multiplexer similar to GNU Screen
-*   [rxvt-unicode][14] -- Fork of the rxvt terminal emulator with Unicode support
+*   [rxvt-unicode][14] -- Fork of the rxvt terminal emulator with Unicode
+    support
 *   [Vim][15] -- Vi IMproved, a text editor
 *   [X11][16] -- Windowing system with network transparency for Unix
 
