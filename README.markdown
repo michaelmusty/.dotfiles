@@ -83,14 +83,14 @@ My prompt generally looks like this, colored bright green:
 
 It expands based on context to include these elements in this order:
 
-*   The exit status of the last command, if it was non-zero
 *   Whether in a Git, Mercurial, or Subversion repository, and punctuation to
     show whether there are local modifications at a glance
 *   The number of running background jobs
+*   The exit status of the last command, if non-zero
 
 With all of the above (a rare situation), it might look something like this:
 
-    [user@hostname:~/gitrepo]<127>(git:master?){1}$
+    [user@hostname:~/gitrepo](git:master?){1}<127>$
 
 This is all managed within the `prompt` function. Some of the Git stuff was
 adapted from @necolas' [superb dotfiles][19].

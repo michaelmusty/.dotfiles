@@ -2,17 +2,17 @@
 prompt() {
 
     # Variables for use only within this function
-    local -i ret=$? colors=$(tput colors)
-    local -a state=()
     local color reset branch info url root
+    local -i colors=$(tput colors)
+    local -a state=()
 
     # What's done next depends on the first argument to the function
     case $1 in
 
         # Turn complex, colored prompt on
         on)
-            PROMPT_COMMAND='history -a'
-            PS1='\[\a\][\u@\h:\w]$(prompt ret)$(prompt vcs)$(prompt job)\$'
+            PROMPT_COMMAND='ret=$? ; history -a'
+            PS1='\[\a\][\u@\h:\w]$(prompt vcs)$(prompt job)$(prompt ret)\$'
 
             # Check if we have non-bold bright green available
             if ((colors > 8)); then
