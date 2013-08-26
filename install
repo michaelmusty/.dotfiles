@@ -11,53 +11,53 @@ fi
 (cd -- "$dotfiles" && git submodule update --init)
 
 # Create a binaries directory
-mkdir -p -- "$HOME/.local/bin"
+mkdir -p -- "$HOME"/.local/bin
 
 # Link in essential logical binaries
-ln -insv -- "$dotfiles/ack/ack" "$HOME/.local/bin"
+ln -insv -- "$dotfiles"/ack/ack "$HOME"/.local/bin
 
 # Link in essential configuration files
-ln -insv -- "$dotfiles/ack/ackrc"         "$HOME/.ackrc"
-ln -insv -- "$dotfiles/bash/bash_logout"  "$HOME/.bash_logout"
-ln -insv -- "$dotfiles/bash/bash_profile" "$HOME/.bash_profile"
-ln -insv -- "$dotfiles/bash/bashrc"       "$HOME/.bashrc"
-ln -insv -- "$dotfiles/bash/bashrc.d"     "$HOME/.bashrc.d"
-ln -insv -- "$dotfiles/curl/curlrc"       "$HOME/.curlrc"
-ln -insv -- "$dotfiles/git/gitconfig"     "$HOME/.gitconfig"
-ln -insv -- "$dotfiles/readline/inputrc"  "$HOME/.inputrc"
-ln -insv -- "$dotfiles/sh/profile"        "$HOME/.profile"
-ln -insv -- "$dotfiles/sh/profile.d"      "$HOME/.profile.d"
-ln -insv -- "$dotfiles/terminfo"          "$HOME/.terminfo"
-ln -insv -- "$dotfiles/vim/vimrc"         "$HOME/.vimrc"
-ln -insv -- "$dotfiles/vim"               "$HOME/.vim"
+ln -insv -- "$dotfiles"/ack/ackrc         "$HOME"/.ackrc
+ln -insv -- "$dotfiles"/bash/bash_logout  "$HOME"/.bash_logout
+ln -insv -- "$dotfiles"/bash/bash_profile "$HOME"/.bash_profile
+ln -insv -- "$dotfiles"/bash/bashrc       "$HOME"/.bashrc
+ln -insv -- "$dotfiles"/bash/bashrc.d     "$HOME"/.bashrc.d
+ln -insv -- "$dotfiles"/curl/curlrc       "$HOME"/.curlrc
+ln -insv -- "$dotfiles"/git/gitconfig     "$HOME"/.gitconfig
+ln -insv -- "$dotfiles"/readline/inputrc  "$HOME"/.inputrc
+ln -insv -- "$dotfiles"/sh/profile        "$HOME"/.profile
+ln -insv -- "$dotfiles"/sh/profile.d      "$HOME"/.profile.d
+ln -insv -- "$dotfiles"/terminfo          "$HOME"/.terminfo
+ln -insv -- "$dotfiles"/vim/vimrc         "$HOME"/.vimrc
+ln -insv -- "$dotfiles"/vim               "$HOME"/.vim
 
 # Link in shell stuff
 while getopts :gmntx opt; do
     case $opt in
         g)
-            mkdir -pv -- "$HOME/.gnupg"
-            ln -insv -- "$dotfiles/gnupg/gpg.conf"       "$HOME/.gnupg"
-            ln -insv -- "$dotfiles/gnupg/gpg-agent.conf" "$HOME/.gnupg"
+            mkdir -pv -- "$HOME"/.gnupg
+            ln -insv -- "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg
+            ln -insv -- "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg
             ;;
         m)
-            ln -insv -- "$dotfiles/mutt/muttrc" "$HOME/.muttrc"
-            ln -insv -- "$dotfiles/mutt"        "$HOME/.mutt"
+            ln -insv -- "$dotfiles"/mutt/muttrc "$HOME"/.muttrc
+            ln -insv -- "$dotfiles"/mutt        "$HOME"/.mutt
             ;;
         n)
-            mkdir -pv -- "$HOME/.config" "$HOME/.local/share/newsbeuter"
-            ln -insv -- "$dotfiles/newsbeuter" "$HOME/.config"
+            mkdir -pv -- "$HOME"/.config "$HOME"/.local/share/newsbeuter
+            ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config
             ;;
         t)
-            ln -insv -- "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+            ln -insv -- "$dotfiles"/tmux/tmux.conf "$HOME"/.tmux.conf
             ;;
         x)
-            mkdir -pv -- "$HOME/.config"
-            ln -insv -- "$dotfiles/X/Xmodmap"    "$HOME/.Xmodmap"
-            ln -insv -- "$dotfiles/X/Xresources" "$HOME/.Xresources"
-            ln -insv -- "$dotfiles/X/xsession"   "$HOME/.xsession"
-            ln -insv -- "$dotfiles/X/xsessionrc" "$HOME/.xsessionrc"
-            ln -insv -- "$dotfiles/vim/gvimrc"   "$HOME/.gvimrc"
-            ln -insv -- "$dotfiles/awesome"      "$HOME/.config/awesome"
+            mkdir -pv -- "$HOME"/.config
+            ln -insv -- "$dotfiles"/X/Xmodmap    "$HOME"/.Xmodmap
+            ln -insv -- "$dotfiles"/X/Xresources "$HOME"/.Xresources
+            ln -insv -- "$dotfiles"/X/xsession   "$HOME"/.xsession
+            ln -insv -- "$dotfiles"/X/xsessionrc "$HOME"/.xsessionrc
+            ln -insv -- "$dotfiles"/vim/gvimrc   "$HOME"/.gvimrc
+            ln -insv -- "$dotfiles"/awesome      "$HOME"/.config/awesome
             ;;
     esac
 done
