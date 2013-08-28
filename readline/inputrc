@@ -28,9 +28,6 @@ set mark-symlinked-directories On
 # Don't paginate possible completions
 set page-completions Off
 
-# Read completions left to right like ls(1)
-set print-completions-horizontally On
-
 # Show multiple completions on first tab press
 set show-all-if-ambiguous On
 
