@@ -10,26 +10,27 @@ fi
 # Check out submodules
 (cd -- "$dotfiles" && git submodule update --init)
 
-# Create a binaries directory
-mkdir -p -- "$HOME"/.local/bin
+# Create needed directories if they don't exist
+mkdir -p -- "$HOME"/{.config,.local/bin}
 
 # Link in essential logical binaries
 ln -insv -- "$dotfiles"/ack/ack "$HOME"/.local/bin
 
 # Link in essential configuration files
-ln -insv -- "$dotfiles"/ack/ackrc         "$HOME"/.ackrc
-ln -insv -- "$dotfiles"/bash/bash_logout  "$HOME"/.bash_logout
-ln -insv -- "$dotfiles"/bash/bash_profile "$HOME"/.bash_profile
-ln -insv -- "$dotfiles"/bash/bashrc       "$HOME"/.bashrc
-ln -insv -- "$dotfiles"/bash/bashrc.d     "$HOME"/.bashrc.d
-ln -insv -- "$dotfiles"/curl/curlrc       "$HOME"/.curlrc
-ln -insv -- "$dotfiles"/git/gitconfig     "$HOME"/.gitconfig
-ln -insv -- "$dotfiles"/readline/inputrc  "$HOME"/.inputrc
-ln -insv -- "$dotfiles"/sh/profile        "$HOME"/.profile
-ln -insv -- "$dotfiles"/sh/profile.d      "$HOME"/.profile.d
-ln -insv -- "$dotfiles"/terminfo          "$HOME"/.terminfo
-ln -insv -- "$dotfiles"/vim/vimrc         "$HOME"/.vimrc
-ln -insv -- "$dotfiles"/vim               "$HOME"/.vim
+ln -insv -- "$dotfiles"/ack/ackrc             "$HOME"/.ackrc
+ln -insv -- "$dotfiles"/bash/bash_completion  "$HOME"/.config/bash_completion
+ln -insv -- "$dotfiles"/bash/bash_logout      "$HOME"/.bash_logout
+ln -insv -- "$dotfiles"/bash/bash_profile     "$HOME"/.bash_profile
+ln -insv -- "$dotfiles"/bash/bashrc           "$HOME"/.bashrc
+ln -insv -- "$dotfiles"/bash/bashrc.d         "$HOME"/.bashrc.d
+ln -insv -- "$dotfiles"/curl/curlrc           "$HOME"/.curlrc
+ln -insv -- "$dotfiles"/git/gitconfig         "$HOME"/.gitconfig
+ln -insv -- "$dotfiles"/readline/inputrc      "$HOME"/.inputrc
+ln -insv -- "$dotfiles"/sh/profile            "$HOME"/.profile
+ln -insv -- "$dotfiles"/sh/profile.d          "$HOME"/.profile.d
+ln -insv -- "$dotfiles"/terminfo              "$HOME"/.terminfo
+ln -insv -- "$dotfiles"/vim/vimrc             "$HOME"/.vimrc
+ln -insv -- "$dotfiles"/vim                   "$HOME"/.vim
 
 # Link in shell stuff
 while getopts :gmntx opt; do
@@ -44,7 +45,7 @@ while getopts :gmntx opt; do
             ln -insv -- "$dotfiles"/mutt        "$HOME"/.mutt
             ;;
         n)
-            mkdir -pv -- "$HOME"/.config "$HOME"/.local/share/newsbeuter
+            mkdir -pv -- "$HOME"/.local/share/newsbeuter
             ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config
             ;;
         t)

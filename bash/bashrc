@@ -61,6 +61,9 @@ shopt -u mailwarn 2>/dev/null
 # Ignore me if I try to complete an empty line
 shopt -s no_empty_cmd_completion 2>/dev/null
 
+# Use programmable completion, if available
+shopt -s progcomp 2>/dev/null
+
 # Load any supplementary scripts
 if [[ -d $HOME/.bashrc.d ]]; then
     for config in "$HOME"/.bashrc.d/*; do
