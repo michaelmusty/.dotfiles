@@ -22,10 +22,6 @@ setterm -bfreq 0 2>/dev/null
 # Turn off flow control and control character echo
 stty -ixon -ctlecho 2>/dev/null
 
-# Use completion, if available
-if [[ -r /usr/share/bash-completion/bash_completion ]]; then
-    source /usr/share/bash-completion/bash_completion
-fi
 
 # Load any supplementary scripts
 if [[ -d $HOME/.bashrc.d ]]; then
