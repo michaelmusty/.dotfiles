@@ -7,6 +7,9 @@ complete -d cd pushd
 # command/hash/type with commands
 complete -c command hash type
 
+# help with topics
+complete -A helptopic help
+
 # set with options
 complete -A setopt set
 
