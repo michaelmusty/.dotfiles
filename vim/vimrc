@@ -60,8 +60,9 @@ if has('syntax')
   " Use syntax highlighting
   syntax enable
 
-  " Use my custom color scheme if possible, otherwise I'm happy with
-  " whatever the default is
+  " Use my custom color scheme if possible, otherwise I'm happy with whatever
+  " the default is, and it usually cares about my background
+  set background=dark
   silent! colorscheme sahara
 
   " Don't syntax highlight beyond 300 characters; mostly for efficiency
