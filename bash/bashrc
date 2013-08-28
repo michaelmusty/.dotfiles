@@ -22,6 +22,44 @@ setterm -bfreq 0 2>/dev/null
 # Turn off flow control and control character echo
 stty -ixon -ctlecho 2>/dev/null
 
+# Autocorrect fudged paths in cd calls
+shopt -s cdspell 2>/dev/null
+
+# Update the hash table properly
+shopt -s checkhash 2>/dev/null
+
+# Warn me about stopped jobs when exiting
+shopt -s checkjobs 2>/dev/null
+
+# Update columns and rows if window size changes
+shopt -s checkwinsize 2>/dev/null
+
+# Put multi-line commands onto one line of history
+shopt -s cmdhist 2>/dev/null
+
+# Expand globbing and variables for directory completion
+shopt -s direxpand 2>/dev/null
+
+# Autocorrect fudged paths during completion
+shopt -s dirspell 2>/dev/null
+
+# Include dotfiles in pattern matching
+shopt -s dotglob 2>/dev/null
+
+# Enable advanced pattern matching
+shopt -s extglob 2>/dev/null
+
+# Enable double-starring paths
+shopt -s globstar 2>/dev/null
+
+# Append rather than overwrite Bash history
+shopt -s histappend 2>/dev/null
+
+# Don't warn me about new mail all the time
+shopt -u mailwarn 2>/dev/null
+
+# Ignore me if I try to complete an empty line
+shopt -s no_empty_cmd_completion 2>/dev/null
 
 # Load any supplementary scripts
 if [[ -d $HOME/.bashrc.d ]]; then
