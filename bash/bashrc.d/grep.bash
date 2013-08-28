@@ -1,5 +1,5 @@
 # Function returns calculated options for grep
-__grepopts() {
+grepopts() {
 
     # Declare options array
     local -a grepopts
@@ -32,8 +32,8 @@ __grepopts() {
 }
 
 # Alias grep with those options
-alias grep="grep $(__grepopts)"
+alias grep="grep $(grepopts)"
 
 # Unset helper function
-unset __grepopts
+unset grepopts
 

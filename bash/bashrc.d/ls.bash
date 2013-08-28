@@ -1,5 +1,5 @@
 # Function returns calculated options for ls
-__lsopts() {
+lsopts() {
 
     # Declare options array
     local -a lsopts
@@ -19,10 +19,10 @@ __lsopts() {
 }
 
 # Alias ls with these options
-alias ls="ls $(__lsopts)"
+alias ls="ls $(lsopts)"
 
 # Unset helper function
-unset __lsopts
+unset lsopts
 
 # Define and store appropriate colors for ls
 if hash dircolors 2>/dev/null; then
