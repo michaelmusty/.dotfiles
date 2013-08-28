@@ -22,7 +22,7 @@ lsopts() {
 alias ls="ls $(lsopts)"
 
 # Unset helper function
-unset lsopts
+unset -f lsopts
 
 # Define and store appropriate colors for ls
 if hash dircolors 2>/dev/null; then

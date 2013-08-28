@@ -35,5 +35,5 @@ grepopts() {
 alias grep="grep $(grepopts)"
 
 # Unset helper function
-unset grepopts
+unset -f grepopts
 
