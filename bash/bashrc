@@ -23,8 +23,8 @@ setterm -bfreq 0 2>/dev/null
 stty -ixon -ctlecho 2>/dev/null
 
 # Use completion, if available
-if [[ -r /etc/bash_completion ]]; then
-    source /etc/bash_completion
+if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+    source /usr/share/bash-completion/bash_completion
 fi
 
 # Load any supplementary scripts
