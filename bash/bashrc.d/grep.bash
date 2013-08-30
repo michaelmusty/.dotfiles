@@ -15,7 +15,7 @@ grepopts() {
         grepopts[${#grepopts[@]}]='--exclude=.git{,ignore,modules}'
     fi
 
-    # If the --exclude option is available, exclude some VCS dirs
+    # If the --exclude-dir option is available, exclude some VCS dirs
     if [[ $grephelp == *--exclude-dir* ]]; then
         grepopts[${#grepopts[@]}]='--exclude-dir=.{cvs,git,hg,svn}'
     fi
