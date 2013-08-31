@@ -22,10 +22,3 @@ _ssh() {
 }
 complete -F _ssh ssh sftp ssh-copy-id
 
-# Completion for scp/rsync with local files and hostnames (colon suffixes)
-_scp() {
-    _ssh
-    COMPREPLY=( "${COMPREPLY[@]/%/:}" )
-}
-complete -f -F _scp scp
-
