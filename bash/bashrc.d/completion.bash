@@ -16,6 +16,9 @@ complete -A setopt set
 # shopt with shell options
 complete -A shopt shopt
 
+# sudo with commands (and not files)
+complete -c sudo
+
 # unset with shell variables and functions
 complete -v -A function unset
 
