@@ -84,7 +84,7 @@ prompt() {
 
             # If there are any new unignored files in the working tree, add a
             # question mark to the state
-            if [[ -n $(git ls-files --others --exclude-standard) ]]; then
+            if [[ $(git ls-files --others --exclude-standard) ]]; then
                 state[${#state[@]}]='?'
             fi
 
@@ -106,7 +106,7 @@ prompt() {
 
             # If there are changes in the tree, add an exclamation mark to the
             # state
-            if [[ -n $(hg status 2>/dev/null) ]]; then
+            if [[ $(hg status 2>/dev/null) ]]; then
                 state[${#state[@]}]='!'
             fi
 
@@ -141,7 +141,7 @@ prompt() {
 
             # If there are changes in the working directory, add an exclamation
             # mark to the state
-            if [[ -n $(svn status 2>/dev/null) ]]; then
+            if [[ $(svn status 2>/dev/null) ]]; then
                 state[${#state[@]}]='!'
             fi
 
@@ -164,7 +164,7 @@ prompt() {
 
         # Show the count of background jobs in curly brackets
         job)
-            if [[ -n $(jobs) ]]; then
+            if [[ $(jobs) ]]; then
                 printf '{%d}' "$(jobs | sed -n '$=')"
             fi
             ;;
