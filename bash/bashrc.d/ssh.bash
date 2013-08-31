@@ -1,8 +1,8 @@
 # Commpletion for ssh/sftp/ssh-copy-id with config hostnames
 _ssh() {
     local config=$HOME/.ssh/config
-    local hosts=()
     local word=${COMP_WORDS[COMP_CWORD]}
+    local -a hosts
 
     # Bail if the configuration file is illegible
     if [[ ! -r $config ]]; then

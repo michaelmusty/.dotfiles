@@ -1,7 +1,8 @@
 # If given two arguments to cd, replace the first with the second in $PWD,
 # emulating a Zsh function that I often find useful; preserves options too
 cd() {
-    local opt opts OPTIND=0
+    local opt OPTIND=0
+    local -a opts
     while getopts elP opt; do
         opts[${#opts[@]}]=-$opt
     done
