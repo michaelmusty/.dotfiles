@@ -50,7 +50,7 @@ prompt() {
 
             # Read the repository's status to refresh its info; ignore all the
             # output; give up if this fails
-            if ! git status &>/dev/null; then
+            if ! git status >/dev/null 2>&1; then
                 return 1
             fi
 
@@ -78,7 +78,7 @@ prompt() {
             fi
 
             # If there are any stashed changes, add a circumflex to the state
-            if git rev-parse --verify refs/stash &>/dev/null; then
+            if git rev-parse --verify refs/stash >/dev/null 2>&1; then
                 state[${#state[@]}]='^'
             fi
 
@@ -118,7 +118,7 @@ prompt() {
         # Subversion prompt function
         svn)
             # Exit if not inside a Subversion working copy
-            if ! svn info &>/dev/null; then
+            if ! svn info >/dev/null 2>&1; then
                 return 1
             fi
 
