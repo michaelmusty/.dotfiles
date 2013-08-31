@@ -5,7 +5,7 @@ lsopts() {
     local lshelp=$(ls --help 2>/dev/null)
 
     # Start collecting available options
-    local lsopts=()
+    local -a lsopts
 
     # If the --color option is available and we have a terminal that supports
     # at least eight colors, add --color=auto to the options

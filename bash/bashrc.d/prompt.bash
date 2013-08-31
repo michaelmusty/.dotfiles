@@ -63,7 +63,7 @@ prompt() {
             branch=${branch##*/}
 
             # Start collecting working copy state flags
-            local state=()
+            local -a state
 
             # If there are staged changes in the working tree, add a plus sign
             # to the state
@@ -102,7 +102,7 @@ prompt() {
             fi
 
             # Start collecting working copy state flags
-            local state=()
+            local -a state
 
             # If there are changes in the tree, add an exclamation mark to the
             # state
@@ -137,7 +137,7 @@ prompt() {
             branch=${branch%%/*}
 
             # Start collecting working copy state flags
-            local state=()
+            local -a state
 
             # If there are changes in the working directory, add an exclamation
             # mark to the state

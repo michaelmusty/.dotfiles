@@ -5,7 +5,7 @@ grepopts() {
     local grephelp=$(grep --help 2>/dev/null)
 
     # Start collecting available options
-    local grepopts=()
+    local -a grepopts
 
     # Add option to ignore binary files
     grepopts[${#grepopts[@]}]='-I'
