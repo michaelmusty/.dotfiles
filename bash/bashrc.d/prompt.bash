@@ -67,24 +67,24 @@ prompt() {
             # If there are staged changes in the working tree, add a plus sign
             # to the state
             if ! git diff --quiet --ignore-submodules --cached; then
-                state[${#opts[@]}]='+'
+                state[${#state[@]}]='+'
             fi
 
             # If there are any modified tracked files in the working tree, add
             # an exclamation mark to the state
             if ! git diff-files --quiet --ignore-submodules --; then
-                state[${#opts[@]}]='!'
+                state[${#state[@]}]='!'
             fi
 
             # If there are any stashed changes, add a circumflex to the state
             if git rev-parse --verify refs/stash &>/dev/null; then
-                state[${#opts[@]}]='^'
+                state[${#state[@]}]='^'
             fi
 
             # If there are any new unignored files in the working tree, add a
             # question mark to the state
             if [[ -n $(git ls-files --others --exclude-standard) ]]; then
-                state[${#opts[@]}]='?'
+                state[${#state[@]}]='?'
             fi
 
             # Print the status in brackets with a git: prefix
@@ -103,7 +103,7 @@ prompt() {
             # If there are changes in the tree, add an exclamation mark to the
             # state
             if [[ -n $(hg status 2>/dev/null) ]]; then
-                state[${#opts[@]}]='!'
+                state[${#state[@]}]='!'
             fi
 
             # Print the status in brackets with an hg: prefix
@@ -135,7 +135,7 @@ prompt() {
             # If there are changes in the working directory, add an exclamation
             # mark to the state
             if [[ -n $(svn status 2>/dev/null) ]]; then
-                state[${#opts[@]}]='!'
+                state[${#state[@]}]='!'
             fi
 
             # Print the state in brackets with an svn: prefix
