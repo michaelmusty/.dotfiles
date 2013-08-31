@@ -1,15 +1,15 @@
 # Function returns calculated options for ls
 lsopts() {
 
-    # Declare options array
-    local -a lsopts
-
     # Snarf the output of `ls --help` into a variable
     local lshelp=$(ls --help 2>/dev/null)
 
+    # Start collecting available options
+    local lsopts=()
+
     # If the --color option is available and we have a terminal that supports
     # at least eight colors, add --color=auto to the options
-    local -i colors=$(tput colors)
+    local colors=$(tput colors)
     if [[ $lshelp == *--color* ]] && ((colors >= 8)); then
         lsopts[${#lsopts[@]}]='--color=auto'
     fi

@@ -1,9 +1,8 @@
 # Commpletion for ssh/sftp/ssh-copy-id with config hostnames
 _ssh() {
-    local word config hosts option value
-    word=${COMP_WORDS[COMP_CWORD]}
-    config=$HOME/.ssh/config
-    hosts=()
+    local config=$HOME/.ssh/config
+    local hosts=()
+    local word=${COMP_WORDS[COMP_CWORD]}
 
     # Bail if the configuration file is illegible
     if [[ ! -r $config ]]; then
@@ -11,6 +10,7 @@ _ssh() {
     fi
 
     # Read hostnames from the file, no asterisks
+    local option value
     while read -r option value _; do
         if [[ $option == Host && $value != *'*'* ]]; then
             hosts[${#hosts[@]}]=$value

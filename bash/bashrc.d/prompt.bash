@@ -1,30 +1,28 @@
 # Frontend to controlling prompt
 prompt() {
 
-    # Variables for use only within this function
-    local color reset branch info url root
-    local -i colors=$(tput colors)
-    local -a state=()
-
     # What's done next depends on the first argument to the function
     case $1 in
 
         # Turn complex, colored prompt on
         on)
+            # Set up pre-prompt command and prompt format
             PROMPT_COMMAND='ret=$? ; history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt vcs)$(prompt job)$(prompt ret)\$'
 
+            # Count available colors
+            local colors=$(tput colors)
+
             # Check if we have non-bold bright green available
+            local color
             if ((colors > 8)); then
                 color=$(tput setaf 10)
-
-            # If we don't, fall back to the bold green
             else
                 color=$(tput setaf 2)$(tput bold)
             fi
 
             # Reset color and attributes
-            reset=$(tput sgr0)
+            local reset=$(tput sgr0)
 
             # String it all together
             PS1="\\[$color\\]$PS1\\[$reset\\] "
@@ -38,16 +36,15 @@ prompt() {
 
         # Git prompt function
         git)
-
             # Exit if inside a .git directory
-            local isgd=$(git rev-parse --is-inside-git-dir 2>/dev/null)
-            if [[ $isgd == true ]]; then
+            local gitdir=$(git rev-parse --is-inside-git-dir 2>/dev/null)
+            if [[ $gitdir == true ]]; then
                 return 1
             fi
 
             # Exit if not inside a working tree
-            local iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
-            if [[ $iswt != true ]]; then
+            local worktree=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            if [[ $worktree != true ]]; then
                 return 1
             fi
 
@@ -59,10 +56,14 @@ prompt() {
 
             # Figure out the branch to show for HEAD, whether a symbolic
             # reference or a short SHA-1; chop off any leading path
+            local branch
             branch=$(git symbolic-ref --quiet HEAD 2>/dev/null) \
                 || branch=$(git rev-parse --short HEAD 2>/dev/null) \
                 || branch='unknown'
             branch=${branch##*/}
+
+            # Start collecting working copy state flags
+            local state=()
 
             # If there are staged changes in the working tree, add a plus sign
             # to the state
@@ -94,11 +95,14 @@ prompt() {
 
         # Mercurial prompt function
         hg)
-
             # Exit if not inside a Mercurial tree
+            local branch
             if ! branch=$(hg branch 2>/dev/null); then
                 return 1
             fi
+
+            # Start collecting working copy state flags
+            local state=()
 
             # If there are changes in the tree, add an exclamation mark to the
             # state
@@ -113,24 +117,27 @@ prompt() {
 
         # Subversion prompt function
         svn)
-
             # Exit if not inside a Subversion working copy
             if ! svn info &>/dev/null; then
                 return 1
             fi
 
             # Determine the repository URL and root directory
-            info=$(svn info 2>/dev/null)
-            url=$(awk -F': ' '$1 == "URL" {print $2}' <<<"$info")
-            root=$(awk -F': ' '$1 == "Repository Root" {print $2}' <<<"$info")
+            local info=$(svn info 2>/dev/null)
+            local url=$(awk -F': ' '$1 == "URL" {print $2}' <<<"$info")
+            local root=$(awk -F': ' '$1 == "Repository Root" {print $2}' <<<"$info")
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
             # trailing content after a slash
+            local branch
             branch=${url/$root}
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}
+
+            # Start collecting working copy state flags
+            local state=()
 
             # If there are changes in the working directory, add an exclamation
             # mark to the state
@@ -153,7 +160,6 @@ prompt() {
             if ((ret > 0)); then
                 printf '<%d>' "$ret"
             fi
-            unset ret
             ;;
 
         # Show the count of background jobs in curly brackets
