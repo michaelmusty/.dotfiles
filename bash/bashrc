@@ -67,7 +67,7 @@ shopt -s progcomp 2>/dev/null
 # Load any supplementary scripts
 if [[ -d $HOME/.bashrc.d ]]; then
     for config in "$HOME"/.bashrc.d/*; do
-        source "$config"
+        [[ -f $config ]] && source "$config"
     done
 fi
 unset config
