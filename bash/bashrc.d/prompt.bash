@@ -25,7 +25,7 @@ prompt() {
             local reset=$(tput sgr0)
 
             # String it all together
-            PS1="\\[$color\\]$PS1\\[$reset\\] "
+            PS1='\['"$color"'\]'"$PS1"'\['"$reset"'\] '
             ;;
 
         # Revert to simple inexpensive prompt
