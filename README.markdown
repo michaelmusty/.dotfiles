@@ -80,7 +80,7 @@ syntax for certain things such as appending items to arrays:
 Compare this to the much nicer syntax available since 3.1-alpha1, which
 actually works for arrays with sparse indexes, unlike the above syntax:
 
-    array+=$item
+    array+=("$item")
 
 My prompt generally looks like this, colored bright green:
 
