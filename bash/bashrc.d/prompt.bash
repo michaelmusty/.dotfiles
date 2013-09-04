@@ -10,22 +10,26 @@ prompt() {
             PROMPT_COMMAND='ret=$? ; history -a'
             PS1='\[\a\][\u@\h:\w]$(prompt vcs)$(prompt job)$(prompt ret)\$'
 
-            # Count available colors
+            # Count available colors, reset, and format (decided shortly)
             local colors=$(tput colors)
+            local reset=$(tput sgr0)
+            local format
 
             # Check if we have non-bold bright green available
-            local color
             if ((colors > 8)); then
-                color=$(tput setaf 10)
+                format=$(tput setaf 10 0 0)
+
+            # If we have only eight colors, use bold green to make it bright
+            elif ((colors == 8)); then
+                format=$(tput setaf 2)$(tput bold)
+
+            # For non-color terminals (!), just use bold
             else
-                color=$(tput setaf 2)$(tput bold)
+                format=$(tput bold)
             fi
 
-            # Reset color and attributes
-            local reset=$(tput sgr0)
-
             # String it all together
-            PS1='\['"$color"'\]'"$PS1"'\['"$reset"'\] '
+            PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
             ;;
 
         # Revert to simple inexpensive prompt
