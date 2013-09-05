@@ -2,20 +2,20 @@ Dotfiles (Tom Ryder)
 ====================
 
 Personal repository of dotfiles. This is for those settings that migrate well
-from machine to machine and that I consider safe to publish. You're welcome to
-use them, but you'll probably want to fork it to remove anything peculiar to me
-or my setup that I've left in here.
+from machine to machine and that I consider safe to publish. You’re welcome to
+use them, but you’ll probably want to fork it to remove anything peculiar to me
+or my setup that I’ve left in here.
 
     $ git clone git://github.com/tejr/dotfiles.git ~/.dotfiles
 
-It's more likely you'll want to read the configuration files and find snippets
+It’s more likely you’ll want to read the configuration files and find snippets
 relevant to your particular workflow.
 
 Installation
 ------------
 
-There's an installation script, but it's pretty bare-bones, so don't run it
-without reading it first. You'll need to have a recent enough version of Git to
+There’s an installation script, but it’s pretty bare-bones, so don’t run it
+without reading it first. You’ll need to have a recent enough version of Git to
 support [submodules][1] for this to work.
 
     $ ~/.dotfiles/install
@@ -25,26 +25,25 @@ Tools
 
 Configuration is included for:
 
-*   [ack][2] -- Perl alternative to `grep(1)`, including a copy of its
+*   [ack][2] — Perl alternative to `grep(1)`, including a copy of its
     standalone version
-*   [awesome][3] -- Tiling window manager
-*   [Bash][4] -- GNU Bourne-Again Shell, including a `~/.profile` configured to
+*   [awesome][3] — Tiling window manager
+*   [Bash][4] — GNU Bourne-Again Shell, including a `~/.profile` configured to
     work with most Bourne-compatible shells
-*   [cURL][5] -- Command-line tool for transferring data with URL syntax
-*   [Git][6] -- Distributed version control system
-*   [GnuPG][7] -- GNU Privacy Guard, for private communication and file
+*   [cURL][5] — Command-line tool for transferring data with URL syntax
+*   [Git][6] — Distributed version control system
+*   [GnuPG][7] — GNU Privacy Guard, for private communication and file
     encryption
-*   [Mutt][8] -- Terminal mail user agent
-*   [Newsbeuter][9] -- Terminal RSS/Atom feed reader
-*   [Perl::Critic][10] -- Static analysis tool for Perl code
-*   [Readline][11] -- GNU library for user input used by Bash, MySQL, and
-    others
-*   [Taskwarrior][12] -- Command-line task list manager
-*   [tmux][13] -- Terminal multiplexer similar to GNU Screen
-*   [rxvt-unicode][14] -- Fork of the rxvt terminal emulator with Unicode
+*   [Mutt][8] — Terminal mail user agent
+*   [Newsbeuter][9] — Terminal RSS/Atom feed reader
+*   [Perl::Critic][10] — Static analysis tool for Perl code
+*   [Readline][11] — GNU library for user input used by Bash, MySQL, and others
+*   [Taskwarrior][12] — Command-line task list manager
+*   [tmux][13] — Terminal multiplexer similar to GNU Screen
+*   [rxvt-unicode][14] — Fork of the rxvt terminal emulator with Unicode
     support
-*   [Vim][15] -- Vi IMproved, a text editor
-*   [X11][16] -- Windowing system with network transparency for Unix
+*   [Vim][15] — Vi IMproved, a text editor
+*   [X11][16] — Windowing system with network transparency for Unix
 
 The configurations for Bash, Mutt, tmux, and Vim are the most expansive and
 most likely to be of interest. The rest of the configurations are relatively
@@ -98,9 +97,9 @@ With all of the above (a rare situation), it might look something like this:
     [user@hostname:~/gitrepo](git:master?){1}<127>$
 
 This is all managed within the `prompt` function. Some of the Git stuff was
-adapted from @necolas' [superb dotfiles][19].
+adapted from @necolas’ [superb dotfiles][19].
 
-When I use any other Bourne-compatible shell, I'm generally happy to accept its
+When I use any other Bourne-compatible shell, I’m generally happy to accept its
 defaults for interactive behavior.
 
 Mutt
@@ -109,10 +108,10 @@ Mutt
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use [Getmail][20], [Procmail][21], and
 [MSMTP][22]; the configurations for these are not included here. I make heavy
-use of GnuPG for email -- everything is signed by default, and I encrypt
-whenever I have a public key available for the recipient. The GnuPG interfacing
-is done with [GPGme][23], rather than defining commands for each crypto
-operation. I wrote [an article about this setup][24] if it sounds appealing.
+use of GnuPG for email—everything is signed by default, and I encrypt whenever
+I have a public key available for the recipient. The GnuPG interfacing is done
+with [GPGme][23], rather than defining commands for each crypto operation. I
+wrote [an article about this setup][24] if it sounds appealing.
 
 tmux
 ----
@@ -120,8 +119,8 @@ tmux
 These are just generally vi-friendly settings, not much out of the ordinary.
 Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses subshells rather than login shells, with an attempt to control the
-environment to stop shells thinking they have access to an X display -- I'm
-forced to use PuTTY a lot at work, and I don't like Xming very much.
+environment to stop shells thinking they have access to an X display—I’m forced
+to use PuTTY a lot at work, and I don’t like Xming very much.
 
 The configuration for Bash includes a `tmux` function designed to make `attach`
 into the default command if no arguments are given and sessions do already
@@ -135,15 +134,15 @@ I try not to deviate too much from the Vim defaults behaviour in terms of
 interactive behavior and keybindings.
 
 The configuration is extensively commented, mostly because I was reading
-through it one day and realised I'd forgotten what half of it did. Plugins are
-loaded using @tpope's [pathogen.vim][25].
+through it one day and realised I’d forgotten what half of it did. Plugins are
+loaded using @tpope’s [pathogen.vim][25].
 
 License
 -------
 
-Public domain. It's just configuration, do whatever you like with it if any of
-it's useful to you. If you're feeling generous, you could always buy me a beer
-next time you're in New Zealand.
+Public domain. It’s just configuration, do whatever you like with it if any of
+it’s useful to you. If you’re feeling generous, you could always buy me a beer
+next time you’re in New Zealand.
 
 [1]: http://git-scm.com/book/en/Git-Tools-Submodules
 [2]: http://beyondgrep.com/
