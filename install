@@ -21,6 +21,12 @@ lns() {
     return
 }
 
+# Bail if we don't have git(1)
+if ! hash git 2>/dev/null; then
+    printf '%s: Could not find git(1)!\n' "${0##*/}" >&2
+    exit 1
+fi
+
 # Define dotfiles directory and check it exists
 dotfiles=$HOME/.dotfiles
 if [[ ! -d $dotfiles ]]; then
