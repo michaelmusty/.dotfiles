@@ -14,7 +14,7 @@ fi
 mkdir -p -- "$HOME"/{.config,.local/bin}
 
 # Link in essential logical binaries
-ln -insv -- "$dotfiles"/ack/ack "$HOME"/.local/bin
+ln -insv -- "$dotfiles"/ack/ack "$HOME"/.local/bin/ack
 
 # Link in essential configuration files
 ln -insv -- "$dotfiles"/ack/ackrc             "$HOME"/.ackrc
@@ -37,8 +37,8 @@ while getopts :gmntx opt; do
     case $opt in
         g)
             mkdir -p -- "$HOME"/.gnupg
-            ln -insv -- "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg
-            ln -insv -- "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg
+            ln -insv -- "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg/gpg.conf
+            ln -insv -- "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg/gpg-agent.conf
             ;;
         m)
             ln -insv -- "$dotfiles"/mutt/muttrc "$HOME"/.muttrc
@@ -46,7 +46,7 @@ while getopts :gmntx opt; do
             ;;
         n)
             mkdir -p -- "$HOME"/.local/share/newsbeuter
-            ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config
+            ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config/newsbeuter
             ;;
         t)
             ln -insv -- "$dotfiles"/tmux/tmux.conf "$HOME"/.tmux.conf
