@@ -20,6 +20,11 @@ support [submodules][1] for this to work.
 
     $ ~/.dotfiles/install
 
+The script will prompt you about replacing old files. If you’re brave/insane,
+you can pipe `yes(1)` into it to accept all the replacements:
+
+    $ yes | ~/.dotfiles/install
+
 Tools
 -----
 
