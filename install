@@ -24,7 +24,7 @@ lns() {
 # Define dotfiles directory and check it exists
 dotfiles=$HOME/.dotfiles
 if [[ ! -d $dotfiles ]]; then
-    printf 'Could not find %s!\n' "$dotfiles" >&2
+    printf '%s: Could not find %s!\n' "$dotfiles" "${0##*/}" >&2
     exit 1
 fi
 
