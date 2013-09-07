@@ -36,7 +36,7 @@ ln -insv -- "$dotfiles"/vim                   "$HOME"/.vim
 while getopts :gmntx opt; do
     case $opt in
         g)
-            mkdir -pv -- "$HOME"/.gnupg
+            mkdir -p -- "$HOME"/.gnupg
             ln -insv -- "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg
             ln -insv -- "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg
             ;;
@@ -45,14 +45,14 @@ while getopts :gmntx opt; do
             ln -insv -- "$dotfiles"/mutt        "$HOME"/.mutt
             ;;
         n)
-            mkdir -pv -- "$HOME"/.local/share/newsbeuter
+            mkdir -p -- "$HOME"/.local/share/newsbeuter
             ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config
             ;;
         t)
             ln -insv -- "$dotfiles"/tmux/tmux.conf "$HOME"/.tmux.conf
             ;;
         x)
-            mkdir -pv -- "$HOME"/.config
+            mkdir -p -- "$HOME"/.config
             ln -insv -- "$dotfiles"/X/Xmodmap    "$HOME"/.Xmodmap
             ln -insv -- "$dotfiles"/X/Xresources "$HOME"/.Xresources
             ln -insv -- "$dotfiles"/X/xsession   "$HOME"/.xsession
