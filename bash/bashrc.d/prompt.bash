@@ -16,7 +16,7 @@ prompt() {
             local format
 
             # Check if we have non-bold bright green available
-            if ((colors > 8)); then
+            if ((colors == 256)); then
                 format=$(tput setaf 10 0 0)
 
             # If we have only eight colors, use bold green to make it bright
