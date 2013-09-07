@@ -1,5 +1,26 @@
 #!/usr/bin/env bash
 
+# Replace existing file with link if user confirms
+lns() {
+    local file=$1 link=$2
+    if [[ -e $link ]]; then
+        read -p "$link already exists; remove? [y/N] " confirm
+        case $confirm in
+            y*|Y*) 
+                rm -r -- "$link"
+                ln -s -- "$file" "$link"
+                return
+                ;;
+            *)
+                return 1
+                ;;
+        esac
+    else
+        ln -s -- "$file" "$link"
+    fi
+    return
+}
+
 # Define dotfiles directory and check it exists
 dotfiles=$HOME/.dotfiles
 if [[ ! -d $dotfiles ]]; then
@@ -14,51 +35,51 @@ fi
 mkdir -p -- "$HOME"/{.config,.local/bin}
 
 # Link in essential logical binaries
-ln -insv -- "$dotfiles"/ack/ack "$HOME"/.local/bin/ack
+lns "$dotfiles"/ack/ack "$HOME"/.local/bin/ack
 
 # Link in essential configuration files
-ln -insv -- "$dotfiles"/ack/ackrc             "$HOME"/.ackrc
-ln -insv -- "$dotfiles"/bash/bash_completion  "$HOME"/.config/bash_completion
-ln -insv -- "$dotfiles"/bash/bash_logout      "$HOME"/.bash_logout
-ln -insv -- "$dotfiles"/bash/bash_profile     "$HOME"/.bash_profile
-ln -insv -- "$dotfiles"/bash/bashrc           "$HOME"/.bashrc
-ln -insv -- "$dotfiles"/bash/bashrc.d         "$HOME"/.bashrc.d
-ln -insv -- "$dotfiles"/curl/curlrc           "$HOME"/.curlrc
-ln -insv -- "$dotfiles"/git/gitconfig         "$HOME"/.gitconfig
-ln -insv -- "$dotfiles"/readline/inputrc      "$HOME"/.inputrc
-ln -insv -- "$dotfiles"/sh/profile            "$HOME"/.profile
-ln -insv -- "$dotfiles"/sh/profile.d          "$HOME"/.profile.d
-ln -insv -- "$dotfiles"/terminfo              "$HOME"/.terminfo
-ln -insv -- "$dotfiles"/vim/vimrc             "$HOME"/.vimrc
-ln -insv -- "$dotfiles"/vim                   "$HOME"/.vim
+lns "$dotfiles"/ack/ackrc             "$HOME"/.ackrc
+lns "$dotfiles"/bash/bash_completion  "$HOME"/.config/bash_completion
+lns "$dotfiles"/bash/bash_logout      "$HOME"/.bash_logout
+lns "$dotfiles"/bash/bash_profile     "$HOME"/.bash_profile
+lns "$dotfiles"/bash/bashrc           "$HOME"/.bashrc
+lns "$dotfiles"/bash/bashrc.d         "$HOME"/.bashrc.d
+lns "$dotfiles"/curl/curlrc           "$HOME"/.curlrc
+lns "$dotfiles"/git/gitconfig         "$HOME"/.gitconfig
+lns "$dotfiles"/readline/inputrc      "$HOME"/.inputrc
+lns "$dotfiles"/sh/profile            "$HOME"/.profile
+lns "$dotfiles"/sh/profile.d          "$HOME"/.profile.d
+lns "$dotfiles"/terminfo              "$HOME"/.terminfo
+lns "$dotfiles"/vim/vimrc             "$HOME"/.vimrc
+lns "$dotfiles"/vim                   "$HOME"/.vim
 
 # Link in shell stuff
 while getopts :gmntx opt; do
     case $opt in
         g)
             mkdir -p -- "$HOME"/.gnupg
-            ln -insv -- "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg/gpg.conf
-            ln -insv -- "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg/gpg-agent.conf
+            lns "$dotfiles"/gnupg/gpg.conf       "$HOME"/.gnupg/gpg.conf
+            lns "$dotfiles"/gnupg/gpg-agent.conf "$HOME"/.gnupg/gpg-agent.conf
             ;;
         m)
-            ln -insv -- "$dotfiles"/mutt/muttrc "$HOME"/.muttrc
-            ln -insv -- "$dotfiles"/mutt        "$HOME"/.mutt
+            lns "$dotfiles"/mutt/muttrc "$HOME"/.muttrc
+            lns "$dotfiles"/mutt        "$HOME"/.mutt
             ;;
         n)
             mkdir -p -- "$HOME"/.local/share/newsbeuter
-            ln -insv -- "$dotfiles"/newsbeuter "$HOME"/.config/newsbeuter
+            lns "$dotfiles"/newsbeuter "$HOME"/.config/newsbeuter
             ;;
         t)
-            ln -insv -- "$dotfiles"/tmux/tmux.conf "$HOME"/.tmux.conf
+            lns "$dotfiles"/tmux/tmux.conf "$HOME"/.tmux.conf
             ;;
         x)
             mkdir -p -- "$HOME"/.config
-            ln -insv -- "$dotfiles"/X/Xmodmap    "$HOME"/.Xmodmap
-            ln -insv -- "$dotfiles"/X/Xresources "$HOME"/.Xresources
-            ln -insv -- "$dotfiles"/X/xsession   "$HOME"/.xsession
-            ln -insv -- "$dotfiles"/X/xsessionrc "$HOME"/.xsessionrc
-            ln -insv -- "$dotfiles"/vim/gvimrc   "$HOME"/.gvimrc
-            ln -insv -- "$dotfiles"/awesome      "$HOME"/.config/awesome
+            lns "$dotfiles"/X/Xmodmap    "$HOME"/.Xmodmap
+            lns "$dotfiles"/X/Xresources "$HOME"/.Xresources
+            lns "$dotfiles"/X/xsession   "$HOME"/.xsession
+            lns "$dotfiles"/X/xsessionrc "$HOME"/.xsessionrc
+            lns "$dotfiles"/vim/gvimrc   "$HOME"/.gvimrc
+            lns "$dotfiles"/awesome      "$HOME"/.config/awesome
             ;;
     esac
 done
