@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+#
+# Author: Tom Ryder (@tejr) <tom@sanctum.geek.nz>
+#
+# This script installs @tejr's dotfiles in $HOME with symlinks into the
+# expected $HOME/.dotfiles path.
+#
+# By default, it checks out all Git submodules, and links in configuration for
+# Bash, cURL, Git, Vim, and some terminfo(5) definitions. You can supply
+# additional flags to link in other configuration files:
+#
+#   -g -- GnuPG
+#   -m -- Mutt
+#   -n -- Newsbeuter
+#   -t -- tmux
+#   -x -- X11
+#
+# You should be prompted about replacing any file or directory that already
+# exists. I have tried to make the function that does this relatively safe, but
+# there are almost certainly edge cases where it might break things, especially
+# on systems other than GNU/Linux or BSD.
+#
+# Run this at your own risk!
+#   
+
 # Replace existing file with link if user confirms
 lns() {
     local file=$1 link=$2
