@@ -31,10 +31,8 @@ fi
 # Check out submodules
 (cd -- "$dotfiles" && git submodule update --init)
 
-# Create needed directories if they don't exist
-mkdir -p -- "$HOME"/{.config,.local/bin}
-
 # Link in essential logical binaries
+mkdir -p -- "$HOME"/.local/bin
 lns "$dotfiles"/ack/ack "$HOME"/.local/bin/ack
 
 # Link in essential configuration files
@@ -66,7 +64,7 @@ while getopts :gmntx opt; do
             lns "$dotfiles"/mutt        "$HOME"/.mutt
             ;;
         n)
-            mkdir -p -- "$HOME"/.local/share/newsbeuter
+            mkdir -p -- "$HOME"/.config "$HOME"/.local/share/newsbeuter
             lns "$dotfiles"/newsbeuter "$HOME"/.config/newsbeuter
             ;;
         t)
