@@ -101,6 +101,10 @@ set complete-=i
 " which I simply don't use
 inoremap <C-F> <C-X><C-F>
 
+" Rebind Ctrl-C in insert mode to not only leave insert mode without firing
+" InsertLeave events, but also to actually undo the current insert operation
+inoremap <C-c> <C-c>u
+
 " Vim lacks a built-in digraph for an ellipsis character (three dots); I like
 " to use the proper character in UTF-8 HTML documents so I nicked this from
 " Tim Pope
