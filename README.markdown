@@ -79,12 +79,16 @@ work with [any version 2.05a or newer][18]. This is the version in which the
 less error-prone `[[` test syntax was introduced. This is why I use older
 syntax for certain things such as appending items to arrays:
 
-    array[${#array[@]}]=$item
+```bash
+array[${#array[@]}]=$item
+```
 
 Compare this to the much nicer syntax available since 3.1-alpha1, which
 actually works for arrays with sparse indexes, unlike the above syntax:
 
-    array+=("$item")
+```bash
+array+=("$item")
+```
 
 My prompt generally looks like this, colored bright green:
 
