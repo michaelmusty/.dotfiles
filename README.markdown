@@ -80,7 +80,7 @@ less error-prone `[[` test syntax was introduced. This is why I use older
 syntax for certain things such as appending items to arrays:
 
 ```bash
-array[${#array[@]}]=$item
+array=("${array[@]}" "$item")
 ```
 
 Compare this to the much nicer syntax available since 3.1-alpha1, which

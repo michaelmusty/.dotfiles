@@ -13,7 +13,7 @@ _ssh() {
     local option value
     while read -r option value _; do
         if [[ $option == Host && $value != *'*'* ]]; then
-            hosts[${#hosts[@]}]=$value
+            hosts=("${hosts[@]}" "$value")
         fi
     done < "$config"
 

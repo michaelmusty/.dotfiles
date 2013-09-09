@@ -4,7 +4,7 @@ cd() {
     local opt OPTIND=0
     local -a opts
     while getopts elP opt; do
-        opts[${#opts[@]}]=-$opt
+        opts=("${opts[@]}" -"$opt")
     done
     shift $((OPTIND-1))
     if (($# == 2)); then
