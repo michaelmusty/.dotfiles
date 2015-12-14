@@ -165,6 +165,7 @@ things I really do get tired of typing repeatedly:
 *   `git(1)` branch names
 *   `gpg(1)` long options
 *   `make(1)` targets read from a `Makefile`
+*   `man(1)` page titles
 *   `mysql(1)` databases from `~/.mysql/*.cnf`
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
