@@ -12,16 +12,16 @@ grep_help=$(grep --help 2>/dev/null)
 # to change grep(1)'s actual behaviour inside scripts
 declare -a GREPOPTS
 if [[ -n $GREP_COLORS ]] && ((colors >= 8)) ; then
-    GREPOPTS=("${GREPOPTS[@]}" --color=auto)
+    GREPOPTS[${#GREPOPTS[@]}]='--color=auto'
 fi
 if [[ $grep_help == *--binary-files* ]] ; then
-    GREPOPTS=("${GREPOPTS[@]}" --binary-files=without-match)
+    GREPOPTS[${#GREPOPTS[@]}]='--binary-files=without-match'
 fi
 if [[ $grep_help == *--exclude* ]] ; then
-    GREPOPTS=("${GREPOPTS[@]}" --exclude={.gitignore,.gitmodules})
+    GREPOPTS[${#GREPOPTS[@]}]='--exclude={.gitignore,.gitmodules}'
 fi
 if [[ $grep_help == *--exclude-dir* ]] ; then
-    GREPOPTS=("${GREPOPTS[@]}" --exclude-dir={.cvs,.git,.hg,.svn})
+    GREPOPTS[${#GREPOPTS[@]}]='--exclude-dir={.cvs,.git,.hg,.svn}'
 fi
 
 # Done, unset helper vars

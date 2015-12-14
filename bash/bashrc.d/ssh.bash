@@ -9,14 +9,14 @@ _ssh() {
         while read -r option value _ ; do
             [[ $option == Host ]] || continue
             [[ $value != *'*'* ]] || continue
-            hosts=("${hosts[@]}" "$value")
+            hosts[${#hosts[@]}]=$value
         done < "$config"
     done
 
     # Generate completion reply
     for host in "${hosts[@]}" ; do
         [[ $host == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY=("${COMPREPLY[@]}" "$host")
+        COMPREPLY[${#COMPREPLY[@]}]=$host
     done
 }
 complete -F _ssh -o default ssh sftp ssh-copy-id

@@ -6,24 +6,25 @@ _make() {
 
     # Build a list of targets by parsing the Makefile
     local -a targets tokens
-    local target line
+    local line target token
     while read -r line ; do
         if [[ $line == *:* ]] ; then
             target=$line
             target=${target%%:*}
             target=${target% }
-            if [[ $target != *[^[:alnum:][:space:]_-]* ]] ; then
-                IFS=' ' read -a tokens \
-                    < <(printf '%s\n' "$target")
-                targets=("${targets[@]}" "${tokens[@]}")
-            fi
+            [[ $target != *[^[:alnum:][:space:]_-]* ]] || continue
+            IFS=' ' read -a tokens \
+                < <(printf '%s\n' "$target")
+            for token in "${tokens[@]}" ; do
+                targets[${#targets[@]}]=$token
+            done
         fi
     done < Makefile
 
     # Complete with matching targets
     for target in "${targets[@]}" ; do
         [[ $target == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY=("${COMPREPLY[@]}" "$target")
+        COMPREPLY[${#COMPREPLY[@]}]=$target
     done
 }
 complete -F _make -o default make

@@ -8,7 +8,7 @@ colors=$( {
 # function wrapper to do this
 declare -a LSOPTS
 if [[ -n $LS_COLORS ]] && ((colors >= 8)) ; then
-    LSOPTS=("${LSOPTS[@]}" --color=auto)
+    LSOPTS[${#LSOPTS[@]}]='--color=auto'
 fi
 
 # Done, unset helper var

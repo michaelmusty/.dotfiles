@@ -16,7 +16,7 @@ _ftp() {
     local token
     for token in "${tokens[@]}" ; do
         if ((nxm)) ; then
-            machines=("${machines[@]}" "$token")
+            machines[${#machines[@]}]=$token
             nxm=0
         elif [[ $token == machine ]] ; then
             nxm=1
@@ -27,7 +27,7 @@ _ftp() {
     local machine
     for machine in "${machines[@]}" ; do
         [[ $machine == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY=("${COMPREPLY[@]}" "$machine")
+        COMPREPLY[${#COMPREPLY[@]}]=$machine
     done
 }
 complete -F _ftp -o default ftp

@@ -35,7 +35,7 @@ _mysql() {
     # Return the names of the .cnf files sans prefix as completions
     local db
     while IFS= read -d '' -r db ; do
-        COMPREPLY=("${COMPREPLY[@]}" "$db")
+        COMPREPLY[${#COMPREPLY[@]}]=$db
     done < <(
 
         # Set options so that globs expand correctly

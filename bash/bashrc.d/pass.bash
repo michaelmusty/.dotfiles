@@ -15,7 +15,7 @@ _pass()
     # doesn't seem to do this properly with a null delimiter)
     local entry
     while IFS= read -d '' -r entry ; do
-        COMPREPLY=("${COMPREPLY[@]}" "$entry")
+        COMPREPLY[${#COMPREPLY[@]}]=$entry
     done < <(
 
         # Set shell options to expand globs the way we expect

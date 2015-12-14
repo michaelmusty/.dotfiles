@@ -122,18 +122,18 @@ prompt() {
             # Build state array from status output flags
             local -a state
             if ((ready)) ; then
-                state=("${state[@]}" '+')
+                state[${#state[@]}]='+'
             fi
             if ((modified)) ; then
-                state=("${state[@]}" '!')
+                state[${#state[@]}]='!'
             fi
             if ((untracked)) ; then
-                state=("${state[@]}" '?')
+                state[${#state[@]}]='?'
             fi
 
             # Add another indicator if we have stashed changes
             if git rev-parse --verify refs/stash >/dev/null 2>&1 ; then
-                state=("${state[@]}" '^')
+                state[${#state[@]}]='^'
             fi
 
             # Print the status in brackets with a git: prefix
@@ -167,10 +167,10 @@ prompt() {
             # Build state array from status output flags
             local -a state
             if ((modified)) ; then
-                state=("${state[@]}" '!')
+                state[${#state[@]}]='!'
             fi
             if ((untracked)) ; then
-                state=("${state[@]}" '?')
+                state[${#state[@]}]='?'
             fi
 
             # Print the status in brackets with an hg: prefix
@@ -225,10 +225,10 @@ prompt() {
             # Add appropriate state flags
             local -a state
             if ((modified)) ; then
-                state=("${state[@]}" '!')
+                state[${#state[@]}]='!'
             fi
             if ((untracked)) ; then
-                state=("${state[@]}" '?')
+                state[${#state[@]}]='?'
             fi
 
             # Print the state in brackets with an svn: prefix

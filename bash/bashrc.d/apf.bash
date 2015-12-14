@@ -86,7 +86,7 @@ apf() {
     local -a args
     local arg
     while IFS= read -d '' -r arg ; do
-        args=("${args[@]}" "$arg")
+        args[${#args[@]}]=$arg
     done < "$argfile"
 
     # Next argument is the command to run

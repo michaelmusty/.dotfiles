@@ -16,7 +16,7 @@ pd() {
                 ;;
             -*)
                 shift
-                opts=("${opts[@]}" "$arg")
+                opts[${#opts[@]}]=$arg
                 ;;
             *)
                 break

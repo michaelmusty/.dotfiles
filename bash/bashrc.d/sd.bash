@@ -45,7 +45,7 @@ sd() {
                 ;;
             -*)
                 shift
-                opts=("${opts[@]}" "$arg")
+                opts[${#opts[@]}]=$arg
                 ;;
             *)
                 break
@@ -119,7 +119,7 @@ _sd() {
 
     # Build list of matching sibiling directories
     while IFS= read -d '' -r dirname ; do
-        COMPREPLY=("${COMPREPLY[@]}" "$dirname")
+        COMPREPLY[${#COMPREPLY[@]}]=$dirname
     done < <(
 
         # Set options to glob correctly
@@ -137,7 +137,7 @@ _sd() {
         local dirname
         for dirname in "${dirnames[@]}" ; do
             [[ $dirname != "${PWD##*/}" ]] || continue
-            sibs=("${sibs[@]}" "$dirname")
+            sibs[${#sibs[@]}]=$dirname
         done
 
         # Bail if no results to prevent empty output

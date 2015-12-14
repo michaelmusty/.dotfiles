@@ -15,9 +15,11 @@ _man() {
         section='man'${COMP_WORDS[COMP_CWORD-1]}
     fi
 
-    # Read slash-separated output from a subshell into the COMPREPLY array; use
-    # read -a rather than adding each element individually, as it's much faster
-    IFS=/ read -a COMPREPLY -d '' -r < <(
+    # Read completion results from a subshell and add them to the COMPREPLY
+    # array individually
+    while IFS= read -d '' -r page ; do
+        COMPREPLY[${#COMPREPLY[@]}]=$page
+    done < <(
 
         # Do not return dotfiles, give us extended globbing, and expand empty
         # globs to just nothing
@@ -33,7 +35,9 @@ _man() {
         # Iterate through the manual page paths and add every manual page we find
         for manpath in "${manpaths[@]}" ; do
             [[ $manpath ]] || continue
-            pages=("${pages[@]}" "$manpath"/"$section"*/"$word"*.[0-9]*)
+            for page in "$manpath"/"$section"*/"$word"*.[0-9]* ; do
+                pages[${#pages[@]}]=$page
+            done
         done
 
         # Strip paths, .gz suffixes, and finally .<section> suffixes
@@ -45,8 +49,8 @@ _man() {
         # printing
         ((${#pages[@]})) || exit 1
 
-        # Print the pages array to stdout, slash-separated, null-terminated
-        (IFS=/ ; printf '%q\0' "${pages[*]}")
+        # Print the pages array to stdout, quoted and null-delimited
+        printf '%q\0' "${pages[@]}"
     )
 }
 complete -F _man -o default man

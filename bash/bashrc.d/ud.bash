@@ -13,7 +13,7 @@ ud() {
                 ;;
             -*)
                 shift
-                opts=("${opts[@]}" "$arg")
+                opts[${#opts[@]}]=$arg
                 ;;
             *)
                 break
@@ -58,7 +58,7 @@ _ud() {
     # Iterate through directories, null-separated, add them to completions
     local dirname
     while IFS= read -d '' -r dirname ; do
-        COMPREPLY=("${COMPREPLY[@]}" "$dirname")
+        COMPREPLY[${#COMPREPLY[@]}]=$dirname
     done < <(
 
         # Set options to glob correctly

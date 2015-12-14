@@ -13,7 +13,7 @@ _git() {
             while read -r _ _ branch ; do
                 branch=${branch##*/}
                 [[ $branch == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                COMPREPLY=("${COMPREPLY[@]}" "$branch")
+                COMPREPLY[${#COMPREPLY[@]}]=$branch
             done < <(git for-each-ref refs/heads refs/tags 2>/dev/null)
             return
             ;;

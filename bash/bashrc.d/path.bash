@@ -106,7 +106,7 @@ EOF
                     "$FUNCNAME" "$dirname" >&2
                 return 1
             fi
-            patharr=("${patharr[@]}" "$dirname")
+            patharr[${#patharr[@]}]=$dirname
             path set "${patharr[@]}"
             ;;
 
@@ -131,7 +131,7 @@ EOF
             local part
             for part in "${patharr[@]}" ; do
                 [[ $dirname == "$part" ]] && continue
-                newpatharr=("${newpatharr[@]}" "$part")
+                newpatharr[${#newpatharr[@]}]=$part
             done
             path set "${newpatharr[@]}"
             ;;
@@ -141,7 +141,7 @@ EOF
             local -a newpatharr
             local dirname
             for dirname ; do
-                newpatharr=("${newpatharr[@]}" "$dirname")
+                newpatharr[${#newpatharr[@]}]=$dirname
             done
             PATH=$(IFS=: ; printf '%s' "${newpatharr[*]}")
             ;;
@@ -187,7 +187,7 @@ _path() {
         1)
             for cmd in help list insert append remove set check ; do
                 [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                COMPREPLY=("${COMPREPLY[@]}" "$cmd")
+                COMPREPLY[${#COMPREPLY[@]}]=$cmd
             done
             ;;
 
@@ -199,7 +199,7 @@ _path() {
                 insert|i|append|add|a|check|c|set|s)
                     local dirname
                     while IFS= read -d '' -r dirname ; do
-                        COMPREPLY=("${COMPREPLY[@]}" "$dirname")
+                        COMPREPLY[${#COMPREPLY[@]}]=$dirname
                     done < <(
 
                         # Set options to glob correctly
@@ -213,8 +213,8 @@ _path() {
                         # Bail if no results to prevent empty output
                         ((${#dirnames[@]})) || exit 1
 
-                        # Print results, null-delimited
-                        printf '%s\0' "${dirnames[@]}"
+                        # Print results, quoted and null-delimited
+                        printf '%q\0' "${dirnames[@]}"
                     )
                     ;;
 
@@ -226,7 +226,7 @@ _path() {
                     for part in "${promptarr[@]}" ; do
                         [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] \
                             || continue
-                        COMPREPLY=("${COMPREPLY[@]}" "$part")
+                        COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q\0' "$part")
                     done
                     ;;
 
@@ -239,9 +239,5 @@ _path() {
     esac
 }
 
-# The use of -o filenames isn't strictly correct. The first completed world
-# will actually just be a simple string, the sub-command to use. However in
-# practice it doesn't matter as it's a fixed set of strings that won't be
-# quoted anyway.
-complete -F _path -o filenames path
+complete -F _path path
 

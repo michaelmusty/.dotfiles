@@ -5,7 +5,7 @@ _vis() {
     vispath=${VISPATH:-$HOME/.local/bin}
     [[ -d $vispath ]] || return
     while IFS= read -d '' -r executable ; do
-        COMPREPLY=("${COMPREPLY[@]}" "$executable")
+        COMPREPLY[${#COMPREPLY[@]}]=$executable
     done < <(
         shopt -s dotglob nullglob
         declare -a files
@@ -13,7 +13,7 @@ _vis() {
         declare -a executables
         for file in "${files[@]}" ; do
             [[ -f $file && -x $file ]] || continue
-            executables=("${executables[@]}" "${file##*/}")
+            executables[${#executables[@]}]=${file##*/}
         done
         ((${#executables[@]})) || exit 1
         printf '%q\0' "${executables[@]}"

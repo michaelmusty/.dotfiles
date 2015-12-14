@@ -25,7 +25,7 @@ _gpg() {
     local option
     while read -r option ; do
         [[ $option == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY=("${COMPREPLY[@]}" "$option")
+        COMPREPLY[${#COMPREPLY[@]}]=$option
     done < <(gpg --dump-options 2>/dev/null)
 }
 complete -F _gpg -o default gpg
