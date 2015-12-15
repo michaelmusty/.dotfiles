@@ -1,11 +1,17 @@
 # Only if shell is interactive
-[[ $- == *i* ]] || return
+if [[ $- != *i* ]] ; then
+    return
+fi
 
 # Only if rem(1) available
-hash rem 2>/dev/null || return
+if ! hash rem 2>/dev/null ; then
+    return
+fi
 
-# Only if $HOME/.reminders exists
-[[ -e $HOME/.reminders ]] || return
+# Only if reminders file exists
+if [[ ! -e ${DOTREMINDERS:-$HOME/.reminders} ]] ; then
+    return
+fi
 
 # Print from subshell to keep namespace clean
 (

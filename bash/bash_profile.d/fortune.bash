@@ -1,8 +1,12 @@
 # Only if shell is interactive
-[[ $- == *i* ]] || return
+if [[ $- != *i* ]] ; then
+    return
+fi
 
 # Only if fortune(6) available
-hash fortune 2>/dev/null || return
+if ! hash fortune 2>/dev/null ; then
+    return
+fi
 
 # Print from subshell to keep namespace clean
 (

@@ -1,8 +1,12 @@
 # Only if shell is interactive
-[[ $- == *i* ]] || return
+if [[ $- != *i* ]] ; then
+    return
+fi
 
 # Only if verse(1) available
-hash fortune 2>/dev/null || return
+if ! hash verse 2>/dev/null ; then
+    return
+fi
 
 # Run verse(1) if we haven't seen it already today (the verses are selected by
 # date); run in a subshell to keep vars out of global namespace
