@@ -83,7 +83,7 @@ EOF
 
         # Iterate through the NAMEs given
         local name
-        for name in "$@" ; do
+        for name ; do
 
             # Check NAMEs for validity
             case $name in
