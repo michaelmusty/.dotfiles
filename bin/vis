@@ -32,7 +32,7 @@ for arg ; do
             ;;
         -*)
             shift
-            opts=("${opts[@]}" "$arg")
+            opts[${#opts[@]}]=$arg
             ;;
         *)
             break
@@ -61,7 +61,7 @@ files=("${@/#/$vispath/}")
 declare -a creations
 for file in "${files[@]}" ; do
     [[ -e $file ]] && continue
-    creations=("${creations[@]}" "$file")
+    creations[${#creations[@]}]=$file
 done
 
 # Run the editor; if EDITOR isn't set, use vi(1)

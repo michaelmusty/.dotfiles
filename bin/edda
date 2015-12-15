@@ -45,7 +45,7 @@ for arg ; do
             ;;
         -*)
             shift
-            opts=("${opts[@]}" "$arg")
+            opts[${#opts[@]}]=$arg
             ;;
     esac
 done
