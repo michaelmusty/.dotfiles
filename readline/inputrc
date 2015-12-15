@@ -41,6 +41,9 @@ $if Bash
     "\el": "\C-uls -Al\C-j\C-y"
     # Alt-M (for muxer) to run tmux
     "\em": "\C-utmux\C-j\C-y"
+    # Alt-P (for procedure) to wrap current command in () { ... ; } and go to
+    # the start of the line
+    "\ep": "\C-a() { \C-e ; }\C-a"
     # Alt-R (for repeat) to run the previous command in history again
     "\er": "\C-u\C-p\C-j\C-y"
     # Alt-S (for set) to wrap current command in (set -x ; ...)
