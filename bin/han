@@ -21,6 +21,8 @@
 # Author: Tom Ryder <tom@sanctum.geek.nz>
 # Copyright: 2015 Inspire Net Ltd
 #
+
+# Name self
 self=han
 
 # Give up completely if no BASH_VERSINFO (<2.0)
