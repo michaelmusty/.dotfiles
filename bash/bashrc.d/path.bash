@@ -15,7 +15,9 @@ path() {
 
         # Print help output (also done if command not found)
         help|h|-h|--help|-\?)
-            cat <<EOF
+            while IFS= read -r line ; do
+                printf '%s\n' "$line"
+            done <<EOF
 $FUNCNAME: Manage contents of PATH variable
 
 USAGE:

@@ -45,7 +45,9 @@ keep() {
 
             # -h given; means show help
             h)
-                cat <<EOF
+                while IFS= read -r line ; do
+                    printf '%s\n' "$line"
+                done <<EOF
 $FUNCNAME: Keep variables and functions in shell permanently by writing them to
 named scripts iterated on shell start, in \$BASHKEEP (defaults to
 ~/.bashkeep.d).
