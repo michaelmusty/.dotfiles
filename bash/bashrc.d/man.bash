@@ -8,11 +8,12 @@ _man() {
     local word
     word=${COMP_WORDS[COMP_CWORD]}
 
-    # If this is the second word, and the previous word was a number, we'll
-    # assume that's the section to search
-    local section
-    if ((COMP_CWORD > 1)) && [[ ${COMP_WORDS[COMP_CWORD-1]} != [^0-9] ]] ; then
-        section='man'${COMP_WORDS[COMP_CWORD-1]}
+    # If this is the second word, and the previous word started with a number,
+    # we'll assume that's the section to search
+    local section subdir
+    if ((COMP_CWORD > 1)) && [[ ${COMP_WORDS[COMP_CWORD-1]} == [0-9]* ]] ; then
+        section=${COMP_WORDS[COMP_CWORD-1]}
+        subdir=man${section%%[^0-9]*}
     fi
 
     # Read completion results from a subshell and add them to the COMPREPLY
@@ -35,9 +36,15 @@ _man() {
         # Iterate through the manual page paths and add every manual page we find
         for manpath in "${manpaths[@]}" ; do
             [[ $manpath ]] || continue
-            for page in "$manpath"/"$section"*/"$word"*.[0-9]* ; do
-                pages[${#pages[@]}]=$page
-            done
+            if [[ $section ]] ; then
+                for page in "$manpath"/"$subdir"/"$word"*."$section"@(|.[glx]z|.bz2|.lzma|.Z) ; do
+                    pages[${#pages[@]}]=$page
+                done
+            else
+                for page in "$manpath"/man[0-9]*/"$word"*.* ; do
+                    pages[${#pages[@]}]=$page
+                done
+            fi
         done
 
         # Strip paths, .gz suffixes, and finally .<section> suffixes
