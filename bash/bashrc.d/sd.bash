@@ -123,10 +123,9 @@ _sd() {
     done < <(
 
         # Set options to glob correctly
-        shopt -s dotglob extglob nullglob
+        shopt -s dotglob nullglob
 
-        # Collect directory names, exclude current directory, strip leading ../
-        # and trailing /
+        # Collect directory names, strip leading ../ and trailing /
         local -a dirnames
         dirnames=(../"${COMP_WORDS[COMP_CWORD]}"*/)
         dirnames=("${dirnames[@]#../}")
