@@ -1,5 +1,5 @@
-# Set some defaults for pwgen, because its defaults are to give me a long list
-# of relatively short passwords, when I generally want only one good one
+# Set some defaults for pwgen(1), because its defaults are to give me a long
+# list of relatively short passwords, when I generally want only one good one
 pwgen() {
     if (($#)) ; then
         command pwgen "$@"
