@@ -8,7 +8,7 @@ _make() {
     local -a targets tokens
     local line target token
     while read -r line ; do
-        if [[ $line == *:* ]] ; then
+        if [[ $line == *:* && $line != *:=* ]] ; then
             target=$line
             target=${target%%:*}
             target=${target% }
