@@ -37,6 +37,7 @@
 	install-vim-plugins \
 	install-wyrd \
 	install-x \
+	install-zsh \
 	test \
 	test-bash \
 	test-bin \
@@ -234,6 +235,9 @@ install-x :
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
 	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
+
+install-zsh :
+	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
 test : test-sh test-bash test-bin test-urxvt
 

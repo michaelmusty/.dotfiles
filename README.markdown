@@ -80,6 +80,8 @@ Configuration is included for:
     frontend for [Remind](http://www.roaringpenguin.com/products/remind)
 *   [X11](http://www.x.org/wiki/) — Windowing system with network transparency
     for Unix
+*   [Zsh](http://www.zsh.org/) — Bourne-style shell designed for interactive
+    use
 
 Also included are a few scripts for `~/.local/bin`, and their `man(1)` pages.
 
