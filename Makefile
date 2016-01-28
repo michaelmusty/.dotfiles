@@ -237,6 +237,7 @@ install-x :
 	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
 
 install-zsh :
+	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
 test : test-sh test-bash test-bin test-urxvt
