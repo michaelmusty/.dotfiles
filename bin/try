@@ -27,7 +27,7 @@ verbose=0
 
 # Number of attempts
 declare -i attc
-attc=2
+attc=3
 
 # Process options
 while getopts 'hvn:' opt ; do
