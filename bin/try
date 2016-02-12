@@ -9,6 +9,10 @@
 # -h gives help, -n sets the number of attempts (defaults to 3), -v gives you
 # diagnostics on stdout.
 #
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
 self=try
 
 # Print usage information

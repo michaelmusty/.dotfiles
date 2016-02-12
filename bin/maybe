@@ -10,6 +10,7 @@
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
 # Copyright: 2016
+# License: Public domain
 #
 self=maybe
 
