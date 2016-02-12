@@ -75,7 +75,7 @@ if ! (($#)) ; then
 fi
 
 # The command is all the remaining arguments
-declare -a command
+declare -a cmd
 cmd=("$@")
 
 # Create a buffer file for the error output, and clean up the file when we exit
