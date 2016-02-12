@@ -6,8 +6,9 @@
 # failed. Designed for running from systems like cron(8) where blips and
 # short-term failures can be ignored.
 #
-# -h gives help, -n sets the number of attempts (defaults to 3), -v gives you
-# diagnostics on stdout.
+# -h gives help, -v gives you diagnostics on stdout, -i sets an optional number
+# of seconds between each attempt, -n sets the number of attempts (defaults to
+# 3).
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
 # Copyright: 2016
@@ -17,7 +18,7 @@ self=try
 
 # Print usage information
 usage() {
-    printf '%s: usage: %s [-hv] [-n ATTEMPTS] [--] COMMAND...\n' \
+    printf '%s: usage: %s [-hv] [-i INTERVAL] [-n ATTEMPTS] [--] COMMAND...\n' \
         "$self" "$self"
 }
 
@@ -25,12 +26,16 @@ usage() {
 declare -i verbose
 verbose=0
 
+# Number of seconds to wait between instances
+declare -i interval
+interval=0
+
 # Number of attempts
 declare -i attc
 attc=3
 
 # Process options
-while getopts 'hvn:' opt ; do
+while getopts 'hvi:n:' opt ; do
     case $opt in
 
         # -h: Print help
@@ -42,6 +47,11 @@ while getopts 'hvn:' opt ; do
         # -v: Print diagnostics to stdout
         v)
             verbose=1
+            ;;
+
+        # -i: Set the number of seconds between attempts
+        i)
+            interval=$OPTARG
             ;;
 
         # -n: Set the number of attempts
@@ -89,6 +99,7 @@ for (( atti = 1 ; atti <= attc ; atti++ )) ; do
         ret=$?
         ((verbose)) && printf '%s: Failure!\n' \
             "$self"
+        sleep "$interval"
     fi
 done
 
