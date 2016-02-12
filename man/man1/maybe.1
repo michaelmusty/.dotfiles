@@ -1,0 +1,25 @@
+.TH MAYBE 1 "November 2015" "Manual page for maybe"
+.SH NAME
+.B maybe
+\- possibly exit with success
+.SH USAGE
+.B maybe [-hv] [-d DENOMINATOR]
+.SH DESCRIPTION
+Like true(1) or false(1), but exits with success randomly with a given
+probability. Good for using in tests. Exits with 2 rather than 1 on usage
+errors.
+.P
+This just uses integer division with Bash's special RANDOM variable, so it's
+far from scientific precision.
+.P
+Option -h gives help, option -v turns on verbose output, option -d specifies
+the denominator for the probability; defaults to 2 (i.e. roughly equal chance
+of success or failure).
+.P
+   $ maybe
+   $ maybe -v -d3
+.SH SEE ALSO
+try(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
+

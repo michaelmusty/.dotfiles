@@ -1,0 +1,21 @@
+.TH TRY 1 "November 2015" "Manual page for try"
+.SH NAME
+.B try
+\- attempt a command up to a certain number of times until it succeeds
+.SH USAGE
+.B try [-hv] [-n ATTEMPTS] [--] COMMAND...'
+.SH DESCRIPTION
+Runs the given command up to a fixed number of times until it exits zero. If
+all attempts fail, writes buffered error output from all attempts to stderr.
+.P
+Option -h gives help, option -v turns on verbose output, option -n specifies
+the number of attempts; defaults to 3. Options may be terminated with --. The
+remaining arguments are the command to run.
+.P
+   $ try getmails
+   $ try -v -n3 maybe
+.SH SEE ALSO
+maybe(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
+

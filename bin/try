@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+#
+# try(1) -- Attempt a certain number of times to perform a task, stopping after
+# the first success, and only print collected stderr if all the attempts
+# failed. Designed for running from systems like cron(8) where blips and
+# short-term failures can be ignored.
+#
+# -h gives help, -n sets the number of attempts (defaults to 3), -v gives you
+# diagnostics on stdout.
+#
+self=try
+
+# Print usage information
+usage() {
+    printf '%s: usage: %s [-hv] [-n ATTEMPTS] [--] COMMAND...\n' \
+        "$self" "$self"
+}
+
+# Flag for whether to print diagnostics to stdout or not
+declare -i verbose
+verbose=0
+
+# Number of attempts
+declare -i attc
+attc=2
+
+# Process options
+while getopts 'hvn:' opt ; do
+    case $opt in
+
+        # -h: Print help
+        h)
+            usage
+            exit 0
+            ;;
+
+        # -v: Print diagnostics to stdout
+        v)
+            verbose=1
+            ;;
+
+        # -n: Set the number of attempts
+        n)
+            attc=$OPTARG
+            ;;
+        
+        # Unknown option
+        \?)
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# We need at least one more argument after shifting off the options
+if ! (($#)) ; then
+    usage >&2
+    exit 2
+fi
+
+# The command is all the remaining arguments
+declare -a command
+cmd=("$@")
+
+# Create a buffer file for the error output, and clean up the file when we exit
+errbuf=$(mktemp) || exit
+cleanup() {
+    rm -f -- "$errbuf"
+}
+trap cleanup EXIT
+
+# Keep trying the command, writing error output to the buffer file, and exit
+# if we succeed on any of them
+declare -i ret
+for (( atti = 1 ; atti <= attc ; atti++ )) ; do
+    ((verbose)) && printf '%s: Attempt %u/%u to run `%s` ...\n' \
+        "$self" "$atti" "$attc" "${cmd[*]}"
+    if "${cmd[@]}" 2>>"$errbuf" ; then
+        ((verbose)) && printf '%s: Success!\n' \
+            "$self"
+        exit 0
+    else
+        ret=$?
+        ((verbose)) && printf '%s: Failure!\n' \
+            "$self"
+    fi
+done
+
+# Attempts were exhausted, and all failed; print the error output from all of
+# the failures and exit with the non-zero exit value of the most recent one
+cat -- "$errbuf" >&2
+exit "$ret"
+

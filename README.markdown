@@ -282,9 +282,14 @@ Scripts
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too. It also has a
     brief manual.
+*   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
+    it exits with success or failure. Good for quick tests.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
+*   `try(1)` repeats a command up to a given number of times until it succeeds,
+    only printing error output if all three attempts failed. Good for
+    tolerating blips or temporary failures in `cron(8)` scripts.
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
 
