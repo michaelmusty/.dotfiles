@@ -65,9 +65,11 @@ if (($#)) || ! ((denom > 0)) ; then
     exit 2
 fi
 
-# Perform the test and print/exit appropriately
+# If verbose, report the probability of the test
 ((verbose)) && printf '%s: Testing with probability 1/%u ... \n' \
     "$self" "$denom"
+
+# Perform the test and print/exit appropriately
 if ((RANDOM < 32767/denom)) ; then
     ((verbose)) && printf '%s: %s\n' \
         "$self" 'Success!'

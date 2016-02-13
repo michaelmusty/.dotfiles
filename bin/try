@@ -89,12 +89,20 @@ trap cleanup EXIT
 # if we succeed on any of them
 declare -i ret
 for (( atti = 1 ; atti <= attc ; atti++ )) ; do
+
+    # If verbose, print the number of this attempt
     ((verbose)) && printf '%s: Attempt %u/%u to run `%s` ...\n' \
         "$self" "$atti" "$attc" "${cmd[*]}"
+
+    # Try running the command. If it succeeds, report failure if verbose, and
+    # exit 0.
     if "${cmd[@]}" 2>>"$errbuf" ; then
         ((verbose)) && printf '%s: Success!\n' \
             "$self"
         exit 0
+
+    # If it fails, keep the exit value, report failure, and wait until the next
+    # attempt.
     else
         ret=$?
         ((verbose)) && printf '%s: Failure!\n' \
