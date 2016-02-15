@@ -16,6 +16,9 @@ path=${TODO:-$HOME/Todo/todo.markdown}
 file=${path##*/}
 dir=${path%/*}
 
+# Check we've got the tools we need
+hash git || exit
+
 # If the directory doesn't exist, create it
 if [[ ! -d $dir ]] ; then
     mkdir -p -- "$dir" || exit
