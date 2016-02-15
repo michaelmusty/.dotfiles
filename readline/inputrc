@@ -48,5 +48,7 @@ $if Bash
     "\er": "\C-u\C-p\C-j\C-y"
     # Alt-S (for set) to wrap current command in (set -x ; ...)
     "\es": "\C-a(set -x ; \C-e)\C-b"
+    # Alt-T (for todo) to edit my to-do file with td(1)
+    "\et": "\C-atd\C-j\C-y"
 $endif
 
