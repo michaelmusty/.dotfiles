@@ -82,12 +82,14 @@ install-bash : test-bash
 	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 
-install-bin : test-bin
+install-bin : test-bin install-man
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/bin \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
 	install -m 0755 -- bin/* "$(HOME)"/.local/bin
+
+install-man:
 	install -pm 0644 -- man/man1/* "$(HOME)"/.local/share/man/man1
 	install -pm 0644 -- man/man8/* "$(HOME)"/.local/share/man/man8
 
