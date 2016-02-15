@@ -1,7 +1,0 @@
-data.location=~/.task
-dateformat=Y-M-D
-report.list.dateformat=Y-M-D
-report.long.dateformat=Y-M-D
-report.next.dateformat=Y-M-D
-weekstart=Monday
-

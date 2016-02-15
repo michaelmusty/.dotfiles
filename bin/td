@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+#
+# td(1) -- Manage a to-do file with just $EDITOR and git(1), because I've
+# completely given up on finding a more useful way to do it.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+self=td
+
+# Specify the path to the file; you can override this with a $TODO environment
+# variable
+path=${TODO:-$HOME/Todo/todo.markdown}
+file=${path##*/}
+dir=${path%/*}
+
+# If the directory doesn't exist, create it
+if [[ ! -d $dir ]] ; then
+    mkdir -p -- "$dir" || exit
+fi
+
+# Change into the directory
+cd -- "$dir" || exit
+
+# Quick function to determine if a directory is a Git repository
+isrepo() {
+    { git symbolic-ref --quiet HEAD || \
+        git rev-parse --short HEAD 
+    } >/dev/null 2>&1
+}
+
+# If the current directory isn't a Git repository, try to create one
+if ! isrepo ; then
+    git init || exit
+fi
+
+# If the to-do file doesn't exist yet, create it
+if ! [[ -e $file ]] ; then
+    touch -- "$file" || exit
+fi
+
+# Launch $VISUAL (or $EDITOR (or vi(1))), with any arguments given as options,
+# to edit the to-do file
+"${VISUAL:-${EDITOR:-vi}}" "$@" "$file"
+
+# Add the file to the changeset
+git add -- "$file"
+
+# If there are changes to commit, commit them
+message=$(printf 'Changed by %s(1)' "$self")
+if ! git diff-index --quiet HEAD ; then
+    git commit --message "$message" --quiet
+fi
+

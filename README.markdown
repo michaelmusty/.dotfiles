@@ -67,8 +67,6 @@ Configuration is included for:
     for Perl
 *   [Readline](http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) — GNU
     library for user input used by Bash, MySQL, and others
-*   [Taskwarrior](http://taskwarrior.org/projects/show/taskwarrior) —
-    Command-line task list manager
 *   [tmux](https://tmux.github.io/) — Terminal multiplexer similar to GNU
     Screen
 *   [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) — Fork of
@@ -287,6 +285,8 @@ Scripts
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
+*   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
+    use Taskwarrior, but found it too complex and buggy.
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.

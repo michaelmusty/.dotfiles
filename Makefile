@@ -27,7 +27,6 @@
 	install-readline \
 	install-sh \
 	install-subversion \
-	install-task \
 	install-terminfo \
 	install-tmux \
 	install-urxvt \
@@ -173,9 +172,6 @@ install-terminfo :
 	for info in terminfo/*.info ; do \
 		tic -- "$$info" ; \
 	done
-
-install-task :
-	install -pm 0644 -- task/taskrc "$(HOME)"/.taskrc
 
 install-tmux :
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
