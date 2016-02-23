@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+#
+# tl(1): Tag lines from files or stdin with a string prefix or suffix before
+# writing them to stdout. Specifying neither prefix nor suffix is acceptable,
+# in which case the stream is simply reproduced on stdout, acting like cat(1).
+#
+# Option -h gives help. Specify a prefix with -p, and/or a suffix with -s. If
+# no file arguments are given, defaults to reading standard input.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+
+# Name self
+self=tl
+
+# Define usage function
+usage() {
+    printf 'USAGE: %s [-h] [-p PREFIX] [-s SUFFIX] [--] [FILE1 FILE2 ...]\n' "$self"
+}
+
+# Start with empty prefix/suffix, or use the environment variables
+prefix=$TL_PREFIX
+suffix=$TL_SUFFIX
+
+# Parse options out, give help if necessary
+while getopts 'hp:s:' opt ; do
+    case $opt in
+
+        # -h: Print help
+        h)
+            usage
+            exit
+            ;;
+
+        # -p: Specify prefix
+        p)
+            prefix=$OPTARG
+            ;;
+
+        # -s: Specify suffix
+        s)
+            suffix=$OPTARG
+            ;;
+
+        # Unknown option
+        \?)
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Need at least one tag
+if ! (($#)) ; then
+    set /dev/stdin
+fi
+
+# Print each line as we read it, prepending the tags, separated by spaces
+for file in "$@" ; do
+    while IFS= read -r line ; do
+        printf '%s%s%s\n' "$prefix" "$line" "$suffix"
+    done < "$file"
+done
+

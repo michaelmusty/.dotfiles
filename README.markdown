@@ -287,6 +287,10 @@ Scripts
     privileges.
 *   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
+*   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
+    shortcut
+*   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
+    lines, and color them if you want
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
