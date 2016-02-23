@@ -22,6 +22,9 @@ usage() {
     printf 'USAGE: %s [-h] [-c] [-o STDOUT_PREFIX] [-e STDERR_PREFIX] [--] COMMAND [ARG1...]\n' "$self"
 }
 
+# Check we have tl(1)
+hash tl || exit
+
 # Set the default prefixes and suffixes for stdout/stderr
 stdout_prefix='stdout: '
 stderr_prefix='stderr: '
