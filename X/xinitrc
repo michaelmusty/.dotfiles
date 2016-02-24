@@ -7,8 +7,8 @@ xrdb "$HOME"/.Xresources
 setxkbmap -option compose:ralt,ctrl:nocaps,terminate:ctrl_alt_bksp
 
 # Apply background image
-# Edited cover of Darkthrone's 1992 album "A Blaze in the Northern Sky"
-feh --bg-scale --no-fehbg -- "$HOME"/.xbackgrounds/blaze.jpg
+# Edited cover of Darkthrone's 1994 album "Transilvanian Hunger"
+feh --bg-scale --no-fehbg -- "$HOME"/.xbackgrounds/hunger.jpg
 
 # Start dunst(1) to display libnotify messages
 dunst &
