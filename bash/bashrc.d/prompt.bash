@@ -243,7 +243,7 @@ prompt() {
         # Show return status of previous command in angle brackets, if not zero
         ret)
             if ((PROMPT_RETURN > 0)) ; then
-                printf '<%d>' "$PROMPT_RETURN"
+                printf '<%u>' "$PROMPT_RETURN"
             fi
             ;;
 

@@ -24,7 +24,7 @@ cf() {
     (
         shopt -s dotglob nullglob
         declare -a files=("$dirname"/*)
-        printf '%d\t%s\n' "${#files[@]}" "$dirname"
+        printf '%u\t%s\n' "${#files[@]}" "$dirname"
     )
 }
 complete -A directory cf
