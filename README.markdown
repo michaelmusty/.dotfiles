@@ -269,17 +269,15 @@ Scripts
 -------
 
 *   Three SSH-related scripts:
-    *   `shoal(1)` — Print hostnames read from a `ssh_config(5)` file
-    *   `scatter(1)` — Run command on multiple hosts read from `shoal(1)` and
-        print output
-    *   `shock(1)` — Run command on multiple hosts read from `shoal(1)` and
-        print the hostname if the command returns zero
+    *   `shoal(1)` prints hostnames read from a `ssh_config(5)` file.
+    *   `scatter(1)` runs a command on multiple hosts read from `shoal(1)` and
+        prints output.
+    *   `shock(1)` runs a command on multiple hosts read from `shoal(1)` and
+        prints the hostname if the command returns zero.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
-    any options, mostly useful for scripts. There’s `--help` output and a
-    manual page.
+    any options, mostly useful for scripts.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
-    look for `help` topics. You could use it from the shell too. It also has a
-    brief manual.
+    look for `help` topics. You could use it from the shell too.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
@@ -288,9 +286,9 @@ Scripts
 *   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
 *   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
-    shortcut
+    shortcut.
 *   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
-    lines, and color them if you want
+    lines, and color them if you want.
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
