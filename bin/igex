@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+#
+# igex(1): Run a command and ignore specified exit values, translating them to
+# 0. Don't touch any stderr, though. Good for wrapping around rsync(1), like to
+# ignore exit value 24.
+#
+# -h gives help, -v gives you stdout specifying success or failure, -i specifies
+# the signals to ignore; you must specify at least one none-zero integer.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+self=igex
+
+# Print usage information
+usage() {
+    printf '%s: usage: %s [-hv] -i IGNORE1[,IGNORE2...] [--] COMMAND [ARG1...]\n' \
+        "$self" "$self"
+}
+
+# Array with exit values to ignore
+declare -a ignores
+ignores=()
+
+# Flag for whether to print diagnostics to stderr or not; defaults to off
+declare -i verbose
+verbose=0
+
+# Process options
+while getopts 'hvi:' opt ; do
+    case $opt in
+
+        # -h: Print help
+        h)
+            usage
+            exit 0
+            ;;
+
+        # -v: Print diagnostics to stderr
+        v)
+            verbose=1
+            ;;
+
+        # Specify the comma-delimited signals to ignore
+        i)
+            IFS=, read -a ignores < <(printf '%s\n' "$OPTARG")
+            ;;
+
+        # Unknown option
+        \?)
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Check we have at least one ignore value
+if ! ((${#ignores[@]})) ; then
+    usage >&2
+    exit 2
+fi
+
+# Check that all the ignore values are non-zero
+for ignore in "${ignores[@]}" ; do
+    ((ignore != 0)) && continue
+    usage >&2
+    exit 2
+done
+
+# Check we have some arguments left to run a command
+if ! (($#)) ; then
+    usage >&2
+    exit 2
+fi
+
+# Run the command and save its exit value
+"$@"
+ret=$?
+
+# Iterate through the ignored exit values and reset the exit value to 0 if it
+# matches any of them, including a warning to stderr if -v was specified
+for ignore in "${ignores[@]}" ; do
+    ((ret != ignore)) && continue
+    ((verbose)) && printf '%s: Ignoring exit value %u\n' \
+        "$self" "$ignore" >&2
+    ret=0
+    break
+done
+
+# Exit with the determined value
+exit "$ret"
+

@@ -278,6 +278,8 @@ Scripts
     any options, mostly useful for scripts.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
+*   `igex(1)` wraps around a command to allow you to ignore error conditions
+    that don’t actually worry you, exiting with 0 anyway.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
