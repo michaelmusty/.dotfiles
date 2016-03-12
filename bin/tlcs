@@ -74,7 +74,7 @@ if ((color)) ; then
 
     # Color code for resetting
     color_reset=$( {
-        tput me || tput sgr 0
+        tput me || tput sgr0
     } 2>/dev/null )
 
     # If stdout is a terminal, color-code for green
