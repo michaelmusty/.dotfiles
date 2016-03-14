@@ -237,7 +237,12 @@ prompt() {
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
         vcs)
-            prompt git || prompt svn || prompt hg
+            local vcs
+            for vcs in "${PROMPT_VCS[@]:-git}" ; do
+                if prompt "$vcs" ; then
+                    return
+                fi
+            done
             ;;
 
         # Show return status of previous command in angle brackets, if not zero
