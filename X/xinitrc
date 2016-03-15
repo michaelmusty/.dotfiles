@@ -1,5 +1,5 @@
 # Read X resources
-xrdb "$HOME"/.Xresources
+xrdb "${XRESOURCES:-$HOME/.Xresources}"
 
 # Map Caps Lock as a Ctrl key, use right alt as Compose, kill X server with
 # Ctrl+Alt+Backspace
