@@ -21,8 +21,8 @@ prompt() {
             PS1=$PS1'$(prompt job)'
             PS1=$PS1'$(prompt vcs)'
             PS1=$PS1'$(prompt ret)'
-            PS1='$PROMPT_PREFIX'$PS1
-            PS1=$PS1'$PROMPT_SUFFIX'
+            PS1='${PROMPT_PREFIX}'$PS1
+            PS1=$PS1'${PROMPT_SUFFIX}'
             PS1=$PS1'\$'
 
             # If Bash 4.0 is available, trim very long paths in prompt
