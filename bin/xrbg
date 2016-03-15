@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+#
+# xrbg(1) -- Apply a random background image.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+self=xrbg
+
+# Path to the backgrounds directory
+bgd=${XBACKGROUNDS:-$HOME/.xbackgrounds}
+
+# Collect all the background images in an array if they
+# match some kosher extensions
+shopt -s nullglob
+declare -a bgs
+bgs=("$bgd"/*)
+
+# If there are no images, warn explicitly and bail
+if ! ((${#bgs[@]})) ; then
+    printf '%s: No background images found in %s\n' \
+        "$self" "$bgd"
+    exit 1
+fi
+
+# Pick one of the images (note shuf(1) needed)
+rbg=$(shuf -en1 "${bgs[@]}") || exit 1
+
+# Apply it as the background and we're done
+feh --bg-scale --no-fehbg -- "$rbg"
+

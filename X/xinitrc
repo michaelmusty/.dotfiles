@@ -6,9 +6,8 @@ xrdb "${XRESOURCES:-$HOME/.Xresources}"
 # <https://en.wikipedia.org/wiki/Compose_key#Common_compose_combinations>
 setxkbmap -option compose:ralt,ctrl:nocaps,terminate:ctrl_alt_bksp
 
-# Apply background image
-# Edited cover of Darkthrone's 1994 album "Transilvanian Hunger"
-feh --bg-scale --no-fehbg -- "$HOME"/.xbackgrounds/hunger.jpg
+# Apply a random background image
+xrbg
 
 # Start dunst(1) to display libnotify messages
 dunst &
