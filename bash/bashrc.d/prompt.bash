@@ -255,7 +255,7 @@ prompt() {
         # Show the count of background jobs in curly brackets, if not zero
         job)
             local -i jobc
-            while read -r _ ; do
+            while read ; do
                 ((jobc++))
             done < <(jobs -p)
             if ((jobc > 0)) ; then
