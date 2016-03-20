@@ -2,7 +2,6 @@
     alignment            = left
     allow_markup         = no
     bounce_freq          = 0
-    browser              = palemoon
     dmenu                = dmenu -p dunst:
     follow               = mouse
     font                 = Verdana 11 Bold

@@ -1,3 +1,7 @@
+# Browser within X is firefox
+BROWSER=firefox
+export BROWSER
+
 # Read X resources
 xrdb "${XRESOURCES:-$HOME/.Xresources}"
 

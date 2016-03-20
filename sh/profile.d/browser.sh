@@ -1,8 +1,4 @@
 # Browser
-if [ -n "$DISPLAY" ] ; then
-    BROWSER=palemoon
-else
-    BROWSER=lynx
-fi
+BROWSER=lynx
 export BROWSER
 
