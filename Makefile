@@ -11,6 +11,7 @@
 	install-curl \
 	install-dircolors \
 	install-dunst \
+	install-finger \
 	install-git \
 	install-gtk \
 	install-gnupg \
@@ -102,6 +103,9 @@ install-dircolors :
 install-dunst : install-x
 	install -m 0755 -d -- "$(HOME)"/.config/dunst
 	install -pm 0644 -- dunst/dunstrc "$(HOME)"/.config/dunst
+
+install-finger :
+	install -pm 0644 -- finger/plan "$(HOME)"/.plan
 
 install-git :
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
