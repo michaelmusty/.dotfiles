@@ -51,6 +51,7 @@ Configuration is included for:
     — Color GNU `ls(1)` output
 *   [Dunst](http://knopwob.org/dunst/) — A lightweight X11 notification daemon
     that works with `libnotify`
+*   `finger(1)` — User information lookup program
 *   [Git](http://git-scm.com/) — Distributed version control system
 *   [GnuPG](http://www.gnupg.org/) — GNU Privacy Guard, for private
     communication and file encryption
