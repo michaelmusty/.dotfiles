@@ -106,6 +106,8 @@ install-dunst : install-x
 
 install-finger :
 	install -pm 0644 -- finger/plan "$(HOME)"/.plan
+	install -pm 0644 -- finger/project "$(HOME)"/.project
+	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
 install-git :
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
