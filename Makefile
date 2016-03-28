@@ -142,7 +142,7 @@ install-mutt : install-maildir
 		"$(HOME)"/.mutt \
 		"$(HOME)"/.cache/mutt
 	install -pm 0644 -- mutt/muttrc "$(HOME)"/.muttrc
-	install -pm 0644 -- mutt/signature "$(HOME)"/.mutt/signature
+	install -pm 0644 -- mutt/signature "$(HOME)"/.signature
 
 install-ncmcpp :
 	install -m 0755 -d -- "$(HOME)"/.ncmpcpp

@@ -93,9 +93,6 @@ set sort_aux        = 'last-date-received'
 set strict_threads  = yes
 set thorough_search = yes
 
-# Signature
-set signature = '~/.mutt/signature'
-
 # Encryption settings
 set crypt_autosign           = yes
 set crypt_replysign          = yes
