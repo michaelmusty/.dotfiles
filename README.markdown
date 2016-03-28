@@ -189,6 +189,7 @@ There are a few other little tricks in `bash/bashrc.d`, including:
 *   `path` — Manage the contents of `PATH` conveniently
 *   `paz` — Print given arguments separated by NULL chars
 *   `pd` — Change to the argument’s parent directory
+*   `readv` — Print names and values from `read` calls to `stderr`
 *   `readz` — Alias for `read -d '' -r`
 *   `scr` — Create a temporary directory and change into it
 *   `sd` — Switch to a sibling directory
