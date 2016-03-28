@@ -284,6 +284,7 @@ Scripts
     that don’t actually worry you, exiting with 0 anyway.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
+*   `stbl(1)` strips a trailing blank line from the files in its arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.

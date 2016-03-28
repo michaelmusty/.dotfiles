@@ -1,0 +1,15 @@
+.TH STBL 1 "March 2016" "Manual page for stbl"
+.SH NAME
+.B stbl
+\- strip a trailing blank line from a file
+.SH USAGE
+.B stbl [-hv] FILE1 [FILE2 ...]
+.SH DESCRIPTION
+Applies ed(1) to remove a trailing newline from each of the given files.
+.P
+Option -h gives help, option -v turns on verbose output.
+.P
+   $ stbl .bashrc
+   $ stbl -v project/*.c project/*.h
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
