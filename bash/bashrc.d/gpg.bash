@@ -29,4 +29,3 @@ _gpg() {
     done < <(gpg --dump-options 2>/dev/null)
 }
 complete -F _gpg -o default gpg
-

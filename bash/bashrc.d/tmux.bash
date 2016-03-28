@@ -14,4 +14,3 @@ tmux() {
         command tmux new-session -s "${TMUX_SESSION:-default}"
     fi
 }
-

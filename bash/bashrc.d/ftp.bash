@@ -31,4 +31,3 @@ _ftp() {
     done
 }
 complete -F _ftp -o default ftp
-

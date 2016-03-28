@@ -583,4 +583,3 @@ if has('eval') && has('autocmd')
     autocmd BufReadPre * call BigFileMeasures()
   augroup end
 endif
-

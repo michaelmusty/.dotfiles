@@ -79,4 +79,3 @@ else
         "$self" 'Failure!'
     exit 1
 fi
-

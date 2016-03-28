@@ -5,4 +5,3 @@ paz() {
         printf '%s\0' "$@"
     fi
 }
-

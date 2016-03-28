@@ -25,4 +25,3 @@ _git() {
     esac
 }
 complete -F _git -o default git
-

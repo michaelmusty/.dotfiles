@@ -30,4 +30,3 @@ rbg=$(shuf -en1 "${bgs[@]}") || exit 1
 
 # Apply it as the background and we're done
 feh --bg-scale --no-fehbg -- "$rbg"
-

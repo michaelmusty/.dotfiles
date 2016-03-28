@@ -50,4 +50,3 @@ verify-options pka-lookups show-uid-validity
 # Assume "yes" is the answer to most questions, that is, don't keep asking me
 # to confirm something I've asked to be done
 yes
-

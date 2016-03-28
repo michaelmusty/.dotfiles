@@ -20,4 +20,3 @@ fi
     done < <(rem -hq)
     printf '\n'
 )
-

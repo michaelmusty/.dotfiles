@@ -75,4 +75,3 @@ syntax keyword bashStatement
     \ umask
     \ unalias
     \ wait
-

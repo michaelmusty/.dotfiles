@@ -62,4 +62,3 @@ cat > "$stdin"
 for file ; do
     ed "${opts[@]}" -- "$file" < "$stdin"
 done
-

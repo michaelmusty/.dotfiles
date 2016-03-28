@@ -20,4 +20,3 @@ _vis() {
     )
 }
 complete -F _vis vis
-

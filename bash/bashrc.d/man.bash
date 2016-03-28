@@ -61,4 +61,3 @@ _man() {
     )
 }
 complete -F _man -o default man
-

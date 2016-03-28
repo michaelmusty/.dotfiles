@@ -77,4 +77,3 @@ _ud() {
     )
 }
 complete -F _ud -o filenames ud
-

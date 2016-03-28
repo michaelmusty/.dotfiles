@@ -8,4 +8,3 @@ highlight! link mailQuoted3 NONE
 highlight! link mailQuoted4 NONE
 highlight! link mailQuoted5 NONE
 highlight! link mailQuoted6 NONE
-

@@ -17,4 +17,3 @@ fi
     fortune -sn "${FORTUNE_MAXSIZE:-768}" "$FORTUNE_PATH"
     printf '\n'
 )
-

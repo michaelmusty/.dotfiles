@@ -30,4 +30,3 @@ cd() {
         builtin cd "${opts[@]}" -- "$@"
     fi
 }
-

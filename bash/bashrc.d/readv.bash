@@ -23,4 +23,3 @@ readv() {
             "$FUNCNAME" "$name" "${!name}"
     done
 }
-

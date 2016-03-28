@@ -16,4 +16,3 @@ esac
 
 # We're done parsing ls(1)'s --help output now
 unset -v ls_help
-

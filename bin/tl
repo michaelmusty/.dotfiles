@@ -65,4 +65,3 @@ for file in "$@" ; do
         printf '%s%s%s\n' "$prefix" "$line" "$suffix"
     done < "$file"
 done
-

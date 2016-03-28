@@ -6,4 +6,3 @@ clwr() {
         printf '%s\n' "$line"
     done
 }
-

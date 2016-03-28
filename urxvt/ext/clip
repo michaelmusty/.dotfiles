@@ -29,4 +29,3 @@ sub clip {
       or croak('Failed to close xsel(1) pipe');
     return $written;
 }
-

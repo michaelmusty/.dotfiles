@@ -9,4 +9,3 @@ let g:netrw_liststyle = 3
 
 " Don't list the current directory shortcut, and don't show tags files
 let g:netrw_list_hide = '^\.$,^tags$'
-

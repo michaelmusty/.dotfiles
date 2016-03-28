@@ -4,4 +4,3 @@ nnoremap <leader>pc :exe "!perl -c " . shellescape(expand("%"))<CR>
 nnoremap <leader>pl :exe "!perlcritic " . shellescape(expand("%"))<CR>
 " Run the current buffer through perltidy
 nnoremap <leader>pt :%!perltidy<CR>
-

@@ -21,4 +21,3 @@
 
 "exec amixer -q sset Master 5%- unmute"
   XF86AudioLowerVolume
-

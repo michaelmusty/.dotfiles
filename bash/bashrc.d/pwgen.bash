@@ -7,4 +7,3 @@ pwgen() {
         command pwgen --secure -- "${PWGEN_LENGTH:-15}" "${PWGEN_COUNT:-1}"
     fi
 }
-

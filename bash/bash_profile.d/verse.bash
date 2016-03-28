@@ -22,4 +22,3 @@ fi
         printf '%s\n' "$date" > "$versefile"
     fi
 )
-

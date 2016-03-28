@@ -97,4 +97,3 @@ apf() {
     # command line as passed to the function
     command "$cmd" "${args[@]}" "$@"
 }
-

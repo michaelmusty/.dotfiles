@@ -12,4 +12,3 @@ if [ -d "$HOME"/.profile.d ] ; then
     done
     unset -v profile
 fi
-

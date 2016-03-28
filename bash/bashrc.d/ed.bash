@@ -27,4 +27,3 @@ ed() {
     # concluded options
     command "${wrap[@]}" ed "${opts[@]}" "$@"
 }
-

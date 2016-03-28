@@ -42,4 +42,3 @@ fnl() {
     # Return the exit status of the command, not the declare builtin
     return "$ret"
 }
-

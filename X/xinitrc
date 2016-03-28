@@ -30,4 +30,3 @@ xbindkeys -n &
 
 # Start window manager
 exec i3
-

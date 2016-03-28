@@ -18,4 +18,3 @@ unset -v colors
 ls() {
     command ls "${LSOPTS[@]}" "$@"
 }
-

@@ -2,4 +2,3 @@
 bell() {
     printf '\a'
 }
-

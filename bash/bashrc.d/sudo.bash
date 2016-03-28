@@ -6,4 +6,3 @@ sudo() {
         command sudo -H "$@"
     fi
 }
-

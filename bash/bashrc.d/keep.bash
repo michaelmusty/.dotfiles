@@ -157,4 +157,3 @@ if [[ -d ${BASHKEEP:-$HOME/.bashkeep.d} ]] ; then
     done
     unset -v bashkeep
 fi
-

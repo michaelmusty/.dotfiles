@@ -35,4 +35,3 @@ while read -r option value _ ; do
             ;;
     esac
 done < "${1:-$HOME/.ssh/config}"
-

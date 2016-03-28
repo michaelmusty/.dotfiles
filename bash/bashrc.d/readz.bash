@@ -2,4 +2,3 @@
 readz() {
     builtin read -d '' -r "$@"
 }
-

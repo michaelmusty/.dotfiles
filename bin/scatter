@@ -32,4 +32,3 @@ while read -r hostname <&3 ; do
     ssh -qt -- "$hostname" "$@"
     printf '\n'
 done 3< <(shoal)
-

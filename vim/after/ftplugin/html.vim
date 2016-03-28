@@ -9,4 +9,3 @@ function! UrlLink()
   execute "normal a</a>\<Esc>"
 endfunction
 nnoremap <silent> <leader>r :<C-U>call UrlLink()<CR>
-

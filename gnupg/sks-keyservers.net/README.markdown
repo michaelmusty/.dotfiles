@@ -7,4 +7,3 @@ your responsibility to make sure that everything here is verified to your
 satisfaction.
 
 [1]: https://sks-keyservers.net/overview-of-pools.php
-

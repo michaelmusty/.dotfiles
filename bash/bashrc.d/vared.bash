@@ -29,4 +29,3 @@ vared() {
     done
 }
 complete -A variable vared
-

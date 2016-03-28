@@ -20,4 +20,3 @@ _ssh() {
     done
 }
 complete -F _ssh -o default ssh sftp ssh-copy-id
-

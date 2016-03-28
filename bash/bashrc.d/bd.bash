@@ -99,4 +99,3 @@ _bd() {
     done
 }
 complete -F _bd bd
-

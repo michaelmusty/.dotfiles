@@ -15,4 +15,3 @@ color  listfocus         default default reverse
 color  listfocus_unread  default default reverse
 color  listnormal        default default
 color  listnormal_unread default default
-

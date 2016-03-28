@@ -60,4 +60,3 @@ done
 # If we got this far, there's at least one file and all the files are owned by
 # the same user; we can safely edit them
 exec sudoedit -u "$user" -- "$@"
-

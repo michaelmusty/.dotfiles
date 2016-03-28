@@ -100,4 +100,3 @@ fi
 "$@" \
     2> >(tl -p "$stderr_prefix" -s "$stderr_suffix") \
     1> >(tl -p "$stdout_prefix" -s "$stdout_suffix")
-

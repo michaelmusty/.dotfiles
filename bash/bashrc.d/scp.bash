@@ -8,4 +8,3 @@ scp() {
     fi
     command scp "$@"
 }
-

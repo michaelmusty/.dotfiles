@@ -4,4 +4,3 @@ pa() {
         printf '%s\n' "$@"
     fi
 }
-

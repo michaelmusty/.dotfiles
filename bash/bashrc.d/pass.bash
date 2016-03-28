@@ -37,4 +37,3 @@ _pass()
     )
 }
 complete -F _pass pass
-

@@ -32,4 +32,3 @@ while read -r hostname ; do
         printf '%s\n' "$hostname"
     fi
 done < <(shoal)
-

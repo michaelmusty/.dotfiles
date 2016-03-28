@@ -2,4 +2,3 @@
 gdb() {
     command gdb -q "$@"
 }
-

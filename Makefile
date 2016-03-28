@@ -292,4 +292,3 @@ lint-bin :
 
 lint-urxvt:
 	find urxvt/ext -type f -print -exec perlcritic --brutal -- {} \;
-

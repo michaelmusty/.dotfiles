@@ -11,4 +11,3 @@ esac
 
 # We're done parsing grep(1)'s --help output now
 unset -v grep_help
-

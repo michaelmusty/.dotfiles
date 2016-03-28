@@ -6,4 +6,3 @@
 hgrep() {
     grep "${@:?}" "${HISTFILE:?}"
 }
-

@@ -2,4 +2,3 @@
 rcsdiff() {
     command rcsdiff -u "$@"
 }
-

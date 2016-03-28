@@ -56,4 +56,3 @@ message=$(printf 'Changed by %s(1)' "$self")
 if ! git diff-index --quiet HEAD ; then
     git commit --message "$message" --quiet
 fi
-

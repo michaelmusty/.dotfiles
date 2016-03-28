@@ -2,4 +2,3 @@
 if [[ -n $GPG_TTY ]] ; then
     GPG_TTY=$(tty)
 fi
-

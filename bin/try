@@ -115,4 +115,3 @@ done
 # the failures and exit with the non-zero exit value of the most recent one
 cat -- "$errbuf" >&2
 exit "$ret"
-

@@ -2,4 +2,3 @@
 diff() {
     command diff -u "$@"
 }
-

@@ -147,4 +147,3 @@ _sd() {
     )
 }
 complete -F _sd sd
-

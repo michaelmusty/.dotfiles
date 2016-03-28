@@ -2,4 +2,3 @@
 autocmd BufNewFile,BufRead
     \ nwatch.diff.*
     \ setlocal filetype=diff
-

@@ -2,4 +2,3 @@
 " often than it helps me; turn it off and just use autoindent
 setlocal autoindent
 setlocal indentexpr=
-

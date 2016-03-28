@@ -14,4 +14,3 @@ set guioptions=aci
 " When the GUI starts, t_vb is reset to its default value, so it's necessary
 " to repeat this line from my .vimrc file that turns off visual bells
 set visualbell t_vb=
-

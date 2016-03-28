@@ -2,4 +2,3 @@
 bc() {
     command bc -q "$@"
 }
-

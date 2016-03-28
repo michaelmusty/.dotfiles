@@ -15,4 +15,3 @@ if command -v keychain >/dev/null 2>&1 ; then
         export GPG_TTY
     fi
 fi
-

@@ -55,4 +55,3 @@ _mysql() {
     )
 }
 complete -F _mysql -o default mysql
-

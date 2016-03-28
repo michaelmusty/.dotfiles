@@ -31,4 +31,3 @@ unset -v grep_help colors
 grep() {
     command grep "${GREPOPTS[@]}" "$@"
 }
-

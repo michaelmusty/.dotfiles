@@ -6,4 +6,3 @@ let g:sh_isk='@,48-57,_,192-255,.,/'
 if exists('b:is_bash') && executable('han')
   setlocal keywordprg=han
 endif
-

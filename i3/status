@@ -15,4 +15,3 @@ battery 0 {
     path = "/sys/class/power_supply/BAT%d/uevent"
     low_threshold = 15
 }
-

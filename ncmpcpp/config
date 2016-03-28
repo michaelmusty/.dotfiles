@@ -29,4 +29,3 @@ song_columns_list_format     = "(40)[]{t|f} (25)[blue]{a} (25)[red]{b} (10)[gree
 # Don't let me actually delete anything
 allow_physical_directories_deletion = "no"
 allow_physical_files_deletion       = "no"
-

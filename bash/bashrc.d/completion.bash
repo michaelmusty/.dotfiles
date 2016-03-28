@@ -36,4 +36,3 @@ complete -A variable declare export readonly typeset
 
 # Both functions and variables
 complete -A function -A variable unset
-

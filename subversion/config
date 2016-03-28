@@ -9,4 +9,3 @@ global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo *.rej
 [auto-props]
 *.jpg = svn:mime-type=image/jpeg
 *.png = svn:mime-type=image/png
-

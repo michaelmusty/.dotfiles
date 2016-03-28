@@ -58,4 +58,3 @@ vr() {
     return 1
 }
 complete -A directory vr
-

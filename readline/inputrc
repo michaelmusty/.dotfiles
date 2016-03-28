@@ -51,4 +51,3 @@ $if Bash
     # Alt-T (for todo) to edit my to-do file with td(1)
     "\et": "\C-atd\C-j\C-y"
 $endif
-

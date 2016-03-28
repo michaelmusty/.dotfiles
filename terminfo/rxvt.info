@@ -324,4 +324,3 @@ rxvt-unicode-256color| rxvt-unicode with 256 colors,
     use=rxvt-unicode,
     colors#256,
     pairs#32767,
-

@@ -24,4 +24,3 @@ autocmd BufNewFile,BufRead
     \ **/.dotfiles/bash/**
     \ let g:is_bash = 1 |
     \ setlocal filetype=sh
-

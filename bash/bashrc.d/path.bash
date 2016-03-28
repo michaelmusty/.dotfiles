@@ -240,4 +240,3 @@ _path() {
 }
 
 complete -F _path path
-

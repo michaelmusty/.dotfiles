@@ -10,4 +10,3 @@ scr() {
         return 2
     fi
 }
-
