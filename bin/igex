@@ -5,7 +5,7 @@
 # 0. Don't touch any stderr, though. Good for wrapping around rsync(1), like to
 # ignore exit value 24.
 #
-# -h gives help, -v gives you stdout specifying success or failure, -i specifies
+# -h gives help, -v gives you stderr specifying success or failure, -i specifies
 # the signals to ignore; you must specify at least one none-zero integer.
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
