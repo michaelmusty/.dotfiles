@@ -2,8 +2,6 @@
 	clean \
 	distclean \
 	gnupg \
-	vim \
-	vim-plugins \
 	install \
 	install-abook \
 	install-bash \
@@ -44,7 +42,7 @@
 	test-sh \
 	test-urxvt
 
-all : gnupg vim
+all : gnupg
 
 clean :
 	rm -f gnupg/gpg.conf
@@ -202,7 +200,7 @@ install-vim-config :
 install-gvim-config :
 	install -pm 0644 -- vim/gvimrc "$(HOME)"/.gvimrc
 
-install-vim-plugins : vim-plugins install-vim-config
+install-vim-plugins : install-vim-config
 	install -m 0755 -d -- "$(HOME)"/.vim/bundle
 	find vim/bundle -name .git -prune -o \
 		\( -type d -print \) | \
