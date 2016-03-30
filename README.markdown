@@ -2,9 +2,7 @@ Dotfiles (Tom Ryder)
 ====================
 
 This is my personal repository of [dotfiles](https://dotfiles.github.io/),
-including most of the settings that migrate well between machines. You can fork
-and use this directly, but it’s more likely you’ll want to read the files and
-find snippets relevant to your workflow.
+including most of the settings that migrate well between machines.
 
 Installation
 ------------
