@@ -213,7 +213,7 @@ neither tilde nor `$HOME` expansion works for this.
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
-[Procmail](http://www.procmail.org/), and
+[maildrop](http://www.courier-mta.org/maildrop/), and
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I make heavy use of GnuPG for email—everything is signed by
 default, and I encrypt whenever I have a public key available for the
