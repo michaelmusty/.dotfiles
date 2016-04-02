@@ -249,8 +249,7 @@ make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
 These are just generally vi-friendly settings, not much out of the ordinary.
 Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
-shells thinking they have access to an X display—I’m forced to use PuTTY a lot
-at work, and I don’t like Xming very much.
+shells thinking they have access to an X display.
 
 The configuration for Bash includes a `tmux` function designed to make `attach`
 into the default command if no arguments are given and sessions do already
