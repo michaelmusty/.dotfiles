@@ -64,6 +64,8 @@ Configuration is included for:
     client
 *   [Perl::Critic](http://perlcritic.com/) — static source code analysis engine
     for Perl
+*   [Perl::Tidy](http://perltidy.sourceforge.net/) — Perl indenter and
+    reformatter
 *   [Readline](http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) — GNU
     library for user input used by Bash, MySQL, and others
 *   [tmux](https://tmux.github.io/) — Terminal multiplexer similar to GNU

@@ -22,6 +22,7 @@
 	install-ncmcpp \
 	install-newsbeuter \
 	install-perlcritic \
+	install-perltidy \
 	install-psql \
 	install-readline \
 	install-sh \
@@ -159,6 +160,9 @@ install-mysql :
 
 install-perlcritic:
 	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
+
+install-perltidy:
+	install -pm 0644 -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
 
 install-psql :
 	install -pm 0644 -- psql/psqlrc "$(HOME)"/.psqlrc

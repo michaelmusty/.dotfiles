@@ -1,0 +1,3 @@
+# Assume UTF-8 encoding so I can use $か as an identifier, which is critically
+# important and non-negotiable
+-utf8
