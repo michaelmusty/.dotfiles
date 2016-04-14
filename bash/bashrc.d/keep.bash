@@ -138,7 +138,7 @@ EOF
     (
         shopt -s dotglob nullglob
         declare -a keeps
-        keeps=("${bashkeep}"/*.bash)
+        keeps=("$bashkeep"/*.bash)
         keeps=("${keeps[@]##*/}")
         keeps=("${keeps[@]%.bash}")
         ((${#keeps[@]})) || exit 0
