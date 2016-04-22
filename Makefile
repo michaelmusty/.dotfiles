@@ -43,17 +43,28 @@
 	test-sh \
 	test-urxvt
 
-all : gnupg
+all : gnupg tmux
 
 clean :
-	rm -f gnupg/gpg.conf
+	rm -f \
+		gnupg/gpg.conf \
+		tmux/tmux.conf
 
 distclean : clean
 
 gnupg : gnupg/gpg.conf
 
 gnupg/gpg.conf :
-	m4 -D DOTFILES_HOME="$(HOME)" gnupg/gpg.conf.m4 > gnupg/gpg.conf
+	m4 -D DOTFILES_HOME="$(HOME)" \
+		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+
+TMUX_COLOR := colour237
+
+tmux : tmux/tmux.conf
+
+tmux/tmux.conf :
+	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
+		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 install : install-bash \
 	install-curl \
@@ -184,7 +195,7 @@ install-terminfo :
 		tic -- "$$info" ; \
 	done
 
-install-tmux :
+install-tmux : tmux/tmux.conf
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
 install-urxvt : test-urxvt

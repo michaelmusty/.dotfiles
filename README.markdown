@@ -253,6 +253,10 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
+The configuration file is created with `m4(1)` to allow specifying a colour
+theme. This is just because I use a different colour for my work session. The
+default is a dark grey.
+
 The configuration for Bash includes a `tmux` function designed to make `attach`
 into the default command if no arguments are given and sessions do already
 exist. The default command is normally `new-session`.
