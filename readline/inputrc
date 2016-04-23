@@ -50,4 +50,10 @@ $if Bash
     "\es": "\C-a(set -x ; \C-e)\C-b"
     # Alt-T (for todo) to edit my to-do file with td(1)
     "\et": "\C-atd\C-j\C-y"
+    # Ctrl-Alt-W to delete a previous shell-quoted word
+    "\e\C-w": shell-backward-kill-word
+    # Ctrl-Alt-B to move backward a shell-quoted word
+    "\e\C-f": shell-forward-word
+    # Ctrl-Alt-F to move forward a shell-quoted word
+    "\e\C-b": shell-backward-word
 $endif
