@@ -30,30 +30,35 @@ set skip-completed-text On
 
 # Bash macros
 $if Bash
+
     # Expand ! history with a spacebar press
     Space: magic-space
+
     # Alt-E (for exec) to prepend "exec " to a command and return to the end of
     # the line
     "\ee": "\C-aexec \C-e"
+    # Alt-P (for procedure) to wrap current command in () { ... ; } and go to
+    # the start of the line
+    "\ep": "\C-a() { \C-e ; }\C-a"
+    # Alt-S (for set) to wrap current command in (set -x ; ...)
+    "\es": "\C-a(set -x ; \C-e)\C-b"
+
     # Alt-H (for home) to go $HOME
     "\eh": "\C-ucd\C-j\C-y"
     # Alt-L (for ls) to run ls -Al
     "\el": "\C-uls -Al\C-j\C-y"
     # Alt-M (for muxer) to run tmux
     "\em": "\C-utmux\C-j\C-y"
-    # Alt-P (for procedure) to wrap current command in () { ... ; } and go to
-    # the start of the line
-    "\ep": "\C-a() { \C-e ; }\C-a"
     # Alt-R (for repeat) to run the previous command in history again
     "\er": "\C-u\C-p\C-j\C-y"
-    # Alt-S (for set) to wrap current command in (set -x ; ...)
-    "\es": "\C-a(set -x ; \C-e)\C-b"
     # Alt-T (for todo) to edit my to-do file with td(1)
     "\et": "\C-atd\C-j\C-y"
+
+    # Ctrl-Alt-B to move backward a shell-quoted word
+    "\e\C-b": shell-backward-word
+    # Ctrl-Alt-F to move forward a shell-quoted word
+    "\e\C-f": shell-forward-word
     # Ctrl-Alt-W to delete a previous shell-quoted word
     "\e\C-w": shell-backward-kill-word
-    # Ctrl-Alt-B to move backward a shell-quoted word
-    "\e\C-f": shell-forward-word
-    # Ctrl-Alt-F to move forward a shell-quoted word
-    "\e\C-b": shell-backward-word
+
 $endif
