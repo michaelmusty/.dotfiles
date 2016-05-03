@@ -12,8 +12,11 @@ prompt() {
 
         # Turn complex, colored PS1 and debugging PS4 prompts on
         on)
+            # Declare the PROMPT_RETURN variable as an integer
+            declare -i PROMPT_RETURN
+
             # Set up pre-prompt command
-            PROMPT_COMMAND='declare -i PROMPT_RETURN=$? ; history -a'
+            PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
 
             # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
             # variables
