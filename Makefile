@@ -43,7 +43,7 @@
 	test-sh \
 	test-urxvt
 
-all : gnupg tmux
+all : gnupg
 
 clean :
 	rm -f \
