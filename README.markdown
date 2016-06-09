@@ -131,9 +131,17 @@ after testing `BASH_VERSINFO` appropriately.
 When I use any other Bourne-compatible shell, I’m generally happy to accept its
 defaults for interactive behavior.
 
-My prompt looks something like this:
+A terminal session with my prompt looks something like this:
 
-![Bash prompt](prompt.png)
+    [tom@conan:~/.dotfiles](git:master+!)$ git status
+     M README.markdown
+    M  bash/bashrc.d/prompt.bash
+    A  init
+    [tom@conan:~/.dotfiles](git:master+!)$ foobar
+    foobar: command not found
+    [tom@conan:~/.dotfiles](git:master+!)<127>$ sleep 5 &
+    [1] 28937
+    [tom@conan:~/.dotfiles](git:master+!){1}$
 
 It expands based on context to include these elements in this order:
 
