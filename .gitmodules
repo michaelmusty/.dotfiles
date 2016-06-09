@@ -12,7 +12,7 @@
     url = https://github.com/tommcdo/vim-lion
 [submodule "vim/bundle/nagios"]
     path = vim/bundle/nagios
-    url = https://github.com/tejr/vim-nagios.git
+    url = https://sanctum.geek.nz/code/vim-nagios.git
 [submodule "vim/bundle/pathogen"]
     path = vim/bundle/pathogen
     url = https://github.com/tpope/vim-pathogen.git
@@ -21,7 +21,7 @@
     url = https://github.com/tpope/vim-repeat.git
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
-    url = https://github.com/tejr/sahara.git
+    url = https://sanctum.geek.nz/code/sahara.git
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://github.com/tpope/vim-surround.git
@@ -30,7 +30,7 @@
     url = https://github.com/wellle/targets.vim
 [submodule "vim/bundle/tmux"]
     path = vim/bundle/tmux
-    url = https://github.com/tejr/vim-tmux.git
+    url = https://sanctum.geek.nz/code/vim-tmux.git
 [submodule "vim/bundle/unimpaired"]
     path = vim/bundle/unimpaired
     url = https://github.com/tpope/vim-unimpaired.git
