@@ -1,0 +1,5 @@
+#!/bin/sed -f
+# Prepend z appropriately to occurrences of s, in order to make fun of bezrend
+s,s,zs,g
+s,S\([a-z]\),Zs\1,g
+s,S,ZS,g
