@@ -278,9 +278,9 @@ test-bash :
 
 test-bin :
 	@for bin in bin/* ; do \
-		if sed 1q "$$bin" | grep -q bash ; then \
+		if sed 1q "$$bin" | grep -q 'bash$$' ; then \
 			bash -n "$$bin" || exit 1 ; \
-		elif sed 1q "$$bin" | grep -q sh ; then \
+		elif sed 1q "$$bin" | grep -q 'sh$$' ; then \
 			sh -n "$$bin" || exit 1 ; \
 		fi ; \
 	done
@@ -301,7 +301,12 @@ lint-bash :
 	find bash -type f -print -exec shellcheck -- {} \;
 
 lint-bin :
-	find bin -type f -print -exec shellcheck -- {} \;
+	@for bin in bin/* ; do \
+		if sed 1q "$$bin" | grep -q -- 'sh$$' ; then \
+			printf '%s\n' "$$bin" ; \
+			shellcheck -- "$$bin" ; \
+		fi ; \
+	done
 
 lint-urxvt:
 	find urxvt/ext -type f -print -exec perlcritic --brutal -- {} \;
