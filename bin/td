@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# td(1) -- Manage a to-do file with just $EDITOR and git(1), because I've
+# td(1) -- Manage to-do files with just $EDITOR and git(1), because I've
 # completely given up on finding a more useful way to do it.
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
@@ -10,11 +10,11 @@
 #
 self=td
 
-# Specify the path to the file; you can override this with a $TODO environment
-# variable
-path=${TODO:-$HOME/Todo/todo.markdown}
-file=${path##*/}
-dir=${path%/*}
+# Specify the path to the file; you can override this with environment
+# variables
+dir=${TODO_DIR:-$HOME/Todo}
+file=${1:-${TODO_NAME:-todo}}
+path="$dir"/"$file"
 
 # Check we've got the tools we need
 hash git || exit
@@ -44,9 +44,8 @@ if ! [[ -e $file ]] ; then
     touch -- "$file" || exit
 fi
 
-# Launch $VISUAL (or $EDITOR (or vi(1))), with any arguments given as options,
-# to edit the to-do file
-"${VISUAL:-${EDITOR:-vi}}" "$@" "$file"
+# Launch $VISUAL (or $EDITOR (or vi(1))) to edit the appropriate to-do file
+"${VISUAL:-${EDITOR:-vi}}" "$file"
 
 # Add the file to the changeset
 git add -- "$file"
