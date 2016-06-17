@@ -94,7 +94,6 @@ set strict_threads  = yes
 set thorough_search = yes
 
 # Encryption settings
-set crypt_autosign           = yes
 set crypt_replysign          = yes
 set crypt_replyencrypt       = yes
 set crypt_replysignencrypted = yes

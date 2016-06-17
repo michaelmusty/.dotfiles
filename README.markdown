@@ -226,9 +226,9 @@ most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
 [maildrop](http://www.courier-mta.org/maildrop/), and
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
-included here. I make heavy use of GnuPG for email—everything is signed by
-default, and I encrypt whenever I have a public key available for the
-recipient. The GnuPG interfacing is done with
+included here. I sign whenever I have some indication that the recipient might
+be using a PGP implementation, and I encrypt whenever I have a public key
+available for them. The GnuPG interfacing is done with
 [GPGme](http://www.gnupg.org/related_software/gpgme/), rather than defining
 commands for each crypto operation. I wrote [an article about this
 setup](http://blog.sanctum.geek.nz/linux-crypto-email/) if it sounds appealing.
