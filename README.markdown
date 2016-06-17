@@ -17,8 +17,9 @@ Installation
 
 For the default target, you’ll need `bash(1)`, `git(1)`, `install(1)`,
 `make(1)`, `m4(1)`, and `tic(1)`. You’ll need to have a recent enough version
-of Git to support [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
-for the Vim installation to work; it’s required for the plugin setup.
+of Git to support
+[submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the Vim
+installation to work; it’s required for the plugin setup.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -231,7 +232,8 @@ be using a PGP implementation, and I encrypt whenever I have a public key
 available for them. The GnuPG interfacing is done with
 [GPGme](https://www.gnupg.org/related_software/gpgme/), rather than defining
 commands for each crypto operation. I wrote [an article about this
-setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds appealing.
+setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
+appealing.
 
 You’ll need [Abook](http://abook.sourceforge.net/) installed if you want to use
 the `query_command` I have defined, and [msmtp](http://msmtp.sourceforge.net/)
