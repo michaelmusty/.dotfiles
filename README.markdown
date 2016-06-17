@@ -17,7 +17,7 @@ Installation
 
 For the default target, you’ll need `bash(1)`, `git(1)`, `install(1)`,
 `make(1)`, `m4(1)`, and `tic(1)`. You’ll need to have a recent enough version
-of Git to support [submodules](http://git-scm.com/book/en/Git-Tools-Submodules)
+of Git to support [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 for the Vim installation to work; it’s required for the plugin setup.
 
 The installation `Makefile` will overwrite things standing in the way of its
@@ -44,30 +44,30 @@ Configuration is included for:
 *   [Bash](https://www.gnu.org/software/bash/) — GNU Bourne-Again Shell,
     including a `~/.profile` configured to work with most Bourne-compatible
     shells
-*   [cURL](http://curl.haxx.se/) — Command-line tool for transferring data with
+*   [cURL](https://curl.haxx.se/) — Command-line tool for transferring data with
     URL syntax
 *   [`dircolors(1)`](https://www.gnu.org/software/coreutils/manual/html_node/dircolors-invocation.html)
     — Color GNU `ls(1)` output
 *   [Dunst](http://knopwob.org/dunst/) — A lightweight X11 notification daemon
     that works with `libnotify`
 *   `finger(1)` — User information lookup program
-*   [Git](http://git-scm.com/) — Distributed version control system
-*   [GnuPG](http://www.gnupg.org/) — GNU Privacy Guard, for private
+*   [Git](https://git-scm.com/) — Distributed version control system
+*   [GnuPG](https://www.gnupg.org/) — GNU Privacy Guard, for private
     communication and file encryption
 *   [GTK+](http://www.gtk.org/) — GIMP Toolkit, for graphical user interface
     elements
-*   [i3](http://i3wm.org/) — Tiling window manager
+*   [i3](https://i3wm.org/) — Tiling window manager
 *   [Mutt](http://www.mutt.org/) — Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) — Command-line MySQL client
-*   [Ncmpcpp](http://ncmpcpp.rybczak.net/) — ncurses music player client
-*   [Newsbeuter](http://www.newsbeuter.org/) — Terminal RSS/Atom feed reader
+*   [Ncmpcpp](http://rybczak.net/ncmpcpp/) — ncurses music player client
+*   [Newsbeuter](https://www.newsbeuter.org/) — Terminal RSS/Atom feed reader
 *   [`psql(1)`](http://linux.die.net/man/1/psql) — Command-line PostgreSQL
     client
 *   [Perl::Critic](http://perlcritic.com/) — static source code analysis engine
     for Perl
 *   [Perl::Tidy](http://perltidy.sourceforge.net/) — Perl indenter and
     reformatter
-*   [Readline](http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) — GNU
+*   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) — GNU
     library for user input used by Bash, MySQL, and others
 *   [tmux](https://tmux.github.io/) — Terminal multiplexer similar to GNU
     Screen
@@ -76,9 +76,9 @@ Configuration is included for:
 *   [Subversion](https://subversion.apache.org/) — Apache Subversion, a version
     control system
 *   [Vim](http://www.vim.org/) — Vi IMproved, a text editor
-*   [Wyrd](http://pessimization.com/software/wyrd/) — a `curses` calendar
-    frontend for [Remind](http://www.roaringpenguin.com/products/remind)
-*   [X11](http://www.x.org/wiki/) — Windowing system with network transparency
+*   [Wyrd](https://packages.debian.org/sid/wyrd) — a `curses` calendar
+    frontend for [Remind](https://www.roaringpenguin.com/products/remind)
+*   [X11](https://www.x.org/wiki/) — Windowing system with network transparency
     for Unix
 *   [Zsh](http://www.zsh.org/) — Bourne-style shell designed for interactive
     use
@@ -229,9 +229,9 @@ most unfiltered mail is sent. I use
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
 available for them. The GnuPG interfacing is done with
-[GPGme](http://www.gnupg.org/related_software/gpgme/), rather than defining
+[GPGme](https://www.gnupg.org/related_software/gpgme/), rather than defining
 commands for each crypto operation. I wrote [an article about this
-setup](http://blog.sanctum.geek.nz/linux-crypto-email/) if it sounds appealing.
+setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds appealing.
 
 You’ll need [Abook](http://abook.sourceforge.net/) installed if you want to use
 the `query_command` I have defined, and [msmtp](http://msmtp.sourceforge.net/)
@@ -323,8 +323,8 @@ You can test that both sets of shell scripts are syntactically correct with
 `make test-bash`, `make test-sh`, or `make test` for everything including the
 scripts in `bin`.
 
-If you have [ShellCheck](http://www.shellcheck.net/) and/or
-[Perl::Critic](http://perlcritic.com), there’s a `lint` target for the shell
+If you have [ShellCheck](https://www.shellcheck.net/) and/or
+[Perl::Critic](http://perlcritic.com/), there’s a `lint` target for the shell
 script files and Perl files respectively. The files don’t need to pass that
 check to be installed.
 
