@@ -21,7 +21,7 @@ sub on_init {
     if ( defined( my $res = $self->resource('cutchars') ) ) {
         $res = $self->locale_decode($res);
         push @{ $self->{patterns} },
-          qr{\G [\Q$res\E[:space:]]* ([^\Q$res\E[:space:]]+) }x;
+          qr{\G [\Q$res\E[:space:]]* ([^\Q$res\E[:space:]]+) }msx;
     }
 
     $self->{enabled} = 1;
@@ -49,7 +49,7 @@ sub on_sel_extend {
         study $text;    # _really_ helps, too :)
 
         for my $regex ( @{ $self->{patterns} } ) {
-            while ( $text =~ /$regex/g ) {
+            while ( $text =~ m{$regex}gmsx ) {
                 if (    $LAST_MATCH_START[1] <= $markofs
                     and $markofs <= $LAST_MATCH_END[1] )
                 {
