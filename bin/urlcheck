@@ -10,7 +10,7 @@ cleanup() {
 trap cleanup EXIT
 while read -r url ; do
     [[ $url == 'http'* ]] || continue
-    if ! curl -fHLsS -D "$head" -m "$tm" -o "$body" "$url" ; then
+    if ! curl -fHLsS -D "$head" -m "$tm" -o "$body" -- "$url" ; then
         printf '%s: %s raises error\n' \
             "$self" "$url" >&2
         continue
@@ -23,7 +23,7 @@ while read -r url ; do
     done < "$head"
     [[ $url == 'http:'* ]] || continue
     securl=${url/http:/https:}
-    if curl -fLsS -m "$tm" -o /dev/null -- "$securl" 2>/dev/null ; then
+    if curl -fLsS -D "$head" -m "$tm" -o "$body" -- "$securl" 2>/dev/null ; then
         printf '%s: %s has a working secure version at %s\n' \
             "$self" "$url" "$securl" >&2
         ((ex++))
