@@ -7,7 +7,7 @@ including most of the settings that migrate well between machines.
 Installation
 ------------
 
-    $ git clone git://github.com/tejr/dotfiles.git ~/.dotfiles
+    $ git clone https://sanctum.geek.nz/code/dotfiles.git ~/.dotfiles
     $ cd ~/.dotfiles
     $ git submodule init
     $ git submodule update
