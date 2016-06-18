@@ -22,51 +22,6 @@ sub on_init {
    ()
 }
 
-# "find interesting things"-patterns
-my @mark_patterns = (
-#   qr{ ([[:word:]]+) }x,
-   qr{ ([^[:space:]]+) }x,
-
-   # common types of "parentheses"
-   qr{ (?<![^[:space:]])  [`'] ([^`']+)  [`'] (?![^[:space:]]) }x,
-   qr{ (?<![^[:space:]])  ‘ ([^‘’]+)  ’ (?![^[:space:]]) }x,
-   qr{ (?<![^[:space:]])  “ ([^“”]+)  ” (?![^[:space:]]) }x,
-
-   qr{ (?<![^[:space:]]) (' [^[:space:]] [^']* ')                  }x,
-   qr{                   (' [^']* [^[:space:]] ') (?![^[:space:]]) }x,
-   qr{ (?<![^[:space:]]) (` [^[:space:]] [^']* ')                  }x,
-   qr{                   (` [^']* [^[:space:]] ') (?![^[:space:]]) }x,
-   qr{ (?<![^[:space:]]) (" [^[:space:]] [^"]* ")                  }x,
-   qr{                   (" [^"]* [^[:space:]] ") (?![^[:space:]]) }x,
-
-   qr{ \{ ([^\{\}]+) \} }x,
-   qr{ \( ([^\(\)]+) \) }x,
-   qr{ \[ ([^\[\]]+) \] }x,
-   qr{ \< ([^\<\>]+) \> }x,
-
-   # urls, just a heuristic
-   qr{(
-      (?:https?://|ftp://|news://|mailto:|file://|\bwww\.)[ab-zA-Z0-9\-\@;\/?:&=%\$_.+!*\x27(),~#]+
-      [ab-zA-Z0-9\-\@;\/?:&=%\$_+*()~]   # exclude some trailing characters (heuristic)
-   )}x,
-
-   # shell-like argument quoting, basically always matches
-   qr{\G [\ \t|&;<>()]* (
-      (?:
-         [^\\"'\ \t|&;<>()]+
-         | \\.
-         | " (?: [^\\"]+ | \\. )* "
-         | ' [^']* '
-      )+
-   )}x,
-);
-
-# "correct obvious? crap"-patterns
-my @simplify_patterns = (
-   qr{^"([^\\"'\ \t|&;<>()*?]+)"$}, # "simple" => simple
-   qr{^(.*)[,\-]$},                 # strip off trailing , and -
-);
-
 sub on_sel_extend {
    my ($self, $time) = @_;
 
@@ -85,18 +40,11 @@ sub on_sel_extend {
    if ($markofs < $line->l) {
       study $text; # _really_ helps, too :)
 
-      for my $regex (@mark_patterns, @{ $self->{patterns} }) {
+      for my $regex ( @{ $self->{patterns} }) {
          while ($text =~ /$regex/g) {
             if ($-[1] <= $markofs and $markofs <= $+[1]) {
                my $ofs = $-[1];
                my $match = $1;
-
-               for my $regex (@simplify_patterns) {
-                  if ($match =~ $regex) {
-                     $match = $1;
-                     $ofs += $-[1];
-                  }
-               }
 
                push @matches, [$ofs, length $match];
             }
