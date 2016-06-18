@@ -24,7 +24,7 @@ sub on_init {
 
    $self->{enabled} = 1;
 
-   ()
+   return ();
 }
 
 sub on_sel_extend {
@@ -70,5 +70,5 @@ sub on_sel_extend {
       return 1;
    }
 
-   ()
+   return ();
 }
