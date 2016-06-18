@@ -29,7 +29,7 @@ sub on_init {
 }
 
 sub on_sel_extend {
-    my ( $self, $time ) = @_;
+    my ( $self ) = @_;
 
     $self->{enabled}
       or return ();
