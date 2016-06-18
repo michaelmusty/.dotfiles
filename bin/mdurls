@@ -11,7 +11,7 @@
 # Check we have the programs we need
 hash pandoc htmlurls || exit
 
-# Pipe the output of markdown(1) on our args ...
+# Pipe the output of pandoc(1) on our args ...
 pandoc -f markdown -t html -- "${@:-/dev/stdin}" |
 
 # ... into our own htmlurls
