@@ -9,10 +9,10 @@
 #
 
 # Check we have the programs we need
-hash markdown htmlurls || exit
+hash pandoc htmlurls || exit
 
 # Pipe the output of markdown(1) on our args ...
-markdown "${@:-/dev/stdin}" |
+pandoc -f markdown -t html -- "${@:-/dev/stdin}" |
 
 # ... into our own htmlurls
 htmlurls
