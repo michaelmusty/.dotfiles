@@ -318,8 +318,8 @@ Scripts
     *   `htmlurls` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; requires
         [pup](https://github.com/ericchiang/pup)
-    *   `mdurls` converts Markdown documents to HTML with plain old
-        `markdown(1)` and writes them to `stdout`
+    *   `mdurls` converts Markdown documents to HTML with `pandoc(1)` and
+        writes them to `stdout`
     *   `urlcheck` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
