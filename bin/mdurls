@@ -12,7 +12,7 @@
 hash markdown htmlurls || exit
 
 # Pipe the output of markdown(1) on our args ...
-markdown -- "${@:-/dev/stdin}" |
+markdown "${@:-/dev/stdin}" |
 
 # ... into our own htmlurls
 htmlurls
