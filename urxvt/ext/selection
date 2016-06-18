@@ -1,8 +1,7 @@
 #!/usr/bin/env perl
 
-# Stripped down and tidied version of original URxvt
-# "selection" script that just observes cutchars in a
-# locale-aware fashion.
+# Stripped down and tidied version of original URxvt "selection" script that
+# just observes cutchars in a locale-aware fashion.
 
 use strict;
 use warnings;
