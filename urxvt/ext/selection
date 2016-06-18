@@ -17,7 +17,7 @@ our $VERSION = 1.0;
 sub on_init {
     my ($self) = @_;
 
-    if ( defined( my $res = $self->resource("cutchars") ) ) {
+    if ( defined( my $res = $self->resource('cutchars') ) ) {
         $res = $self->locale_decode($res);
         push @{ $self->{patterns} },
           qr{\G [\Q$res\E[:space:]]* ([^\Q$res\E[:space:]]+) }x;
