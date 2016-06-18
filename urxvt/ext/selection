@@ -1,14 +1,5 @@
 #!/usr/bin/env perl
 
-sub on_user_command {
-   my ($self, $cmd) = @_;
-
-   $cmd eq "selection:rot13"
-      and $self->selection (map { y/A-Za-z/N-ZA-Mn-za-m/; $_ } $self->selection);
-
-   ()
-}
-
 sub on_init {
    my ($self) = @_;
 
