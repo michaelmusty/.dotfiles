@@ -1,5 +1,19 @@
 #!/usr/bin/env perl
 
+# Stripped down and tidied version of original URxvt
+# "selection" script that just observes cutchars in a
+# locale-aware fashion.
+
+use strict;
+use warnings;
+use utf8;
+
+use 5.006;
+
+use Carp;
+
+our $VERSION = 1.0;
+
 sub on_init {
    my ($self) = @_;
 
