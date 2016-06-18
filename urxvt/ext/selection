@@ -32,7 +32,7 @@ sub on_sel_extend {
     my ( $self, $time ) = @_;
 
     $self->{enabled}
-      or return;
+      or return ();
 
     my ( $row, $col ) = $self->selection_mark;
     my $line    = $self->line($row);
