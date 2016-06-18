@@ -10,10 +10,6 @@ sub on_init {
 
    $self->{enabled} = 1;
 
-   push @{ $self->{term}{option_popup_hook} }, sub {
-      ("new selection" => $self->{enabled}, sub { $self->{enabled} = shift })
-   };
-
    ()
 }
 
