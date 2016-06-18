@@ -65,7 +65,8 @@ sub on_sel_extend {
     # whole line
     push @matches, [ 0, ( $line->end - $line->beg + 1 ) * $self->ncol ];
 
-    for ( sort { $a->[1] <=> $b->[1] or $b->[0] <=> $a->[0] } @matches ) {
+    for ( sort { $a->[1] <=> $b->[1] or $b->[0] <=> $a->[0] } @matches )
+    {    ## no critic (ProhibitReverseSortBlock)
         my ( $ofs, $len ) = @{$_};
 
         next if $len <= $curlen;
