@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+#
+# Format markdown and pass it to htmlurls to extract URLs from it.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+
+# Check we have the programs we need
 hash markdown htmlurls || exit
-markdown "${@:-/dev/stdin}" |
+
+# Pipe the output of markdown(1) on our args ...
+markdown -- "${@:-/dev/stdin}" |
+
+# ... into our own htmlurls
 htmlurls

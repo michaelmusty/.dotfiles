@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
+
+#
+# Extract <a href="..."> URLs from an HTML document or documents.
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+# License: Public domain
+#
+
+# Check we have the programs we need
 hash pup || exit
+
+# Emit the content of the args, or stdin
 cat -- "${@:-/dev/stdin}" |  ## shellcheck disable=SC2002
+
+# Pipe it through a pup filter to get all the values of the a href elements
 pup 'a attr{href}' |
+
+# Sort it; use a plain locale to force a proper bytewise sort so that
+# punctuation is not ignored
 LANG=C.UTF-8 sort |  # skipping punctuation in a locale sort is unacceptable
 uniq
