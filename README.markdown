@@ -314,6 +314,15 @@ Scripts
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
+*   Three URL-related shorcut scripts; no manuals for these yet:
+    *   `htmlurls(1)` extracts values of `href` attributes of `<a>` tags, sorts
+        them uniquely, and writes them to `stdout`; requires
+        [pup](https://github.com/ericchiang/pup)
+    *   `mdurls(1)` converts Markdown documents to HTML with plain old
+        `markdown(1)` and writes them to `stdout`
+    *   `urlcheck` accepts a list of URLs on `stdin` and writes error messages
+        to `stderr` if any of the URLs are broken, redirecting, or are insecure
+        and have working secure versions; requires `curl(1)`
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
 your `/etc/manpath` configuration, depending on your system.

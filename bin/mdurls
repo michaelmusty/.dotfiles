@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+hash markdown htmlurls || exit
+markdown "$@" |
+htmlurls
