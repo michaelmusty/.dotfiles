@@ -3,6 +3,8 @@
 LANG=C.UTF-8
 export LANG
 
+hash cpanm plenv || exit
+
 mf=$(mktemp) || exit
 ef=$(mktemp) || exit
 cf=$(mktemp) || exit
