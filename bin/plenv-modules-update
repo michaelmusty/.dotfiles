@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+LANG=C.UTF-8
+export LANG
+
 mf=$(mktemp) || exit
 ef=$(mktemp) || exit
 cf=$(mktemp) || exit
@@ -9,9 +12,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-plenv list-modules | LANG=C.UTF-8 sort > "$mf"
-LANG=C.UTF-8 sort "$HOME"/.plenv/non-cpanm-modules > "$ef"
-LANG=C.UTF-8 comm -23 -- "$mf" "$ef" > "$cf"
+plenv list-modules | sort > "$mf"
+sort "$HOME"/.plenv/non-cpanm-modules > "$ef"
+comm -23 -- "$mf" "$ef" > "$cf"
 
 while read -r module ; do 
     cpanm --from http://cpan.inspire.net.nz --notest --quiet -- "$module"
