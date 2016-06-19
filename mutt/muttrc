@@ -121,7 +121,7 @@ macro generic,index,browser,pager gs '<change-folder>=sent<enter>' 'Change to se
 macro index,pager S 's<enter>' 'Save message blindly'
 
 # Run getmails(1) to retrieve all mail
-macro generic,index,browser,pager gm '!getmails<enter>' 'Run getmails'
+macro generic,index,browser,pager gm '!getmails --quiet &<enter>' 'Run getmails'
 
 # Shortcut to add addresses to abook
 macro index,pager A '<pipe-message>abook --add-email<enter>' 'Add sender address to abook'
