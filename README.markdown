@@ -241,11 +241,9 @@ for the `sendmail` command.
 
 ### rxvt-unicode
 
-A tiny script called `clip` is included in `~/.urxvt/ext` to copy selections
-into the X `CLIPBOARD` buffer as well as `PRIMARY`. This is purely preference
-as I find it pretty maddening otherwise, particularly when dealing with URLs
-from IRC. There’s another called `selection` which is my butchered version of
-the original `selection` script that comes with URxvt.
+I’ve butchered the URxvt Perl extensions `selection-to-clipboard` and
+`selection` into a single `select` extension in `~/.urxvt/ext`, which is the
+only extension I define in `~/.Xresources`.
 
 The included `.Xresources` file assumes that `urxvt` can use 256 colors and
 Perl extensions. If you’re missing functionality, try changing
