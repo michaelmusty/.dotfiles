@@ -3,6 +3,7 @@
 mf=$(mktemp) || exit
 ef=$(mktemp) || exit
 cf=$(mktemp) || exit
+
 cleanup() {
     rm -f -- "$mf" "$ef" "$cf"
 }
