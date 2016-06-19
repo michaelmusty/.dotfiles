@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+#
+# Run getmail(1) over every getmailrc.* file in ~/.getmail (I didn't like the
+# included getmails(1) script).
+#
+# Author: Tom Ryder <tom@sanctum.geek.nz>
+# Copyright: 2016
+#
+self=getmails
+
+# Check for existence of needed commands
+hash flock getmail try || exit
+
+# Create a directory for our lockfiles if need be; we'll just leave it there
+lockdir=${TMPDIR:-/tmp}/getmail-$UID
+if ! mkdir -p -- "$lockdir" ; then
+    printf "%s: Could not create lockdir %s\n" \
+        "$self" "$lockdir" >&2
+    exit 1
+fi
+
+# Iterate through the getmailrc.* files in $GETMAIL if defined, or
+# $HOME/.getmail if not
+for rcfile in "${GETMAIL:-$HOME/.getmail}"/getmailrc.* ; do
+
+    # Run the current rcfile with getmail quietly, using its basename with
+    # .lock appended as the lockfile in the lock directory
+    (
+        flock -n 9 || exit 1
+        try -i 15 -n 3 getmail --rcfile "$rcfile" "$@"
+    ) 9>"$lockdir"/"${rcfile##*/}".lock &
+done
+
+# Wait for all of the enqueued tasks to finish
+wait

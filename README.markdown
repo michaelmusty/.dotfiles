@@ -292,6 +292,9 @@ Scripts
         prints the hostname if the command returns zero.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
+*   `getmails` runs a set of `getmailrc` files; does much the same
+    thing as the script of the same name in the `getmail` suite, but runs the
+    requests in parallel and does up to three silent retries using `try(1)`
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
