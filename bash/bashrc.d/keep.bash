@@ -103,8 +103,7 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash \
-                            || ((errors++))
+                        rm -- "$bashkeep"/"$name".bash || ((errors++))
 
                     # Otherwise, attempt to create the keep file, using an
                     # appropriate call to the declare builtin
@@ -116,8 +115,7 @@ EOF
                             *)
                                 declare -p -- "$name"
                                 ;;
-                        esac ; } > "$bashkeep"/"$name".bash \
-                            || ((errors++))
+                        esac ; } > "$bashkeep"/"$name".bash || ((errors++))
                     fi
                     ;;
             esac

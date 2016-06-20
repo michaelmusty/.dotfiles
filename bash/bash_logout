@@ -3,7 +3,7 @@
 # 2.05a).
 if ! [ -n "$BASH_VERSINFO" ] ; then
     return
-elif ((BASH_VERSINFO[0] == 2)) && \
+elif ((BASH_VERSINFO[0] == 2)) &&
      ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) ; then
     return
 fi

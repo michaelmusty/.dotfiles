@@ -53,10 +53,10 @@ prompt() {
                 256)
                     format=$( {
                         : "${PROMPT_COLOR:=10}"
-                        tput AF "$PROMPT_COLOR" \
-                        || tput setaf "$PROMPT_COLOR" \
-                        || tput AF "$PROMPT_COLOR" 0 0 \
-                        || tput setaf "$PROMPT_COLOR" 0 0
+                        tput AF "$PROMPT_COLOR" ||
+                        tput setaf "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR" 0 0  ||
+                        tput setaf "$PROMPT_COLOR" 0 0
                     } 2>/dev/null )
                     ;;
 
@@ -64,8 +64,8 @@ prompt() {
                 8)
                     format=$( {
                         : "${PROMPT_COLOR:=2}"
-                        tput AF "$PROMPT_COLOR" \
-                        || tput setaf "$PROMPT_COLOR"
+                        tput AF "$PROMPT_COLOR" ||
+                        tput setaf "$PROMPT_COLOR"
                         tput md || tput bold
                     } 2>/dev/null )
                     ;;
@@ -104,8 +104,8 @@ prompt() {
             # Attempt to determine git branch, bail if we can't
             local branch
             branch=$( {
-                git symbolic-ref --quiet HEAD \
-                || git rev-parse --short HEAD
+                git symbolic-ref --quiet HEAD ||
+                git rev-parse --short HEAD
             } 2>/dev/null )
             if [[ ! -n $branch ]] ; then
                 return 1

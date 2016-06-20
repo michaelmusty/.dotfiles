@@ -225,8 +225,7 @@ _path() {
                 IFS=: read -d '' -a promptarr < <(printf '%s\0' "$PATH")
                 local part
                 for part in "${promptarr[@]}" ; do
-                    [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] \
-                        || continue
+                    [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
                     COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q\0' "$part")
                 done
                 ;;
