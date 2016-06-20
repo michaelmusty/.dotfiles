@@ -22,7 +22,7 @@ trap cleanup EXIT
 plenv list-modules | sort > "$mf"
 
 # Sort the non-CPAN modules from ~/.plenv and write them to a file
-sort "$HOME"/.plenv/non-cpanm-modules > "$ef"
+sort -- "$HOME"/.plenv/non-cpanm-modules > "$ef"
 
 # Write out the list of modules that appear in the first file, but not the
 # second
