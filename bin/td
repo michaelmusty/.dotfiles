@@ -29,7 +29,7 @@ cd -- "$dir" || exit
 
 # Quick function to determine if a directory is a Git repository
 isrepo() {
-    { git symbolic-ref --quiet HEAD || \
+    { git symbolic-ref --quiet HEAD ||
         git rev-parse --short HEAD 
     } >/dev/null 2>&1
 }

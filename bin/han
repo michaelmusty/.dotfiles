@@ -46,7 +46,7 @@ trap cleanup EXIT
 
 # If we have exactly one argument and a call to the help builtin with that
 # argument succeeds, display its output with `pager -s`.
-if (($# == 1)) && \
+if (($# == 1)) &&
    help "${helpopts[@]}" "$1" >"$tmpdir"/"$1".help 2>/dev/null ; then
     (cd -- "$tmpdir" && pager -s -- "$1".help)
 
