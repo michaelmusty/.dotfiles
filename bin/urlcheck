@@ -32,7 +32,7 @@ declare -i errc
 # Iterate through input; ignore leading/trailing whitespace
 while read -r url ; do
 
-    # Skip anything that doesn't start wit HTTP
+    # Skip anything that doesn't start with HTTP
     [[ $url == 'http'* ]] || continue
 
     # Make initial request, log head and body to files, cry and skip on error
