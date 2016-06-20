@@ -8,6 +8,10 @@
 # License: Public domain
 #
 
+# Set a sensible locale so that sort(1) doesn't act dumbly
+LANG=C.UTF-8
+export LANG
+
 # Check we have the programs we need
 hash pup || exit
 
@@ -17,7 +21,5 @@ cat -- "${@:-/dev/stdin}" |  ## shellcheck disable=SC2002
 # Pipe it through a pup filter to get all the values of the a href elements
 pup 'a attr{href}' |
 
-# Sort it; use a plain locale to force a proper bytewise sort so that
-# punctuation is not ignored
-LANG=C.UTF-8 sort |  # skipping punctuation in a locale sort is unacceptable
-uniq
+# Sort it uniquely
+sort | uniq
