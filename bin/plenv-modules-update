@@ -1,23 +1,34 @@
 #!/usr/bin/env bash
 
+# Export a sensible locale so that sort(1) behaves
 LANG=C.UTF-8
 export LANG
 
+# Check we have required programs
 hash cpanm plenv || exit
 
+# Create required temporary files
 mf=$(mktemp) || exit
 ef=$(mktemp) || exit
 cf=$(mktemp) || exit
 
+# Clean up temporary files on exit
 cleanup() {
     rm -f -- "$mf" "$ef" "$cf"
 }
 trap cleanup EXIT
 
+# Get the list of modules, sort them, write them to a file
 plenv list-modules | sort > "$mf"
+
+# Sort the non-CPAN modules from ~/.plenv and write them to a file
 sort "$HOME"/.plenv/non-cpanm-modules > "$ef"
+
+# Write out the list of modules that appear in the first file, but not the
+# second
 comm -23 -- "$mf" "$ef" > "$cf"
 
+# Read the list of modules to upgrade and upgrade them one by one
 while read -r module ; do 
     cpanm --from http://cpan.inspire.net.nz --notest --quiet -- "$module"
 done < "$cf"
