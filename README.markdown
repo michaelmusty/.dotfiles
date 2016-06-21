@@ -286,15 +286,15 @@ Scripts
 
 *   Three SSH-related scripts:
     *   `sls(1)` prints hostnames read from a `ssh_config(5)` file.
-    *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and
-        prints output.
-    *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and
-        prints the hostname if the command returns zero.
+    *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and prints
+        output.
+    *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints
+        the hostname if the command returns zero.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
-*   `gms` runs a set of `getmailrc` files; does much the same
-    thing as the script `getmails` in the `getmail` suite, but runs the
-    requests in parallel and does up to three silent retries using `try(1)`
+*   `gms` runs a set of `getmailrc` files; does much the same thing as the
+    script `getmails` in the `getmail` suite, but runs the requests in parallel
+    and does up to three silent retries using `try(1)`
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
@@ -320,13 +320,13 @@ Scripts
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
 *   Three URL-related shorcut scripts; no manuals for these yet:
-    *   `hurl` extracts values of `href` attributes of `<a>` tags, sorts
-        them uniquely, and writes them to `stdout`; requires
+    *   `hurl` extracts values of `href` attributes of `<a>` tags, sorts them
+        uniquely, and writes them to `stdout`; requires
         [pup](https://github.com/ericchiang/pup)
-    *   `murl` converts Markdown documents to HTML with `pandoc(1)` and
-        writes them to `stdout`
-    *   `urlc` accepts a list of URLs on `stdin` and writes error messages
-        to `stderr` if any of the URLs are broken, redirecting, or are insecure
+    *   `murl` converts Markdown documents to HTML with `pandoc(1)` and writes
+        them to `stdout`
+    *   `urlc` accepts a list of URLs on `stdin` and writes error messages to
+        `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
