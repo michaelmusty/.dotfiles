@@ -7,7 +7,7 @@
 # Author: Tom Ryder <tom@sanctum.geek.nz>
 # Copyright: 2016
 #
-self=getmails
+self=gms
 
 # Check for existence of needed commands
 hash flock getmail try || exit

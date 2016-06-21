@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# shoal(1) -- Print all the non-wildcard Host names (first one per line) from
+# sls(1) -- Print all the non-wildcard Host names (first one per line) from
 # an ssh_config(5) file, defaulting to $HOME/.ssh/config.
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
@@ -10,26 +10,26 @@
 #
 
 # Start by assuming we should parse all hosts
-declare -i shoal
-shoal=1
+declare -i sls
+sls=1
 
 # Iterate through the config
 while read -r option value _ ; do
 
-    # "### shoal" and "### noshoal" toggles parsing
+    # "### sls" and "### nosls" toggles parsing
     case $option in
         '###')
             case $value in
-                noshoal)
-                    shoal=0
+                nosls)
+                    sls=0
                     ;;
-                shoal)
-                    shoal=1
+                sls)
+                    sls=1
                     ;;
             esac
             ;;
         'Host')
-            if ((shoal)) && [[ $value != *[^[:alnum:]_-]*  ]] ; then
+            if ((sls)) && [[ $value != *[^[:alnum:]_-]*  ]] ; then
                 printf '%s\n' "$value"
             fi
             ;;

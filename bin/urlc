@@ -11,7 +11,7 @@
 #
 
 # Name self
-self=urlcheck
+self=urlc
 
 # cURL request timeout
 tm=${URLCHECK_TIMEOUT:-8}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Format markdown and pass it to htmlurls to extract URLs from it.
+# Format markdown and pass it to hurl to extract URLs from it.
 #
 # Author: Tom Ryder <tom@sanctum.geek.nz>
 # Copyright: 2016
@@ -9,10 +9,10 @@
 #
 
 # Check we have the programs we need
-hash pandoc htmlurls || exit
+hash pandoc hurl || exit
 
 # Pipe the output of pandoc(1) on our args ...
 pandoc -f markdown -t html -- "${@:-/dev/stdin}" |
 
-# ... into our own htmlurls
-htmlurls
+# ... into our own hurl
+hurl

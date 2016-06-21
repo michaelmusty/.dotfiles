@@ -285,15 +285,15 @@ Scripts
 -------
 
 *   Three SSH-related scripts:
-    *   `shoal(1)` prints hostnames read from a `ssh_config(5)` file.
-    *   `scatter(1)` runs a command on multiple hosts read from `shoal(1)` and
+    *   `sls(1)` prints hostnames read from a `ssh_config(5)` file.
+    *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and
         prints output.
-    *   `shock(1)` runs a command on multiple hosts read from `shoal(1)` and
+    *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and
         prints the hostname if the command returns zero.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
-*   `getmails` runs a set of `getmailrc` files; does much the same
-    thing as the script of the same name in the `getmail` suite, but runs the
+*   `gms` runs a set of `getmailrc` files; does much the same
+    thing as the script `getmails` in the `getmail` suite, but runs the
     requests in parallel and does up to three silent retries using `try(1)`
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
@@ -301,7 +301,7 @@ Scripts
     that don’t actually worry you, exiting with 0 anyway.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
-*   `plenv-modules-update` retrieves a list of installed modules from
+*   `plmu` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `stbl(1)` strips a trailing blank line from the files in its arguments.
@@ -320,12 +320,12 @@ Scripts
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
 *   Three URL-related shorcut scripts; no manuals for these yet:
-    *   `htmlurls` extracts values of `href` attributes of `<a>` tags, sorts
+    *   `hurl` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; requires
         [pup](https://github.com/ericchiang/pup)
-    *   `mdurls` converts Markdown documents to HTML with `pandoc(1)` and
+    *   `murl` converts Markdown documents to HTML with `pandoc(1)` and
         writes them to `stdout`
-    *   `urlcheck` accepts a list of URLs on `stdin` and writes error messages
+    *   `urlc` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
 
