@@ -1,7 +1,7 @@
 Dotfiles (Tom Ryder)
 ====================
 
-This is my personal repository of [dotfiles](https://dotfiles.github.io/),
+This is my personal repository of configuration files and scripts for `$HOME`,
 including most of the settings that migrate well between machines.
 
 Installation
