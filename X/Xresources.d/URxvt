@@ -1,0 +1,35 @@
+! URxvt
+URxvt.buffered          : false
+URxvt.cursorBlink       : on
+URxvt.cutchars          : <>
+URxvt.depth             : 32
+URxvt.font              : xft:Ubuntu Mono:size=12,xft:Deja Vu Sans Mono,xft:Lohit Kannada
+URxvt.internalBorder    : 0
+URxvt.iso14755          : false
+URxvt.iso14755_52       : false
+URxvt.perl-ext-common   : select
+URxvt.pointerBlank      : true
+URxvt.saveLines         : 10000
+URxvt.scrollBar         : false
+URxvt.scrollTTyKeypress : true
+URxvt.scrollTTyOutput   : false
+URxvt.secondaryScroll   : true
+URxvt.urgentOnBell      : true
+URxvt.background        : #030303
+URxvt.foreground        : #E0E0E0
+URxvt.color0            : #030303
+URxvt.color1            : #CC0000
+URxvt.color2            : #3EAA06
+URxvt.color3            : #C4A000
+URxvt.color4            : #3465A4
+URxvt.color5            : #75507B
+URxvt.color6            : #06989A
+URxvt.color7            : #D3D7CF
+URxvt.color8            : #303030
+URxvt.color9            : #EF2929
+URxvt.color10           : #7AF234
+URxvt.color11           : #FCE94F
+URxvt.color12           : #729FCF
+URxvt.color13           : #AD7FA8
+URxvt.color14           : #34E2E2
+URxvt.color15           : #EEEEEC
