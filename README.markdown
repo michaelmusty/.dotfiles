@@ -346,7 +346,7 @@ Testing
 
 You can test that both sets of shell scripts are syntactically correct with
 `make test-bash`, `make test-sh`, or `make test` for everything including the
-scripts in `bin`.
+scripts in `bin` and `games`.
 
 If you have [ShellCheck](https://www.shellcheck.net/) and/or
 [Perl::Critic](http://perlcritic.com/), there’s a `lint` target for the shell
