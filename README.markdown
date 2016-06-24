@@ -338,6 +338,14 @@ There’s some silly stuff in `install-games`:
 *   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
     text on its standard input.
 
+Manuals
+-------
+
+The `install-bin` and `install-games` targets install manuals for each script
+they install. There’s also an `install-dotfiles-man` target that uses
+`pandoc(1)` to reformat this document as a manual page for section 7
+(`dotfiles(7)`) if you want that.
+
 If you want to use the manuals, you may need to add `~/.local/share/man` to
 your `/etc/manpath` configuration, depending on your system.
 
