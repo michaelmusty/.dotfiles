@@ -292,6 +292,15 @@ Installed by the `install-bin` target:
         output.
     *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints
         the hostname if the command returns zero.
+*   Three URL-related shorcut scripts:
+    *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
+        them uniquely, and writes them to `stdout`; requires
+        [pup](https://github.com/ericchiang/pup)
+    *   `murl(1)` converts Markdown documents to HTML with `pandoc(1)` and
+        writes them to `stdout`
+    *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
+        to `stderr` if any of the URLs are broken, redirecting, or are insecure
+        and have working secure versions; requires `curl(1)`
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
@@ -321,15 +330,6 @@ Installed by the `install-bin` target:
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   Three URL-related shorcut scripts:
-    *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
-        them uniquely, and writes them to `stdout`; requires
-        [pup](https://github.com/ericchiang/pup)
-    *   `murl(1)` converts Markdown documents to HTML with `pandoc(1)` and
-        writes them to `stdout`
-    *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
-        to `stderr` if any of the URLs are broken, redirecting, or are insecure
-        and have working secure versions; requires `curl(1)`
 
 There’s some silly stuff in `install-games`:
 
