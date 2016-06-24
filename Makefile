@@ -51,6 +51,7 @@ all : gnupg
 clean distclean :
 	rm -f \
 		gnupg/gpg.conf \
+		man/man7/dotfiles.7 \
 		tmux/tmux.conf
 
 gnupg : gnupg/gpg.conf
@@ -58,6 +59,12 @@ gnupg : gnupg/gpg.conf
 gnupg/gpg.conf :
 	m4 -D DOTFILES_HOME="$(HOME)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+
+dotfiles-man : man/man7/dotfiles.7
+
+man/man7/dotfiles.7 :
+	cat man/man7/dotfiles.7.header README.markdown | \
+		pandoc -sS -t man -o "$@"
 
 TMUX_COLOR := colour237
 
@@ -110,6 +117,10 @@ install-curl :
 
 install-dircolors :
 	install -pm 0644 -- dircolors/dircolors "$(HOME)"/.dircolors
+
+install-dotfiles-man : man/man7/dotfiles.7
+	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
+	install -pm 0644 -- man/man7/*.7 "$(HOME)"/.local/share/man/man7
 
 install-dunst : install-x
 	install -m 0755 -d -- "$(HOME)"/.config/dunst
