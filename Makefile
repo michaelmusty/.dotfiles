@@ -48,12 +48,10 @@
 
 all : gnupg
 
-clean :
+clean distclean :
 	rm -f \
 		gnupg/gpg.conf \
 		tmux/tmux.conf
-
-distclean : clean
 
 gnupg : gnupg/gpg.conf
 
