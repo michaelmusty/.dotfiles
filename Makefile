@@ -2,6 +2,8 @@
 	clean \
 	distclean \
 	gnupg \
+	dotfiles-man \
+	tmux \
 	install \
 	install-abook \
 	install-bash \
@@ -9,21 +11,20 @@
 	install-bin-man \
 	install-curl \
 	install-dircolors \
+	install-dotfiles-man \
 	install-dunst \
 	install-finger \
 	install-games \
 	install-games-man \
 	install-git \
-	install-gtk \
 	install-gnupg \
-	install-gvim \
-	install-gvim-config \
+	install-gtk \
 	install-i3 \
 	install-maildir \
 	install-mutt \
-	install-mysql \
 	install-ncmcpp \
 	install-newsbeuter \
+	install-mysql \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
@@ -34,17 +35,26 @@
 	install-tmux \
 	install-urxvt \
 	install-vim \
+	install-gvim \
 	install-vim-config \
-	install-vim-pathogen \
+	install-gvim-config \
 	install-vim-plugins \
+	install-vim-pathogen \
 	install-wyrd \
 	install-x \
 	install-zsh \
 	test \
+	test-sh \
 	test-bash \
 	test-bin \
-	test-sh \
-	test-urxvt
+	test-games \
+	test-urxvt \
+	lint \
+	lint-sh \
+	lint-bash \
+	lint-bin \
+	lint-games \
+	lint-urxvt
 
 all : gnupg
 
