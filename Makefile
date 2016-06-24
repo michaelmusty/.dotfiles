@@ -56,13 +56,13 @@ clean distclean :
 
 gnupg : gnupg/gpg.conf
 
-gnupg/gpg.conf :
+gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 -D DOTFILES_HOME="$(HOME)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
 dotfiles-man : man/man7/dotfiles.7
 
-man/man7/dotfiles.7 :
+man/man7/dotfiles.7 : README.markdown man/man7/dotfiles.7.header
 	cat man/man7/dotfiles.7.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
@@ -70,7 +70,7 @@ TMUX_COLOR := colour237
 
 tmux : tmux/tmux.conf
 
-tmux/tmux.conf :
+tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
