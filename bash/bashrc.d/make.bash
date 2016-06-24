@@ -4,27 +4,35 @@ _make() {
     # Bail if no legible Makefile
     [[ -r Makefile ]] || return 1
 
-    # Build a list of targets by parsing the Makefile
-    local -a targets tokens
-    local line target token
-    while read -r line ; do
-        if [[ $line == *:* && $line != *:=* ]] ; then
-            target=$line
-            target=${target%%:*}
-            target=${target% }
-            [[ $target != *[^[:alnum:][:space:]_-]* ]] || continue
-            IFS=' ' read -a tokens \
-                < <(printf '%s\n' "$target")
-            for token in "${tokens[@]}" ; do
-                targets[${#targets[@]}]=$token
-            done
-        fi
-    done < Makefile
+    # Iterate through the Makefile, line by line
+    while IFS= read -r line ; do
+        case $line in
 
-    # Complete with matching targets
-    for target in "${targets[@]}" ; do
-        [[ $target == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$target
-    done
+            # We're looking for targets but not variable assignments
+            $'\t'*) ;;
+            *:=*) ;;
+            *:*)
+
+                # Break the target up with space delimiters
+                while IFS= read -d ' ' -r target ; do
+                    case $target in
+
+                        # Don't complete special targets beginning with a
+                        # period
+                        .*) ;;
+
+                        # Don't complete targets with names that have
+                        # characters outside of the POSIX spec (plus slashes)
+                        *[^[:word:]./-]*) ;;
+
+                        # Add targets that match what we're completing
+                        ${COMP_WORDS[COMP_CWORD]}*)
+                            COMPREPLY[${#COMPREPLY[@]}]=$target
+                            ;;
+                    esac
+                done < <(printf '%s' "${line%%:*}")
+                ;;
+        esac
+    done < Makefile
 }
 complete -F _make -o default make
