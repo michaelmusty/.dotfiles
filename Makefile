@@ -6,10 +6,13 @@
 	install-abook \
 	install-bash \
 	install-bin \
+	install-bin-man \
 	install-curl \
 	install-dircolors \
 	install-dunst \
 	install-finger \
+	install-games \
+	install-games-man \
 	install-git \
 	install-gtk \
 	install-gnupg \
@@ -93,17 +96,15 @@ install-bash : test-bash
 	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 
-install-bin : test-bin install-man
+install-bin : test-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	install -m 0755 -- bin/* "$(HOME)"/.local/bin
 
-install-man:
+install-bin-man:
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
-		"$(HOME)"/.local/share/man/man6 \
 		"$(HOME)"/.local/share/man/man8
 	install -pm 0644 -- man/man1/* "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man6/* "$(HOME)"/.local/share/man/man6
 	install -pm 0644 -- man/man8/* "$(HOME)"/.local/share/man/man8
 
 install-curl :
@@ -120,6 +121,14 @@ install-finger :
 	install -pm 0644 -- finger/plan "$(HOME)"/.plan
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
+
+install-games : test-games install-games-man
+	install -m 0755 -d -- "$(HOME)"/.local/games
+	install -m 0755 -- games/* "$(HOME)"/.local/games
+
+install-games-man:
+	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
+	install -pm 0644 -- man/man6/* "$(HOME)"/.local/share/man/man6
 
 install-git :
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
@@ -290,13 +299,23 @@ test-bin :
 	done
 	@printf 'All shell scripts in bin parsed successfully.\n'
 
+test-games :
+	@for game in games/* ; do \
+		if sed 1q "$$game" | grep -q 'bash$$' ; then \
+			bash -n "$$game" || exit 1 ; \
+		elif sed 1q "$$game" | grep -q 'sh$$' ; then \
+			sh -n "$$game" || exit 1 ; \
+		fi ; \
+	done
+	@printf 'All shell scripts in games parsed successfully.\n'
+
 test-urxvt:
 	@for perl in urxvt/ext/* ; do \
 		perl -c "$$perl" >/dev/null || exit 1 ; \
 	done
 	@printf 'All Perl scripts in urxvt/ext parsed successfully.\n'
 
-lint : lint-sh lint-bash lint-bin lint-urxvt
+lint : lint-sh lint-bash lint-bin lint-games lint-urxvt
 
 lint-sh :
 	find sh -type f -print -exec shellcheck -- {} \;
@@ -309,6 +328,14 @@ lint-bin :
 		if sed 1q "$$bin" | grep -q -- 'sh$$' ; then \
 			printf '%s\n' "$$bin" ; \
 			shellcheck -- "$$bin" ; \
+		fi ; \
+	done
+
+lint-games :
+	@for game in games/* ; do \
+		if sed 1q "$$game" | grep -q -- 'sh$$' ; then \
+			printf '%s\n' "$$game" ; \
+			shellcheck -- "$$game" ; \
 		fi ; \
 	done
 
