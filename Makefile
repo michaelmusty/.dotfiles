@@ -109,8 +109,8 @@ install-bin-man:
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
-	install -pm 0644 -- man/man1/* "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man8/* "$(HOME)"/.local/share/man/man8
+	install -pm 0644 -- man/man1/*.1 "$(HOME)"/.local/share/man/man1
+	install -pm 0644 -- man/man8/*.8 "$(HOME)"/.local/share/man/man8
 
 install-curl :
 	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
@@ -137,7 +137,7 @@ install-games : test-games install-games-man
 
 install-games-man:
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
-	install -pm 0644 -- man/man6/* "$(HOME)"/.local/share/man/man6
+	install -pm 0644 -- man/man6/*.6 "$(HOME)"/.local/share/man/man6
 
 install-git :
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
