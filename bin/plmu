@@ -30,5 +30,5 @@ comm -23 -- "$mf" "$ef" > "$cf"
 
 # Read the list of modules to upgrade and upgrade them one by one
 while read -r module ; do 
-    cpanm --from http://cpan.inspire.net.nz --notest --quiet -- "$module"
+    cpanm --notest --quiet -- "$module"
 done < "$cf"
