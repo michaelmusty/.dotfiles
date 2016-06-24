@@ -292,7 +292,7 @@ Scripts
         the hostname if the command returns zero.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
-*   `gms` runs a set of `getmailrc` files; does much the same thing as the
+*   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will

@@ -1,0 +1,25 @@
+.TH GMS 1 "June 2016" "Manual page for gms"
+.SH NAME
+.B gms
+\- run getmail(1) requests in parallel over multiple getmailrc.* files
+.SH SYNOPSIS
+.B gms
+.I COMMAND
+.SH DESCRIPTION
+.B gms
+runs getmail(1) for each file matching the pattern ~/.getmail/getmailrc.*,
+doing much the same thing as the getmails(1) script included in the Getmail
+distribution. It differs from that script in a few ways:
+.IP \[bu] 4
+It includes per-rc-file locking so that at most one getmail(1) process runs for
+the same account, but allows multiple instances of gms(1) to run at the same
+time.
+.IP \[bu]
+It runs the requests in parallel using fork(2)/wait(2).
+.IP \[bu]
+It uses try(1) to attempt each fetch three times, with 15 seconds between each
+attempt, and only prints errors if all three attempts fail.
+.SH SEE ALSO
+getmail(1), try(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
