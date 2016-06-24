@@ -334,7 +334,7 @@ Installed by the `install-bin` target:
 There’s some silly stuff in `install-games`:
 
 *   `kvlt(6)` translates input to emulate a style of typing unique to black
-    metal communities on the internet
+    metal communities on the internet.
 *   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
     text on its standard input.
 
