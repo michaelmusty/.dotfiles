@@ -1,4 +1,4 @@
-.PHONY: all \
+.PHONY : all \
 	clean \
 	distclean \
 	gnupg \
@@ -105,7 +105,7 @@ install-bin : test-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	install -m 0755 -- bin/* "$(HOME)"/.local/bin
 
-install-bin-man:
+install-bin-man :
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
@@ -135,7 +135,7 @@ install-games : test-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	install -m 0755 -- games/* "$(HOME)"/.local/games
 
-install-games-man:
+install-games-man :
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
 	install -pm 0644 -- man/man6/*.6 "$(HOME)"/.local/share/man/man6
 
@@ -189,10 +189,10 @@ install-newsbeuter :
 install-mysql :
 	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
 
-install-perlcritic:
+install-perlcritic :
 	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
 
-install-perltidy:
+install-perltidy :
 	install -pm 0644 -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
 
 install-psql :
@@ -318,7 +318,7 @@ test-games :
 	done
 	@printf 'All shell scripts in games parsed successfully.\n'
 
-test-urxvt:
+test-urxvt :
 	@for perl in urxvt/ext/* ; do \
 		perl -c "$$perl" >/dev/null || exit 1 ; \
 	done
@@ -348,5 +348,5 @@ lint-games :
 		fi ; \
 	done
 
-lint-urxvt:
+lint-urxvt :
 	find urxvt/ext -type f -print -exec perlcritic --brutal -- {} \;
