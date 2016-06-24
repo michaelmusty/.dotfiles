@@ -284,6 +284,8 @@ loaded using @tpope’s [pathogen.vim](https://github.com/tpope/vim-pathogen).
 Scripts
 -------
 
+Installed by the `install-bin` target:
+
 *   Three SSH-related scripts:
     *   `sls(1)` prints hostnames read from a `ssh_config(5)` file.
     *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and prints
@@ -319,8 +321,6 @@ Scripts
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
-    text on its standard input.
 *   Three URL-related shorcut scripts:
     *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; requires
@@ -330,6 +330,13 @@ Scripts
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
+
+There’s some silly stuff in `install-games`:
+
+*   `kvlt(6)` translates input to emulate a style of typing unique to black
+    metal communities on the internet
+*   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
+    text on its standard input.
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
 your `/etc/manpath` configuration, depending on your system.
