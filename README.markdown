@@ -297,7 +297,7 @@ Installed by the `install-bin` target:
         them uniquely, and writes them to `stdout`; requires
         [pup](https://github.com/ericchiang/pup)
     *   `murl(1)` converts Markdown documents to HTML with `pandoc(1)` and
-        writes them to `stdout`
+        runs the output through `hurl(1)`
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
