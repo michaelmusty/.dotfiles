@@ -100,8 +100,10 @@ install-bin : test-bin install-man
 install-man:
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
+		"$(HOME)"/.local/share/man/man6 \
 		"$(HOME)"/.local/share/man/man8
 	install -pm 0644 -- man/man1/* "$(HOME)"/.local/share/man/man1
+	install -pm 0644 -- man/man6/* "$(HOME)"/.local/share/man/man6
 	install -pm 0644 -- man/man8/* "$(HOME)"/.local/share/man/man8
 
 install-curl :

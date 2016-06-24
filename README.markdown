@@ -319,6 +319,8 @@ Scripts
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
+*   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
+    text on its standard input.
 *   Three URL-related shorcut scripts:
     *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; requires
