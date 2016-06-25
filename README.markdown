@@ -306,7 +306,7 @@ Installed by the `install-bin` target:
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`
-*   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
+*   `han(1)` provides a `keywordprg` for Vim’s Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
     that don’t actually worry you, exiting with 0 anyway.
@@ -344,7 +344,7 @@ Manuals
 The `install-bin` and `install-games` targets install manuals for each script
 they install. There’s also an `install-dotfiles-man` target that uses
 `pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7)`) if you want that. I haven't made that install by default,
+(`dotfiles(7)`) if you want that. I haven’t made that install by default,
 because `pandoc(1)` is a bit heavy.
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
