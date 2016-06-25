@@ -281,7 +281,7 @@ install-zsh :
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-test : test-bash test-bin test-sh test-urxvt
+test : test-bash test-bin test-games test-sh test-urxvt
 
 test-bash :
 	@for bash in bash/* bash/bashrc.d/* bash/bash_profile.d/* ; do \
