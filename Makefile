@@ -41,16 +41,16 @@
 	install-x \
 	install-zsh \
 	test \
-	test-sh \
 	test-bash \
 	test-bin \
 	test-games \
+	test-sh \
 	test-urxvt \
 	lint \
-	lint-sh \
 	lint-bash \
 	lint-bin \
 	lint-games \
+	lint-sh \
 	lint-urxvt
 
 all : gnupg/gpg.conf
@@ -281,15 +281,7 @@ install-zsh :
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-test : test-sh test-bash test-bin test-urxvt
-
-test-sh :
-	@for sh in sh/* sh/profile.d/* ; do \
-		if [ -f "$$sh" ] && ! sh -n "$$sh" ; then \
-			exit 1 ; \
-		fi \
-	done
-	@printf 'All sh(1) scripts parsed successfully.\n'
+test : test-bash test-bin test-sh test-urxvt
 
 test-bash :
 	@for bash in bash/* bash/bashrc.d/* bash/bash_profile.d/* ; do \
@@ -319,6 +311,14 @@ test-games :
 	done
 	@printf 'All shell scripts in games parsed successfully.\n'
 
+test-sh :
+	@for sh in sh/* sh/profile.d/* ; do \
+		if [ -f "$$sh" ] && ! sh -n "$$sh" ; then \
+			exit 1 ; \
+		fi \
+	done
+	@printf 'All sh(1) scripts parsed successfully.\n'
+
 test-urxvt :
 	@for perl in urxvt/ext/* ; do \
 		perl -c "$$perl" >/dev/null || exit 1 ; \
@@ -326,9 +326,6 @@ test-urxvt :
 	@printf 'All Perl scripts in urxvt/ext parsed successfully.\n'
 
 lint : lint-sh lint-bash lint-bin lint-games lint-urxvt
-
-lint-sh :
-	find sh -type f -print -exec shellcheck -- {} \;
 
 lint-bash :
 	find bash -type f -print -exec shellcheck -- {} \;
@@ -348,6 +345,9 @@ lint-games :
 			shellcheck -- "$$game" ; \
 		fi ; \
 	done
+
+lint-sh :
+	find sh -type f -print -exec shellcheck -- {} \;
 
 lint-urxvt :
 	find urxvt/ext -type f -print -exec perlcritic --brutal -- {} \;
