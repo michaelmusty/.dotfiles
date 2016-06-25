@@ -14,7 +14,13 @@ _make() {
             *:*)
 
                 # Break the target up with space delimiters
-                while IFS= read -d ' ' -r target ; do
+                local -a targets
+                IFS=' ' read -a targets -d '' < \
+                    <(printf '%s\0' "${line%%:*}")
+
+                # Iterate through the targets and add suitable ones
+                local target
+                for target in "${targets[@]}" ; do
                     case $target in
 
                         # Don't complete special targets beginning with a
@@ -30,7 +36,7 @@ _make() {
                             COMPREPLY[${#COMPREPLY[@]}]=$target
                             ;;
                     esac
-                done < <(printf '%s' "${line%%:*}")
+                done
                 ;;
         esac
     done < Makefile
