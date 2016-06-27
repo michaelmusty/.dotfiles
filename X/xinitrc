@@ -16,7 +16,7 @@ xrbg
 # Start dunst(1) to display libnotify messages
 dunst &
 
-# Start mpdlrc-notify-send <https://sanctum.geek.nz/cgit/mpldlrc.git/about/>
+# Start mpdlrc-notify-send <https://sanctum.geek.nz/cgit/mpdlrc.git/about/>
 mpdlrc-notify-send &
 
 # Start redshift(1)
