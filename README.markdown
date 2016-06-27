@@ -370,6 +370,15 @@ I’d welcome patches or advice on fixing any of these problems.
 *   The `install-terminfo` target does not work correctly on NetBSD due to the
     different way `tic(1)` works, which I don’t understand at all.
 
+Note for previous visitors
+--------------------------
+
+Most of this repository’s five-year history was rewritten shortly after I moved
+it from GitHub to cgit, taking advantage of the upheaval to reduce its size and
+remove useless binary blobs and third-party stuff that I never should have
+versioned anyway. If you’ve checked this out before, you’ll probably need to do
+it again, and per-commit links are likely to be broken. Sorry about that.
+
 License
 -------
 
