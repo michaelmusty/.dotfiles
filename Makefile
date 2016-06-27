@@ -268,10 +268,8 @@ install-wyrd :
 install-x :
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
-		"$(HOME)"/.xbackgrounds \
 		"$(HOME)"/.Xresources.d
 	install -pm 0644 -- X/redshift.conf "$(HOME)"/.config/redshift.conf
-	install -pm 0644 -- X/backgrounds/* "$(HOME)"/.xbackgrounds
 	install -pm 0644 -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
 	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
