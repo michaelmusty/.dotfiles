@@ -15,16 +15,16 @@ Installation
     $ make -n install
     $ make install
 
-For the default target, you’ll need `bash(1)`, `git(1)`, `install(1)`,
-`make(1)`, `m4(1)`, and `tic(1)`. You’ll need to have a recent enough version
+For the default target, you'll need `bash(1)`, `git(1)`, `install(1)`,
+`make(1)`, `m4(1)`, and `tic(1)`. You'll need to have a recent enough version
 of Git to support
 [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the Vim
-installation to work; it’s required for the plugin setup.
+installation to work; it's required for the plugin setup.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
-install` before running `make install` to make sure you aren’t going to lose
-anything unexpected. If you’re still not sure, install it in a temporary
+install` before running `make install` to make sure you aren't going to lose
+anything unexpected. If you're still not sure, install it in a temporary
 directory so you can explore:
 
     $ tmpdir=$(mktemp -d)
@@ -33,7 +33,7 @@ directory so you can explore:
 
 The default target will install the core terminal-only files (cURL, Git, GnuPG,
 Vim, and shell and terminal setup files). The remaining dotfiles can be
-installed with the other targets. Take a look at the `Makefile` to see what’s
+installed with the other targets. Take a look at the `Makefile` to see what's
 available.
 
 Tools
@@ -41,56 +41,56 @@ Tools
 
 Configuration is included for:
 
-*   [Abook](http://abook.sourceforge.net/) — curses address book program
-*   [Bash](https://www.gnu.org/software/bash/) — GNU Bourne-Again Shell,
+*   [Abook](http://abook.sourceforge.net/) -- curses address book program
+*   [Bash](https://www.gnu.org/software/bash/) -- GNU Bourne-Again Shell,
     including a `~/.profile` configured to work with most Bourne-compatible
     shells
-*   [cURL](https://curl.haxx.se/) — Command-line tool for transferring data with
+*   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
     URL syntax
 *   [`dircolors(1)`](https://www.gnu.org/software/coreutils/manual/html_node/dircolors-invocation.html)
-    — Color GNU `ls(1)` output
-*   [Dunst](http://knopwob.org/dunst/) — A lightweight X11 notification daemon
+    -- Color GNU `ls(1)` output
+*   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
     that works with `libnotify`
-*   `finger(1)` — User information lookup program
-*   [Git](https://git-scm.com/) — Distributed version control system
-*   [GnuPG](https://www.gnupg.org/) — GNU Privacy Guard, for private
+*   `finger(1)` -- User information lookup program
+*   [Git](https://git-scm.com/) -- Distributed version control system
+*   [GnuPG](https://www.gnupg.org/) -- GNU Privacy Guard, for private
     communication and file encryption
-*   [GTK+](http://www.gtk.org/) — GIMP Toolkit, for graphical user interface
+*   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
-*   [i3](https://i3wm.org/) — Tiling window manager
-*   [Mutt](http://www.mutt.org/) — Terminal mail user agent
-*   [`mysql(1)`](http://linux.die.net/man/1/mysql) — Command-line MySQL client
-*   [Ncmpcpp](http://rybczak.net/ncmpcpp/) — ncurses music player client
-*   [Newsbeuter](https://www.newsbeuter.org/) — Terminal RSS/Atom feed reader
-*   [`psql(1)`](http://linux.die.net/man/1/psql) — Command-line PostgreSQL
+*   [i3](https://i3wm.org/) -- Tiling window manager
+*   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
+*   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
+*   [Ncmpcpp](http://rybczak.net/ncmpcpp/) -- ncurses music player client
+*   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
+*   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
-*   [Perl::Critic](http://perlcritic.com/) — static source code analysis engine
+*   [Perl::Critic](http://perlcritic.com/) -- static source code analysis engine
     for Perl
-*   [Perl::Tidy](http://perltidy.sourceforge.net/) — Perl indenter and
+*   [Perl::Tidy](http://perltidy.sourceforge.net/) -- Perl indenter and
     reformatter
-*   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) — GNU
+*   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) -- GNU
     library for user input used by Bash, MySQL, and others
-*   [tmux](https://tmux.github.io/) — Terminal multiplexer similar to GNU
+*   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
     Screen
-*   [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) — Fork of
+*   [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) -- Fork of
     the rxvt terminal emulator with Unicode support
-*   [Subversion](https://subversion.apache.org/) — Apache Subversion, a version
+*   [Subversion](https://subversion.apache.org/) -- Apache Subversion, a version
     control system
-*   [Vim](http://www.vim.org/) — Vi IMproved, a text editor
-*   [Wyrd](https://packages.debian.org/sid/wyrd) — a `curses` calendar
+*   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
+*   [Wyrd](https://packages.debian.org/sid/wyrd) -- a `curses` calendar
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
-*   [X11](https://www.x.org/wiki/) — Windowing system with network transparency
+*   [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
     for Unix
-*   [Zsh](http://www.zsh.org/) — Bourne-style shell designed for interactive
+*   [Zsh](http://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 
 Also included are a few scripts for `~/.local/bin`, and their `man(1)` pages.
 
 The configurations for Bash, GnuPG, Mutt, tmux, and Vim are the most expansive
 and most likely to be of interest. The i3 configuration is mostly changed to
-make window switching behave like Vim windows and tmux panes do, and there’s a
+make window switching behave like Vim windows and tmux panes do, and there's a
 fair few resources defined for rxvt-unicode. Otherwise, the rest of the
-configuration isn’t too distant from the defaults.
+configuration isn't too distant from the defaults.
 
 ### Shell
 
@@ -130,7 +130,7 @@ Where I do use features that are only available in versions of Bash newer than
 2.05a, such as newer `shopt` options or `PROMPT_DIRTRIM`, they are only run
 after testing `BASH_VERSINFO` appropriately.
 
-When I use any other Bourne-compatible shell, I’m generally happy to accept its
+When I use any other Bourne-compatible shell, I'm generally happy to accept its
 defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
@@ -154,12 +154,12 @@ It expands based on context to include these elements in this order:
 *   The exit status of the last command, if non-zero
 
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
-do about what you’d expect.
+do about what you'd expect.
 
-This is all managed within the `prompt` function. There’s some mildly hacky
+This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
 common terminals using both `termcap(5)` and `terminfo(5)`, including \*BSD
-systems. It’s also designed to degrade gracefully for eight-color and no-color
+systems. It's also designed to degrade gracefully for eight-color and no-color
 terminals.
 
 #### Completion
@@ -186,35 +186,35 @@ things I really do get tired of typing repeatedly:
 
 There are a few other little tricks in `bash/bashrc.d`, including:
 
-*   `apf` — Prepend arguments to a command with ones read from a file
-*   `bd` — Change into a named ancestor of the current directory
-*   `ca` — Count given arguments
-*   `cf` — Count files in a given directory
-*   `fnl` — Run a command and save its output and error into temporary files
-*   `hgrep` — `HISTFILE` search
-*   `keep` — Permanently store ad-hoc shell functions and variables
-*   `mkcd` — Create a directory and change into it
-*   `mkcp` — Create a directory and copy arguments into it
-*   `mkmv` — Create a directory and move arguments into it
-*   `pa` — Print given arguments, one per line
-*   `path` — Manage the contents of `PATH` conveniently
-*   `paz` — Print given arguments separated by NULL chars
-*   `pd` — Change to the argument’s parent directory
-*   `readv` — Print names and values from `read` calls to `stderr`
-*   `readz` — Alias for `read -d '' -r`
-*   `scr` — Create a temporary directory and change into it
-*   `sd` — Switch to a sibling directory
-*   `sprunge` — Pastebin frontend tool I pilfered from `#bash` on Freenode
-*   `ud` — Change into an indexed ancestor of a directory
+*   `apf` -- Prepend arguments to a command with ones read from a file
+*   `bd` -- Change into a named ancestor of the current directory
+*   `ca` -- Count given arguments
+*   `cf` -- Count files in a given directory
+*   `fnl` -- Run a command and save its output and error into temporary files
+*   `hgrep` -- `HISTFILE` search
+*   `keep` -- Permanently store ad-hoc shell functions and variables
+*   `mkcd` -- Create a directory and change into it
+*   `mkcp` -- Create a directory and copy arguments into it
+*   `mkmv` -- Create a directory and move arguments into it
+*   `pa` -- Print given arguments, one per line
+*   `path` -- Manage the contents of `PATH` conveniently
+*   `paz` -- Print given arguments separated by NULL chars
+*   `pd` -- Change to the argument's parent directory
+*   `readv` -- Print names and values from `read` calls to `stderr`
+*   `readz` -- Alias for `read -d '' -r`
+*   `scr` -- Create a temporary directory and change into it
+*   `sd` -- Switch to a sibling directory
+*   `sprunge` -- Pastebin frontend tool I pilfered from `#bash` on Freenode
+*   `ud` -- Change into an indexed ancestor of a directory
 
 I also wrap a few command calls with functions to stop me from doing silly
-things that the commands themselves don’t catch. My favourite is the one that
+things that the commands themselves don't catch. My favourite is the one that
 stops me from calling `scp(1)` with no colon in either argument. I also do
 things like give default arguments to `pwgen(1)`.
 
 ### GnuPG
 
-The configuration for GnuPG is intended to follow [RiseUp’s OpenPGP best
+The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
 practices](https://help.riseup.net/en/security/message-security/openpgp/best-practices).
 The configuration file is rebuilt using `m4(1)` and `make(1)` because it
 requires hard-coding a path to the SKS keyserver certificate authority, and
@@ -235,23 +235,23 @@ commands for each crypto operation. I wrote [an article about this
 setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
 appealing.
 
-You’ll need [Abook](http://abook.sourceforge.net/) installed if you want to use
+You'll need [Abook](http://abook.sourceforge.net/) installed if you want to use
 the `query_command` I have defined, and [msmtp](http://msmtp.sourceforge.net/)
 for the `sendmail` command.
 
 ### rxvt-unicode
 
-I’ve butchered the URxvt Perl extensions `selection-to-clipboard` and
+I've butchered the URxvt Perl extensions `selection-to-clipboard` and
 `selection` into a single `select` extension in `~/.urxvt/ext`, which is the
 only extension I define in `~/.Xresources`.
 
 The included `.Xresources` file assumes that `urxvt` can use 256 colors and
-Perl extensions. If you’re missing functionality, try changing
+Perl extensions. If you're missing functionality, try changing
 `perl-ext-common` to `default`.
 
 My choice of font is [Ubuntu Mono](http://font.ubuntu.com/), but the file
 should allow falling back to the more common [Deja Vu Sans
-Mono](http://dejavu-fonts.org/wiki/Main_Page). I’ve found
+Mono](http://dejavu-fonts.org/wiki/Main_Page). I've found
 [Terminus](http://terminus-font.sourceforge.net/) works well too, but bitmap
 fonts are not really my cup of tea. The Lohit Kannada font bit is purely to
 make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
@@ -278,8 +278,8 @@ I try not to deviate too much from the Vim defaults behaviour in terms of
 interactive behavior and keybindings.
 
 The configuration is extensively commented, mostly because I was reading
-through it one day and realised I’d forgotten what half of it did. Plugins are
-loaded using @tpope’s [pathogen.vim](https://github.com/tpope/vim-pathogen).
+through it one day and realised I'd forgotten what half of it did. Plugins are
+loaded using @tpope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
 
 Scripts
 -------
@@ -306,10 +306,10 @@ Installed by the `install-bin` target:
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`
-*   `han(1)` provides a `keywordprg` for Vim’s Bash script filetype that will
+*   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
-    that don’t actually worry you, exiting with 0 anyway.
+    that don't actually worry you, exiting with 0 anyway.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
 *   `plmu(1)` retrieves a list of installed modules from
@@ -331,20 +331,20 @@ Installed by the `install-bin` target:
 *   `vis(1)` edits executable script files in `VISPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
 
-There’s some silly stuff in `install-games`:
+There's some silly stuff in `install-games`:
 
 *   `kvlt(6)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
-*   `zs(6)` prepends “z” case-appropriately to every occurrence of “s” in the
+*   `zs(6)` prepends "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.
 
 Manuals
 -------
 
 The `install-bin` and `install-games` targets install manuals for each script
-they install. There’s also an `install-dotfiles-man` target that uses
+they install. There's also an `install-dotfiles-man` target that uses
 `pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7)`) if you want that. I haven’t made that install by default,
+(`dotfiles(7)`) if you want that. I haven't made that install by default,
 because `pandoc(1)` is a bit heavy.
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
@@ -358,31 +358,31 @@ You can test that both sets of shell scripts are syntactically correct with
 scripts in `bin` and `games`.
 
 If you have [ShellCheck](https://www.shellcheck.net/) and/or
-[Perl::Critic](http://perlcritic.com/), there’s a `lint` target for the shell
-script files and Perl files respectively. The files don’t need to pass that
+[Perl::Critic](http://perlcritic.com/), there's a `lint` target for the shell
+script files and Perl files respectively. The files don't need to pass that
 check to be installed.
 
 Known issues
 ------------
 
-I’d welcome patches or advice on fixing any of these problems.
+I'd welcome patches or advice on fixing any of these problems.
 
 *   The `install-terminfo` target does not work correctly on NetBSD due to the
-    different way `tic(1)` works, which I don’t understand at all.
+    different way `tic(1)` works, which I don't understand at all.
 
 Note for previous visitors
 --------------------------
 
-Most of this repository’s five-year history was rewritten shortly after I moved
+Most of this repository's five-year history was rewritten shortly after I moved
 it from GitHub to cgit, taking advantage of the upheaval to reduce its size and
 remove useless binary blobs and third-party stuff that I never should have
-versioned anyway. If you’ve checked this out before, you’ll probably need to do
+versioned anyway. If you've checked this out before, you'll probably need to do
 it again, and per-commit links are likely to be broken. Sorry about that.
 
 License
 -------
 
-Public domain; see the included `UNLICENSE` file. It’s just configuration, do
-whatever you like with it if any of it’s useful to you. If you’re feeling
+Public domain; see the included `UNLICENSE` file. It's just configuration, do
+whatever you like with it if any of it's useful to you. If you're feeling
 generous, you could always [buy me a coffee](https://sanctum.geek.nz/) next
-time you’re in New Zealand.
+time you're in New Zealand.
