@@ -115,16 +115,12 @@ work with [any version 2.05a or
 newer](http://wiki.bash-hackers.org/scripting/bashchanges). This is why I use
 older syntax for certain things such as appending items to arrays:
 
-```bash
-array[${#array[@]}]=$item
-```
+    array[${#array[@]}]=$item
 
 Compare this to the much nicer syntax available since 3.1-alpha1, which
 actually works for arrays with sparse indexes, unlike the above syntax:
 
-```bash
-array+=("$item")
-```
+    array+=("$item")
 
 Where I do use features that are only available in versions of Bash newer than
 2.05a, such as newer `shopt` options or `PROMPT_DIRTRIM`, they are only run
