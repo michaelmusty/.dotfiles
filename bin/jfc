@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# jfc(1) -- Just add everything to a Git repository and quietly commit with a
+# stock message
+
+git add --all
+git commit --message 'Committed by jfc(1)' --quiet
