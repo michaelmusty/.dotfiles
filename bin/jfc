@@ -1,7 +1,24 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # jfc(1) -- Just add everything to a Git repository and quietly commit with a
 # stock message
 
-git add --all
-git commit --message 'Committed by jfc(1)' --quiet
+# Check we have what we need
+hash git || exit
+
+# Detect changes
+if ! git diff-index --quiet HEAD ; then
+    changed=1
+fi
+
+# Detect untracked files
+while read -d '' -r ; do
+    untracked=1
+    break
+done < <(git ls-files -z --others --exclude-standard)
+
+# If either applies, add and commit
+if ((changed || untracked)) ; then
+    git add --all || exit
+    git commit --message 'Committed by jfc(1)' --quiet || exit
+fi
