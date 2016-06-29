@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# jfcd(1) -- Watch a directory for changes and commit them with jfc(1) if there
+# are any
+self=jfcd
+
+# Check we have what we need
+hash inotifywait jfc || exit
+
+# Function wrapper around inotifywait(1)
+inw() {
+    inotifywait \
+        @./.git \
+        -e create -e delete -e modify -e move \
+        --recursive \
+        --syslog \
+        . |
+        logger --tag "$self"
+}
+
+# Drectory to check is first and only argument; move into it
+dir=${1:?}
+cd -- "$dir" || exit
+
+# Run a while loop over inotifywait(1) calls, running jfc(1) on the working
+# directory
+while inw ; do jfc ; done
