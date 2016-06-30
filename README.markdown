@@ -299,9 +299,12 @@ Installed by the `install-bin` target:
         and have working secure versions; requires `curl(1)`
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
+*   `fgscr(1)` finds Git repositories in a directory root and scrubs them with
+    `gscr(1)`.
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`
+*   `gscr(1)` scrubs Git repositories.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions

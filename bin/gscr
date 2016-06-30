@@ -1,0 +1,15 @@
+#!/bin/sh
+# Scrub a Git repository
+for arg in "${@:?}" ; do
+    case $arg in
+        *.git)
+            cd -- "$arg" || continue
+            ;;
+        *)
+            cd -- "$arg"/.git || continue
+            ;;
+    esac
+    git fsck || continue
+    git reflog expire --expire=now || continue
+    git gc --prune=now --aggressive || continue
+done
