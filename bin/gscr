@@ -1,6 +1,6 @@
 #!/bin/sh
 # Scrub a Git repository
-for arg in "${@:-.}" ; do
+for arg in "${@:-.}" ; do (
     case $arg in
         *.git)
             cd -- "$arg" || continue
@@ -12,4 +12,4 @@ for arg in "${@:-.}" ; do
     git fsck || continue
     git reflog expire --expire=now || continue
     git gc --prune=now --aggressive || continue
-done
+) done
