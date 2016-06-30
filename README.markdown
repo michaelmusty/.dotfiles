@@ -310,6 +310,7 @@ Installed by the `install-bin` target:
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
 *   `jfc(1)` adds and commits lazily to a Git repository.
+*   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
 *   `plmu(1)` retrieves a list of installed modules from
