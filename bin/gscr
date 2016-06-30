@@ -1,6 +1,6 @@
 #!/bin/sh
 # Scrub a Git repository
-for arg in "${@:?}" ; do
+for arg in "${@:-.}" ; do
     case $arg in
         *.git)
             cd -- "$arg" || continue
