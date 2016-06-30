@@ -1,0 +1,6 @@
+#!/bin/sh
+# List the biggest files in a directory
+cd -- "${1:-.}" || exit
+du -bs -- * |
+sort -k1 -nr |
+sed "${2:-10}"q
