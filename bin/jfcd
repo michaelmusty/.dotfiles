@@ -19,8 +19,7 @@ inw() {
 }
 
 # Drectory to check is first and only argument; move into it
-dir=${1:?}
-cd -- "$dir" || exit
+cd -- "${1:?}" || exit
 
 # Run a while loop over inotifywait(1) calls, running jfc(1) on the working
 # directory
