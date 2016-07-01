@@ -3,13 +3,13 @@
 for arg in "${@:-.}" ; do (
     case $arg in
         *.git)
-            cd -- "$arg" || continue
+            cd -- "$arg" || exit
             ;;
         *)
-            cd -- "$arg"/.git || continue
+            cd -- "$arg"/.git || exit
             ;;
     esac
-    git fsck || continue
-    git reflog expire --expire=now || continue
-    git gc --prune=now --aggressive || continue
+    git fsck || exit
+    git reflog expire --expire=now || exit
+    git gc --prune=now --aggressive || exit
 ) done
