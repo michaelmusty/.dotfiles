@@ -4,26 +4,23 @@
 # it's available.
 ed() {
 
-    # Options for ed(1), and a command string in which to wrap the call if
-    # appropriate
-    local -a opts wrap
-
+    # We're only adding options if input is from a terminal
     if [[ -t 0 ]] ; then
 
-        # Assemble options for interactive use: colon prompt, and verbose if
-        # available (-p is POSIX, but -v is not)
-        opts=(-p :)
-        if ed -sv - </dev/null >&0 2>&0 ; then
-            opts[${#opts[@]}]=-v
-        fi
+        # Colon prompt (POSIX)
+        set -- -p : "$@"
 
-        # Use rlwrap(1) if it's available, but don't throw a fit if it isn't
-        if hash rlwrap 2>/dev/null ; then
-            wrap=(rlwrap)
+        # Verbose if availble (not POSIX)
+        if ed -sv - </dev/null >&0 2>&0 ; then
+            set -- -v "$@"
         fi
     fi
 
     # Execute the ed(1) call, in a wrapper if appropriate and with the
     # concluded options
-    command "${wrap[@]}" ed "${opts[@]}" "$@"
+    if [[ -t 0 ]] && hash rlwrap 2>/dev/null ; then
+        command rlwrap ed "$@"
+    else
+        command ed "$@"
+    fi
 }

@@ -1,15 +1,12 @@
 # Wrapper around gpg(1) to stop ``--batch'' breaking things
 gpg() {
-    local argstring
-    argstring=$*
-    case $argstring in
+    # shellcheck disable=SC2048
+    case $* in
         *--ed*|*--gen-k*|*--sign-k*)
-            command gpg --no-batch "$@"
-            ;;
-        *)
-            command gpg "$@"
+            set -- --no-batch "$@"
             ;;
     esac
+    command gpg "$@"
 }
 
 # Completion for gpg with long options
