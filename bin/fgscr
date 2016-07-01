@@ -1,4 +1,4 @@
 #!/bin/sh
 # Find all the Git repositories in a directory and scrub them all
-hash gscr || exit
-find "${@:-.}" -name '*.git' -type d -exec gscr {} +
+command -v gscr >/dev/null || exit
+find "${@:-.}" -name '*.git' -type d -exec gscr {} \;
