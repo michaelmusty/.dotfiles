@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Esoteric random number generator
+# <http://dilbert.com/strip/2001-10-25>
+for ((seed = RANDOM ** 2, i = 0; i < ${#seed}; i++)) ; do
+    ((sum += ${seed:i:1}))
+done
+for ((red = seed-sum; ${#red} > 1; red=redn)) ; do
+    for ((j = 0, redn=0; j < ${#red}; j++)) ; do
+        ((redn += ${red:j:1}))
+    done
+done
+printf '%u\n' "$red"
