@@ -70,12 +70,12 @@ Configuration is included for:
     reformatter
 *   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) -- GNU
     library for user input used by Bash, MySQL, and others
-*   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
-    Screen
 *   [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) -- Fork of
     the rxvt terminal emulator with Unicode support
 *   [Subversion](https://subversion.apache.org/) -- Apache Subversion, a version
     control system
+*   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
+    Screen
 *   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
 *   [Wyrd](https://packages.debian.org/sid/wyrd) -- a `curses` calendar
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
