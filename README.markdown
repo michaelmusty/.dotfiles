@@ -84,8 +84,6 @@ Configuration is included for:
 *   [Zsh](http://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 
-Also included are a few scripts for `~/.local/bin`, and their `man(1)` pages.
-
 The configurations for Bash, GnuPG, Mutt, tmux, and Vim are the most expansive
 and most likely to be of interest. The i3 configuration is mostly changed to
 make window switching behave like Vim windows and tmux panes do, and there's a
