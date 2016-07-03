@@ -34,7 +34,13 @@ done
 shift "$((OPTIND-1))"
 
 # If no seed given, get one from Bash's $RANDOM
-: "${seed:=$RANDOM}" ** 2
+: "${seed:=$((RANDOM ** 2))}"
+
+# Check seed meets algorithm conditions
+if [[ $seed == *[^0-9]* ]] || ((seed < 0)) ; then
+    printf >&2 '%s: error: seed must be non-negative integer\n' "$self"
+    exit 2
+fi
 
 # Apply algorithm
 for ((seed += 10, i = 0; i < ${#seed}; i++)) ; do
