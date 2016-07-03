@@ -34,10 +34,10 @@ done
 shift "$((OPTIND-1))"
 
 # If no seed given, get one from Bash's $RANDOM
-: "${seed:=$RANDOM}"
+: "${seed:=$RANDOM}" ** 2
 
 # Apply algorithm
-for ((i = 0; i < ${#seed}; i++)) ; do
+for ((seed += 10, i = 0; i < ${#seed}; i++)) ; do
     ((sum += ${seed:i:1}))
 done
 for ((red = seed - sum; ${#red} > 1; red = redn)) ; do
