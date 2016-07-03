@@ -16,4 +16,7 @@ s,^THE ,DER ,g
 s, THE , DER ,g
 s,^OF ,OV ,g
 s, AND , UND ,g
+s, TRUE , TRV ,g
+s,^TRUE ,TRV ,g
+s,TRUE$,TRV,g
 '
