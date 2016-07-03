@@ -333,6 +333,8 @@ Installed by the `install-bin` target:
 
 There's some silly stuff in `install-games`:
 
+*   `aaf(6)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
+    comic.
 *   `kvlt(6)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6)` implements an esoteric random number generation algorithm.

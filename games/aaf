@@ -1,0 +1,5 @@
+#!/bin/sh
+command -v curl >/dev/null || exit
+command -v pup >/dev/null || exit
+curl http://www.asciiartfarts.com/random.cgi |
+pup -p 'table[cellpadding]' pre text{}
