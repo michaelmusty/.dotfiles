@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Export a sensible locale so that sort(1) behaves
-LANG=C.UTF-8
-export LANG
-
 # Check we have required programs
 hash cpanm plenv || exit
 
