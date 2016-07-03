@@ -5,12 +5,17 @@
 .SH USAGE
 .B rndn
 .br
+.B rndn -s 381290
+.br
 business-critical-process -t "$(\fBrndn\fR)"
 .SH DESCRIPTION
 .B rndn
 uses an advanced but somewhat esoteric algorithm derived by Adams (2001) to
-return a random number. While it has proven robust in the author's production
-usage, its algorithm has not been formally verified.
+return a random number. The seed can be derived internally or specified with
+the -s option.
+.P
+While rndn(6) has proven robust in the author's production usage, its algorithm
+has not been formally verified.
 .SH SEE ALSO
 <http://dilbert.com/strip/2001-10-25>
 .SH AUTHORS

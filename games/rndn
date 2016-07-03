@@ -2,9 +2,42 @@
 
 # Esoteric random number generator
 # <http://dilbert.com/strip/2001-10-25>
+self=rndn
+
+# Define usage function
+usage() {
+    printf 'USAGE: %s [-h | -s SEED]\n' "$self"
+}
+
+# Parse options
+while getopts 'hs:' opt ; do
+    case $opt in
+
+        # -h for help
+        h)
+            usage
+            exit 0
+            ;;
+
+        # -s to set seed manually
+        s)
+            seed=$OPTARG
+            ;;
+
+        # Unknown option, print usage and fail
+        \?)
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# If no seed given, get one from Bash's $RANDOM
+: "${seed:=$RANDOM}"
 
 # Apply algorithm
-for ((seed = RANDOM ** 2, i = 0; i < ${#seed}; i++)) ; do
+for ((i = 0; i < ${#seed}; i++)) ; do
     ((sum += ${seed:i:1}))
 done
 for ((red = seed - sum; ${#red} > 1; red = redn)) ; do
