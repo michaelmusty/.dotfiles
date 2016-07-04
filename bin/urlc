@@ -36,7 +36,7 @@ while read -r url ; do
     [[ $url == 'http'* ]] || continue
 
     # Make initial request, log head and body to files, cry and skip on error
-    if ! curl -fHLsS -D "$head" -m "$tm" -o "$body" -- "$url" ; then
+    if ! curl -A Mozilla -fHLsS -D "$head" -m "$tm" -o "$body" -- "$url" ; then
         printf '%s: %s raises error\n' \
             "$self" "$url" >&2
         ((errc++))
@@ -58,7 +58,7 @@ while read -r url ; do
     # Form a naïve attempt at a possible secure URL and try to request it,
     # point it out if it actually works
     securl=${url/http:/https:}
-    if curl -fLsS -D "$head" -m "$tm" -o "$body" -- "$securl" 2>/dev/null ; then
+    if curl -A Mozilla -fLsS -D "$head" -m "$tm" -o "$body" -- "$securl" 2>/dev/null ; then
         printf '%s: %s has a working secure version at %s\n' \
             "$self" "$url" "$securl" >&2
         ((errc++))
