@@ -27,6 +27,6 @@
     short = true
 
 [user]
-    name = Tom Ryder
-    email = tom@sanctum.geek.nz
-    signingKey = 0xC14286EA77BB8872
+    name = DOTFILES_NAME
+    email = DOTFILES_EMAIL
+    signingKey = DOTFILES_KEY
