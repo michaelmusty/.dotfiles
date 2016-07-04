@@ -19,6 +19,7 @@
 
 [log]
     date = local
+    decorate = short
 
 [push]
     default = matching
