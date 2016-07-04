@@ -1,14 +1,9 @@
-#!/bin/sh
+#!/bin/sed -f
 # Type like a young black metal enthusiast
-cat -- "${@:-/dev/stdin}" | ## shellcheck disable=SC2002
-tr '[:lower:]' '[:upper:]' |
-sed '
+y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMN0PQRZTVVWXYZ/
 s,C\([^EH]\),K\1,g
 s,CE ,ZE ,g
 s,C$,K,g
-s,S,Z,g
-s,U,V,g
-s,O,0,g
 s, W, V,g
 s,^W,V,g
 s,\([A-Z]\)I,\1Y,g
@@ -19,4 +14,3 @@ s, AND , UND ,g
 s, TRUE , TRV ,g
 s,^TRUE ,TRV ,g
 s,TRUE$,TRV,g
-'
