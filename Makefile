@@ -53,13 +53,25 @@
 	lint-sh \
 	lint-urxvt
 
-all : gnupg/gpg.conf
+NAME := Tom Ryder
+EMAIL := tom@sanctum.geek.nz
+KEY := 0xC14286EA77BB8872
+
+all : git/gitconfig gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
+		git/gitconfig \
 		gnupg/gpg.conf \
 		man/man7/dotfiles.7 \
 		tmux/tmux.conf
+
+git/gitconfig : git/gitconfig.m4
+	m4 \
+		-D DOTFILES_NAME="$(NAME)" \
+		-D DOTFILES_EMAIL="$(EMAIL)" \
+		-D DOTFILES_KEY="$(KEY)" \
+		git/gitconfig.m4 > git/gitconfig
 
 gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 -D DOTFILES_HOME="$(HOME)" \
@@ -140,7 +152,7 @@ install-games-man :
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
 	install -pm 0644 -- man/man6/*.6 "$(HOME)"/.local/share/man/man6
 
-install-git :
+install-git : git/gitconfig
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
 
 install-gnupg : gnupg/gpg.conf
