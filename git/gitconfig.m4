@@ -24,6 +24,10 @@
 [push]
     default = matching
 
+[sendemail]
+    confirm = compose
+    smtpServer = DOTFILES_SENDMAIL
+
 [status]
     short = true
 

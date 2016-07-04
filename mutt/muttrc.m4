@@ -8,7 +8,7 @@ set use_from     = yes
 set reverse_name = yes
 
 # SMTP implementation
-set sendmail = '/usr/bin/msmtp'
+set sendmail = 'DOTFILES_SENDMAIL'
 
 # Mailbox type and location
 set mbox_type = 'Maildir'

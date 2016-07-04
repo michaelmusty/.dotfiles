@@ -56,6 +56,7 @@
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
+SENDMAIL := /usr/bin/msmtp
 
 all : git/gitconfig gnupg/gpg.conf
 
@@ -64,6 +65,7 @@ clean distclean :
 		git/gitconfig \
 		gnupg/gpg.conf \
 		man/man7/dotfiles.7 \
+		mutt/muttrc \
 		tmux/tmux.conf
 
 git/gitconfig : git/gitconfig.m4
@@ -71,6 +73,7 @@ git/gitconfig : git/gitconfig.m4
 		-D DOTFILES_NAME="$(NAME)" \
 		-D DOTFILES_EMAIL="$(EMAIL)" \
 		-D DOTFILES_KEY="$(KEY)" \
+		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		git/gitconfig.m4 > git/gitconfig
 
 gnupg/gpg.conf : gnupg/gpg.conf.m4
@@ -80,6 +83,11 @@ gnupg/gpg.conf : gnupg/gpg.conf.m4
 man/man7/dotfiles.7 : README.markdown man/man7/dotfiles.7.header
 	cat man/man7/dotfiles.7.header README.markdown | \
 		pandoc -sS -t man -o "$@"
+
+mutt/muttrc : mutt/muttrc.m4
+	m4 \
+		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
+		mutt/muttrc.m4 > mutt/muttrc
 
 TMUX_COLOR := colour237
 
@@ -182,7 +190,7 @@ install-maildir :
 		"$(HOME)"/Mail/sent/new \
 		"$(HOME)"/Mail/sent/tmp
 
-install-mutt : install-maildir
+install-mutt : mutt/muttrc install-maildir
 	install -m 0755 -d -- \
 		"$(HOME)"/.mutt \
 		"$(HOME)"/.cache/mutt
