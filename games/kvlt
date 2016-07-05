@@ -11,7 +11,7 @@ s,\([A-Z]\)I,\1Y,g
 s,^THE ,DER ,g
 s, THE , DER ,g
 s,^OF ,OV ,g
-s, AND , UND ,g
+s, AND , VND ,g
 s, TRUE , TRV ,g
 s,^TRUE ,TRV ,g
 s,TRUE$,TRV,g
