@@ -1,12 +1,10 @@
 #!/bin/sed -f
 # Type like a young black metal enthusiast
 y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+y/OSU/0ZV/
 s,C\([^EH]\),K\1,g
 s,CE ,ZE ,g
 s,C$,K,g
-s,O,0,g
-s,S,Z,g
-s,U,V,g
 s, W, V,g
 s,^W,V,g
 s,\([A-Z]\)I,\1Y,g
