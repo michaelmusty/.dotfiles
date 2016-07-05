@@ -4,9 +4,6 @@
 # Lowercase to capitals
 y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 
-# O->0, S->Z, U->V
-y/OSU/0ZV/
-
 # Pad the start and end of the line temporarily to work around GNU sed(1) not
 # respecting POSIX word boundaries, leaving us with no compatible options
 s/^/~/
@@ -36,3 +33,6 @@ s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
 # Remove the padding established above
 s/^~//
 s/~$//
+
+# O->0, S->Z, U->V
+y/OSU/0ZV/
