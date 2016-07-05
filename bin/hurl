@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 #
 # Extract <a href="..."> URLs from an HTML document or documents.
@@ -11,9 +11,6 @@
 # Set a sensible locale so that sort(1) doesn't act dumbly
 LANG=C.UTF-8
 export LANG
-
-# Check we have the programs we need
-hash pup || exit
 
 # Emit the content of the args, or stdin
 cat -- "${@:-/dev/stdin}" |  ## shellcheck disable=SC2002
