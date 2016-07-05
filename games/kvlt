@@ -19,6 +19,7 @@ s,\([^A-Z]\)INSTITUTE\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)INSTITUTION\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)ORGANIZATION\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)PARTY\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)RELIGION\([^A-Z]\),\1KVLT\2,g
 
 # Various words for TRUE
 s,\([^A-Z]\)AWESOME\([^A-Z]\),\1TRUE\2,g
