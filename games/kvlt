@@ -12,8 +12,8 @@ s/$/~/
 # -C[EI] -> -Z[EI] (naïve attempt at finding soft Cs)
 s,\([A-Z]\)C\([EI][^A-Z]\),\1Z\2,g
 
-# Remaining Cs (presumably hard ones) become Ks
-y/C/K/
+# -C[^H] -> -K[^H] (so "change" doesn't become "KHANGE")
+s/C\([^H]\)/K\1/
 
 # -I- -> -Y-
 s,\([A-Z]\)I,\1Y,g
