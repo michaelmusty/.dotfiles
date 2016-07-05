@@ -9,17 +9,45 @@ y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 s/^/~/
 s/$/~/
 
-# -C[EI] -> -Z[EI] (naïve attempt at finding soft Cs)
-s,\([A-Z]\)C\([EI][^A-Z]\),\1Z\2,g
+# Various words for KVLT
+s,\([^A-Z]\)ASSOCIATION\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)CLUB\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)COMPANY\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)GROUP\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)INSTITUTE\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)INSTITUTION\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)ORGANIZATION\([^A-Z]\),\1KVLT\2,g
 
-# -C[^H] -> -K[^H] (so "change" doesn't become "KHANGE")
-s/C\([^H]\)/K\1/
+# Various words for TRUE
+s,\([^A-Z]\)BEST\([^A-Z]\),\1TRUEST\2,g
 
-# -I- -> -Y-
-s,\([A-Z]\)I,\1Y,g
+# Double-letters are easy
+s,CC,KK,g
+s,SS,ZZ,g
+
+# CHR -> KHR
+s,CHR,KHR,g
+
+# -C[EIY] -> -Z (naïve attempt at finding soft Cs)
+s,C\([EIY]\),Z\1,g
+
+# -C[^H] -> -K (so "change" doesn't become "KHANGE")
+s,C\([^H]\),K\1,g
+
+# -S[^H] -> Z (so "sharp" doesn't become "ZHARP")
+s,S\([^H]\),Z\1,g
+
+# consant-I-consonant -> -Y-
+s,\([B-DF-HJ-NP-TV-XZ]\)I\([B-DF-HJ-NP-TV-XZ]\),\1Y\2,g
+
+# consant-U-consonant -> -V-
+s,\([B-DF-HJ-NP-TV-XZ]\)U\([B-DF-HJ-NP-TV-XZ]\),\1V\2,g
 
 # THE -> DER
 s,\([^A-Z]\)THE\([^A-Z]\),\1DER\2,g
+
+# THE- -> ZE-
+s,\([^A-Z]\)THE,\1ZE,g
 
 # OF -> 0V
 s,\([^A-Z]\)OF\([^A-Z]\),\10V\2,g
@@ -34,5 +62,5 @@ s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
 s/^~//
 s/~$//
 
-# O->0, S->Z, U->V
-y/OSU/0ZV/
+# O->0
+y/O/0/
