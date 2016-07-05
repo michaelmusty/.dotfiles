@@ -1,17 +1,38 @@
 #!/bin/sed -f
 # Type like a young black metal enthusiast
+
+# Lowercase to capitals
 y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+
+# O->0, S->Z, U->V
 y/OSU/0ZV/
-s,C\([^EH]\),K\1,g
-s,CE ,ZE ,g
-s,C$,K,g
-s, W, V,g
-s,^W,V,g
+
+# Pad the start and end of the line temporarily to work around GNU sed(1) not
+# respecting POSIX word boundaries, leaving us with no compatible options
+s/^/~/
+s/$/~/
+
+# -C[EI] -> -Z[EI] (naïve attempt at finding soft Cs)
+s,\([A-Z]\)C\([EI][^A-Z]\),\1Z\2,g
+
+# Remaining Cs (presumably hard ones) become Ks
+y/C/K/
+
+# -I- -> -Y-
 s,\([A-Z]\)I,\1Y,g
-s,^THE ,DER ,g
-s, THE , DER ,g
-s,^OF ,OV ,g
-s, AND , VND ,g
-s, TRUE , TRV ,g
-s,^TRUE ,TRV ,g
-s,TRUE$,TRV,g
+
+# THE -> DER
+s,\([^A-Z]\)THE\([^A-Z]\),\1DER\2,g
+
+# OF -> 0V
+s,\([^A-Z]\)OF\([^A-Z]\),\10V\2,g
+
+# AND -> VND
+s,\([^A-Z]\)AND\([^A-Z]\),\1VND\2,g
+
+# TRUE -> TRV
+s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
+
+# Remove the padding established above
+s/^~//
+s/~$//
