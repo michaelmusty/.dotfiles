@@ -8,7 +8,8 @@
 # License: Public domain
 #
 
-# Set a sensible locale so that sort(1) doesn't act dumbly
+# Set a sensible locale so that sort(1) doesn't act dumbly. May as well set it
+# script-wide in case it's relevant to any other programs.
 LANG=C.UTF-8
 export LANG
 
