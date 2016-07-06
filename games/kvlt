@@ -25,7 +25,7 @@ s,\([^A-Z]\)RELIGION\([^A-Z]\),\1KVLT\2,g
 # Various words for TRUE
 s,\([^A-Z]\)AWESOME\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)BEST\([^A-Z]\),\1TRUEST\2,g
-s,\([^A-Z]\)EXCELLENT\([^A-Z]\),\1TRUEST\2,g
+s,\([^A-Z]\)EXCELLENT\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)GOOD\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)GREAT\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)NICE\([^A-Z]\),\1TRUE\2,g
