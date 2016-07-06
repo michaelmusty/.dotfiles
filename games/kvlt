@@ -11,6 +11,7 @@ s/$/~/
 
 # Various words for KVLT
 s,\([^A-Z]\)ASSOCIATION\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)BUSINESS\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)CLUB\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)COMPANY\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)FOUNDATION\([^A-Z]\),\1KVLT\2,g
