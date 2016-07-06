@@ -55,9 +55,6 @@ s,\([B-DF-HJ-NP-TV-XZ]\)U\([B-DF-HJ-NP-TV-XZ]\),\1V\2,g
 # THE -> DER
 s,\([^A-Z]\)THE\([^A-Z]\),\1DER\2,g
 
-# THE- -> ZE-
-s,\([^A-Z]\)THE,\1ZE,g
-
 # OF -> 0V
 s,\([^A-Z]\)OF\([^A-Z]\),\10V\2,g
 
