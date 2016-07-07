@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+word=$1
+syls=0
+vs=0
+for ((i=0;i<${#word};i++)); do
+    if [[ ${word:i:1} == [aeiouy] ]] ; then
+        ((vs!=1)) && ((syls++))
+        ((vs++))
+    else
+        ((vs=0))
+    fi
+done
+case $word in
+    *[aeiou][^aeiou]e|*ed)
+        ((syls > 1)) && ((syls--))
+        ;;
+esac
+printf '%u\n' "$syls"
