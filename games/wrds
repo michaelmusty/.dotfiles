@@ -1,0 +1,3 @@
+#!/bin/sh
+grep -v \''s$' /usr/share/dict/words |
+shuf -n "${1:-10}"
