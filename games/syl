@@ -11,7 +11,7 @@ for ((i=0;i<${#word};i++)); do
     fi
 done
 case $word in
-    *[aeiou][^aeiou]e|*ed)
+    *[aeiou][^aeiou]e|*[lc]ed)
         ((syls > 1)) && ((syls--))
         ;;
 esac
