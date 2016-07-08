@@ -12,5 +12,6 @@ for ((lc=0;lc<${#lsts[@]};lc++)) ; do
         ((sc+=sy))
     done
     printf '%s\n' "${ws[*]}"
-done < <(shuf /usr/share/dict/words |
-    grep -v \'s\$)
+done < <(shuf "${@:-/usr/share/dict/words}" |
+    grep -v \'s\$) |
+    tr '[:upper:]' '[:lower:]'
