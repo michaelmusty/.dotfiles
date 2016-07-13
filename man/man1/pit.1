@@ -1,0 +1,22 @@
+.TH PIT 1 "July 2016" "Manual page for pit"
+.SH NAME
+.B pit
+\- show arguments or output in a pager if stdout looks like a terminal
+.SH SYNOPSIS
+.B pit
+file
+.br
+.B pit
+file1 file2 file3
+.br
+command |
+.B pit
+.SH DESCRIPTION
+.B pit
+shows the contents of the files given as arguments in a pager if its standard
+output looks to be a terminal; otherwise it writes them to stdout.
+.P
+It checks for the PAGER environment variable, and otherwise falls back on
+more(1).
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

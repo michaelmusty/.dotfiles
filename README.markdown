@@ -312,6 +312,8 @@ Installed by the `install-bin` target:
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
+*   `pit(1)` runs its input through a pager if its standard output looks like a
+    terminal.
 *   `plmu(1)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
