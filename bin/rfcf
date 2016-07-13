@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Retrieve the RFC with curl(1)
+rn=${1?Need an RFC number}
+curl https://tools.ietf.org/rfc/rfc"$rn".txt

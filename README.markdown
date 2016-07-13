@@ -295,6 +295,11 @@ Installed by the `install-bin` target:
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`
+*   Three RFC-related shortcut scripts:
+    *   `rfcf(1)` fetches ASCII RFCs from the IETF website
+    *   `rfct(1)` formats ASCII RFCs
+    *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
+        `man(1)` reader for RFCs
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.

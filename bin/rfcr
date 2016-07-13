@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Retrieve the RFC with rfcf(1)
+rn=${1?Need an RFC number}
+rfcf "$rn" |
+
+# Pipe it through rfct(1) to format it as text
+rfct |
+
+# Either spit it directly or through a pager
+pit
