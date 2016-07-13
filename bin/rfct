@@ -9,7 +9,7 @@ BEGIN {
 !/[[:alnum:]]/ { next }
 
 # Skip any block with a page break marker in it
-// { next }
+/\x0c/ { next }
 
 # Print the block followed by two newlines
 { printf "%s\n\n", $0 }
