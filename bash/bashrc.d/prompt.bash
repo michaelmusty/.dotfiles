@@ -214,7 +214,7 @@ prompt() {
             # name, removing leading slashes and the 'branches' prefix, and any
             # trailing content after a slash
             local branch
-            branch=${url/$root}
+            branch=${url/"$root"}
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}

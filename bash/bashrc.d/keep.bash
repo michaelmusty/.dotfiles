@@ -29,7 +29,7 @@ keep() {
 
     # Figure out the directory to which we're reading and writing these scripts
     local bashkeep
-    bashkeep=${BASHKEEP:-$HOME/.bashkeep.d}
+    bashkeep=${BASHKEEP:-"$HOME"/.bashkeep.d}
     mkdir -p -- "$bashkeep" || return
 
     # Parse options
@@ -148,8 +148,8 @@ EOF
 complete -A function -A variable keep
 
 # Load any existing scripts in bashkeep
-if [[ -d ${BASHKEEP:-$HOME/.bashkeep.d} ]] ; then
-    for bashkeep in "${BASHKEEP:-$HOME/.bashkeep.d}"/*.bash ; do
+if [[ -d ${BASHKEEP:-"$HOME"/.bashkeep.d} ]] ; then
+    for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
         [[ -e $bashkeep ]] || continue
         source "$bashkeep"
     done

@@ -1,7 +1,7 @@
 # Move to the root directory of a VCS working copy
 vr() {
     local path
-    path=${1:-$PWD}
+    path=${1:-"$PWD"}
     path=${path%/}
 
     # Raise some helpful errors

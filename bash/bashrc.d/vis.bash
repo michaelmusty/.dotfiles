@@ -2,14 +2,14 @@
 # ~/.local/bin
 _vis() {
     local vispath
-    vispath=${VISPATH:-$HOME/.local/bin}
+    vispath=${VISPATH:-"$HOME"/.local/bin}
     [[ -d $vispath ]] || return
     while IFS= read -rd '' executable ; do
         COMPREPLY[${#COMPREPLY[@]}]=$executable
     done < <(
         shopt -s dotglob nullglob
         declare -a files
-        files=("${VISPATH:-$HOME/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
+        files=("${VISPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
         declare -a executables
         for file in "${files[@]}" ; do
             [[ -f $file && -x $file ]] || continue

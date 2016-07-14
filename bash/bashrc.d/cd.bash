@@ -20,7 +20,7 @@ cd() {
     done
     if (($# == 2)) ; then
         if [[ $PWD == *"$1"* ]] ; then
-            builtin cd "${opts[@]}" -- "${PWD/$1/$2}"
+            builtin cd "${opts[@]}" -- "${PWD/"$1"/"$2"}"
         else
             printf 'bash: %s: could not replace substring\n' \
                 "$FUNCNAME" >&2

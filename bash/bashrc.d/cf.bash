@@ -3,7 +3,7 @@ cf() {
     local dirname
 
     # Specify directory to check
-    dirname=${1:-$PWD}
+    dirname=${1:-"$PWD"}
 
     # Error conditions
     if [[ ! -e $dirname ]] ; then

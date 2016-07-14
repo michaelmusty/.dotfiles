@@ -15,10 +15,9 @@ mysql() {
     config=$HOME/.mysql/$1.cnf
     if [[ -r $config ]] ; then
         shift
-        command mysql --defaults-extra-file="$config" "$@"
-    else
-        command mysql "$@"
+        set -- --defaults-extra-file="$config" "$@"
     fi
+    command mysql "$@"
 }
 
 # Completion setup for MySQL for configured databases
@@ -44,7 +43,7 @@ _mysql() {
         # Collect all the config file names, strip off leading path and .cnf
         local -a cnfs
         cnfs=("$dirname"/"${COMP_WORDS[COMP_CWORD]}"*.cnf)
-        cnfs=("${cnfs[@]#$dirname/}")
+        cnfs=("${cnfs[@]#"$dirname"/}")
         cnfs=("${cnfs[@]%.cnf}")
 
         # Bail if no files to prevent empty output

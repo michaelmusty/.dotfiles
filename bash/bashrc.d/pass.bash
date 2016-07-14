@@ -7,7 +7,7 @@ _pass()
 {
     # If we can't read the password directory, just bail
     local passdir
-    passdir=${PASSWORD_STORE_DIR:-$HOME/.password-store}
+    passdir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
     [[ -r $passdir ]] || return 1
 
     # Iterate through list of .gpg paths, extension stripped, null-delimited,
@@ -26,7 +26,7 @@ _pass()
         declare -a entries
         entries=("$passdir"/"${COMP_WORDS[COMP_CWORD]}"*/**/*.gpg \
             "$passdir"/"${COMP_WORDS[COMP_CWORD]}"*.gpg)
-        entries=("${entries[@]#$passdir/}")
+        entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 
         # Bail if no entries to prevent empty output
