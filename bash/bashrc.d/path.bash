@@ -199,7 +199,7 @@ _path() {
             # Complete with a directory
             insert|i|append|add|a|check|c|set|s)
                 local dirname
-                while IFS= read -d '' -r dirname ; do
+                while IFS= read -rd '' dirname ; do
                     COMPREPLY[${#COMPREPLY[@]}]=$dirname
                 done < <(
 

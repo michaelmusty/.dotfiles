@@ -4,7 +4,7 @@ _vis() {
     local vispath
     vispath=${VISPATH:-$HOME/.local/bin}
     [[ -d $vispath ]] || return
-    while IFS= read -d '' -r executable ; do
+    while IFS= read -rd '' executable ; do
         COMPREPLY[${#COMPREPLY[@]}]=$executable
     done < <(
         shopt -s dotglob nullglob

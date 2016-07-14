@@ -18,7 +18,7 @@ _man() {
 
     # Read completion results from a subshell and add them to the COMPREPLY
     # array individually
-    while IFS= read -d '' -r page ; do
+    while IFS= read -rd '' page ; do
         COMPREPLY[${#COMPREPLY[@]}]=$page
     done < <(
 

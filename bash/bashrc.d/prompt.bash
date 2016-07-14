@@ -115,7 +115,7 @@ prompt() {
             # Safely read status with -z --porcelain
             local line
             local -i ready modified untracked
-            while IFS= read -d '' -r line ; do
+            while IFS= read -rd '' line ; do
                 if [[ $line == [MADRCT]* ]] ; then
                     ready=1
                 fi
@@ -164,7 +164,7 @@ prompt() {
             # Safely read status with -0
             local line
             local -i modified untracked
-            while IFS= read -d '' -r line ; do
+            while IFS= read -rd '' line ; do
                 if [[ $line == '?'* ]] ; then
                     untracked=1
                 else

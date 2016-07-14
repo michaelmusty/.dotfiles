@@ -14,7 +14,7 @@ _pass()
     # and filter them down to the ones matching the completing word (compgen
     # doesn't seem to do this properly with a null delimiter)
     local entry
-    while IFS= read -d '' -r entry ; do
+    while IFS= read -rd '' entry ; do
         COMPREPLY[${#COMPREPLY[@]}]=$entry
     done < <(
 

@@ -57,7 +57,7 @@ _ud() {
 
     # Iterate through directories, null-separated, add them to completions
     local dirname
-    while IFS= read -d '' -r dirname ; do
+    while IFS= read -rd '' dirname ; do
         COMPREPLY[${#COMPREPLY[@]}]=$dirname
     done < <(
 

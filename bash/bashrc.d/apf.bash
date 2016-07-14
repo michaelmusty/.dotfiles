@@ -85,7 +85,7 @@ apf() {
     # Read all the null-delimited arguments from the file
     local -a args
     local arg
-    while IFS= read -d '' -r arg ; do
+    while IFS= read -rd '' arg ; do
         args[${#args[@]}]=$arg
     done < "$argfile"
 

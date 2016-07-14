@@ -2,7 +2,7 @@
 _td() {
     local dir
     dir=${TODO_DIR:-$HOME/Todo}
-    while IFS= read -d '' -r fn ; do
+    while IFS= read -rd '' fn ; do
         COMPREPLY[${#COMPREPLY[@]}]=$fn
     done < <(
         shopt -s extglob nullglob

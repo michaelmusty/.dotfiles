@@ -118,7 +118,7 @@ _sd() {
     [[ $PWD != / ]] || return 1
 
     # Build list of matching sibiling directories
-    while IFS= read -d '' -r dirname ; do
+    while IFS= read -rd '' dirname ; do
         COMPREPLY[${#COMPREPLY[@]}]=$dirname
     done < <(
 
