@@ -300,6 +300,8 @@ Installed by the `install-bin` target:
     *   `rfct(1)` formats ASCII RFCs
     *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
         `man(1)` reader for RFCs
+*   `ax(1)` evaluates an awk expression given on the command line; intended as
+    a quick way to test how Awk would interpret a given expression.
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
