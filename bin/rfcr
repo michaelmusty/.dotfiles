@@ -1,7 +1,14 @@
 #!/bin/sh
 
+# Figure out RFC number
+self=rfcr
+if ! [ "$1" ] ; then
+    printf >&2 '%s: Need an RFC number\n' "$self"
+    exit 2
+fi
+rn=$1
+
 # Retrieve the RFC with rfcf(1)
-rn=${1?Need an RFC number}
 rfcf "$rn" |
 
 # Pipe it through rfct(1) to format it as text

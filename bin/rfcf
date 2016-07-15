@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# Figure out RFC number
+self=rfcf
+if ! [ "$1" ] ; then
+    printf >&2 '%s: Need an RFC number\n' "$self"
+    exit 2
+fi
+rn=$1
+
 # Retrieve the RFC with curl(1)
-rn=${1?Need an RFC number}
 curl https://tools.ietf.org/rfc/rfc"$rn".txt
