@@ -1,18 +1,71 @@
 #!/usr/bin/env bash
-word=$1
-syls=0
-vs=0
-for ((i=0;i<${#word};i++)); do
-    if [[ ${word:i:1} == [aeiouy] ]] ; then
-        ((vs!=1)) && ((syls++))
-        ((vs++))
-    else
-        ((vs=0))
-    fi
+
+# Apply some dumb heuristics to guess at the number of syllables in the English
+# word given as the sole required argument
+word=${1:?Need a word}
+lcword=$(printf %s "$word" | tr '[:upper:]' '[:lower:]')
+
+# Start counting syllables for the word and vowels for the current vowel group
+declare -i sylc vowc
+
+# Iterate through the letters in the word
+for ((i = 0; i < ${#word}; i++)); do
+    case ${word:i:1} in
+
+        # If it's a vowel or a y, we might be adding a syllable. We here
+        # include all the vowels I got out of /usr/share/dict/words on my
+        # system.
+        [aeiouyáâäåèéêíóôöûü])
+
+            # Bump the number of vowels so far in this group
+            ((vowc++))
+
+            # On every odd vowel, we'll add another syllable, so that "e" and
+            # "ei" are each one syllable, but "eia" and "eiau" are two.
+            ((vowc % 2)) && ((sylc++))
+            ;;
+
+        # If it's not a vowel or a y, reset the vowel count
+        *)
+            ((vowc = 0))
+            ;;
+    esac
 done
-case $word in
-    *[aeiou][^aeiou]e|*[lc]ed)
-        ((syls > 1)) && ((syls--))
+
+# As a special case, if the word ends with a consonant and then "e" and has
+# more than one syllable, subtract one syllable as it's probably a silent "e"
+if ((sylc > 1)) ; then
+    case $lcword in
+
+        # Exceptions first
+        *[bcdgptx]le|*c[mn]e|*phe)
+            ;;
+        *[!aeiouy]e)
+            ((sylc--))
+            ;;
+
+        # "pined", "loved", but not "wasted", "devoted"
+        *[bcdgptx]led)
+            ;;
+        *[!aeiotuy]ed)
+            ((sylc--))
+            ;;
+
+        # Plural forms of the above
+        *[bc]les|*c[mn]es|*phes)
+            ;;
+        *[!aeiousy]es)
+            ((sylc--))
+            ;;
+    esac
+fi
+
+# Add a syllable for an "ism" suffix
+case $lcword in
+    *ism|*isms)
+        ((sylc++))
         ;;
 esac
-printf '%u\n' "$syls"
+
+# Print the determined syllable count
+printf '%u\n' "$sylc"
