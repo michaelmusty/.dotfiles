@@ -2,7 +2,7 @@
 
 # If no arguments, we'll use stdin
 if [ "$#" -eq 0 ] ; then
-    set /dev/stdin
+    set -- -
 fi
 
 # If output seems to be to a terminal, try to run input through a pager of some
