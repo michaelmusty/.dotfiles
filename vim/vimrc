@@ -1,3 +1,6 @@
+" This file is UTF-8, of course
+scriptencoding utf-8
+
 " Don't make any effort to be compatible with vi, use more sensible settings
 set nocompatible
 
