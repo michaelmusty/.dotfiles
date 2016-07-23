@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# vis(1) -- Create and edit executable scripts in a directory VISPATH (defaults
+# eds(1) -- Create and edit executable scripts in a directory EDSPATH (defaults
 # to ~/.local/bin).
 #
 # Author: Tom Ryder
@@ -10,7 +10,7 @@
 #
 
 # Name self
-self=vis
+self=eds
 
 # Define a function to show usage
 usage() {
@@ -47,14 +47,14 @@ if ! (($#)) ; then
 fi
 
 # Create the script directory if it doesn't exist yet
-vispath=${VISPATH:-$HOME/.local/bin}
-if [[ ! -d $vispath ]] ; then
-    mkdir -p -- "$vispath" || exit
+edspath=${EDSPATH:-$HOME/.local/bin}
+if [[ ! -d $edspath ]] ; then
+    mkdir -p -- "$edspath" || exit
 fi
 
 # Create a new array with the script directory prepended to the given names
 declare -a files
-files=("${@/#/$vispath/}")
+files=("${@/#/$edspath/}")
 
 # Collect the names of any scripts that don't exist yet so we can make them
 # executable after we're done editing

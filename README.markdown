@@ -305,6 +305,8 @@ Installed by the `install-bin` target:
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
+*   `eds(1)` edits executable script files in `EDSPATH`, defaulting to
+    `~/.local/bin`, for personal scripting snippets.
 *   `fgscr(1)` finds Git repositories in a directory root and scrubs them with
     `gscr(1)`.
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
@@ -337,8 +339,6 @@ Installed by the `install-bin` target:
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
-*   `vis(1)` edits executable script files in `VISPATH`, defaulting to
-    `~/.local/bin`, for personal scripting snippets.
 
 There's some silly stuff in `install-games`:
 
