@@ -14,6 +14,6 @@ fi
         FORTUNE_PATH=${FORTUNE_PATH:-$HOME/.local/share/games/fortunes}
     fi
     printf '\n'
-    fortune -sn "${FORTUNE_MAXSIZE:-768}" "$FORTUNE_PATH"
+    fortune -s "$FORTUNE_PATH"
     printf '\n'
 )
