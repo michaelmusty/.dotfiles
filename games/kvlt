@@ -67,6 +67,9 @@ s,\([^A-Z]\)AND\([^A-Z]\),\1VND\2,g
 # TRUE -> TRV
 s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
 
+# All numbers become 666
+s,[0-9][0-9]*,666,g
+
 # Remove the padding established above
 s/^~//
 s/~$//
