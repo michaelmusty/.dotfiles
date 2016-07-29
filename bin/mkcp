@@ -1,0 +1,6 @@
+#!/bin/sh
+# Copy files into created directory in one call
+[ "$#" -gt 2 ] || exit 2
+for dir ; do : ; done
+mkdir -p -- "$dir" || exit
+exec cp -R -- "$@"

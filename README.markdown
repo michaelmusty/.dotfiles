@@ -188,8 +188,6 @@ There are a few other little tricks in `bash/bashrc.d`, including:
 *   `hgrep` -- `HISTFILE` search
 *   `keep` -- Permanently store ad-hoc shell functions and variables
 *   `mkcd` -- Create a directory and change into it
-*   `mkcp` -- Create a directory and copy arguments into it
-*   `mkmv` -- Create a directory and move arguments into it
 *   `pa` -- Print given arguments, one per line
 *   `path` -- Manage the contents of `PATH` conveniently
 *   `paz` -- Print given arguments separated by NULL chars
@@ -321,6 +319,8 @@ Installed by the `install-bin` target:
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
+*   `mkcp(1)` creates a directory and copies preceding arguments into it
+*   `mkmv(1)` creates a directory and moves preceding arguments into it
 *   `pit(1)` runs its input through a pager if its standard output looks like a
     terminal.
 *   `plmu(1)` retrieves a list of installed modules from

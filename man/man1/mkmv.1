@@ -1,0 +1,19 @@
+.TH MKMV 1 "July 2016" "Manual page for mkmv"
+.SH NAME
+.B mkmv
+\- create last argument as directory and move remaining arguments into it
+.SH SYNOPSIS
+.B mkmv
+filea fileb newdir
+.br
+.B mkmv
+filea fileb newdir/newsubdir
+.SH DESCRIPTION
+.B mkmv
+combines mkdir(1) and mv(1) into one call, creating the last argument as a
+directory and moving the remaining arguments into it. If the directory creation
+fails, the script stops before attempting to move the files.
+.SH SEE ALSO
+mkdir(1), mv(1), mkcp(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
