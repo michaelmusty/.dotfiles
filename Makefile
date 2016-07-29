@@ -4,6 +4,7 @@
 	install \
 	install-abook \
 	install-bash \
+	install-bash-completion \
 	install-bin \
 	install-bin-man \
 	install-curl \
@@ -96,6 +97,7 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 install : install-bash \
+	install-bash-completion \
 	install-curl \
 	install-dircolors \
 	install-git \
@@ -114,13 +116,15 @@ install-bash : test-bash
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.bashrc.d \
-		"$(HOME)"/.bash_profile.d \
-		"$(HOME)"/.bash_completion.d
+		"$(HOME)"/.bash_profile.d
 	install -pm 0644 -- bash/bashrc "$(HOME)"/.bashrc
 	install -pm 0644 -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
 	install -pm 0644 -- bash/bash_profile "$(HOME)"/.bash_profile
 	install -pm 0644 -- bash/bash_profile.d/* "$(HOME)"/.bash_profile.d
 	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
+
+install-bash-completion : install-bash
+	install -m 0755 -d -- "$(HOME)"/.bash_completion.d
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
