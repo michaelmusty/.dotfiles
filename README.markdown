@@ -182,7 +182,6 @@ There are a few other little tricks in `bash/bashrc.d`, including:
 
 *   `apf` -- Prepend arguments to a command with ones read from a file
 *   `bd` -- Change into a named ancestor of the current directory
-*   `cf` -- Count files in a given directory
 *   `fnl` -- Run a command and save its output and error into temporary files
 *   `hgrep` -- `HISTFILE` search
 *   `keep` -- Permanently store ad-hoc shell functions and variables
@@ -297,6 +296,7 @@ Installed by the `install-bin` target:
 *   `ax(1)` evaluates an awk expression given on the command line; intended as
     a quick way to test how Awk would interpret a given expression.
 *   `ca(1)` prints a count of its given arguments.
+*   `cf(1)` prints a count of entries in a given directory.
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
