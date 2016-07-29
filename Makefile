@@ -98,6 +98,7 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 
 install : install-bash \
 	install-bash-completion \
+	install-bin \
 	install-curl \
 	install-dircolors \
 	install-git \
