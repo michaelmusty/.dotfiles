@@ -57,4 +57,3 @@ vr() {
         "$FUNCNAME" >&2
     return 1
 }
-complete -A directory vr

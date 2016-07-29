@@ -144,9 +144,6 @@ EOF
     )
 }
 
-# Complete calls to keep with existing function names and variable names
-complete -A function -A variable keep
-
 # Load any existing scripts in bashkeep
 if [[ -d ${BASHKEEP:-"$HOME"/.bashkeep.d} ]] ; then
     for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do

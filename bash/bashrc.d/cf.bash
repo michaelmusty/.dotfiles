@@ -27,4 +27,3 @@ cf() {
         printf '%u\t%s\n' "${#files[@]}" "$dirname"
     )
 }
-complete -A directory cf

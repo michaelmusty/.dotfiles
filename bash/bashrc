@@ -114,3 +114,13 @@ if [[ -d $HOME/.bashrc.d ]] ; then
     done
     unset -v bashrc
 fi
+
+# Load any completion files
+if [[ -d $HOME/.bash_completion.d ]] ; then
+    for bashcmp in "$HOME"/.bash_completion.d/*.bash ; do
+        if [[ -e $bashcmp ]] ; then
+            source "$bashcmp"
+        fi
+    done
+    unset -v bashcmp
+fi

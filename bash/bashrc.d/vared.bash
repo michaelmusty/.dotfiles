@@ -28,4 +28,3 @@ vared() {
         IFS= read -e -i "${!name}" -p "${prompt:-"$name"=}" -r -- "$name"
     done
 }
-complete -A variable vared
