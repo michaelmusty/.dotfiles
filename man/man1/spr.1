@@ -1,0 +1,23 @@
+.TH SPR 1 "July 2016" "Manual page for spr"
+.SH NAME
+.B spr
+\- post input to sprunge.us pastebin and print the URL to stdout
+.SH SYNOPSIS
+.B spr
+file
+.br
+.B spr
+file1 file2 file3
+.br
+declare -p |
+.B spr
+.SH DESCRIPTION
+.B spr
+uses curl(1) to make an HTTP POST request submitting all of its input (whether
+files or stdin) to the sprunge.us pastebin.
+.SH SEE ALSO
+curl(1)
+.br
+https://github.com/rupa/sprunge
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

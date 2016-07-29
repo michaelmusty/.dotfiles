@@ -193,7 +193,6 @@ There are a few other little tricks in `bash/bashrc.d`, including:
 *   `readz` -- Alias for `read -d '' -r`
 *   `scr` -- Create a temporary directory and change into it
 *   `sd` -- Switch to a sibling directory
-*   `sprunge` -- Pastebin frontend tool I pilfered from `#bash` on Freenode
 *   `ud` -- Change into an indexed ancestor of a directory
 
 I also wrap a few command calls with functions to stop me from doing silly
@@ -326,6 +325,7 @@ Installed by the `install-bin` target:
 *   `plmu(1)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
+*   `spr(1)` posts its input to the sprunge.us pastebin.
 *   `stbl(1)` strips a trailing blank line from the files in its arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
