@@ -106,21 +106,15 @@ if [[ $COMP_WORDBREAKS ]] ; then
 fi
 
 # Load any supplementary scripts
-if [[ -d $HOME/.bashrc.d ]] ; then
-    for bashrc in "$HOME"/.bashrc.d/*.bash ; do
-        if [[ -e $bashrc ]] ; then
-            source "$bashrc"
-        fi
-    done
-    unset -v bashrc
-fi
+for bashrc in "$HOME"/.bashrc.d/*.bash ; do
+    [[ -e $bashrc ]] || continue
+    source "$bashrc"
+done
+unset -v bashrc
 
 # Load any completion files
-if [[ -d $HOME/.bash_completion.d ]] ; then
-    for bashcmp in "$HOME"/.bash_completion.d/*.bash ; do
-        if [[ -e $bashcmp ]] ; then
-            source "$bashcmp"
-        fi
-    done
-    unset -v bashcmp
-fi
+for bashcmp in "$HOME"/.bash_completion.d/*.bash ; do
+    [[ -e $bashcmp ]] || continue
+    source "$bashcmp"
+done
+unset -v bashcmp
