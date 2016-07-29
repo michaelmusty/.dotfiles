@@ -187,9 +187,7 @@ There are a few other little tricks in `bash/bashrc.d`, including:
 *   `hgrep` -- `HISTFILE` search
 *   `keep` -- Permanently store ad-hoc shell functions and variables
 *   `mkcd` -- Create a directory and change into it
-*   `pa` -- Print given arguments, one per line
 *   `path` -- Manage the contents of `PATH` conveniently
-*   `paz` -- Print given arguments separated by NULL chars
 *   `pd` -- Change to the argument's parent directory
 *   `readv` -- Print names and values from `read` calls to `stderr`
 *   `readz` -- Alias for `read -d '' -r`
@@ -321,6 +319,8 @@ Installed by the `install-bin` target:
     it exits with success or failure. Good for quick tests.
 *   `mkcp(1)` creates a directory and copies preceding arguments into it
 *   `mkmv(1)` creates a directory and moves preceding arguments into it
+*   `pa(1)` prints its arguments, one per line.
+*   `paz(1)` print its arguments terminated by NULL chars.
 *   `pit(1)` runs its input through a pager if its standard output looks like a
     terminal.
 *   `plmu(1)` retrieves a list of installed modules from

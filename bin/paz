@@ -1,0 +1,4 @@
+#!/bin/sh
+# Print arguments, terminated by null chars. Compare pa(1).
+[ "$#" -gt 0 ] || return 0
+printf '%s\0' "$@"
