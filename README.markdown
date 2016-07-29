@@ -317,8 +317,8 @@ Installed by the `install-bin` target:
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
-*   `mkcp(1)` creates a directory and copies preceding arguments into it
-*   `mkmv(1)` creates a directory and moves preceding arguments into it
+*   `mkcp(1)` creates a directory and copies preceding arguments into it.
+*   `mkmv(1)` creates a directory and moves preceding arguments into it.
 *   `pa(1)` prints its arguments, one per line.
 *   `paz(1)` print its arguments terminated by NULL chars.
 *   `pit(1)` runs its input through a pager if its standard output looks like a
