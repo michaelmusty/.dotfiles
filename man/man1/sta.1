@@ -4,12 +4,13 @@
 \- run a command on sls(1) hosts and print the hostname if successful
 .SH SYNOPSIS
 .B sta
-.I COMMAND
+.I [COMMAND]
 .SH DESCRIPTION
 .B sta
-runs a nominated command on all the hosts returned by sls(1), and prints the
-hostname if the command has an exit value of 0. The stdout from the commands is
-discarded.
+attempts a connection and optionally runs a nominated command on all the hosts
+returned by sls(1), and prints the hostname if connected and if the optional
+command has an exit value of 0. The stdout from the commands is discarded, but
+stderr is shown.
 .SH SEE ALSO
 sra(1), sls(1)
 .SH AUTHOR

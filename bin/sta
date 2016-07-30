@@ -1,34 +1,7 @@
-#!/usr/bin/env bash
-
-#
-# sta(1) -- Run a command on every hostname returned by sls(1) and print
-# the hostname if the command's return value was zero. Discard stdout, but do
-# print stderr.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2014
-# License: Public domain
-#
-
-# Name self
-self=sta
-
-# Handle ^C interrupts
-trap 'trap - INT; kill -INT $$' INT
-
-# Bail if we couldn't find sls(1)
-hash sls || exit
-
-# Exit with usage method if no command given
-if ! (($#)) ; then
-    printf 'USAGE: %s <command>\n' "$self" >&2
-    exit 1
-fi
-
-# Execute command, print hostname if it returns zero
-while read -r hostname ; do
-    # shellcheck disable=SC2029
-    if ssh -nq -- "$hostname" "$@" >/dev/null ; then
-        printf '%s\n' "$hostname"
-    fi
-done < <(sls)
+#!/bin/sh
+# Print list of sls(1) hostnames that return 0 when a connection is attempted
+# and the optional given command is run. Discard stdout, but preserve stderr.
+sls | while read -r hostname ; do
+    ssh -nq -- "$hostname" "$@" >/dev/null || continue
+    printf '%s\n' "$hostname"
+done
