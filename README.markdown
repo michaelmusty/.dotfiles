@@ -184,19 +184,19 @@ I also add completions for my own scripts and functions where useful.
 
 There are a few other little tricks in `bash/bashrc.d`, including:
 
-*   `apf` prepends arguments to a command with ones read from a file
-*   `bd` changes into a named ancestor of the current directory
-*   `fnl` runs a command and save its output and error into temporary files
-*   `hgrep` searches `$HISTFILE`
-*   `keep` stores ad-hoc shell functions and variables
-*   `mkcd` creates a directory and changes into it
-*   `path` manages the contents of `PATH` conveniently
-*   `pd` changes to the argument's parent directory
-*   `readv` prints names and values from `read` calls to `stderr`
-*   `readz` is an alias for `read -d '' -r`
-*   `scr` creates a temporary directory and changes into it
-*   `sd` changes into a sibling of the current directory
-*   `ud` changes into an indexed ancestor of a directory
+*   `apf` prepends arguments to a command with ones read from a file.
+*   `bd` changes into a named ancestor of the current directory.
+*   `fnl` runs a command and save its output and error into temporary files.
+*   `hgrep` searches `$HISTFILE`.
+*   `keep` stores ad-hoc shell functions and variables.
+*   `mkcd` creates a directory and changes into it.
+*   `path` manages the contents of `PATH` conveniently.
+*   `pd` changes to the argument's parent directory.
+*   `readv` prints names and values from `read` calls to `stderr`.
+*   `readz` is an alias for `read -d '' -r`.
+*   `scr` creates a temporary directory and changes into it.
+*   `sd` changes into a sibling of the current directory.
+*   `ud` changes into an indexed ancestor of a directory.
 
 I also wrap a few command calls with functions to stop me from doing silly
 things that the commands themselves don't catch. My favourite is the one that
@@ -291,20 +291,20 @@ Installed by the `install-bin` target:
         the hostname if the command returns zero.
 *   Three URL-related shorcut scripts:
     *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
-        them uniquely, and writes them to `stdout`; requires
-        [pup](https://github.com/ericchiang/pup)
+        them uniquely, and writes them to `stdout`; it requires
+        [pup](https://github.com/ericchiang/pup).
     *   `murl(1)` converts Markdown documents to HTML with `pandoc(1)` and
-        runs the output through `hurl(1)`
+        runs the output through `hurl(1)`.
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
-        and have working secure versions; requires `curl(1)`
+        and have working secure versions; requires `curl(1)`.
 *   Three RFC-related shortcut scripts:
-    *   `rfcf(1)` fetches ASCII RFCs from the IETF website
-    *   `rfct(1)` formats ASCII RFCs
+    *   `rfcf(1)` fetches ASCII RFCs from the IETF website.
+    *   `rfct(1)` formats ASCII RFCs.
     *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
-        `man(1)` reader for RFCs
-*   `ax(1)` evaluates an awk expression given on the command line; intended as
-    a quick way to test how Awk would interpret a given expression.
+        `man(1)` reader for RFCs.
+*   `ax(1)` evaluates an awk expression given on the command line; this is
+    intended as a quick way to test how Awk would interpret a given expression.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `dub(1)` lists the biggest entries in a directory.
