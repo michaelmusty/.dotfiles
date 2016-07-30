@@ -1,0 +1,19 @@
+.TH SLSF 1 "July 2016" "Manual page for slsf"
+.SH NAME
+.B slsf
+\- list the first hostname on each line of ssh_config(5) files
+.SH SYNOPSIS
+.B slsf /etc/ssh_config ~/.ssh_config
+.br
+cat ~/.ssh_config |
+.B slsf
+.br
+.SH DESCRIPTION
+.B slsf
+iterates through the ssh_config(5) files given as its input and prints the
+first non-wildcard hostname on each "Host" line. Most users will probably want
+the sls(1) frontend.
+.SH SEE ALSO
+sls(1), sra(1), sta(1), ssh(1), ssh_config(5)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

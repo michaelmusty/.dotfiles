@@ -4,14 +4,15 @@
 \- list the first hostname on each line of an ssh_config(5) file
 .SH SYNOPSIS
 .B sls
-.I [SSH_CONFIG]
+.br
+.B sls
+ssh_config_alt1 ssh_config_alt2
 .SH DESCRIPTION
 .B sls
-reads an ssh_config(5) file, defaulting to ~/.ssh/config, and returns a
-newline-delimited list of the first of the hostnames on each Host line in the
-file, ignoring all other lines. Suitable for use in batch scripts like
-sra(1).
+runs slsf(1) on the given set of ssh_config(5) files to print the first
+non-wildcard hostname on each "Host" line, defaulting to /etc/ssh/ssh_config
+and ~/.ssh/config if they exist. Suitable for use in batch scripts like sra(1).
 .SH SEE ALSO
-sra(1), sta(1), ssh(1), ssh_config(5)
+slsf(1), sra(1), sta(1), ssh(1), ssh_config(5)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

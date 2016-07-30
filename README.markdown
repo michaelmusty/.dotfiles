@@ -284,7 +284,8 @@ current shell.
 Installed by the `install-bin` target:
 
 *   Three SSH-related scripts:
-    *   `sls(1)` prints hostnames read from a `ssh_config(5)` file.
+    *   `sls(1)` prints hostnames read from a `ssh_config(5)` file. It uses
+        `slsf(1)` to read each one.
     *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and prints
         output.
     *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints

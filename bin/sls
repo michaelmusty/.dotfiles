@@ -1,18 +1,8 @@
-#!/usr/bin/awk -f
-
-# If no arguments, assume the default config files
-BEGIN {
-    if (ARGC == 1) {
-        ARGV[1] = "/etc/ssh/ssh_config"
-        ARGV[2] = ENVIRON["HOME"] "/.ssh/config"
-        ARGC += 2
-    }
-}
-
-# Manage the processing flag (starts set)
-NR == 1 || /### sls/ { sls = 1 }
-/### nosls/ { sls = 0 }
-
-# If processing flag set, directive is "Host", and hostname has no wildcards,
-# then print it
-sls && $1 == "Host" && $2 !~ /\*/ { print $2 }
+#!/bin/sh
+if [ "$#" -eq 0 ] ; then
+     for cfg in /etc/ssh_config "$HOME"/.ssh/config ; do
+         [ -e "$cfg" ] || continue
+         set -- "$@" "$cfg"
+     done
+fi
+exec slsf -- "$@"
