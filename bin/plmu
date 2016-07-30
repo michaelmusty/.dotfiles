@@ -1,30 +1,22 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-# Check we have required programs
-hash cpanm plenv || exit
+# Set up exceptions file if it exists
+ef=$HOME/.plenv/non-cpanm-modules
+[ -e "$ef" ] || ef=/dev/null
 
-# Create required temporary files
-mf=$(mktemp) || exit
-ef=$(mktemp) || exit
-cf=$(mktemp) || exit
+# Check that exceptions file is sorted
+if ! sort -c -- "$ef" ; then
+    printf '%s not sorted\n' "$ef" >&2
+    exit 1
+fi
 
-# Clean up temporary files on exit
-cleanup() {
-    rm -f -- "$mf" "$ef" "$cf"
-}
-trap cleanup EXIT
+# Get the list of modules
+plenv list-modules |
 
-# Get the list of modules, sort them, write them to a file
-plenv list-modules | sort > "$mf"
+# Exclude any modules in ~.plenv/non-cpanm-modules if it exists
+comm -23 -- - "$ef" |
 
-# Sort the non-CPAN modules from ~/.plenv and write them to a file
-sort -- "$HOME"/.plenv/non-cpanm-modules > "$ef"
-
-# Write out the list of modules that appear in the first file, but not the
-# second
-comm -23 -- "$mf" "$ef" > "$cf"
-
-# Read the list of modules to upgrade and upgrade them one by one
+# Read that list of modules to upgrade and upgrade them one by one
 while read -r module ; do 
     cpanm --notest --quiet -- "$module"
-done < "$cf"
+done
