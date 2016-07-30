@@ -1,4 +1,4 @@
 #!/bin/sh
 # Convenience script for posting to sprunge.us pastebin
-cat "${@:-}" |
+cat -- "${@:-}" |
 curl -F 'sprunge=<-' http://sprunge.us/
