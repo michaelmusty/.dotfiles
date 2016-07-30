@@ -377,10 +377,7 @@ check to be installed.
 Known issues
 ------------
 
-I'd welcome patches or advice on fixing any of these problems.
-
-*   The `install-terminfo` target does not work correctly on NetBSD due to the
-    different way `tic(1)` works, which I don't understand at all.
+See ISSUES.markdown.
 
 Note for previous visitors
 --------------------------
