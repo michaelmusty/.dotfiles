@@ -4,11 +4,11 @@
 \- run a command on sls(1) hosts
 .SH SYNOPSIS
 .B sra
-.I COMMAND
+.I [COMMAND]
 .SH DESCRIPTION
 .B sra
-runs a nominated command on all the hosts returned by sls(1), and prints the
-hostname, stdout, and stderr for each call.
+opens a secure shell or runs a command with ssh(1) on all the hosts returned by
+sls(1).
 .SH SEE ALSO
 sta(1), sls(1)
 .SH AUTHOR

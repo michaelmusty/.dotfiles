@@ -1,34 +1,8 @@
-#!/usr/bin/env bash
-
-#
-# sra(1) -- Run a command on every hostname returned by sls(1) and print
-# both stdout and stderr, including allocating a pty with -t.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2014
-# License: Public domain
-#
-
-# Name self
-self=sra
-
-# Handle ^C interrupts
-trap 'trap - INT; kill -INT $$' INT
-
-# Bail if we couldn't find sls(1)
-hash sls || exit
-
-# Exit with usage method if no arguments given
-if ! (($#)) ; then
-    printf 'USAGE: %s <command>\n' "$self" >&2
-    exit 1
-fi
-
-# Execute command, print both stdout and stderr, and use file descriptor 3 to
-# avoid clobbering any of the standard streams
-while read -r hostname <&3 ; do
-    printf '%s: %s\n' "$self" "$hostname"
-    # shellcheck disable=SC2029
-    ssh -qt -- "$hostname" "$@"
-    printf '\n'
-done 3< <(sls)
+#!/bin/sh
+# Run ssh(1) with an optional command on every host in sls(1) output
+# Use FD3 to keep a reference to the script's stdin for the ssh(1) calls
+exec 3<&0
+sls | while read -r hostname ; do
+    printf 'sra: %s\n' "$hostname"
+    ssh -qt -- "$hostname" "$@" <&3 # shellcheck disable=SC2029
+done
