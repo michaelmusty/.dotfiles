@@ -1,4 +1,4 @@
 #!/bin/sh
 # Convenience script for posting to sprunge.us pastebin
-cat -- "${@:-}" |
+cat -- "${@:-}" | ## shellcheck disable=SC2002
 curl -F 'sprunge=<-' http://sprunge.us/
