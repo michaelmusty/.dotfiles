@@ -165,8 +165,8 @@ off using a stub file installed in `.config/bash_completion`. The majority of
 the time I just want to complete paths anyway, and this makes for a quicker
 startup without a lot of junk functions in my Bash namespace.
 
-I do make some exceptions with completions defined in `.bashrc.d` files for
-things I really do get tired of typing repeatedly:
+I do make some exceptions with completions defined in `.bash_completion.d`
+files for things I really do get tired of typing repeatedly:
 
 *   Builtins, commands, help topics, shell options, and variables
 *   `ftp(1)` hostnames from `~/.netrc`
@@ -178,23 +178,25 @@ things I really do get tired of typing repeatedly:
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
+I also add completions for my own scripts and functions where useful.
+
 #### Functions
 
 There are a few other little tricks in `bash/bashrc.d`, including:
 
-*   `apf` -- Prepend arguments to a command with ones read from a file
-*   `bd` -- Change into a named ancestor of the current directory
-*   `fnl` -- Run a command and save its output and error into temporary files
-*   `hgrep` -- `HISTFILE` search
-*   `keep` -- Permanently store ad-hoc shell functions and variables
-*   `mkcd` -- Create a directory and change into it
-*   `path` -- Manage the contents of `PATH` conveniently
-*   `pd` -- Change to the argument's parent directory
-*   `readv` -- Print names and values from `read` calls to `stderr`
-*   `readz` -- Alias for `read -d '' -r`
-*   `scr` -- Create a temporary directory and change into it
-*   `sd` -- Switch to a sibling directory
-*   `ud` -- Change into an indexed ancestor of a directory
+*   `apf` prepends arguments to a command with ones read from a file
+*   `bd` changes into a named ancestor of the current directory
+*   `fnl` runs a command and save its output and error into temporary files
+*   `hgrep` searches `$HISTFILE`
+*   `keep` stores ad-hoc shell functions and variables
+*   `mkcd` creates a directory and changes into it
+*   `path` manages the contents of `PATH` conveniently
+*   `pd` changes to the argument's parent directory
+*   `readv` prints names and values from `read` calls to `stderr`
+*   `readz` is an alias for `read -d '' -r`
+*   `scr` creates a temporary directory and changes into it
+*   `sd` changes into a sibling of the current directory
+*   `ud` changes into an indexed ancestor of a directory
 
 I also wrap a few command calls with functions to stop me from doing silly
 things that the commands themselves don't catch. My favourite is the one that
@@ -272,6 +274,12 @@ loaded using @tpope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
 
 Scripts
 -------
+
+Where practical, I make short scripts into POSIX-compatible `sh(1)`, `awk(1)`,
+or `sed(1)` scripts in `~/.local/bin`. A few of them still have Bashisms for
+various reasons. I try to use shell functions only when I actually need to,
+which tends to be when I need to tinker with the namespace of the user's
+current shell.
 
 Installed by the `install-bin` target:
 
