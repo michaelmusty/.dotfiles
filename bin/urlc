@@ -63,7 +63,7 @@ while read -r url ; do
             "$self" "$url" "$securl" >&2
         ((errc++))
     fi
-done < <(cat -- "${@:-/dev/stdin}")  ## shellcheck disable=SC2002
+done < <(cat -- "${@:-/dev/stdin}") ## shellcheck disable=SC2002
 
 # Exit if any errors
 exit "$((errc > 0))"

@@ -14,7 +14,7 @@ LANG=C.UTF-8
 export LANG
 
 # Emit the content of the args, or stdin
-cat -- "${@:-/dev/stdin}" |  ## shellcheck disable=SC2002
+cat -- "${@:-/dev/stdin}" | # shellcheck disable=SC2002
 
 # Pipe it through a pup filter to get all the values of the a href elements
 pup -p 'a attr{href}' |
