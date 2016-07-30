@@ -1,4 +1,4 @@
-# Completion for gpg with long options
+# Completion for gpg(1) with long options
 _gpg() {
 
     # Bail if no gpg(1)

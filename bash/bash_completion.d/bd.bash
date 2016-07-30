@@ -1,4 +1,4 @@
-# Completion setup for bd
+# Completion setup for bd()
 _bd() {
 
     # Only makes sense for the first argument

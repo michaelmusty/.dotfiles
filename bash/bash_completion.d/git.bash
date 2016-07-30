@@ -1,4 +1,4 @@
-# Completion for git local branch names
+# Completion for git(1) local branch names
 _git() {
 
     # Bail if not a git repo (or no git!)

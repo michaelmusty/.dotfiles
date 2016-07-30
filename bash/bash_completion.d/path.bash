@@ -56,5 +56,4 @@ _path() {
         esac
     fi
 }
-
 complete -F _path path

@@ -1,4 +1,4 @@
-# Completion for ftp with .netrc machines
+# Completion for ftp(1) with .netrc machines
 _ftp() {
 
     # Bail if the .netrc file is illegible
