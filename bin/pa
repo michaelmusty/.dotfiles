@@ -1,4 +1,4 @@
 #!/bin/sh
 # Print arguments, one per line. Compare paz(1).
-[ "$#" -gt 0 ] || return 0
+[ "$#" -gt 0 ] || exit 0
 printf '%s\n' "$@"

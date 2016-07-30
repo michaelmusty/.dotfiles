@@ -1,5 +1,5 @@
 #!/bin/sh
-# Print list of sls(1) hostnames that return 0 when a connection is attempted
+# Print list of sls(1) hostnames that exit 0 when a connection is attempted
 # and the optional given command is run. Discard stdout, but preserve stderr.
 sls | while read -r hostname ; do
     ssh -nq -- "$hostname" "$@" >/dev/null || continue
