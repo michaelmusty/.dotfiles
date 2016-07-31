@@ -1,4 +1,4 @@
 #!/bin/sh
 # Apply a random background image. Requires rndf(1) and feh(1).
 bg=$(rndf "${XBACKGROUNDS:-"$HOME"/.xbackgrounds}") || exit
-feh --bg-scale --no-fehbg -- "$bg"
+exec feh --bg-scale --no-fehbg -- "$bg"
