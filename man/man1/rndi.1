@@ -1,0 +1,17 @@
+.TH RNDI 1 "August 2016" "Manual page for rndi"
+.SH NAME
+.B rndi
+\- return a low-quality random integer between two bounds
+.SH SYNOPSIS
+.B rndi
+.br
+.B 0 10
+.SH DESCRIPTION
+.B rndi
+returns a random integer ranging from the first argument to the second argument
+in a POSIX-compliant way (using awk). The answer returned is low-quality and if
+run in the same second as a previous run may even return the same result in
+some implementations. This should not be used in any sort of security or
+statistical context; the author wrote it to choose random background images.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
