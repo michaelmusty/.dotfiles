@@ -5,3 +5,6 @@ Known issues
     only have a .svn directory at the root level.
 *   The terminfo files probably still do not work on NetBSD (needs retesting
     and manual page reading)
+*   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
+    that system; need to find some way of finding which manual directories
+    should be searched at runtime, if there is one
