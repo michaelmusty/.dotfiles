@@ -1,27 +1,20 @@
-#!/usr/bin/env bash
-
-# Count files
-self=cf
-
-# Specify directory to check, defaults to current dir
-dirname=${1:-"$PWD"}
-
-# Error conditions
-if [[ ! -e $dirname ]] ; then
-    printf '%s: %s does not exist\n' \
-        "$self" "$dirname" >&2
-    exit 1
-elif [[ ! -d $dirname ]] ; then
-    printf '%s: %s is not a directory\n' \
-        "$self" "$dirname" >&2
-    exit 1
-elif [[ ! -r $dirname ]] ; then
-    printf '%s: %s is not readable\n' \
-        "$self" "$dirname" >&2
-    exit 1
-fi
-
-# Count files and print; use dotglob and nullglob so we get an accurate count
-shopt -s dotglob nullglob
-declare -a files=("$dirname"/*)
-printf '%u\t%s\n' "${#files[@]}" "$dirname"
+#!/bin/sh
+# Count entries in a given set of directories
+ex=0
+for dir in "${@:-.}" ; do
+    if ! [ -d "$dir" ] ; then
+        printf >&2 'cf: %s: not a directory\n' "$dir"
+        ex=1
+        continue
+    fi
+    c=0
+    for ent in "$dir"/* "$dir"/.* ; do
+        [ -e "$ent" ] || continue
+        case $ent in
+            */.|*/..) ;;
+            *) c=$((c+1)) ;;
+        esac
+    done
+    printf '%u\t%s\n' "$c" "$dir"
+done
+exit "$ex"
