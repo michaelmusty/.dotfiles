@@ -1,23 +1,5 @@
 #!/bin/sh
-
-#
 # Extract <a href="..."> URLs from an HTML document or documents.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
-
-# Set a sensible locale so that sort(1) doesn't act dumbly. May as well set it
-# script-wide in case it's relevant to any other programs.
-LANG=C.UTF-8
-export LANG
-
-# Emit the content of the args, or stdin
 cat -- "${@:-/dev/stdin}" | # shellcheck disable=SC2002
-
-# Pipe it through a pup filter to get all the values of the a href elements
 pup -p 'a attr{href}' |
-
-# Sort it uniquely
 sort | uniq
