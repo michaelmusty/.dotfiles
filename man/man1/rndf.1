@@ -1,0 +1,19 @@
+.TH RNDF 1 "August 2016" "Manual page for rndf"
+.SH NAME
+.B rndf
+\- return a low-quality random choice of a random file in a directory
+.SH SYNOPSIS
+.B rndf
+.br
+.B rndf
+/path/to/dir
+.br
+.SH DESCRIPTION
+.B rndf
+prints the name a random file (excluding dot files) from the given directory,
+defaulting to the current directory. It uses rndi(1), which is not a
+high-quality random number source.
+.SH SEE ALSO
+rndi(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

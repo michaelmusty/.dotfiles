@@ -1,0 +1,11 @@
+#!/bin/sh
+# Choose a random file from a given directory. Ignores dot files.
+dir=${1:-.}
+set -- "$dir"/*
+if ! [ -e "$1" ] ; then
+    printf >&2 'rndf: No files found in %s\n' "$dir"
+    exit 1
+fi
+argi=$(rndi 1 "$#") || exit
+shift "$((argi-1))"
+printf '%s\n' "$1"
