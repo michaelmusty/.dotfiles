@@ -1,10 +1,4 @@
 #!/bin/sh
-# Apply a random background image. Requires feh(1).
-set -- "${XBACKGROUNDS:-$HOME/.xbackgrounds}"/*
-if ! [ -e "$1" ] ; then
-    printf 'xrbg: No files found in %s\n' "$bgd"
-    exit 1
-fi
-argi=$(rndi 1 "$#") || exit
-shift "$((argi-1))"
-feh --bg-scale --no-fehbg -- "$1"
+# Apply a random background image. Requires rndf(1) and feh(1).
+bg=$(rndf "${XBACKGROUNDS:-"$HOME"/.xbackgrounds}") || exit
+feh --bg-scale --no-fehbg -- "$bg"
