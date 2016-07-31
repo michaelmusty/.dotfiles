@@ -2,19 +2,24 @@
 # Count entries in a given set of directories
 ex=0
 for dir in "${@:-.}" ; do
+
+    # Warn if a non-directory was given, flag errors, but continue
     if ! [ -d "$dir" ] ; then
         printf >&2 'cf: %s: not a directory\n' "$dir"
         ex=1
         continue
     fi
-    c=0
-    for ent in "$dir"/* "$dir"/.* ; do
-        [ -e "$ent" ] || continue
-        case $ent in
-            */.|*/..) ;;
-            *) c=$((c+1)) ;;
-        esac
-    done
-    printf '%u\t%s\n' "$c" "$dir"
+
+    # Add files matching glob, shift them off if unexpanded (first and only
+    # entry doesn't exist)
+    set -- "$dir"/*
+    [ -e "$1" ] || shift
+
+    # Add dot files, shift off the "." and ".." entries
+    set -- "$dir"/.* "$@"
+    shift 2
+
+    # Print number of parameters
+    printf '%u\t%s\n' "$#" "$dir"
 done
 exit "$ex"
