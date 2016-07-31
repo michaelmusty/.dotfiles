@@ -6,4 +6,4 @@ if ! [ -e "$1" ] ; then
     printf >&2 'rndf: No files found in %s\n' "$dir"
     exit 1
 fi
-exec rnda
+exec rnda "$@"
