@@ -185,6 +185,7 @@ I also add completions for my own scripts and functions where useful.
 There are a few other little tricks in `bash/bashrc.d`, including:
 
 *   `bd` changes into a named ancestor of the current directory.
+*   `clwr` sets up a per-line file write, clearing the screen before each line
 *   `fnl` runs a command and save its output and error into temporary files.
 *   `hgrep` searches `$HISTFILE`.
 *   `keep` stores ad-hoc shell functions and variables.
