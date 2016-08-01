@@ -1,10 +1,9 @@
 #!/bin/sh
 # Manage to-do files with just $EDITOR and git(1)
 
-# Specify the path to the file
+# Specify the path and file
 dir=${TODO_DIR:-$HOME/Todo}
 file=${1:-${TODO_NAME:-todo}}
-path="$dir"/"$file"
 
 # If the directory doesn't exist, create it
 [ -d "$dir" ] || mkdir -p -- "$dir" || exit
