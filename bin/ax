@@ -1,14 +1,7 @@
 #!/bin/sh
+# Evaluate an Awk expression given on the command line with an optional format
 
-# ax(1): Evaluate an Awk expression given on the command line with an optional
-# format.
-
-# Usage function
-usage() {
-    printf 'ax: USAGE: ax [format] expression\n'
-}
-
-# Check number of arguments
+# Count arguments
 case $# in
 
     # If one argument, we assume format is %s
@@ -19,16 +12,8 @@ case $# in
 
     # Any other number of arguments is wrong
     *)
-        usage >&2
+        printf >&2 'ax: Need an expression\n'
         exit 2
-        ;;
-esac
-
-# Give help if requested
-case $1 in
-    -h|--help|-\?)
-        usage
-        exit 0
         ;;
 esac
 
@@ -39,5 +24,5 @@ prog=$(printf '
     }
 ' "$form" "$expr")
 
-# Run the program
+# Run program
 awk "$prog"
