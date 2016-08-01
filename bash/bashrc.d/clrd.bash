@@ -3,4 +3,3 @@ clrd() {
     clear
     tail -f
 }
-
