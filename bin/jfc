@@ -1,6 +1,7 @@
 #!/bin/sh
 # Commit all changes to a Git repository with a stock message
 # message.
+cd -- "${1:-.}" || exit
 grc || exit 0
 git add --all || exit
 git commit --message 'Committed by jfc(1)' --quiet || exit
