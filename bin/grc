@@ -1,0 +1,10 @@
+#!/bin/sh
+# Argument or current dir is a Git repository with uncommitted changes
+cd -- "${1:-.}" || exit
+if ! isgr ; then
+    printf >&2 'grc: Not a Git repository\n'
+    exit 1
+fi
+isgr || exit
+[ -n "$(git ls-files --others --exclude-standard)" ] ||
+! git diff-index --quiet HEAD

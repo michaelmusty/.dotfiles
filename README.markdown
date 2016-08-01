@@ -323,6 +323,8 @@ Installed by the `install-bin` target:
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`
+*   `grc(1)` quietly tests whether the given directory appears to be a Git
+    repository with pending changes
 *   `gscr(1)` scrubs Git repositories.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
