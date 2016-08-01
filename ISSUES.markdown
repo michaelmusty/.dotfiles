@@ -8,3 +8,5 @@ Known issues
 *   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
     that system; need to find some way of finding which manual directories
     should be searched at runtime, if there is one
+*   The Makefile scripts are unwieldy in places; would be nicer to have them
+    call a shell script in a subdirectory, maybe "test"
