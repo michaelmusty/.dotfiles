@@ -1,0 +1,11 @@
+#!/bin/sh
+self=clrd
+if [ "$#" -ne 1 ] ; then
+    printf >&2 '%s: Need input file\n' "$self"
+    exit 2
+elif ! [ -t 1 ] ; then
+    printf >&2 '%s: stdout not a terminal\n' "$self"
+    exit 2
+fi
+clear
+tail -f -- "$@"

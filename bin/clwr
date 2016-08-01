@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+self=clwr
+if (($# != 1)) ; then
+    printf >&2 '%s: Need output file\n' "$self"
+    exit 2
+elif [[ ! -t 0 ]] ; then
+    printf >&2 '%s: stdin not a terminal\n' "$self"
+    exit 2
+elif [[ ! -t 1 ]] ; then
+    printf >&2 '%s: stdout not a terminal\n' "$self"
+    exit 2
+fi
+exec 3>"$1"
+while { clear && IFS= read -er line ; } ; do
+    printf '%s\n' >&3
+done

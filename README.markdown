@@ -185,8 +185,6 @@ I also add completions for my own scripts and functions where useful.
 There are a few other little tricks in `bash/bashrc.d`, including:
 
 *   `bd` changes into a named ancestor of the current directory.
-*   `clrd` sets up a per-line file read, clearing the screen first
-*   `clwr` sets up a per-line file write, clearing the screen before each line
 *   `fnl` runs a command and save its output and error into temporary files.
 *   `hgrep` searches `$HISTFILE`.
 *   `keep` stores ad-hoc shell functions and variables.
@@ -317,6 +315,8 @@ Installed by the `install-bin` target:
 *   `bel(1)` prints a terminal bell character
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
+*   `clrd(1)` sets up a per-line file read, clearing the screen first
+*   `clwr(1)` sets up a per-line file write, clearing the screen before each line
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
