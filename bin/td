@@ -14,7 +14,7 @@ cd -- "$dir" || exit
 
 # If the current directory isn't a Git repository, try to create one
 if ! command isgr >/dev/null ; then
-    printf >&2 'isgr: command not found'
+    printf >&2 'isgr: command not found\n'
     exit 1
 fi
 isgr || git init || exit
