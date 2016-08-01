@@ -1,42 +1,26 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# Manage to-do files with just $EDITOR and git(1)
 
-#
-# td(1) -- Manage to-do files with just $EDITOR and git(1), because I've
-# completely given up on finding a more useful way to do it.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
-self=td
-
-# Specify the path to the file; you can override this with environment
-# variables
+# Specify the path to the file
 dir=${TODO_DIR:-$HOME/Todo}
 file=${1:-${TODO_NAME:-todo}}
 path="$dir"/"$file"
 
-# Check we've got the tools we need
-hash git || exit
-
 # If the directory doesn't exist, create it
-if [[ ! -d $dir ]] ; then
-    mkdir -p -- "$dir" || exit
-fi
+[ -d "$dir" ] || mkdir -p -- "$dir" || exit
 
 # Change into the directory
 cd -- "$dir" || exit
 
 # If the current directory isn't a Git repository, try to create one
-hash isgr || exit
-if ! isgr ; then
-    git init || exit
+if ! command isgr >/dev/null ; then
+    printf >&2 'isgr: command not found'
+    exit 1
 fi
+isgr || git init || exit
 
 # If the to-do file doesn't exist yet, create it
-if ! [[ -e $file ]] ; then
-    touch -- "$file" || exit
-fi
+[ -e "$file" ] || touch -- "$file" || exit
 
 # Launch $VISUAL (or $EDITOR (or vi(1))) to edit the appropriate to-do file
 "${VISUAL:-${EDITOR:-vi}}" "$file"
@@ -45,7 +29,5 @@ fi
 git add -- "$file"
 
 # If there are changes to commit, commit them
-message=$(printf 'Changed by %s(1)' "$self")
-if ! git diff-index --quiet HEAD ; then
-    git commit --message "$message" --quiet
-fi
+git diff-index --quiet HEAD ||
+git commit --message 'Changed by td(1)' --quiet
