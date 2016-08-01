@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Name self
+self=apf
+
+# Require at least two arguments, give usage otherwise
+if (($# < 2)) ; then
+    printf '%s: usage: %s ARGFILE COMMAND [ARGS...]\n' \
+        "$self" "$self" >&2
+    exit 2
+fi
+
+# First argument is the file containing the null-delimited arguments
+argfile=$1
+shift
+
+# Check the arguments file makes sense
+if [[ ! -e $argfile ]] ; then
+    printf '%s: %s: No such file or directory\n' \
+        "$self" "$argfile"
+    exit 1
+elif [[ -d $argfile ]] ; then
+    printf '%s: %s: Is a directory\n' \
+        "$self" "$argfile"
+    exit 1
+elif [[ ! -r $argfile ]] ; then
+    printf '%s: %s: Permission denied\n' \
+        "$self" "$argfile"
+    exit 1
+fi
+
+# Read all the null-delimited arguments from the file
+declare -a args
+while IFS= read -rd '' arg ; do
+    args[${#args[@]}]=$arg
+done < "$argfile"
+
+# Next argument is the command to run
+cmd=$1
+shift
+
+# Run the command with the retrieved arguments first, then the rest of the
+# command line as passed to the function
+command "$cmd" "${args[@]}" "$@"

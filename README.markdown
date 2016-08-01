@@ -184,7 +184,6 @@ I also add completions for my own scripts and functions where useful.
 
 There are a few other little tricks in `bash/bashrc.d`, including:
 
-*   `apf` prepends arguments to a command with ones read from a file.
 *   `bd` changes into a named ancestor of the current directory.
 *   `fnl` runs a command and save its output and error into temporary files.
 *   `hgrep` searches `$HISTFILE`.
@@ -309,6 +308,8 @@ Installed by the `install-bin` target:
     *   `rnda(1)` uses `rndi(1)` to choose a random argument
     *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory
     *   `rndl(1)` uses `rndi(1)` to choose a random line from files
+*   `apf(1)` prepends arguments to a command with ones read from a file,
+    intended as a framework for shell functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character

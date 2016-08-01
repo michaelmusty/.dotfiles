@@ -1,0 +1,65 @@
+.TH APF 1 "August 2016" "Manual page for apf"
+.SH NAME
+.B apf
+\- add arguments to a command from a file
+.SH SYNOPSIS
+.B apf
+foorc
+foo --bar baz
+.SH DESCRIPTION
+Add null-delimited arguments read from a file to a command's arguments before
+running it. This is intended as a way of implementing *rc files for interactive
+shell calls to programs that don't support such files, without having to use
+broken environment variables (e.g. GREP_OPTIONS); this enables you to, for
+example, use arguments with shell metacharacters and spaces in them that you do
+not want expanded.
+
+For example, given this simple program in our $PATH, printargs:
+
+    $ cat ~/.local/bin/printargs
+    #!/bin/sh
+    printf '%s\n' "$@"
+
+Which just prints its arguments:
+
+    $ printargs a b c
+    a
+    b
+    c
+
+We could do this:
+
+    $ printf '%s\0' -f --flag --option '? foo bar *' > "$HOME"/.printargsrc
+
+    $ apf "$HOME"/.printargsrc printargs a b c
+    -f
+    --flag
+    --option
+    ? foo bar *
+    a
+    b
+    c
+
+We could then make a permanent wrapper function with:
+
+    $ printargs() { apf "$HOME"/.printargsrc printargs "$@" ; }
+
+    $ printargs a b c
+    -f
+    --flag
+    --option
+    ? foo bar *
+    a
+    b
+    c
+
+    $ printf '%s\n' !-2:q >> "$HOME"/.bashrc
+
+This means you can edit the options in the *rc file, and don't have to redefine
+a wrapper function.
+
+If you actually want those options to *always* be added, regardless of whether
+you're in an interactive shell, you really should make an actual wrapper
+script.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
