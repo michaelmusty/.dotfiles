@@ -3,4 +3,4 @@
 [ "$#" -gt 2 ] || exit 2
 for dir ; do : ; done
 mkdir -p -- "$dir" || exit
-exec cp -R -- "$@"
+cp -R -- "$@"

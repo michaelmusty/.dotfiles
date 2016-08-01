@@ -6,4 +6,4 @@ if [ "$#" -eq 0 ] ; then
 fi
 lc=$(sed '$=;d' "$@") || exit
 ri=$(rndi 1 "$lc") || exit
-exec sed -- "$ri"'!d' "$@"
+sed -- "$ri"'!d' "$@"

@@ -13,4 +13,4 @@ for file ; do
             ;;
     esac
 done
-exec sudoedit -u "$user" -- "$@"
+sudoedit -u "$user" -- "$@"
