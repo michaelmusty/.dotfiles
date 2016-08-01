@@ -311,6 +311,7 @@ Installed by the `install-bin` target:
     *   `rndl(1)` uses `rndi(1)` to choose a random line from files
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
+*   `bell(1)` prints a terminal bell character
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `dub(1)` lists the biggest entries in a directory.
