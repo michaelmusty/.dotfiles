@@ -304,10 +304,11 @@ Installed by the `install-bin` target:
     *   `rfct(1)` formats ASCII RFCs.
     *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
         `man(1)` reader for RFCs.
-*   Three toy random-number scripts (not for sensitive/dead-serious use):
+*   Four toy random-number scripts (not for sensitive/dead-serious use):
     *   `rndi(1)` gets a random integer within two bounds
     *   `rnda(1)` uses `rndi(1)` to choose a random argument
     *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory
+    *   `rndl(1)` uses `rndi(1)` to choose a random line from files
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `ca(1)` prints a count of its given arguments.

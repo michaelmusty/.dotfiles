@@ -1,0 +1,9 @@
+#!/bin/sh
+# Print a random line from argument files
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'rndl: Need at least one filename\n'
+    exit 1
+fi
+lc=$(sed '$=;d' "$@") || exit
+ri=$(rndi 1 "$lc") || exit
+exec sed -- "$ri"'!d' "$@"
