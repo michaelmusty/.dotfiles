@@ -328,6 +328,8 @@ Installed by the `install-bin` target:
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
+*   `isgr(1)` quietly tests whether the given directory appears to be a Git
+    repository
 *   `jfc(1)` adds and commits lazily to a Git repository.
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,

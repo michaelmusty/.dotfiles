@@ -1,0 +1,8 @@
+#!/bin/sh
+# Return an exit status for whether the current directory appears to be in a
+# Git working copy
+exec >/dev/null 2>&1
+cd -- "${1:-.}" || exit
+git symbolic-ref --quiet HEAD ||
+git rev-parse --short HEAD ||
+exit 1
