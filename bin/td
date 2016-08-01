@@ -27,15 +27,9 @@ fi
 # Change into the directory
 cd -- "$dir" || exit
 
-# Quick function to determine if a directory is a Git repository
-isrepo() {
-    { git symbolic-ref --quiet HEAD ||
-        git rev-parse --short HEAD 
-    } >/dev/null 2>&1
-}
-
 # If the current directory isn't a Git repository, try to create one
-if ! isrepo ; then
+hash isgr || exit
+if ! isgr ; then
     git init || exit
 fi
 
