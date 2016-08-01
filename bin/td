@@ -2,8 +2,8 @@
 # Manage to-do files with just $EDITOR and git(1)
 
 # Specify the path and file
-dir=${TODO_DIR:-$HOME/Todo}
-file=${1:-${TODO_NAME:-todo}}
+dir=${TODO_DIR:-"$HOME"/Todo}
+file=${1:-"${TODO_NAME:-todo}"}
 
 # If the directory doesn't exist, create it
 [ -d "$dir" ] || mkdir -p -- "$dir" || exit
@@ -22,7 +22,7 @@ isgr || git init || exit
 [ -e "$file" ] || touch -- "$file" || exit
 
 # Launch $VISUAL (or $EDITOR (or vi(1))) to edit the appropriate to-do file
-"${VISUAL:-${EDITOR:-vi}}" "$file"
+"${VISUAL:-"${EDITOR:-vi}"}" "$file"
 
 # Add the file to the changeset
 git add -- "$file"
