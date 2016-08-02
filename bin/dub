@@ -4,6 +4,6 @@ dir=$1 lines=${2:-10}
 cd -- "$dir" || exit
 set -- .* *
 shift 2
-du -bs -- "$@" |
+du -s -- "$@" |
 sort -k1 -nr |
 sed "$lines"q
