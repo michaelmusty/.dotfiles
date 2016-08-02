@@ -12,5 +12,5 @@ elif [[ ! -t 1 ]] ; then
 fi
 exec 3>"$1"
 while { clear && IFS= read -er line ; } ; do
-    printf '%s\n' >&3
+    printf '%s\n' "$line" >&3
 done
