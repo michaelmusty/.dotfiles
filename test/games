@@ -4,6 +4,10 @@ for game in games/* ; do
         bash -n "$game" || exit 1
     elif sed 1q "$game" | grep -q 'sh$' ; then
         sh -n "$game" || exit 1
+    elif sed 1q "$game" | grep -q 'awk -f$' ; then
+        "$game" /dev/null >/dev/null || exit 1
+    elif sed 1q "$game" | grep -q 'sed -f$' ; then
+        "$game" /dev/null >/dev/null || exit 1
     fi
 done
 printf 'All shell scripts in games parsed successfully.\n'

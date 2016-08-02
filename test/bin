@@ -4,6 +4,10 @@ for bin in bin/* ; do
         bash -n "$bin" || exit 1
     elif sed 1q "$bin" | grep -q 'sh$' ; then
         sh -n "$bin" || exit 1
+    elif sed 1q "$bin" | grep -q 'awk -f$' ; then
+        "$bin" /dev/null >/dev/null || exit 1
+    elif sed 1q "$bin" | grep -q 'sed -f$' ; then
+        "$bin" /dev/null >/dev/null || exit 1
     fi
 done
 printf 'All shell scripts in bin parsed successfully.\n'
