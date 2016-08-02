@@ -1,0 +1,34 @@
+.TH MKTD 1 "August 2016" "Manual page for mktd"
+.SH NAME
+.B mktd
+\- try hard to safely create a temporary directory in a POSIX-compliant way
+.SH SYNOPSIS
+.B mktd
+.br
+.B mktd
+foo
+.SH DESCRIPTION
+.B mktd
+creates a temporary directory with a strong attempt at a random name in $TMPDIR
+(defaults to /tmp), with a restrictive umask for the user running the script,
+into which it should be safe to place temporary files.
+.P
+The author makes no guarantees about security, but this should be a lot safer
+than just using a /tmp/$$ file.
+.P
+You could use it in a script like this:
+.P
+    td=
+    cleanup() {
+        rm -fr -- "$td"
+    }
+    for sig in EXIT HUP INT TERM ; do
+        trap cleanup "$sig"
+    done
+    td=$(mktd) || exit
+.SH SEE ALSO
+rndi(1)
+.br
+<http://mywiki.wooledge.org/BashFAQ/062>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
