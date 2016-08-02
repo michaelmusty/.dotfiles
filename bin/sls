@@ -5,4 +5,8 @@ if [ "$#" -eq 0 ] ; then
         set -- "$@" "$cfg"
     done
 fi
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'sls: ssh_config(5) paths not found, need argument\n'
+    exit 1
+fi
 slsf -- "$@"
