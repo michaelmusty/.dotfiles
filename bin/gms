@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# Run getmail(1) over every getmailrc.* file in ~/.getmail (I didn't like the
-# included getmails(1) script).
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-#
+# Run getmail(1) over every getmailrc.* file in ~/.getmail
 self=gms
 
 # Check for existence of needed commands

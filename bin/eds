@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# eds(1) -- Create and edit executable scripts in a directory EDSPATH (defaults
-# to ~/.local/bin).
-#
-# Author: Tom Ryder
-# Copyright: 2015
-# License: Public domain
-#
-
-# Name self
+# Create and edit executable scripts in a directory EDSPATH (defaults to ~/.local/bin)
 self=eds
 
 # Define a function to show usage

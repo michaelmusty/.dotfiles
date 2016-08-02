@@ -1,20 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# tlcs(1): Execute a command and tag the output of the stdout and stderr
-# streams, line by line, using tl(1) under the hood. Add -c when writing to a
-# terminal to color the lines.
-#
-# Option -h gives help. Specify a stdout prefix with -o (default "stdout: "),
-# and/or a stderr prefix with -e (default "stderr: "). Option -c prints stdout
-# lines in green and stderr lines in red if the respective streams are writing
-# to appropriate terminals. Remaining arguments are assumed to be a command and
-# its arguments.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
+# Execute a command and tag the output of the stdout and stderr streams.
 self=tlcs
 
 # Define usage function

@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# stbl(1) - Strip a trailing blank line from the given files with ed(1).
-#
-# -h gives help, -v prints the names of the files on stderr as they're
-# processed.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
+# Strip a trailing blank line from the given files with ed(1)
 self=stbl
 
 # Print usage information

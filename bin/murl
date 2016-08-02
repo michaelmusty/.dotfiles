@@ -1,15 +1,6 @@
 #!/bin/sh
-
-#
 # Format markdown and pass it to hurl to extract URLs from it.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
 
-# Pipe the output of pandoc(1) on our args ...
+# Pipe the output of pandoc(1) on our args into hurl(1)
 pandoc -f markdown -t html -- "${@:-/dev/stdin}" |
-
-# ... into our own hurl
 hurl

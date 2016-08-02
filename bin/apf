@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# Name self
+# Prepend arguments from a file to a command call
 self=apf
 
 # Require at least two arguments, give usage otherwise

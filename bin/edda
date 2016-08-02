@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# edda(1) -- Run ed(1) over multiple files, duplicating stdin. Example:
-#
-#   $ edda -s /etc/app.d/*.conf <<'EOF'
-#   ,s/foo/bar/g
-#   w
-#   EOF
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2015
-# License: Public domain
-#
-
-# Name self
+# Run ed(1) over multiple files, duplicating stdin.
 self=edda
 
 # Define usage function

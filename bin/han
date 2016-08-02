@@ -1,28 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# If called with a single argument, try running the help builtin for the given
-# keyword, writing its output to a file. If it succeeds, show that. If not,
-# pass the call to man(1).
-#
-# This was written so it could be used as a 'keywordprg' in Vim for Bash files;
-# you can then use the K normal-mode binding over both shell builtins (e.g. read,
-# set, export) and external programs (e.g. cat, grep, ed).
-#
-#     :set keywordprg=han
-#
-# You could put the above command in ~/.vim/after/ftplugin/sh.vim like this:
-#
-#     " Use han(1) as a man(1) wrapper for Bash files if available
-#     if exists("b:is_bash") && executable('han')
-#       setlocal keywordprg=han
-#     endif
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2015 Inspire Net Ltd
-#
-
-# Name self
+# Abstract calls to Bash help vs man(1)
 self=han
 
 # Give up completely if no BASH_VERSINFO (<2.0)

@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# try(1) -- Attempt a certain number of times to perform a task, stopping after
-# the first success, and only print collected stderr if all the attempts
-# failed. Designed for running from systems like cron(8) where blips and
-# short-term failures can be ignored.
-#
-# -h gives help, -v gives you diagnostics on stdout, -i sets an optional number
-# of seconds between each attempt, -n sets the number of attempts (defaults to
-# 3).
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
+# Attempt a certain number of times to perform a task
 self=try
 
 # Print usage information

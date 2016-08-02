@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# maybe(1) -- Like true(1) or false(1); exit with either success or failure
-# randomly. Good for basic testing, but doesn't use precise probabilities, just
-# fractions of RANDOM's limit. Exits with 2 on usage errors so you can tell the
-# difference.
-#
-# -h gives help, -v gives you stdout specifying success or failure.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
+# Exit with success or failure with a given probability
 self=maybe
 
 # Print usage information

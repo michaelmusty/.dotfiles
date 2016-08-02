@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# tl(1): Tag lines from files or stdin with a string prefix or suffix before
-# writing them to stdout. Specifying neither prefix nor suffix is acceptable,
-# in which case the stream is simply reproduced on stdout, acting like cat(1).
-#
-# Option -h gives help. Specify a prefix with -p, and/or a suffix with -s. If
-# no file arguments are given, defaults to reading standard input.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
-
-# Name self
+# Tag lines from files or stdin with a string prefix or suffix.
 self=tl
 
 # Define usage function

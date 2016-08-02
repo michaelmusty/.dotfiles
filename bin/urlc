@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# Given a list of files or stdin containing a newline-separated list of URLs,
-# try to find erroneous, redirecting, or insecure URLs with working secure
-# alternatives.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
-
-# Name self
+# Try to find erroneous or insecure URLs
 self=urlc
 
 # cURL request timeout

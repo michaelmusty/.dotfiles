@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
-
-#
-# igex(1): Run a command and ignore specified exit values, translating them to
-# 0. Don't touch any stderr, though. Good for wrapping around rsync(1), like to
-# ignore exit value 24.
-#
-# -h gives help, -v gives you stderr specifying success or failure, -i specifies
-# the signals to ignore; you must specify at least one none-zero integer.
-#
-# Author: Tom Ryder <tom@sanctum.geek.nz>
-# Copyright: 2016
-# License: Public domain
-#
+# Run a command and ignore specified exit values.
 self=igex
 
 # Print usage information
