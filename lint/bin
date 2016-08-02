@@ -1,6 +1,6 @@
 #!/bin/sh
 for bin in games/* ; do
-    [ -e "$bin" ] || continue
+    [ -f "$bin" ] || continue
     hb=$(sed 1q "$bin") || exit
     case $hb in
         *sh)

@@ -1,6 +1,6 @@
 #!/bin/sh
 for perl in urxvt/ext/* ; do
-    [ -e "$perl" ] || continue
+    [ -f "$perl" ] || continue
     perl -c "$perl" >/dev/null || exit
 done
 printf 'All Perl scripts in urxvt/ext parsed successfully.\n'

@@ -1,6 +1,6 @@
 #!/bin/sh
 for game in games/* ; do
-    [ -e "$game" ] || continue
+    [ -f "$game" ] || continue
     hb=$(sed 1q "$game") || exit
     case $hb in
         *sh)
