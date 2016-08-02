@@ -1,8 +1,8 @@
 #!/bin/sh
 if [ "$#" -eq 0 ] ; then
-     for cfg in /etc/ssh_config "$HOME"/.ssh/config ; do
-         [ -e "$cfg" ] || continue
-         set -- "$@" "$cfg"
-     done
+    for cfg in /etc/ssh_config "$HOME"/.ssh/config ; do
+        [ -e "$cfg" ] || continue
+        set -- "$@" "$cfg"
+    done
 fi
 slsf -- "$@"
