@@ -17,6 +17,6 @@ plenv list-modules |
 comm -23 -- - "$ef" |
 
 # Read that list of modules to upgrade and upgrade them one by one
-while read -r module ; do 
+while read -r module ; do
     cpanm --notest --quiet -- "$module"
 done

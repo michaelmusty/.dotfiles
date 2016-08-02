@@ -44,7 +44,7 @@ while getopts 'hvi:n:' opt ; do
         n)
             attc=$OPTARG
             ;;
-        
+
         # Unknown option
         \?)
             usage >&2

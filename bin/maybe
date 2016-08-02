@@ -36,7 +36,7 @@ while getopts 'hvd:' opt ; do
         d)
             denom=$OPTARG
             ;;
-        
+
         # Unknown option
         \?)
             usage >&2

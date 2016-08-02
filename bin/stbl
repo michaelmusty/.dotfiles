@@ -45,7 +45,7 @@ fi
 # Check we have ed(1)
 hash ed || exit
 
-# Iterate through the arguments 
+# Iterate through the arguments
 for fn ; do
 
     # If verbose is set, print what we're doing
