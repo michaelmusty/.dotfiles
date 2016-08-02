@@ -1,0 +1,7 @@
+#!/bin/sh
+for sh in sh/* sh/profile.d/* ; do
+    if [ -f "$sh" ] && ! sh -n "$sh" ; then
+        exit 1
+    fi
+done
+printf 'All sh(1) scripts parsed successfully.\n'

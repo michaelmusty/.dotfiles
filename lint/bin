@@ -1,0 +1,8 @@
+
+#!/bin/sh
+for bin in bin/* ; do
+    if sed 1q "$bin" | grep -q -- 'sh$' ; then
+        printf '%s\n' "$bin" 
+        shellcheck -- "$bin" 
+    fi 
+done

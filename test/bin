@@ -1,0 +1,9 @@
+#!/bin/sh
+for bin in bin/* ; do
+    if sed 1q "$bin" | grep -q 'bash$' ; then
+        bash -n "$bin" || exit 1
+    elif sed 1q "$bin" | grep -q 'sh$' ; then
+        sh -n "$bin" || exit 1
+    fi
+done
+printf 'All shell scripts in bin parsed successfully.\n'

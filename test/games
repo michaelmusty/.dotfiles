@@ -1,0 +1,9 @@
+#!/bin/sh
+for game in games/* ; do
+    if sed 1q "$game" | grep -q 'bash$' ; then
+        bash -n "$game" || exit 1
+    elif sed 1q "$game" | grep -q 'sh$' ; then
+        sh -n "$game" || exit 1
+    fi
+done
+printf 'All shell scripts in games parsed successfully.\n'

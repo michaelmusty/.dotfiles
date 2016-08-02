@@ -309,70 +309,33 @@ install-zsh :
 test : test-bash test-bin test-games test-sh test-urxvt
 
 test-bash :
-	@for bash in bash/* bash/bashrc.d/* bash/bash_profile.d/* ; do \
-		if [ -f "$$bash" ] && ! bash -n "$$bash" ; then \
-			exit 1 ; \
-		fi \
-	done
-	@printf 'All bash(1) scripts parsed successfully.\n'
+	test/bash
 
 test-bin :
-	@for bin in bin/* ; do \
-		if sed 1q "$$bin" | grep -q 'bash$$' ; then \
-			bash -n "$$bin" || exit 1 ; \
-		elif sed 1q "$$bin" | grep -q 'sh$$' ; then \
-			sh -n "$$bin" || exit 1 ; \
-		fi ; \
-	done
-	@printf 'All shell scripts in bin parsed successfully.\n'
+	test/bin
 
 test-games :
-	@for game in games/* ; do \
-		if sed 1q "$$game" | grep -q 'bash$$' ; then \
-			bash -n "$$game" || exit 1 ; \
-		elif sed 1q "$$game" | grep -q 'sh$$' ; then \
-			sh -n "$$game" || exit 1 ; \
-		fi ; \
-	done
-	@printf 'All shell scripts in games parsed successfully.\n'
+	test/games
 
 test-sh :
-	@for sh in sh/* sh/profile.d/* ; do \
-		if [ -f "$$sh" ] && ! sh -n "$$sh" ; then \
-			exit 1 ; \
-		fi \
-	done
-	@printf 'All sh(1) scripts parsed successfully.\n'
+	test/sh
 
 test-urxvt :
-	@for perl in urxvt/ext/* ; do \
-		perl -c "$$perl" >/dev/null || exit 1 ; \
-	done
-	@printf 'All Perl scripts in urxvt/ext parsed successfully.\n'
+	test/urxvt
 
 lint : lint-sh lint-bash lint-bin lint-games lint-urxvt
 
 lint-bash :
-	find bash -type f -print -exec shellcheck -- {} \;
+	lint/bash
 
 lint-bin :
-	@for bin in bin/* ; do \
-		if sed 1q "$$bin" | grep -q -- 'sh$$' ; then \
-			printf '%s\n' "$$bin" ; \
-			shellcheck -- "$$bin" ; \
-		fi ; \
-	done
+	lint/bin
 
 lint-games :
-	@for game in games/* ; do \
-		if sed 1q "$$game" | grep -q -- 'sh$$' ; then \
-			printf '%s\n' "$$game" ; \
-			shellcheck -- "$$game" ; \
-		fi ; \
-	done
+	lint/games
 
 lint-sh :
-	find sh -type f -print -exec shellcheck -- {} \;
+	lint/sh
 
 lint-urxvt :
-	find urxvt/ext -type f -print -exec perlcritic --brutal -- {} \;
+	lint/urxvt

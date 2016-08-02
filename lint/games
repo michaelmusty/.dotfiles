@@ -1,0 +1,7 @@
+#!/bin/sh
+for game in games/* ; do
+    if sed 1q "$game" | grep -q -- 'sh$' ; then
+        printf '%s\n' "$game" 
+        shellcheck -- "$game" 
+    fi 
+done
