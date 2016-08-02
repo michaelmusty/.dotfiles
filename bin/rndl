@@ -4,6 +4,6 @@ if [ "$#" -eq 0 ] ; then
     printf >&2 'rndl: Need at least one filename\n'
     exit 1
 fi
-lc=$(sed '$=;d' "$@") || exit
+lc=$(sed -- '$=;d' "$@") || exit
 ri=$(rndi 1 "$lc") || exit
 sed -- "$ri"'!d' "$@"
