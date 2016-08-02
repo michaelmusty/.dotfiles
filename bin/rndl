@@ -1,8 +1,16 @@
 #!/bin/sh
-# Print a random line from argument files
+# Print a random line from input
+td=
+cleanup() {
+    rm -fr -- "$td"
+}
+for sig in EXIT HUP INT TERM ; do
+    trap cleanup "$sig"
+done
 if [ "$#" -eq 0 ] ; then
-    printf >&2 'rndl: Need at least one filename\n'
-    exit 1
+    td=$(mktd rndl) || exit
+    set -- "$td"/stdin
+    cat >"$td"/stdin
 fi
 lc=$(sed -- '$=;d' "$@") || exit
 ri=$(rndi 1 "$lc") || exit
