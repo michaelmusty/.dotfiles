@@ -349,6 +349,7 @@ Installed by the `install-bin` target:
 *   `plmu(1)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
+*   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
 *   `stbl(1)` strips a trailing blank line from the files in its arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
