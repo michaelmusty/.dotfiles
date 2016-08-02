@@ -10,7 +10,7 @@ _bd() {
 
     # Remove the last element in the array (the current directory)
     ((${#dirnames[@]})) || return 1
-    dirnames=("${dirnames[@]:0:"$((${#dirnames[@]}-1))"}")
+    dirnames=("${dirnames[@]:0:$((${#dirnames[@]}-1))}")
 
     # Add the matching dirnames to the reply
     local dirname
