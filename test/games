@@ -1,15 +1,16 @@
 #!/bin/sh
 for game in games/* ; do
+    [ -e "$game" ] || continue
     hb=$(sed 1q "$game") || exit
     case $hb in
         *bash)
-            bash -n "$game" || exit 1
+            bash -n "$game" || exit
             ;;
         *sh)
-            sh -n "$game" || exit 1
+            sh -n "$game" || exit
             ;;
         *'sed -f')
-            sed -f "$game" /dev/null >/dev/null || exit 1
+            sed -f "$game" /dev/null >/dev/null || exit
             ;;
         *'awk -f')
             # Not sure how to test these yet

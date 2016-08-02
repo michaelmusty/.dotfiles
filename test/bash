@@ -1,7 +1,6 @@
 #!/bin/sh
 for bash in bash/* bash/bashrc.d/* bash/bash_profile.d/* ; do
-    if [ -f "$bash" ] && ! bash -n "$bash" ; then
-        exit 1
-    fi
+    [ -e "$bash" ] || continue
+    bash -n "$bash" || exit
 done
 printf 'All bash(1) scripts parsed successfully.\n'

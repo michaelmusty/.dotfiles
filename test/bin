@@ -1,15 +1,16 @@
 #!/bin/sh
 for bin in bin/* ; do
+    [ -e "$bin" ] || continue
     hb=$(sed 1q "$bin") || exit
     case $hb in
         *bash)
-            bash -n "$bin" || exit 1
+            bash -n "$bin" || exit
             ;;
         *sh)
-            sh -n "$bin" || exit 1
+            sh -n "$bin" || exit
             ;;
         *'sed -f')
-            sed -f "$bin" /dev/null >/dev/null || exit 1
+            sed -f "$bin" /dev/null >/dev/null || exit
             ;;
         *'awk -f')
             # Not sure how to test these yet
