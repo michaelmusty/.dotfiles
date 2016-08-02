@@ -323,7 +323,7 @@ test-sh :
 test-urxvt :
 	test/urxvt
 
-lint : lint-sh lint-bash lint-bin lint-games lint-urxvt
+lint : lint-bash lint-bin lint-games lint-sh lint-urxvt
 
 lint-bash :
 	lint/bash
