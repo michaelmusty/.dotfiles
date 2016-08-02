@@ -1,4 +1,3 @@
-#!/bin/sed -f
 # Type like a young black metal enthusiast
 
 # Lowercase to capitals
