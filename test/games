@@ -1,13 +1,23 @@
 #!/bin/sh
 for game in games/* ; do
-    if sed 1q "$game" | grep -q 'bash$' ; then
-        bash -n "$game" || exit 1
-    elif sed 1q "$game" | grep -q 'sh$' ; then
-        sh -n "$game" || exit 1
-    elif sed 1q "$game" | grep -q 'awk -f$' ; then
-        "$game" /dev/null >/dev/null || exit 1
-    elif sed 1q "$game" | grep -q 'sed -f$' ; then
-        "$game" /dev/null >/dev/null || exit 1
-    fi
+    hb=$(sed 1q "$game") || exit
+    case $hb in
+        *bash)
+            bash -n "$game" || exit 1
+            ;;
+        *sh)
+            sh -n "$game" || exit 1
+            ;;
+        *'sed -f')
+            sed -f "$game" /dev/null >/dev/null || exit 1
+            ;;
+        *'awk -f')
+            # Not sure how to test these yet
+            ;;
+        *)
+            printf 2>&1 'Unknown hashbang for %s\n' "$game"
+            exit 1
+            ;;
+    esac
 done
 printf 'All shell scripts in games parsed successfully.\n'
