@@ -1,0 +1,20 @@
+.TH MYB 1 "August 2016" "Manual page for myb"
+.SH NAME
+.B myb
+\- possibly exit with success
+.SH USAGE
+.B myb [DENOMINATOR]
+.SH DESCRIPTION
+Like true(1) or false(1), but exits with success randomly with a given
+probability. Good for using in tests. Exits with 2 rather than 1 on usage
+errors.
+.P
+The denominator defaults to 2 for a roughly equal chance of success or failure.
+rndi(1) is used for the randomness.
+.P
+   $ myb
+   $ myb 3
+.SH SEE ALSO
+true(1), false(1), try(1), rndi(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

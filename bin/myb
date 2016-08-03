@@ -1,0 +1,22 @@
+#!/bin/sh
+# Exit with success or failure with a given probability
+self=myb
+
+# No more than one argument
+if [ "$#" -gt 1 ] ; then
+    printf >&2 '%s: Unexpected arguments\n' "$self"
+    exit 2
+fi
+
+# Sole accepted argument is denominator of the probability fraction, e.g. 3 is
+# a probability of 1/3; defaults to 2
+denom=${1:-2}
+
+# Denominator must be positive integer (it can be one)
+if [ "$((denom > 0))" -ne 1 ] ; then
+    printf >&2 '%s: Illegal denominator %s\n' "$self" "$denom"
+    exit 2
+fi
+
+# Perform the test; that's our exit value
+test "$(rndi 1 "$denom")" -eq 1
