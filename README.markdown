@@ -303,8 +303,9 @@ Installed by the `install-bin` target:
     *   `rfct(1)` formats ASCII RFCs.
     *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
         `man(1)` reader for RFCs.
-*   Four toy random-number scripts (not for sensitive/dead-serious use):
+*   Five toy random-number scripts (not for sensitive/dead-serious use):
     *   `rndi(1)` gets a random integer within two bounds
+    *   `rnds(1)` attempts to get an optional random seed for `rndi(1)`
     *   `rnda(1)` uses `rndi(1)` to choose a random argument
     *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory
     *   `rndl(1)` uses `rndi(1)` to choose a random line from files

@@ -20,4 +20,5 @@ if [ "$((num >= 0 || den >= 1))" -ne 1 ] ; then
 fi
 
 # Perform the test; that's our exit value
-test "$(rndi 1 "$den")" -le "$num"
+seed=$(rnds)
+test "$(rndi 1 "$den" "$seed")" -le "$num"

@@ -13,5 +13,6 @@ if [ "$#" -eq 0 ] ; then
     cat >"$td"/stdin
 fi
 lc=$(sed -- '$=;d' "$@") || exit
-ri=$(rndi 1 "$lc") || exit
+seed=$(rnds)
+ri=$(rndi 1 "$lc" "$seed") || exit
 sed -- "$ri"'!d' "$@"

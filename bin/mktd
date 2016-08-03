@@ -1,5 +1,6 @@
 #!/bin/sh
 # Try to make a random temp directory
-dn=${TMPDIR:-/tmp}/${1:-mktd}.$$.$(rndi 1 2147483648)
+seed=$(rnds)
+dn=${TMPDIR:-/tmp}/${1:-mktd}.$$.$(rndi 1 2147483648 "$seed")
 mkdir -m 700 -- "$dn" || exit 1
 printf '%s\n' "$dn"

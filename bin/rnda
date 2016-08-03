@@ -4,6 +4,7 @@ if [ "$#" -eq 0 ] ; then
     printf >&2 'rnda: No args given\n'
     exit 1
 fi
-argi=$(rndi 1 "$#") || exit
+seed=$(rnds)
+argi=$(rndi 1 "$#" "$seed") || exit
 shift "$((argi-1))"
 printf '%s\n' "$1"

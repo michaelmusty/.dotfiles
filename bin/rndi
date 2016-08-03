@@ -1,9 +1,9 @@
 #!/usr/bin/awk -f
-# Get a low-quality random number between two integers. Note that depending on
-# implementation, this might return the same number if run in the same second.
-# It's only for trivial purposes.
+# Get a low-quality random number between two integers. Depending on the awk
+# implementation, if you don't provide a third argument (a seed), you might get
+# very predictable random numbers based on the current epoch second.
 BEGIN {
-    srand()
+    srand(ARGV[3])
     print int(ARGV[1]+rand()*(ARGV[2]-ARGV[1]+1))
     exit
 }
