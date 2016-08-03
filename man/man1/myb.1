@@ -3,17 +3,24 @@
 .B myb
 \- possibly exit with success
 .SH USAGE
-.B myb [DENOMINATOR]
+.B myb
+.br
+.B myb
+DENOMINATOR
+.br
+.B myb
+NUMERATOR DENOMINATOR
 .SH DESCRIPTION
 Like true(1) or false(1), but exits with success randomly with a given
 probability. Good for using in tests. Exits with 2 rather than 1 on usage
 errors.
 .P
-The denominator defaults to 2 for a roughly equal chance of success or failure.
-rndi(1) is used for the randomness.
+The numerator default to 1 and the denominator to 2 for a roughly equal chance
+of success or failure. rndi(1) is used for the randomness.
 .P
    $ myb
    $ myb 3
+   $ myb 2 5
 .SH SEE ALSO
 true(1), false(1), try(1), rndi(1)
 .SH AUTHOR
