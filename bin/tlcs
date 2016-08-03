@@ -1,87 +1,80 @@
 #!/usr/bin/env bash
 # Execute a command and tag the output of the stdout and stderr streams.
-self=tlcs
 
-# Define usage function
-usage() {
-    printf 'USAGE: %s [-h] [-c] [-o STDOUT_PREFIX] [-e STDERR_PREFIX] [--] COMMAND [ARG1...]\n' "$self"
-}
-
-# Check we have tl(1)
-hash tl || exit
-
-# Set the default prefixes and suffixes for stdout/stderr
-stdout_prefix='stdout: '
-stderr_prefix='stderr: '
-stdout_suffix=
-stderr_suffix=
-
-# No color by default
-declare -i color
-color=0
+# Set the default prefixes and suffixes for stdout/err
+out_pref='stdout: '
+err_pref='stderr: '
+out_suff=
+err_suff=
 
 # Parse options out, give help if necessary
 while getopts 'hco:e:' opt ; do
     case $opt in
-
-        # -h: Print help
-        h)
-            usage
-            exit
-            ;;
-
-        # -c: Add color
         c)
             color=1
             ;;
-
-        # -o: Specify stdout prefix
         o)
-            stdout_prefix=$OPTARG
+            out_pref=$OPTARG
             ;;
-
-        # -e: Specify stderr prefix
         e)
-            stderr_prefix=$OPTARG
+            err_pref=$OPTARG
             ;;
-
-        # Unknown option
         \?)
-            usage >&2
+            printf >&2 'Unknown option %s\n' "$opt"
             exit 2
             ;;
     esac
 done
 shift "$((OPTIND-1))"
 
-# If color was requested for the output, figure out what we can do
-if ((color)) ; then
+# If color was requested for the output, try and get a count of available
+# colors
+[ -n "$color" ] && color_count=$( {
+    tput colors || tput Co
+} 2>/dev/null )
+
+# If the color count is greater than 7, we'll color the output
+if [ "$((color_count >= 8))" -eq 1 ] ; then
 
     # Color code for resetting
     color_reset=$( {
         tput me || tput sgr0
     } 2>/dev/null )
 
-    # If stdout is a terminal, color-code for green
-    if [[ -t 1 ]] ; then
-        color_green=$( {
+    # If stdout is a terminal, color it
+    if [ -t 1 ] ; then
+        color_stdout=$( {
             tput AF 2 || tput setaf 2
         } 2>/dev/null )
-        stdout_prefix=${color_green}${stderr_prefix}
-        stdout_suffix=$color_reset
+        out_pref=${color_stdout}${out_pref}
+        out_suff=${out_suff}${color_reset}
     fi
 
-    # If stderr is a terminal, color-code for green
-    if [[ -t 2 ]] ; then
-        color_red=$( {
+    # If stderr is a terminal, color it
+    if [ -t 2 ] ; then
+        color_stderr=$( {
             tput AF 1 || tput setaf 1
         } 2>/dev/null )
-        stderr_prefix=${color_red}${stderr_prefix}
-        stdout_suffix=$color_reset
+        err_pref=${color_stderr}${err_pref}
+        out_suff=${err_suff}${color_reset}
     fi
 fi
 
+# Temporary directory for the FIFOs
+td=
+cleanup() {
+    rm -fr -- "$td"
+}
+for sig in EXIT HUP INT TERM ; do
+    trap cleanup "$sig"
+done
+td=$(mktd tlcs) || exit
+
 # Execute the command, passing stdout and stderr to tl(1) calls as appropriate
-"$@" \
-    2> >(tl -p "$stderr_prefix" -s "$stderr_suffix") \
-    1> >(tl -p "$stdout_prefix" -s "$stdout_suffix")
+# via named pipes
+out="$td"/out err="$td"/err
+mkfifo -- "$out" "$err" || exit
+tl -p "$out_pref" -s "$out_suff" < "$out" &
+tl -p "$err_pref" -s "$err_suff" < "$err" &
+"$@" >"$out" 2>"$err"
+ex=$? ; wait ; exit "$ex"
