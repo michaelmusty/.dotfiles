@@ -1,19 +1,16 @@
-.TH IGEX 1 "February 2016" "Manual page for igex"
+.TH IGEX 1 "August 2016" "Manual page for igex"
 .SH NAME
 .B igex
 \- run a command, ignoring specified error exit values
 .SH USAGE
-.B igex [-hv] -i IGNORE1[,IGNORE2...] [--] COMMAND [ARG1...]
+.B igex VAL1[,VAL2,VAL3,...] COMMAND [ARG1...]
 .SH DESCRIPTION
 Runs the given command and checks its exit value. If it matches any of the
-ignored values given in -i, exits 0. Otherwise, exits with the command's exit
-value as normal.
+ignored values given in the first argument, exits 0. Otherwise, exits with the
+command's exit value as normal.
 .P
-Option -h gives help, option -v turns on verbose output, option -i specifies an
-the signals to ignore, comma-delimited; you must specify at least one non-zero
-integer.
-.P
-   $ igex -i1 false
-   $ igex -v -i24 rsync source dest
+   $ igex 1 false
+   $ igex 24 rsync source dest
+   $ igex 8,9 mycmd
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
