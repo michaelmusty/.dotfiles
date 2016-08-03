@@ -1,5 +1,6 @@
 #!/bin/sh
 # Execute a command and tag the output of the stdout and stderr streams.
+self=tlcs
 
 # Set the default prefixes and suffixes for stdout/err
 out_pref='stdout: '
@@ -29,7 +30,7 @@ shift "$((OPTIND-1))"
 
 # We need at least one more argument
 if [ "$#" -eq 0 ] ; then
-    printf >&2 'tlcs: Need a command to run\n'
+    printf >&2 '%s: Need a command to run\n' "$self"
     exit 2
 fi
 
@@ -74,7 +75,7 @@ cleanup() {
 for sig in EXIT HUP INT TERM ; do
     trap cleanup "$sig"
 done
-td=$(mktd tlcs) || exit
+td=$(mktd "$self") || exit
 
 # Execute the command, passing stdout and stderr to tl(1) calls as appropriate
 # via named pipes
