@@ -18,11 +18,15 @@ td=$(mktd test-man) || exit
 for dir in bin games ; do (
     cd -- "$dir"
     pa *
-) done | sort | sed 's/\...*$//' > "$td"/bin
+) done |
+sed 's/\...*$//' |
+sort | uniq > "$td"/bin
 for dir in man/man[168] ; do (
     cd -- "$dir"
     pa *.[168]
-) done | sort | sed 's/\.[168]$//' > "$td"/man
+) done |
+sed 's/\.[168]$//' |
+sort | uniq > "$td"/man
 
 # Get lists of noman scripts and nobin manual pages
 comm -23 "$td"/bin "$td"/man > "$td"/noman
