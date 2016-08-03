@@ -1,58 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Strip a trailing blank line from the given files with ed(1)
-self=stbl
-
-# Print usage information
-usage() {
-    printf '%s: usage: %s [-hv] [--] FILE1 [FILE2...]\n' \
-        "$self" "$self"
-}
-
-# Flag for whether to print diagnostics to stderr or not; defaults to off
-declare -i verbose
-verbose=0
-
-# Process options
-while getopts 'hv' opt ; do
-    case $opt in
-
-        # -h: Print help
-        h)
-            usage
-            exit 0
-            ;;
-
-        # -v: Print diagnostics to stderr
-        v)
-            verbose=1
-            ;;
-
-        # Unknown option
-        \?)
-            usage >&2
-            exit 2
-            ;;
-    esac
-done
-shift "$((OPTIND-1))"
-
-# Check we have arguments left
-if ! (($#)) ; then
-    usage >&2
+if [ "$#" -eq 0 ] ; then
+    printf 2>&1 'stbl: Need at least one file to edit\n'
     exit 2
 fi
-
-# Check we have ed(1)
-hash ed || exit
-
-# Iterate through the arguments
 for fn ; do
-
-    # If verbose is set, print what we're doing
-    ((verbose)) && printf '%s: %s\n' \
-        "$self" "$fn" >&2
-
-    # Run the ed script to strip the trailing blank lines
     ed -s -- "$fn" <<'EOF'
 $g/^ *$/d
 w
