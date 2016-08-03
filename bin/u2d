@@ -1,4 +1,8 @@
 #!/bin/sh
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'u2d: Need a filename\n'
+    exit 2
+fi
 r=$(printf '\r')
 for fn ; do
     ed -s -- "$fn" <<EOF || ex=1
