@@ -316,7 +316,7 @@ install-zsh :
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-test : test-bash test-bin test-games test-sh test-urxvt
+test : test-bash test-bin test-games test-man test-sh test-urxvt
 
 test-bash :
 	test/bash
@@ -326,6 +326,9 @@ test-bin :
 
 test-games :
 	test/games
+
+test-man :
+	test/man
 
 test-sh :
 	test/sh
