@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Execute a command and tag the output of the stdout and stderr streams.
 
 # Set the default prefixes and suffixes for stdout/err
