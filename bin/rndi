@@ -3,7 +3,12 @@
 # implementation, if you don't provide a third argument (a seed), you might get
 # very predictable random numbers based on the current epoch second.
 BEGIN {
-    srand(ARGV[3])
+    if (ARGV[3]) {
+        srand(ARGV[3])
+    }
+    else {
+        srand()
+    }
     print int(ARGV[1]+rand()*(ARGV[2]-ARGV[1]+1))
     exit
 }
