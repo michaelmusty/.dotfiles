@@ -1,7 +1,7 @@
 #!/bin/sh
 # Try to get a low-quality random seed from a random device if possible
 [ "$#" -le 1 ] || exit 2
-for dev in /dev/arandom /dev/urandom /dev/random '' ; do
+for dev in /dev/urandom /dev/arandom /dev/random '' ; do
     [ -e "$dev" ] && break
 done
 [ -n "$dev" ] || exit 1
