@@ -27,6 +27,12 @@ while getopts 'hco:e:' opt ; do
 done
 shift "$((OPTIND-1))"
 
+# We need at least one more argument
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'tlcs: Need a command to run\n'
+    exit 2
+fi
+
 # If color was requested for the output, try and get a count of available
 # colors
 [ -n "$color" ] && color_count=$( {
