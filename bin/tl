@@ -1,37 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Tag lines from files or stdin with a string prefix or suffix.
-self=tl
-
-# Define usage function
-usage() {
-    printf 'USAGE: %s [-h] [-p PREFIX] [-s SUFFIX] [--] [FILE1 FILE2 ...]\n' "$self"
-}
-
-# Start with empty prefix/suffix, or use the environment variables
-prefix=$TL_PREFIX
-suffix=$TL_SUFFIX
 
 # Parse options out, give help if necessary
 while getopts 'hp:s:' opt ; do
     case $opt in
-
-        # -h: Print help
-        h)
-            usage
-            exit
-            ;;
-
-        # -p: Specify prefix
         p)
-            prefix=$OPTARG
+            pref=$OPTARG
             ;;
-
-        # -s: Specify suffix
         s)
-            suffix=$OPTARG
+            suff=$OPTARG
             ;;
-
-        # Unknown option
         \?)
             usage >&2
             exit 2
@@ -40,12 +18,8 @@ while getopts 'hp:s:' opt ; do
 done
 shift "$((OPTIND-1))"
 
-# Need at least one tag
-(($#)) || set /dev/stdin
-
-# Print each line as we read it, prepending the tags, separated by spaces
-for file ; do
-    while IFS= read -r line ; do
-        printf '%s%s%s\n' "$prefix" "$line" "$suffix"
-    done < "$file"
+# Print each line as we read it, adding the tags
+cat -- "${@:--}" |
+while IFS= read -r line ; do
+    printf '%s%s%s\n' "$pref" "$line" "$suff"
 done
