@@ -79,7 +79,7 @@ td=$(mktd "$self") || exit
 
 # Execute the command, passing stdout and stderr to tl(1) calls as appropriate
 # via named pipes
-out="$td"/out err="$td"/err
+out=$td/out err=$td/err
 mkfifo -- "$out" "$err" || exit
 tl -p "$out_pref" -s "$out_suff" < "$out" &
 tl -p "$err_pref" -s "$err_suff" < "$err" &
