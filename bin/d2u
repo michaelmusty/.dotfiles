@@ -1,0 +1,9 @@
+#!/bin/sh
+r=$(printf '\r')
+for fn ; do
+    ed -s -- "$fn" <<EOF || ex=1
+g/$r\$/ s/$r\$//
+w
+EOF
+done
+exit "${ex:-0}"
