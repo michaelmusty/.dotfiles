@@ -15,9 +15,12 @@ for dir in "${@:-.}" ; do
     set -- "$dir"/*
     [ -e "$1" ] || shift
 
-    # Add dot files, shift off the "." and ".." entries
+    # Add dot files, shift off the "." and ".." entries (sh(1) implementations
+    # seem to vary on whether they include these)
     set -- "$dir"/.* "$@"
-    shift 2
+    [ -e "$1" ] || shift
+    [ "$1" = "$dir"/. ] && shift
+    [ "$1" = "$dir"/.. ] && shift
 
     # Print number of parameters
     printf '%u\t%s\n' "$#" "$dir"

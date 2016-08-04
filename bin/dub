@@ -5,7 +5,9 @@ cd -- "$dir" || exit
 set -- *
 [ -e "$1" ] || shift
 set -- .* "$@"
-shift 2
+[ -e "$1" ] || shift
+[ "$1" = . ] && shift
+[ "$1" = .. ] && shift
 du -ks -- "$@" |
 sort -k1nr |
 sed "$lines"q
