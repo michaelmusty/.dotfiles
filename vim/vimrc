@@ -112,6 +112,11 @@ endif
 " do clever things with indenting will often assume this is set
 set autoindent
 
+" Indent broken lines
+if v:version > 704 || v:version == 704 && has('patch338')
+  set breakindent
+endif
+
 " Use spaces instead of tabs
 set expandtab
 
