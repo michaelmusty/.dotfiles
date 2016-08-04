@@ -2,7 +2,9 @@
 # List the biggest files in a directory
 dir=$1 lines=${2:-10}
 cd -- "$dir" || exit
-set -- .* *
+set -- *
+[ -e "$1" ] || shift
+set -- .* "$@"
 shift 2
 du -ks -- "$@" |
 sort -k1nr |
