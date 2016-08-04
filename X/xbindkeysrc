@@ -10,7 +10,7 @@
 "exec gimp"
   Mod4 + g
 
-"exec i3lock --color=#111111 --image ~/.i3/lock.png --nofork"
+"exec i3lock --color=#000000 --image ~/.i3/lock.png --nofork"
   Mod4 + slash
 
 "exec amixer -q sset Master toggle"
