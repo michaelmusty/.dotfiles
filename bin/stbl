@@ -1,7 +1,7 @@
 #!/bin/sh
 # Strip a trailing blank line from the given files with ed(1)
 if [ "$#" -eq 0 ] ; then
-    printf 2>&1 'stbl: Need at least one file to edit\n'
+    printf 2>&1 'stbl: Need a filename\n'
     exit 2
 fi
 for fn ; do

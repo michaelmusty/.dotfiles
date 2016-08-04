@@ -1,7 +1,8 @@
 #!/bin/sh
 # Strip trailing spaces on one or more files
 if [ "$#" -eq 0 ] ; then
-    printf >&2 'tstf: Need filenames\n'
+    printf >&2 'tstf: Need a filename\n'
+    exit 2
 fi
 for fn ; do
     ed -s -- "$fn" <<'EOF'
