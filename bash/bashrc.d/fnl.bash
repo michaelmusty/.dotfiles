@@ -23,11 +23,8 @@ fnl() {
     fi
 
     # Create a temporary directory or bail
-    local dirname template
-    template=$FUNCNAME.$1.XXXXXX
-    if ! dirname=$(mktemp -dt -- "$template") ; then
-        return
-    fi
+    local dirname
+    dirname=$(mktd "$FUNCNAME") || return
 
     # Run the command and save its exit status
     local ret
