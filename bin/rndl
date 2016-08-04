@@ -1,13 +1,13 @@
 #!/bin/sh
 # Print a random line from input
-td=
-cleanup() {
-    rm -fr -- "$td"
-}
-for sig in EXIT HUP INT TERM ; do
-    trap cleanup "$sig"
-done
 if [ "$#" -eq 0 ] ; then
+    td=
+    cleanup() {
+        rm -fr -- "$td"
+    }
+    for sig in EXIT HUP INT TERM ; do
+        trap cleanup "$sig"
+    done
     td=$(mktd rndl) || exit
     set -- "$td"/stdin
     cat >"$td"/stdin
