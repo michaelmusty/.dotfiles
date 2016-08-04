@@ -70,10 +70,14 @@ fi
 # Temporary directory for the FIFOs
 td=
 cleanup() {
-    rm -fr -- "$td"
+    [ "$td" ] && rm -fr -- "$td"
+    if [ "$1" != EXIT ] ; then
+        trap - "$1"
+        kill "-$1" "$$"
+    fi
 }
 for sig in EXIT HUP INT TERM ; do
-    trap cleanup "$sig"
+    trap "cleanup $sig" "$sig"
 done
 td=$(mktd "$self") || exit
 

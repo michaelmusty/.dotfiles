@@ -20,12 +20,16 @@ You could use it in a script like this:
 .P
     td=
     cleanup() {
-        rm -fr -- "$td"
+        [ "$td" ] && rm -fr -- "$td"
+        if [ "$1" != EXIT ] ; then
+            trap - "$1"
+            kill "-$1" "$$"
+        fi
     }
     for sig in EXIT HUP INT TERM ; do
-        trap cleanup "$sig"
+        trap "cleanup $sig" "$sig"
     done
-    td=$(mktd) || exit
+    td=$(mktd myprogram) || exit
 .SH SEE ALSO
 rndi(1)
 .br
