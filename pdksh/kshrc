@@ -1,0 +1,7 @@
+# Emacs-style key bindings
+set -o braceexpand
+set -o emacs
+
+# Save history
+HISTFILE=$HOME/.sh_history
+HISTSIZE=$((1 << 12))

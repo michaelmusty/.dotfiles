@@ -23,6 +23,7 @@
 	install-ncmcpp \
 	install-newsbeuter \
 	install-mysql \
+	install-pdksh \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
@@ -198,6 +199,9 @@ install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
 
+install-pdksh : test-pdksh
+	install -pm 0644 -- pdksh/kshrc "$(HOME)"/.kshrc
+
 install-maildir :
 	install -m 0755 -d -- \
 		"$(HOME)"/Mail/inbox/cur \
@@ -326,6 +330,9 @@ test-bin :
 
 test-games :
 	test/games
+
+test-pdksh :
+	test/pdksh
 
 test-man :
 	test/man
