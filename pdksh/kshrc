@@ -5,3 +5,6 @@ set -o emacs
 # Save history
 HISTFILE=$HOME/.sh_history
 HISTSIZE=$((1 << 12))
+
+# Prompt
+PS1='\u@\h:\w\$ '
