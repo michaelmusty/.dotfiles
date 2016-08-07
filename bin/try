@@ -29,7 +29,7 @@ fi
 # Create a buffer file for the error output, and clean up the file when we exit
 td=
 cleanup() {
-    [ "$td" ] && rm -fr -- "$td"
+    [ -n "$td" ] && rm -fr -- "$td"
     if [ "$1" != EXIT ] ; then
         trap - "$1"
         kill "-$1" "$$"

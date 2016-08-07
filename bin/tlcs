@@ -70,7 +70,7 @@ fi
 # Temporary directory for the FIFOs
 td=
 cleanup() {
-    [ "$td" ] && rm -fr -- "$td"
+    [ -n "$td" ] && rm -fr -- "$td"
     if [ "$1" != EXIT ] ; then
         trap - "$1"
         kill "-$1" "$$"
