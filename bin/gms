@@ -1,28 +1,31 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Run getmail(1) over every getmailrc.* file in ~/.getmail
 self=gms
 
-# Check for existence of needed commands
-hash flock getmail try || exit
+# Trap to remove whatever's set in lockdir if we're killed
+lockdir=
+cleanup() {
+    [ -n "$lockdir" ] && rm -fr -- "$lockdir"
+    if [ "$1" != EXIT ] ; then
+        trap - "$1"
+        kill "-$1" "$$"
+    fi
+}
+for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
+    trap "cleanup $sig" "$sig"
+done
 
-# Create a directory for our lockfiles if need be; we'll just leave it there
-lockdir=${TMPDIR:-/tmp}/getmail-$UID
-if ! mkdir -p -- "$lockdir" ; then
-    printf "%s: Could not create lockdir %s\n" \
-        "$self" "$lockdir" >&2
-    exit 1
-fi
+# Who am I? Don't trust the environment $UID to tell me.
+uid=$(id -u) || exit
 
 # Iterate through the getmailrc.* files in $GETMAIL if defined, or
 # $HOME/.getmail if not
 for rcfile in "${GETMAIL:-$HOME/.getmail}"/getmailrc.* ; do
-
-    # Run the current rcfile with getmail quietly, using its basename with
-    # .lock appended as the lockfile in the lock directory
-    (
-        flock -n 9 || exit 1
-        try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
-    ) 9>"$lockdir"/"${rcfile##*/}".lock &
+    lockdir=${TMPDIR:-/tmp}/getmail.$uid.${rcfile##*/}.lock
+    mkdir -m 0700 -- "$lockdir" 2>/dev/null || continue
+    try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
+    rm -fr -- "$lockdir" && lockdir=
 done
 
 # Wait for all of the enqueued tasks to finish
