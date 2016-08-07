@@ -36,6 +36,7 @@ cleanup() {
     fi
 }
 for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
     trap "cleanup $sig" "$sig"
 done
 td=$(mktd "$self") || exit
