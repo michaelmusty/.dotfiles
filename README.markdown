@@ -92,9 +92,9 @@ configuration isn't too distant from the defaults.
 
 ### Shell
 
-My `.profile` and other files in `sh` are written in Bourne/POSIX shell script,
-so they should work in most `sh(1)` implementations. Individual scripts called
-by `.profile` are saved in `.profile.d` and iterated on login for ease of
+My `.profile` and other files in `sh` are written in POSIX shell script, so
+they should work in most `sh(1)` implementations. Individual scripts called by
+`.profile` are saved in `.profile.d` and iterated on login for ease of
 management. All of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
@@ -274,11 +274,11 @@ loaded using @tpope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
 Scripts
 -------
 
-Where practical, I make short scripts into POSIX-compatible `sh(1)`, `awk(1)`,
-or `sed(1)` scripts in `~/.local/bin`. A few of them still have Bashisms for
-various reasons. I try to use shell functions only when I actually need to,
-which tends to be when I need to tinker with the namespace of the user's
-current shell.
+Where practical, I make short scripts into POSIX (but not Bourne) `sh(1)`,
+`awk(1)`, or `sed(1)` scripts in `~/.local/bin`. A few of them still have
+Bashisms for various reasons. I try to use shell functions only when I actually
+need to, which tends to be when I need to tinker with the namespace of the
+user's current shell.
 
 Installed by the `install-bin` target:
 
