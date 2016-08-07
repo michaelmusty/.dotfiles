@@ -60,7 +60,7 @@ Configuration is included for:
 *   [i3](https://i3wm.org/) -- Tiling window manager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
-*   [Ncmpcpp](http://rybczak.net/ncmpcpp/) -- ncurses music player client
+*   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
 *   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
@@ -205,7 +205,7 @@ things like give default arguments to `pwgen(1)`.
 ### GnuPG
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
-practices](https://help.riseup.net/en/security/message-security/openpgp/best-practices).
+practices](https://riseup.net/en/security/message-security/openpgp/best-practices).
 The configuration file is rebuilt using `m4(1)` and `make(1)` because it
 requires hard-coding a path to the SKS keyserver certificate authority, and
 neither tilde nor `$HOME` expansion works for this.
