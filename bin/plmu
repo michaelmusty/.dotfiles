@@ -10,8 +10,9 @@ if ! sort -c -- "$ef" ; then
     exit 1
 fi
 
-# Get the list of modules
-plenv list-modules |
+# Get the list of modules; sort them in case our current locale disagrees on
+# the existing sorting
+plenv list-modules | sort |
 
 # Exclude any modules in ~.plenv/non-cpanm-modules if it exists
 comm -23 -- - "$ef" |
