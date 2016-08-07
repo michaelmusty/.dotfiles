@@ -21,7 +21,7 @@ for rcfile in "${GETMAIL:-$HOME/.getmail}"/getmailrc.* ; do
     # .lock appended as the lockfile in the lock directory
     (
         flock -n 9 || exit 1
-        try -i 15 -n 3 getmail --rcfile "$rcfile" "$@"
+        try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
     ) 9>"$lockdir"/"${rcfile##*/}".lock &
 done
 
