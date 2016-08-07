@@ -1,58 +1,77 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Try to find erroneous or insecure URLs
 self=urlc
 
 # cURL request timeout
 tm=${URLCHECK_TIMEOUT:-8}
 
-# Create temporary files for headers and body content
-head=$(mktemp) || exit
-body=$(mktemp) || exit
-
-# Set up cleanup function to remove temporary files on exit
+# Create buffer files for the headers and body content, to be cleaned up on
+# exit
+td=
 cleanup() {
-    rm -f -- "$head" "$body"
+    [ "$td" ] && rm -fr -- "$td"
+    if [ "$1" != EXIT ] ; then
+        trap - "$1"
+        kill "-$1" "$$"
+    fi
 }
-trap cleanup EXIT
-
-# Error count
-declare -i errc
+for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
+    trap "cleanup $sig" "$sig"
+done
+td=$(mktd "$self") || exit
+list=$td/list head=$td/head body=$td/body
 
 # Iterate through input; ignore leading/trailing whitespace
+# shellcheck disable=SC2002
+cat -- "${@:--}" >"$list"
+ex=0
 while read -r url ; do
 
     # Skip anything that doesn't start with HTTP
-    [[ $url == 'http'* ]] || continue
+    case $url in
+        http*) ;;
+        *) continue ;;
+    esac
 
     # Make initial request, log head and body to files, cry and skip on error
-    if ! curl -A Mozilla -fHLsS -D "$head" -m "$tm" -o "$body" -- "$url" ; then
-        printf '%s: %s raises error\n' \
-            "$self" "$url" >&2
-        ((errc++))
+    if ! curl -A Mozilla -fHLsS -D "$head" -m "$tm" -o "$body" -- \
+       "$url" ; then
+        printf >&2 '%s: %s raises error\n' \
+            "$self" "$url"
+        ex=1
         continue
     fi
 
     # Iterate through header file, cry about the first redirect we find
     while IFS=': ' read -r header value ; do
-        [[ $header == 'Location' ]] || continue
-        printf '%s: %s redirects to %s\n' \
+        [ "$header" = 'Location' ] || continue
+        printf >&2 '%s: %s redirects to %s\n' \
             "$self" "$url" "$value" >&2
-        ((errc++))
+        ex=1
         break
     done < "$head"
 
     # Skip anything that's already secure
-    [[ $url == 'https:'* ]] && continue
+    case $url in
+        https*) continue ;;
+        *) ;;
+    esac
 
     # Form a naïve attempt at a possible secure URL and try to request it,
     # point it out if it actually works
-    securl=${url/http:/https:}
-    if curl -A Mozilla -fLsS -D "$head" -m "$tm" -o "$body" -- "$securl" 2>/dev/null ; then
-        printf '%s: %s has a working secure version at %s\n' \
-            "$self" "$url" "$securl" >&2
-        ((errc++))
+    burl=${url#http://}
+    surl=https://$burl
+    if curl -A Mozilla -fLsS -D "$head" -m "$tm" -o "$body" -- \
+       "$surl" 2>/dev/null ; then
+        printf >&2 '%s: %s has a working secure version at %s\n' \
+            "$self" "$url" "$surl"
+        ex=1
     fi
-done < <(cat -- "${@:-/dev/stdin}") ## shellcheck disable=SC2002
+done <"$list"
+
+# Wait for the input process to finish
+wait
 
 # Exit if any errors
-exit "$((errc > 0))"
+exit "$ex"
