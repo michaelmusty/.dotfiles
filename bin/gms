@@ -1,6 +1,5 @@
 #!/bin/sh
 # Run getmail(1) over every getmailrc.* file in ~/.getmail
-self=gms
 
 # Trap to remove whatever's set in lockdir if we're killed
 lockdir=
