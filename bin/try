@@ -1,103 +1,76 @@
-#!/usr/bin/env bash
-# Attempt a certain number of times to perform a task
+#!/bin/sh
+# Attempt a certain number of times to perform a task, buffer stderr unless and
+# until all command attempts fail
 self=try
 
-# Print usage information
-usage() {
-    printf '%s: usage: %s [-hv] [-i INTERVAL] [-n ATTEMPTS] [--] COMMAND...\n' \
-        "$self" "$self"
-}
-
-# Flag for whether to print diagnostics to stdout or not
-declare -i verbose
-verbose=0
-
-# Number of seconds to wait between instances
-declare -i interval
-interval=0
-
-# Number of attempts
-declare -i attc
-attc=3
-
-# Process options
-while getopts 'hvi:n:' opt ; do
+# Parse options
+while getopts 's:n:' opt ; do
     case $opt in
-
-        # -h: Print help
-        h)
-            usage
-            exit 0
-            ;;
-
-        # -v: Print diagnostics to stdout
-        v)
-            verbose=1
-            ;;
-
-        # -i: Set the number of seconds between attempts
-        i)
-            interval=$OPTARG
-            ;;
-
-        # -n: Set the number of attempts
         n)
-            attc=$OPTARG
+            attn=$OPTARG
             ;;
-
-        # Unknown option
+        s)
+            sleep=$OPTARG
+            ;;
         \?)
-            usage >&2
+            printf >&2 '%s: Unknown option\n' "$self"
             exit 2
             ;;
     esac
 done
 shift "$((OPTIND-1))"
 
-# We need at least one more argument after shifting off the options
-if ! (($#)) ; then
-    usage >&2
+# Check we have at least one argument left (the command to run)
+if [ "$#" -eq 0 ] ; then
+    printf >&2 '%s: Need a command to run\n' "$self"
     exit 2
 fi
 
-# The command is all the remaining arguments
-declare -a cmd
-cmd=("$@")
-
 # Create a buffer file for the error output, and clean up the file when we exit
-errbuf=$(mktemp) || exit
+td=
 cleanup() {
-    rm -f -- "$errbuf"
+    [ "$td" ] && rm -fr -- "$td"
+    if [ "$1" != EXIT ] ; then
+        trap - "$1"
+        kill "-$1" "$$"
+    fi
 }
-trap cleanup EXIT
+for sig in EXIT HUP INT TERM ; do
+    trap "cleanup $sig" "$sig"
+done
+td=$(mktd "$self") || exit
+errbuff=$td/errbuff
+
+# Open a filehandle to the error buffer, just to save on file operations
+exec 3>"$errbuff"
 
 # Keep trying the command, writing error output to the buffer file, and exit
 # if we succeed on any of them
-declare -i ret
-for (( atti = 1 ; atti <= attc ; atti++ )) ; do
+attc=1
+: "${attn:=3}" "${sleep:=0}"
+while [ "$attc" -le "$attn" ] ; do
 
-    # If verbose, print the number of this attempt
-    ((verbose)) && printf '%s: Attempt %u/%u to run `%s` ...\n' \
-        "$self" "$atti" "$attc" "${cmd[*]}"
+    # Try running the command; if it succeeds, we're done, and any previous
+    # failures get their errors discarded
+    if "$@" 2>&3 ; then
+        exit
 
-    # Try running the command. If it succeeds, report failure if verbose, and
-    # exit 0.
-    if "${cmd[@]}" 2>>"$errbuf" ; then
-        ((verbose)) && printf '%s: Success!\n' \
-            "$self"
-        exit 0
-
-    # If it fails, keep the exit value, report failure, and wait until the next
-    # attempt.
+    # If the command failed, record the exit value
     else
-        ret=$?
-        ((verbose)) && printf '%s: Failure!\n' \
-            "$self"
-        sleep "$interval"
+        ex=$?
     fi
+
+    # If this isn't the last run, have a sleep
+    if [ "$attc" -lt "$attn" ] ; then
+        sleep "${sleep:=0}"
+    fi
+
+    # Increment the attempt count
+    attc=$((attc + 1))
 done
 
 # Attempts were exhausted, and all failed; print the error output from all of
 # the failures and exit with the non-zero exit value of the most recent one
-cat -- "$errbuf" >&2
-exit "$ret"
+exec 3>&-
+cat -- "$td"/errbuff >&2
+exit "$ex"

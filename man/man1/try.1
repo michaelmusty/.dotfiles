@@ -1,20 +1,21 @@
-.TH TRY 1 "February 2016" "Manual page for try"
+.TH TRY 1 "August 2016" "Manual page for try"
 .SH NAME
 .B try
 \- attempt a command up to a certain number of times until it succeeds
 .SH USAGE
-.B try [-hv] [-i INTERVAL] [-n ATTEMPTS] [--] COMMAND...
+.B try
+[-n ATTEMPTS] [-s SLEEP] [--] COMMAND...
 .SH DESCRIPTION
 Runs the given command up to a fixed number of times until it exits zero. If
 all attempts fail, writes buffered error output from all attempts to stderr.
 .P
-Option -h gives help, option -v turns on verbose output, option -i specifies an
-optional number of seconds between attempts, and option -n specifies the number
-of attempts; defaults to 3. Options may be terminated with --. The remaining
-arguments are the command to run.
+Option -n specifies the number of attempts, defaulting to 3; option -s
+specifies in seconds how long to sleep between attempts, defaulting to 0.
+Options may be terminated with --. The remaining arguments are the command to
+run.
 .P
-   $ try gms
-   $ try -v -n3 myb
+   $ try myb
+   $ try -n5 -s10 gms
 .SH SEE ALSO
 myb(1)
 .SH AUTHOR
