@@ -2,7 +2,7 @@
 # Tag lines from files or stdin with a string prefix or suffix.
 
 # Parse options out, give help if necessary
-while getopts 'hp:s:' opt ; do
+while getopts 'p:s:' opt ; do
     case $opt in
         p)
             pref=$OPTARG

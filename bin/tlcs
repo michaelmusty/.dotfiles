@@ -9,7 +9,7 @@ out_suff=
 err_suff=
 
 # Parse options out, give help if necessary
-while getopts 'hco:e:' opt ; do
+while getopts 'co:e:' opt ; do
     case $opt in
         c)
             color=1
