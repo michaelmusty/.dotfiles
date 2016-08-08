@@ -176,7 +176,12 @@ install-finger :
 
 install-games : games/acq games/kvlt games/zs test-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
-	install -m 0755 -- games/* "$(HOME)"/.local/games
+	for game in games/* ; do \
+		case $$game in \
+			*.sed) ;; \
+			*) install -m 0755 -- "$$game" "$(HOME)"/.local/games ;; \
+		esac \
+	done
 
 install-games-man :
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
