@@ -304,22 +304,22 @@ Installed by the `install-bin` target:
     *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
         `man(1)` reader for RFCs.
 *   Five toy random-number scripts (not for sensitive/dead-serious use):
-    *   `rndi(1)` gets a random integer within two bounds
-    *   `rnds(1)` attempts to get an optional random seed for `rndi(1)`
-    *   `rnda(1)` uses `rndi(1)` to choose a random argument
-    *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory
-    *   `rndl(1)` uses `rndi(1)` to choose a random line from files
+    *   `rndi(1)` gets a random integer within two bounds.
+    *   `rnds(1)` attempts to get an optional random seed for `rndi(1)`.
+    *   `rnda(1)` uses `rndi(1)` to choose a random argument.
+    *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory.
+    *   `rndl(1)` uses `rndi(1)` to choose a random line from files.
 *   Two file formatting scripts:
-    *   `d2u(1)` converts DOS line endings in files to UNIX ones
-    *   `u2d(1)` converts UNIX line endings in files to DOS ones
+    *   `d2u(1)` converts DOS line endings in files to UNIX ones.
+    *   `u2d(1)` converts UNIX line endings in files to DOS ones.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
-*   `bel(1)` prints a terminal bell character
+*   `bel(1)` prints a terminal bell character.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
-*   `clrd(1)` sets up a per-line file read, clearing the screen first
+*   `clrd(1)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1)` sets up a per-line file write, clearing the screen before each line
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
@@ -330,16 +330,16 @@ Installed by the `install-bin` target:
     `gscr(1)`.
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
-    and does up to three silent retries using `try(1)`
+    and does up to three silent retries using `try(1)`.
 *   `grc(1)` quietly tests whether the given directory appears to be a Git
-    repository with pending changes
+    repository with pending changes.
 *   `gscr(1)` scrubs Git repositories.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
 *   `isgr(1)` quietly tests whether the given directory appears to be a Git
-    repository
+    repository.
 *   `jfc(1)` adds and commits lazily to a Git repository.
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
 *   `myb(1)` is like `true(1)` or `false(1)`; given a probability of success,
@@ -358,7 +358,7 @@ Installed by the `install-bin` target:
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
 *   `stbl(1)` strips a trailing blank line from the files in its arguments.
-*   `stex(1)` strips extensions from filenames
+*   `stex(1)` strips extensions from filenames.
 *   `stws(1)` strips trailing spaces from the ends of lines of the files in its
     arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
