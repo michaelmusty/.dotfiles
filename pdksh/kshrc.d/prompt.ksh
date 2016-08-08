@@ -25,19 +25,19 @@ prompt() {
             PS1=$PS1'\$'
 
             # Count available colors
-            local -i colors
+            typeset -i colors
             colors=$( {
                 tput Co || tput colors
             } 2>/dev/null )
 
             # Prepare reset code
-            local reset
+            typeset reset
             reset=$( {
                 tput me || tput sgr0
             } 2>/dev/null )
 
             # Decide prompt color formatting based on color availability
-            local format
+            typeset format
             case $colors in
 
                 # Check if we have non-bold bright green available
@@ -95,7 +95,7 @@ prompt() {
 
         # Show the count of background jobs in curly brackets, if not zero
         job)
-            local -i jobc
+            typeset -i jobc
             while read ; do
                 ((jobc++))
             done < <(jobs -p)
