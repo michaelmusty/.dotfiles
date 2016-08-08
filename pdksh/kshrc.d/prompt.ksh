@@ -16,7 +16,6 @@ prompt() {
             # variables
             PS1='[\u@\h:\w]'
             PS1=$PS1'$(prompt job)'
-            PS1=$PS1'$(prompt ret)'
             PS1='${PROMPT_PREFIX}'$PS1
             PS1=$PS1'${PROMPT_SUFFIX}'
             PS1=$PS1'\$'
