@@ -344,7 +344,7 @@ Installed by the `install-bin` target:
     repository.
 *   `jfc(1)` adds and commits lazily to a Git repository.
 *   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
-*   `myb(1)` is like `true(1)` or `false(1)`; given a probability of success,
+*   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
 *   `mkcp(1)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1)` creates a directory and moves preceding arguments into it.

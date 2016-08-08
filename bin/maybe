@@ -1,6 +1,6 @@
 #!/bin/sh
 # Exit with success or failure with a given probability
-self=myb
+self=maybe
 
 # Figure out numerator and denominator from arguments
 case $# in
