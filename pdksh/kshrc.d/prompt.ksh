@@ -40,7 +40,7 @@ prompt() {
                 # Check if we have non-bold bright green available
                 256)
                     format=$( {
-                        : "${PROMPT_COLOR:=10}"
+                        : "${PROMPT_COLOR:=27}"
                         tput AF "$PROMPT_COLOR" ||
                         tput setaf "$PROMPT_COLOR" ||
                         tput AF "$PROMPT_COLOR" 0 0  ||
@@ -51,7 +51,7 @@ prompt() {
                 # If we have only eight colors, use bold green
                 8)
                     format=$( {
-                        : "${PROMPT_COLOR:=2}"
+                        : "${PROMPT_COLOR:=4}"
                         tput AF "$PROMPT_COLOR" ||
                         tput setaf "$PROMPT_COLOR"
                         tput md || tput bold
