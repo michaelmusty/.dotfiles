@@ -12,9 +12,6 @@ prompt() {
 
         # Turn complex, colored PS1 and debugging PS4 prompts on
         on)
-            # Declare the PROMPT_RETURN variable
-            PROMPT_RETURN=0
-
             # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
             # variables
             PS1='[\u@\h:\w]'
@@ -79,18 +76,10 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v PROMPT_RETURN
             PS1='\$ '
             PS2='> '
             PS3='? '
             PS4='+ '
-            ;;
-
-        # Show return status of previous command in angle brackets, if not zero
-        ret)
-            if ((PROMPT_RETURN > 0)) ; then
-                printf '<%u>' "$PROMPT_RETURN"
-            fi
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
