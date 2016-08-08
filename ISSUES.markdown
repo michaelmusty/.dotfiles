@@ -14,3 +14,6 @@ Known issues
     randomised name in "${TMPDIR:-/tmp}". Is mktemp(1) on every *BSD?
 *   Where practical, the remaining Bash scripts in bin need to be reimplemented
     as POSIX sh
+*   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
+    some way of converting the README.markdown into a palatable troff format
+    with some more readily available (and preferably less heavyweight) tool.
