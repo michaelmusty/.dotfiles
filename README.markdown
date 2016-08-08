@@ -346,7 +346,7 @@ Installed by the `install-bin` target:
     it exits with success or failure. Good for quick tests.
 *   `mkcp(1)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1)` creates a directory and moves preceding arguments into it.
-*   `motd(1)` show the system MOTD.
+*   `motd(1)` shows the system MOTD.
 *   `pa(1)` prints its arguments, one per line.
 *   `paz(1)` print its arguments terminated by NULL chars.
 *   `pit(1)` runs its input through a pager if its standard output looks like a
