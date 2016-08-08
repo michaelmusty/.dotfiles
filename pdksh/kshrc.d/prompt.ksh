@@ -3,7 +3,7 @@ prompt() {
 
     # If no arguments, print the prompt strings as they are
     if ! (($#)) ; then
-        declare -p PS1 PS2 PS3 PS4
+        printf '%s\n' PS1="$PS1" PS2="$PS2" PS3="$PS3" PS4="$PS4"
         return
     fi
 
