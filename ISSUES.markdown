@@ -12,6 +12,7 @@ Known issues
     file is unavoidable, it might be nice to abstract this with a wrapper
     script that uses mktemp(1) if it can, but otherwise uses mkdir(1) with a
     randomised name in "${TMPDIR:-/tmp}". Is mktemp(1) on every *BSD?
+    -   Mostly fixed now with mktd(1), still using mktemp(1) in a few places
 *   Where practical, the remaining Bash scripts in bin need to be reimplemented
     as POSIX sh
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
