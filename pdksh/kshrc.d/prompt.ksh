@@ -85,9 +85,7 @@ prompt() {
         # Show the count of background jobs in curly brackets, if not zero
         job)
             typeset -i jobc
-            while read ; do
-                ((jobc++))
-            done < <(jobs -p)
+            jobc=$(jobs -p | sed -n '$=')
             if ((jobc > 0)) ; then
                 printf '{%u}' "$jobc"
             fi
