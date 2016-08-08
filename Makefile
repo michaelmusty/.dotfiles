@@ -200,7 +200,21 @@ install-i3 : install-x
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
 
 install-pdksh : test-pdksh
+	install -m 0755 -d -- \
+		"$(HOME)"/.kshrc.d
 	install -pm 0644 -- pdksh/kshrc "$(HOME)"/.kshrc
+	install -pm 0644 -- pdksh/kshrc.d/* "$(HOME)"/.kshrc.d
+
+install-bash : test-bash
+	install -m 0755 -d -- \
+		"$(HOME)"/.config \
+		"$(HOME)"/.bashrc.d \
+		"$(HOME)"/.bash_profile.d
+	install -pm 0644 -- bash/bashrc "$(HOME)"/.bashrc
+	install -pm 0644 -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
+	install -pm 0644 -- bash/bash_profile "$(HOME)"/.bash_profile
+	install -pm 0644 -- bash/bash_profile.d/* "$(HOME)"/.bash_profile.d
+	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
 
 install-maildir :
 	install -m 0755 -d -- \
