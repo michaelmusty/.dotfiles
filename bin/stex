@@ -1,0 +1,15 @@
+#!/bin/sh
+# Strip an extension from the given files
+if [ "$#" -lt 2 ] ; then
+    printf >&2 'Need an extension .ext and a filename\n'
+    exit 2
+fi
+ex=0 ext=$1
+shift
+for sn ; do
+    sn=${sn%/}
+    dn=${sn%"$ext"}
+    [ "$sn" != "$dn" ] || continue
+    mv -- "$sn" "$dn" || ex=1
+done
+exit "$ex"

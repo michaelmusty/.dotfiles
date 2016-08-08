@@ -357,6 +357,7 @@ Installed by the `install-bin` target:
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
 *   `stbl(1)` strips a trailing blank line from the files in its arguments.
+*   `stex(1)` strips extensions from filenames
 *   `stws(1)` strips trailing spaces from the ends of lines of the files in its
     arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
