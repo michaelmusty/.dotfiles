@@ -1,0 +1,6 @@
+#!/bin/sh
+for ksh in ksh/* ; do
+    [ -f "$ksh" ] || continue
+    ksh -n "$ksh" || exit
+done
+printf 'All ksh(1) scripts parsed successfully.\n'
