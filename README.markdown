@@ -378,6 +378,7 @@ There's some silly stuff in `install-games`:
 
 *   `aaf(6)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
     comic.
+*   `acq(6)` allows you to interrogate AC, the interplanetary computer.
 *   `kvlt(6)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6)` implements an esoteric random number generation algorithm.

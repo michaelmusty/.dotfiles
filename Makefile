@@ -63,6 +63,7 @@ all : git/gitconfig gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
+		games/acq \
 		games/kvlt \
 		games/zs \
 		git/gitconfig \
@@ -70,6 +71,10 @@ clean distclean :
 		man/man7/dotfiles.7 \
 		mutt/muttrc \
 		tmux/tmux.conf
+
+games/acq : games/acq.sed
+	bin/shb games/acq.sed sed -f > "$@"
+	chmod +x "$@"
 
 games/kvlt : games/kvlt.sed
 	bin/shb games/kvlt.sed sed -f > "$@"
@@ -169,7 +174,7 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/kvlt games/zs test-games install-games-man
+install-games : games/acq games/kvlt games/zs test-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	install -m 0755 -- games/* "$(HOME)"/.local/games
 
