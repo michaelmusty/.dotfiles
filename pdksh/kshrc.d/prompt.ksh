@@ -27,11 +27,6 @@ prompt() {
             PS1=$PS1'${PROMPT_SUFFIX}'
             PS1=$PS1'\$'
 
-            # If Bash 4.0 is available, trim very long paths in prompt
-            if ((BASH_VERSINFO[0] >= 4)) ; then
-                PROMPT_DIRTRIM=4
-            fi
-
             # Count available colors
             local -i colors
             colors=$( {
@@ -87,7 +82,7 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v PROMPT_COMMAND PROMPT_DIRTRIM PROMPT_RETURN
+            unset -v PROMPT_COMMAND PROMPT_RETURN
             PS1='\$ '
             PS2='> '
             PS3='? '
