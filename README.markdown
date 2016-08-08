@@ -184,18 +184,18 @@ I also add completions for my own scripts and functions where useful.
 
 There are a few other little tricks in `bash/bashrc.d`, including:
 
-*   `bd` changes into a named ancestor of the current directory.
-*   `fnl` runs a command and save its output and error into temporary files.
-*   `hgrep` searches `$HISTFILE`.
-*   `keep` stores ad-hoc shell functions and variables.
-*   `mkcd` creates a directory and changes into it.
-*   `path` manages the contents of `PATH` conveniently.
-*   `pd` changes to the argument's parent directory.
-*   `readv` prints names and values from `read` calls to `stderr`.
-*   `readz` is an alias for `read -d '' -r`.
-*   `scr` creates a temporary directory and changes into it.
-*   `sd` changes into a sibling of the current directory.
-*   `ud` changes into an indexed ancestor of a directory.
+*   `bd()` changes into a named ancestor of the current directory.
+*   `fnl()` runs a command and save its output and error into temporary files.
+*   `hgrep()` searches `$HISTFILE`.
+*   `keep()` stores ad-hoc shell functions and variables.
+*   `mkcd()` creates a directory and changes into it.
+*   `path()` manages the contents of `PATH` conveniently.
+*   `pd()` changes to the argument's parent directory.
+*   `readv()` prints names and values from `read` calls to `stderr`.
+*   `readz()` is an alias for `read -d '' -r`.
+*   `scr()` creates a temporary directory and changes into it.
+*   `sd()` changes into a sibling of the current directory.
+*   `ud()` changes into an indexed ancestor of a directory.
 
 I also wrap a few command calls with functions to stop me from doing silly
 things that the commands themselves don't catch. My favourite is the one that
