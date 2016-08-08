@@ -204,6 +204,12 @@ things that the commands themselves don't catch. My favourite is the one that
 stops me from calling `scp(1)` with no colon in either argument. I also do
 things like give default arguments to `pwgen(1)`.
 
+#### pdksh
+
+The pdksh configuration files and functions are not nearly as featureful as the
+Bash ones. At the time of writing, these have only been tested on OpenBSD's
+pdksh fork, since that's the only reason I use it.
+
 ### GnuPG
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
