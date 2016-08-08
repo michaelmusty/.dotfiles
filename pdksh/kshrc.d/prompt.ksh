@@ -77,7 +77,7 @@ prompt() {
             PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
             PS2='> '
             PS3='? '
-            PS4='+<$?> ${BASH_SOURCE:-$BASH}:$FUNCNAME:$LINENO:'
+            PS4='+<$?> $LINENO:'
             ;;
 
         # Revert to simple inexpensive prompts
