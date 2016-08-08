@@ -106,7 +106,7 @@ prompt() {
 
         # Print error
         *)
-            printf '%s: Unknown command %s\n' "$FUNCNAME" "$1" >&2
+            printf 'prompt: Unknown command %s\n' "$1" >&2
             return 2
             ;;
 
