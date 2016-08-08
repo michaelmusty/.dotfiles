@@ -15,9 +15,6 @@ prompt() {
             # Declare the PROMPT_RETURN variable as an integer
             declare -i PROMPT_RETURN
 
-            # Set up pre-prompt command
-            PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
-
             # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
             # variables
             PS1='[\u@\h:\w]'
@@ -82,7 +79,7 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v PROMPT_COMMAND PROMPT_RETURN
+            unset -v PROMPT_RETURN
             PS1='\$ '
             PS2='> '
             PS3='? '
