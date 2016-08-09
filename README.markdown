@@ -146,8 +146,8 @@ A terminal session with my prompt looks something like this:
 It expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show whether
-    there are local modifications at a glance; Subversion and Mercurial support
-    can also be enabled
+    there are local modifications at a glance; Subversion support can also be
+    enabled (I need it at work)
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
