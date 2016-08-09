@@ -39,7 +39,7 @@ prompt() {
                 # Check if we have non-bold bright green available
                 256)
                     format=$( {
-                        : "${PROMPT_COLOR:=27}"
+                        : "${PROMPT_COLOR:=12}"
                         tput AF "$PROMPT_COLOR" ||
                         tput setaf "$PROMPT_COLOR" ||
                         tput AF "$PROMPT_COLOR" 0 0  ||
