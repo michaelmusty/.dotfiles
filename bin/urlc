@@ -25,7 +25,6 @@ list=$td/list head=$td/head body=$td/body
 # Iterate through input; ignore leading/trailing whitespace
 # shellcheck disable=SC2002
 cat -- "${@:--}" >"$list"
-ex=0
 while read -r url ; do
 
     # Skip anything that doesn't start with HTTP
@@ -74,4 +73,4 @@ done <"$list"
 wait
 
 # Exit if any errors
-exit "$ex"
+exit "${ex:-0}"

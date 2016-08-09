@@ -1,15 +1,29 @@
 #!/bin/sh
-# Strip an extension from the given files
+# Strip an extension from the given filenames
+
+# Check args
 if [ "$#" -lt 2 ] ; then
     printf >&2 'Need an extension .ext and a filename\n'
     exit 2
 fi
-ex=0 ext=$1
+
+# Extension is first arg, shift it off
+ext=$1
 shift
+
+# Iterate through the given files (remaining args)
 for sn ; do
+
+    # Strip trailing slash if any and then extension
     sn=${sn%/}
     dn=${sn%"$ext"}
+
+    # Ignore this file if its name wouldn't change
     [ "$sn" != "$dn" ] || continue
+
+    # Attempt a rename, flag an error if there was one
     mv -- "$sn" "$dn" || ex=1
 done
-exit "$ex"
+
+# Exit with 1 if there was any failed mv(1) run
+exit "${ex:-0}"

@@ -15,7 +15,7 @@ for sig in EXIT HUP INT TERM ; do
     trap "cleanup $sig" "$sig"
 done
 
-# Who am I? Don't trust the environment $UID to tell me.
+# Don't trust the environment $UID, use id(1) instead
 uid=$(id -u) || exit
 
 # Iterate through the getmailrc.* files in $GETMAIL if defined, or

@@ -1,6 +1,5 @@
 #!/bin/sh
 # Count entries in a given set of directories
-ex=0
 for dir in "${@:-.}" ; do
 
     # Warn if a non-directory was given, flag errors, but continue
@@ -25,4 +24,6 @@ for dir in "${@:-.}" ; do
     # Print number of parameters
     printf '%u\t%s\n' "$#" "$dir"
 done
-exit "$ex"
+
+# Exit non-zero if a non-directory was given as an argument
+exit "${ex:-0}"
