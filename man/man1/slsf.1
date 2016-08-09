@@ -11,8 +11,8 @@ cat ~/.ssh_config |
 .SH DESCRIPTION
 .B slsf
 iterates through the ssh_config(5) files given as its input and prints the
-first non-wildcard hostname on each "Host" line. Most users will probably want
-the sls(1) frontend.
+first name given on each "Host" line, as long as it contains no wildcards. Most
+users will probably want the sls(1) frontend.
 .P
 Within the file, a comment "### nosls" on its own line will exclude all
 following output unless an "### sls" comment is read to resume it again:

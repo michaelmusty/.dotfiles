@@ -62,7 +62,7 @@ Configuration is included for:
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`pdksh(1)`](https://www.cs.mun.ca/~michael/pdksh/) -- public domain fork
+*   [`pdksh(1)`](http://www.cs.mun.ca/~michael/pdksh/) -- public domain fork
     of the Korn shell
 *   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
@@ -146,8 +146,8 @@ A terminal session with my prompt looks something like this:
 It expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show whether
-    there are local modifications at a glance; Subversion and Mercurial support
-    can also be enabled
+    there are local modifications at a glance; Subversion support can also be
+    enabled (I need it at work)
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
