@@ -1,3 +1,6 @@
+# All of this is only known to work on OpenBSD's fork of pdksh
+[[ $(uname -s) == OpenBSD ]] || return
+
 # Frontend to controlling prompt
 prompt() {
 
