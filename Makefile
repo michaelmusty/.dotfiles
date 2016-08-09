@@ -266,6 +266,7 @@ install-subversion :
 	install -pm 0644 -- subversion/config "$(HOME)"/.subversion/config
 
 install-terminfo :
+	command -v tic || exit 0
 	for info in terminfo/*.info ; do \
 		tic -- "$$info" ; \
 	done
