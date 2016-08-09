@@ -13,6 +13,16 @@ cat ~/.ssh_config |
 iterates through the ssh_config(5) files given as its input and prints the
 first non-wildcard hostname on each "Host" line. Most users will probably want
 the sls(1) frontend.
+.P
+Within the file, a comment "### nosls" on its own line will exclude all
+following output unless an "### sls" comment is read to resume it again:
+.P
+    Host wanted1
+    Host wanted2
+    ### nosls
+    Host excluded
+    ### sls
+    Host wanted3
 .SH SEE ALSO
 sls(1), sra(1), sta(1), ssh(1), ssh_config(5)
 .SH AUTHOR
