@@ -1,6 +1,6 @@
 #!/bin/sh
-for ksh in ksh/* ; do
-    [ -f "$ksh" ] || continue
-    ksh -n "$ksh" || exit
+for pdksh in pdksh/* pdksh/pdkshrc.d/* ; do
+    [ -f "$pdksh" ] || continue
+    ksh -n "$pdksh" || exit
 done
-printf 'All ksh(1) scripts parsed successfully.\n'
+printf 'All pdksh scripts parsed successfully.\n'

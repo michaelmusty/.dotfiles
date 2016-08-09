@@ -209,11 +209,11 @@ install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
 
-install-pdksh : test-pdksh
+install-pdksh : test-pdksh install-sh
 	install -m 0755 -d -- \
-		"$(HOME)"/.kshrc.d
-	install -pm 0644 -- pdksh/kshrc "$(HOME)"/.kshrc
-	install -pm 0644 -- pdksh/kshrc.d/* "$(HOME)"/.kshrc.d
+		"$(HOME)"/.pdkshrc.d
+	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
+	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
 
 install-maildir :
 	install -m 0755 -d -- \
