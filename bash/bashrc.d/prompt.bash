@@ -148,43 +148,6 @@ prompt() {
             (IFS= ; printf '(git:%s%s)' "${branch:-unknown}" "${state[*]}")
             ;;
 
-        # Mercurial prompt function
-        hg)
-            # Bail if we have no hg(1)
-            if ! hash hg 2>/dev/null ; then
-                return 1
-            fi
-
-            # Exit if not inside a Mercurial tree
-            local branch
-            if ! branch=$(hg branch 2>/dev/null) ; then
-                return 1
-            fi
-
-            # Safely read status with -0
-            local line
-            local -i modified untracked
-            while IFS= read -rd '' line ; do
-                if [[ $line == '?'* ]] ; then
-                    untracked=1
-                else
-                    modified=1
-                fi
-            done < <(hg status -0 2>/dev/null)
-
-            # Build state array from status output flags
-            local -a state
-            if ((modified)) ; then
-                state[${#state[@]}]='!'
-            fi
-            if ((untracked)) ; then
-                state[${#state[@]}]='?'
-            fi
-
-            # Print the status in brackets with an hg: prefix
-            (IFS= ; printf '(hg:%s%s)' "${branch:-unknown}" "${state[*]}")
-            ;;
-
         # Subversion prompt function
         svn)
             # Bail if we have no svn(1)
