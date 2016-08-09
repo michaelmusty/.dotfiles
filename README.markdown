@@ -62,7 +62,7 @@ Configuration is included for:
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`pdksh(1)`](https://www.cs.mun.ca/~michael/pdksh/) -- public domain fork
+*   [`pdksh(1)`](http://www.cs.mun.ca/~michael/pdksh/) -- public domain fork
     of the Korn shell
 *   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
