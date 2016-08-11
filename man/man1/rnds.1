@@ -15,7 +15,9 @@ read, defaulting to 32. This is intended as a low-quality seed for rndi(1).
 .P
 /dev/urandom is tried first, then /dev/arandom, then /dev/random, before the
 script gives up and emits nothing.
+.P
+If you have OpenSSL, you will almost certainly prefer rand(1ssl).
 .SH SEE ALSO
-rndi(1), rnda(1), rndf(1), rndl(1), rndn(6)
+rndi(1), rnda(1), rndf(1), rndl(1), rand(1ssl), rndn(6)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
