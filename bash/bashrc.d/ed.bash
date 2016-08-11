@@ -10,7 +10,7 @@ ed() {
         # Colon prompt (POSIX)
         set -- -p : "$@"
 
-        # Verbose if availble (not POSIX)
+        # Verbose if available (not POSIX)
         if ed -sv - </dev/null >&0 2>&0 ; then
             set -- -v "$@"
         fi
