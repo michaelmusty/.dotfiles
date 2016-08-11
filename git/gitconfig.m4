@@ -21,6 +21,9 @@
     date = local
     decorate = short
 
+[merge]
+    ff = false
+
 [push]
     default = matching
 

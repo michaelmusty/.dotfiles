@@ -207,8 +207,9 @@ things like give default arguments to `pwgen(1)`.
 #### pdksh
 
 The pdksh configuration files and functions are not nearly as featureful as the
-Bash ones. At the time of writing, these have only been tested on OpenBSD's
-pdksh fork, since that's the only reason I use it.
+Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
+former is the primary system for which I'm maintaining them, and there are some
+feature differences.
 
 ### GnuPG
 

@@ -27,3 +27,4 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
+*   -q is not a standard bc(1) option; need to handle it or remove it
