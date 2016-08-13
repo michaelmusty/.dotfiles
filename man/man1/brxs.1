@@ -1,0 +1,17 @@
+.TH BRXS 1 "August 2016" "Manual page for brxs"
+.SH NAME
+.B brxs
+\- launch "$BROWSER" with the contents of the X clipboard as the sole argument
+.SH SYNOPSIS
+.B brxs
+BROWSER=firefox
+.B brxs
+.SH DESCRIPTION
+.B brxs
+runs br(1) with the contents of the X selection buffer as retrieved by xsel(1)
+as its sole argument. The intent is to have a quick way to fire up the browser
+to look at an URL you have in your clipboard.
+.SH SEE ALSO
+br(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
