@@ -18,6 +18,7 @@ prompt() {
             # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
             # variables
             PS1='[\u@\h:\w]'
+            PS1=$PS1'$(prompt vcs)'
             PS1=$PS1'$(prompt job)'
             PS1='${PROMPT_PREFIX}'$PS1
             PS1=$PS1'${PROMPT_SUFFIX}'
@@ -76,12 +77,60 @@ prompt() {
             PS4='+<$?> $LINENO:'
             ;;
 
+        # Git prompt function
+        git)
+            # Bail if we have no git(1)
+            if ! hash git 2>/dev/null ; then
+                return 1
+            fi
+
+            # Attempt to determine git branch, bail if we can't
+            typeset branch
+            branch=$( {
+                git symbolic-ref --quiet HEAD ||
+                git rev-parse --short HEAD
+            } 2>/dev/null )
+            if [[ ! -n $branch ]] ; then
+                return 1
+            fi
+            branch=${branch##*/}
+
+            typeset state
+            if ! git diff-files --quiet ; then
+                # Two exclamation marks, as that's how you get a literal "!" in
+                # a pdksh PS1
+                state=${state}!!
+            fi
+            if ! git diff-index --cached --quiet HEAD ; then
+                state=${state}+
+            fi
+            if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
+                state=${state}?
+            fi
+            if git rev-parse --verify refs/stash >/dev/null 2>&1 ; then
+                state=${state}^
+            fi
+
+            # Print the status in brackets with a git: prefix
+            printf '(git:%s%s)' "${branch:-unknown}" "$state"
+            ;;
+
         # Revert to simple inexpensive prompts
         off)
             PS1='\$ '
             PS2='> '
             PS3='? '
             PS4='+ '
+            ;;
+
+        # VCS wrapper prompt function; print the first relevant prompt, if any
+        vcs)
+            typeset vcs
+            for vcs in "${PROMPT_VCS[@]:-git}" ; do
+                if prompt "$vcs" ; then
+                    return
+                fi
+            done
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
