@@ -1,14 +1,17 @@
 "exec urxvtcd"
   Mod4 + Return
 
-"exec palemoon"
+"exec br"
   Mod4 + b
 
 "exec dmenu_run -fn 'terminus-iso8860-1-12' -nb '#111111' -nf '#eeeeee' -sb '#285577' -sf '#ffffff'"
   Mod4 + d
 
-"exec gimp"
+"exec brxs"
   Mod4 + g
+
+"exec gimp"
+  Mod4 + i
 
 "exec i3lock --color=#000000 --image ~/.i3/lock.png --nofork"
   Mod4 + slash

@@ -1,5 +1,5 @@
-# Browser within X is Pale Moon
-BROWSER=palemoon
+# Browser within X is Firefox
+BROWSER=firefox
 export BROWSER
 
 # Read X resources

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run $BROWSER with an URL retrieved from X's PRIMARY select
+exec br "$(xsel)"
