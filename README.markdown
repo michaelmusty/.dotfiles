@@ -207,8 +207,9 @@ things like give default arguments to `pwgen(1)`.
 #### pdksh
 
 The pdksh configuration files and functions are not nearly as featureful as the
-Bash ones. At the time of writing, these have only been tested on OpenBSD's
-pdksh fork, since that's the only reason I use it.
+Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
+former is the primary system for which I'm maintaining them, and there are some
+feature differences.
 
 ### GnuPG
 
@@ -325,6 +326,7 @@ Installed by the `install-bin` target:
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
+*   `br(1)` launches $BROWSER.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `clrd(1)` sets up a per-line file read, clearing the screen first.

@@ -10,7 +10,7 @@ ed() {
         # Colon prompt (POSIX)
         set -- -p : "$@"
 
-        # Verbose if available (not POSIX)
+        # Verbose if availble (not POSIX)
         if ed -sv - </dev/null >&0 2>&0 ; then
             set -- -v "$@"
         fi
@@ -18,7 +18,7 @@ ed() {
 
     # Execute the ed(1) call, in a wrapper if appropriate and with the
     # concluded options
-    if [[ -t 0 ]] && hash rlwrap 2>/dev/null ; then
+    if [[ -t 0 ]] && command -v rlwrap >/dev/null ; then
         command rlwrap ed "$@"
     else
         command ed "$@"

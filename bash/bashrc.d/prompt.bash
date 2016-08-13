@@ -112,40 +112,22 @@ prompt() {
             fi
             branch=${branch##*/}
 
-            # Safely read status with -z --porcelain
-            local line
-            local -i ready modified untracked
-            while IFS= read -rd '' line ; do
-                if [[ $line == [MADRCT]* ]] ; then
-                    ready=1
-                fi
-                if [[ $line == ?[MADRCT]* ]] ; then
-                    modified=1
-                fi
-                if [[ $line == '??'* ]] ; then
-                    untracked=1
-                fi
-            done < <(git status -z --porcelain 2>/dev/null)
-
-            # Build state array from status output flags
-            local -a state
-            if ((ready)) ; then
-                state[${#state[@]}]='+'
+            local state
+            if ! git diff-files --quiet ; then
+                state=${state}!
             fi
-            if ((modified)) ; then
-                state[${#state[@]}]='!'
+            if ! git diff-index --cached --quiet HEAD ; then
+                state=${state}+
             fi
-            if ((untracked)) ; then
-                state[${#state[@]}]='?'
+            if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
+                state=${state}?
             fi
-
-            # Add another indicator if we have stashed changes
             if git rev-parse --verify refs/stash >/dev/null 2>&1 ; then
-                state[${#state[@]}]='^'
+                state=${state}^
             fi
 
             # Print the status in brackets with a git: prefix
-            (IFS= ; printf '(git:%s%s)' "${branch:-unknown}" "${state[*]}")
+            printf '(git:%s%s)' "${branch:-unknown}" "$state"
             ;;
 
         # Subversion prompt function

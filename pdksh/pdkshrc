@@ -1,0 +1,14 @@
+# Emacs-style key bindings
+set -o braceexpand
+set -o emacs
+
+# Save history
+HISTFILE=$HOME/.pdksh_history
+HISTSIZE=$((1 << 12))
+
+# Load any supplementary scripts
+for pdkshrc in "$HOME"/.pdkshrc.d/*.pdksh ; do
+    [[ -e $pdkshrc ]] || continue
+    . "$pdkshrc"
+done
+unset -v pdkshrc
