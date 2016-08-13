@@ -97,6 +97,7 @@ prompt() {
             PS4='+ '
             ;;
 
+        # Git prompt function
         git)
             # Bail if we have no git(1)
             if ! hash git 2>/dev/null ; then
@@ -114,6 +115,7 @@ prompt() {
             fi
             branch=${branch##*/}
 
+            # Collect symbols representing repository state
             local state
             if ! git diff-files --quiet ; then
                 state=${state}!
