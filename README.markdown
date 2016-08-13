@@ -326,6 +326,7 @@ Installed by the `install-bin` target:
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
+*   `br(1)` launches $BROWSER.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `clrd(1)` sets up a per-line file read, clearing the screen first.
