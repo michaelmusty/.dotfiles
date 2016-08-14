@@ -298,7 +298,7 @@ Installed by the `install-bin` target:
         output.
     *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints
         the hostname if the command returns zero.
-*   Three URL-related shortcut scripts:
+*   Five URL-related shortcut scripts:
     *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; it requires
         [pup](https://github.com/ericchiang/pup).
@@ -307,6 +307,10 @@ Installed by the `install-bin` target:
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`.
+    *   `urlh(1)` prints the values for a given HTTP header from a HEAD
+        response.
+    *   `urlmt(1)` prints the MIME type from the `Content-Type` header as
+        retrieved by `urlh(1)`.
 *   Three RFC-related shortcut scripts:
     *   `rfcf(1)` fetches ASCII RFCs from the IETF website.
     *   `rfct(1)` formats ASCII RFCs.

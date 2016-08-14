@@ -1,0 +1,27 @@
+#!/bin/sh
+# Get values for HTTP headers for the given URL
+
+# Check arguments
+if [ "$#" -ne 2 ] ; then
+    printf 'urlt: Need an URL and a header name\n'
+    exit 2
+fi
+url=$1 header=$2
+
+# Run cURL header request
+curl -I -- "$url" |
+
+# Unfold the headers
+unf | 
+
+# Use awk to find any values for the header case-insensitively
+awk -v header="$header" '
+BEGIN {
+    FS=": *"
+    header = tolower(header)
+}
+tolower($1) == header {
+    sub(/^[^ ]*: */, "")
+    print
+}
+'
