@@ -7,7 +7,7 @@
 "exec dmenu_run"
   Mod4 + d
 
-"exec brxs"
+"exec xgoc"
   Mod4 + g
 
 "exec gimp"
