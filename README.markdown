@@ -133,15 +133,15 @@ defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
 
-    [tom@conan:~/.dotfiles](git:master+!)$ git status
+    tom@conan:~/.dotfiles(git:master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    [tom@conan:~/.dotfiles](git:master+!)$ foobar
+    tom@conan:~/.dotfiles(git:master+!)$ foobar
     foobar: command not found
-    [tom@conan:~/.dotfiles](git:master+!)<127>$ sleep 5 &
+    tom@conan:~/.dotfiles(git:master+!)<127>$ sleep 5 &
     [1] 28937
-    [tom@conan:~/.dotfiles](git:master+!){1}$
+    tom@conan:~/.dotfiles(git:master+!){1}$
 
 It expands based on context to include these elements in this order:
 

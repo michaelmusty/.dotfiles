@@ -24,7 +24,7 @@ prompt() {
             fi
 
             # Basic prompt shape
-            PS1='[\u@\h:\w]'
+            PS1='\u@\h:\w'
 
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
