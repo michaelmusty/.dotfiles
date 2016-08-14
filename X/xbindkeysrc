@@ -13,6 +13,9 @@
 "exec gimp"
   Mod4 + i
 
+"exec dmp"
+  Mod4 + p
+
 "exec i3lock --color=#000000 --image ~/.i3/lock.png --nofork"
   Mod4 + slash
 
