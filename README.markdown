@@ -133,21 +133,22 @@ defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
 
-    tom@conan:~/.dotfiles(git:master+!)$ git status
+    tom@conan:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@conan:~/.dotfiles(git:master+!)$ foobar
+    tom@conan:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@conan:~/.dotfiles(git:master+!)<127>$ sleep 5 &
+    tom@conan:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@conan:~/.dotfiles(git:master+!){1}$
+    tom@conan:~/.dotfiles(master+!){1}$
 
 It expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show whether
     there are local modifications at a glance; Subversion support can also be
-    enabled (I need it at work)
+    enabled (I need it at work), in which case a `git:` or `svn:` prefix is
+    added appropriately
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
