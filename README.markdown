@@ -322,12 +322,22 @@ Installed by the `install-bin` target:
     *   `rnda(1)` uses `rndi(1)` to choose a random argument.
     *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory.
     *   `rndl(1)` uses `rndi(1)` to choose a random line from files.
-*   Two file formatting scripts:
+*   Four file formatting scripts:
     *   `d2u(1)` converts DOS line endings in files to UNIX ones.
     *   `u2d(1)` converts UNIX line endings in files to DOS ones.
-*   Two stream formatting scripts:
+    *   `stbl(1)` strips a trailing blank line from the files in its arguments.
+    *   `stws(1)` strips trailing spaces from the ends of lines of the files in
+        its arguments.
+*   Five stream formatting scripts:
     *   `sd2u(1)` converts DOS line endings in streams to UNIX ones.
     *   `su2d(1)` converts UNIX line endings in streams to DOS ones.
+    *   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
+        shortcut.
+    *   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
+        lines, and color them if you want.
+    *   `unf(1)` joins lines with leading spaces to the previous line. Intended
+        for unfolding HTTP headers, but it should work for most RFC 822
+        formats.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
@@ -375,24 +385,15 @@ Installed by the `install-bin` target:
 *   `rmrej(1)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
-*   `stbl(1)` strips a trailing blank line from the files in its arguments.
 *   `stex(1)` strips extensions from filenames.
-*   `stws(1)` strips trailing spaces from the ends of lines of the files in its
-    arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
 *   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
-*   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
-    shortcut.
-*   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
-    lines, and color them if you want.
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
-*   `unf(1)` joins lines with leading spaces to the previous line. Intended for
-    unfolding HTTP headers, but it should work for most RFC 822 formats.
 
 There's some silly stuff in `install-games`:
 
