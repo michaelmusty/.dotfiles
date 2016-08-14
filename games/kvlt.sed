@@ -8,6 +8,9 @@ y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 s/^/~/
 s/$/~/
 
+# All numbers become 666
+s,[0-9][0-9]*,666,g
+
 # Various words for KVLT
 s,\([^A-Z]\)ASSOCIATION\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)BUSINESS\([^A-Z]\),\1KVLT\2,g
@@ -65,9 +68,6 @@ s,\([^A-Z]\)AND\([^A-Z]\),\1VND\2,g
 
 # TRUE -> TRV
 s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
-
-# All numbers become 666
-s,[0-9][0-9]*,666,g
 
 # Remove the padding established above
 s/^~//
