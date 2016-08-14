@@ -349,6 +349,7 @@ Installed by the `install-bin` target:
 *   `cf(1)` prints a count of entries in a given directory.
 *   `clrd(1)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1)` sets up a per-line file write, clearing the screen before each line
+*   `dmp(1)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
