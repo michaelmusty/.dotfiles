@@ -60,10 +60,12 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/unf git/gitconfig gnupg/gpg.conf
+all : bin/sd2u bin/su2d bin/unf git/gitconfig gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
+		bin/sd2u \
+		bin/su2d \
 		bin/unf \
 		games/acq \
 		games/kvlt \
@@ -73,6 +75,14 @@ clean distclean :
 		man/man7/dotfiles.7 \
 		mutt/muttrc \
 		tmux/tmux.conf
+
+bin/sd2u : bin/sd2u.sed
+	bin/shb bin/sd2u.sed sed -f > "$@"
+	chmod +x "$@"
+
+bin/su2d : bin/su2d.sed
+	bin/shb bin/su2d.sed sed -f > "$@"
+	chmod +x "$@"
 
 bin/unf : bin/unf.sed
 	bin/shb bin/unf.sed sed -f > "$@"
@@ -150,7 +160,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/unf test-bin install-bin-man
+install-bin : bin/sd2u bin/su2d bin/unf test-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	install -m 0755 -- bin/* "$(HOME)"/.local/bin
 

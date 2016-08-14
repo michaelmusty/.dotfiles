@@ -1,0 +1,21 @@
+.TH SD2U 1 "August 2016" "Manual page for sd2u"
+.SH NAME
+.B sd2u
+\- change text stream from DOS to UNIX format
+.SH USAGE
+.B sd2u
+FILE1 [FILE2 ...]
+.br
+.B sd2u
+< FILE
+.br
+program |
+.B sd2u
+.B sd2u
+.SH DESCRIPTION
+Applies sed(1) to change DOS \\r\\n (CRLF) line endings to UNIX \\n line
+endings. Lines already in UNIX format should be unchanged.
+.SH SEE ALSO
+sed(1), su2d(1), d2u(1), u2d(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

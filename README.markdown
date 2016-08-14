@@ -325,6 +325,9 @@ Installed by the `install-bin` target:
 *   Two file formatting scripts:
     *   `d2u(1)` converts DOS line endings in files to UNIX ones.
     *   `u2d(1)` converts UNIX line endings in files to DOS ones.
+*   Two stream formatting scripts:
+    *   `sd2u(1)` converts DOS line endings in streams to UNIX ones.
+    *   `su2d(1)` converts UNIX line endings in streams to DOS ones.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
