@@ -25,7 +25,7 @@
     ff = false
 
 [push]
-    default = matching
+    default = current
 
 [sendemail]
     confirm = compose
