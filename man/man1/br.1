@@ -12,10 +12,14 @@ BROWSER=firefox
 .B br
 .SH DESCRIPTION
 .B br
-execs the program in the $BROWSER environment variable. That's it. It was
-written so the browser could safely be launched from xbindkeys(1) and similar
-programs.
+run with no arguments just execs the program in the $BROWSER environment
+variable. If given a single URL, it tries to get its MIME type from a HEAD
+request and matches on the URL and/or the MIME type to see if any more suitable
+programs could open it. Otherwise, it falls back on $BROWSER.
+.P
+At the time of writing, it tries to load image types with feh(1), and YouTube
+URLs without a start time with mpv(1).
 .SH SEE ALSO
-brxs(1)
+brxs(1), urlh(1), urlmt(1), feh(1), mpv(1)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

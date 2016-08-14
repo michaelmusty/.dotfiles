@@ -1,3 +1,24 @@
 #!/bin/sh
-# Launch $BROWSER
+# Probably launch $BROWSER, but try a few shortcuts first
+
+# Get the URL and its MIME type
+url=$1
+mt=$(urlmt "$url")
+
+# If the MIME type is an image, load it in feh(1)
+case $mt in
+    image/*)
+        curl -- "$url" | feh - && exit
+        ;;
+esac
+
+# If it's a YouTube video without a given start time, load it in mpv(1)
+case $url in
+    *youtube.com/watch*[?\&]t=) ;;
+    *youtube.com/watch*)
+        mpv -- "$url" && exit
+        ;;
+esac
+
+# Otherwise, just ask $BROWSER to handle it
 exec "$BROWSER" "$@"
