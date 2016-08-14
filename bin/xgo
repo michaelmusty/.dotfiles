@@ -1,0 +1,33 @@
+#!/bin/sh
+# Test and open a clipboard URL with an apt program
+
+# Check arguments
+if [ "$#" -eq 0 ] ; then
+    printf 2>&1 'xgo: At least one URL required\n'
+fi
+
+# Iterate over the URL arguments
+for url ; do (
+
+    # If it's a YouTube video without a given start time, load it in mpv(1)
+    case $url in
+        *youtube.com/watch*[?\&]t=) ;;
+        *youtube.com/watch*)
+            mpv -- "$url" && continue
+            ;;
+    esac
+
+    # If the MIME type is an image, load it in feh(1)
+    case $mt in
+        image/gif) ;;
+        image/*)
+            curl -- "$url" | feh - && continue
+            ;;
+    esac
+
+    # Get the MIME type data
+    mt=$(urlmt "$url")
+
+    # Otherwise, just pass it to br(1)
+    br "$url"
+) & done

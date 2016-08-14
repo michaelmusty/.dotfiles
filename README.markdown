@@ -298,7 +298,7 @@ Installed by the `install-bin` target:
         output.
     *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints
         the hostname if the command returns zero.
-*   Three URL-related shorcut scripts:
+*   Five URL-related shortcut scripts:
     *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; it requires
         [pup](https://github.com/ericchiang/pup).
@@ -307,6 +307,10 @@ Installed by the `install-bin` target:
     *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`.
+    *   `urlh(1)` prints the values for a given HTTP header from a HEAD
+        response.
+    *   `urlmt(1)` prints the MIME type from the `Content-Type` header as
+        retrieved by `urlh(1)`.
 *   Three RFC-related shortcut scripts:
     *   `rfcf(1)` fetches ASCII RFCs from the IETF website.
     *   `rfct(1)` formats ASCII RFCs.
@@ -318,19 +322,34 @@ Installed by the `install-bin` target:
     *   `rnda(1)` uses `rndi(1)` to choose a random argument.
     *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory.
     *   `rndl(1)` uses `rndi(1)` to choose a random line from files.
-*   Two file formatting scripts:
+*   Four file formatting scripts:
     *   `d2u(1)` converts DOS line endings in files to UNIX ones.
     *   `u2d(1)` converts UNIX line endings in files to DOS ones.
+    *   `stbl(1)` strips a trailing blank line from the files in its arguments.
+    *   `stws(1)` strips trailing spaces from the ends of lines of the files in
+        its arguments.
+*   Five stream formatting scripts:
+    *   `sd2u(1)` converts DOS line endings in streams to UNIX ones.
+    *   `su2d(1)` converts UNIX line endings in streams to DOS ones.
+    *   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
+        shortcut.
+    *   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
+        lines, and color them if you want.
+    *   `unf(1)` joins lines with leading spaces to the previous line. Intended
+        for unfolding HTTP headers, but it should work for most RFC 822
+        formats.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
-*   `br(1)` launches $BROWSER.
+*   `br(1)` launches $BROWSER, or a more suitable application for an URL if it
+    knows of one.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `clrd(1)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1)` sets up a per-line file write, clearing the screen before each line
+*   `dmp(1)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
 *   `dub(1)` lists the biggest entries in a directory.
 *   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
@@ -367,19 +386,12 @@ Installed by the `install-bin` target:
 *   `rmrej(1)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
-*   `stbl(1)` strips a trailing blank line from the files in its arguments.
 *   `stex(1)` strips extensions from filenames.
-*   `stws(1)` strips trailing spaces from the ends of lines of the files in its
-    arguments.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
 *   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
-*   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
-    shortcut.
-*   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
-    lines, and color them if you want.
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
