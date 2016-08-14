@@ -124,7 +124,7 @@ prompt() {
                 state=${state}+
             fi
             if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
-                state=${state}?
+                state=${state}\?
             fi
             if git rev-parse --quiet --verify refs/stash >/dev/null ; then
                 state=${state}^
