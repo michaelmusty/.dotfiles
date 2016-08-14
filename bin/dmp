@@ -13,10 +13,7 @@ pw=$(
     # Sort them
     sort |
     # Strip the leading directory and the trailing .gpg
-    sed '
-s_^\./__
-s_\.gpg$__
-    ' |
+    sed 's_^\./__;s_\.gpg$__' |
     # Use dmenu(1) to prompt the user to select one
     dmenu
 ) || exit
