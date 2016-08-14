@@ -383,6 +383,8 @@ Installed by the `install-bin` target:
 *   `try(1)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
+*   `unf(1)` joins lines with leading spaces to the previous line. Intended for
+    unfolding HTTP headers, but it should work for most RFC 822 formats.
 
 There's some silly stuff in `install-games`:
 
