@@ -308,24 +308,11 @@ install-gvim-config :
 	install -pm 0644 -- vim/gvimrc "$(HOME)"/.gvimrc
 
 install-vim-plugins : install-vim-config
-	install -m 0755 -d -- "$(HOME)"/.vim/bundle
-	find vim/bundle -name .git -prune -o \
-		\( -type d -print \) | \
-			while IFS= read -r dir ; do \
-				install -m 0755 -d -- \
-					"$$dir" "$(HOME)"/.vim/"$${dir#vim/}" ; \
-			done
-	find vim/bundle -name .git -prune -o \
-		\( -type f ! -name '.git*' -print \) | \
-			while IFS= read -r file ; do \
-				install -pm 0644 -- \
-					"$$file" "$(HOME)"/.vim/"$${file#vim/}" ; \
-			done
-	for dir in vim/after/* ; do \
-		install -m 0755 -d -- "$(HOME)"/.vim/after/"$${dir##*/}" ; \
-		install -pm 0644 -- "$$dir"/* \
-			"$(HOME)"/.vim/after/"$${dir##*/}" ; \
-	done
+	find vim/after vim/bundle -name .git -prune -o \
+		-type d -exec sh -c 'install -m 0755 -d -- \
+			"$(HOME)"/.vim/"$${1#vim/}"' _ {} \; -o \
+		-type f -exec sh -c 'install -m 0644 -- \
+			"$$1" "$(HOME)"/.vim/"$${1#vim/}"' _ {} \;
 
 install-vim-pathogen : install-vim-plugins
 	install -m 0755 -d -- "$(HOME)"/.vim/autoload
