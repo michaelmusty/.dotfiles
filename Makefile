@@ -162,7 +162,12 @@ install-bash-completion : install-bash
 
 install-bin : bin/sd2u bin/su2d bin/unf test-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
-	install -m 0755 -- bin/* "$(HOME)"/.local/bin
+	for name in bin/* ; do \
+		case $$name in \
+			*.sed) ;; \
+			*) install -m 0755 -- "$$name" "$(HOME)"/.local/bin ;; \
+		esac \
+	done
 
 install-bin-man :
 	install -m 0755 -d -- \
