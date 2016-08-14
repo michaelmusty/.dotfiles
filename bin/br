@@ -7,6 +7,7 @@ mt=$(urlmt "$url")
 
 # If the MIME type is an image, load it in feh(1)
 case $mt in
+    image/gif) ;;
     image/*)
         curl -- "$url" | feh - && exit
         ;;
