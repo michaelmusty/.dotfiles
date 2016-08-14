@@ -19,7 +19,7 @@ s_\.gpg$__
     ' |
     # Use dmenu(1) to prompt the user to select one
     dmenu
-)
+) || exit
 
 # Bail if we don't have a password
 [ -n "$pw" ] || exit
