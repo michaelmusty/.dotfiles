@@ -18,20 +18,22 @@ prompt() {
             # Set up pre-prompt command
             PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
 
-            # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
-            # variables
-            PS1='[\u@\h:\w]'
-            PS1=$PS1'$(prompt vcs)'
-            PS1=$PS1'$(prompt job)'
-            PS1=$PS1'$(prompt ret)'
-            PS1='${PROMPT_PREFIX}'$PS1
-            PS1=$PS1'${PROMPT_SUFFIX}'
-            PS1=$PS1'\$'
-
             # If Bash 4.0 is available, trim very long paths in prompt
             if ((BASH_VERSINFO[0] >= 4)) ; then
                 PROMPT_DIRTRIM=4
             fi
+
+            # Basic prompt shape
+            PS1='[\u@\h:\w]'
+
+            # Add sub-commands; VCS, job, and return status checks
+            PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
+
+            # Add prefix and suffix
+            PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
+
+            # Add terminating "$" or "#" sign
+            PS1=$PS1'\$'
 
             # Count available colors
             local -i colors
@@ -95,6 +97,7 @@ prompt() {
             PS4='+ '
             ;;
 
+        # Git prompt function
         git)
             # Bail if we have no git(1)
             if ! hash git 2>/dev/null ; then
@@ -112,6 +115,7 @@ prompt() {
             fi
             branch=${branch##*/}
 
+            # Collect symbols representing repository state
             local state
             if ! git diff-files --quiet ; then
                 state=${state}!
@@ -120,9 +124,9 @@ prompt() {
                 state=${state}+
             fi
             if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
-                state=${state}?
+                state=${state}\?
             fi
-            if git rev-parse --verify refs/stash >/dev/null 2>&1 ; then
+            if git rev-parse --quiet --verify refs/stash >/dev/null ; then
                 state=${state}^
             fi
 
