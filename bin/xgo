@@ -11,8 +11,8 @@ for url ; do (
 
     # If it's a YouTube video without a given start time, load it in mpv(1)
     case $url in
-        *youtube.com/watch*[?\&]t=) ;;
-        *youtube.com/watch*)
+        *[/.]youtube.com/watch*[?\&]t=) ;;
+        *[/.]youtube.com/watch*)
             mpv -- "$url" && continue
             ;;
     esac
