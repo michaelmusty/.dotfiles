@@ -163,10 +163,8 @@ install-bash-completion : install-bash
 install-bin : bin/sd2u bin/su2d bin/unf test-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
-		case $$name in \
-			*.sed) ;; \
-			*) install -m 0755 -- "$$name" "$(HOME)"/.local/bin ;; \
-		esac \
+		[ -x "$$name" ] || continue ; \
+		install -m 0755 -- "$$name" "$(HOME)"/.local/bin ; \
 	done
 
 install-bin-man :
@@ -197,11 +195,9 @@ install-finger :
 
 install-games : games/acq games/kvlt games/zs test-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
-	for game in games/* ; do \
-		case $$game in \
-			*.sed) ;; \
-			*) install -m 0755 -- "$$game" "$(HOME)"/.local/games ;; \
-		esac \
+	for name in games/* ; do \
+		[ -x "$$name" ] || continue ; \
+		install -m 0755 -- "$$name" "$(HOME)"/.local/games ; \
 	done
 
 install-games-man :
