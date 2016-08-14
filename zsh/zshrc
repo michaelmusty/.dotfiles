@@ -1,1 +1,8 @@
-exec bash
+# Emacs keybindings even if EDITOR is vi(1)
+bindkey -e
+
+# History settings
+setopt histignorealldups sharehistory
+HISTSIZE=$((1 << 12))
+SAVEHIST=$((1 << 24))
+HISTFILE=$HOME/.zsh_history
