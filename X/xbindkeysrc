@@ -4,7 +4,7 @@
 "exec br"
   Mod4 + b
 
-"exec dmenu_run -fn 'terminus-iso8860-1-12' -nb '#111111' -nf '#eeeeee' -sb '#285577' -sf '#ffffff'"
+"exec dmenu_run"
   Mod4 + d
 
 "exec brxs"
