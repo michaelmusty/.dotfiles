@@ -7,7 +7,7 @@ pwsd=${pwsd%/}
 
 # Get the password; get all the names from find(1)
 pw=$(
-    cd "$pwsd" || exit
+    cd -- "$pwsd" || exit
     # Get all the names from find(1)
     find ./ -name \*.gpg |
     # Sort them
