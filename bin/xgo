@@ -17,6 +17,9 @@ for url ; do (
             ;;
     esac
 
+    # Get the MIME type data
+    mt=$(urlmt "$url")
+
     # If the MIME type is an image, load it in feh(1)
     case $mt in
         image/gif) ;;
@@ -24,9 +27,6 @@ for url ; do (
             curl -- "$url" | feh - && exit
             ;;
     esac
-
-    # Get the MIME type data
-    mt=$(urlmt "$url")
 
     # Otherwise, just pass it to br(1)
     br "$url"
