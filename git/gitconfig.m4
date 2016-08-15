@@ -1,5 +1,7 @@
 [advice]
     statusHints = false
+    detachedHead = false
+    pushUpdateRejected = false
 
 [alias]
     others = ls-files --others --exclude-standard
