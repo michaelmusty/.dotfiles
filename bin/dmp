@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Sole optional argument is the password timeout (defaults to 10 seconds)
+timeout_sec=${1:-10}
+
 # Get the password store directory, bail if we can't
 pwsd=${PASSWORD_STORE_DIR:-$HOME/.password-store}
 pwsd=${pwsd%/}
@@ -23,4 +26,4 @@ pw=$(
 [ -n "$pw" ] || exit
 
 # Pump the password into the clipboard xsel(2); allow 10 seconds
-pass show "$pw" | xsel -ibt 10000
+pass show "$pw" | xsel -ibt "$((timeout_sec * 1000))"
