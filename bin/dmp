@@ -6,6 +6,7 @@ pwsd=${pwsd%/}
 [ -n "$pwsd" ] || exit
 
 # Get the password; get all the names from find(1)
+# shellcheck disable=SC2016
 pw=$(
     cd -- "$pwsd" || exit
     # Get all the names from find(1)
