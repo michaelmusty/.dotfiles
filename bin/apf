@@ -4,8 +4,7 @@ self=apf
 
 # Require at least two arguments, give usage otherwise
 if (($# < 2)) ; then
-    printf '%s: usage: %s ARGFILE COMMAND [ARGS...]\n' \
-        "$self" "$self" >&2
+    printf >&2 '%s: Need an arguments file and a command\n' "$self"
     exit 2
 fi
 
