@@ -6,7 +6,7 @@ self=han
 [ -n "$BASH_VERSINFO" ] || exit
 
 # Figure out the options with which we can call help; Bash >=4.0 has an -m
-# option which prints the help output in a man-page like format.
+# option which prints the help output in a man-page like format
 declare -a helpopts
 if ((BASH_VERSINFO[0] >= 4)) ; then
     helpopts=(-m)
@@ -22,12 +22,12 @@ trap cleanup EXIT
 td=$(mktd "$self") || exit
 
 # If we have exactly one argument and a call to the help builtin with that
-# argument succeeds, display its output with `pager -s`.
+# argument succeeds, display its output with `pager -s`
 if (($# == 1)) &&
    help "${helpopts[@]}" "$1" >"$td"/"$1".help 2>/dev/null ; then
     (cd -- "$td" && "$PAGER" -s -- "$1".help)
 
-# Otherwise, just pass all the arguments to man(1).
+# Otherwise, just pass all the arguments to man(1)
 else
     man "$@"
 fi
