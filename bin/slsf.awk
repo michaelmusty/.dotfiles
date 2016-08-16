@@ -1,4 +1,3 @@
-#!/usr/bin/awk -f
 # Print the first non-glob "Host" name from each line of ssh_config(5) files
 
 # Manage the processing flag (starts set in each file)

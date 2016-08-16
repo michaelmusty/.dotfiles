@@ -55,14 +55,17 @@
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .sed
+.SUFFIXES: .awk .sed
 
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/sd2u \
+all : bin/rfct \
+	bin/rndi \
+	bin/sd2u \
+	bin/slsf \
 	bin/su2d \
 	bin/unf \
 	git/gitconfig \
@@ -70,7 +73,10 @@ all : bin/sd2u \
 
 clean distclean :
 	rm -f \
+		bin/rfct \
+		bin/rndi \
 		bin/sd2u \
+		bin/slsf \
 		bin/su2d \
 		bin/unf \
 		games/acq \
@@ -108,6 +114,10 @@ TMUX_COLOR := colour237
 tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
+
+.awk :
+	bin/shb "$<" awk -f > "$@"
+	chmod +x "$@"
 
 .sed :
 	bin/shb "$<" sed -f > "$@"

@@ -1,4 +1,7 @@
+bin/rfct
+bin/rndi
 bin/sd2u
+bin/slsf
 bin/su2d
 bin/unf
 games/acq

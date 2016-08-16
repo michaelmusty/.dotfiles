@@ -1,4 +1,3 @@
-#!/usr/bin/awk -f
 
 # A record is a paragraph
 BEGIN {
