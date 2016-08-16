@@ -12,18 +12,20 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
     helpopts=(-m)
 fi
 
-# Create a temporary file and set up a trap to get rid of it.
-tmpdir=$(mktemp -dt "$self".XXXXXX) || exit
+# Create a temporary directory with name in $td, and a trap to remove it when
+# the script exits
+td=
 cleanup() {
-    rm -fr -- "$tmpdir"
+    [[ -n "$td" ]] && rm -fr -- "$td"
 }
 trap cleanup EXIT
+td=$(mktd "$self") || exit
 
 # If we have exactly one argument and a call to the help builtin with that
 # argument succeeds, display its output with `pager -s`.
 if (($# == 1)) &&
-   help "${helpopts[@]}" "$1" >"$tmpdir"/"$1".help 2>/dev/null ; then
-    (cd -- "$tmpdir" && pager -s -- "$1".help)
+   help "${helpopts[@]}" "$1" >"$td"/"$1".help 2>/dev/null ; then
+    (cd -- "$td" && "$PAGER" -s -- "$1".help)
 
 # Otherwise, just pass all the arguments to man(1).
 else
