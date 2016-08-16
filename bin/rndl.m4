@@ -1,5 +1,6 @@
 #!/bin/sh
 # Print a random line from input
+self=rndl
 
 # If there are no arguments, we're checking stdin; this is more complicated
 # than checking file arguments because we have to count the lines in order to
