@@ -27,3 +27,8 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
+*   Stepping into .git directories breaks the prompt functions:
+
+        tom@REDACTED:REDACTED(git:master!?)$ cd .git
+        fatal: This operation must be run in a work tree
+        fatal: This operation must be run in a work tree
