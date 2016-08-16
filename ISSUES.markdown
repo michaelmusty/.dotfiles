@@ -27,3 +27,5 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
+*   Separate Makefiles in subdirectories (particularly bin) might be a good way
+    to control the burgeoning root Makefile.
