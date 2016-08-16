@@ -55,6 +55,8 @@
 	lint-sh \
 	lint-urxvt
 
+.SUFFIXES: .m4 .sed
+
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
@@ -88,48 +90,6 @@ clean distclean :
 		mutt/muttrc \
 		tmux/tmux.conf
 
-# shell scripts that need a templated trap to remove a temporary directory
-bin/rndl : bin/rndl.m4 include/mktd.trap.sh
-	m4 bin/rndl.m4 > "$@"
-	chmod +x "$@"
-
-bin/tlcs : bin/tlcs.m4 include/mktd.trap.sh
-	m4 bin/tlcs.m4 > "$@"
-	chmod +x "$@"
-
-bin/try : bin/try.m4 include/mktd.trap.sh
-	m4 bin/try.m4 > "$@"
-	chmod +x "$@"
-
-bin/urlc : bin/urlc.m4 include/mktd.trap.sh
-	m4 bin/urlc.m4 > "$@"
-	chmod +x "$@"
-
-# sed scripts that need a pathed shebang
-bin/sd2u : bin/sd2u.sed
-	bin/shb bin/sd2u.sed sed -f > "$@"
-	chmod +x "$@"
-
-bin/su2d : bin/su2d.sed
-	bin/shb bin/su2d.sed sed -f > "$@"
-	chmod +x "$@"
-
-bin/unf : bin/unf.sed
-	bin/shb bin/unf.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/acq : games/acq.sed
-	bin/shb games/acq.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/kvlt : games/kvlt.sed
-	bin/shb games/kvlt.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/zs : games/zs.sed
-	bin/shb games/zs.sed sed -f > "$@"
-	chmod +x "$@"
-
 git/gitconfig : git/gitconfig.m4
 	m4 \
 		-D DOTFILES_NAME="$(NAME)" \
@@ -156,6 +116,16 @@ TMUX_COLOR := colour237
 tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
+
+# shell scripts that need a templated trap to remove a temporary directory
+.m4 :
+	m4 "$<" > "$@"
+	chmod +x "$@"
+
+# sed scripts that need a pathed shebang
+.sed :
+	bin/shb "$<" sed -f > "$@"
+	chmod +x "$@"
 
 install : install-bash \
 	install-bash-completion \
