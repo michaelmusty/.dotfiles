@@ -25,15 +25,20 @@ if ! (($#)) ; then
     exit 2
 fi
 
-# Duplicate stdin into a file, which we'll remove on exit
-stdin=$(mktemp -t "$self".XXXXXX) || exit
+# Create a temporary directory with name in $td, and a trap to remove it when
+# the script exits
+td=
 cleanup() {
-    rm -f -- "$stdin"
+    [[ -n "$td" ]] && rm -fr -- "$td"
 }
 trap cleanup EXIT
-cat > "$stdin"
+td=$(mktd "$self") || exit
+
+# Duplicate stdin into a file
+script=$td/$stdin
+cat >"$script" || exit
 
 # Run ed(1) over each file with the options and stdin given
 for file ; do
-    ed "${opts[@]}" -- "$file" < "$stdin"
+    ed "${opts[@]}" -- "$file" <"$script"
 done
