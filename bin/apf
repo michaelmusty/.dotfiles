@@ -2,6 +2,9 @@
 # Prepend arguments from a file to a command call
 self=apf
 
+# Give up completely if no BASH_VERSINFO (<2.0)
+[ -n "$BASH_VERSINFO" ] || exit
+
 # Require at least two arguments, give usage otherwise
 if (($# < 2)) ; then
     printf >&2 '%s: Need an arguments file and a command\n' "$self"

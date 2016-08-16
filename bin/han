@@ -3,9 +3,7 @@
 self=han
 
 # Give up completely if no BASH_VERSINFO (<2.0)
-if ! [ -n "$BASH_VERSINFO" ] ; then
-    exit
-fi
+[ -n "$BASH_VERSINFO" ] || exit
 
 # Figure out the options with which we can call help; Bash >=4.0 has an -m
 # option which prints the help output in a man-page like format.
