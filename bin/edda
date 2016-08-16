@@ -35,7 +35,7 @@ trap cleanup EXIT
 td=$(mktd "$self") || exit
 
 # Duplicate stdin into a file
-script=$td/$stdin
+script=$td/script
 cat >"$script" || exit
 
 # Run ed(1) over each file with the options and stdin given
