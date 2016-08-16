@@ -62,25 +62,17 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/rndl \
-	bin/sd2u \
+all : bin/sd2u \
 	bin/su2d \
-	bin/tlcs \
-	bin/try \
 	bin/unf \
-	bin/urlc \
 	git/gitconfig \
 	gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
-		bin/rndl \
 		bin/sd2u \
 		bin/su2d \
-		bin/tlcs \
-		bin/try \
 		bin/unf \
-		bin/urlc \
 		games/acq \
 		games/kvlt \
 		games/zs \
@@ -117,12 +109,6 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
-# shell scripts that need a templated trap to remove a temporary directory
-.m4 :
-	m4 "$<" > "$@"
-	chmod +x "$@"
-
-# sed scripts that need a pathed shebang
 .sed :
 	bin/shb "$<" sed -f > "$@"
 	chmod +x "$@"
