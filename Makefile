@@ -55,7 +55,7 @@
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .m4 .sed
+.SUFFIXES: .sed
 
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
