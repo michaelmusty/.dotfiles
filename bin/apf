@@ -12,21 +12,6 @@ fi
 argfile=$1
 shift
 
-# Check the arguments file makes sense
-if [[ ! -e $argfile ]] ; then
-    printf '%s: %s: No such file or directory\n' \
-        "$self" "$argfile"
-    exit 1
-elif [[ -d $argfile ]] ; then
-    printf '%s: %s: Is a directory\n' \
-        "$self" "$argfile"
-    exit 1
-elif [[ ! -r $argfile ]] ; then
-    printf '%s: %s: Permission denied\n' \
-        "$self" "$argfile"
-    exit 1
-fi
-
 # Read all the null-delimited arguments from the file
 declare -a args
 while IFS= read -rd '' arg ; do
