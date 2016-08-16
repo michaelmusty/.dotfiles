@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Run ed(1) over multiple files, duplicating stdin.
-self=edda
 
 # Give up completely if no BASH_VERSINFO (<2.0)
 [ -n "$BASH_VERSINFO" ] || exit
@@ -15,10 +14,6 @@ if ! (($#)) ; then
     usage >&2
     exit 1
 fi
-
-# Need ed(1) -- some systems daring to call themselves UNIX-like don't have it
-# installed by default. What's POSIX, precious?
-hash ed || exit
 
 # Parse options out, give help if necessary
 declare -a opts
