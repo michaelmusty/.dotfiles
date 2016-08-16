@@ -33,7 +33,7 @@ fi
 
 # Create a new array with the script directory prepended to the given names
 declare -a files
-files=("${@/#/$edspath/}")
+files=("${@/#/"$edspath"/}")
 
 # Collect the names of any scripts that don't exist yet so we can make them
 # executable after we're done editing
