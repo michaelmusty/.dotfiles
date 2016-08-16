@@ -26,23 +26,9 @@ if [ "$#" -eq 0 ] ; then
     exit 2
 fi
 
-# Create a buffer file for the error output, and clean up the file when we exit
-td=
-cleanup() {
-    [ -n "$td" ] && rm -fr -- "$td"
-    if [ "$1" != EXIT ] ; then
-        trap - "$1"
-        kill "-$1" "$$"
-    fi
-}
-for sig in EXIT HUP INT TERM ; do
-    # shellcheck disable=SC2064
-    trap "cleanup $sig" "$sig"
-done
-td=$(mktd "$self") || exit
-errbuff=$td/errbuff
-
+include(`include/mktd.trap.sh')
 # Open a filehandle to the error buffer, just to save on file operations
+errbuff=$td/errbuff
 exec 3>"$errbuff"
 
 # Keep trying the command, writing error output to the buffer file, and exit

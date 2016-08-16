@@ -60,17 +60,25 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/sd2u \
+all : bin/rndl \
+	bin/sd2u \
 	bin/su2d \
+	bin/tlcs \
+	bin/try \
 	bin/unf \
+	bin/urlc \
 	git/gitconfig \
 	gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
+		bin/rndl \
 		bin/sd2u \
 		bin/su2d \
+		bin/tlcs \
+		bin/try \
 		bin/unf \
+		bin/urlc \
 		games/acq \
 		games/kvlt \
 		games/zs \
@@ -80,6 +88,24 @@ clean distclean :
 		mutt/muttrc \
 		tmux/tmux.conf
 
+# shell scripts that need a templated trap to remove a temporary directory
+bin/rndl : bin/rndl.m4 include/mktd.trap.sh
+	m4 bin/rndl.m4 > "$@"
+	chmod +x "$@"
+
+bin/tlcs : bin/tlcs.m4 include/mktd.trap.sh
+	m4 bin/tlcs.m4 > "$@"
+	chmod +x "$@"
+
+bin/try : bin/try.m4 include/mktd.trap.sh
+	m4 bin/try.m4 > "$@"
+	chmod +x "$@"
+
+bin/urlc : bin/urlc.m4 include/mktd.trap.sh
+	m4 bin/urlc.m4 > "$@"
+	chmod +x "$@"
+
+# sed scripts that need a pathed shebang
 bin/sd2u : bin/sd2u.sed
 	bin/shb bin/sd2u.sed sed -f > "$@"
 	chmod +x "$@"

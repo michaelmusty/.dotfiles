@@ -5,21 +5,9 @@ self=urlc
 # cURL request timeout
 tm=${URLCHECK_TIMEOUT:-8}
 
+include(`include/mktd.trap.sh')
 # Create buffer files for the headers and body content, to be cleaned up on
 # exit
-td=
-cleanup() {
-    [ -n "$td" ] && rm -fr -- "$td"
-    if [ "$1" != EXIT ] ; then
-        trap - "$1"
-        kill "-$1" "$$"
-    fi
-}
-for sig in EXIT HUP INT TERM ; do
-    # shellcheck disable=SC2064
-    trap "cleanup $sig" "$sig"
-done
-td=$(mktd "$self") || exit
 list=$td/list head=$td/head body=$td/body
 
 # Iterate through input; ignore leading/trailing whitespace

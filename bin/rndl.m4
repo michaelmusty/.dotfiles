@@ -7,21 +7,7 @@
 # file if we don't want to read all of the input into memory (!)
 if [ "$#" -eq 0 ] ; then
 
-    # Try to create the temporary directory with mktd(1) safely
-    td=
-    cleanup() {
-        [ -n "$td" ] && rm -fr -- "$td"
-        if [ "$1" != EXIT ] ; then
-            trap - "$1"
-            kill "-$1" "$$"
-        fi
-    }
-    for sig in EXIT HUP INT TERM ; do
-        # shellcheck disable=SC2064
-        trap "cleanup $sig" "$sig"
-    done
-    td=$(mktd rndl) || exit
-
+include(`include/mktd.trap.sh')
     # We'll operate on stdin in the temp directory; write the script's stdin to
     # it with cat(1)
     set -- "$td"/stdin

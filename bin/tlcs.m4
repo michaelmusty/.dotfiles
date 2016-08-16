@@ -67,21 +67,7 @@ if [ "$((color_count >= 8))" -eq 1 ] ; then
     fi
 fi
 
-# Temporary directory for the FIFOs
-td=
-cleanup() {
-    [ -n "$td" ] && rm -fr -- "$td"
-    if [ "$1" != EXIT ] ; then
-        trap - "$1"
-        kill "-$1" "$$"
-    fi
-}
-for sig in EXIT HUP INT TERM ; do
-    # shellcheck disable=SC2064
-    trap "cleanup $sig" "$sig"
-done
-td=$(mktd "$self") || exit
-
+include(`include/mktd.trap.sh')
 # Execute the command, passing stdout and stderr to tl(1) calls as appropriate
 # via named pipes
 out=$td/out err=$td/err
