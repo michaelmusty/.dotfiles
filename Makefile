@@ -42,12 +42,12 @@
 	install-wyrd \
 	install-x \
 	install-zsh \
-	test \
-	test-bash \
-	test-bin \
-	test-games \
-	test-sh \
-	test-urxvt \
+	check \
+	check-bash \
+	check-bin \
+	check-games \
+	check-sh \
+	check-urxvt \
 	lint \
 	lint-bash \
 	lint-bin \
@@ -144,7 +144,7 @@ install-abook :
 		"$(HOME)"/.abook
 	install -pm 0644 -- abook/abookrc "$(HOME)"/.abook
 
-install-bash : test-bash
+install-bash : check-bash
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.bashrc.d \
@@ -160,7 +160,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/sd2u bin/su2d bin/unf test-bin install-bin-man
+install-bin : bin/sd2u bin/su2d bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -193,7 +193,7 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/kvlt games/zs test-games install-games-man
+install-games : games/acq games/kvlt games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -225,7 +225,7 @@ install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
 
-install-pdksh : test-pdksh install-sh
+install-pdksh : check-pdksh install-sh
 	install -m 0755 -d -- \
 		"$(HOME)"/.pdkshrc.d
 	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
@@ -272,7 +272,7 @@ install-psql :
 install-readline :
 	install -pm 0644 -- readline/inputrc "$(HOME)"/.inputrc
 
-install-sh : test-sh
+install-sh : check-sh
 	install -m 0755 -d -- "$(HOME)"/.profile.d
 	install -pm 0644 -- sh/profile "$(HOME)"/.profile
 	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
@@ -290,7 +290,7 @@ install-terminfo :
 install-tmux : tmux/tmux.conf
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
-install-urxvt : test-urxvt
+install-urxvt : check-urxvt
 	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
 	install -m 0755 -- urxvt/ext/* "$(HOME)"/.urxvt/ext
 
@@ -337,28 +337,28 @@ install-zsh :
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-test : test-bash test-bin test-games test-man test-sh test-urxvt
+check : check-bash check-bin check-games check-man check-sh check-urxvt
 
-test-bash :
-	test/bash
+check-bash :
+	check/bash
 
-test-bin :
-	test/bin
+check-bin :
+	check/bin
 
-test-games :
-	test/games
+check-games :
+	check/games
 
-test-pdksh :
-	test/pdksh
+check-pdksh :
+	check/pdksh
 
-test-man :
-	test/man
+check-man :
+	check/man
 
-test-sh :
-	test/sh
+check-sh :
+	check/sh
 
-test-urxvt :
-	test/urxvt
+check-urxvt :
+	check/urxvt
 
 lint : lint-bash lint-bin lint-games lint-sh lint-urxvt
 

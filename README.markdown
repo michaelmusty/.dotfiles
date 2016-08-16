@@ -423,9 +423,10 @@ your `/etc/manpath` configuration, depending on your system.
 Testing
 -------
 
-You can test that both sets of shell scripts are syntactically correct with
-`make test-bash`, `make test-sh`, or `make test` for everything including the
-scripts in `bin` and `games`.
+You can check that both sets of shell scripts are syntactically correct with
+`make check-bash`, `make check-sh`, or `make check` for everything including
+the scripts in `bin` and `games`. There's no proper test suite for the actual
+functionality (yet).
 
 If you have [ShellCheck](https://www.shellcheck.net/) and/or
 [Perl::Critic](http://perlcritic.com/), there's a `lint` target for the shell
