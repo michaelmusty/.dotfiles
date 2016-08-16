@@ -60,7 +60,11 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/sd2u bin/su2d bin/unf git/gitconfig gnupg/gpg.conf
+all : bin/sd2u \
+	bin/su2d \
+	bin/unf \
+	git/gitconfig \
+	gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
