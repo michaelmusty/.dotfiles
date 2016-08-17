@@ -1,59 +1,43 @@
-#!/usr/bin/env bash
-
+#!/bin/sh
 # Esoteric random number generator
-# <http://dilbert.com/strip/2001-10-25>
-self=rndn
 
-# Define usage function
-usage() {
-    printf 'USAGE: %s [-h | -s SEED]\n' "$self"
+# Single optional argument is a random seed, otherwise use rnds(1)
+s=${1:-"$(rnds)"}
+
+# Validate s
+case $s in
+    *[!0-9]*)
+        printf >&2 'rndn: Seed must be non-negative integer\n'
+        exit 2
+        ;;
+esac
+
+# Helper functions
+t() {
+    printf %u "$1" | cut -c -"$2"
+}
+l() {
+    printf %u "$1" | wc -c
+}
+c() {
+    printf %u "$1" | cut -c "$2"
 }
 
-# Parse options
-while getopts 'hs:' opt ; do
-    case $opt in
-
-        # -h for help
-        h)
-            usage
-            exit 0
-            ;;
-
-        # -s to set seed manually
-        s)
-            seed=$OPTARG
-            ;;
-
-        # Unknown option, print usage and fail
-        \?)
-            usage >&2
-            exit 2
-            ;;
-    esac
+# Apply algorithm; you are not expected to understand this
+s=$(t "$((s + 10))" 32) i=1 t=0
+while [ "$i" -le "$(l "$s")" ] ; do
+    d=$(c "$s" "$i")
+    t=$((t + d)) i=$((i + 1))
 done
-shift "$((OPTIND-1))"
-
-# If no seed given, get one from Bash's $RANDOM
-: "${seed:=$((RANDOM ** 2))}"
-
-# Truncate the seed
-seed=${seed:0:32}
-
-# Check seed meets algorithm conditions
-if [[ $seed == *[^0-9]* ]] || ((seed < 0)) ; then
-    printf >&2 '%s: error: seed must be non-negative integer\n' "$self"
-    exit 2
-fi
-
-# Apply algorithm
-for ((seed += 10, i = 0; i < ${#seed}; i++)) ; do
-    ((sum += ${seed:i:1}))
-done
-for ((red = seed - sum; ${#red} > 1; red = redn)) ; do
-    for ((j = 0, redn = 0; j < ${#red}; j++)) ; do
-        ((redn += ${red:j:1}))
+p=$((s - t))
+while [ "$(l "$p")" -gt 1 ] ; do
+    j=1 q=0
+    while [ "$j" -le "$(l "$p")" ] ; do
+        d=$(c "$p" "$j")
+        q=$((q + d)) j=$((j + 1))
     done
+    p=$q
 done
 
 # Print result
-printf '%u\n' "$red"
+printf '%u\n' "$p"
