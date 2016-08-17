@@ -18,11 +18,4 @@
             touch -- "$gcd"/"$opt" || exit
         done
     fi
-) || return
-
-# If one of the available options is --color, set the GREP_COLORS environment
-# variable
-if [ -e "$HOME"/.cache/grep/color ] ; then
-    GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
-    export GREP_COLORS
-fi
+)
