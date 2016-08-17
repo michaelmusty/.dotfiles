@@ -3,7 +3,7 @@
 # their own rc files first, which I've written to then look for ~/.shrc; ksh
 # does it the other way around.
 case $KSH_VERSION in
-    *'PD KSH '*)
+    *'PD KSH '*|*'MIRBSD KSH '*)
         [ -f "${KSH_ENV:-"$HOME"/.pdkshrc}" ] || return
         . "${KSH_ENV:-"$HOME"/.pdkshrc}"
         ;;
