@@ -111,7 +111,6 @@ fi
 for sh in "$ENV" \
           "$HOME"/.bashrc.d/*.bash \
           "$HOME"/.bash_completion.d/*.bash ; do
-    [[ -e $sh ]] || continue
-    source "$sh"
+    [[ -e $sh ]] && source "$sh"
 done
 unset -v sh

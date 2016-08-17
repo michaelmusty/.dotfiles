@@ -8,7 +8,6 @@ HISTSIZE=$((1 << 12))
 
 # Load any supplementary scripts
 for pdkshrc in "$HOME"/.pdkshrc.d/*.pdksh ; do
-    [[ -e $pdkshrc ]] || continue
-    . "$pdkshrc"
+    [[ -e $pdkshrc ]] && . "$pdkshrc"
 done
 unset -v pdkshrc
