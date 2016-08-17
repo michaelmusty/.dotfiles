@@ -161,28 +161,6 @@ common terminals using both `termcap(5)` and `terminfo(5)`, including \*BSD
 systems. It's also designed to degrade gracefully for eight-color and no-color
 terminals.
 
-#### Completion
-
-I find the `bash-completion` package a bit too heavy for my tastes, and turn it
-off using a stub file installed in `.config/bash_completion`. The majority of
-the time I just want to complete paths anyway, and this makes for a quicker
-startup without a lot of junk functions in my Bash namespace.
-
-I do make some exceptions with completions defined in `.bash_completion.d`
-files for things I really do get tired of typing repeatedly:
-
-*   Builtins, commands, help topics, shell options, and variables
-*   `ftp(1)` hostnames from `~/.netrc`
-*   `git(1)` branch names
-*   `gpg(1)` long options
-*   `make(1)` targets read from a `Makefile`
-*   `man(1)` page titles
-*   `mysql(1)` databases from `~/.mysql/*.cnf`
-*   `pass(1)` entries
-*   `ssh(1)` hostnames from `~/.ssh/config`
-
-I also add completions for my own scripts and functions where useful.
-
 #### Functions
 
 If a function can be written in POSIX `sh` without too much hackery, I put it
@@ -237,6 +215,28 @@ There are a few other little tricks defined for other shells, mostly in
     a Zsh function I like by the same name.
 *   `vr()` tries to change to the root directory of a source control
     repository.
+
+#### Completion
+
+I find the `bash-completion` package a bit too heavy for my tastes, and turn it
+off using a stub file installed in `.config/bash_completion`. The majority of
+the time I just want to complete paths anyway, and this makes for a quicker
+startup without a lot of junk functions in my Bash namespace.
+
+I do make some exceptions with completions defined in `.bash_completion.d`
+files for things I really do get tired of typing repeatedly:
+
+*   Builtins, commands, help topics, shell options, and variables
+*   `ftp(1)` hostnames from `~/.netrc`
+*   `git(1)` branch names
+*   `gpg(1)` long options
+*   `make(1)` targets read from a `Makefile`
+*   `man(1)` page titles
+*   `mysql(1)` databases from `~/.mysql/*.cnf`
+*   `pass(1)` entries
+*   `ssh(1)` hostnames from `~/.ssh/config`
+
+I also add completions for my own scripts and functions where useful.
 
 #### pdksh
 
