@@ -245,6 +245,11 @@ Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
 former is the primary system for which I'm maintaining them, and there are some
 feature differences.
 
+#### Zsh
+
+These are experimental; I do not like Zsh much at the moment. The files started
+as a joke (`exec bash`).
+
 ### GnuPG
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
