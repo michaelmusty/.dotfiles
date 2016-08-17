@@ -23,7 +23,7 @@ if [[ -d $HOME/.bash_profile.d ]] ; then
     unset -v bash_profile
 fi
 
-# If the shell is interactive, and ~/.bashrc exists, source that too
-case $- in
-    *i*) [[ -f "$HOME"/.bashrc ]] && source "$HOME"/.bashrc ;;
-esac
+# If ~/.bashrc exists, source that too; the test for interactivity is in there
+if [[ -f $HOME/.bashrc ]] ; then
+    source "$HOME"/.bashrc
+fi

@@ -8,6 +8,12 @@ elif ((BASH_VERSINFO[0] == 2)) &&
     return
 fi
 
+# Make sure the shell is interactive
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
+
 # Don't do anything if running a restricted shell
 if shopt -q restricted_shell ; then
     return
