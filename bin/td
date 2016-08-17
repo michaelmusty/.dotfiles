@@ -21,8 +21,8 @@ isgr || git init || exit
 # If the to-do file doesn't exist yet, create it
 [ -e "$file" ] || touch -- "$file" || exit
 
-# Launch $VISUAL (or $EDITOR (or vi(1))) to edit the appropriate to-do file
-"${VISUAL:-"${EDITOR:-vi}"}" "$file"
+# Launch an appropriate editor to edit that file
+"${VISUAL:-"${EDITOR:-ed}"}" "$file"
 
 # Add the file to the changeset
 git add -- "$file"

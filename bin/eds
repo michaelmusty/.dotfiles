@@ -43,8 +43,8 @@ for file in "${files[@]}" ; do
     creations[${#creations[@]}]=$file
 done
 
-# Run the editor; if EDITOR isn't set, use vi(1)
-"${EDITOR:-vi}" "${opts[@]}" -- "${files[@]}"
+# Run the editor; if EDITOR isn't set, use ed(1)
+"${VISUAL:-"${EDITOR:-ed}"}" "${opts[@]}" -- "${files[@]}"
 
 # Make any created scripts executable if they now appear to be files
 for creation in "${creations[@]}" ; do

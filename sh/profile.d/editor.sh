@@ -1,4 +1,3 @@
-# Set editor
-EDITOR=vi
-VISUAL=$EDITOR
-export EDITOR VISUAL
+# Set command-line editor
+EDITOR=ed
+export EDITOR
