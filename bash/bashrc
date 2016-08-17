@@ -8,11 +8,6 @@ elif ((BASH_VERSINFO[0] == 2)) &&
     return
 fi
 
-# Don't do anything if not running interactively
-if [[ $- != *i* ]] ; then
-    return
-fi
-
 # Don't do anything if running a restricted shell
 if shopt -q restricted_shell ; then
     return

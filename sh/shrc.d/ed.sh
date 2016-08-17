@@ -5,7 +5,7 @@
 ed() {
 
     # We're only adding options if input is from a terminal
-    if [[ -t 0 ]] ; then
+    if [ -t 0 ] ; then
 
         # Colon prompt (POSIX)
         set -- -p : "$@"
@@ -18,7 +18,7 @@ ed() {
 
     # Execute the ed(1) call, in a wrapper if appropriate and with the
     # concluded options
-    if [[ -t 0 ]] && hash rlwrap 2>/dev/null ; then
+    if [ -t 0 ] && hash rlwrap 2>/dev/null ; then
         command rlwrap ed "$@"
     else
         command ed "$@"
