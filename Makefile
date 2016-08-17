@@ -140,7 +140,7 @@ install-abook :
 		"$(HOME)"/.abook
 	install -pm 0644 -- abook/abookrc "$(HOME)"/.abook
 
-install-bash : check-bash
+install-bash : check-bash install-sh
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.bashrc.d \
@@ -333,7 +333,7 @@ install-x :
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
-install-zsh :
+install-zsh : install-sh
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
