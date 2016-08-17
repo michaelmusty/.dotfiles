@@ -221,12 +221,6 @@ install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
 
-install-pdksh : check-pdksh install-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.pdkshrc.d
-	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
-	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
-
 install-maildir :
 	install -m 0755 -d -- \
 		"$(HOME)"/Mail/inbox/cur \
@@ -255,6 +249,12 @@ install-newsbeuter :
 
 install-mysql :
 	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
+
+install-pdksh : check-pdksh install-sh
+	install -m 0755 -d -- \
+		"$(HOME)"/.pdkshrc.d
+	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
+	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
 
 install-perlcritic :
 	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
