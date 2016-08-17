@@ -106,6 +106,18 @@ if [[ $COMP_WORDBREAKS ]] ; then
     COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 fi
 
+# If this wasn't a login shell, load in the POSIX shell functions
+case $- in
+    *l*) ;;
+    *)
+        for shrc in "$HOME"/.shrc.d/*.sh ; do
+            [[ -e $shrc ]] || continue
+            source "$shrc"
+        done
+        unset -v shrc
+        ;;
+esac
+
 # Load any supplementary scripts
 for bashrc in "$HOME"/.bashrc.d/*.bash ; do
     [[ -e $bashrc ]] || continue
