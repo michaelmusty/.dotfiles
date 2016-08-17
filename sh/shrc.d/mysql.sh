@@ -11,9 +11,9 @@
 #   database=bar
 #
 mysql() {
-    if [ -f "$HOME"/.mysql/"$1".cnf ] ; then
+    if [ -f "$HOME/.mysql/$1".cnf ] ; then
         shift
-        set -- --defaults-extra-file="$HOME"/.mysql/"$1".cnf "$@"
+        set -- --defaults-extra-file="$HOME/.mysql/$1".cnf "$@"
     fi
     command mysql "$@"
 }
