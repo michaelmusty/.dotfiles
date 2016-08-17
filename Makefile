@@ -8,7 +8,6 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dircolors \
 	install-dotfiles-man \
 	install-dunst \
 	install-finger \
@@ -127,7 +126,6 @@ install : install-bash \
 	install-bash-completion \
 	install-bin \
 	install-curl \
-	install-dircolors \
 	install-git \
 	install-gnupg \
 	install-readline \
@@ -172,9 +170,6 @@ install-bin-man :
 
 install-curl :
 	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
-
-install-dircolors :
-	install -pm 0644 -- dircolors/dircolors "$(HOME)"/.dircolors
 
 install-dotfiles-man : man/man7/dotfiles.7
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7

@@ -47,8 +47,6 @@ Configuration is included for:
     shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
     URL syntax
-*   [`dircolors(1)`](https://www.gnu.org/software/coreutils/manual/html_node/dircolors-invocation.html)
-    -- Color GNU `ls(1)` output
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
     that works with `libnotify`
 *   `finger(1)` -- User information lookup program

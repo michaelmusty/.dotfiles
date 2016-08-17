@@ -17,15 +17,4 @@
             touch -- "$lcd"/color || exit
         fi
     fi
-) || return
-
-# Run dircolors(1) to export LS_COLORS if available and appropriate
-if [ -e "$HOME"/.cache/ls/color ] ; then
-    if command -v dircolors >/dev/null ; then
-        if [ -r "$HOME"/.dircolors ] ; then
-            eval "$(dircolors --sh -- "$HOME"/.dircolors)"
-        else
-            eval "$(dircolors --sh)"
-        fi
-    fi
-fi
+)
