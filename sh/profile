@@ -10,7 +10,8 @@ for profile in "$HOME"/.profile.d/*.sh ; do
 done
 unset -v profile
 
-# If ~/.shrc exists, source that too; the test for interactivity is in there
-if [ -f "$HOME"/.shrc ] ; then
-    source "$HOME"/.shrc
+# If ENV is unset after running those scripts and ~/.shrc exists, set it as ENV
+if [ -z "$ENV" ] && [ -f "$HOME"/.shrc ] ; then
+    ENV=$HOME/.shrc
+    export ENV
 fi
