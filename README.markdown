@@ -168,6 +168,9 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `diff()` forces the unified format for `diff(1)`.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
+*   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
+    because the various shells have different ways of listing exported
+    variables.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `hgrep()` allows searching `$HISTFILE`.
