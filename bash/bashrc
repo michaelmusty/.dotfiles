@@ -108,7 +108,7 @@ fi
 
 # Load POSIX shell functions, Bash-specific scripts, and Bash completion files,
 # in that order
-for sh in "$HOME"/.shrc.d/*.sh \
+for sh in "$ENV" \
           "$HOME"/.bashrc.d/*.bash \
           "$HOME"/.bash_completion.d/*.bash ; do
     [[ -e $sh ]] || continue

@@ -6,3 +6,6 @@ setopt histignorealldups sharehistory
 HISTSIZE=$((1 << 12))
 SAVEHIST=$((1 << 24))
 HISTFILE=$HOME/.zsh_history
+
+# Load POSIX shell functions
+source "$ENV"
