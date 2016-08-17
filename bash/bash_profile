@@ -16,9 +16,8 @@ fi
 # Load any supplementary scripts
 if [[ -d $HOME/.bash_profile.d ]] ; then
     for bash_profile in "$HOME"/.bash_profile.d/*.bash ; do
-        if [[ -e $bash_profile ]] ; then
-            source "$bash_profile"
-        fi
+        [[ -e $bash_profile ]] || continue
+        source "$bash_profile"
     done
     unset -v bash_profile
 fi
