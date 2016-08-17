@@ -4,12 +4,12 @@
 #     $ history | grep PATTERN
 #
 hgrep() {
-    if ! (($#)) ; then
-        printf >&2 '%s: Need a pattern\n' "$FUNCNAME"
+    if [ "$#" -eq 0 ] ; then
+        printf >&2 'hgrep: Need a pattern\n'
         exit 2
     fi
-    if ! [[ -n $HISTFILE ]] ; then
-        printf >&2 '%s: No HISTFILE\n' "$FUNCNAME"
+    if ! [ -n "$HISTFILE" ] ; then
+        printf >&2 'hgrep: No HISTFILE\n'
         exit 2
     fi
     grep "$@" "$HISTFILE"

@@ -9,3 +9,8 @@ for profile in "$HOME"/.profile.d/*.sh ; do
     . "$profile"
 done
 unset -v profile
+
+# If the shell is interactive, and ~/.shrc exists, source that too
+case $- in
+    *i*) [ -f "$HOME"/.shrc ] && . "$HOME"/.shrc ;;
+esac

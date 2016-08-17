@@ -1,7 +1,5 @@
 # If Vim exists on the system, use it instead of ex, vi, and view
-if ! hash vim 2>/dev/null ; then
-    return
-fi
+command -v vim >/dev/null || return
 
 # Define functions proper
 ex() {

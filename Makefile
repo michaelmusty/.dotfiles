@@ -269,9 +269,13 @@ install-readline :
 	install -pm 0644 -- readline/inputrc "$(HOME)"/.inputrc
 
 install-sh : check-sh
-	install -m 0755 -d -- "$(HOME)"/.profile.d
+	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
+		"$(HOME)"/.shrc.d
 	install -pm 0644 -- sh/profile "$(HOME)"/.profile
 	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
+	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
+	install -pm 0644 -- sh/shrc.d/* "$(HOME)"/.shrc.d
 
 install-subversion :
 	install -m 0755 -d -- "$(HOME)"/.subversion

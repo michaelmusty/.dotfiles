@@ -1,9 +1,0 @@
-# Wrap scp(1) to check for missing colons
-scp() {
-    # shellcheck disable=SC2048
-    if (($# >= 2)) && [[ $* != *:* ]] ; then
-        printf 'ksh: scp: Missing colon, probably an error\n' >&2
-        return 2
-    fi
-    command scp "$@"
-}
