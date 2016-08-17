@@ -106,28 +106,12 @@ if [[ $COMP_WORDBREAKS ]] ; then
     COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 fi
 
-# If this wasn't a login shell, load in the POSIX shell functions
-case $- in
-    *l*) ;;
-    *)
-        for shrc in "$HOME"/.shrc.d/*.sh ; do
-            [[ -e $shrc ]] || continue
-            source "$shrc"
-        done
-        unset -v shrc
-        ;;
-esac
-
-# Load any supplementary scripts
-for bashrc in "$HOME"/.bashrc.d/*.bash ; do
-    [[ -e $bashrc ]] || continue
-    source "$bashrc"
+# Load POSIX shell functions, Bash-specific scripts, and Bash completion files,
+# in that order
+for sh in "$HOME"/.shrc.d/*.sh \
+          "$HOME"/.bashrc.d/*.bash \
+          "$HOME"/.bash_completion.d/*.bash ; do
+    [[ -e $sh ]] || continue
+    source "$sh"
 done
-unset -v bashrc
-
-# Load any completion files
-for bashcmp in "$HOME"/.bash_completion.d/*.bash ; do
-    [[ -e $bashcmp ]] || continue
-    source "$bashcmp"
-done
-unset -v bashcmp
+unset -v sh
