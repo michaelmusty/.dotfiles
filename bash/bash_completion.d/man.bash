@@ -35,8 +35,8 @@ _man() {
 
         # Iterate through the manual page paths and add every manual page we find
         for manpath in "${manpaths[@]}" ; do
-            [[ $manpath ]] || continue
-            if [[ $section ]] ; then
+            [[ -n $manpath ]] || continue
+            if [[ -n $section ]] ; then
                 for page in "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z) ; do
                     pages[${#pages[@]}]=$page
                 done
