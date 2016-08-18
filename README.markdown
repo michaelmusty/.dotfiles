@@ -201,6 +201,7 @@ There are a few other little tricks defined for other shells, mostly in
     depending on the capabilities of the system `grep(1)`. It's dependent on
     information written by the `grep.sh` script in `~/.profile.d`.
 *   `keep()` stores ad-hoc shell functions and variables.
+*   `lhn()` gets the history number of the last command.
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     It's dependent on information written by the `ls.sh` script in
     `~/.profile.d`.
