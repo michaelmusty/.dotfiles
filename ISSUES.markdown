@@ -8,11 +8,6 @@ Known issues
 *   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
     that system; need to find some way of finding which manual directories
     should be searched at runtime, if there is one.
-*   mktemp(1) is not POSIX, though it's commonly available; where a temporary
-    file is unavoidable, it might be nice to abstract this with a wrapper
-    script that uses mktemp(1) if it can, but otherwise uses mkdir(1) with a
-    randomised name in "${TMPDIR:-/tmp}". Is mktemp(1) on every *BSD?
-    -   Mostly fixed now with mktd(1), still using mktemp(1) in a few places
 *   Where practical, the remaining Bash scripts in bin need to be reimplemented
     as POSIX sh
     -   Mostly done now:
