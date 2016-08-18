@@ -104,6 +104,13 @@ prompt() {
                 return 1
             fi
 
+            # Bail if we're not in a work tree
+            local iswt
+            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            if [[ $iswt != true ]] ; then
+                return 1
+            fi
+
             # Attempt to determine git branch, bail if we can't
             local branch
             branch=$( {
