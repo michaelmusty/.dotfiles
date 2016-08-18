@@ -12,7 +12,7 @@ file=${1:-"${TODO_NAME:-todo}"}
 cd -- "$dir" || exit
 
 # If the current directory isn't a Git repository, try to create one
-if ! command -v isgr >/dev/null ; then
+if ! command -v isgr >/dev/null 2>&1 ; then
     printf >&2 'isgr: command not found\n'
     exit 1
 fi
