@@ -27,3 +27,6 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
+*   At least one of the completion scripts (pass.bash) hangs on empty
+    completions (i.e. nothing matches the search term) in Bash 4.4rc1; the last
+    thing bash -x shows is an "exit 1" hang
