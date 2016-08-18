@@ -4,7 +4,7 @@ set -o emacs
 
 # Save history
 HISTFILE=$HOME/.pdksh_history
-HISTSIZE=$((1 << 12))
+HISTSIZE=$((1 << 10))
 
 # Load any supplementary scripts
 for pdkshrc in "$HOME"/.pdkshrc.d/*.pdksh ; do

@@ -3,9 +3,9 @@ bindkey -e
 
 # History settings
 setopt histignorealldups sharehistory
-HISTSIZE=$((1 << 12))
-SAVEHIST=$((1 << 24))
 HISTFILE=$HOME/.zsh_history
+SAVEHIST=$((1 << 12))
+HISTSIZE=$((1 << 10))
 
 # Load POSIX shell functions
 source "$ENV"

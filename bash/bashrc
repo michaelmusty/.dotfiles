@@ -19,11 +19,11 @@ if shopt -q restricted_shell ; then
     return
 fi
 
-# Keep around sixteen million lines of history in file
-HISTFILESIZE=$((1 << 24))
+# Keep around four thousand lines of history in file
+HISTFILESIZE=$((1 << 12))
 
-# Keep around four thousand lines of history in memory
-HISTSIZE=$((1 << 12))
+# Keep around one thousand lines of history in memory
+HISTSIZE=$((1 << 10))
 
 # Ignore duplicate commands and whitespace in history
 HISTCONTROL=ignoreboth
