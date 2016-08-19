@@ -426,6 +426,7 @@ Installed by the `install-bin` target:
 *   `rmrej(1)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
+*   `sshi(1)` prints human-readable SSH connection details.
 *   `stex(1)` strips extensions from filenames.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
