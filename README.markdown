@@ -166,6 +166,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `diff()` forces the unified format for `diff(1)`.
+*   `cd()` wraps the `cd` builtin to allow for a second parameter for string
+    substitution, emulating a Zsh function I like.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
@@ -193,8 +195,6 @@ There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
 
 *   `bd()` changes into a named ancestor of the current directory.
-*   `cd()` wraps the `cd` builtin to allow for a second parameter for string
-    substitution, emulating a Zsh function I like.
 *   `fnl()` runs a command and saves its output and error into temporary files,
     defining variables with the filenames in them.
 *   `grep()` tries to apply color and other options good for interactive use,
