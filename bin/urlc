@@ -5,8 +5,8 @@ self=urlc
 # cURL request timeout
 tm=${URLCHECK_TIMEOUT:-8}
 
-# Create buffer files for the headers and body content, to be cleaned up on
-# exit
+# Create a temporary directory with name in $td, and handle POSIX-ish traps to
+# remove it when the script exits.
 td=
 cleanup() {
     [ -n "$td" ] && rm -fr -- "$td"
@@ -20,6 +20,9 @@ for sig in EXIT HUP INT TERM ; do
     trap "cleanup $sig" "$sig"
 done
 td=$(mktd "$self") || exit
+
+# Create buffer files for the headers and body content, to be cleaned up on
+# exit
 list=$td/list head=$td/head body=$td/body
 
 # Iterate through input; ignore leading/trailing whitespace

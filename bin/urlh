@@ -12,7 +12,7 @@ url=$1 header=$2
 curl -I -- "$url" |
 
 # Unfold the headers
-unf | 
+unf |
 
 # Change the line endings to UNIX format
 sd2u |

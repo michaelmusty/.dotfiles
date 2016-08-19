@@ -1,13 +1,21 @@
-# Store grep(1)'s --help output in a variable
-grep_help=$(grep --help 2>/dev/null)
+# Test that we have metadata about what options this system's grep(1) supports,
+# and try to create it if not
+(
+    # Create a directory to hold metadata about grep
+    gcd=$HOME/.cache/grep
+    if ! [ -d "$gcd" ] ; then
+        mkdir -p -- "$gcd" || exit
+    fi
 
-# Set and export GREP_COLORS if available and appropriate
-case $grep_help in
-    *--color*)
-        GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
-        export GREP_COLORS
-        ;;
-esac
+    # Write grep(1)'s --help output to a file, even if it's empty
+    if ! [ -f "$gcd"/help ] ; then
+        grep --help </dev/null >"$gcd"/help 2>/dev/null || exit
 
-# We're done parsing grep(1)'s --help output now
-unset -v grep_help
+        # Iterate through some useful options and create files to show they're
+        # available
+        for opt in binary-files color exclude exclude-dir ; do
+            grep -q -- --"$opt" "$gcd"/help || continue
+            touch -- "$gcd"/"$opt" || exit
+        done
+    fi
+)

@@ -1,50 +1,33 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Run ed(1) over multiple files, duplicating stdin.
-self=edda
-
-# Define usage function
-usage() {
-    printf 'USAGE: %s [OPTS] [--] FILE1 [FILE2...]\n' "$self"
-}
 
 # Need at least one file
-if ! (($#)) ; then
-    usage >&2
-    exit 1
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'edda: Need at least one file\n'
+    exit 2
 fi
 
-# Need ed(1) -- some systems daring to call themselves UNIX-like don't have it
-# installed by default. What's POSIX, precious?
-hash ed || exit
-
-# Parse options out, give help if necessary
-declare -a opts
-for arg ; do
-    case $arg in
-        --help|-h|-\?)
-            usage
-            exit
-            ;;
-        --)
-            shift
-            break
-            ;;
-        -*)
-            shift
-            opts[${#opts[@]}]=$arg
-            ;;
-    esac
-done
-
-# Duplicate stdin into a file, which we'll remove on exit
-stdin=$(mktemp -t "$self".XXXXXX) || exit
+# Create a temporary directory with name in $td, and handle POSIX-ish traps to
+# remove it when the script exits.
+td=
 cleanup() {
-    rm -f -- "$stdin"
+    [ -n "$td" ] && rm -fr -- "$td"
+    if [ "$1" != EXIT ] ; then
+        trap - "$1"
+        kill "-$1" "$$"
+    fi
 }
-trap cleanup EXIT
-cat > "$stdin"
+for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
+    trap "cleanup $sig" "$sig"
+done
+td=$(mktd "$self") || exit
 
-# Run ed(1) over each file with the options and stdin given
+# Duplicate stdin into a file
+script=$td/script
+cat >"$script" || exit
+
+# Run ed(1) over each file with the stdin given
 for file ; do
-    ed "${opts[@]}" -- "$file" < "$stdin"
+    ed -- "$file" <"$script"
 done

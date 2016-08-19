@@ -1,5 +1,6 @@
 #!/bin/sh
 # Print a random line from input
+self=rndl
 
 # If there are no arguments, we're checking stdin; this is more complicated
 # than checking file arguments because we have to count the lines in order to
@@ -7,7 +8,8 @@
 # file if we don't want to read all of the input into memory (!)
 if [ "$#" -eq 0 ] ; then
 
-    # Try to create the temporary directory with mktd(1) safely
+    # Create a temporary directory with name in $td, and handle POSIX-ish traps to
+    # remove it when the script exits.
     td=
     cleanup() {
         [ -n "$td" ] && rm -fr -- "$td"
@@ -20,7 +22,7 @@ if [ "$#" -eq 0 ] ; then
         # shellcheck disable=SC2064
         trap "cleanup $sig" "$sig"
     done
-    td=$(mktd rndl) || exit
+    td=$(mktd "$self") || exit
 
     # We'll operate on stdin in the temp directory; write the script's stdin to
     # it with cat(1)

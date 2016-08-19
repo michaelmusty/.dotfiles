@@ -1,1 +1,11 @@
-exec bash
+# Emacs keybindings even if EDITOR is vi(1)
+bindkey -e
+
+# History settings
+setopt histignorealldups sharehistory
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=$((1 << 12))
+HISTSIZE=$((1 << 10))
+
+# Load POSIX shell functions
+source "$ENV"

@@ -47,8 +47,6 @@ Configuration is included for:
     shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
     URL syntax
-*   [`dircolors(1)`](https://www.gnu.org/software/coreutils/manual/html_node/dircolors-invocation.html)
-    -- Color GNU `ls(1)` output
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
     that works with `libnotify`
 *   `finger(1)` -- User information lookup program
@@ -83,7 +81,7 @@ Configuration is included for:
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
     for Unix
-*   [Zsh](http://www.zsh.org/) -- Bourne-style shell designed for interactive
+*   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 
 The configurations for Bash, GnuPG, Mutt, tmux, and Vim are the most expansive
@@ -133,21 +131,22 @@ defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
 
-    [tom@conan:~/.dotfiles](git:master+!)$ git status
+    tom@conan:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    [tom@conan:~/.dotfiles](git:master+!)$ foobar
+    tom@conan:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    [tom@conan:~/.dotfiles](git:master+!)<127>$ sleep 5 &
+    tom@conan:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    [tom@conan:~/.dotfiles](git:master+!){1}$
+    tom@conan:~/.dotfiles(master+!){1}$
 
 It expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show whether
     there are local modifications at a glance; Subversion support can also be
-    enabled (I need it at work)
+    enabled (I need it at work), in which case a `git:` or `svn:` prefix is
+    added appropriately
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
@@ -159,6 +158,65 @@ logic on `tput` codes included such that it should work correctly for most
 common terminals using both `termcap(5)` and `terminfo(5)`, including \*BSD
 systems. It's also designed to degrade gracefully for eight-color and no-color
 terminals.
+
+#### Functions
+
+If a function can be written in POSIX `sh` without too much hackery, I put it
+in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
+
+*   `bc()` silences startup messages from GNU `bc(1)`.
+*   `diff()` forces the unified format for `diff(1)`.
+*   `cd()` wraps the `cd` builtin to allow for a second parameter for string
+    substitution, emulating a Zsh function I like.
+*   `ed()` tries to get verbose error messages, a prompt, and a Readline
+    environment for `ed(1)`.
+*   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
+    because the various shells have different ways of listing exported
+    variables.
+*   `gdb()` silences startup messages from `gdb(1)`.
+*   `gpg()` quietens `gpg(1)` down for most commands.
+*   `hgrep()` allows searching `$HISTFILE`.
+*   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `mkcd()` creates a directory and changes into it.
+*   `mysql()` allows shortcuts to MySQL configuration files stored in
+    `~/.mysql`.
+*   `pwgen()` generates just one decent password with `pwgen(1)`.
+*   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
+*   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
+*   `scr()` creates a temporary directory and changes into it.
+*   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
+    preserved; I hate ending up `root`-owned files in my home directory.
+*   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
+    if a session exists, or creates a new session if one doesn't.
+*   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
+    `vi(1)` and `view(1)` implementation if it's available.
+
+There are a few other little tricks defined for other shells, mostly in
+`bash/bashrc.d`:
+
+*   `bd()` changes into a named ancestor of the current directory.
+*   `fnl()` runs a command and saves its output and error into temporary files,
+    defining variables with the filenames in them.
+*   `grep()` tries to apply color and other options good for interactive use,
+    depending on the capabilities of the system `grep(1)`. It's dependent on
+    information written by the `grep.sh` script in `~/.profile.d`.
+*   `keep()` stores ad-hoc shell functions and variables.
+*   `lhn()` gets the history number of the last command.
+*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+    It's dependent on information written by the `ls.sh` script in
+    `~/.profile.d`.
+*   `path()` manages the contents of `PATH` conveniently.
+*   `pd()` changes to the argument's parent directory.
+*   `prompt()` sets up my interactive prompt.
+*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
+*   `readv()` prints names and values from `read` calls to `stderr`.
+*   `readz()` is an alias for `read -d '' -r`.
+*   `sd()` changes into a sibling of the current directory.
+*   `ud()` changes into an indexed ancestor of a directory.
+*   `vared()` allows interactively editing a variable with Readline, emulating
+    a Zsh function I like by the same name.
+*   `vr()` tries to change to the root directory of a source control
+    repository.
 
 #### Completion
 
@@ -182,34 +240,17 @@ files for things I really do get tired of typing repeatedly:
 
 I also add completions for my own scripts and functions where useful.
 
-#### Functions
-
-There are a few other little tricks in `bash/bashrc.d`, including:
-
-*   `bd()` changes into a named ancestor of the current directory.
-*   `fnl()` runs a command and save its output and error into temporary files.
-*   `hgrep()` searches `$HISTFILE`.
-*   `keep()` stores ad-hoc shell functions and variables.
-*   `mkcd()` creates a directory and changes into it.
-*   `path()` manages the contents of `PATH` conveniently.
-*   `pd()` changes to the argument's parent directory.
-*   `readv()` prints names and values from `read` calls to `stderr`.
-*   `readz()` is an alias for `read -d '' -r`.
-*   `scr()` creates a temporary directory and changes into it.
-*   `sd()` changes into a sibling of the current directory.
-*   `ud()` changes into an indexed ancestor of a directory.
-
-I also wrap a few command calls with functions to stop me from doing silly
-things that the commands themselves don't catch. My favourite is the one that
-stops me from calling `scp(1)` with no colon in either argument. I also do
-things like give default arguments to `pwgen(1)`.
-
 #### pdksh
 
 The pdksh configuration files and functions are not nearly as featureful as the
 Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
 former is the primary system for which I'm maintaining them, and there are some
 feature differences.
+
+#### Zsh
+
+These are experimental; I do not like Zsh much at the moment. The files started
+as a joke (`exec bash`).
 
 ### GnuPG
 
@@ -339,7 +380,7 @@ Installed by the `install-bin` target:
         for unfolding HTTP headers, but it should work for most RFC 822
         formats.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
-    intended as a framework for shell functions.
+    intended as a framework for shell wrappers or functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
@@ -422,9 +463,10 @@ your `/etc/manpath` configuration, depending on your system.
 Testing
 -------
 
-You can test that both sets of shell scripts are syntactically correct with
-`make test-bash`, `make test-sh`, or `make test` for everything including the
-scripts in `bin` and `games`.
+You can check that both sets of shell scripts are syntactically correct with
+`make check-bash`, `make check-sh`, or `make check` for everything including
+the scripts in `bin` and `games`. There's no proper test suite for the actual
+functionality (yet).
 
 If you have [ShellCheck](https://www.shellcheck.net/) and/or
 [Perl::Critic](http://perlcritic.com/), there's a `lint` target for the shell

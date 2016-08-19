@@ -24,7 +24,7 @@ prompt() {
             fi
 
             # Basic prompt shape
-            PS1='[\u@\h:\w]'
+            PS1='\u@\h:\w'
 
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
@@ -104,6 +104,13 @@ prompt() {
                 return 1
             fi
 
+            # Bail if we're not in a work tree
+            local iswt
+            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            if [[ $iswt != true ]] ; then
+                return 1
+            fi
+
             # Attempt to determine git branch, bail if we can't
             local branch
             branch=$( {
@@ -130,8 +137,9 @@ prompt() {
                 state=${state}^
             fi
 
-            # Print the status in brackets with a git: prefix
-            printf '(git:%s%s)' "${branch:-unknown}" "$state"
+            # Print the status in brackets; add a git: prefix only if there
+            # might be another VCS prompt (because PROMPT_VCS is set)
+            printf '(%s%s%s)' "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
             ;;
 
         # Subversion prompt function

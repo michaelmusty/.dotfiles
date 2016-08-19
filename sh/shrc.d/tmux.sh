@@ -2,7 +2,7 @@
 tmux() {
 
     # If given any arguments, just use them as they are
-    if (($#)) ; then
+    if [ "$#" -gt 0 ] ; then
         :
 
     # If a session exists, just attach to it

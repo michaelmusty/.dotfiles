@@ -1,4 +1,4 @@
-#!/usr/bin/awk -f
+# Format an RFC in text format for terminal reading
 
 # A record is a paragraph
 BEGIN {
