@@ -20,6 +20,7 @@ logout_trap() {
     fi
 }
 for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
     trap "logout_trap $sig" "$sig"
 done
 unset -v sig

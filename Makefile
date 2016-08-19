@@ -141,12 +141,10 @@ install-abook :
 install-bash : check-bash install-sh
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
-		"$(HOME)"/.bashrc.d \
-		"$(HOME)"/.bash_profile.d
+		"$(HOME)"/.bashrc.d
 	install -pm 0644 -- bash/bashrc "$(HOME)"/.bashrc
 	install -pm 0644 -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
 	install -pm 0644 -- bash/bash_profile "$(HOME)"/.bash_profile
-	install -pm 0644 -- bash/bash_profile.d/* "$(HOME)"/.bash_profile.d
 	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
 
 install-bash-completion : install-bash

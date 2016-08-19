@@ -98,11 +98,10 @@ they should work in most `sh(1)` implementations. Individual scripts called by
 management. All of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
-My `.bash_profile` calls `.profile` and then runs subscripts in
-`.bash_profile.d`. It then runs `.bashrc`, which only applies for interactive
-shells; subscripts for that in turn are loaded from `.bashrc.d`. The contents
-of the two directories changes depending on the host, so only specific scripts
-in it are versioned.
+My `.bash_profile` calls `.profile`, and then `.bashrc`, which only applies for
+interactive shells. Subscripts for `.bashrc` are loaded from `.bashrc.d`. The
+contents of the two directories changes depending on the host, so only specific
+scripts in it are versioned.
 
 My interactive and scripting shell of choice is Bash; as a GNU/Linux admin who
 ends up installing Bash on \*BSD machines anyway, I very rarely have to write
