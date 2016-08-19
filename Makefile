@@ -157,7 +157,7 @@ install-bash-completion : install-bash
 install-bin : bin/sd2u bin/su2d bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
-		[ -x "$$name" ] || continue ; \
+		[ -x "$$name" ] && \
 		install -m 0755 -- "$$name" "$(HOME)"/.local/bin ; \
 	done
 
@@ -187,7 +187,7 @@ install-finger :
 install-games : games/acq games/kvlt games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
-		[ -x "$$name" ] || continue ; \
+		[ -x "$$name" ] && \
 		install -m 0755 -- "$$name" "$(HOME)"/.local/games ; \
 	done
 
