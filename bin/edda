@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run ed(1) over multiple files, duplicating stdin.
 
-# Need at least one file after options are parsed out
+# Need at least one file
 if [ "$#" -eq 0 ] ; then
     printf >&2 'edda: Need at least one file\n'
     exit 2
