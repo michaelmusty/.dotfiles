@@ -46,6 +46,9 @@ if [ -f "$argf" ] ; then
         esac
         set -- "$arg" "$@"
     done < "$revf"
+
+    # We can remove the temporary stuff now, which allows us to exec safely
+    cleanup
 fi
 
 # Run the command with the changed arguments
