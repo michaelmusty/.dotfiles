@@ -1,2 +1,0 @@
-# Write PWD to a file if set
-printf '%s\n' "$PWD" >"${OLDPWD_FILE:-"$HOME"/.oldpwd}"

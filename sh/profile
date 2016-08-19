@@ -3,28 +3,6 @@ if [ -d "$HOME"/.local/bin ] ; then
     PATH=$HOME/.local/bin:$PATH
 fi
 
-# If we can read ~/.oldpwd, make its contents our OLDPWD
-if [ -r "$HOME"/.oldpwd ] ; then
-    IFS= read -r OLDPWD < "$HOME"/.oldpwd
-    export OLDPWD
-fi
-
-# Trap on exit to run ~/.logout if it exists
-logout_trap() {
-    if [ -f "$HOME"/.logout ] ; then
-        . "$HOME"/.logout
-    fi
-    if [ "$1" != EXIT ] ; then
-        trap - "$1"
-        kill "-$1" "$$"
-    fi
-}
-for sig in EXIT HUP INT TERM ; do
-    # shellcheck disable=SC2064
-    trap "logout_trap $sig" "$sig"
-done
-unset -v sig
-
 # Load all supplementary scripts in ~/.profile.d
 for sh in "$HOME"/.profile.d/*.sh ; do
     [ -e "$sh" ] && . "$sh"

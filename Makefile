@@ -265,7 +265,6 @@ install-sh : check-sh
 	install -m 0755 -d -- \
 		"$(HOME)"/.profile.d \
 		"$(HOME)"/.shrc.d
-	install -pm 0644 -- sh/logout "$(HOME)"/.logout
 	install -pm 0644 -- sh/profile "$(HOME)"/.profile
 	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
 	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
