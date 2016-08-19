@@ -31,11 +31,11 @@ if [ -f "$argf" ] ; then
         trap "cleanup $sig" "$sig"
     done
     td=$(mktd "$self") || exit
-    
+
     # Write the arguments in reverse to a temporary file
     revf=$td/revf
     sed '1!G;$!{h;d}' "$argf" > "$revf" || exit
-    
+
     # Stack up all the arguments from the file. Skip blank lines and comments.
     # An empty file is also fine.
     while IFS= read -r arg ; do
