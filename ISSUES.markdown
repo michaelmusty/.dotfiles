@@ -13,7 +13,6 @@ Known issues
     -   Mostly done now:
 
         [tom@conan:~/.dotfiles/bin](git:master)$ grep bash *
-        apf:#!/usr/bin/env bash
         eds:#!/usr/bin/env bash
         han:#!/usr/bin/env bash
 

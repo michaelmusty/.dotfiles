@@ -7,30 +7,34 @@
 foorc
 foo --bar baz
 .SH DESCRIPTION
-Add null-delimited arguments read from a file to a command's arguments before
-running it. This is intended as a way of implementing *rc files for interactive
-shell calls to programs that don't support such files, without having to use
-broken environment variables (e.g. GREP_OPTIONS); this enables you to, for
-example, use arguments with shell metacharacters and spaces in them that you do
-not want expanded.
-
+Add newline-delimited arguments read from a file to a command's arguments
+(before any given ones) before running it. This is intended as a quick way of
+implementing *rc files for interactive shell calls to programs that don't
+support such files, without having to use broken environment variables like GNU
+grep(1)'s GREP_OPTIONS.
+.P
+This enables you to use arguments with shell metacharacters and spaces in them
+that you do not want expanded. The only exception is that you cannot have
+newlines in any of the arguments. This was done to keep POSIX sh(1)
+compatibility.
+.P
 For example, given this simple program in our $PATH, printargs:
-
-    $ cat ~/.local/bin/printargs
+.P
+    $ cat /usr/bin/printargs
     #!/bin/sh
-    printf '%s\n' "$@"
-
+    printf '%s\\n' "$@"
+.P
 Which just prints its arguments:
-
+.P
     $ printargs a b c
     a
     b
     c
-
+.P
 We could do this:
-
-    $ printf '%s\0' -f --flag --option '? foo bar *' > "$HOME"/.printargsrc
-
+.P
+    $ printf '%s\\n' -f --flag --option '? foo bar *' > "$HOME"/.printargsrc
+.P
     $ apf "$HOME"/.printargsrc printargs a b c
     -f
     --flag
@@ -39,27 +43,23 @@ We could do this:
     a
     b
     c
-
-We could then make a permanent wrapper function with:
-
+.P
+We could then make a permanent wrapper script in two line:
+.P
+    $ cat >~/.local/bin/printargs
+    #!/bin/sh
+    exec apf "$HOME"/.printargsrc /usr/bin/printargs
+    ^D
+    $ chmod +x ~/.local/bin/printargs
+.P
+Or just a shell function, if it's needed interactively:
+.P
     $ printargs() { apf "$HOME"/.printargsrc printargs "$@" ; }
-
-    $ printargs a b c
-    -f
-    --flag
-    --option
-    ? foo bar *
-    a
-    b
-    c
-
-    $ printf '%s\n' !-2:q >> "$HOME"/.bashrc
-
-This means you can edit the options in the *rc file, and don't have to redefine
-a wrapper function.
-
-If you actually want those options to *always* be added, regardless of whether
-you're in an interactive shell, you really should make an actual wrapper
-script.
+.P
+It's not considered an error if the file doesn't exist or is empty. If it's a
+directory or otherwise not byte-readable, an error will be printed to stderr,
+but execution of the called program will continue anyway. Blank lines or lines
+beginning with # are also ignored. Both leading and trailing whitespace is
+preserved.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

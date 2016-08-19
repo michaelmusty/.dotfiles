@@ -380,7 +380,7 @@ Installed by the `install-bin` target:
         for unfolding HTTP headers, but it should work for most RFC 822
         formats.
 *   `apf(1)` prepends arguments to a command with ones read from a file,
-    intended as a framework for shell functions.
+    intended as a framework for shell wrappers or functions.
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
