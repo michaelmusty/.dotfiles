@@ -11,22 +11,22 @@ for url ; do (
 
     # If it's a YouTube video without a given start time, load it in mpv(1)
     case $url in
-        *youtube.com/watch*[?\&]t=) ;;
-        *youtube.com/watch*)
-            mpv -- "$url" && continue
-            ;;
-    esac
-
-    # If the MIME type is an image, load it in feh(1)
-    case $mt in
-        image/gif) ;;
-        image/*)
-            curl -- "$url" | feh - && continue
+        *[/.]youtube.com/watch*[?\&]t=) ;;
+        *[/.]youtube.com/watch*)
+            mpv -- "$url" && exit
             ;;
     esac
 
     # Get the MIME type data
     mt=$(urlmt "$url")
+
+    # If the MIME type is an image, load it in feh(1)
+    case $mt in
+        image/gif) ;;
+        image/*)
+            curl -- "$url" | feh - && exit
+            ;;
+    esac
 
     # Otherwise, just pass it to br(1)
     br "$url"

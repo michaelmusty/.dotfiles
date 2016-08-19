@@ -8,7 +8,6 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dircolors \
 	install-dotfiles-man \
 	install-dunst \
 	install-finger \
@@ -42,12 +41,12 @@
 	install-wyrd \
 	install-x \
 	install-zsh \
-	test \
-	test-bash \
-	test-bin \
-	test-games \
-	test-sh \
-	test-urxvt \
+	check \
+	check-bash \
+	check-bin \
+	check-games \
+	check-sh \
+	check-urxvt \
 	lint \
 	lint-bash \
 	lint-bin \
@@ -55,16 +54,28 @@
 	lint-sh \
 	lint-urxvt
 
+.SUFFIXES: .awk .sed
+
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/sd2u bin/su2d bin/unf git/gitconfig gnupg/gpg.conf
+all : bin/rfct \
+	bin/rndi \
+	bin/sd2u \
+	bin/slsf \
+	bin/su2d \
+	bin/unf \
+	git/gitconfig \
+	gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
+		bin/rfct \
+		bin/rndi \
 		bin/sd2u \
+		bin/slsf \
 		bin/su2d \
 		bin/unf \
 		games/acq \
@@ -75,30 +86,6 @@ clean distclean :
 		man/man7/dotfiles.7 \
 		mutt/muttrc \
 		tmux/tmux.conf
-
-bin/sd2u : bin/sd2u.sed
-	bin/shb bin/sd2u.sed sed -f > "$@"
-	chmod +x "$@"
-
-bin/su2d : bin/su2d.sed
-	bin/shb bin/su2d.sed sed -f > "$@"
-	chmod +x "$@"
-
-bin/unf : bin/unf.sed
-	bin/shb bin/unf.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/acq : games/acq.sed
-	bin/shb games/acq.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/kvlt : games/kvlt.sed
-	bin/shb games/kvlt.sed sed -f > "$@"
-	chmod +x "$@"
-
-games/zs : games/zs.sed
-	bin/shb games/zs.sed sed -f > "$@"
-	chmod +x "$@"
 
 git/gitconfig : git/gitconfig.m4
 	m4 \
@@ -127,11 +114,18 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
+.awk :
+	bin/shb "$<" awk -f > "$@"
+	chmod +x "$@"
+
+.sed :
+	bin/shb "$<" sed -f > "$@"
+	chmod +x "$@"
+
 install : install-bash \
 	install-bash-completion \
 	install-bin \
 	install-curl \
-	install-dircolors \
 	install-git \
 	install-gnupg \
 	install-readline \
@@ -144,7 +138,7 @@ install-abook :
 		"$(HOME)"/.abook
 	install -pm 0644 -- abook/abookrc "$(HOME)"/.abook
 
-install-bash : test-bash
+install-bash : check-bash install-sh
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.bashrc.d \
@@ -160,13 +154,11 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/sd2u bin/su2d bin/unf test-bin install-bin-man
+install-bin : bin/sd2u bin/su2d bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
-		case $$name in \
-			*.sed) ;; \
-			*) install -m 0755 -- "$$name" "$(HOME)"/.local/bin ;; \
-		esac \
+		[ -x "$$name" ] || continue ; \
+		install -m 0755 -- "$$name" "$(HOME)"/.local/bin ; \
 	done
 
 install-bin-man :
@@ -178,9 +170,6 @@ install-bin-man :
 
 install-curl :
 	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
-
-install-dircolors :
-	install -pm 0644 -- dircolors/dircolors "$(HOME)"/.dircolors
 
 install-dotfiles-man : man/man7/dotfiles.7
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
@@ -195,13 +184,11 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/kvlt games/zs test-games install-games-man
+install-games : games/acq games/kvlt games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
-	for game in games/* ; do \
-		case $$game in \
-			*.sed) ;; \
-			*) install -m 0755 -- "$$game" "$(HOME)"/.local/games ;; \
-		esac \
+	for name in games/* ; do \
+		[ -x "$$name" ] || continue ; \
+		install -m 0755 -- "$$name" "$(HOME)"/.local/games ; \
 	done
 
 install-games-man :
@@ -228,12 +215,6 @@ install-gtk :
 install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
-
-install-pdksh : test-pdksh install-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.pdkshrc.d
-	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
-	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
 
 install-maildir :
 	install -m 0755 -d -- \
@@ -264,6 +245,12 @@ install-newsbeuter :
 install-mysql :
 	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
 
+install-pdksh : check-pdksh install-sh
+	install -m 0755 -d -- \
+		"$(HOME)"/.pdkshrc.d
+	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
+	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
+
 install-perlcritic :
 	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
 
@@ -276,10 +263,14 @@ install-psql :
 install-readline :
 	install -pm 0644 -- readline/inputrc "$(HOME)"/.inputrc
 
-install-sh : test-sh
-	install -m 0755 -d -- "$(HOME)"/.profile.d
+install-sh : check-sh
+	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
+		"$(HOME)"/.shrc.d
 	install -pm 0644 -- sh/profile "$(HOME)"/.profile
 	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
+	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
+	install -pm 0644 -- sh/shrc.d/* "$(HOME)"/.shrc.d
 
 install-subversion :
 	install -m 0755 -d -- "$(HOME)"/.subversion
@@ -294,7 +285,7 @@ install-terminfo :
 install-tmux : tmux/tmux.conf
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
-install-urxvt : test-urxvt
+install-urxvt : check-urxvt
 	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
 	install -m 0755 -- urxvt/ext/* "$(HOME)"/.urxvt/ext
 
@@ -312,24 +303,11 @@ install-gvim-config :
 	install -pm 0644 -- vim/gvimrc "$(HOME)"/.gvimrc
 
 install-vim-plugins : install-vim-config
-	install -m 0755 -d -- "$(HOME)"/.vim/bundle
-	find vim/bundle -name .git -prune -o \
-		\( -type d -print \) | \
-			while IFS= read -r dir ; do \
-				install -m 0755 -d -- \
-					"$$dir" "$(HOME)"/.vim/"$${dir#vim/}" ; \
-			done
-	find vim/bundle -name .git -prune -o \
-		\( -type f ! -name '.git*' -print \) | \
-			while IFS= read -r file ; do \
-				install -pm 0644 -- \
-					"$$file" "$(HOME)"/.vim/"$${file#vim/}" ; \
-			done
-	for dir in vim/after/* ; do \
-		install -m 0755 -d -- "$(HOME)"/.vim/after/"$${dir##*/}" ; \
-		install -pm 0644 -- "$$dir"/* \
-			"$(HOME)"/.vim/after/"$${dir##*/}" ; \
-	done
+	find vim/after vim/bundle -name .git -prune -o \
+		-type d -exec sh -c 'install -m 0755 -d -- \
+			"$(HOME)"/.vim/"$${1#vim/}"' _ {} \; -o \
+		-type f -exec sh -c 'install -m 0644 -- \
+			"$$1" "$(HOME)"/.vim/"$${1#vim/}"' _ {} \;
 
 install-vim-pathogen : install-vim-plugins
 	install -m 0755 -d -- "$(HOME)"/.vim/autoload
@@ -350,32 +328,32 @@ install-x :
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
-install-zsh :
+install-zsh : install-sh
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-test : test-bash test-bin test-games test-man test-sh test-urxvt
+check : check-bash check-bin check-games check-man check-sh check-urxvt
 
-test-bash :
-	test/bash
+check-bash :
+	check/bash
 
-test-bin :
-	test/bin
+check-bin :
+	check/bin
 
-test-games :
-	test/games
+check-games :
+	check/games
 
-test-pdksh :
-	test/pdksh
+check-pdksh :
+	check/pdksh
 
-test-man :
-	test/man
+check-man :
+	check/man
 
-test-sh :
-	test/sh
+check-sh :
+	check/sh
 
-test-urxvt :
-	test/urxvt
+check-urxvt :
+	check/urxvt
 
 lint : lint-bash lint-bin lint-games lint-sh lint-urxvt
 

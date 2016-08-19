@@ -12,7 +12,7 @@ file=${1:-"${TODO_NAME:-todo}"}
 cd -- "$dir" || exit
 
 # If the current directory isn't a Git repository, try to create one
-if ! command -v isgr >/dev/null ; then
+if ! command -v isgr >/dev/null 2>&1 ; then
     printf >&2 'isgr: command not found\n'
     exit 1
 fi
@@ -21,8 +21,8 @@ isgr || git init || exit
 # If the to-do file doesn't exist yet, create it
 [ -e "$file" ] || touch -- "$file" || exit
 
-# Launch $VISUAL (or $EDITOR (or vi(1))) to edit the appropriate to-do file
-"${VISUAL:-"${EDITOR:-vi}"}" "$file"
+# Launch an appropriate editor to edit that file
+"${VISUAL:-"${EDITOR:-ed}"}" "$file"
 
 # Add the file to the changeset
 git add -- "$file"

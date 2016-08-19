@@ -1,15 +1,19 @@
-.TH DMP 1 "May 2014" "Manual page for dmp"
+.TH DMP 1 "August 2016" "Manual page for dmp"
 .SH NAME
 .B dmp
 \- pick a pass(1) password with dmenu(1)
 .SH SYNOPSIS
 .B dmp
+.br
+.B dmp 25
 .SH DESCRIPTION
 .B dmp
-applies dmenu(1) to pick a password entry
-from a pass(1) store and put it into the X
-CLIPBOARD for up to 10 seconds. 
+applies dmenu(1) to pick a password entry from a pass(1) store and put it into
+the X CLIPBOARD for up to 10 seconds.
+.P
+An optional timeout in seconds can be applied, after which xsel(1) will remove
+the password from the clipboard. This timeout defaults to 10 seconds.
 .SH SEE ALSO
-dmenu(1), pass(1)
+dmenu(1), pass(1), xsel(1)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

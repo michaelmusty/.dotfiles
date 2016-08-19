@@ -1,4 +1,3 @@
-#!/usr/bin/awk -f
 # Get a low-quality random number between two integers. Depending on the awk
 # implementation, if you don't provide a third argument (a seed), you might get
 # very predictable random numbers based on the current epoch second.

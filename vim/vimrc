@@ -69,7 +69,7 @@ if has('syntax')
   " Use my custom color scheme if possible, otherwise I'm happy with whatever
   " the default is, and it usually cares about my background
   set background=dark
-  silent! colorscheme juvenile
+  silent! colorscheme sahara
 endif
 
 " Command-line based features

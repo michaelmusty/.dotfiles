@@ -35,15 +35,18 @@ comm -13 "$td"/bin "$td"/man > "$td"/nobin
 # Emit the content of both, if any
 ex=0
 if [ -s "$td"/noman ] ; then
-    printf >&2 '%s\n' 'No manual pages found for:'
+    printf >&2 'No manual pages found for:\n'
     cat >&2 -- "$td"/noman
     ex=1
 fi
 if [ -s "$td"/nobin ] ; then
-    printf >&2 '%s\n' 'Stray manual page for:'
+    printf >&2 'Stray manual page for:\n'
     cat >&2 -- "$td"/nobin
     ex=1
 fi
 
 # Exit appropriately
+if [ "$ex" -eq 0 ] ; then
+    printf 'All scripts have manual pages.\n'
+fi
 exit "$ex"

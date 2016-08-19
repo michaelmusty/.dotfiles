@@ -17,7 +17,7 @@ prompt() {
         on)
             # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
             # variables
-            PS1='[\u@\h:\w]'
+            PS1='\u@\h:\w'
             PS1=$PS1'$(prompt vcs)'
             PS1=$PS1'$(prompt job)'
             PS1='${PROMPT_PREFIX}'$PS1
@@ -111,8 +111,9 @@ prompt() {
                 state=${state}^
             fi
 
-            # Print the status in brackets with a git: prefix
-            printf '(git:%s%s)' "${branch:-unknown}" "$state"
+            # Print the status in brackets; add a git: prefix only if there
+            # might be another VCS prompt (because PROMPT_VCS is set)
+            printf '(%s%s%s)' "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
             ;;
 
         # Revert to simple inexpensive prompts

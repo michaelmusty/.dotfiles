@@ -1,11 +1,15 @@
 #!/bin/sh
 
+# Sole optional argument is the password timeout (defaults to 10 seconds)
+timeout_sec=${1:-10}
+
 # Get the password store directory, bail if we can't
 pwsd=${PASSWORD_STORE_DIR:-$HOME/.password-store}
 pwsd=${pwsd%/}
 [ -n "$pwsd" ] || exit
 
 # Get the password; get all the names from find(1)
+# shellcheck disable=SC2016
 pw=$(
     cd -- "$pwsd" || exit
     # Get all the names from find(1)
@@ -13,10 +17,7 @@ pw=$(
     # Sort them
     sort |
     # Strip the leading directory and the trailing .gpg
-    sed '
-s_^\./__
-s_\.gpg$__
-    ' |
+    sed 's_^\./__;s_\.gpg$__' |
     # Use dmenu(1) to prompt the user to select one
     dmenu
 ) || exit
@@ -25,4 +26,4 @@ s_\.gpg$__
 [ -n "$pw" ] || exit
 
 # Pump the password into the clipboard xsel(2); allow 10 seconds
-pass show "$pw" | xsel -ibt 10000
+pass show "$pw" | xsel -ibt "$((timeout_sec * 1000))"

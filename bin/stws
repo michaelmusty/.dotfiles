@@ -3,7 +3,7 @@
 
 # Check arguments
 if [ "$#" -eq 0 ] ; then
-    printf >&2 'tstf: Need a filename\n'
+    printf >&2 'stws: Need a filename\n'
     exit 2
 fi
 
