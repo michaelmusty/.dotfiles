@@ -8,14 +8,6 @@ Known issues
 *   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
     that system; need to find some way of finding which manual directories
     should be searched at runtime, if there is one.
-*   Where practical, the remaining Bash scripts in bin need to be reimplemented
-    as POSIX sh
-    -   Mostly done now:
-
-        [tom@conan:~/.dotfiles/bin](git:master)$ grep bash *
-        eds:#!/usr/bin/env bash
-        han:#!/usr/bin/env bash
-
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
