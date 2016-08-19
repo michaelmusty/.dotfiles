@@ -6,8 +6,12 @@
 .B xgo
 .SH DESCRIPTION
 .B xgo
-examines each of its arguments and opens an appropriate program to view it,
-falling back on $BROWSER.
+examines each of its arguments, including making an HTTP HEAD request to try
+and get its MIME type, and then opens an appropriate program to view it,
+falling back on $BROWSER. The choices of application are very opinionated.
+.SH FUTURE
+There could probably be a MIME-type and/or URL-pattern to program configuration
+file, rather than hard-coding it.
 .SH SEE ALSO
 br(1), xgoc(1)
 .SH AUTHOR
