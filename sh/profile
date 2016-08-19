@@ -3,11 +3,11 @@ if [ -d "$HOME"/.local/bin ] ; then
     PATH=$HOME/.local/bin:$PATH
 fi
 
-# Load all supplementary scripts in ~/.profile.d
-for sh in "$HOME"/.profile.d/*.sh ; do
-    [ -e "$sh" ] && . "$sh"
-done
-unset -v sh
+# If we can read ~/.oldpwd, make its contents our OLDPWD
+if [ -r "$HOME"/.oldpwd ] ; then
+    IFS= read -r OLDPWD < "$HOME"/.oldpwd
+    export OLDPWD
+fi
 
 # Trap on exit to run ~/.logout if it exists
 logout_trap() {
@@ -24,6 +24,12 @@ for sig in EXIT HUP INT TERM ; do
     trap "logout_trap $sig" "$sig"
 done
 unset -v sig
+
+# Load all supplementary scripts in ~/.profile.d
+for sh in "$HOME"/.profile.d/*.sh ; do
+    [ -e "$sh" ] && . "$sh"
+done
+unset -v sh
 
 # If ENV is unset after running those scripts and ~/.shrc exists, set it as ENV
 if [ -z "$ENV" ] && [ -f "$HOME"/.shrc ] ; then
