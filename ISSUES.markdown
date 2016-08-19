@@ -17,3 +17,5 @@ Known issues
 *   The checks gscr(1) makes to determine where it is are a bit naive (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) cals
+*   The \xFF syntax for regex as used in rfct(1) is not POSIX. Need to decide
+    if it's well-supported enough to keep it anyway.
