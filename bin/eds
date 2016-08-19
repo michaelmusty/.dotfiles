@@ -42,8 +42,7 @@ for arg ; do
 done
 
 # Run the editor over the arguments
-echo "${VISUAL:-"${EDITOR:-ed}"}" "$@"
-exit
+"${VISUAL:-"${EDITOR:-ed}"}" "$@"
 
 # Make any created scripts executable if they now appear to be files
 for script ; do
