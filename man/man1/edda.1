@@ -1,14 +1,14 @@
-.TH EDDA 1 "June 2015" "Manual page for edda"
+.TH EDDA 1 "August 2016" "Manual page for edda"
 .SH NAME
 .B edda
 \- run ed(1) over multiple files
 .SH SYNOPSIS
-.B edda [OPTS] [--] FILE1 [FILE2...]
+.B edda FILE1 [FILE2...]
 .SH DESCRIPTION
-Duplicate any data on stdin into a temporary file, and run ed(1) with any given
-options over each of the files given as the remaining arguments. Example:
+Duplicate any data on stdin into a temporary file, and run ed(1) options over
+each of the files given as the remaining arguments. Example:
 .P
-   $ edda -s /etc/app.d/*.conf <<EOF
+   $ edda /etc/app.d/*.conf <<EOF
    ,s/foo/bar/g
    w
    EOF
