@@ -17,6 +17,7 @@
     compression = 9
 
 [diff]
+    algorithm = patience
     tool = vimdiff
 
 [difftool]
