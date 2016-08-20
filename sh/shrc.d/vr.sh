@@ -24,8 +24,8 @@ vr() {
         # Ask Mercurial the top level (great)
         hg root 2>/dev/null && exit
 
-        # If we can get SVN info, iterate upwards until we can't; hopefully
-        # that's the root (bad)
+        # If we can get SVN info, iterate upwards until we cannot; hopefully
+        # that is the root (bad)
         while svn info >/dev/null 2>&1 ; do
             root=$PWD
             [ "$root" = / ] && break
@@ -36,7 +36,7 @@ vr() {
             exit
         fi
 
-        # Couldn't find repository root, say so
+        # Could not find repository root, say so
         printf >&2 'vr(): Failed to find repository root\n'
         exit 1
     )"
