@@ -4,7 +4,8 @@
 # so e.g. `cd -- -foo -bar` should work.
 cd() {
 
-    # First check to see if we can perform the substitution at all
+    # First check to see if we can perform the substitution at all; otherwise,
+    # we won't be changing any parameters
     if (
 
         # If we have any options, we can't do it, because POSIX shell doesn't
@@ -12,14 +13,21 @@ cd() {
         for arg ; do
             case $arg in
                 --) break ;;
-                -*) return 1 ;;
+                -*) opts=1 ; shift ;;
             esac
         done
 
         # Shift off -- if it's the first argument
         [ "$1" = -- ] && shift
 
-        # Check we have two non-null arguments
+        # Print an explanatory error if there were options and then two
+        # arguments
+        if [ "$#" -eq 2 ] && [ -n "$opts" ] ; then
+            printf >&2 'cd(): Can'\''t combine options and substitution\n'
+        fi
+
+        # Check we have no options and two non-null arguments
+        [ -z "$opts" ] || return
         [ "$#" -eq 2 ] || return
         [ -n "$1" ] || return
         [ -n "$2" ] || return
@@ -48,23 +56,19 @@ cd() {
             # /foo/lmao/bar/ayy
             new=${curtc}${rep}${curlc}
 
-            # Check pattern was actually in $PWD; this indirectly checks that
-            # $PWD and $pat are both actually set, too; it's valid for $rep to
-            # be empty, though
-            [ "$cur" != "$curtc" ] || exit
+            # Check that a substitution resulted in an actual change and that
+            # we ended up with a non-null target, or print an error to stderr
+            if [ "$cur" = "$curtc" ] || [ -z "$new" ]; then
+                printf >&2 'cd(): Substitution failed\n'
+                exit 1
+            fi
 
-            # Check we ended up with something to change into
-            [ -n "$new" ] || exit
-
-            # Print the replaced result
+            # Print the target
             printf '%s\n' "$new"
-        )"
 
-        # Check we have a second argument
-        if [ -z "$2" ] ; then
-            printf >&2 'cd(): Substitution failed\n'
-            return 1
-        fi
+        # If the subshell failed, return from the function with the same exit
+        # value
+        )" || return
     fi
 
     # Execute the cd command as normal
