@@ -19,3 +19,17 @@ Known issues
     git-reflog(1) cals
 *   The \xFF syntax for regex as used in rfct(1) is not POSIX. Need to decide
     if it's well-supported enough to keep it anyway.
+*   Git prompt seems to change its mind about file moves after a run of
+    git-status:
+
+        tom@conan:~/.dotfiles(master)$ git mv bash/bashrc.d/ud.bash sh/shrc.d/ud.sh
+        tom@conan:~/.dotfiles(master!+)$ git diff --cached
+        diff --git a/bash/bashrc.d/ud.bash b/sh/shrc.d/ud.sh
+        similarity index 100%
+        rename from bash/bashrc.d/ud.bash
+        rename to sh/shrc.d/ud.sh
+        tom@conan:~/.dotfiles(master!+)$
+        tom@conan:~/.dotfiles(master!+)$
+        tom@conan:~/.dotfiles(master!+)$ git status
+        R  bash/bashrc.d/ud.bash -> sh/shrc.d/ud.sh
+        tom@conan:~/.dotfiles(master+)$
