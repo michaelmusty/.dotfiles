@@ -49,8 +49,7 @@ path() {
                 return 1
             fi
             PATH=$(
-                # shellcheck disable=SC2031
-                path=:$path:
+                path=:$PATH:
                 path=${path%%:"$2":*}:${path#*:"$2":}
                 path=${path#:}
                 path=${path%:}
