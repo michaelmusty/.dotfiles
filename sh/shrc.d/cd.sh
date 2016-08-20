@@ -65,10 +65,10 @@ cd() {
 
             # Print the target
             printf '%s\n' "$new"
+        )"
 
-        # If the subshell failed, return from the function with the same exit
-        # value
-        )" || return
+        # If the subshell printed nothing, return with failure
+        [ -n "$2" ] || return
     fi
 
     # Execute the cd command as normal

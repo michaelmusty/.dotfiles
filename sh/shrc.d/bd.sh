@@ -54,9 +54,10 @@ bd() {
 
         # Print the target
         printf '%s\n' "$dirname"
+    )"
 
-    # If the subshell failed, return from the function with the same exit value
-    )" || return
+    # If the subshell printed nothing, return with failure
+    [ -n "$1" ] || return
 
     # Try to change into the determined directory
     command cd -- "$@"
