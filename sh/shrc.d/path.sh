@@ -4,7 +4,7 @@ path() {
     # The second argument, the directory, can never have a colon
     case $2 in
         *:*)
-            printf >&2 'path(): Illegal colon in given directory\n'
+            printf >&2 'path(): %s illegal colon\n' "$2"
             return 2
             ;;
     esac
@@ -27,7 +27,7 @@ path() {
         # Add a directory at the start of $PATH
         insert)
             if path check "$2" ; then
-                printf >&2 'path(): %s already in PATH\n'
+                printf >&2 'path(): %s already in PATH\n' "$2"
                 return 1
             fi
             PATH=${2}${PATH:+:"$PATH"}
@@ -36,7 +36,7 @@ path() {
         # Add a directory to the end of $PATH
         append)
             if path check "$2" ; then
-                printf >&2 'path(): %s already in PATH\n'
+                printf >&2 'path(): %s already in PATH\n' "$2"
                 return 1
             fi
             PATH=${PATH:+"$PATH":}${2}
@@ -45,7 +45,7 @@ path() {
         # Remove a directory from $PATH
         remove)
             if ! path check "$2" ; then
-                printf >&2 'path(): %s not in PATH\n'
+                printf >&2 'path(): %s not in PATH\n' "$2"
                 return 1
             fi
             PATH=$(
