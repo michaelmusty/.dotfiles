@@ -1,0 +1,16 @@
+.TH FNL 1 "August 2016" "Manual page for fnl"
+.SH NAME
+.B fnl
+\- list the biggest files in the given directory
+.SH SYNOPSIS
+.B fnl
+command arg1 ...
+.SH DESCRIPTION
+.B fnl
+runs the command specifies in its arguments, writing any stdout and stderr to
+separate temporary files created with mktd(1), and then runs wc(1) over them to
+show their statistics and full paths.
+.SH SEE ALSO
+igex(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

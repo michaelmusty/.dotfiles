@@ -6,13 +6,11 @@ set-environment -gru DISPLAY
 # Force the browser to be Lynx in case we inherited a non-null DISPLAY
 set-environment -g BROWSER 'lynx'
 
-# The only environment variables I want tmux to update for me are SSH_CLIENT
-# and SSH_CONNECTION, both of which are occasionally useful
-set-option -g update-environment 'SSH_CLIENT SSH_CONNECTION'
+# The only environment variables I want tmux to update for me are SSH_CLIENT,
+# SSH_CONNECTION, and SSH_TTY, all of which are occasionally useful
+set-option -g update-environment 'SSH_CLIENT SSH_CONNECTION SSH_TTY'
 
-# Setting this prevents each new pane being a login shell, purely for
-# efficiency reasons; I've not yet encountered a situation where I need tmux to
-# create login shells
+# Setting this makes each new pane a non-login shell, which suits me better
 set-option -g default-command "$SHELL"
 
 # All of my terminals are 256 colors, so use the appropriate termcap/terminfo,

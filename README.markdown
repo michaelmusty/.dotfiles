@@ -98,11 +98,10 @@ they should work in most `sh(1)` implementations. Individual scripts called by
 management. All of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
-My `.bash_profile` calls `.profile` and then runs subscripts in
-`.bash_profile.d`. It then runs `.bashrc`, which only applies for interactive
-shells; subscripts for that in turn are loaded from `.bashrc.d`. The contents
-of the two directories changes depending on the host, so only specific scripts
-in it are versioned.
+My `.bash_profile` calls `.profile`, and then `.bashrc`, which only applies for
+interactive shells. Subscripts for `.bashrc` are loaded from `.bashrc.d`. The
+contents of the two directories changes depending on the host, so only specific
+scripts in it are versioned.
 
 My interactive and scripting shell of choice is Bash; as a GNU/Linux admin who
 ends up installing Bash on \*BSD machines anyway, I very rarely have to write
@@ -165,6 +164,7 @@ If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 *   `bc()` silences startup messages from GNU `bc(1)`.
+*   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
 *   `cd()` wraps the `cd` builtin to allow for a second parameter for string
     substitution, emulating a Zsh function I like.
@@ -175,48 +175,44 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     variables.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
+*   `grep()` tries to apply color and other options good for interactive use,
+    depending on the capabilities of the system `grep(1)`. It's dependent on
+    information written by the `grep.sh` script in `~/.profile.d`.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `lhn()` gets the history number of the last command, if the POSIX `fc`
+    builtin is available.
+*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+    It's dependent on information written by the `ls.sh` script in
+    `~/.profile.d`.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
+*   `path()` manages the contents of `PATH` conveniently.
+*   `pd()` changes to the argument's parent directory.
 *   `pwgen()` generates just one decent password with `pwgen(1)`.
 *   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `scr()` creates a temporary directory and changes into it.
+*   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
     preserved; I hate ending up `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
+*   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
+*   `vr()` tries to change to the root directory of a source control
+    repository.
 
 There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
 
-*   `bd()` changes into a named ancestor of the current directory.
-*   `fnl()` runs a command and saves its output and error into temporary files,
-    defining variables with the filenames in them.
-*   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`. It's dependent on
-    information written by the `grep.sh` script in `~/.profile.d`.
 *   `keep()` stores ad-hoc shell functions and variables.
-*   `lhn()` gets the history number of the last command.
-*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
-    It's dependent on information written by the `ls.sh` script in
-    `~/.profile.d`.
-*   `path()` manages the contents of `PATH` conveniently.
-*   `pd()` changes to the argument's parent directory.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
-*   `readv()` prints names and values from `read` calls to `stderr`.
-*   `readz()` is an alias for `read -d '' -r`.
-*   `sd()` changes into a sibling of the current directory.
-*   `ud()` changes into an indexed ancestor of a directory.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
-*   `vr()` tries to change to the root directory of a source control
-    repository.
 
 #### Completion
 
@@ -398,6 +394,8 @@ Installed by the `install-bin` target:
     `~/.local/bin`, for personal scripting snippets.
 *   `fgscr(1)` finds Git repositories in a directory root and scrubs them with
     `gscr(1)`.
+*   `fnl(1)` runs a command and saves its output and error into temporary files,
+    printing their paths and line counts
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`.
@@ -427,6 +425,7 @@ Installed by the `install-bin` target:
 *   `rmrej(1)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1)` posts its input to the sprunge.us pastebin.
+*   `sshi(1)` prints human-readable SSH connection details.
 *   `stex(1)` strips extensions from filenames.
 *   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
