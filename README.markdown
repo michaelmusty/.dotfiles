@@ -180,6 +180,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
+*   `pd()` changes to the argument's parent directory.
 *   `pwgen()` generates just one decent password with `pwgen(1)`.
 *   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
@@ -206,7 +207,6 @@ There are a few other little tricks defined for other shells, mostly in
     It's dependent on information written by the `ls.sh` script in
     `~/.profile.d`.
 *   `path()` manages the contents of `PATH` conveniently.
-*   `pd()` changes to the argument's parent directory.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
 *   `readv()` prints names and values from `read` calls to `stderr`.
