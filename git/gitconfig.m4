@@ -10,6 +10,9 @@
 [color]
     ui = true
 
+[commit]
+    status = false
+
 [core]
     compression = 9
 
