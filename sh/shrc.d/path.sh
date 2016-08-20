@@ -89,7 +89,7 @@ EOF
         # Command not found
         *)
             printf >&2 'path(): Unknown command\n'
-            path help
+            path help >&2
             return 2
             ;;
     esac
