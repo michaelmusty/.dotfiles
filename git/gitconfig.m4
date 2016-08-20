@@ -1,6 +1,7 @@
 [advice]
     statusHints = false
     detachedHead = false
+    implicitIdentity = false
     pushUpdateRejected = false
 
 [alias]
