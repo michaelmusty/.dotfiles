@@ -185,6 +185,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `scr()` creates a temporary directory and changes into it.
+*   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
     preserved; I hate ending up `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
@@ -211,7 +212,6 @@ There are a few other little tricks defined for other shells, mostly in
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
 *   `readv()` prints names and values from `read` calls to `stderr`.
 *   `readz()` is an alias for `read -d '' -r`.
-*   `sd()` changes into a sibling of the current directory.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
 *   `vr()` tries to change to the root directory of a source control
