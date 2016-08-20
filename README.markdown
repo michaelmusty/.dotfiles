@@ -207,8 +207,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
 
-*   `fnl()` runs a command and saves its output and error into temporary files,
-    defining variables with the filenames in them.
 *   `keep()` stores ad-hoc shell functions and variables.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `prompt()` sets up my interactive prompt.
@@ -396,6 +394,8 @@ Installed by the `install-bin` target:
     `~/.local/bin`, for personal scripting snippets.
 *   `fgscr(1)` finds Git repositories in a directory root and scrubs them with
     `gscr(1)`.
+*   `fnl(1)` runs a command and saves its output and error into temporary files,
+    printing their paths and line counts
 *   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1)`.
