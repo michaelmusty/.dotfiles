@@ -12,8 +12,9 @@ path() {
     # Check first argument to figure out operation 
     case $1 in
 
-        # List current directories in $PATH
+        # List current directories in PATH
         list|'') (
+            # shellcheck disable=SC2030
             path=$PATH:
             while [ -n "$path" ] ; do
                 dir=${path%%:*}
@@ -26,7 +27,7 @@ path() {
         # Add a directory at the start of $PATH
         insert)
             if path check "$2" ; then
-                printf >&2 'path(): %s already in $PATH\n'
+                printf >&2 'path(): %s already in PATH\n'
                 return 1
             fi
             PATH=${2}${PATH:+:"$PATH"}
@@ -35,7 +36,7 @@ path() {
         # Add a directory to the end of $PATH
         append)
             if path check "$2" ; then
-                printf >&2 'path(): %s already in $PATH\n'
+                printf >&2 'path(): %s already in PATH\n'
                 return 1
             fi
             PATH=${PATH:+"$PATH":}${2}
@@ -44,10 +45,11 @@ path() {
         # Remove a directory from $PATH
         remove)
             if ! path check "$2" ; then
-                printf >&2 'path(): %s not in $PATH\n'
+                printf >&2 'path(): %s not in PATH\n'
                 return 1
             fi
             PATH=$(
+                # shellcheck disable=SC2031
                 path=:$path:
                 path=${path%%:"$2":*}:${path#*:"$2":}
                 path=${path#:}
@@ -56,8 +58,9 @@ path() {
             )
             ;;
 
-        # Check whether a directory is in $PATH
+        # Check whether a directory is in PATH
         check) (
+            # shellcheck disable=SC2030
             path=:$PATH:
             [ "$path" != "${path%:"$2":*}" ]
             ) ;;
