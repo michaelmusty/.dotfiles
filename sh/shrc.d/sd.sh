@@ -43,7 +43,7 @@ sd() {
         fi
 
         # Set the positional parameters to either the requested directory, or
-        # all of the current directory's siblings if no request
+        # all siblings of the current directory if no request
         spec=$1
         set --
         if [ -n "$spec" ] ; then
