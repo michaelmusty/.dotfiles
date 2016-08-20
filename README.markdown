@@ -201,6 +201,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
+*   `vr()` tries to change to the root directory of a source control
+    repository.
 
 There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
@@ -215,8 +217,6 @@ There are a few other little tricks defined for other shells, mostly in
 *   `readz()` is an alias for `read -d '' -r`.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
-*   `vr()` tries to change to the root directory of a source control
-    repository.
 
 #### Completion
 
