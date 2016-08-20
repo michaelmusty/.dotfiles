@@ -17,8 +17,8 @@ printf '%s\n' "$SSH_CONNECTION" "${SSH_TTY:-unknown}" | (
     read -r tty
 
     # Try to resolve the client and server IPs
-    ch=$(dig -x "$ci" +short 2>/dev/null | sed 1q)
-    sh=$(dig -x "$si" +short 2>/dev/null | sed 1q)
+    ch=$(dig -x "$ci" +short 2>/dev/null | sed 's/\.$//;1q')
+    sh=$(dig -x "$si" +short 2>/dev/null | sed 's/\.$//;1q')
 
     # Print the results in a human-readable format
     printf "%s:%u -> %s:%u (%s)\n" \
