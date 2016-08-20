@@ -14,6 +14,14 @@ grep() {
     [ -e "$HOME"/.cache/grep/binary-files ] &&
         set -- --binary-files=without-match "$@"
 
+    # Add --devices=skip to gracefully skip devices
+    [ -e "$HOME"/.cache/grep/devices ] &&
+        set -- --devices=skip "$@"
+
+    # Add --directories=skip to gracefully skip directories
+    [ -e "$HOME"/.cache/grep/directories ] &&
+        set -- --directories=skip "$@"
+
     # Add --exclude to ignore .gitignore and .gitmodules files
     [ -e "$HOME"/.cache/grep/exclude ] &&
         set -- \
