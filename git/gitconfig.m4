@@ -10,6 +10,9 @@
 [color]
     ui = true
 
+[core]
+    compression = 9
+
 [diff]
     tool = vimdiff
 
