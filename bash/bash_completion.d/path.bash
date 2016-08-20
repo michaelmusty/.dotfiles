@@ -6,7 +6,7 @@ _path() {
 
         # Complete operation as first word
         local cmd
-        for cmd in help list insert append remove set check ; do
+        for cmd in list insert append remove check help ; do
             [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
             COMPREPLY[${#COMPREPLY[@]}]=$cmd
         done
@@ -16,7 +16,7 @@ _path() {
         case ${COMP_WORDS[1]} in
 
             # Complete with a directory
-            insert|i|append|add|a|check|c|set|s)
+            insert|append|check)
                 local dirname
                 while IFS= read -rd '' dirname ; do
                     COMPREPLY[${#COMPREPLY[@]}]=$dirname
@@ -39,7 +39,7 @@ _path() {
                 ;;
 
             # Complete with directories from PATH
-            remove|rm|r)
+            remove)
                 local -a promptarr
                 IFS=: read -d '' -a promptarr < <(printf '%s\0' "$PATH")
                 local part

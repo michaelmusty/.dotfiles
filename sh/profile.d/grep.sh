@@ -13,8 +13,14 @@
 
         # Iterate through some useful options and create files to show they're
         # available
-        for opt in binary-files color exclude exclude-dir ; do
-            grep -q -- --"$opt" "$gcd"/help || continue
+        set -- binary-files \
+               color        \
+               devices      \
+               directories  \
+               exclude      \
+               exclude-dir
+        for opt ; do
+            grep -Eq -- --"$opt" "$gcd"/help || continue
             touch -- "$gcd"/"$opt" || exit
         done
     fi

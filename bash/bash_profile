@@ -13,12 +13,6 @@ elif ((BASH_VERSINFO[0] == 2)) &&
     return
 fi
 
-# Load any supplementary scripts
-for sh in "$HOME"/.bash_profile.d/*.bash ; do
-    [[ -e $sh ]] && source "$sh"
-done
-unset -v sh
-
 # If ~/.bashrc exists, source that too; the test for interactivity is in there
 if [[ -f $HOME/.bashrc ]] ; then
     source "$HOME"/.bashrc
