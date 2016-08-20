@@ -98,14 +98,13 @@ they should work in most `sh(1)` implementations. Individual scripts called by
 management. All of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
+I make an effort to target POSIX for my functions and scripts where I can, but
+Bash is my interactive shell of choice.
+
 My `.bash_profile` calls `.profile`, and then `.bashrc`, which only applies for
 interactive shells. Subscripts for `.bashrc` are loaded from `.bashrc.d`. The
-contents of the two directories changes depending on the host, so only specific
-scripts in it are versioned.
-
-My interactive and scripting shell of choice is Bash; as a GNU/Linux admin who
-ends up installing Bash on \*BSD machines anyway, I very rarely have to write
-Bourne-compatible scripts, so all of these files are replete with Bashisms.
+contents of the `*.d` directories changes depending on the host, so only
+specific scripts in it are versioned.
 
 As I occasionally have work on very old internal systems, my Bash is written to
 work with [any version 2.05a or
