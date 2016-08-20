@@ -175,8 +175,14 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     variables.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
+*   `grep()` tries to apply color and other options good for interactive use,
+    depending on the capabilities of the system `grep(1)`. It's dependent on
+    information written by the `grep.sh` script in `~/.profile.d`.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+    It's dependent on information written by the `ls.sh` script in
+    `~/.profile.d`.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
@@ -199,14 +205,8 @@ There are a few other little tricks defined for other shells, mostly in
 
 *   `fnl()` runs a command and saves its output and error into temporary files,
     defining variables with the filenames in them.
-*   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`. It's dependent on
-    information written by the `grep.sh` script in `~/.profile.d`.
 *   `keep()` stores ad-hoc shell functions and variables.
 *   `lhn()` gets the history number of the last command.
-*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
-    It's dependent on information written by the `ls.sh` script in
-    `~/.profile.d`.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
