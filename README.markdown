@@ -180,6 +180,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     information written by the `grep.sh` script in `~/.profile.d`.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `lhn()` gets the history number of the last command, if the POSIX `fc`
+    builtin is available.
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     It's dependent on information written by the `ls.sh` script in
     `~/.profile.d`.
@@ -206,7 +208,6 @@ There are a few other little tricks defined for other shells, mostly in
 *   `fnl()` runs a command and saves its output and error into temporary files,
     defining variables with the filenames in them.
 *   `keep()` stores ad-hoc shell functions and variables.
-*   `lhn()` gets the history number of the last command.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
