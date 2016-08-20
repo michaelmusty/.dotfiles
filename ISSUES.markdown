@@ -29,3 +29,13 @@ Known issues
         tom@conan:~/.dotfiles(master!+)$ git status
         R  bash/bashrc.d/ud.bash -> sh/shrc.d/ud.sh
         tom@conan:~/.dotfiles(master+)$
+
+*   On OpenBSD pdksh, including single quotes in comments within command
+    substitution throws "unclosed quote" errors in the linter checks:
+
+        sh/shrc.d/vr.sh[50]: no closing quote
+        *** Error 1 in /home/tom/.dotfiles (Makefile:348 'check-sh')
+
+    Fixed for the instances I found, but it would be interesting to find
+    whether this is a bug in pdksh or whether it's a dark corner of the POSIX
+    standard.
