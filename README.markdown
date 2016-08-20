@@ -213,8 +213,6 @@ There are a few other little tricks defined for other shells, mostly in
 *   `path()` manages the contents of `PATH` conveniently.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
-*   `readv()` prints names and values from `read` calls to `stderr`.
-*   `readz()` is an alias for `read -d '' -r`.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
 
