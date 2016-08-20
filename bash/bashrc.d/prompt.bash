@@ -122,6 +122,9 @@ prompt() {
             fi
             branch=${branch##*/}
 
+            # Refresh index so e.g. git-diff-files(1) is accurate
+            git update-index --refresh >/dev/null
+
             # Collect symbols representing repository state
             local state
             if ! git diff-files --quiet ; then
