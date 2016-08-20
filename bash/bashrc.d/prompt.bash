@@ -122,20 +122,19 @@ prompt() {
             fi
             branch=${branch##*/}
 
+            # Refresh index so e.g. git-diff-files(1) is accurate
+            git update-index --refresh >/dev/null
+
             # Collect symbols representing repository state
             local state
-            if ! git diff-files --quiet ; then
+            git diff-files --quiet ||
                 state=${state}!
-            fi
-            if ! git diff-index --cached --quiet HEAD ; then
+            git diff-index --cached --quiet HEAD ||
                 state=${state}+
-            fi
-            if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
+            [[ -n $(git ls-files --others --exclude-standard) ]] &&
                 state=${state}\?
-            fi
-            if git rev-parse --quiet --verify refs/stash >/dev/null ; then
+            git rev-parse --quiet --verify refs/stash >/dev/null &&
                 state=${state}^
-            fi
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)

@@ -1,6 +1,7 @@
 [advice]
     statusHints = false
     detachedHead = false
+    implicitIdentity = false
     pushUpdateRejected = false
 
 [alias]
@@ -8,6 +9,12 @@
 
 [color]
     ui = true
+
+[commit]
+    status = false
+
+[core]
+    compression = 9
 
 [diff]
     tool = vimdiff
