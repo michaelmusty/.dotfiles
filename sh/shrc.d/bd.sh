@@ -3,13 +3,9 @@ bd() {
 
     # Set positional parameters to an option terminator and what will hopefully
     # end up being a target directory
-    set -- -- "$(
+    set -- "$(
 
-        # If the first of the existing positional arguments is --, shift it
-        # off
-        [ "$1" = -- ] && shift
-
-        # There's no more than one argument after that
+        # Check there's no more than one argument
         [ "$#" -le 1 ] || exit 1
 
         # The requested pattern is the first argument, defaulting to just the
@@ -63,5 +59,5 @@ bd() {
     )" || return
 
     # Try to change into the determined directory
-    command cd "$@"
+    command cd -- "$@"
 }
