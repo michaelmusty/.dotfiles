@@ -164,6 +164,7 @@ If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 *   `bc()` silences startup messages from GNU `bc(1)`.
+*   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
 *   `cd()` wraps the `cd` builtin to allow for a second parameter for string
     substitution, emulating a Zsh function I like.
@@ -194,7 +195,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
 
-*   `bd()` changes into a named ancestor of the current directory.
 *   `fnl()` runs a command and saves its output and error into temporary files,
     defining variables with the filenames in them.
 *   `grep()` tries to apply color and other options good for interactive use,
