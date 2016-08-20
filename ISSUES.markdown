@@ -1,5 +1,4 @@
-Known issues issuesW:L
-
+Known issues
 ============
 
 *   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
