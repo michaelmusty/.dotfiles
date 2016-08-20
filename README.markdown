@@ -187,6 +187,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate ending up `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
+*   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
 
@@ -211,7 +212,6 @@ There are a few other little tricks defined for other shells, mostly in
 *   `readv()` prints names and values from `read` calls to `stderr`.
 *   `readz()` is an alias for `read -d '' -r`.
 *   `sd()` changes into a sibling of the current directory.
-*   `ud()` changes into an indexed ancestor of a directory.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
 *   `vr()` tries to change to the root directory of a source control
