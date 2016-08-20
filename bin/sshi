@@ -4,7 +4,7 @@
 # Check we have an SSH_CONNECTION variable
 if [ -z "$SSH_CONNECTION" ] ; then
     printf >&2 'sshi: SSH_CONNECTION appears empty\n'
-    exit 2
+    exit 1
 fi
 
 # Print the two variables into a subshell so we can chop them up with read
