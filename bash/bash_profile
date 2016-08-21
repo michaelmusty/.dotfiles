@@ -3,4 +3,4 @@
 
 # If ~/.bashrc exists, source that too; the tests for both interactivity and
 # >=2.05a (for features like [[) are in there
-[ -f $HOME/.bashrc ] && . "$HOME"/.bashrc
+[ -f "$HOME"/.bashrc ] && . "$HOME"/.bashrc
