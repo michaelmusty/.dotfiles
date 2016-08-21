@@ -23,6 +23,10 @@
 [difftool]
     prompt = false
 
+[fetch]
+    output = compact
+    prune = true
+
 [grep]
     extendRegexp = true
     lineNumber = true
