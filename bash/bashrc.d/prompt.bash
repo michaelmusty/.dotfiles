@@ -38,13 +38,13 @@ prompt() {
             # Count available colors
             local -i colors
             colors=$( {
-                tput Co || tput colors
+                tput colors || tput Co
             } 2>/dev/null )
 
             # Prepare reset code
             local reset
             reset=$( {
-                tput me || tput sgr0
+                tput sgr0 || tput me
             } 2>/dev/null )
 
             # Decide prompt color formatting based on color availability
@@ -55,10 +55,10 @@ prompt() {
                 256)
                     format=$( {
                         : "${PROMPT_COLOR:=10}"
-                        tput AF "$PROMPT_COLOR" ||
                         tput setaf "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR" 0 0  ||
-                        tput setaf "$PROMPT_COLOR" 0 0
+                        tput setaf "$PROMPT_COLOR" 0 0 ||
+                        tput AF "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR" 0 0
                     } 2>/dev/null )
                     ;;
 
@@ -66,9 +66,9 @@ prompt() {
                 8)
                     format=$( {
                         : "${PROMPT_COLOR:=2}"
-                        tput AF "$PROMPT_COLOR" ||
-                        tput setaf "$PROMPT_COLOR"
-                        tput md || tput bold
+                        tput setaf "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR"
+                        tput bold || tput md
                     } 2>/dev/null )
                     ;;
 
@@ -76,7 +76,7 @@ prompt() {
                 # use bold
                 *)
                     format=$( {
-                        tput md || tput bold
+                        tput bold || tput md
                     } 2>/dev/null )
                     ;;
             esac
