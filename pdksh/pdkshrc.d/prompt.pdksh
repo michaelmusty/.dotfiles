@@ -100,14 +100,30 @@ prompt() {
 
             # Collect symbols representing repository state
             typeset state
+
+            # Upstream HEAD has commits after local HEAD; we're "behind"
+            (($(git rev-list --count 'HEAD..@{u}' 2>/dev/null) > 0)) &&
+                state=${state}\<
+
+            # Local HEAD has commits after upstream HEAD; we're "ahead"
+            (($(git rev-list --count '@{u}..HEAD' 2>/dev/null) > 0)) &&
+                state=${state}\>
+
+            # Tracked files are modified
             git diff-files --quiet ||
-                state=${state}!!
+                state=${state}'!!'
+
+            # Changes are staged
             git diff-index --cached --quiet HEAD ||
-                state=${state}+
+                state=${state}\+
+
+            # There are some untracked and unignored files
             [[ -n $(git ls-files --others --exclude-standard) ]] &&
                 state=${state}\?
+
+            # There are stashed changes
             git rev-parse --quiet --verify refs/stash >/dev/null &&
-                state=${state}^
+                state=${state}\^
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
