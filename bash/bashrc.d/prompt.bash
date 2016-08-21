@@ -1,12 +1,6 @@
 # Frontend to controlling prompt
 prompt() {
 
-    # If no arguments, print the prompt strings as they are
-    if ! (($#)) ; then
-        declare -p PS1 PS2 PS3 PS4
-        return
-    fi
-
     # What's done next depends on the first argument to the function
     case $1 in
 
@@ -19,9 +13,7 @@ prompt() {
             PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
 
             # If Bash 4.0 is available, trim very long paths in prompt
-            if ((BASH_VERSINFO[0] >= 4)) ; then
-                PROMPT_DIRTRIM=4
-            fi
+            ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
 
             # Basic prompt shape
             PS1='\u@\h:\w'
@@ -101,11 +93,8 @@ prompt() {
         git)
             # Bail if we're not in a work tree--or, implicitly, if we don't
             # have git(1).
-            local iswt
-            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
-            if [[ $iswt != true ]] ; then
-                return 1
-            fi
+            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
+                return
 
             # Attempt to determine git branch, bail if we can't
             local branch
@@ -113,9 +102,7 @@ prompt() {
                 git symbolic-ref --quiet HEAD ||
                 git rev-parse --short HEAD
             } 2>/dev/null )
-            if [[ ! -n $branch ]] ; then
-                return 1
-            fi
+            [[ -n $branch ]] || return
             branch=${branch##*/}
 
             # Refresh index so e.g. git-diff-files(1) is accurate
@@ -198,12 +185,8 @@ prompt() {
 
             # Add appropriate state flags
             local -a state
-            if ((modified)) ; then
-                state[${#state[@]}]='!'
-            fi
-            if ((untracked)) ; then
-                state[${#state[@]}]='?'
-            fi
+            ((modified)) && state[${#state[@]}]='!'
+            ((untracked)) && state[${#state[@]}]='?'
 
             # Print the state in brackets with an svn: prefix
             (IFS= ; printf '(svn:%s%s)' \
@@ -214,17 +197,13 @@ prompt() {
         vcs)
             local vcs
             for vcs in "${PROMPT_VCS[@]:-git}" ; do
-                if prompt "$vcs" ; then
-                    return
-                fi
+                prompt "$vcs" && return
             done
             ;;
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            if ((PROMPT_RETURN > 0)) ; then
-                printf '<%u>' "$PROMPT_RETURN"
-            fi
+            ((PROMPT_RETURN)) && printf '<%u>' "$PROMPT_RETURN"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
@@ -233,9 +212,12 @@ prompt() {
             while read ; do
                 ((jobc++))
             done < <(jobs -p)
-            if ((jobc > 0)) ; then
-                printf '{%u}' "$jobc"
-            fi
+            ((jobc)) && printf '{%u}' "$jobc"
+            ;;
+
+        # No argument given, print prompt strings and vars
+        '')
+            declare -p PS1 PS2 PS3 PS4
             ;;
 
         # Print error
@@ -243,7 +225,6 @@ prompt() {
             printf '%s: Unknown command %s\n' "$FUNCNAME" "$1" >&2
             return 2
             ;;
-
     esac
 }
 

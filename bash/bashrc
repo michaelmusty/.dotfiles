@@ -1,12 +1,10 @@
 # Ensure we're using at least version 2.05. Weird arithmetic syntax needed here
 # due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
 # 2.05a).
-if ! [ -n "$BASH_VERSINFO" ] ; then
+[ -n "$BASH_VERSINFO" ] || return
+((BASH_VERSINFO[0] == 2)) &&
+    ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) &&
     return
-elif ((BASH_VERSINFO[0] == 2)) &&
-     ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) ; then
-    return
-fi
 
 # Make sure the shell is interactive
 case $- in
@@ -15,9 +13,7 @@ case $- in
 esac
 
 # Don't do anything if running a restricted shell
-if shopt -q restricted_shell ; then
-    return
-fi
+shopt -q restricted_shell && return
 
 # Keep around four thousand lines of history in file
 HISTFILESIZE=$((1 << 12))
@@ -89,22 +85,16 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
 
     # Warn me about stopped jobs when exiting; only if >=4.1 due to bug
     # <https://lists.gnu.org/archive/html/bug-bash/2009-02/msg00176.html>
-    if ((BASH_VERSINFO[1] >= 1)) ; then
-        shopt -s checkjobs
-    fi
+    ((BASH_VERSINFO[1] >= 1)) && shopt -s checkjobs
 
     # Expand variables in directory completion; only available since 4.3
-    if ((BASH_VERSINFO[1] >= 3)) ; then
-        shopt -s direxpand
-    fi
+    ((BASH_VERSINFO[1] >= 3)) && shopt -s direxpand
 fi
 
 # If COMP_WORDBREAKS has a value, strip all colons from it; this allows
 # completing filenames correctly, since an unquoted colon is not a syntactic
 # character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
-if [[ -n $COMP_WORDBREAKS ]] ; then
-    COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
-fi
+[[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
 # Load POSIX shell functions, Bash-specific scripts, and Bash completion files,
 # in that order

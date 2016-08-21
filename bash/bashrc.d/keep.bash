@@ -45,9 +45,7 @@ keep() {
 
             # -h given; means show help
             h)
-                while IFS= read -r line ; do
-                    printf '%s\n' "$line"
-                done <<EOF
+                cat <<EOF
 $FUNCNAME: Keep variables and functions in shell permanently by writing them to
 named scripts iterated on shell start, in \$BASHKEEP (defaults to
 ~/.bashkeep.d).
@@ -145,10 +143,7 @@ EOF
 }
 
 # Load any existing scripts in bashkeep
-if [[ -d ${BASHKEEP:-"$HOME"/.bashkeep.d} ]] ; then
-    for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
-        [[ -e $bashkeep ]] || continue
-        source "$bashkeep"
-    done
-    unset -v bashkeep
-fi
+for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
+    [[ -e $bashkeep ]] && source "$bashkeep"
+done
+unset -v bashkeep

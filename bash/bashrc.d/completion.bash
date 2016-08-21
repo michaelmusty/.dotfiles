@@ -40,8 +40,11 @@ complete -A function -A variable unset
 
 # If we have dynamic completion loading (Bash>=4.0), use it
 if ((BASH_VERSINFO[0] >= 4)) ; then
+
+    # Handler tries to load appropriate completion for commands
     _completion_loader() {
         [[ -n $1 ]] || return
+        local compspec
         compspec=$HOME/.bash_completion.d/$1.bash
         [[ -f $compspec ]] || return
         source "$compspec" >/dev/null 2>&1 && return 124

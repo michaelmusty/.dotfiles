@@ -1,19 +1,6 @@
 # Load ~/.profile regardless of shell version
-if [ -e "$HOME"/.profile ] ; then
-    . "$HOME"/.profile
-fi
+[ -e "$HOME"/.profile ] && . "$HOME"/.profile
 
-# Ensure we're using at least version 2.05. Weird arithmetic syntax needed here
-# due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
-# 2.05a).
-if ! [ -n "$BASH_VERSINFO" ] ; then
-    return
-elif ((BASH_VERSINFO[0] == 2)) &&
-     ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) ; then
-    return
-fi
-
-# If ~/.bashrc exists, source that too; the test for interactivity is in there
-if [[ -f $HOME/.bashrc ]] ; then
-    source "$HOME"/.bashrc
-fi
+# If ~/.bashrc exists, source that too; the tests for both interactivity and
+# >=2.05a (for features like [[) are in there
+[ -f $HOME/.bashrc ] && . "$HOME"/.bashrc
