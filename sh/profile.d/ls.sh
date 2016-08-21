@@ -13,8 +13,14 @@
 
         # Iterate through some useful options and create files to show they're
         # available
-        if grep -q -- --color "$lcd"/help ; then
-            touch -- "$lcd"/color || exit
-        fi
+        set -- block-size     \
+               classify       \
+               color          \
+               human-readable \
+               time-style
+        for opt ; do
+            grep -q -- --"$opt" "$lcd"/help || continue
+            touch -- "$lcd"/"$opt" || exit
+        done
     fi
 )

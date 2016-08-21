@@ -20,7 +20,7 @@
                exclude      \
                exclude-dir
         for opt ; do
-            grep -Eq -- --"$opt" "$gcd"/help || continue
+            grep -q -- --"$opt" "$gcd"/help || continue
             touch -- "$gcd"/"$opt" || exit
         done
     fi
