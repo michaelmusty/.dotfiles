@@ -13,7 +13,8 @@
 
         # Iterate through some useful options and create files to show they're
         # available
-        set -- block-size     \
+        set -- almost-all     \
+               block-size     \
                classify       \
                color          \
                human-readable \
