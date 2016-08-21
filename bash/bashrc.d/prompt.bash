@@ -150,7 +150,8 @@ prompt() {
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
-            printf '(%s%s%s)' "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
+            printf '(%s%s%s)' \
+                "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
             ;;
 
         # Subversion prompt function
@@ -203,7 +204,8 @@ prompt() {
             fi
 
             # Print the state in brackets with an svn: prefix
-            (IFS= ; printf '(svn:%s%s)' "${branch:-unknown}" "${state[*]}")
+            (IFS= ; printf '(svn:%s%s)' \
+                "${branch:-unknown}" "${state[*]}")
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
