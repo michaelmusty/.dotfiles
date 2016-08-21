@@ -125,12 +125,14 @@ prompt() {
             local state
 
             # Upstream HEAD has commits after local HEAD; we're "behind"
-            (($(git rev-list --count 'HEAD..@{u}' 2>/dev/null) > 0)) &&
-                state=${state}'<'
+            local -i behind
+            behind=$(git rev-list --count 'HEAD..@{u}' 2>/dev/null)
+            ((behind)) && state=${state}'<'
 
             # Local HEAD has commits after upstream HEAD; we're "ahead"
-            (($(git rev-list --count '@{u}..HEAD' 2>/dev/null) > 0)) &&
-                state=${state}'>'
+            local -i ahead
+            ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null)
+            ((ahead)) && state=${state}'>'
 
             # Tracked files are modified
             git diff-files --quiet ||
