@@ -99,12 +99,8 @@ prompt() {
 
         # Git prompt function
         git)
-            # Bail if we have no git(1)
-            if ! hash git 2>/dev/null ; then
-                return 1
-            fi
-
-            # Bail if we're not in a work tree
+            # Bail if we're not in a work tree--or, implicitly, if we don't
+            # have git(1).
             local iswt
             iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
             if [[ $iswt != true ]] ; then
@@ -159,11 +155,6 @@ prompt() {
 
         # Subversion prompt function
         svn)
-            # Bail if we have no svn(1)
-            if ! hash svn 2>/dev/null ; then
-                return 1
-            fi
-
             # Determine the repository URL and root directory
             local key value url root
             while IFS=: read -r key value ; do
@@ -177,10 +168,10 @@ prompt() {
                 esac
             done < <(svn info 2>/dev/null)
 
-            # Exit if we couldn't get either
-            if [[ ! -n $url || ! -n $root ]] ; then
-                return 1
-            fi
+            # Exit if we couldn't get either--or, implicitly, if we don't have
+            # svn(1).
+            [[ -n $url ]] || return
+            [[ -n $root ]] || return
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
