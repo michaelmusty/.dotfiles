@@ -141,10 +141,10 @@ A terminal session with my prompt looks something like this:
 
 It expands based on context to include these elements in this order:
 
-*   Whether in a Git repository if applicable, and punctuation to show whether
-    there are local modifications at a glance; Subversion support can also be
-    enabled (I need it at work), in which case a `git:` or `svn:` prefix is
-    added appropriately
+*   Whether in a Git repository if applicable, and punctuation to show
+    repository status including reference to upstreams at a glance. Subversion
+    support can also be enabled (I need it at work), in which case a `git:` or
+    `svn:` prefix is added appropriately
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
