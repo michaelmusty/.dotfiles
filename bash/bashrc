@@ -102,20 +102,3 @@ for sh in "$ENV" "$HOME"/.bashrc.d/*.bash ; do
     [[ -e $sh ]] && source "$sh"
 done
 unset -v sh
-
-# If we have dynamic completion loading (Bash>=4.0), use it
-if ((BASH_VERSINFO[0] >= 4)) ; then
-    _completion_loader() {
-        [[ -n $1 ]] || return
-        compspec=$HOME/.bash_completion.d/$1.bash
-        [[ -f $compspec ]] || return
-        source "$compspec" >/dev/null 2>&1 && return 124
-    }
-
-# If not, load all of the completions up now
-else
-    for sh in "$HOME"/.bash_completion.d/*.bash ; do
-        [[ -e $sh ]] && source "$sh"
-    done
-    unset -v sh
-fi
