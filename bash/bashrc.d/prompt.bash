@@ -1,12 +1,6 @@
 # Frontend to controlling prompt
 prompt() {
 
-    # If no arguments, print the prompt strings as they are
-    if ! (($#)) ; then
-        declare -p PS1 PS2 PS3 PS4
-        return
-    fi
-
     # What's done next depends on the first argument to the function
     case $1 in
 
@@ -19,9 +13,7 @@ prompt() {
             PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
 
             # If Bash 4.0 is available, trim very long paths in prompt
-            if ((BASH_VERSINFO[0] >= 4)) ; then
-                PROMPT_DIRTRIM=4
-            fi
+            ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
 
             # Basic prompt shape
             PS1='\u@\h:\w'
@@ -38,13 +30,13 @@ prompt() {
             # Count available colors
             local -i colors
             colors=$( {
-                tput Co || tput colors
+                tput colors || tput Co
             } 2>/dev/null )
 
             # Prepare reset code
             local reset
             reset=$( {
-                tput me || tput sgr0
+                tput sgr0 || tput me
             } 2>/dev/null )
 
             # Decide prompt color formatting based on color availability
@@ -55,10 +47,10 @@ prompt() {
                 256)
                     format=$( {
                         : "${PROMPT_COLOR:=10}"
-                        tput AF "$PROMPT_COLOR" ||
                         tput setaf "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR" 0 0  ||
-                        tput setaf "$PROMPT_COLOR" 0 0
+                        tput setaf "$PROMPT_COLOR" 0 0 ||
+                        tput AF "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR" 0 0
                     } 2>/dev/null )
                     ;;
 
@@ -66,9 +58,9 @@ prompt() {
                 8)
                     format=$( {
                         : "${PROMPT_COLOR:=2}"
-                        tput AF "$PROMPT_COLOR" ||
-                        tput setaf "$PROMPT_COLOR"
-                        tput md || tput bold
+                        tput setaf "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR"
+                        tput bold || tput md
                     } 2>/dev/null )
                     ;;
 
@@ -76,7 +68,7 @@ prompt() {
                 # use bold
                 *)
                     format=$( {
-                        tput md || tput bold
+                        tput bold || tput md
                     } 2>/dev/null )
                     ;;
             esac
@@ -99,17 +91,10 @@ prompt() {
 
         # Git prompt function
         git)
-            # Bail if we have no git(1)
-            if ! hash git 2>/dev/null ; then
-                return 1
-            fi
-
-            # Bail if we're not in a work tree
-            local iswt
-            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
-            if [[ $iswt != true ]] ; then
-                return 1
-            fi
+            # Bail if we're not in a work tree--or, implicitly, if we don't
+            # have git(1).
+            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
+                return
 
             # Attempt to determine git branch, bail if we can't
             local branch
@@ -117,9 +102,7 @@ prompt() {
                 git symbolic-ref --quiet HEAD ||
                 git rev-parse --short HEAD
             } 2>/dev/null )
-            if [[ ! -n $branch ]] ; then
-                return 1
-            fi
+            [[ -n $branch ]] || return
             branch=${branch##*/}
 
             # Refresh index so e.g. git-diff-files(1) is accurate
@@ -129,41 +112,39 @@ prompt() {
             local state
 
             # Upstream HEAD has commits after local HEAD; we're "behind"
-            (($(git rev-list --count 'HEAD..@{u}' 2>/dev/null) > 0)) &&
-                state=${state}\<
+            local -i behind
+            behind=$(git rev-list --count 'HEAD..@{u}' 2>/dev/null)
+            ((behind)) && state=${state}'<'
 
             # Local HEAD has commits after upstream HEAD; we're "ahead"
-            (($(git rev-list --count '@{u}..HEAD' 2>/dev/null) > 0)) &&
-                state=${state}\>
+            local -i ahead
+            ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null)
+            ((ahead)) && state=${state}'>'
 
             # Tracked files are modified
             git diff-files --quiet ||
-                state=${state}\!
+                state=${state}'!'
 
             # Changes are staged
             git diff-index --cached --quiet HEAD ||
-                state=${state}\+
+                state=${state}'+'
 
             # There are some untracked and unignored files
             [[ -n $(git ls-files --others --exclude-standard) ]] &&
-                state=${state}\?
+                state=${state}'?'
 
             # There are stashed changes
             git rev-parse --quiet --verify refs/stash >/dev/null &&
-                state=${state}\^
+                state=${state}'^'
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
-            printf '(%s%s%s)' "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
+            printf '(%s%s%s)' \
+                "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
             ;;
 
         # Subversion prompt function
         svn)
-            # Bail if we have no svn(1)
-            if ! hash svn 2>/dev/null ; then
-                return 1
-            fi
-
             # Determine the repository URL and root directory
             local key value url root
             while IFS=: read -r key value ; do
@@ -177,10 +158,10 @@ prompt() {
                 esac
             done < <(svn info 2>/dev/null)
 
-            # Exit if we couldn't get either
-            if [[ ! -n $url || ! -n $root ]] ; then
-                return 1
-            fi
+            # Exit if we couldn't get either--or, implicitly, if we don't have
+            # svn(1).
+            [[ -n $url ]] || return
+            [[ -n $root ]] || return
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
@@ -204,32 +185,25 @@ prompt() {
 
             # Add appropriate state flags
             local -a state
-            if ((modified)) ; then
-                state[${#state[@]}]='!'
-            fi
-            if ((untracked)) ; then
-                state[${#state[@]}]='?'
-            fi
+            ((modified)) && state[${#state[@]}]='!'
+            ((untracked)) && state[${#state[@]}]='?'
 
             # Print the state in brackets with an svn: prefix
-            (IFS= ; printf '(svn:%s%s)' "${branch:-unknown}" "${state[*]}")
+            (IFS= ; printf '(svn:%s%s)' \
+                "${branch:-unknown}" "${state[*]}")
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
         vcs)
             local vcs
             for vcs in "${PROMPT_VCS[@]:-git}" ; do
-                if prompt "$vcs" ; then
-                    return
-                fi
+                prompt "$vcs" && return
             done
             ;;
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            if ((PROMPT_RETURN > 0)) ; then
-                printf '<%u>' "$PROMPT_RETURN"
-            fi
+            ((PROMPT_RETURN)) && printf '<%u>' "$PROMPT_RETURN"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
@@ -238,9 +212,12 @@ prompt() {
             while read ; do
                 ((jobc++))
             done < <(jobs -p)
-            if ((jobc > 0)) ; then
-                printf '{%u}' "$jobc"
-            fi
+            ((jobc)) && printf '{%u}' "$jobc"
+            ;;
+
+        # No argument given, print prompt strings and vars
+        '')
+            declare -p PS1 PS2 PS3 PS4
             ;;
 
         # Print error
@@ -248,7 +225,6 @@ prompt() {
             printf '%s: Unknown command %s\n' "$FUNCNAME" "$1" >&2
             return 2
             ;;
-
     esac
 }
 
