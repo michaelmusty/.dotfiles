@@ -194,7 +194,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `scr()` creates a temporary directory and changes into it.
 *   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
-    preserved; I hate ending up `root`-owned files in my home directory.
+    preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
 *   `ud()` changes into an indexed ancestor of a directory.
