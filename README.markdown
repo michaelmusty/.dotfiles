@@ -98,14 +98,13 @@ they should work in most `sh(1)` implementations. Individual scripts called by
 management. All of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
+I make an effort to target POSIX for my functions and scripts where I can, but
+Bash is my interactive shell of choice.
+
 My `.bash_profile` calls `.profile`, and then `.bashrc`, which only applies for
 interactive shells. Subscripts for `.bashrc` are loaded from `.bashrc.d`. The
-contents of the two directories changes depending on the host, so only specific
-scripts in it are versioned.
-
-My interactive and scripting shell of choice is Bash; as a GNU/Linux admin who
-ends up installing Bash on \*BSD machines anyway, I very rarely have to write
-Bourne-compatible scripts, so all of these files are replete with Bashisms.
+contents of the `*.d` directories changes depending on the host, so only
+specific scripts in it are versioned.
 
 As I occasionally have work on very old internal systems, my Bash is written to
 work with [any version 2.05a or
@@ -142,10 +141,10 @@ A terminal session with my prompt looks something like this:
 
 It expands based on context to include these elements in this order:
 
-*   Whether in a Git repository if applicable, and punctuation to show whether
-    there are local modifications at a glance; Subversion support can also be
-    enabled (I need it at work), in which case a `git:` or `svn:` prefix is
-    added appropriately
+*   Whether in a Git repository if applicable, and punctuation to show
+    repository status including reference to upstreams at a glance. Subversion
+    support can also be enabled (I need it at work), in which case a `git:` or
+    `svn:` prefix is added appropriately
 *   The number of running background jobs, if non-zero
 *   The exit status of the last command, if non-zero
 
@@ -176,15 +175,14 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`. It's dependent on
-    information written by the `grep.sh` script in `~/.profile.d`.
+    depending on the capabilities of the system `grep(1)`.
 *   `hgrep()` allows searching `$HISTFILE`.
-*   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
 *   `lhn()` gets the history number of the last command, if the POSIX `fc`
     builtin is available.
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
-    It's dependent on information written by the `ls.sh` script in
-    `~/.profile.d`.
+    *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
+    *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
@@ -196,7 +194,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `scr()` creates a temporary directory and changes into it.
 *   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
-    preserved; I hate ending up `root`-owned files in my home directory.
+    preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
 *   `ud()` changes into an indexed ancestor of a directory.
@@ -234,7 +232,9 @@ files for things I really do get tired of typing repeatedly:
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
-I also add completions for my own scripts and functions where useful.
+I also add completions for my own scripts and functions where useful. The
+completions are dynamically loaded if Bash is version 4.0 or greater.
+Otherwise, they're all loaded on startup.
 
 #### pdksh
 

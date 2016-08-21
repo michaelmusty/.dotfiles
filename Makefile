@@ -29,7 +29,6 @@
 	install-readline \
 	install-sh \
 	install-subversion \
-	install-terminfo \
 	install-tmux \
 	install-urxvt \
 	install-vim \
@@ -130,7 +129,6 @@ install : install-bash \
 	install-gnupg \
 	install-readline \
 	install-sh \
-	install-terminfo \
 	install-vim
 
 install-abook :
@@ -275,12 +273,11 @@ install-subversion :
 	install -pm 0644 -- subversion/config "$(HOME)"/.subversion/config
 
 install-terminfo :
-	command -v tic || exit 0
 	for info in terminfo/*.info ; do \
 		tic -- "$$info" ; \
 	done
 
-install-tmux : tmux/tmux.conf
+install-tmux : tmux/tmux.conf install-terminfo
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
 install-urxvt : check-urxvt

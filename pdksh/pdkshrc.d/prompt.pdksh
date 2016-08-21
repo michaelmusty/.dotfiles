@@ -95,21 +95,35 @@ prompt() {
             fi
             branch=${branch##*/}
 
+            # Refresh index so e.g. git-diff-files(1) is accurate
+            git update-index --refresh >/dev/null
+
+            # Collect symbols representing repository state
             typeset state
-            if ! git diff-files --quiet ; then
-                # Two exclamation marks, as that's how you get a literal "!" in
-                # a pdksh PS1
-                state=${state}!!
-            fi
-            if ! git diff-index --cached --quiet HEAD ; then
-                state=${state}+
-            fi
-            if [[ -n $(git ls-files --others --exclude-standard) ]] ; then
-                state=${state}?
-            fi
-            if git rev-parse --verify refs/stash >/dev/null 2>&1 ; then
-                state=${state}^
-            fi
+
+            # Upstream HEAD has commits after local HEAD; we're "behind"
+            (($(git rev-list --count 'HEAD..@{u}' 2>/dev/null) > 0)) &&
+                state=${state}\<
+
+            # Local HEAD has commits after upstream HEAD; we're "ahead"
+            (($(git rev-list --count '@{u}..HEAD' 2>/dev/null) > 0)) &&
+                state=${state}\>
+
+            # Tracked files are modified
+            git diff-files --quiet ||
+                state=${state}'!!'
+
+            # Changes are staged
+            git diff-index --cached --quiet HEAD ||
+                state=${state}\+
+
+            # There are some untracked and unignored files
+            [[ -n $(git ls-files --others --exclude-standard) ]] &&
+                state=${state}\?
+
+            # There are stashed changes
+            git rev-parse --quiet --verify refs/stash >/dev/null &&
+                state=${state}\^
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)

@@ -5,14 +5,22 @@
 # Define function proper
 grep() {
 
+    # Add --binary-files=without-match to gracefully skip binary files
+    [ -e "$HOME"/.cache/grep/binary-files ] &&
+        set -- --binary-files=without-match "$@"
+
     # Add --color if the terminal has at least 8 colors
     [ -e "$HOME"/.cache/grep/color ] &&
     [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"
 
-    # Add --binary-files=without-match to gracefully skip binary files
-    [ -e "$HOME"/.cache/grep/binary-files ] &&
-        set -- --binary-files=without-match "$@"
+    # Add --devices=skip to gracefully skip devices
+    [ -e "$HOME"/.cache/grep/devices ] &&
+        set -- --devices=skip "$@"
+
+    # Add --directories=skip to gracefully skip directories
+    [ -e "$HOME"/.cache/grep/directories ] &&
+        set -- --directories=skip "$@"
 
     # Add --exclude to ignore .gitignore and .gitmodules files
     [ -e "$HOME"/.cache/grep/exclude ] &&

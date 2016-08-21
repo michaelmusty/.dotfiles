@@ -5,14 +5,15 @@
 .SH SYNOPSIS
 .B dmp
 .br
-.B dmp 25
+.B dmp
+25
 .SH DESCRIPTION
 .B dmp
 applies dmenu(1) to pick a password entry from a pass(1) store and put it into
-the X CLIPBOARD for up to 10 seconds.
+the X CLIPBOARD for a period of time, defaulting to 10 seconds, after which
+xsel(1) will remove it from the clipboard.
 .P
-An optional timeout in seconds can be applied, after which xsel(1) will remove
-the password from the clipboard. This timeout defaults to 10 seconds.
+The timeout in seconds can be specified as an optional argument.
 .SH SEE ALSO
 dmenu(1), pass(1), xsel(1)
 .SH AUTHOR

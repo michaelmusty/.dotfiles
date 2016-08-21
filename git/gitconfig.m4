@@ -1,6 +1,7 @@
 [advice]
     statusHints = false
     detachedHead = false
+    implicitIdentity = false
     pushUpdateRejected = false
 
 [alias]
@@ -9,11 +10,22 @@
 [color]
     ui = true
 
+[commit]
+    status = false
+
+[core]
+    compression = 9
+
 [diff]
+    algorithm = patience
     tool = vimdiff
 
 [difftool]
     prompt = false
+
+[fetch]
+    output = compact
+    prune = true
 
 [grep]
     extendRegexp = true
@@ -38,6 +50,7 @@
 
 [status]
     short = true
+    showUntrackedFiles = all
 
 [user]
     name = DOTFILES_NAME
