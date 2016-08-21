@@ -177,7 +177,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `grep()` tries to apply color and other options good for interactive use,
     depending on the capabilities of the system `grep(1)`.
 *   `hgrep()` allows searching `$HISTFILE`.
-*   `keychain()` updates `$GPG_TTY` if set for `keychain(1)`.
+*   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
 *   `lhn()` gets the history number of the last command, if the POSIX `fc`
     builtin is available.
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
