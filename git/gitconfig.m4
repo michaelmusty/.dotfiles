@@ -50,6 +50,7 @@
 
 [status]
     short = true
+    showUntrackedFiles = all
 
 [user]
     name = DOTFILES_NAME
