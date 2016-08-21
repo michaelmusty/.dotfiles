@@ -235,7 +235,9 @@ files for things I really do get tired of typing repeatedly:
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
-I also add completions for my own scripts and functions where useful.
+I also add completions for my own scripts and functions where useful. The
+completions are dynamically loaded if Bash is version 4.0 or greater.
+Otherwise, they're all loaded on startup.
 
 #### pdksh
 
