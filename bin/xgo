@@ -31,7 +31,7 @@ for url ; do (
             ;;
         text/plain)
             # shellcheck disable=SC2016
-            urxvt -e sh -c 'curl -- "$1" | "${PAGER:-more}"' \
+            urxvt -e sh -c 'curl -- "$1" | view -' \
                 _ "$url" && exit
             ;;
     esac
