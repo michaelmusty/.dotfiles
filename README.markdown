@@ -16,7 +16,7 @@ Installation
     $ make install
 
 For the default target, you'll need `bash(1)`, `git(1)`, `install(1)`,
-`make(1)`, `m4(1)`, and `tic(1)`. You'll need to have a recent enough version
+`make(1)`, and `m4(1)`. You'll need to have a recent enough version
 of Git to support
 [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the Vim
 installation to work; it's required for the plugin setup.
