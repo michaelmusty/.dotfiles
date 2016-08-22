@@ -128,17 +128,20 @@ defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
 
-    tom@conan:~/.dotfiles(master+!)$ git status
+    ~$ ssh remote
+    tom@remote:~$ cd .dotfiles
+    tom@remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@conan:~/.dotfiles(master+!)$ foobar
+    tom@remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@conan:~/.dotfiles(master+!)<127>$ sleep 5 &
+    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@conan:~/.dotfiles(master+!){1}$
+    tom@remote:~/.dotfiles(master+!){1}$
 
-It expands based on context to include these elements in this order:
+The username and hostname are skipped if not connected via SSH. The right side
+of the prompt expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
