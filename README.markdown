@@ -15,8 +15,10 @@ Installation
     $ make -n install
     $ make install
 
-For the default target, you'll need `git(1)`, `install(1)`, `make(1)`, and
-`m4(1)`.
+For the default `all` target, you'll need `git(1)`, `install(1)`, `make(1)`,
+and `m4(1)`. This target includes the Bash files, but you don't need `bash` to
+actually install them, and the rest of the shell configuration should work
+without it.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
