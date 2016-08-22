@@ -9,4 +9,4 @@ fi
 rn=$1
 
 # Retrieve the RFC with curl(1)
-curl https://tools.ietf.org/rfc/rfc"$rn".txt
+curl -fsSL https://tools.ietf.org/rfc/rfc"$rn".txt
