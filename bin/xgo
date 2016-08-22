@@ -22,7 +22,7 @@ for url ; do (
 
     # If the MIME type is an image, load it in feh(1)
     case $mt in
-        audio/*)
+        audio/*|video/*)
             mpv --force-window -- "$url" && exit
             ;;
         image/gif) ;;
