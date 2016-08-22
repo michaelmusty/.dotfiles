@@ -4,7 +4,7 @@
 # does it the other way around.
 case $KSH_VERSION in
     *'PD KSH '*|*'MIRBSD KSH '*)
-        [ -f "${KSH_ENV:-"$HOME"/.pdkshrc}" ] || return
-        . "${KSH_ENV:-"$HOME"/.pdkshrc}"
+        [ -f "${KSH_ENV:="$HOME"/.pdkshrc}" ] || return
+        . "$KSH_ENV"
         ;;
 esac
