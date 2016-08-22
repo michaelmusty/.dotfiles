@@ -26,6 +26,11 @@ for url ; do (
         image/*)
             curl -- "$url" | feh - && exit
             ;;
+        text/plain)
+            # shellcheck disable=SC2016
+            urxvt -e sh -c 'curl -- "$1" | "${PAGER:-more}"' \
+                _ "$url" && exit
+            ;;
     esac
 
     # Otherwise, just pass it to br(1)
