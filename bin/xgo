@@ -15,6 +15,12 @@ for url ; do (
         *[/.]youtube.com/watch*)
             mpv -- "$url" && exit
             ;;
+        https://github.com/*/blob/*)
+            url=$(printf '%s\n' "$url" | sed 's_/blob/_/raw/_')
+            ;;
+        *://imgur.com/*)
+            url=$(printf '%s\n' "$url" | sed 's_imgur\.com_i.imgur.com_;s/$/.jpg/')
+            ;;
     esac
 
     # Get the MIME type data
