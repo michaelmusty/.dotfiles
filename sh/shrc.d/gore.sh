@@ -10,7 +10,8 @@ gore() {
         set -- --color=always "$@"
 
     # Run whatever `grep` gives us; it might be our function wrapper; that's OK
-    grep "$@" |
+    # Include -n to show line numbers; this is POSIX, which was a nice surprise
+    grep -n "$@" |
 
     # Run the appropriate pager; if it's less(1), we can tack on -R (though my
     # ~/.lesskey does this anyway)
