@@ -46,10 +46,11 @@ options grep \
 
 # Cache options for ls(1)
 options ls \
-    almost-all     \
-    block-size     \
-    classify       \
-    color          \
-    human-readable \
+    almost-all         \
+    block-size         \
+    classify           \
+    color              \
+    hide-control-chars \
+    human-readable     \
     time-style
 )

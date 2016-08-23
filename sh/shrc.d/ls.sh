@@ -18,6 +18,12 @@ ls() {
     [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"
 
+    # Add --hide-control-chars if present; we always want this interactively,
+    # even if the output is to a pager; we shouldn't be trying to script ls(1)
+    # output anyway
+    [ -e "$HOME"/.cache/ls/hide-control-chars ] &&
+        set -- --hide-control-chars "$@"
+
     # Add --time-style='+%Y-%m-%d %H:%M:%S' to show trailing indicators of the
     # filetype
     [ -e "$HOME"/.cache/ls/time-style ] &&
