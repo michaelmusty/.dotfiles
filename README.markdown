@@ -403,6 +403,8 @@ Installed by the `install-bin` target:
     and does up to three silent retries using `try(1)`.
 *   `grc(1)` quietly tests whether the given directory appears to be a Git
     repository with pending changes.
+*   `gress(1)` runs the output of `grep(1)` through your pager, using color if
+    it can
 *   `gscr(1)` scrubs Git repositories.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
