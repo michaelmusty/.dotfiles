@@ -15,13 +15,19 @@ prompt() {
 
         # Turn complex, colored PS1 and debugging PS4 prompts on
         on)
-            # Set up prompt, including optional PROMPT_PREFIX and PROMPT_SUFFIX
-            # variables
-            PS1='\u@\h:\w'
-            PS1=$PS1'$(prompt vcs)'
-            PS1=$PS1'$(prompt job)'
-            PS1='${PROMPT_PREFIX}'$PS1
-            PS1=$PS1'${PROMPT_SUFFIX}'
+            # Basic prompt shape depends on whether we're in SSH or not
+            PS1=
+            [[ -n $SSH_CONNECTION ]] &&
+                PS1=$PS1'\u@\h:'
+            PS1=$PS1'\w'
+
+            # Add sub-commands; VCS, job, and return status checks
+            PS1=$PS1'$(prompt vcs)$(prompt job)'
+
+            # Add prefix and suffix
+            PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
+
+            # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
             # Count available colors
@@ -79,10 +85,10 @@ prompt() {
 
         # Git prompt function
         git)
-            # Bail if we have no git(1)
-            if ! hash git 2>/dev/null ; then
-                return 1
-            fi
+            # Bail if we're not in a work tree--or, implicitly, if we don't
+            # have git(1).
+            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
+                return
 
             # Attempt to determine git branch, bail if we can't
             typeset branch
@@ -102,12 +108,14 @@ prompt() {
             typeset state
 
             # Upstream HEAD has commits after local HEAD; we're "behind"
-            (($(git rev-list --count 'HEAD..@{u}' 2>/dev/null) > 0)) &&
-                state=${state}\<
+            typeset -i behind
+            behind=$(git rev-list --count 'HEAD..@{u}' 2>/dev/null)
+            ((behind)) && state=${state}'<'
 
             # Local HEAD has commits after upstream HEAD; we're "ahead"
-            (($(git rev-list --count '@{u}..HEAD' 2>/dev/null) > 0)) &&
-                state=${state}\>
+            typeset -i ahead
+            ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null)
+            ((ahead)) && state=${state}'>'
 
             # Tracked files are modified
             git diff-files --quiet ||
@@ -115,19 +123,20 @@ prompt() {
 
             # Changes are staged
             git diff-index --cached --quiet HEAD ||
-                state=${state}\+
+                state=${state}'+'
 
             # There are some untracked and unignored files
             [[ -n $(git ls-files --others --exclude-standard) ]] &&
-                state=${state}\?
+                state=${state}'?'
 
             # There are stashed changes
             git rev-parse --quiet --verify refs/stash >/dev/null &&
-                state=${state}\^
+                state=${state}'^'
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
-            printf '(%s%s%s)' "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
+            printf '(%s%s%s)' \
+                "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
             ;;
 
         # Revert to simple inexpensive prompts
@@ -142,9 +151,7 @@ prompt() {
         vcs)
             typeset vcs
             for vcs in "${PROMPT_VCS[@]:-git}" ; do
-                if prompt "$vcs" ; then
-                    return
-                fi
+                prompt "$vcs" && return
             done
             ;;
 
@@ -152,9 +159,7 @@ prompt() {
         job)
             typeset -i jobc
             jobc=$(jobs -p | sed -n '$=')
-            if ((jobc > 0)) ; then
-                printf '{%u}' "$jobc"
-            fi
+            ((jobc)) && printf '{%u}' "$jobc"
             ;;
 
         # Print error
