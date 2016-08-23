@@ -17,8 +17,9 @@ prompt() {
 
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
-            [[ -n $SSH_CLIENT ]] && [[ -n $SSH_CONNECTION ]] &&
+            if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
                 PS1=$PS1'\u@\h:'
+            fi
             PS1=$PS1'\w'
 
             # Add sub-commands; VCS, job, and return status checks
