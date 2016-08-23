@@ -40,6 +40,8 @@ sd() {
         return 2
     fi
 
+    # Change positional parameters to what will hopefully be a completed
+    # substitution
     set -- "$(
     
         # Set the positional parameters to either the requested directory, or
