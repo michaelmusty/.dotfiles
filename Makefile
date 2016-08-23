@@ -44,12 +44,14 @@
 	check-bash \
 	check-bin \
 	check-games \
+	check-pdksh \
 	check-sh \
 	check-urxvt \
 	lint \
 	lint-bash \
 	lint-bin \
 	lint-games \
+	lint-pdksh \
 	lint-sh \
 	lint-urxvt
 
@@ -327,7 +329,12 @@ install-zsh : install-sh
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-check : check-bash check-bin check-games check-man check-sh check-urxvt
+check : check-bash \
+	check-bin \
+	check-games \
+	check-man \
+	check-sh \
+	check-urxvt
 
 check-bash :
 	check/bash
@@ -338,11 +345,11 @@ check-bin :
 check-games :
 	check/games
 
-check-pdksh :
-	check/pdksh
-
 check-man :
 	check/man
+
+check-pdksh :
+	check/pdksh
 
 check-sh :
 	check/sh
@@ -350,7 +357,13 @@ check-sh :
 check-urxvt :
 	check/urxvt
 
-lint : lint-bash lint-bin lint-games lint-sh lint-urxvt
+lint : check \
+	lint-bash  \
+	lint-bin  \
+	lint-games  \
+	lint-pdksh  \
+	lint-sh  \
+	lint-urxvt
 
 lint-bash :
 	lint/bash
@@ -360,6 +373,9 @@ lint-bin :
 
 lint-games :
 	lint/games
+
+lint-pdksh :
+	lint/pdksh
 
 lint-sh :
 	lint/sh
