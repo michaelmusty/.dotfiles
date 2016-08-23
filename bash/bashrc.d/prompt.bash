@@ -130,7 +130,7 @@ prompt() {
                 state=${state}'!'
 
             # Changes are staged
-            git diff-index --cached --quiet HEAD ||
+            git diff-index --cached --quiet HEAD 2>/dev/null ||
                 state=${state}'+'
 
             # There are some untracked and unignored files
