@@ -17,9 +17,9 @@ command -v verse >/dev/null 2>&1 || return
 # Run verse(1) if we haven't seen it already today (the verses are selected by
 # date); run in a subshell to keep vars out of global namespace
 (
-    now=$(date +%Y-%m-%d)
+    now=$(date +%Y%m%d)
     [ -f "$HOME"/.verse ] && last=$(cat -- "$HOME"/.verse)
-    [ "$now" \> "$last" ] || exit
+    [ "$now" -gt "$last" ] || exit
     verse
     printf '\n'
     printf '%s\n' "$now" > "$HOME"/.verse
