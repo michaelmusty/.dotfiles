@@ -18,6 +18,7 @@ command -v verse >/dev/null 2>&1 || return
 # date); run in a subshell to keep vars out of global namespace
 (
     now=$(date +%Y%m%d)
+    last=0
     [ -f "$HOME"/.verse ] && last=$(cat -- "$HOME"/.verse)
     [ "$now" -gt "$last" ] || exit
     verse
