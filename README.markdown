@@ -173,6 +173,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     variables.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
+*   `gore(1)` runs the output of `grep(1)` through your pager, using color if
+    it can.
 *   `grep()` tries to apply color and other options good for interactive use,
     depending on the capabilities of the system `grep(1)`.
 *   `hgrep()` allows searching `$HISTFILE`.
@@ -403,8 +405,6 @@ Installed by the `install-bin` target:
     and does up to three silent retries using `try(1)`.
 *   `grc(1)` quietly tests whether the given directory appears to be a Git
     repository with pending changes.
-*   `gress(1)` runs the output of `grep(1)` through your pager, using color if
-    it can
 *   `gscr(1)` scrubs Git repositories.
 *   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
