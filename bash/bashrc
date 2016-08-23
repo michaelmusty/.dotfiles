@@ -16,11 +16,11 @@ esac
 # Don't do anything if running a restricted shell
 shopt -q restricted_shell && return
 
-# Keep around four thousand lines of history in file
-HISTFILESIZE=$((1 << 12))
+# Keep around 32K lines of history in file
+HISTFILESIZE=$((1 << 15))
 
-# Keep around one thousand lines of history in memory
-HISTSIZE=$((1 << 10))
+# Keep around 4K lines of history in memory
+HISTSIZE=$((1 << 12))
 
 # Ignore duplicate commands and whitespace in history
 HISTCONTROL=ignoreboth
