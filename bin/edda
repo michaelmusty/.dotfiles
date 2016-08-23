@@ -1,5 +1,6 @@
 #!/bin/sh
 # Run ed(1) over multiple files, duplicating stdin.
+self=edda
 
 # Need at least one file
 if [ "$#" -eq 0 ] ; then
