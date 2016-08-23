@@ -16,9 +16,8 @@ command -v fortune >/dev/null 2>&1 || return
 
 # Print from subshell to keep namespace clean
 (
-    if [ -d "$HOME"/.local/share/games/fortunes ] ; then
+    [ -d "$HOME"/.local/share/games/fortunes ] &&
         : "${FORTUNE_PATH:="$HOME"/.local/share/games/fortunes}"
-    fi
     fortune -s "$FORTUNE_PATH"
     printf '\n'
 )
