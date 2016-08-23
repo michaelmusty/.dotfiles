@@ -53,6 +53,7 @@ Configuration is included for:
 *   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
+*   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client

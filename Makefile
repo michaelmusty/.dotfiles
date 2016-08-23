@@ -17,6 +17,7 @@
 	install-gnupg \
 	install-gtk \
 	install-i3 \
+	install-less \
 	install-maildir \
 	install-mutt \
 	install-ncmcpp \
@@ -129,6 +130,7 @@ install : install-bash \
 	install-curl \
 	install-git \
 	install-gnupg \
+	install-less \
 	install-readline \
 	install-sh \
 	install-vim
@@ -213,6 +215,10 @@ install-gtk :
 install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
+
+install-less :
+	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
+	command -v lesskey && lesskey
 
 install-maildir :
 	install -m 0755 -d -- \
