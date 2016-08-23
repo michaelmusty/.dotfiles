@@ -167,8 +167,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
-*   `cd()` wraps the `cd` builtin to allow for a second parameter for string
-    substitution, emulating a Zsh function I like.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
@@ -192,6 +190,9 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `pd()` changes to the argument's parent directory.
 *   `pwgen()` generates just one decent password with `pwgen(1)`.
 *   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
+*   `rd()` replaces the first instance of its first argument with its second
+    argument in `$PWD`, emulating a feature of the Zsh `cd` builtin that I
+    like.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `scr()` creates a temporary directory and changes into it.
 *   `sd()` changes into a sibling of the current directory.

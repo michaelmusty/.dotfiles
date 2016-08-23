@@ -1,12 +1,15 @@
 # Move back up the directory tree to the first directory matching the name
 bd() {
 
+    # Check argument count
+    if [ "$#" -gt 1 ] ; then
+        printf >&2 'bd(): Too many arguments'
+        return 2
+    fi
+
     # Set positional parameters to an option terminator and what will hopefully
     # end up being a target directory
     set -- "$(
-
-        # Check there's no more than one argument
-        [ "$#" -le 1 ] || exit 1
 
         # The requested pattern is the first argument, defaulting to just the
         # parent directory
