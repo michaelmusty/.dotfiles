@@ -88,7 +88,7 @@ prompt() {
         git)
             # Bail if we're not in a work tree--or, implicitly, if we don't
             # have git(1).
-            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
+            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] ||
                 return
 
             # Attempt to determine git branch, bail if we can't
