@@ -46,18 +46,18 @@ keep() {
             # -h given; means show help
             h)
                 cat <<EOF
-$FUNCNAME: Keep variables and functions in shell permanently by writing them to
+${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing them to
 named scripts iterated on shell start, in \$BASHKEEP (defaults to
 ~/.bashkeep.d).
 
 USAGE:
-  $FUNCNAME
+  ${FUNCNAME[0]}
     List all the current kept variables and functions
-  $FUNCNAME NAME1 [NAME2 ...]
+  ${FUNCNAME[0]} NAME1 [NAME2 ...]
     Write the current definition for the given NAMEs to keep files
-  $FUNCNAME -d NAME1 [NAME2 ...]
+  ${FUNCNAME[0]} -d NAME1 [NAME2 ...]
     Delete the keep files for the given NAMEs
-  $FUNCNAME -h
+  ${FUNCNAME[0]} -h
     Show this help
 
 EOF
@@ -67,7 +67,7 @@ EOF
             # Unknown other option
             \?)
                 printf 'bash: %s -%s: invalid option\n' \
-                    "$FUNCNAME" "$opt" >&2
+                    "${FUNCNAME[0]}" "$opt" >&2
                 return 2
                 ;;
         esac
@@ -92,7 +92,7 @@ EOF
                 # characters besides letters, numbers, or underscores
                 *[^a-zA-Z0-9_]*|[^a-zA-Z_]*)
                     printf 'bash: %s: %s not a valid NAME\n' \
-                        "$FUNCNAME" "$name" >&2
+                        "${FUNCNAME[0]}" "$name" >&2
                     ((errors++))
                     ;;
 
@@ -126,7 +126,7 @@ EOF
     # Deleting is an error, since we need at least one argument
     if ((delete)) ; then
         printf 'bash: %s: must specify at least one NAME to delete\n'
-            "$FUNCNAME" >&2
+            "${FUNCNAME[0]}" >&2
         return 2
     fi
 

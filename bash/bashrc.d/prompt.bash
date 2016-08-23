@@ -81,7 +81,7 @@ prompt() {
             PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
             PS2='> '
             PS3='? '
-            PS4='+<$?> ${BASH_SOURCE:-$BASH}:$FUNCNAME:$LINENO:'
+            PS4='+<$?> ${BASH_SOURCE:-$BASH}:${FUNCNAME[0]}:$LINENO:'
             ;;
 
         # Revert to simple inexpensive prompts
@@ -226,7 +226,7 @@ prompt() {
 
         # Print error
         *)
-            printf '%s: Unknown command %s\n' "$FUNCNAME" "$1" >&2
+            printf '%s: Unknown command %s\n' "${FUNCNAME[0]}" "$1" >&2
             return 2
             ;;
     esac
