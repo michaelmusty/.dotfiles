@@ -15,7 +15,7 @@ bd() {
         # parent directory
         req=${1:-..}
 
-        # Strip trailing slashes if a trailing slash isn't the whole pattern
+        # Strip trailing slashes if a trailing slash is not the whole pattern
         [ "$req" = / ] || req=${req%/}
 
         # What to do now depends on the request
