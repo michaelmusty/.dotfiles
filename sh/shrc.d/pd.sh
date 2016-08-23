@@ -4,15 +4,15 @@
 # argument, this just shifts up a directory, i.e. `cd ..`
 pd() {
 
+    # Check argument count
+    if [ "$#" -gt 1 ] ; then
+        printf >&2 'pd(): Too many arguments\n'
+        return 2
+    fi
+
     # Change the positional parameters from the target to its containing
     # directory
     set -- "$(
-
-        # Check argument count
-        if [ "$#" -gt 1 ] ; then
-            printf >&2 'pd(): Too many arguments\n'
-            exit 2
-        fi
 
         # Figure out target dirname
         dirname=${1:-..}

@@ -15,11 +15,10 @@ Installation
     $ make -n install
     $ make install
 
-For the default target, you'll need `bash(1)`, `git(1)`, `install(1)`,
-`make(1)`, `m4(1)`, and `tic(1)`. You'll need to have a recent enough version
-of Git to support
-[submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the Vim
-installation to work; it's required for the plugin setup.
+For the default `all` target, you'll need `git(1)`, `install(1)`, `make(1)`,
+and `m4(1)`. This target includes the Bash files, but you don't need `bash` to
+actually install them, and the rest of the shell configuration should work
+without it.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -129,17 +128,20 @@ defaults for interactive behavior.
 
 A terminal session with my prompt looks something like this:
 
-    tom@conan:~/.dotfiles(master+!)$ git status
+    ~$ ssh remote
+    tom@remote:~$ cd .dotfiles
+    tom@remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@conan:~/.dotfiles(master+!)$ foobar
+    tom@remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@conan:~/.dotfiles(master+!)<127>$ sleep 5 &
+    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@conan:~/.dotfiles(master+!){1}$
+    tom@remote:~/.dotfiles(master+!){1}$
 
-It expands based on context to include these elements in this order:
+The username and hostname are skipped if not connected via SSH. The right side
+of the prompt expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
@@ -165,8 +167,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
-*   `cd()` wraps the `cd` builtin to allow for a second parameter for string
-    substitution, emulating a Zsh function I like.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
@@ -190,6 +190,9 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `pd()` changes to the argument's parent directory.
 *   `pwgen()` generates just one decent password with `pwgen(1)`.
 *   `rcsdiff()` forces a unified format for `rcsdiff(1)`.
+*   `rd()` replaces the first instance of its first argument with its second
+    argument in `$PWD`, emulating a feature of the Zsh `cd` builtin that I
+    like.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `scr()` creates a temporary directory and changes into it.
 *   `sd()` changes into a sibling of the current directory.
@@ -380,8 +383,8 @@ Installed by the `install-bin` target:
 *   `ax(1)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1)` prints a terminal bell character.
-*   `br(1)` launches $BROWSER, or a more suitable application for an URL if it
-    knows of one.
+*   `br(1)` launches `$BROWSER`, or a more suitable application for an URL if
+    it knows of one.
 *   `ca(1)` prints a count of its given arguments.
 *   `cf(1)` prints a count of entries in a given directory.
 *   `clrd(1)` sets up a per-line file read, clearing the screen first.

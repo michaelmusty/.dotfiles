@@ -1,6 +1,6 @@
 #
-# sd -- sibling/switch directory -- Shortcut to switch to another directory
-# with the same parent, i.e. a sibling of the current directory.
+# Shortcut to switch to another directory with the same parent, i.e. a sibling
+# of the current directory.
 #
 #     $ pwd
 #     /home/you
@@ -34,14 +34,16 @@
 #
 sd() {
 
+    # Check argument count
+    if [ "$#" -gt 1 ] ; then
+        printf >&2 'sd(): Too many arguments\n'
+        return 2
+    fi
+
+    # Change positional parameters to what will hopefully be a completed
+    # substitution
     set -- "$(
     
-        # Check argument count
-        if [ "$#" -gt 1 ] ; then
-            printf >&2 'sd(): Too many arguments\n'
-            exit 1
-        fi
-
         # Set the positional parameters to either the requested directory, or
         # all siblings of the current directory if no request
         spec=$1

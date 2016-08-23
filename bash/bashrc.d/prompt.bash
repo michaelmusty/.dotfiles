@@ -15,8 +15,11 @@ prompt() {
             # If Bash 4.0 is available, trim very long paths in prompt
             ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
 
-            # Basic prompt shape
-            PS1='\u@\h:\w'
+            # Basic prompt shape depends on whether we're in SSH or not
+            PS1=
+            [[ -n $SSH_CONNECTION ]] &&
+                PS1=$PS1'\u@\h:'
+            PS1=$PS1'\w'
 
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'

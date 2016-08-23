@@ -1,5 +1,5 @@
 # ssh-askpass setup
-[ -n "${SSH_ASKPASS:="$(command -v ssh-askpass 2>&1)"}" ] &&
+[ -n "${SSH_ASKPASS:="$(command -v ssh-askpass 2>/dev/null)"}" ] &&
     export SSH_ASKPASS
 
 # keychain setup

@@ -15,6 +15,12 @@ for url ; do (
         *[/.]youtube.com/watch*)
             mpv -- "$url" && exit
             ;;
+        https://github.com/*/blob/*)
+            url=$(printf '%s\n' "$url" | sed 's_/blob/_/raw/_')
+            ;;
+        *://imgur.com/*)
+            url=$(printf '%s\n' "$url" | sed 's_imgur\.com_i.imgur.com_;s/$/.jpg/')
+            ;;
     esac
 
     # Get the MIME type data
@@ -22,9 +28,17 @@ for url ; do (
 
     # If the MIME type is an image, load it in feh(1)
     case $mt in
+        audio/*|video/*)
+            mpv --force-window -- "$url" && exit
+            ;;
         image/gif) ;;
         image/*)
             curl -- "$url" | feh - && exit
+            ;;
+        text/plain)
+            # shellcheck disable=SC2016
+            urxvt -e sh -c 'curl -- "$1" | view -' \
+                _ "$url" && exit
             ;;
     esac
 

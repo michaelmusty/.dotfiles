@@ -12,43 +12,51 @@ fi
 argf=$1 cmd=$2
 shift 2
 
-# If the file exists, we'll read it. If it doesn't, this is not an error (think
-# personal config files like ~/.vimrc)
-if [ -f "$argf" ] ; then
+# If there were arguments given on the command line, we need to be careful and
+# prepend our ones first
+if [ "$#" -gt 0 ] ; then
 
-    # Create a temporary directory with name in $td, and handle POSIX-ish traps to
-    # remove it when the script exits.
-    td=
-    cleanup() {
-        [ -n "$td" ] && rm -fr -- "$td"
-        if [ "$1" != EXIT ] ; then
-            trap - "$1"
-            kill "-$1" "$$"
+    # Iterate through any remaining arguments
+    for carg ; do
+
+        # If this is the first command argument, then before we add it, we'll
+        # add all the ones from the file first if it exists
+        if [ -n "$argf" ] ; then
+
+            # Reset the positional parameters
+            set --
+
+            # Put our file arguments in first before we continue with the loop
+            if [ -e "$argf" ] ; then
+                while IFS= read -r farg ; do
+                    case $farg in
+                        '#'*) continue ;;
+                        *[![:space:]]*) ;;
+                        *) continue ;;
+                    esac
+                    set -- "$@" "$farg"
+                done < "$argf"
+            fi
+
+            # Unset the argfile so we don't repeat this bit
+            unset -v argf
         fi
-    }
-    for sig in EXIT HUP INT TERM ; do
-        # shellcheck disable=SC2064
-        trap "cleanup $sig" "$sig"
+
+        # Stack the original invocation argument back onto the positional
+        # parameters
+        set -- "$@" "$carg"
     done
-    td=$(mktd "$self") || exit
 
-    # Write the arguments in reverse to a temporary file
-    revf=$td/revf
-    sed '1!G;$!{h;d}' "$argf" > "$revf" || exit
-
-    # Stack up all the arguments from the file. Skip blank lines and comments.
-    # An empty file is also fine.
-    while IFS= read -r arg ; do
-        case $arg in
+# If there weren't, we can just read the file and slap them in
+elif [ -e "$argf" ] ; then
+    while IFS= read -r farg ; do
+        case $farg in
             '#'*) continue ;;
             *[![:space:]]*) ;;
             *) continue ;;
         esac
-        set -- "$arg" "$@"
-    done < "$revf"
-
-    # We can remove the temporary stuff now, which allows us to exec safely
-    cleanup ''
+        set -- "$@" "$farg"
+    done < "$argf"
 fi
 
 # Run the command with the changed arguments
