@@ -9,7 +9,7 @@ fi
 url=$1 header=$2
 
 # Run cURL header request
-curl -I -- "$url" |
+curl -fIsSL -- "$url" |
 
 # Unfold the headers
 unf |

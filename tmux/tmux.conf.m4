@@ -1,23 +1,22 @@
-# My tmux session is no-display land because I attach to it with all sorts of
-# terminal clients, including PuTTY, so I don't always have X forwarding
-# available and therefore it's not appropriate to set the display
+# Strip out a lot of machine and X11 dependent crap from the initial
+# environment
+set-environment -gru COLORFGBG
+set-environment -gru COLORTERM
 set-environment -gru DISPLAY
+set-environment -gru SSH_CLIENT
+set-environment -gru SSH_CONNECTION
+set-environment -gru SSH_TTY
+set-environment -gru WINDOWID
 
-# Force the browser to be Lynx in case we inherited a non-null DISPLAY
-set-environment -g BROWSER 'lynx'
-
-# The only environment variables I want tmux to update for me are SSH_CLIENT,
-# SSH_CONNECTION, and SSH_TTY, all of which are occasionally useful
-set-option -g update-environment 'SSH_CLIENT SSH_CONNECTION SSH_TTY'
+# Otherwise, use the environment we had when we started; don't touch it during
+# a session unless I specifically ask
+set-option -g update-environment ''
 
 # Setting this makes each new pane a non-login shell, which suits me better
 set-option -g default-command "$SHELL"
 
-# All of my terminals are 256 colors, so use the appropriate termcap/terminfo,
-# and unset COLORFGBG and COLORTERM to stop programs getting confused
+# Expect a 256-color terminal
 set-option -g default-terminal 'screen-256color'
-set-environment -gru COLORFGBG
-set-environment -gru COLORTERM
 
 # Change the prefix to ^A rather than the default of ^B, because I'm a godless
 # GNU Screen refugee, and also I like using ^B in my shell and in Vim more
@@ -74,8 +73,8 @@ bind-key s choose-session
 # Session title on the left side of the status bar
 set-option -g status-left '[#S] '
 
-# Hostname and the current date on the right side of the status bar
-set-option -g status-right ' [#H] #(date +"%F %T")'
+# Username, hostname, and the current date on the right side of the status bar
+set-option -g status-right ' [#(whoami)@#H] #(date +"%F %T")'
 
 # Update the status bar every second
 set-option -g status-interval 1

@@ -2,23 +2,27 @@
 # like cd .., cd ../.., etc
 ud() {
 
+    # Check argument count
+    if [ "$#" -gt 1 ] ; then
+        printf >&2 'ud(): Too many arguments\n'
+        return 2
+    fi
+
+    # Check first argument, number of steps upward, default to 1.
+    # "0" is weird, but valid; "-1" however makes no sense at all
+    if [ "${1:-1}" -lt 0 ] ; then
+        printf >&2 'ud(): Invalid step count\n'
+        return 2
+    fi
+
     # Change the positional parameters from the number of steps given to a
     # "../../.." string
     set -- "$(
 
-        # Check first argument, number of steps upward, default to 1
-        # "0" is weird, but valid; "-1" however makes no sense at all
-        steps=${1:-1}
-        if [ "$steps" -lt 0 ] ; then
-            printf >&2 'ud(): Invalid step count\n'
-            exit 2
-        fi
-
-        # Check second argument, target directory, default to $PWD
+        # Append /.. to the target (default PWD) the specified number of times
         dirname=${2:-"$PWD"}
-
-        # Append /.. to the target the specified number of times
         i=0
+        steps=${1:-1}
         while [ "$i" -lt "$steps" ] ; do
             dirname=${dirname%/}/..
             i=$((i+1))
