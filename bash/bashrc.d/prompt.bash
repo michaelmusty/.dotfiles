@@ -17,7 +17,7 @@ prompt() {
 
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
-            [[ -n $SSH_CONNECTION ]] &&
+            [[ -n $SSH_CLIENT ]] && [[ -n $SSH_CONNECTION ]] &&
                 PS1=$PS1'\u@\h:'
             PS1=$PS1'\w'
 
