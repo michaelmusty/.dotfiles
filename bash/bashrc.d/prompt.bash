@@ -100,10 +100,12 @@ prompt() {
             [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
                 return
 
-            # Attempt to determine git branch, bail if we can't
+            # Find a branch label, or a tag, or just show the short commit ID,
+            # in that order of preference; if none of that works, bail out.
             local branch
             branch=$( {
                 git symbolic-ref --quiet HEAD ||
+                git describe --tags --exact-match HEAD ||
                 git rev-parse --short HEAD
             } 2>/dev/null )
             [[ -n $branch ]] || return
