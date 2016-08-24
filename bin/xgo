@@ -28,6 +28,13 @@ for url ; do (
 
     # If the MIME type is an image, load it in feh(1)
     case $mt in
+        application/pdf)
+            (
+                cd -- "$HOME"/Downloads || exit
+                curl -O -- "$url" || exit
+                xpdf -- "${url##*/}" || exit
+            ) && exit
+            ;;
         audio/*|video/*)
             mpv --force-window -- "$url" && exit
             ;;
