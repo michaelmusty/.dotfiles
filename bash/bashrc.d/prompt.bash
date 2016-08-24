@@ -126,15 +126,16 @@ prompt() {
             ((ahead)) && state=${state}'>'
 
             # Tracked files are modified
-            git diff-files --quiet ||
+            git diff-files --no-ext-diff --quiet ||
                 state=${state}'!'
 
             # Changes are staged
-            git diff-index --cached --quiet HEAD 2>/dev/null ||
+            git diff-index --cached --no-ext-diff --quiet HEAD 2>/dev/null ||
                 state=${state}'+'
 
             # There are some untracked and unignored files
-            [[ -n $(git ls-files --others --exclude-standard) ]] &&
+            git ls-files --directory --error-unmatch --exclude-standard \
+                --no-empty-directory --others -- ':/*' >/dev/null 2>&1 &&
                 state=${state}'?'
 
             # There are stashed changes
