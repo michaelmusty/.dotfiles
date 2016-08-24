@@ -17,6 +17,7 @@ lore() {
     fi
 
     # Run whatever `ls` gives us; it might be our function wrapper; that's OK
+    # shellcheck disable=SC2012
     ls "$@" |
 
     # Run the appropriate pager; if it's less(1), we can tack on -R (though my
