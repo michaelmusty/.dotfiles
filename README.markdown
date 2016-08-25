@@ -173,8 +173,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     variables.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
-*   `gore(1)` runs the output of `grep(1)` through your pager, using color if
-    it can.
 *   `grep()` tries to apply color and other options good for interactive use,
     depending on the capabilities of the system `grep(1)`.
 *   `hgrep()` allows searching `$HISTFILE`.
@@ -184,7 +182,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-    *   `lore(1)` runs the output of `ls(1)` with an `-lA` or `-la` switch
         through your pager, using color if it can.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
