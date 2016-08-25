@@ -1,6 +1,9 @@
 # Never ring any sort of bell during line reading
 set bell-style none
 
+# Let readline do stuff like word killing, not stty(1)
+set bind-tty-special-chars off
+
 # Ignore case when matching and completing paths
 set completion-ignore-case On
 
@@ -27,6 +30,10 @@ set show-all-if-ambiguous On
 
 # Don't re-complete already completed text in the middle of a word
 set skip-completed-text On
+
+# Killing words should stop at /
+# <https://www.youtube.com/watch?v=VCiRpM_rbF0>
+"\C-w": backward-kill-word
 
 # Bash macros
 $if Bash
