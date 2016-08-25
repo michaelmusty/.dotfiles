@@ -22,6 +22,9 @@ set expand-tilde On
 # Add a trailing slash for completed symlink directories
 set mark-symlinked-directories On
 
+# Don't match dotfiles unless there's a dot
+set match-hidden-files Off
+
 # Don't paginate possible completions
 set page-completions Off
 
