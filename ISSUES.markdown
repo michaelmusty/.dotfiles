@@ -24,3 +24,5 @@ Known issues
     Fixed for the instances I found, but it would be interesting to find
     whether this is a bug in pdksh or whether it's a dark corner of the POSIX
     standard.
+
+    Turns out that old versions of Bash in `sh` mode do this too.
