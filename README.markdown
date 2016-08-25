@@ -450,6 +450,7 @@ There's some silly stuff in `install-games`:
 *   `kvlt(6)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6)` implements an esoteric random number generation algorithm.
+*   `xyzzy(6)` teleports to a marked location on the filesystem.
 *   `zs(6)` prepends "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.
 
