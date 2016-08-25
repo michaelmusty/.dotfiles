@@ -28,6 +28,9 @@ set match-hidden-files Off
 # Don't paginate possible completions
 set page-completions Off
 
+# Goes nicely with ls(1) -x/--format=across
+set print-completions-horizontally on
+
 # Show multiple completions on first tab press
 set show-all-if-ambiguous On
 

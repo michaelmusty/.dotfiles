@@ -18,6 +18,10 @@ ls() {
     [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"
 
+    # Add --format=horizontal to print entries in a saner way
+    [ -e "$HOME"/.cache/ls/format ] &&
+        set -- --format=horizontal "$@"
+
     # Add --hide-control-chars if present; we always want this interactively,
     # even if the output is to a pager; we shouldn't be trying to script ls(1)
     # output anyway

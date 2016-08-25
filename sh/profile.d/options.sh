@@ -50,6 +50,7 @@ options ls \
     block-size         \
     classify           \
     color              \
+    format             \
     hide-control-chars \
     human-readable     \
     time-style
