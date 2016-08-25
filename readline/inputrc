@@ -76,3 +76,8 @@ $if Bash
     "\e\C-w": shell-backward-kill-word
 
 $endif
+
+# Don't let bc complete filenames (!?)
+$if bc
+  Tab:
+$endif
