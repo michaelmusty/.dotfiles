@@ -31,6 +31,9 @@ set page-completions Off
 # Goes nicely with ls(1) -x/--format=across
 set print-completions-horizontally on
 
+# Don't actually modify my history
+set revert-all-at-newline On
+
 # Show multiple completions on first tab press
 set show-all-if-ambiguous On
 
