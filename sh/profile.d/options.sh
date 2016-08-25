@@ -1,7 +1,7 @@
 # Cache the options available to certain programs. Run all this in a subshell
 # (none of its state needs to endure in the session)
 (
-options() { (
+options() (
 
     # Check or create the directory to cache the options
     dir=$HOME/.cache/$1
@@ -25,7 +25,7 @@ options() { (
         grep -q -- '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help &&
             touch -- "$opt"
     done
-) ; }
+)
 
 # Cache options for bc(1)
 options bc \
