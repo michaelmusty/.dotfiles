@@ -31,6 +31,9 @@ HISTTIMEFORMAT='%F %T  '
 # Don't warn me about new mail
 unset -v MAILCHECK
 
+# Use a more compact format for the time builtin's output
+TIMEFORMAT='real:%lR user:%lU sys:%lS'
+
 # Never beep at me
 setterm -bfreq -blength 2>/dev/null
 
