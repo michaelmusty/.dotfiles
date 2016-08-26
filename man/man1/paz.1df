@@ -1,0 +1,15 @@
+.TH PAZ 1df "July 2016" "Manual page for paz"
+.SH NAME
+.B paz
+\- print the given arguments null-terminated
+.SH SYNOPSIS
+.B paz
+arg1 arg2 arg3
+.SH DESCRIPTION
+.B pa
+prints each of its arguments followed by a null character. If there are no
+arguments, it does nothing.
+.SH SEE ALSO
+pa(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

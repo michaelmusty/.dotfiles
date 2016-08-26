@@ -1,7 +1,7 @@
 #!/bin/sh
 # Esoteric random number generator
 
-# Single optional argument is a random seed, otherwise use rnds(1)
+# Single optional argument is a random seed, otherwise use rnds(1df)
 s=${1:-"$(rnds)"}
 
 # Validate s

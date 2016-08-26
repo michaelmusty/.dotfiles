@@ -1,0 +1,13 @@
+.TH TD 1df "June 2016" "Manual page for td"
+.SH NAME
+.B td
+\- manage to-do files
+.SH SYNOPSIS
+.B td [FILENAME]
+.SH DESCRIPTION
+Edit to-do files in ~/Todo, defaulting to a file just named "todo",
+automatically maintaining a changelog via git(1).
+.SH SEE ALSO
+git(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

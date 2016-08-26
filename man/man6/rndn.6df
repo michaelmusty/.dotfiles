@@ -1,0 +1,27 @@
+.TH RNDN 6df "June 2016" "Manual page for rndn"
+.SH NAME
+.B rndn
+\- esoteric random number generator
+.SH USAGE
+.B rndn
+.br
+.B rndn
+-s 381290
+.br
+business-critical-process -t "$(\fBrndn\fR)"
+.SH DESCRIPTION
+.B rndn
+uses an advanced but somewhat esoteric algorithm derived by Adams (2001) to
+return a random number. The seed can be derived internally or specified with
+the -s option.
+.P
+While rndn(6df) has proven robust in the author's production usage, its algorithm
+has not been formally verified.
+.SH SEE ALSO
+<http://dilbert.com/strip/2001-10-25>
+.br
+rndi(1df), rnda(1df), rndf(1df), rndl(1df), rnds(1df)
+.SH AUTHORS
+Tom Ryder <tom@sanctum.geek.nz>
+.br
+Inspired by discussions with Wade Brown

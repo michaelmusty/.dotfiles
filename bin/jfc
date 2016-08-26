@@ -11,4 +11,4 @@ grc || exit 0
 git add --all || exit
 
 # Quietly commit with a stock message and use its exit value as ours
-git commit --message 'Committed by jfc(1)' --quiet
+git commit --message 'Committed by jfc(1df)' --quiet

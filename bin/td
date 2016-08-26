@@ -29,4 +29,4 @@ git add -- "$file"
 
 # If there are changes to commit, commit them
 git diff-index --quiet HEAD ||
-git commit --message 'Changed by td(1)' --quiet
+git commit --message 'Changed by td(1df)' --quiet

@@ -1,0 +1,16 @@
+.TH RNDA 1df "August 2016" "Manual page for rnda"
+.SH NAME
+.B rnda
+\- return a low-quality random choice from the given arguments
+.SH SYNOPSIS
+.B rnda
+arg1 arg2 arg3
+.SH DESCRIPTION
+.B rnda
+prints a random choice from the given arguments. It uses rndi(1df), which is
+probably not a high-quality source, but should differ within seconds and
+between runs on most systems.
+.SH SEE ALSO
+rndf(1df), rndi(1df), rndl(1df), rnds(1df), rndn(6df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

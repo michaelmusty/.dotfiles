@@ -1,0 +1,24 @@
+.TH HURL 1df "June 2016" "Manual page for hurl"
+.SH NAME
+.B hurl
+\- parse contents of href attributes of <a> elements from HTML pages
+.SH SYNOPSIS
+.B hurl
+page.html
+.br
+.B hurl
+page1.html page2.html
+.br
+curl http://example.com/ |
+.B hurl
+.SH DESCRIPTION
+.B hurl
+parses its HTML input using pup[1] and prints the contents of all "href"
+attributes of <a> elements from the parsed content to stdout in byte-sorted
+order.
+.SH SEE ALSO
+[1] pup: https://github.com/ericchiang/pup
+.br
+murl(1df), urlc(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

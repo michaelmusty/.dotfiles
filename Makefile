@@ -101,8 +101,8 @@ gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 -D DOTFILES_HOME="$(HOME)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
-man/man7/dotfiles.7 : README.markdown man/man7/dotfiles.7.header
-	cat man/man7/dotfiles.7.header README.markdown | \
+man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
+	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
 mutt/muttrc : mutt/muttrc.m4
@@ -165,15 +165,15 @@ install-bin-man :
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
-	install -pm 0644 -- man/man1/*.1 "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man8/*.8 "$(HOME)"/.local/share/man/man8
+	install -pm 0644 -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
+	install -pm 0644 -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
 
 install-curl :
 	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
 
-install-dotfiles-man : man/man7/dotfiles.7
+install-dotfiles-man : man/man7/dotfiles.7df
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
-	install -pm 0644 -- man/man7/*.7 "$(HOME)"/.local/share/man/man7
+	install -pm 0644 -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
 
 install-dunst : install-x
 	install -m 0755 -d -- "$(HOME)"/.config/dunst
@@ -192,8 +192,8 @@ install-games : games/acq games/kvlt games/zs check-games install-games-man
 	done
 
 install-games-man :
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
-	install -pm 0644 -- man/man6/*.6 "$(HOME)"/.local/share/man/man6
+	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6df
+	install -pm 0644 -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
 
 install-git : git/gitconfig
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig

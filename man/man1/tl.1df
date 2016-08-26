@@ -1,0 +1,20 @@
+.TH TL 1df "Augusr 2016" "Manual page for tl"
+.SH NAME
+.B tl
+\- tag lines with a string prefix and/or suffix
+.SH USAGE
+.B tl [-p PREFIX] [-s SUFFIX] [--] [FILE1 FILE2 ...]
+.SH DESCRIPTION
+Tag lines from files or stdin with a string prefix or suffix before writing
+them to stdout. Specifying neither prefix nor suffix is acceptable, in which
+case the stream is simply reproduced on stdout, acting like cat(1).
+.P
+Specify a prefix with -p, and/or a suffix with -s. If no file arguments are
+given, defaults to reading standard input.
+.P
+   $ tl -p 'file: ' /path/to/file
+   $ dmesg | tl -s ' (stdout)'
+.SH SEE ALSO
+tlcs(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

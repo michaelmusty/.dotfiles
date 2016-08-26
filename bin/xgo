@@ -67,7 +67,7 @@ for url ; do (
             ;;
     esac
 
-    # Otherwise, just pass it to br(1)
+    # Otherwise, just pass it to br(1df)
     br "$url"
 
 ) & done

@@ -41,10 +41,10 @@ case $lc in
         ;;
 esac
 
-# Try to get a random seed from rnds(1) for rndi(1)
+# Try to get a random seed from rnds(1df) for rndi(1df)
 seed=$(rnds)
 
-# Get a random line number from rndi(1)
+# Get a random line number from rndi(1df)
 ri=$(rndi 1 "$lc" "$seed") || exit
 
 # Print the line using sed(1)

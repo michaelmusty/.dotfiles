@@ -20,7 +20,7 @@ find bin games -type f -print |
     sed 's_.*/__;s_\..*$__' |
     sort | uniq > "$td"/bin
 # shellcheck disable=SC2016
-find man/man[168] -type f -name '*.[168]' -print |
+find man/man[168] -type f -name '*.[168]df' -print |
     sed 's_.*/__;s_\..*$__' |
     sort | uniq > "$td"/man
 

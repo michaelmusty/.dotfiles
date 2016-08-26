@@ -1,0 +1,13 @@
+.TH STBL 1df "August 2016" "Manual page for stbl"
+.SH NAME
+.B stbl
+\- strip a trailing blank line from files
+.SH USAGE
+.B stbl FILE1 [FILE2 ...]
+.SH DESCRIPTION
+Applies ed(1) to remove one trailing newline, if present, from each of the
+given files.
+.SH SEE ALSO
+ed(1), stws(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

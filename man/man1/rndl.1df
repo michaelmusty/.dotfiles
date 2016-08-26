@@ -1,0 +1,22 @@
+.TH RNDL 1df "August 2016" "Manual page for rndl"
+.SH NAME
+.B rndl
+\- return a low-quality random choice of a random line from files
+.SH SYNOPSIS
+.B rndl
+file
+.br
+.B rndl
+file1 file2 file3
+.br
+command |
+.B rndl
+.SH DESCRIPTION
+.B rndl
+prints a random line from its input, using rndi(1df) to choose it. This is
+probably not a high-quality source, but should differ within seconds and
+between runs on most systems.
+.SH SEE ALSO
+rndi(1df), rnda(1df), rndf(1df), rnds(1df), rndn(6df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

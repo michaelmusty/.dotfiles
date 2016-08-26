@@ -1,0 +1,15 @@
+.TH SSHI 1df "August 2016" "Manual page for sshi"
+.SH NAME
+.B sshi
+\- show human-readable details of the current SSH connection
+.SH SYNOPSIS
+.B sshi
+.SH DESCRIPTION
+.B sshi
+interprets the contents of the SSH_CONNECTION variable available in the
+environment of SSH client sessions and presents it in a slightly more
+human-readable format, including an attempt to resolve the IP addresses.
+.SH SEE ALSO
+ssh(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
