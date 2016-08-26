@@ -68,6 +68,8 @@ shopt -s histreedit
 shopt -s histverify
 # Don't use Bash's builtin host completion
 shopt -u hostcomplete
+# Don't change newlines to semicolons in history
+shopt -s lithist
 # Don't warn me about new mail all the time
 shopt -u mailwarn
 # Ignore me if I try to complete an empty line
