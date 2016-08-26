@@ -200,6 +200,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
+*   `tree()` colorizes GNU `tree(1)` output if possible (without having
+    `LS_COLORS` set).
 *   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
