@@ -9,11 +9,11 @@ options() (
     # Directory already exists; bail out
     [ -d "$dir" ] && exit
 
-    # Create the directory
+    # Create the directory and step into it
     mkdir -p -- "$dir" || exit
     cd -- "$dir" || exit
 
-    # Write grep(1)'s --help output to a file, even if it's empty
+    # Write the program's --help output to a file, even if it's empty
     "$1" --help </dev/null >help 2>/dev/null || exit
 
     # Shift the program name off; remaining arguments are the options to check
