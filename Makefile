@@ -85,7 +85,7 @@ clean distclean :
 		games/zs \
 		git/gitconfig \
 		gnupg/gpg.conf \
-		man/man7/dotfiles.7 \
+		man/man7/dotfiles.7df \
 		mutt/muttrc \
 		tmux/tmux.conf
 
