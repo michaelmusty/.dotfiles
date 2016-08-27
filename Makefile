@@ -332,8 +332,10 @@ install-x :
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
 install-zsh : install-sh
+	install -m 0755 -d -- "$(HOME)"/.zshrc.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
+	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
 
 check : check-bash \
 	check-bin \
