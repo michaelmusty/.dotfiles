@@ -97,8 +97,9 @@ prompt() {
         git)
             # Bail if we're not in a work tree--or, implicitly, if we don't
             # have git(1).
-            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
-                return
+            local iswt
+            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            [[ $iswt = true ]] || return
 
             # Find a branch label, or a tag, or just show the short commit ID,
             # in that order of preference; if none of that works, bail out.
