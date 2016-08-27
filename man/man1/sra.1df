@@ -1,0 +1,15 @@
+.TH SRA 1df "May 2014" "Manual page for sra"
+.SH NAME
+.B sra
+\- run a command on sls(1df) hosts
+.SH SYNOPSIS
+.B sra
+.I [COMMAND]
+.SH DESCRIPTION
+.B sra
+opens a secure shell or runs a command with ssh(1) on all the hosts returned by
+sls(1df).
+.SH SEE ALSO
+sta(1df), sls(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

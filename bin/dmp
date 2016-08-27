@@ -26,4 +26,9 @@ pw=$(
 [ -n "$pw" ] || exit
 
 # Pump the password into the clipboard xsel(2); allow 10 seconds
-pass show "$pw" | xsel -ibt "$((timeout_sec * 1000))"
+pass show "$pw" | xsel -ibt "$((timeout_sec * 1000))" || exit
+
+# If we have notify-send(1), alert that the password has been copied
+if command -v notify-send >/dev/null >&2 ; then
+    notify-send "$(printf '%s in clipboard' "$pw")"
+fi

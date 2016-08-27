@@ -1,5 +1,6 @@
 #!/bin/sh
-# Choose a random file from a given directory using rnda(1); ignores dot files
+# Choose a random file from a given directory using rnda(1df); ignores dot
+# files
 
 # Directory is first argument; defaults to current directory
 dir=${1:-.}

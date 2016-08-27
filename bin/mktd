@@ -1,7 +1,7 @@
 #!/bin/sh
 # Try to make a random temp directory
 
-# Get a random seed from rnds(1); if it's empty, that's still workable
+# Get a random seed from rnds(1df); if it's empty, that's still workable
 seed=$(rnds)
 
 # Build the intended directory name, with the last element a random integer

@@ -1,0 +1,11 @@
+.TH BEL 1df "August 2016" "Manual page for bel"
+.SH NAME
+.B bel
+\- ring the terminal bell
+.SH SYNOPSIS
+.B bel
+.SH DESCRIPTION
+.B bel
+prints a terminal bell (^G, ASCII 7, \\a) to stdout.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

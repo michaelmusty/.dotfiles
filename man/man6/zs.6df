@@ -1,0 +1,13 @@
+.TH ZS 6df "June 2016" "Manual page for zs"
+.SH NAME
+.B zs
+\- prepend occurences of "s" with "z", case-appropriately
+.SH USAGE
+.B zs
+/usr/share/dict/words
+.SH DESCRIPTION
+.B zs
+prepends the letter "Z" or "z" as appropriate to instances of the letter "S" or
+"s" in its standard input.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

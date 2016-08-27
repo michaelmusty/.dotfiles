@@ -4,10 +4,14 @@ case $- in
     *) return ;;
 esac
 
-# Basic PS1 for POSIX shell; if we're using something more advanced, something
-# in ~/.shrc.d should overrule this. Does every POSIX shell support these? dash
-# does, at least.
-PS1=$(printf '%s@%s$ ' "$(whoami)" "$(hostname -s)")
+# Don't let anyone write(1) to my terminal
+command -p mesg n
+
+# Never beep at me
+command -p setterm -bfreq -blength 2>/dev/null
+
+# Turn off flow control and control character echo
+command -p stty -ixon -ctlecho 2>/dev/null
 
 # Load all the POSIX-compatible functions from ~/.shrc.d; more advanced shells
 # like bash will have their own functions

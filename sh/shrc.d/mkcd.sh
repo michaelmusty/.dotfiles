@@ -1,4 +1,4 @@
 # Create a directory and change into it
 mkcd() {
-    mkdir -p -- "$1" && builtin cd -- "$1"
+    mkdir -p -- "$1" && command cd -- "$1"
 }

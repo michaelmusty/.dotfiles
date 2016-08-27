@@ -83,7 +83,7 @@ for sig in EXIT HUP INT TERM ; do
 done
 td=$(mktd "$self") || exit
 
-# Execute the command, passing stdout and stderr to tl(1) calls as appropriate
+# Execute the command, passing stdout and stderr to tl(1df) calls as appropriate
 # via named pipes
 out=$td/out err=$td/err
 mkfifo -- "$out" "$err" || exit

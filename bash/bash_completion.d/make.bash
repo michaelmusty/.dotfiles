@@ -15,7 +15,7 @@ _make() {
 
                 # Break the target up with space delimiters
                 local -a targets
-                IFS=' ' read -a targets -d '' < \
+                IFS=' ' read -rd '' -a targets < \
                     <(printf '%s\0' "${line%%:*}")
 
                 # Iterate through the targets and add suitable ones

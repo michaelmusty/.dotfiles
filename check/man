@@ -15,18 +15,14 @@ done
 td=$(mktd test-man) || exit
 
 # Get lists of logical binaries and manual pages
-for dir in bin games ; do (
-    cd -- "$dir"
-    pa *
-) done |
-sed 's/\...*$//' |
-sort | uniq > "$td"/bin
-for dir in man/man[168] ; do (
-    cd -- "$dir"
-    pa *.[168]
-) done |
-sed 's/\.[168]$//' |
-sort | uniq > "$td"/man
+# shellcheck disable=SC2016
+find bin games -type f -print |
+    sed 's_.*/__;s_\..*$__' |
+    sort | uniq > "$td"/bin
+# shellcheck disable=SC2016
+find man/man[168] -type f -name '*.[168]df' -print |
+    sed 's_.*/__;s_\..*$__' |
+    sort | uniq > "$td"/man
 
 # Get lists of noman scripts and nobin manual pages
 comm -23 "$td"/bin "$td"/man > "$td"/noman

@@ -15,10 +15,8 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `git(1)`, `install(1)`, `make(1)`,
-and `m4(1)`. This target includes the Bash files, but you don't need `bash` to
-actually install them, and the rest of the shell configuration should work
-without it.
+For the default `all` target, you'll need `bash(1)`, `git(1)`, `install(1)`,
+`make(1)`, and `m4(1)`.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -55,6 +53,7 @@ Configuration is included for:
 *   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
+*   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
@@ -183,6 +182,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
+        through your pager, using color if it can.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
@@ -200,6 +200,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
+*   `tree()` colorizes GNU `tree(1)` output if possible (without having
+    `LS_COLORS` set).
 *   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
@@ -302,8 +304,8 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
-The configuration file is created with `m4(1)` to allow specifying a colour
-theme. This is just because I use a different colour for my work session. The
+The configuration file is created with `m4(1)` to allow specifying a color
+theme. This is just because I use a different color for my work session. The
 default is a dark grey.
 
 The configuration for Bash includes a `tmux` function designed to make `attach`
@@ -332,122 +334,123 @@ user's current shell.
 Installed by the `install-bin` target:
 
 *   Three SSH-related scripts:
-    *   `sls(1)` prints hostnames read from a `ssh_config(5)` file. It uses
-        `slsf(1)` to read each one.
-    *   `sra(1)` runs a command on multiple hosts read from `sls(1)` and prints
+    *   `sls(1df)` prints hostnames read from a `ssh_config(5)` file. It uses
+        `slsf(1df)` to read each one.
+    *   `sra(1df)` runs a command on multiple hosts read from `sls(1df)` and prints
         output.
-    *   `sta(1)` runs a command on multiple hosts read from `sls(1)` and prints
+    *   `sta(1df)` runs a command on multiple hosts read from `sls(1df)` and prints
         the hostname if the command returns zero.
 *   Five URL-related shortcut scripts:
-    *   `hurl(1)` extracts values of `href` attributes of `<a>` tags, sorts
+    *   `hurl(1df)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; it requires
         [pup](https://github.com/ericchiang/pup).
-    *   `murl(1)` converts Markdown documents to HTML with `pandoc(1)` and
-        runs the output through `hurl(1)`.
-    *   `urlc(1)` accepts a list of URLs on `stdin` and writes error messages
+    *   `murl(1df)` converts Markdown documents to HTML with `pandoc(1)` and
+        runs the output through `hurl(1df)`.
+    *   `urlc(1df)` accepts a list of URLs on `stdin` and writes error messages
         to `stderr` if any of the URLs are broken, redirecting, or are insecure
         and have working secure versions; requires `curl(1)`.
-    *   `urlh(1)` prints the values for a given HTTP header from a HEAD
+    *   `urlh(1df)` prints the values for a given HTTP header from a HEAD
         response.
-    *   `urlmt(1)` prints the MIME type from the `Content-Type` header as
-        retrieved by `urlh(1)`.
+    *   `urlmt(1df)` prints the MIME type from the `Content-Type` header as
+        retrieved by `urlh(1df)`.
 *   Three RFC-related shortcut scripts:
-    *   `rfcf(1)` fetches ASCII RFCs from the IETF website.
-    *   `rfct(1)` formats ASCII RFCs.
-    *   `rfcr(1)` does both, displaying in a pager if appropriate, like a
+    *   `rfcf(1df)` fetches ASCII RFCs from the IETF website.
+    *   `rfct(1df)` formats ASCII RFCs.
+    *   `rfcr(1df)` does both, displaying in a pager if appropriate, like a
         `man(1)` reader for RFCs.
 *   Five toy random-number scripts (not for sensitive/dead-serious use):
-    *   `rndi(1)` gets a random integer within two bounds.
-    *   `rnds(1)` attempts to get an optional random seed for `rndi(1)`.
-    *   `rnda(1)` uses `rndi(1)` to choose a random argument.
-    *   `rndf(1)` uses `rnda(1)` to choose a random file from a directory.
-    *   `rndl(1)` uses `rndi(1)` to choose a random line from files.
+    *   `rndi(1df)` gets a random integer within two bounds.
+    *   `rnds(1df)` attempts to get an optional random seed for `rndi(1df)`.
+    *   `rnda(1df)` uses `rndi(1df)` to choose a random argument.
+    *   `rndf(1df)` uses `rnda(1df)` to choose a random file from a directory.
+    *   `rndl(1df)` uses `rndi(1df)` to choose a random line from files.
 *   Four file formatting scripts:
-    *   `d2u(1)` converts DOS line endings in files to UNIX ones.
-    *   `u2d(1)` converts UNIX line endings in files to DOS ones.
-    *   `stbl(1)` strips a trailing blank line from the files in its arguments.
-    *   `stws(1)` strips trailing spaces from the ends of lines of the files in
+    *   `d2u(1df)` converts DOS line endings in files to UNIX ones.
+    *   `u2d(1df)` converts UNIX line endings in files to DOS ones.
+    *   `stbl(1df)` strips a trailing blank line from the files in its arguments.
+    *   `stws(1df)` strips trailing spaces from the ends of lines of the files in
         its arguments.
 *   Five stream formatting scripts:
-    *   `sd2u(1)` converts DOS line endings in streams to UNIX ones.
-    *   `su2d(1)` converts UNIX line endings in streams to DOS ones.
-    *   `tl(1)` tags input lines with a prefix or suffix, basically a `sed(1)`
+    *   `sd2u(1df)` converts DOS line endings in streams to UNIX ones.
+    *   `su2d(1df)` converts UNIX line endings in streams to DOS ones.
+    *   `tl(1df)` tags input lines with a prefix or suffix, basically a `sed(1)`
         shortcut.
-    *   `tlcs(1)` executes a command and uses `tl(1)` to tag stdout and stderr
+    *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and stderr
         lines, and color them if you want.
-    *   `unf(1)` joins lines with leading spaces to the previous line. Intended
+    *   `unf(1df)` joins lines with leading spaces to the previous line. Intended
         for unfolding HTTP headers, but it should work for most RFC 822
         formats.
-*   `apf(1)` prepends arguments to a command with ones read from a file,
+*   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
-*   `ax(1)` evaluates an awk expression given on the command line; this is
+*   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
-*   `bel(1)` prints a terminal bell character.
-*   `br(1)` launches `$BROWSER`, or a more suitable application for an URL if
+*   `bel(1df)` prints a terminal bell character.
+*   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
     it knows of one.
-*   `ca(1)` prints a count of its given arguments.
-*   `cf(1)` prints a count of entries in a given directory.
-*   `clrd(1)` sets up a per-line file read, clearing the screen first.
-*   `clwr(1)` sets up a per-line file write, clearing the screen before each line
-*   `dmp(1)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
-*   `dub(1)` lists the biggest entries in a directory.
-*   `edda(1)` provides a means to run `ed(1)` over a set of files preserving
+*   `ca(1df)` prints a count of its given arguments.
+*   `cf(1df)` prints a count of entries in a given directory.
+*   `clrd(1df)` sets up a per-line file read, clearing the screen first.
+*   `clwr(1df)` sets up a per-line file write, clearing the screen before each line
+*   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
+*   `dub(1df)` lists the biggest entries in a directory.
+*   `edda(1df)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
-*   `eds(1)` edits executable script files in `EDSPATH`, defaulting to
+*   `eds(1df)` edits executable script files in `EDSPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   `fgscr(1)` finds Git repositories in a directory root and scrubs them with
-    `gscr(1)`.
-*   `fnl(1)` runs a command and saves its output and error into temporary files,
+*   `fgscr(1df)` finds Git repositories in a directory root and scrubs them with
+    `gscr(1df)`.
+*   `fnl(1df)` runs a command and saves its output and error into temporary files,
     printing their paths and line counts
-*   `gms(1)` runs a set of `getmailrc` files; does much the same thing as the
+*   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
-    and does up to three silent retries using `try(1)`.
-*   `grc(1)` quietly tests whether the given directory appears to be a Git
+    and does up to three silent retries using `try(1df)`.
+*   `grc(1df)` quietly tests whether the given directory appears to be a Git
     repository with pending changes.
-*   `gscr(1)` scrubs Git repositories.
-*   `han(1)` provides a `keywordprg` for Vim's Bash script filetype that will
+*   `gscr(1df)` scrubs Git repositories.
+*   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
-*   `igex(1)` wraps around a command to allow you to ignore error conditions
+*   `igex(1df)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
-*   `isgr(1)` quietly tests whether the given directory appears to be a Git
+*   `isgr(1df)` quietly tests whether the given directory appears to be a Git
     repository.
-*   `jfc(1)` adds and commits lazily to a Git repository.
-*   `jfcd(1)` watches a directory for changes and runs `jfc(1)` if it sees any.
-*   `maybe(1)` is like `true(1)` or `false(1)`; given a probability of success,
+*   `jfc(1df)` adds and commits lazily to a Git repository.
+*   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees any.
+*   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
-*   `mkcp(1)` creates a directory and copies preceding arguments into it.
-*   `mkmv(1)` creates a directory and moves preceding arguments into it.
-*   `motd(1)` shows the system MOTD.
-*   `pa(1)` prints its arguments, one per line.
-*   `paz(1)` print its arguments terminated by NULL chars.
-*   `pit(1)` runs its input through a pager if its standard output looks like a
+*   `mkcp(1df)` creates a directory and copies preceding arguments into it.
+*   `mkmv(1df)` creates a directory and moves preceding arguments into it.
+*   `motd(1df)` shows the system MOTD.
+*   `pa(1df)` prints its arguments, one per line.
+*   `paz(1df)` print its arguments terminated by NULL chars.
+*   `pit(1df)` runs its input through a pager if its standard output looks like a
     terminal.
-*   `plmu(1)` retrieves a list of installed modules from
+*   `plmu(1df)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
-*   `rmrej(1)` deletes rejected hunks from a failed `patch(1)` run.
-*   `shb(1)` attempts to build shebang lines for scripts from `$PATH`.
-*   `spr(1)` posts its input to the sprunge.us pastebin.
-*   `sshi(1)` prints human-readable SSH connection details.
-*   `stex(1)` strips extensions from filenames.
-*   `sue(8)` execs `sudoedit(8)` as the owner of all the file arguments given,
+*   `rmrej(1df)` deletes rejected hunks from a failed `patch(1)` run.
+*   `shb(1df)` attempts to build shebang lines for scripts from `$PATH`.
+*   `spr(1df)` posts its input to the sprunge.us pastebin.
+*   `sshi(1df)` prints human-readable SSH connection details.
+*   `stex(1df)` strips extensions from filenames.
+*   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
-*   `td(1)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
+*   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
-*   `try(1)` repeats a command up to a given number of times until it succeeds,
+*   `try(1df)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
 
 There's some silly stuff in `install-games`:
 
-*   `aaf(6)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
+*   `aaf(6df)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
     comic.
-*   `acq(6)` allows you to interrogate AC, the interplanetary computer.
-*   `kvlt(6)` translates input to emulate a style of typing unique to black
+*   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
+*   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
-*   `rndn(6)` implements an esoteric random number generation algorithm.
-*   `zs(6)` prepends "z" case-appropriately to every occurrence of "s" in the
+*   `rndn(6df)` implements an esoteric random number generation algorithm.
+*   `xyzzy(6df)` teleports to a marked location on the filesystem.
+*   `zs(6df)` prepends "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.
 
 Manuals
@@ -455,8 +458,8 @@ Manuals
 
 The `install-bin` and `install-games` targets install manuals for each script
 they install. There's also an `install-dotfiles-man` target that uses
-`pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7)`) if you want that. I haven't made that install by default,
+`pandoc(1)` to reformat this document as a manual page for section 7df
+(`dotfiles(7df)`) if you want that. I haven't made that install by default,
 because `pandoc(1)` is a bit heavy.
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to

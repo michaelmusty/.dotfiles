@@ -7,6 +7,7 @@ esac
 # Ensure we're using at least version 2.05. Weird arithmetic syntax needed here
 # due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
 # 2.05a).
+# shellcheck disable=SC2128
 [ -n "$BASH_VERSINFO" ] || return
 ((BASH_VERSINFO[0] == 2)) &&
     ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) &&
@@ -15,11 +16,11 @@ esac
 # Don't do anything if running a restricted shell
 shopt -q restricted_shell && return
 
-# Keep around four thousand lines of history in file
-HISTFILESIZE=$((1 << 12))
+# Keep around 32K lines of history in file
+HISTFILESIZE=$((1 << 15))
 
-# Keep around one thousand lines of history in memory
-HISTSIZE=$((1 << 10))
+# Keep around 4K lines of history in memory
+HISTSIZE=$((1 << 12))
 
 # Ignore duplicate commands and whitespace in history
 HISTCONTROL=ignoreboth
@@ -30,14 +31,8 @@ HISTTIMEFORMAT='%F %T  '
 # Don't warn me about new mail
 unset -v MAILCHECK
 
-# Never beep at me
-setterm -bfreq -blength 2>/dev/null
-
-# Turn off flow control and control character echo
-stty -ixon -ctlecho 2>/dev/null
-
-# Don't let anyone write(1) to my terminal
-mesg n
+# Use a more compact format for the time builtin's output
+TIMEFORMAT='real:%lR user:%lU sys:%lS'
 
 # Don't allow the creation of aliases, functions are better
 enable -n alias unalias
@@ -64,6 +59,8 @@ shopt -s histreedit
 shopt -s histverify
 # Don't use Bash's builtin host completion
 shopt -u hostcomplete
+# Don't change newlines to semicolons in history
+shopt -s lithist
 # Don't warn me about new mail all the time
 shopt -u mailwarn
 # Ignore me if I try to complete an empty line
@@ -96,8 +93,7 @@ fi
 # character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
 [[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
-# Load POSIX shell functions, Bash-specific scripts, and Bash completion files,
-# in that order
+# Load POSIX shell startup files and then Bash-specific ones
 for sh in "$ENV" "$HOME"/.bashrc.d/*.bash ; do
     [[ -e $sh ]] && source "$sh"
 done

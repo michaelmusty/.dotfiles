@@ -1,0 +1,23 @@
+.TH RNDS 1df "August 2016" "Manual page for rnds"
+.SH NAME
+.B rnds
+\- try to get a random seed
+.SH SYNOPSIS
+.B rnds
+.B rnds
+1024
+.SH DESCRIPTION
+.B rnds
+uses POSIX tools to try and find a random number device on the system and emits
+the first field of a cksum(1) based on it as a low-quality random numeric seed.
+The only optional argument allows specifying the number of random bytes to
+read, defaulting to 32. This is intended as a low-quality seed for rndi(1df).
+.P
+/dev/urandom is tried first, then /dev/arandom, then /dev/random, before the
+script gives up and emits nothing.
+.P
+If you have OpenSSL, you will almost certainly prefer rand(1ssl).
+.SH SEE ALSO
+rndi(1df), rnda(1df), rndf(1df), rndl(1df), rand(1ssl), rndn(6df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

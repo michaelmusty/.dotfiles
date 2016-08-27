@@ -17,8 +17,9 @@ prompt() {
 
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
-            [[ -n $SSH_CONNECTION ]] &&
+            if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
                 PS1=$PS1'\u@\h:'
+            fi
             PS1=$PS1'\w'
 
             # Add sub-commands; VCS, job, and return status checks
@@ -80,7 +81,7 @@ prompt() {
             PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
             PS2='> '
             PS3='? '
-            PS4='+<$?> ${BASH_SOURCE:-$BASH}:$FUNCNAME:$LINENO:'
+            PS4='+<$?> ${BASH_SOURCE:-$BASH}:${FUNCNAME[0]}:$LINENO:'
             ;;
 
         # Revert to simple inexpensive prompts
@@ -96,13 +97,16 @@ prompt() {
         git)
             # Bail if we're not in a work tree--or, implicitly, if we don't
             # have git(1).
-            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) = true ]] ||
-                return
+            local iswt
+            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            [[ $iswt = true ]] || return
 
-            # Attempt to determine git branch, bail if we can't
+            # Find a branch label, or a tag, or just show the short commit ID,
+            # in that order of preference; if none of that works, bail out.
             local branch
             branch=$( {
                 git symbolic-ref --quiet HEAD ||
+                git describe --tags --exact-match HEAD ||
                 git rev-parse --short HEAD
             } 2>/dev/null )
             [[ -n $branch ]] || return
@@ -110,6 +114,19 @@ prompt() {
 
             # Refresh index so e.g. git-diff-files(1) is accurate
             git update-index --refresh >/dev/null
+
+            # Check various files in .git to flag processes
+            local proc
+            [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                proc=${proc:+$proc,}'REBASE'
+            [[ -f .git/MERGE_HEAD ]] &&
+                proc=${proc:+$proc,}'MERGE'
+            [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                proc=${proc:+$proc,}'PICK'
+            [[ -f .git/REVERT_HEAD ]] &&
+                proc=${proc:+$proc,}'REVERT'
+            [[ -f .git/BISECT_LOG ]] &&
+                proc=${proc:+$proc,}'BISECT'
 
             # Collect symbols representing repository state
             local state
@@ -125,15 +142,16 @@ prompt() {
             ((ahead)) && state=${state}'>'
 
             # Tracked files are modified
-            git diff-files --quiet ||
+            git diff-files --no-ext-diff --quiet ||
                 state=${state}'!'
 
             # Changes are staged
-            git diff-index --cached --quiet HEAD ||
+            git diff-index --cached --no-ext-diff --quiet HEAD 2>/dev/null ||
                 state=${state}'+'
 
             # There are some untracked and unignored files
-            [[ -n $(git ls-files --others --exclude-standard) ]] &&
+            git ls-files --directory --error-unmatch --exclude-standard \
+                --no-empty-directory --others -- ':/*' >/dev/null 2>&1 &&
                 state=${state}'?'
 
             # There are stashed changes
@@ -142,8 +160,9 @@ prompt() {
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
-            printf '(%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
+            printf '(%s%s%s%s)' \
+                "${PROMPT_VCS:+git:}" "${branch:-unknown}" \
+                "${proc:+:$proc}" "$state"
             ;;
 
         # Subversion prompt function
@@ -212,7 +231,7 @@ prompt() {
         # Show the count of background jobs in curly brackets, if not zero
         job)
             local -i jobc
-            while read ; do
+            while read -r ; do
                 ((jobc++))
             done < <(jobs -p)
             ((jobc)) && printf '{%u}' "$jobc"
@@ -225,7 +244,7 @@ prompt() {
 
         # Print error
         *)
-            printf '%s: Unknown command %s\n' "$FUNCNAME" "$1" >&2
+            printf '%s: Unknown command %s\n' "${FUNCNAME[0]}" "$1" >&2
             return 2
             ;;
     esac
