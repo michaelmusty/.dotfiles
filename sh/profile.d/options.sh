@@ -10,7 +10,7 @@ options() (
     [ -d "$dir" ] && exit
 
     # Create the directory and step into it
-    mkdir -p -- "$dir" || exit
+    command -p mkdir -p -- "$dir" || exit
     cd -- "$dir" || exit
 
     # Write the program's --help output to a file, even if it's empty
@@ -22,7 +22,7 @@ options() (
     # Iterate through some useful options and create files to show they're
     # available if found in the help output
     for opt ; do
-        grep -q -- '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help &&
+        command -p grep -q -- '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help &&
             touch -- "$opt"
     done
 )
