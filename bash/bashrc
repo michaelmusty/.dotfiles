@@ -93,8 +93,7 @@ fi
 # character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
 [[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
-# Load POSIX shell functions, Bash-specific scripts, and Bash completion files,
-# in that order
+# Load POSIX shell startup files and then Bash-specific ones
 for sh in "$ENV" "$HOME"/.bashrc.d/*.bash ; do
     [[ -e $sh ]] && source "$sh"
 done
