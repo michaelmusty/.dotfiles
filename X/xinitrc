@@ -11,14 +11,6 @@ fi
 # Read X resources
 xrdb "$HOME"/.Xresources
 
-# Map Caps Lock as a Ctrl key, use right alt as Compose, kill X server with
-# Ctrl+Alt+Backspace
-# <https://en.wikipedia.org/wiki/Compose_key#Common_compose_combinations>
-setxkbmap -option compose:ralt,ctrl:nocaps,terminate:ctrl_alt_bksp
-
-# Apply a random background image
-xrbg
-
 # Start dunst(1) to display libnotify messages
 dunst &
 
@@ -28,11 +20,19 @@ mpdlrc-notify-send &
 # Start redshift(1)
 redshift &
 
+# Map Caps Lock as a Ctrl key, use right alt as Compose, kill X server with
+# Ctrl+Alt+Backspace
+# <https://en.wikipedia.org/wiki/Compose_key#Common_compose_combinations>
+setxkbmap -option compose:ralt,ctrl:nocaps,terminate:ctrl_alt_bksp
+
 # Start urxvtd(1)
 urxvtd -o -q &
 
 # Start xbindkeys(1)
 xbindkeys -n &
+
+# Apply a random background image
+xrbg
 
 # Start window manager
 exec i3
