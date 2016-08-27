@@ -8,10 +8,10 @@ if ! [ "$1" ] ; then
 fi
 rn=$1
 
-# Retrieve the RFC with rfcf(1)
+# Retrieve the RFC with rfcf(1df)
 rfcf "$rn" |
 
-# Pipe it through rfct(1) to format it as text
+# Pipe it through rfct(1df) to format it as text
 rfct |
 
 # Either spit it directly or through a pager

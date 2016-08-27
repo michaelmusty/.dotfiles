@@ -1,0 +1,22 @@
+.TH TLCS 1df "August 2016" "Manual page for tlcs"
+.SH NAME
+.B tlcs
+\- execute command and tag stdout/stderr lines
+.SH USAGE
+.B tlcs [-c] [-o STDOUT_PREFIX] [-e STDERR_PREFIX] [--] COMMAND [ARG1...]
+.SH DESCRIPTION
+Execute a command and tag the output of the stdout and stderr streams, line by
+line, using tl(1df) under the hood. Add -c when writing to a terminal to color
+the lines.
+.P
+Specify a stdout prefix with -o (default "stdout: "), and/or a stderr prefix
+with -e (default "stderr: "). Option -c prints stdout lines in green and stderr
+lines in red if the respective streams are writing to appropriate terminals.
+Remaining arguments are assumed to be a command and its arguments.
+.P
+   $ tlcs cat ~/.vimrc
+   $ tlcs -e 'FAIL: ' nonexistent-command
+.SH SEE ALSO
+tl(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

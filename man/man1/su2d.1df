@@ -1,0 +1,20 @@
+.TH SU2D 1df "August 2016" "Manual page for su2d"
+.SH NAME
+.B su2d
+\- change text files from UNIX to DOS format
+.SH USAGE
+.B su2d
+FILE1 [FILE2 ...]
+.br
+.B su2d
+< FILE
+.br
+program |
+.B su2d
+.SH DESCRIPTION
+Applies sed(1) to change UNIX \\n line endings to DOS \\r\\n (CRLF) line
+endings. Lines already in DOS format should be unchanged.
+.SH SEE ALSO
+sed(1), sd2u(1df), d2u(1df), u2d(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

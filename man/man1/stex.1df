@@ -1,0 +1,15 @@
+.TH STEX 1df "August 2016" "Manual page for stex"
+.SH NAME
+.B stex
+\- strip extensions from the given filenames if present
+.SH SYNOPSIS
+.B stex .ext a.ext b.ext c d.foo
+.br
+.B stex .bar *
+.SH DESCRIPTION
+.B stex
+renames any of the files given as its trailing arguments to remove the
+extension given as its first argument. It is not an error if none of the files
+have the extension.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

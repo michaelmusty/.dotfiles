@@ -16,5 +16,5 @@ if [ "$#" -eq 0 ] ; then
     exit 1
 fi
 
-# Otherwise, we can run slsf(1) over the ones we did collect
+# Otherwise, we can run slsf(1df) over the ones we did collect
 slsf -- "$@"

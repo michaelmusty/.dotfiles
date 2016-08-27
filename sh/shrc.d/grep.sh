@@ -9,7 +9,7 @@ grep() {
     [ -e "$HOME"/.cache/grep/binary-files ] &&
         set -- --binary-files=without-match "$@"
 
-    # Add --color if the terminal has at least 8 colors
+    # Add --color=auto if the terminal has at least 8 colors
     [ -e "$HOME"/.cache/grep/color ] &&
     [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"

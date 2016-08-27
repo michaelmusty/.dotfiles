@@ -6,7 +6,7 @@ _bd() {
 
     # Build a list of dirnames in $PWD
     local -a dirnames
-    IFS=/ read -d '' -a dirnames < <(printf '%s\0' "${PWD#/}")
+    IFS=/ read -rd '' -a dirnames < <(printf '%s\0' "${PWD#/}")
 
     # Remove the last element in the array (the current directory)
     ((${#dirnames[@]})) || return 1

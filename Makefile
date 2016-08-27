@@ -17,6 +17,7 @@
 	install-gnupg \
 	install-gtk \
 	install-i3 \
+	install-less \
 	install-maildir \
 	install-mutt \
 	install-ncmcpp \
@@ -44,12 +45,14 @@
 	check-bash \
 	check-bin \
 	check-games \
+	check-pdksh \
 	check-sh \
 	check-urxvt \
 	lint \
 	lint-bash \
 	lint-bin \
 	lint-games \
+	lint-pdksh \
 	lint-sh \
 	lint-urxvt
 
@@ -82,7 +85,7 @@ clean distclean :
 		games/zs \
 		git/gitconfig \
 		gnupg/gpg.conf \
-		man/man7/dotfiles.7 \
+		man/man7/dotfiles.7df \
 		mutt/muttrc \
 		tmux/tmux.conf
 
@@ -98,8 +101,8 @@ gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 -D DOTFILES_HOME="$(HOME)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
-man/man7/dotfiles.7 : README.markdown man/man7/dotfiles.7.header
-	cat man/man7/dotfiles.7.header README.markdown | \
+man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
+	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
 mutt/muttrc : mutt/muttrc.m4
@@ -127,6 +130,7 @@ install : install-bash \
 	install-curl \
 	install-git \
 	install-gnupg \
+	install-less \
 	install-readline \
 	install-sh \
 	install-vim
@@ -161,15 +165,15 @@ install-bin-man :
 	install -m 0755 -d -- \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
-	install -pm 0644 -- man/man1/*.1 "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man8/*.8 "$(HOME)"/.local/share/man/man8
+	install -pm 0644 -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
+	install -pm 0644 -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
 
 install-curl :
 	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
 
-install-dotfiles-man : man/man7/dotfiles.7
+install-dotfiles-man : man/man7/dotfiles.7df
 	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
-	install -pm 0644 -- man/man7/*.7 "$(HOME)"/.local/share/man/man7
+	install -pm 0644 -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
 
 install-dunst : install-x
 	install -m 0755 -d -- "$(HOME)"/.config/dunst
@@ -188,8 +192,8 @@ install-games : games/acq games/kvlt games/zs check-games install-games-man
 	done
 
 install-games-man :
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
-	install -pm 0644 -- man/man6/*.6 "$(HOME)"/.local/share/man/man6
+	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6df
+	install -pm 0644 -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
 
 install-git : git/gitconfig
 	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
@@ -211,6 +215,10 @@ install-gtk :
 install-i3 : install-x
 	install -m 0755 -d -- "$(HOME)"/.i3
 	install -pm 0644 -- i3/* "$(HOME)"/.i3
+
+install-less :
+	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
+	command -v lesskey && lesskey
 
 install-maildir :
 	install -m 0755 -d -- \
@@ -327,7 +335,12 @@ install-zsh : install-sh
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 
-check : check-bash check-bin check-games check-man check-sh check-urxvt
+check : check-bash \
+	check-bin \
+	check-games \
+	check-man \
+	check-sh \
+	check-urxvt
 
 check-bash :
 	check/bash
@@ -338,11 +351,11 @@ check-bin :
 check-games :
 	check/games
 
-check-pdksh :
-	check/pdksh
-
 check-man :
 	check/man
+
+check-pdksh :
+	check/pdksh
 
 check-sh :
 	check/sh
@@ -350,7 +363,13 @@ check-sh :
 check-urxvt :
 	check/urxvt
 
-lint : lint-bash lint-bin lint-games lint-sh lint-urxvt
+lint : check \
+	lint-bash  \
+	lint-bin  \
+	lint-games  \
+	lint-pdksh  \
+	lint-sh  \
+	lint-urxvt
 
 lint-bash :
 	lint/bash
@@ -360,6 +379,9 @@ lint-bin :
 
 lint-games :
 	lint/games
+
+lint-pdksh :
+	lint/pdksh
 
 lint-sh :
 	lint/sh

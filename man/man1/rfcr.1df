@@ -1,0 +1,16 @@
+.TH RFCR 1df "July 2016" "Manual page for rfcr"
+.SH NAME
+.B rfcr
+\- fetch and format an RFC from the IETF website and view it on a terminal
+.SH SYNOPSIS
+.B rfcr
+1918
+.SH DESCRIPTION
+.B rfcr
+retrieves the RFC with the given number from the IETF website with rfcf(1df),
+formats it with rfct(1df), and passes the output to pit(1df) for either pager
+display or simple output.
+.SH SEE ALSO
+rfcf(1df), rfct(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

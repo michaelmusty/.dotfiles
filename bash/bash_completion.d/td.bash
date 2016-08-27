@@ -1,4 +1,4 @@
-# Complete filenames for td(1)
+# Complete filenames for td(1df)
 _td() {
     local dir
     dir=${TODO_DIR:-"$HOME"/Todo}

@@ -10,10 +10,10 @@ Known issues
 *   At least one of the completion scripts (pass.bash) hangs on empty
     completions (i.e. nothing matches the search term) in Bash 4.4rc1; the last
     thing bash -x shows is an "exit 1" hang
-*   The checks gscr(1) makes to determine where it is are a bit naive (don't
+*   The checks gscr(1df) makes to determine where it is are a bit naive (don't
     work with bare repos) and could probably be improved with some appropriate
-    git-reflog(1) cals
-*   The \xFF syntax for regex as used in rfct(1) is not POSIX. Need to decide
+    git-reflog(1) calls
+*   The \xFF syntax for regex as used in rfct(1df) is not POSIX. Need to decide
     if it's well-supported enough to keep it anyway.
 *   On OpenBSD pdksh, including single quotes in comments within command
     substitution throws "unclosed quote" errors in the linter checks:
@@ -24,3 +24,5 @@ Known issues
     Fixed for the instances I found, but it would be interesting to find
     whether this is a bug in pdksh or whether it's a dark corner of the POSIX
     standard.
+
+    Turns out that old versions of Bash in `sh` mode do this too.

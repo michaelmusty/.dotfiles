@@ -27,13 +27,12 @@ _man() {
         shopt -u dotglob
         shopt -s extglob nullglob
 
-        # Start an array of pages
-        declare -a pages
-
         # Break manpath(1) output into an array of paths
+        declare -a manpaths
         IFS=: read -a manpaths -r < <(manpath 2>/dev/null)
 
         # Iterate through the manual page paths and add every manual page we find
+        declare -a pages
         for manpath in "${manpaths[@]}" ; do
             [[ -n $manpath ]] || continue
             if [[ -n $section ]] ; then

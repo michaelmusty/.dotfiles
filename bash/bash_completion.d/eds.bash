@@ -1,5 +1,5 @@
-# Complete args to eds(1) with existing executables in $EDSPATH, defaulting to
-# ~/.local/bin
+# Complete args to eds(1df) with existing executables in $EDSPATH, defaulting
+# to ~/.local/bin
 _eds() {
     local edspath
     edspath=${EDSPATH:-"$HOME"/.local/bin}

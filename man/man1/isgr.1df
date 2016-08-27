@@ -1,0 +1,18 @@
+.TH ISGR 1df "August 2016" "Manual page for isgr"
+.SH NAME
+.B isgr
+\- print a count of entries in a directory
+.SH SYNOPSIS
+.B isgr
+.br
+.B isgr
+/path/to/dir
+.SH DESCRIPTION
+.B isgr
+exits with 0 if the given directory (or the current directory if one is not
+given) appears to be a working copy of a Git repository. It exits 1 otherwise.
+All output from the git(1) commands used to check this is suppressed.
+.SH SEE ALSO
+git(1), gscr(1df), fgscr(1df), grc(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

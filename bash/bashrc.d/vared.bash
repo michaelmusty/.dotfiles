@@ -12,7 +12,7 @@ vared() {
                 ;;
             \?)
                 printf 'bash: %s: -%s: invalid option\n'
-                    "$FUNCNAME" "$opt" >&2
+                    "${FUNCNAME[0]}" "$opt" >&2
                 return 2
                 ;;
         esac
@@ -20,7 +20,7 @@ vared() {
     shift "$((OPTIND-1))"
     if ! (($#)) ; then
         printf 'bash: %s: No variable names given\n' \
-            "$FUNCNAME" >&2
+            "${FUNCNAME[0]}" >&2
         return 2
     fi
     local name
