@@ -34,15 +34,6 @@ unset -v MAILCHECK
 # Use a more compact format for the time builtin's output
 TIMEFORMAT='real:%lR user:%lU sys:%lS'
 
-# Never beep at me
-setterm -bfreq -blength 2>/dev/null
-
-# Turn off flow control and control character echo
-stty -ixon -ctlecho 2>/dev/null
-
-# Don't let anyone write(1) to my terminal
-mesg n
-
 # Don't allow the creation of aliases, functions are better
 enable -n alias unalias
 

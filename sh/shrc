@@ -4,6 +4,15 @@ case $- in
     *) return ;;
 esac
 
+# Don't let anyone write(1) to my terminal
+command -p mesg n
+
+# Never beep at me
+command -p setterm -bfreq -blength 2>/dev/null
+
+# Turn off flow control and control character echo
+command -p stty -ixon -ctlecho 2>/dev/null
+
 # Load all the POSIX-compatible functions from ~/.shrc.d; more advanced shells
 # like bash will have their own functions
 for sh in "$HOME"/.shrc.d/*.sh ; do
