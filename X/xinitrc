@@ -9,7 +9,7 @@ if command -v ssh-askpass >/dev/null 2>&1 ; then
 fi
 
 # Read X resources
-xrdb "${XRESOURCES:-$HOME/.Xresources}"
+xrdb "$HOME"/.Xresources
 
 # Map Caps Lock as a Ctrl key, use right alt as Compose, kill X server with
 # Ctrl+Alt+Backspace
