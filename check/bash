@@ -1,5 +1,5 @@
 #!/bin/sh
-for bash in bash/* bash/bashrc.d/* ; do
+for bash in bash/* bash/bashrc.d/* bin/han ; do
     [ -f "$bash" ] || continue
     bash -n "$bash" || exit
 done
