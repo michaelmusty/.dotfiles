@@ -26,3 +26,4 @@ Known issues
     standard.
 
     Turns out that old versions of Bash in `sh` mode do this too.
+*   mysql() is broken due to a logic error, shifting off $1 before using it.

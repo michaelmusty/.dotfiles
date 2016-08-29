@@ -185,7 +185,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
         through your pager, using color if it can.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
-    `~/.mysql`.
+    `~/.mysql` (presently broken).
 *   `path()` manages the contents of `PATH` conveniently.
 *   `pd()` changes to the argument's parent directory.
 *   `pwgen()` generates just one decent password with `pwgen(1)`.
