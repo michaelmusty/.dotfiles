@@ -1,6 +1,11 @@
 # Various easy completions for Bash builtins; more specific stuff goes in
 # ~/.bash_completion.d
 
+# If COMP_WORDBREAKS has a value, strip all colons from it; this allows
+# completing filenames correctly, since an unquoted colon is not a syntactic
+# character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
+[[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+
 # Bash builtins
 complete -A builtin builtin
 
