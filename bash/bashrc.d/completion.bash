@@ -43,6 +43,9 @@ complete -A variable declare export readonly typeset
 # Both functions and variables
 complete -A function -A variable unset
 
+# The `mapfile` builtin in Bash >= 4.0
+((BASH_VERSINFO[0] >= 4)) && complete -A arrayvar mapfile
+
 # If we have dynamic completion loading (Bash>=4.0), use it
 if ((BASH_VERSINFO[0] >= 4)) ; then
 
