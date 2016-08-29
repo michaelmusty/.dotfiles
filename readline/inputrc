@@ -4,6 +4,9 @@ set bell-style none
 # Let readline do stuff like word killing, not stty(1)
 set bind-tty-special-chars off
 
+# Jump to the matching parenthesis briefly when closing one
+set blink-matching-paren On
+
 # Ignore case when matching and completing paths
 set completion-ignore-case On
 
