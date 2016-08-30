@@ -25,3 +25,5 @@ Known issues
     Turns out that old versions of Bash in `sh` mode do this too.
 *   I can probably share my psql() completions/shortcuts after sanitizing them
     a bit
+*   A key binding for importing sections of the screen and optionally uploading
+    it would be great, probably using ImageMagick import(1)
