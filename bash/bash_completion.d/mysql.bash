@@ -12,6 +12,7 @@ _mysql() {
     # Return the names of the .cnf files sans prefix as completions
     local db
     while IFS= read -rd '' db ; do
+        [[ -n $db ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$db
     done < <(
 
@@ -24,11 +25,14 @@ _mysql() {
         cnfs=("${cnfs[@]#"$dirname"/}")
         cnfs=("${cnfs[@]%.cnf}")
 
-        # Bail if no files to prevent empty output
-        ((${#cnfs[@]})) || exit 1
-
-        # Print the conf names, null-delimited
-        printf '%q\0' "${cnfs[@]}"
+        # Print quoted entries, null-delimited, if there was at least one;
+        # otherwise, just print a null character to stop this hanging in Bash
+        # 4.4
+        if ((${#cnfs[@]})) ; then
+            printf '%q\0' "${cnfs[@]}"
+        else
+            printf '\0'
+        fi
     )
 }
 complete -F _mysql -o default mysql

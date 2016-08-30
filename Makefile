@@ -56,14 +56,15 @@
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .awk .sed
+.SUFFIXES: .awk .bash .sed
 
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
-all : bin/rfct \
+all : bin/han \
+	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
 	bin/slsf \
@@ -74,6 +75,7 @@ all : bin/rfct \
 
 clean distclean :
 	rm -f \
+		bin/han \
 		bin/rfct \
 		bin/rndi \
 		bin/sd2u \
@@ -120,6 +122,10 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 	bin/shb "$<" awk -f > "$@"
 	chmod +x "$@"
 
+.bash :
+	bin/shb "$<" bash > "$@"
+	chmod +x "$@"
+
 .sed :
 	bin/shb "$<" sed -f > "$@"
 	chmod +x "$@"
@@ -154,7 +160,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/sd2u bin/su2d bin/unf check-bin install-bin-man
+install-bin : bin/han bin/sd2u bin/su2d bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \

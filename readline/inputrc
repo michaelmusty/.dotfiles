@@ -4,41 +4,44 @@ set bell-style none
 # Let readline do stuff like word killing, not stty(1)
 set bind-tty-special-chars off
 
+# Jump to the matching parenthesis briefly when closing one
+set blink-matching-paren on
+
 # Ignore case when matching and completing paths
-set completion-ignore-case On
+set completion-ignore-case on
 
 # Treat underscores and hyphens the same way for completion purposes
-set completion-map-case On
+set completion-map-case on
 
 # Show me up to 5,000 completion items, don't be shy
 set completion-query-items 5000
 
 # Don't display control characters like ^C if I input them
-set echo-control-characters Off
+set echo-control-characters off
 
 # Expand tilde to full path on completion
-set expand-tilde On
+set expand-tilde on
 
 # Add a trailing slash for completed symlink directories
-set mark-symlinked-directories On
+set mark-symlinked-directories on
 
 # Don't match dotfiles unless there's a dot
-set match-hidden-files Off
+set match-hidden-files off
 
 # Don't paginate possible completions
-set page-completions Off
+set page-completions off
 
 # Goes nicely with ls(1) -x/--format=across
 set print-completions-horizontally on
 
 # Don't actually modify my history
-set revert-all-at-newline On
+set revert-all-at-newline on
 
 # Show multiple completions on first tab press
-set show-all-if-ambiguous On
+set show-all-if-ambiguous on
 
 # Don't re-complete already completed text in the middle of a word
-set skip-completed-text On
+set skip-completed-text on
 
 # Killing words should stop at /
 # <https://www.youtube.com/watch?v=VCiRpM_rbF0>

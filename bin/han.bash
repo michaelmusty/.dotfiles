@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # Abstract calls to Bash help vs man(1)
 self=han
 

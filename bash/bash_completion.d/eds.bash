@@ -5,6 +5,7 @@ _eds() {
     edspath=${EDSPATH:-"$HOME"/.local/bin}
     [[ -d $edspath ]] || return
     while IFS= read -rd '' executable ; do
+        [[ -n $executable ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$executable
     done < <(
         shopt -s dotglob nullglob
@@ -15,8 +16,15 @@ _eds() {
             [[ -f $file && -x $file ]] || continue
             executables[${#executables[@]}]=${file##*/}
         done
-        ((${#executables[@]})) || exit 1
-        printf '%q\0' "${executables[@]}"
+
+        # Print quoted entries, null-delimited, if there was at least one;
+        # otherwise, just print a null character to stop this hanging in Bash
+        # 4.4
+        if ((${#executables[@]})) ; then
+            printf '%q\0' "${executables[@]}"
+        else
+            printf '\0'
+        fi
     )
 }
 complete -F _eds eds
