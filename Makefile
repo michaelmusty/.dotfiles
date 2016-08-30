@@ -56,7 +56,7 @@
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .awk .bash .sed
+.SUFFIXES: .awk .bash .pl .sed
 
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
@@ -71,7 +71,8 @@ all : bin/han \
 	bin/su2d \
 	bin/unf \
 	git/gitconfig \
-	gnupg/gpg.conf
+	gnupg/gpg.conf \
+	urxvt/ext/select
 
 clean distclean :
 	rm -f \
@@ -89,7 +90,8 @@ clean distclean :
 		gnupg/gpg.conf \
 		man/man7/dotfiles.7df \
 		mutt/muttrc \
-		tmux/tmux.conf
+		tmux/tmux.conf \
+		urxvt/ext/select
 
 git/gitconfig : git/gitconfig.m4
 	m4 \
@@ -124,6 +126,10 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 
 .bash :
 	bin/shb "$<" bash > "$@"
+	chmod +x "$@"
+
+.pl :
+	bin/shb "$<" perl > "$@"
 	chmod +x "$@"
 
 .sed :
@@ -294,9 +300,14 @@ install-terminfo :
 install-tmux : tmux/tmux.conf install-terminfo
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
-install-urxvt : check-urxvt
+install-urxvt : urxvt/ext/select check-urxvt
 	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
-	install -m 0755 -- urxvt/ext/* "$(HOME)"/.urxvt/ext
+	for name in urxvt/ext/* ; do \
+		case $$name in \
+			*.pl) ;; \
+			*) install -m 0644 -- "$$name" "$(HOME)"/.urxvt/ext ;; \
+		esac \
+	done
 
 install-vim : install-vim-config \
 	install-vim-plugins \

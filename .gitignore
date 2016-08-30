@@ -12,3 +12,4 @@ git/gitconfig
 gnupg/gpg.conf
 man/man7/dotfiles.7df
 tmux/tmux.conf
+urxvt/ext/select

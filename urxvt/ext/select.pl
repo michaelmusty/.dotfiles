@@ -1,9 +1,5 @@
-#!/usr/bin/env perl
-
-#
 # Tom Ryder's choice of selection behaviours for urxvt, butchered from included
 # URxvt extension scripts.
-#
 
 # Force me to write this properly
 use strict;
