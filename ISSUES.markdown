@@ -23,3 +23,5 @@ Known issues
     standard.
 
     Turns out that old versions of Bash in `sh` mode do this too.
+*   I can probably share my psql() completions/shortcuts after sanitizing them
+    a bit
