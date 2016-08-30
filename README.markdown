@@ -207,6 +207,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     `vi(1)` and `view(1)` implementation if it's available.
 *   `vr()` tries to change to the root directory of a source control
     repository.
+*   `x()` is a one-key shortcut for `exec startx`.
 
 There are a few other little tricks defined for other shells, mostly in
 `bash/bashrc.d`:
