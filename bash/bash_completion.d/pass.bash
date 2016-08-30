@@ -15,6 +15,7 @@ _pass()
     # doesn't seem to do this properly with a null delimiter)
     local entry
     while IFS= read -rd '' entry ; do
+        [[ -n $entry ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$entry
     done < <(
 
@@ -29,11 +30,14 @@ _pass()
         entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 
-        # Bail if no entries to prevent empty output
-        ((${#entries[@]})) || exit 1
-
-        # Print all the entries, null-delimited
-        printf '%q\0' "${entries[@]}"
+        # Print quoted entries, null-delimited, if there was at least one;
+        # otherwise, just print a null character to stop this hanging in Bash
+        # 4.4
+        if ((${#entries[@]})) ; then
+            printf '%q\0' "${entries[@]}"
+        else
+            printf '\0'
+        fi
     )
 }
 complete -F _pass pass

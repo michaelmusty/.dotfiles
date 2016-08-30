@@ -19,6 +19,7 @@ _man() {
     # Read completion results from a subshell and add them to the COMPREPLY
     # array individually
     while IFS= read -rd '' page ; do
+        [[ -n $page ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$page
     done < <(
 
@@ -51,12 +52,14 @@ _man() {
         pages=("${pages[@]%.@([glx]z|bz2|lzma|Z)}")
         pages=("${pages[@]%.[0-9]*}")
 
-        # Bail out if we ended up with no pages somehow to prevent us from
-        # printing
-        ((${#pages[@]})) || exit 1
-
-        # Print the pages array to stdout, quoted and null-delimited
-        printf '%q\0' "${pages[@]}"
+        # Print quoted entries, null-delimited, if there was at least one;
+        # otherwise, just print a null character to stop this hanging in Bash
+        # 4.4
+        if ((${#pages[@]})) ; then
+            printf '%q\0' "${pages[@]}"
+        else
+            printf '\0'
+        fi
     )
 }
 complete -F _man -o default man

@@ -16,7 +16,7 @@ _bd() {
     local dirname
     for dirname in "${dirnames[@]}" ; do
         [[ $dirname == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY=("${COMPREPLY[@]}" "$(printf %q "$dirname")")
+        COMPREPLY[${#COMPREPLY[@]}]=$(printf %q "$dirname")
     done
 }
 complete -F _bd bd
