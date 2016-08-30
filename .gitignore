@@ -1,3 +1,4 @@
+bin/han
 bin/rfct
 bin/rndi
 bin/sd2u
@@ -9,5 +10,5 @@ games/kvlt
 games/zs
 git/gitconfig
 gnupg/gpg.conf
-man/man7/dotfiles.7
+man/man7/dotfiles.7df
 tmux/tmux.conf

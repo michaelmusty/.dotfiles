@@ -19,6 +19,7 @@ _path() {
             insert|append|check)
                 local dirname
                 while IFS= read -rd '' dirname ; do
+                    [[ -n $dirname ]] || continue
                     COMPREPLY[${#COMPREPLY[@]}]=$dirname
                 done < <(
 
@@ -30,11 +31,14 @@ _path() {
                     dirnames=("${COMP_WORDS[COMP_CWORD]}"*/)
                     dirnames=("${dirnames[@]%/}")
 
-                    # Bail if no results to prevent empty output
-                    ((${#dirnames[@]})) || exit 1
-
-                    # Print results, quoted and null-delimited
-                    printf '%q\0' "${dirnames[@]}"
+                    # Print quoted entries, null-delimited, if there was at
+                    # least one; otherwise, just print a null character to stop
+                    # this hanging in Bash 4.4
+                    if ((${#dirnames[@]})) ; then
+                        printf '%q\0' "${dirnames[@]}"
+                    else
+                        printf '\0'
+                    fi
                 )
                 ;;
 

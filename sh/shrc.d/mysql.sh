@@ -1,5 +1,8 @@
-# If a file ~/.mysql/$1.cnf exists, call mysql(1) using that file. Otherwise
-# just run MySQL with given args. Use restrictive permissions on these files.
+# If a file ~/.mysql/$1.cnf exists, call mysql(1) using that file, discarding
+# the rest of the arguments. Otherwise just run MySQL with given args. Use
+# restrictive permissions on these files. Doesn't allow filenames beginning
+# with hyphens.
+#
 # Examples:
 #
 #   [client]
@@ -11,9 +14,12 @@
 #   database=bar
 #
 mysql() {
-    if [ -f "$HOME/.mysql/$1".cnf ] ; then
-        shift
-        set -- --defaults-extra-file="$HOME/.mysql/$1".cnf "$@"
-    fi
+    case $1 in
+        -*) ;;
+        *)
+            [ -f "$HOME/.mysql/$1".cnf ] &&
+                set -- --defaults-extra-file="$HOME/.mysql/$1".cnf
+            ;;
+    esac
     command mysql "$@"
 }

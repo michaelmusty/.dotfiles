@@ -88,11 +88,6 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
     ((BASH_VERSINFO[1] >= 3)) && shopt -s direxpand
 fi
 
-# If COMP_WORDBREAKS has a value, strip all colons from it; this allows
-# completing filenames correctly, since an unquoted colon is not a syntactic
-# character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
-[[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
-
 # Load POSIX shell startup files and then Bash-specific ones
 for sh in "$ENV" "$HOME"/.bashrc.d/*.bash ; do
     [[ -e $sh ]] && source "$sh"

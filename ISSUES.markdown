@@ -7,9 +7,6 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
-*   At least one of the completion scripts (pass.bash) hangs on empty
-    completions (i.e. nothing matches the search term) in Bash 4.4rc1; the last
-    thing bash -x shows is an "exit 1" hang
 *   The checks gscr(1df) makes to determine where it is are a bit naive (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) calls
@@ -26,3 +23,8 @@ Known issues
     standard.
 
     Turns out that old versions of Bash in `sh` mode do this too.
+*   I can probably share my psql() completions/shortcuts after sanitizing them
+    a bit
+*   A key binding for importing sections of the screen and optionally uploading
+    it would be great, probably using ImageMagick import(1)
+*   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now

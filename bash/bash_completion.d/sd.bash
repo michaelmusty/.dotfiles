@@ -9,6 +9,7 @@ _sd() {
 
     # Build list of matching sibiling directories
     while IFS= read -rd '' dirname ; do
+        [[ -n $dirname ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$dirname
     done < <(
 
@@ -29,11 +30,14 @@ _sd() {
             sibs[${#sibs[@]}]=$dirname
         done
 
-        # Bail if no results to prevent empty output
-        ((${#sibs[@]})) || exit 1
-
-        # Print results, null-delimited
-        printf '%q\0' "${sibs[@]}"
+        # Print quoted sibs, null-delimited, if there was at least one;
+        # otherwise, just print a null character to stop this hanging in Bash
+        # 4.4
+        if ((${#sibs[@]})) ; then
+            printf '%q\0' "${sibs[@]}"
+        else
+            printf '\0'
+        fi
     )
 }
 complete -F _sd sd
