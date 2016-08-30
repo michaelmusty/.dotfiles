@@ -38,6 +38,9 @@
 [merge]
     ff = false
 
+[pager]
+    diff = cat
+
 [pull]
     ff = only
 
