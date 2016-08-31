@@ -168,12 +168,8 @@ prompt() {
             local key value url root
             while [[ -z $url || -z $root ]] && IFS=: read -r key value ; do
                 case $key in
-                    'URL')
-                        url=${value## }
-                        ;;
-                    'Repository Root')
-                        root=${value## }
-                        ;;
+                    'URL') url=${value## } ;;
+                    'Repository Root') root=${value## } ;;
                 esac
             done < <(svn info 2>/dev/null)
 
@@ -193,22 +189,20 @@ prompt() {
             # Parse the output of svn status to determine working copy state
             local symbol
             local -i modified untracked
-            while read -r symbol _ ; do
-                if [[ $symbol == *'?'* ]] ; then
-                    untracked=1
-                else
-                    modified=1
-                fi
+            while ((!modified || !untracked)) && read -r symbol _ ; do
+                case $symbol in
+                    *\?*) untracked=1 ;;
+                    *) modified=1 ;;
+                esac
             done < <(svn status 2>/dev/null)
 
             # Add appropriate state flags
-            local -a state
-            ((modified)) && state[${#state[@]}]='!'
-            ((untracked)) && state[${#state[@]}]='?'
+            local state
+            ((modified)) && state=${state}'!'
+            ((untracked)) && state=${state}'?'
 
             # Print the state in brackets with an svn: prefix
-            (IFS= ; printf '(svn:%s%s)' \
-                "${branch:-unknown}" "${state[*]}")
+            printf '(svn:%s%s)' "${branch:-unknown}" "$state"
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
