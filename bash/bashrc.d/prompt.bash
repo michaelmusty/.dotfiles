@@ -166,7 +166,7 @@ prompt() {
         svn)
             # Determine the repository URL and root directory
             local key value url root
-            while IFS=: read -r key value ; do
+            while [[ -z $url || -z $root ]] && IFS=: read -r key value ; do
                 case $key in
                     'URL')
                         url=${value## }
@@ -179,8 +179,7 @@ prompt() {
 
             # Exit if we couldn't get either--or, implicitly, if we don't have
             # svn(1).
-            [[ -n $url ]] || return
-            [[ -n $root ]] || return
+            [[ -n $url && -n $root ]] || return
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
