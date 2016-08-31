@@ -101,6 +101,9 @@ prompt() {
             iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
             [[ $iswt = true ]] || return
 
+            # Refresh index so e.g. git-diff-files(1) is accurate
+            git update-index --refresh >/dev/null
+
             # Find a local branch, remote branch, or tag (annotated or not), or
             # failing all of that just show the short commit ID, in that order
             # of preference; if none of that works, bail out
@@ -109,9 +112,6 @@ prompt() {
                 HEAD 2>/dev/null) || return
             name=${name##*/}
             [[ -n $name ]] || return
-
-            # Refresh index so e.g. git-diff-files(1) is accurate
-            git update-index --refresh >/dev/null
 
             # Check various files in .git to flag processes
             local proc
