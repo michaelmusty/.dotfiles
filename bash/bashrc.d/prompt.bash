@@ -101,16 +101,14 @@ prompt() {
             iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
             [[ $iswt = true ]] || return
 
-            # Find a branch label, or a tag, or just show the short commit ID,
-            # in that order of preference; if none of that works, bail out.
-            local branch
-            branch=$( {
-                git symbolic-ref --quiet HEAD ||
-                git describe --tags --exact-match HEAD ||
-                git rev-parse --short HEAD
-            } 2>/dev/null )
-            [[ -n $branch ]] || return
-            branch=${branch##*/}
+            # Find a local branch, remote branch, or tag (annotated or not), or
+            # failing all of that just show the short commit ID, in that order
+            # of preference; if none of that works, bail out
+            local name
+            name=$(git describe --all --always --exact-match \
+                HEAD 2>/dev/null) || return
+            name=${name##*/}
+            [[ -n $name ]] || return
 
             # Refresh index so e.g. git-diff-files(1) is accurate
             git update-index --refresh >/dev/null
@@ -161,7 +159,7 @@ prompt() {
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "${branch:-unknown}" \
+                "${PROMPT_VCS:+git:}" "${name:-unknown}" \
                 "${proc:+:$proc}" "$state"
             ;;
 
