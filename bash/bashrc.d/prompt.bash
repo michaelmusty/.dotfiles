@@ -159,8 +159,7 @@ prompt() {
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "${name:-unknown}" \
-                "${proc:+:$proc}" "$state"
+                "${PROMPT_VCS:+git:}" "$name" "${proc:+:$proc}" "$state"
             ;;
 
         # Subversion prompt function
