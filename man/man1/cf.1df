@@ -5,9 +5,11 @@
 .SH SYNOPSIS
 .B cf
 .br
-.B cf /path/to/dir
+.B cf
+/path/to/dir
 .br
-.B cf dir1 dir2
+.B cf
+dir1 dir2
 .SH DESCRIPTION
 .B cf
 counts all the entries in the given directories using glob

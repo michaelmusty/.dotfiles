@@ -5,9 +5,11 @@
 .SH SYNOPSIS
 .B cfr
 .br
-.B cfr /path/to/dir
+.B cfr
+/path/to/dir
 .br
-.B cfr dir1 dir2
+.B cfr
+dir1 dir2
 .SH DESCRIPTION
 .B cf
 counts all the entries in the directory trees rooted at the given arguments,
