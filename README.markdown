@@ -392,6 +392,7 @@ Installed by the `install-bin` target:
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
+*   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as well.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each line
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.

@@ -1,0 +1,16 @@
+.TH CFR 1df "September 2016" "Manual page for cfr"
+.SH NAME
+.B cfr
+\- print a count of entries in a directory tree
+.SH SYNOPSIS
+.B cfr
+.br
+.B cfr /path/to/dir
+.br
+.B cfr dir1 dir2
+.SH DESCRIPTION
+.B cf
+counts all the entries in the directory trees rooted at the given arguments,
+and prints the total. It defaults to the current directory.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

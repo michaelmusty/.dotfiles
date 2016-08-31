@@ -1,0 +1,4 @@
+#!/bin/sh
+# Count files recursively with find(1); this includes the given directories
+# themselves and their subdirectories as entries
+find "${@:-"$PWD"}" -printf . | wc -c
