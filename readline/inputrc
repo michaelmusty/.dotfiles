@@ -1,3 +1,7 @@
+# Don't mess with the eighth bit of characters
+set input-meta on
+set output-meta on
+
 # Never ring any sort of bell during line reading
 set bell-style none
 
