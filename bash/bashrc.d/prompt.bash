@@ -108,8 +108,10 @@ prompt() {
             # failing all of that just show the short commit ID, in that order
             # of preference; if none of that works, bail out
             local name
-            name=$(git describe --all --always --exact-match \
-                HEAD 2>/dev/null) || return
+            name=$( {
+                git symbolic-ref --quiet HEAD ||
+                git describe --all --always --exact-match HEAD
+            } 2>/dev/null) || return
             name=${name##*/}
             [[ -n $name ]] || return
 
