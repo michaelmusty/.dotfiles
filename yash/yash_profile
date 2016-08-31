@@ -1,0 +1,2 @@
+# Load ~/.profile, because Yash won't by itself, no matter how you invoke it
+[ -e "$HOME"/.profile ] && . "$HOME"/.profile

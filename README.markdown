@@ -79,6 +79,8 @@ Configuration is included for:
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
     for Unix
+*   [Yash](https://yash.osdn.jp/index.html.en) -- Yet another shell; just
+    enough configuration to make it read the portable POSIX stuff
 *   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 

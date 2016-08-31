@@ -40,6 +40,7 @@
 	install-vim-pathogen \
 	install-wyrd \
 	install-x \
+	install-yash \
 	install-zsh \
 	check \
 	check-bash \
@@ -48,11 +49,13 @@
 	check-pdksh \
 	check-sh \
 	check-urxvt \
+	check-yash \
 	lint \
 	lint-bash \
 	lint-bin \
 	lint-games \
 	lint-pdksh \
+	lint-yash \
 	lint-sh \
 	lint-urxvt
 
@@ -348,6 +351,10 @@ install-x :
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
+install-yash : check-yash install-sh
+	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
+	install -pm 0644 -- yash/yash_profile "$(HOME)"/.yash_profile
+
 install-zsh : install-sh
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
@@ -380,13 +387,17 @@ check-sh :
 check-urxvt :
 	check/urxvt
 
+check-yash :
+	check/yash
+
 lint : check \
 	lint-bash  \
 	lint-bin  \
 	lint-games  \
 	lint-pdksh  \
 	lint-sh  \
-	lint-urxvt
+	lint-urxvt \
+	lint-yash
 
 lint-bash :
 	lint/bash
@@ -405,3 +416,6 @@ lint-sh :
 
 lint-urxvt :
 	lint/urxvt
+
+lint-yash :
+	lint/yash
