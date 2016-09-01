@@ -26,7 +26,7 @@ set -- .* "$@"
 du -ks -- "$@" |
 
 # Sort the first field (the sizes) numerically, in reverse
-sort -k1nr |
+sort -k1,1nr |
 
 # Limit the output to the given number of lines
 sed "$lines"q
