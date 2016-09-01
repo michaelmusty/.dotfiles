@@ -4,6 +4,7 @@ bin/rndi
 bin/sd2u
 bin/slsf
 bin/su2d
+bin/tot
 bin/unf
 games/acq
 games/kvlt

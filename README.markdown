@@ -441,6 +441,7 @@ Installed by the `install-bin` target:
     privileges.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
+*   `tot(1df)` adds up a list of integers.
 *   `try(1df)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.

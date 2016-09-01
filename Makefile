@@ -72,6 +72,7 @@ all : bin/han \
 	bin/sd2u \
 	bin/slsf \
 	bin/su2d \
+	bin/tot \
 	bin/unf \
 	git/gitconfig \
 	gnupg/gpg.conf \
@@ -85,6 +86,7 @@ clean distclean :
 		bin/sd2u \
 		bin/slsf \
 		bin/su2d \
+		bin/tot \
 		bin/unf \
 		games/acq \
 		games/kvlt \
@@ -169,7 +171,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/han bin/sd2u bin/su2d bin/unf check-bin install-bin-man
+install-bin : bin/han bin/sd2u bin/su2d bin/tot bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
