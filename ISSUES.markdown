@@ -30,6 +30,3 @@ Known issues
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
 *   Maybe I should port some of the prompt functions to POSIX sh so I don't
     have to maintain parallel versions for bash, pdksh, and zsh
-*   find(1) -printf isn't POSIX, and isn't even in OpenBSD's version. Is there
-    a nicer way to do cfr(1df) efficiently while still handling edge cases like
-    files with newlines? -exec printf . works, but it's sloooow ...

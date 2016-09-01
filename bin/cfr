@@ -1,6 +1,8 @@
 #!/bin/sh
-# Count files recursively with find(1); this includes the given directories
-# themselves and their subdirectories as entries, and correctly handles files
-# with newlines in their names. It's also all POSIX ... but on big directories,
-# it's *slow*.
-find "${@:-.}" -exec printf %.sx {} \; | wc -c
+# Count all descendants of given directories
+for dir in "${@:-.}" ; do
+    tot=$(find "$dir" -type d \
+        -exec sh -c 'cd -- "$1" && cf' _ {} \; |
+        cut -f1 | tot)
+    printf '%u\t%s\n' "$tot" "$dir"
+done
