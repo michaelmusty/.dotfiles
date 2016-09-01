@@ -37,11 +37,8 @@ complete -A shopt shopt
 # Signal names
 complete -A signal trap
 
-# Variables
-complete -A variable declare export readonly typeset
-
 # Both functions and variables
-complete -A function -A variable unset
+complete -A function -A variable declare export readonly typeset unset
 
 # The `mapfile` builtin in Bash >= 4.0
 ((BASH_VERSINFO[0] >= 4)) && complete -A arrayvar mapfile
