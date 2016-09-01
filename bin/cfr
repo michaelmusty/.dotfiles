@@ -1,4 +1,6 @@
 #!/bin/sh
 # Count files recursively with find(1); this includes the given directories
-# themselves and their subdirectories as entries
-find "${@:-"$PWD"}" -printf . | wc -c
+# themselves and their subdirectories as entries, and correctly handles files
+# with newlines in their names. It's also all POSIX ... but on big directories,
+# it's *slow*.
+find "${@:-.}" -exec printf %.sx {} \; | wc -c
