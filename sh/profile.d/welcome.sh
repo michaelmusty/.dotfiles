@@ -10,45 +10,36 @@ esac
 # Not if ~/.hushlogin exists
 [ -e "$HOME"/.hushlogin ] && return
 
+# Run all of this in a subshell to clear it away afterwards
 (
-    # Only if ~/.welcome/fortune exists
-    [ -e "$HOME"/.welcome/fortune ] || exit
-
-    # Only if fortune(6) available
-    command -v fortune >/dev/null 2>&1 || exit
+    # Temporary helper function
+    welcome() {
+        [ -e "$HOME"/.welcome/"$1" ] || return
+        command -v "$1" >/dev/null 2>&1 || return
+    }
 
     # Show a fortune
-    [ -d "$HOME"/.local/share/games/fortunes ] &&
-        : "${FORTUNE_PATH:="$HOME"/.local/share/games/fortunes}"
-    fortune -s "$FORTUNE_PATH"
-    printf '\n'
-)
-(
-    # Only if ~/.welcome/remind exists
-    [ -e "$HOME"/.welcome/remind ] || exit
+    if welcome fortune ; then
+        [ -d "$HOME"/.local/share/games/fortunes ] &&
+            : "${FORTUNE_PATH:="$HOME"/.local/share/games/fortunes}"
+        fortune -s "$FORTUNE_PATH"
+        printf '\n'
+    fi
 
-    # Only if rem(1) available
-    command -v rem >/dev/null 2>&1 || exit
+    # Print today's reminders with asterisks
+    if welcome rem ; then
+        rem -hq | sed 's/^/* /'
+        printf '\n'
+    fi
 
-    # Print reminders with asterisks
-    rem -hq | sed 's/^/* /'
-    printf '\n'
-)
-(
-    # Only if ~/.welcome/remind verse
-    [ -e "$HOME"/.welcome/verse ] || exit
-
-    # Only if verse(1) available
-    command -v verse >/dev/null 2>&1 || exit
-
-    # Run verse(1) if we haven't seen it already today (the verses are selected
-    # by date); run in a subshell to keep vars out of global namespace
-    now=$(date +%Y%m%d)
-    last=0
-    [ -f "$HOME"/.verse ] &&
-        last=$(cat -- "$HOME"/.verse)
-    [ "$now" -gt "$last" ] || exit
-    verse
-    printf '\n'
-    printf '%s\n' "$now" > "$HOME"/.verse
+    # Run verse(1) if we haven't seen it already today
+    if welcome verse ; then
+        [ -f "$HOME"/.verse ] && read -r last <"$HOME"/.verse
+        now=$(date +%Y%m%d)
+        if [ "$now" -gt "${last:-0}" ] ; then
+            verse
+            printf '\n'
+            printf '%s\n' "$now" >"$HOME"/.verse
+        fi
+    fi
 )
