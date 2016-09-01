@@ -61,19 +61,19 @@ prompt() {
             iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
             [[ $iswt = true ]] || return
 
-            # Find a branch label, or a tag, or just show the short commit ID,
-            # in that order of preference; if none of that works, bail out.
-            local branch
-            branch=$( {
-                git symbolic-ref --quiet HEAD ||
-                git describe --tags --exact-match HEAD ||
-                git rev-parse --short HEAD
-            } 2>/dev/null )
-            [[ -n $branch ]] || return
-            branch=${branch##*/}
-
             # Refresh index so e.g. git-diff-files(1) is accurate
             git update-index --refresh >/dev/null
+
+            # Find a local branch, remote branch, or tag (annotated or not), or
+            # failing all of that just show the short commit ID, in that order
+            # of preference; if none of that works, bail out
+            local name
+            name=$( {
+                git symbolic-ref --quiet HEAD ||
+                git describe --all --always --exact-match HEAD
+            } 2>/dev/null) || return
+            name=${name##*/}
+            [[ -n $name ]] || return
 
             # Check various files in .git to flag processes
             local proc
@@ -121,29 +121,23 @@ prompt() {
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "${branch:-unknown}" \
-                "${proc:+:$proc}" "$state"
+                "${PROMPT_VCS:+git:}" "$name" "${proc:+:$proc}" "$state"
             ;;
 
         # Subversion prompt function
         svn)
             # Determine the repository URL and root directory
             local key value url root
-            while IFS=: read -r key value ; do
+            while [[ -z $url || -z $root ]] && IFS=: read -r key value ; do
                 case $key in
-                    'URL')
-                        url=${value## }
-                        ;;
-                    'Repository Root')
-                        root=${value## }
-                        ;;
+                    'URL') url=${value## } ;;
+                    'Repository Root') root=${value## } ;;
                 esac
             done < <(svn info 2>/dev/null)
 
             # Exit if we couldn't get either--or, implicitly, if we don't have
             # svn(1).
-            [[ -n $url ]] || return
-            [[ -n $root ]] || return
+            [[ -n $url && -n $root ]] || return
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
@@ -157,22 +151,20 @@ prompt() {
             # Parse the output of svn status to determine working copy state
             local symbol
             local -i modified untracked
-            while read -r symbol _ ; do
-                if [[ $symbol == *'?'* ]] ; then
-                    untracked=1
-                else
-                    modified=1
-                fi
+            while ((!modified || !untracked)) && read -r symbol _ ; do
+                case $symbol in
+                    *\?*) untracked=1 ;;
+                    *) modified=1 ;;
+                esac
             done < <(svn status 2>/dev/null)
 
             # Add appropriate state flags
-            local -a state
-            ((modified)) && state[${#state[@]}]='!'
-            ((untracked)) && state[${#state[@]}]='?'
+            local state
+            ((modified)) && state=${state}'!'
+            ((untracked)) && state=${state}'?'
 
             # Print the state in brackets with an svn: prefix
-            (IFS= ; printf '(svn:%s%s)' \
-                "${branch:-unknown}" "${state[*]}")
+            printf '(svn:%s%s)' "${branch:-unknown}" "$state"
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
