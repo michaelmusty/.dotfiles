@@ -62,8 +62,8 @@ set mark_old = no
 
 # Headers
 ignore *
-unignore Date From To Cc Subject
-hdr_order Date From To Cc Subject
+unignore Date From: To Cc Subject
+hdr_order Date From: To Cc Subject
 set edit_headers = yes
 
 # Index
