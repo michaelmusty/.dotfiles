@@ -40,6 +40,7 @@
 	install-vim-pathogen \
 	install-wyrd \
 	install-x \
+	install-yash \
 	install-zsh \
 	check \
 	check-bash \
@@ -48,15 +49,17 @@
 	check-pdksh \
 	check-sh \
 	check-urxvt \
+	check-yash \
 	lint \
 	lint-bash \
 	lint-bin \
 	lint-games \
 	lint-pdksh \
+	lint-yash \
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .awk .bash .sed
+.SUFFIXES: .awk .bash .pl .sed
 
 NAME := Tom Ryder
 EMAIL := tom@sanctum.geek.nz
@@ -64,23 +67,32 @@ KEY := 0xC14286EA77BB8872
 SENDMAIL := /usr/bin/msmtp
 
 all : bin/han \
+	bin/mean \
+	bin/med \
+	bin/mode \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
 	bin/slsf \
 	bin/su2d \
+	bin/tot \
 	bin/unf \
 	git/gitconfig \
-	gnupg/gpg.conf
+	gnupg/gpg.conf \
+	urxvt/ext/select
 
 clean distclean :
 	rm -f \
 		bin/han \
+		bin/mean \
+		bin/med \
+		bin/mode \
 		bin/rfct \
 		bin/rndi \
 		bin/sd2u \
 		bin/slsf \
 		bin/su2d \
+		bin/tot \
 		bin/unf \
 		games/acq \
 		games/kvlt \
@@ -89,7 +101,8 @@ clean distclean :
 		gnupg/gpg.conf \
 		man/man7/dotfiles.7df \
 		mutt/muttrc \
-		tmux/tmux.conf
+		tmux/tmux.conf \
+		urxvt/ext/select
 
 git/gitconfig : git/gitconfig.m4
 	m4 \
@@ -126,6 +139,10 @@ tmux/tmux.conf : tmux/tmux.conf.m4
 	bin/shb "$<" bash > "$@"
 	chmod +x "$@"
 
+.pl :
+	bin/shb "$<" perl > "$@"
+	chmod +x "$@"
+
 .sed :
 	bin/shb "$<" sed -f > "$@"
 	chmod +x "$@"
@@ -160,7 +177,8 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/han bin/sd2u bin/su2d bin/unf check-bin install-bin-man
+install-bin : bin/han bin/sd2u bin/su2d bin/mean bin/med bin/mode \
+	bin/tot bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -294,9 +312,14 @@ install-terminfo :
 install-tmux : tmux/tmux.conf install-terminfo
 	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
-install-urxvt : check-urxvt
+install-urxvt : urxvt/ext/select check-urxvt
 	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
-	install -m 0755 -- urxvt/ext/* "$(HOME)"/.urxvt/ext
+	for name in urxvt/ext/* ; do \
+		case $$name in \
+			*.pl) ;; \
+			*) install -m 0644 -- "$$name" "$(HOME)"/.urxvt/ext ;; \
+		esac \
+	done
 
 install-vim : install-vim-config \
 	install-vim-plugins \
@@ -337,9 +360,15 @@ install-x :
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
+install-yash : check-yash install-sh
+	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
+	install -pm 0644 -- yash/yash_profile "$(HOME)"/.yash_profile
+
 install-zsh : install-sh
+	install -m 0755 -d -- "$(HOME)"/.zshrc.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
+	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
 
 check : check-bash \
 	check-bin \
@@ -369,13 +398,17 @@ check-sh :
 check-urxvt :
 	check/urxvt
 
+check-yash :
+	check/yash
+
 lint : check \
 	lint-bash  \
 	lint-bin  \
 	lint-games  \
 	lint-pdksh  \
 	lint-sh  \
-	lint-urxvt
+	lint-urxvt \
+	lint-yash
 
 lint-bash :
 	lint/bash
@@ -394,3 +427,6 @@ lint-sh :
 
 lint-urxvt :
 	lint/urxvt
+
+lint-yash :
+	lint/yash

@@ -1,0 +1,20 @@
+.TH MODE 1df "September 2016" "Manual page for mode"
+.SH NAME
+.B mode
+\- print the mode of a list of integers
+.SH SYNOPSIS
+printf '%u\\n' 2 35 3 8 |
+.B mode
+.br
+.B mode
+file
+.br
+.B mode
+file1 file2
+.SH DESCRIPTION
+.B mode
+collects all the newline-delimited integers given as input, and prints the
+mode. If two values have the same frequency (i.e. a multimodal distribution),
+it will print the one that reaches that frequency first in the data set.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

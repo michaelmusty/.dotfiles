@@ -7,5 +7,8 @@ HISTFILE=$HOME/.zsh_history
 SAVEHIST=$((1 << 12))
 HISTSIZE=$((1 << 10))
 
-# Load POSIX shell functions
-source "$ENV"
+# Load POSIX shell startup files and then Bash-specific ones
+for sh in "$ENV" "$HOME"/.zshrc.d/*.zsh ; do
+    [[ -e $sh ]] && source "$sh"
+done
+unset -v sh

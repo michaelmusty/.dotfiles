@@ -79,6 +79,8 @@ Configuration is included for:
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
     for Unix
+*   [Yash](https://yash.osdn.jp/index.html.en) -- Yet another shell; just
+    enough configuration to make it read the portable POSIX stuff
 *   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 
@@ -390,6 +392,7 @@ Installed by the `install-bin` target:
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
+*   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as well.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each line
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
@@ -418,6 +421,9 @@ Installed by the `install-bin` target:
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees any.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of success,
     it exits with success or failure. Good for quick tests.
+*   `mean(1df)` prints the mean of a list of integers.
+*   `med(1df)` prints the median of a list of integers.
+*   `mode(1df)` prints the first encountered mode of a list of integers.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
@@ -438,6 +444,7 @@ Installed by the `install-bin` target:
     privileges.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
     use Taskwarrior, but found it too complex and buggy.
+*   `tot(1df)` adds up a list of integers.
 *   `try(1df)` repeats a command up to a given number of times until it succeeds,
     only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.

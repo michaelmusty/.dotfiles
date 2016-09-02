@@ -1,0 +1,8 @@
+#!/bin/sh
+# Count all descendants of given directories; don't follow symlinks
+for dir in "${@:-.}" ; do
+    tot=$(find "$dir" -type d \
+        -exec sh -c 'cd -- "$1" && cf' _ {} \; |
+        cut -f1 | tot)
+    printf '%u\t%s\n' "$tot" "$dir"
+done

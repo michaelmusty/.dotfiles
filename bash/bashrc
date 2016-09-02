@@ -19,17 +19,11 @@ shopt -q restricted_shell && return
 # Keep around 32K lines of history in file
 HISTFILESIZE=$((1 << 15))
 
-# Keep around 4K lines of history in memory
-HISTSIZE=$((1 << 12))
-
 # Ignore duplicate commands and whitespace in history
 HISTCONTROL=ignoreboth
 
 # Keep the times of the commands in history
 HISTTIMEFORMAT='%F %T  '
-
-# Don't warn me about new mail
-unset -v MAILCHECK
 
 # Use a more compact format for the time builtin's output
 TIMEFORMAT='real:%lR user:%lU sys:%lS'

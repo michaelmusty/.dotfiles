@@ -1,3 +1,8 @@
+" .shrc is a shell script
+autocmd BufNewFile,BufRead
+    \ .shrc
+    \ setlocal filetype=sh
+
 " .xinitrc is a shell script
 autocmd BufNewFile,BufRead
     \ .xinitrc

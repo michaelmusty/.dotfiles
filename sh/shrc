@@ -13,6 +13,12 @@ command -p setterm -bfreq -blength 2>/dev/null
 # Turn off flow control and control character echo
 command -p stty -ixon -ctlecho 2>/dev/null
 
+# Keep around 4K lines of history in memory
+HISTSIZE=$((1 << 12))
+
+# Don't warn me about new mail
+unset -v MAILCHECK
+
 # Load all the POSIX-compatible functions from ~/.shrc.d; more advanced shells
 # like bash will have their own functions
 for sh in "$HOME"/.shrc.d/*.sh ; do

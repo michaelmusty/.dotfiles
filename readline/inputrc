@@ -1,3 +1,7 @@
+# Don't mess with the eighth bit of characters
+set input-meta on
+set output-meta on
+
 # Never ring any sort of bell during line reading
 set bell-style none
 
@@ -22,7 +26,8 @@ set echo-control-characters off
 # Expand tilde to full path on completion
 set expand-tilde on
 
-# Add a trailing slash for completed symlink directories
+# Add a trailing slash for directories and symlinked directories
+set mark-directories on
 set mark-symlinked-directories on
 
 # Don't match dotfiles unless there's a dot

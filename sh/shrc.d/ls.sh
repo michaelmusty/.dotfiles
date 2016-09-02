@@ -7,7 +7,7 @@ ls() {
 
     # Add --block-size=K to always show the filesize in kibibytes
     [ -e "$HOME"/.cache/ls/block-size ] &&
-        set -- --block-size=K "$@"
+        set -- --block-size=1024 "$@"
 
     # Add --classify to show trailing indicators of the filetype
     [ -e "$HOME"/.cache/ls/classify ] &&
