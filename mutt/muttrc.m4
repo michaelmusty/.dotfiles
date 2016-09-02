@@ -26,6 +26,14 @@ set query_command = 'abook --mutt-query %s'
 # Alerts
 set beep_new = yes
 
+# Attachments
+attachments +A */.*
+attachments -A text/x-vcard application/pgp.*
+attachments -A application/x-pkcs7-.*
+attachments +I text/plain
+attachments -A message/external-body
+attachments -I message/external-body
+
 # Caching
 set header_cache = '~/.cache/mutt/headers'
 
@@ -53,7 +61,9 @@ set move   = no
 set mark_old = no
 
 # Headers
-hdr_order Date From To Cc
+ignore *
+unignore Date From To Cc Subject
+hdr_order Date From To Cc Subject
 set edit_headers = yes
 
 # Index
@@ -73,6 +83,9 @@ set confirmcreate = yes
 
 # Menus
 set menu_context = 1
+
+# MIME
+mime_lookup application/octet-stream
 
 # Pager
 set pager_context = 1
@@ -98,6 +111,9 @@ set sort            = 'threads'
 set sort_aux        = 'last-date-received'
 set strict_threads  = yes
 set thorough_search = yes
+
+# SSH
+set time_inc=250
 
 # Encryption settings
 set crypt_replysign          = yes
