@@ -100,6 +100,9 @@ set tilde       = yes
 alternative_order text/plain text/html *
 auto_view text/html
 
+# Quoting
+set quote_regexp = '^(>[ \t]*)+'
+
 # Responses
 set fast_reply        = yes
 set forward_format    = 'Fw: %s'
