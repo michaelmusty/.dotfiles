@@ -135,6 +135,9 @@ bind index,pager \Cd half-down
 bind generic,index,browser,pager \Cf next-page
 bind generic,index,browser,pager \Cb previous-page
 
+# Turn off annoying mailbox lock feature
+bind index '%' noop
+
 # Jump to mailboxes
 macro generic,index,browser,pager gi '<change-folder>=inbox<enter>' 'Change to inbox folder'
 macro generic,index,browser,pager gs '<change-folder>=sent<enter>' 'Change to sent folder'
