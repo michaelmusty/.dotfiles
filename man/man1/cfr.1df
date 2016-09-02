@@ -14,8 +14,8 @@ dir1 dir2
 .B cf
 counts all the entries in the directory trees rooted at the given arguments,
 and prints the total. It defaults to the current directory. It should correctly
-handle corner cases like files with newlines in them. It will count but will
-not follow symbolic links.
+handle corner cases like filenames with newlines in them. It will count but
+will not follow symbolic links.
 .SH NOTES
 You might think this would be better; it's certainly faster:
 .P
