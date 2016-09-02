@@ -30,10 +30,16 @@ set beep_new = yes
 set header_cache = '~/.cache/mutt/headers'
 
 # Colors
-color indicator black   white
-color normal    default default
-color status    white   color22
-color tree      default default
+color attachment brightyellow default
+color hdrdefault cyan         default
+color indicator  black        white
+color markers    brightred    default
+color normal     default      default
+color quoted     green        default
+color signature  cyan         default
+color status     default      color22
+color tilde      blue         default
+color tree       default      default
 
 # Completion
 bind editor <Tab> complete-query
