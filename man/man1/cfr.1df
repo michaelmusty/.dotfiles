@@ -29,7 +29,7 @@ me), but there are faster but less compatible ways to do this, while still
 remaining accurate. Here's a method using GNU find(1) adapted from an extremely
 clever suggestion from geirha on Freenode; it's much, much faster:
 .P
-    $ find . -printf %.sx | wc -c
+    $ find . -mindepth 1 -printf %.sx | wc -c
 .SH SEE ALSO
 cf(1df), tot(1df)
 .SH AUTHOR
