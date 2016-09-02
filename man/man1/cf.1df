@@ -12,9 +12,8 @@
 dir1 dir2
 .SH DESCRIPTION
 .B cf
-counts all the entries in the given directories using glob
-expansion and prints the count. It defaults to the current
-directory.
+counts all the entries in the given directories using glob expansion and prints
+the count. It defaults to the current directory.
 .SH SEE ALSO
 cfr(1df)
 .SH AUTHOR
