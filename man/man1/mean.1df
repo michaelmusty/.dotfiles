@@ -1,0 +1,19 @@
+.TH MEAN 1df "September 2016" "Manual page for mean"
+.SH NAME
+.B mean
+\- print the mean of a list of integers
+.SH SYNOPSIS
+printf '%u\\n' 8 1 58 |
+.B mean
+.br
+.B mean
+file
+.br
+.B mean
+file1 file2
+.SH DESCRIPTION
+.B mean
+collects all the newline-delimited integers given as input, and prints the
+mean.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

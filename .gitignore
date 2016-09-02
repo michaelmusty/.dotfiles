@@ -1,4 +1,7 @@
 bin/han
+bin/mean
+bin/med
+bin/mode
 bin/rfct
 bin/rndi
 bin/sd2u
