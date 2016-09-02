@@ -45,37 +45,32 @@ prompt() {
 
             # Decide prompt color formatting based on color availability
             local format
-            case $colors in
 
-                # Check if we have non-bold bright green available
-                256)
-                    format=$( {
-                        : "${PROMPT_COLOR:=10}"
-                        tput setaf "$PROMPT_COLOR" ||
-                        tput setaf "$PROMPT_COLOR" 0 0 ||
-                        tput AF "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR" 0 0
-                    } 2>/dev/null )
-                    ;;
+            # Check if we have non-bold bright green available
+            if ((colors >= 16)) ; then
+                format=$( {
+                    : "${PROMPT_COLOR:=10}"
+                    tput setaf "$PROMPT_COLOR" ||
+                    tput setaf "$PROMPT_COLOR" 0 0 ||
+                    tput AF "$PROMPT_COLOR" ||
+                    tput AF "$PROMPT_COLOR" 0 0
+                } 2>/dev/null )
 
-                # If we have only eight colors, use bold green
-                8)
-                    format=$( {
-                        : "${PROMPT_COLOR:=2}"
-                        tput setaf "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR"
-                        tput bold || tput md
-                    } 2>/dev/null )
-                    ;;
+            # If we have only eight colors, use bold green
+            elif ((colors >= 8)) ; then
+                format=$( {
+                    : "${PROMPT_COLOR:=2}"
+                    tput setaf "$PROMPT_COLOR" ||
+                    tput AF "$PROMPT_COLOR"
+                    tput bold || tput md
+                } 2>/dev/null )
 
-                # For all other terminals, we assume non-color (!), and we just
-                # use bold
-                *)
-                    format=$( {
-                        tput bold || tput md
-                    } 2>/dev/null )
-                    ;;
-            esac
+            # Otherwise, we just try bold
+            else
+                format=$( {
+                    tput bold || tput md
+                } 2>/dev/null )
+            fi
 
             # String it all together
             PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
