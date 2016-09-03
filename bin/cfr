@@ -3,9 +3,11 @@
 for dir in "${@:-.}" ; do
     if ! [ -d "$dir" ] ; then
         printf >&2 'cfr: %s: Not a directory\n' "$dir"
+        ex=1
         continue
     fi
     printf '%u\t%s\n' \
         "$(find "$dir" -type d -exec cf -o -- {} \; | tot)" \
         "$dir"
 done
+exit "${ex:-0}"
