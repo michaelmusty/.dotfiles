@@ -443,7 +443,6 @@ Installed by the `install-bin` target:
 *   `plmu(1df)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
-*   `rmrej(1df)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1df)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sshi(1df)` prints human-readable SSH connection details.
