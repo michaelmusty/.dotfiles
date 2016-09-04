@@ -69,6 +69,7 @@ SENDMAIL := msmtp
 all : bin/han \
 	bin/mean \
 	bin/med \
+	bin/mftl \
 	bin/mode \
 	bin/rfct \
 	bin/rndi \
@@ -86,6 +87,7 @@ clean distclean :
 		bin/han \
 		bin/mean \
 		bin/med \
+		bin/mftl \
 		bin/mode \
 		bin/rfct \
 		bin/rndi \
@@ -177,8 +179,8 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/han bin/sd2u bin/su2d bin/mean bin/med bin/mode \
-	bin/tot bin/unf check-bin install-bin-man
+install-bin : bin/han bin/sd2u bin/su2d bin/mean bin/med bin/mftl \
+	bin/mode bin/tot bin/unf check-bin install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \

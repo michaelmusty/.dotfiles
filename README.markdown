@@ -433,6 +433,7 @@ Installed by the `install-bin` target:
     it exits with success or failure. Good for quick tests.
 *   `mean(1df)` prints the mean of a list of integers.
 *   `med(1df)` prints the median of a list of integers.
+*   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mode(1df)` prints the first encountered mode of a list of integers.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
