@@ -392,6 +392,7 @@ Installed by the `install-bin` target:
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1df)` prints a terminal bell character.
+*   `bl(1df)` generates a given number of blank lines.
 *   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
