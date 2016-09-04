@@ -459,6 +459,8 @@ Installed by the `install-bin` target:
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
+*   `umake(1df)` iterates upwards through the directory tree from `$PWD` until
+    it finds a Makefile for which to run `make(1)` with the given arguments.
 
 There's some silly stuff in `install-games`:
 

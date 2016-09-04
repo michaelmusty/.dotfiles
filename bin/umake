@@ -1,0 +1,11 @@
+#!/bin/sh
+# Keep going up the tree until we find a Makefile, and then run make(1) with
+# any given args
+while [ "$PWD" != / ] ; do
+    if [ -f Makefile ] ; then
+        exec make "$@" || exit
+    fi
+    cd .. || exit
+done
+printf >&2 'umake: No Makefile found in ancestors\n'
+exit 1
