@@ -30,6 +30,3 @@ Known issues
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
 *   Maybe I should port some of the prompt functions to POSIX sh so I don't
     have to maintain parallel versions for bash, pdksh, and zsh
-*   The Mutt configuration is not very standalone; relies quite a lot on
-    Debian's /etc/Muttrc and /etc/Muttrc.d, most of which can probably be
-    included in my own configuration files.
