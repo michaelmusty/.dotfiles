@@ -26,7 +26,7 @@ BEGIN {
     # Iterate through the targets that don't look like substitutions or
     # inference rules and stack them up into an array's keys to keep them
     # unique; this probably needs refinement
-    for (i=1; i<NF; i++)
+    for (i = 1; i < NF; i++)
         if ($i ~ /^[a-zA-Z0-9][a-zA-Z0-9./_-]*$/)
             ats[$i]
 }
