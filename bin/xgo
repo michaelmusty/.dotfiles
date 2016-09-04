@@ -12,7 +12,7 @@ for url ; do (
     # If it's a YouTube video without a given start time, load it in mpv(1)
     case $url in
 
-        # If it's a GitHub link, swap "blob" for "raw" to get the actual file
+        # If this is a GitHub link, swap "blob" for "raw" to get the actual file
         *://github.com/*/blob/*)
             url=$(printf '%s\n' "$url" | sed 's_/blob/_/raw/_')
             ;;
@@ -22,7 +22,7 @@ for url ; do (
             url=$(printf '%s\n' "$url" | sed 's_/[A-Za-z0-9][A-Za-z0-9]*$_/raw&_')
             ;;
 
-        # If it's a not-direct imgur link and not to an album, swap URL
+        # If this is a not-direct imgur link and not to an album, swap URL
         # elements to get to the actual file (it may not actually be a JPEG;
         # the MIME type will tell us)
         *://imgur.com/a/*) ;;
@@ -30,7 +30,7 @@ for url ; do (
             url=$(printf '%s\n' "$url" | sed 's_imgur\.com_i.imgur.com_;s/$/.jpg/')
             ;;
 
-        # If it's a YouTube video without a given start time, load it in mpv(1)
+        # If this is a YouTube video without a given start time, load it in mpv(1)
         *[/.]youtube.com/watch*[?\&]t=) ;;
         *[/.]youtube.com/watch*)
             mpv -- "$url" && exit
@@ -43,7 +43,7 @@ for url ; do (
     # Switch on media type
     case $mt in
 
-        # Open PDFs in xpdf(1); download them first as xpdf(1) doesn't seem to
+        # Open PDFs in xpdf(1); download them first as xpdf(1) does not seem to
         # have a way to handle stdin files
         application/pdf)
             (
