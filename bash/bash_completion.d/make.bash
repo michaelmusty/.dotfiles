@@ -9,6 +9,7 @@ _make() {
         case $line in
 
             # We're looking for targets but not variable assignments
+            \#*) ;;
             $'\t'*) ;;
             *:=*) ;;
             *:*)
