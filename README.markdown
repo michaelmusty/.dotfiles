@@ -387,6 +387,11 @@ Installed by the `install-bin` target:
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
+*   Four simple aggregators for integer data:
+    *   `mean(1df)` prints the mean.
+    *   `med(1df)` prints the median.
+    *   `mode(1df)` prints the first encountered mode.
+    *   `tot(1df)` totals the set.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
@@ -431,10 +436,7 @@ Installed by the `install-bin` target:
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
     it exits with success or failure. Good for quick tests.
-*   `mean(1df)` prints the mean of a list of integers.
-*   `med(1df)` prints the median of a list of integers.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
-*   `mode(1df)` prints the first encountered mode of a list of integers.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
@@ -454,7 +456,6 @@ Installed by the `install-bin` target:
     privileges.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
-*   `tot(1df)` adds up a list of integers.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
