@@ -79,8 +79,7 @@ all : bin/han \
 	bin/tot \
 	bin/unf \
 	git/gitconfig \
-	gnupg/gpg.conf \
-	urxvt/ext/select
+	gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
@@ -179,8 +178,8 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/han bin/sd2u bin/su2d bin/mean bin/med bin/mftl \
-	bin/mode bin/tot bin/unf check-bin install-bin-man
+install-bin : bin/han bin/mean bin/med bin/mftl bin/mode bin/rfct \
+	bin/rndi bin/sd2u bin/slsf bin/su2d bin/tot bin/unf install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
