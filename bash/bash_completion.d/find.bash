@@ -1,3 +1,7 @@
+# compopt requires Bash >=4.0, and I don't think it's worth making a compatible
+# version
+((BASH_VERSINFO[0] >= 4)) || return
+
 # Semi-intelligent completion for find(1); nothing too crazy
 _find() {
 
