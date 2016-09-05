@@ -29,7 +29,7 @@ complete -A variable for getopts let read select
 complete -A helptopic help
 
 # Jobspecs
-complete -A job disown fg jobs kill
+complete -A job disown fg jobs
 complete -A stopped bg
 
 # Readline bindings
