@@ -31,7 +31,7 @@ _find() {
         # an option; crude, but simple, and will be right the vast majority of
         # the time
         case ${COMP_WORDS[COMP_CWORD]} in
-            -*)
+            (-*)
                 compgen -W '
                     -atime
                     -ctime
@@ -61,22 +61,22 @@ _find() {
         case "${COMP_WORDS[COMP_CWORD-1]}" in
 
             # Args to -exec and -execdir should be commands
-            -exec|-execdir)
+            (-exec|-execdir)
                 compgen -A command -- "${COMP_WORDS[COMP_CWORD]}"
                 ;;
 
             # Args to -group should complete group names
-            -group)
+            (-group)
                 compgen -A group -- "${COMP_WORDS[COMP_CWORD]}"
                 ;;
 
             # Legal POSIX flags for -type
-            -type)
+            (-type)
                 compgen -W 'b c d f l p s' -- "${COMP_WORDS[COMP_CWORD]}"
                 ;;
 
             # Args to -user should complete usernames
-            -user)
+            (-user)
                 compgen -A user -- "${COMP_WORDS[COMP_CWORD]}"
                 ;;
         esac
