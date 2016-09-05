@@ -228,6 +228,7 @@ I do make some exceptions with completions defined in `.bash_completion.d`
 files, for things I really do get tired of typing repeatedly:
 
 *   Bash builtins: commands, help topics, shell options, variables, etc.
+*   `find(1)`'s more portable options
 *   `ftp(1)` hostnames from `~/.netrc`
 *   `git(1)` branch names
 *   `gpg(1)` long options
