@@ -1,17 +1,21 @@
 #!/bin/sh
-# Tag lines from files or stdin with a string prefix or suffix.
+# Tag lines from files or stdin with a string prefix or suffix
+self=tl
 
-# Parse options out, give help if necessary
+# Parse options out
 while getopts 'p:s:' opt ; do
     case $opt in
-        p)
-            pref=$OPTARG
-            ;;
-        s)
-            suff=$OPTARG
-            ;;
+
+        # Prefix
+        p) pref=$OPTARG ;;
+
+        # Suffix
+        s) suff=$OPTARG ;;
+
+        # Unknown option
         \?)
-            usage >&2
+            printf >&2 '%s: Unknown option %s\n' \
+                "$self" "$opt"
             exit 2
             ;;
     esac

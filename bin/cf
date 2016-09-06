@@ -1,10 +1,32 @@
 #!/bin/sh
 # Count entries in a given set of directories
+self=cf
+
+# Parse options out
+while getopts 'o' opt ; do
+    case $opt in
+
+        # Print only the count, not the filename
+        o) only=1 ;;
+
+        # Unknown option
+        \?)
+            printf >&2 '%s: Unknown option %s\n' \
+                "$self" "$opt"
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Iterate over remaining non-option arguments (directories); default to current
+# directory if none given
 for dir in "${@:-.}" ; do
 
     # Warn if a non-directory was given, flag errors, but continue
     if ! [ -d "$dir" ] ; then
-        printf >&2 'cf: %s: not a directory\n' "$dir"
+        printf >&2 '%s: %s: not a directory\n' \
+            "$self" "$dir"
         ex=1
         continue
     fi
@@ -21,8 +43,12 @@ for dir in "${@:-.}" ; do
     [ "$1" = "$dir"/. ] && shift
     [ "$1" = "$dir"/.. ] && shift
 
-    # Print number of parameters
-    printf '%u\t%s\n' "$#" "$dir"
+    # Print either just the count, or the count and the dirname
+    if [ -n "$only" ] ; then
+        printf '%u\n' "$#"
+    else
+        printf '%u\t%s\n' "$#" "$dir"
+    fi
 done
 
 # Exit non-zero if a non-directory was given as an argument

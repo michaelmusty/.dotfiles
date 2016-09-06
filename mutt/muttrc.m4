@@ -26,14 +26,28 @@ set query_command = 'abook --mutt-query %s'
 # Alerts
 set beep_new = yes
 
+# Attachments
+attachments +A */.*
+attachments -A text/x-vcard application/pgp.*
+attachments -A application/x-pkcs7-.*
+attachments +I text/plain
+attachments -A message/external-body
+attachments -I message/external-body
+
 # Caching
 set header_cache = '~/.cache/mutt/headers'
 
 # Colors
-color indicator black   white
-color normal    default default
-color status    white   color22
-color tree      default default
+color attachment brightyellow default
+color hdrdefault cyan         default
+color indicator  black        white
+color markers    brightred    default
+color normal     default      default
+color quoted     green        default
+color signature  cyan         default
+color status     default      color22
+color tilde      blue         default
+color tree       default      default
 
 # Completion
 bind editor <Tab> complete-query
@@ -47,7 +61,9 @@ set move   = no
 set mark_old = no
 
 # Headers
-hdr_order Date From To Cc
+ignore *
+unignore Date From: To Cc Subject
+hdr_order Date From: To Cc Subject
 set edit_headers = yes
 
 # Index
@@ -68,6 +84,9 @@ set confirmcreate = yes
 # Menus
 set menu_context = 1
 
+# MIME
+mime_lookup application/octet-stream
+
 # Pager
 set pager_context = 1
 set pager_format  = '%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)'
@@ -81,6 +100,9 @@ set tilde       = yes
 alternative_order text/plain text/html *
 auto_view text/html
 
+# Quoting
+set quote_regexp = '^(>[ \t]*)+'
+
 # Responses
 set fast_reply        = yes
 set forward_format    = 'Fw: %s'
@@ -92,6 +114,9 @@ set sort            = 'threads'
 set sort_aux        = 'last-date-received'
 set strict_threads  = yes
 set thorough_search = yes
+
+# SSH
+set time_inc=250
 
 # Encryption settings
 set crypt_replysign          = yes
@@ -112,6 +137,9 @@ bind index,pager \Cu half-up
 bind index,pager \Cd half-down
 bind generic,index,browser,pager \Cf next-page
 bind generic,index,browser,pager \Cb previous-page
+
+# Turn off annoying mailbox lock feature
+bind index '%' noop
 
 # Jump to mailboxes
 macro generic,index,browser,pager gi '<change-folder>=inbox<enter>' 'Change to inbox folder'

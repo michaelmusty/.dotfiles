@@ -1,0 +1,16 @@
+.TH BL 1df "July 2016" "Manual page for bl"
+.SH NAME
+.B bl
+\- generate the given number of blank lines
+.SH SYNOPSIS
+.B bl
+10
+.B bl
+0
+.B bl
+237481728
+.SH DESCRIPTION
+.B bl
+generates the given number of blank lines and prints them to stdout.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

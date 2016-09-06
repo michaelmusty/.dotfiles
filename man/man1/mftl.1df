@@ -1,0 +1,30 @@
+.TH MFTL 1df "September 2016" "Manual page for mftl"
+.SH NAME
+.B mftl
+\- find and list usable-looking targets in Makefiles
+.SH SYNOPSIS
+.B
+mftl
+Makefile
+.br
+.B
+mftl
+Makefile1 Makefile2
+.br
+grep -v foo Makefile |
+.B
+mftl
+.SH DESCRIPTION
+.B mftl
+searches for targets in a Makefile specified as either targets or dependencies.
+Any targets it finds that are simple strings or filenames that look like they
+should be referenced by the user, are printed uniquely sorted to stdout.
+.P
+This is not 100% accurate (and probably can't be); GNU Make's heresies make it
+particularly complicated. For simple POSIX-ish Makefiles, it should work well.
+The idea is to get an overview of what's accessible in a Makefile without
+having to page through the whole thing.
+.SH SEE ALSO
+make(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

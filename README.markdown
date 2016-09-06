@@ -42,8 +42,8 @@ Configuration is included for:
 *   [Bash](https://www.gnu.org/software/bash/) -- GNU Bourne-Again Shell,
     including a `~/.profile` configured to work with most Bourne-compatible
     shells
-*   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
-    URL syntax
+*   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
+    with URL syntax
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
     that works with `libnotify`
 *   `finger(1)` -- User information lookup program
@@ -62,49 +62,48 @@ Configuration is included for:
     of the Korn shell
 *   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
-*   [Perl::Critic](http://perlcritic.com/) -- static source code analysis engine
-    for Perl
+*   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
+    engine for Perl
 *   [Perl::Tidy](http://perltidy.sourceforge.net/) -- Perl indenter and
     reformatter
 *   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) -- GNU
     library for user input used by Bash, MySQL, and others
 *   [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) -- Fork of
     the rxvt terminal emulator with Unicode support
-*   [Subversion](https://subversion.apache.org/) -- Apache Subversion, a version
-    control system
+*   [Subversion](https://subversion.apache.org/) -- Apache Subversion, a
+    version control system
 *   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
     Screen
 *   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
 *   [Wyrd](https://packages.debian.org/sid/wyrd) -- a `curses` calendar
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
-*   [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
-    for Unix
+*   [X11](https://www.x.org/wiki/) -- Windowing system with network
+    transparency for Unix
 *   [Yash](https://yash.osdn.jp/index.html.en) -- Yet another shell; just
     enough configuration to make it read the portable POSIX stuff
 *   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
     use
 
-The configurations for Bash, GnuPG, Mutt, tmux, and Vim are the most expansive
-and most likely to be of interest. The i3 configuration is mostly changed to
-make window switching behave like Vim windows and tmux panes do, and there's a
-fair few resources defined for rxvt-unicode. Otherwise, the rest of the
-configuration isn't too distant from the defaults.
+The configurations for shells, GnuPG, Mutt, tmux, and Vim are the most
+expansive, and most likely to be of interest. The i3 configuration is mostly
+changed to make window switching behave like Vim windows and tmux panes do, and
+there's a fair few resources defined for rxvt-unicode.
 
 ### Shell
 
 My `.profile` and other files in `sh` are written in POSIX shell script, so
 they should work in most `sh(1)` implementations. Individual scripts called by
 `.profile` are saved in `.profile.d` and iterated on login for ease of
-management. All of these boil down to exporting variables appropriate to the
+management. Most of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
-I make an effort to target POSIX for my functions and scripts where I can, but
-Bash is my interactive shell of choice.
+Configuration that should be sourced for all POSIX-fearing shells is kept in
+`~/.shrc`, with subscripts read from `~/.shrc.d`.
 
-My `.bash_profile` calls `.profile`, and then `.bashrc`, which only applies for
-interactive shells. Subscripts for `.bashrc` are loaded from `.bashrc.d`. The
-contents of the `*.d` directories changes depending on the host, so only
-specific scripts in it are versioned.
+I make an effort to target POSIX for my functions and scripts where I can, but
+Bash is my interactive shell of choice. My `.bash_profile` calls `.profile`,
+and then `.bashrc`, which only applies for interactive shells. Subscripts for
+`.bashrc` are loaded from `.bashrc.d`.
 
 As I occasionally have work on very old internal systems, my Bash is written to
 work with [any version 2.05a or
@@ -124,9 +123,6 @@ after testing `BASH_VERSINFO` appropriately.
 
 #### Prompt
 
-When I use any other Bourne-compatible shell, I'm generally happy to accept its
-defaults for interactive behavior.
-
 A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
@@ -141,8 +137,9 @@ A terminal session with my prompt looks something like this:
     [1] 28937
     tom@remote:~/.dotfiles(master+!){1}$
 
-The username and hostname are skipped if not connected via SSH. The right side
-of the prompt expands based on context to include these elements in this order:
+The username and hostname are elided if not connected via SSH. The working
+directory is always shown. The rest of the prompt expands based on context to
+include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
@@ -223,14 +220,15 @@ There are a few other little tricks defined for other shells, mostly in
 #### Completion
 
 I find the `bash-completion` package a bit too heavy for my tastes, and turn it
-off using a stub file installed in `.config/bash_completion`. The majority of
+off using a stub file installed in `~/.config/bash_completion`. The majority of
 the time I just want to complete paths anyway, and this makes for a quicker
 startup without a lot of junk functions in my Bash namespace.
 
 I do make some exceptions with completions defined in `.bash_completion.d`
-files for things I really do get tired of typing repeatedly:
+files, for things I really do get tired of typing repeatedly:
 
-*   Builtins, commands, help topics, shell options, and variables
+*   Bash builtins: commands, help topics, shell options, variables, etc.
+*   `find(1)`'s more portable options
 *   `ftp(1)` hostnames from `~/.netrc`
 *   `git(1)` branch names
 *   `gpg(1)` long options
@@ -250,6 +248,10 @@ The pdksh configuration files and functions are not nearly as featureful as the
 Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
 former is the primary system for which I'm maintaining them, and there are some
 feature differences.
+
+#### Yash
+
+Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 
 #### Zsh
 
@@ -273,7 +275,7 @@ most unfiltered mail is sent. I use
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
-available for them. The GnuPG interfacing is done with
+available for them. The GnuPG and S/MIME interfacing is done with
 [GPGme](https://www.gnupg.org/related_software/gpgme/), rather than defining
 commands for each crypto operation. I wrote [an article about this
 setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
@@ -315,6 +317,9 @@ The configuration for Bash includes a `tmux` function designed to make `attach`
 into the default command if no arguments are given and sessions do already
 exist. The default command is normally `new-session`.
 
+My `~/.inputrc` file binds Alt+M to attach to or create a `tmux` session, and
+Tmux in turn binds the same key combination to detach.
+
 ### Vim
 
 The majority of the `.vimrc` file is just setting options, with a few mappings.
@@ -329,20 +334,19 @@ Scripts
 -------
 
 Where practical, I make short scripts into POSIX (but not Bourne) `sh(1)`,
-`awk(1)`, or `sed(1)` scripts in `~/.local/bin`. A few of them still have
-Bashisms for various reasons. I try to use shell functions only when I actually
-need to, which tends to be when I need to tinker with the namespace of the
-user's current shell.
+`awk(1)`, or `sed(1)` scripts in `~/.local/bin`. I try to use shell functions
+only when I actually need to, which tends to be when I need to tinker with the
+namespace of the user's current shell.
 
 Installed by the `install-bin` target:
 
 *   Three SSH-related scripts:
     *   `sls(1df)` prints hostnames read from a `ssh_config(5)` file. It uses
         `slsf(1df)` to read each one.
-    *   `sra(1df)` runs a command on multiple hosts read from `sls(1df)` and prints
-        output.
-    *   `sta(1df)` runs a command on multiple hosts read from `sls(1df)` and prints
-        the hostname if the command returns zero.
+    *   `sra(1df)` runs a command on multiple hosts read from `sls(1df)` and
+        prints output.
+    *   `sta(1df)` runs a command on multiple hosts read from `sls(1df)` and
+        prints the hostname if the command returns zero.
 *   Five URL-related shortcut scripts:
     *   `hurl(1df)` extracts values of `href` attributes of `<a>` tags, sorts
         them uniquely, and writes them to `stdout`; it requires
@@ -370,41 +374,51 @@ Installed by the `install-bin` target:
 *   Four file formatting scripts:
     *   `d2u(1df)` converts DOS line endings in files to UNIX ones.
     *   `u2d(1df)` converts UNIX line endings in files to DOS ones.
-    *   `stbl(1df)` strips a trailing blank line from the files in its arguments.
-    *   `stws(1df)` strips trailing spaces from the ends of lines of the files in
-        its arguments.
+    *   `stbl(1df)` strips a trailing blank line from the files in its
+        arguments.
+    *   `stws(1df)` strips trailing spaces from the ends of lines of the files
+        in its arguments.
 *   Five stream formatting scripts:
     *   `sd2u(1df)` converts DOS line endings in streams to UNIX ones.
     *   `su2d(1df)` converts UNIX line endings in streams to DOS ones.
-    *   `tl(1df)` tags input lines with a prefix or suffix, basically a `sed(1)`
-        shortcut.
-    *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and stderr
-        lines, and color them if you want.
-    *   `unf(1df)` joins lines with leading spaces to the previous line. Intended
-        for unfolding HTTP headers, but it should work for most RFC 822
-        formats.
+    *   `tl(1df)` tags input lines with a prefix or suffix, basically a
+        `sed(1)` shortcut.
+    *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and
+        stderr lines, and color them if you want.
+    *   `unf(1df)` joins lines with leading spaces to the previous line.
+        Intended for unfolding HTTP headers, but it should work for most RFC
+        822 formats.
+*   Four simple aggregators for integer data:
+    *   `mean(1df)` prints the mean.
+    *   `med(1df)` prints the median.
+    *   `mode(1df)` prints the first encountered mode.
+    *   `tot(1df)` totals the set.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1df)` prints a terminal bell character.
+*   `bl(1df)` generates a given number of blank lines.
 *   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
-*   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as well.
+*   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
+    well.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
-*   `clwr(1df)` sets up a per-line file write, clearing the screen before each line
-*   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
+*   `clwr(1df)` sets up a per-line file write, clearing the screen before each
+    line
+*   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
+    CLIPBOARD.
 *   `dub(1df)` lists the biggest entries in a directory.
 *   `edda(1df)` provides a means to run `ed(1)` over a set of files preserving
     any options, mostly useful for scripts.
 *   `eds(1df)` edits executable script files in `EDSPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   `fgscr(1df)` finds Git repositories in a directory root and scrubs them with
-    `gscr(1df)`.
-*   `fnl(1df)` runs a command and saves its output and error into temporary files,
-    printing their paths and line counts
+*   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
+    with `gscr(1df)`.
+*   `fnl(1df)` runs a command and saves its output and error into temporary
+    files, printing their paths and line counts
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
@@ -418,23 +432,22 @@ Installed by the `install-bin` target:
 *   `isgr(1df)` quietly tests whether the given directory appears to be a Git
     repository.
 *   `jfc(1df)` adds and commits lazily to a Git repository.
-*   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees any.
-*   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of success,
+*   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
+    any.
+*   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
+    success,
     it exits with success or failure. Good for quick tests.
-*   `mean(1df)` prints the mean of a list of integers.
-*   `med(1df)` prints the median of a list of integers.
-*   `mode(1df)` prints the first encountered mode of a list of integers.
+*   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
 *   `pa(1df)` prints its arguments, one per line.
 *   `paz(1df)` print its arguments terminated by NULL chars.
-*   `pit(1df)` runs its input through a pager if its standard output looks like a
-    terminal.
+*   `pit(1df)` runs its input through a pager if its standard output looks like
+    a terminal.
 *   `plmu(1df)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
-*   `rmrej(1df)` deletes rejected hunks from a failed `patch(1)` run.
 *   `shb(1df)` attempts to build shebang lines for scripts from `$PATH`.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sshi(1df)` prints human-readable SSH connection details.
@@ -442,12 +455,13 @@ Installed by the `install-bin` target:
 *   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
-*   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used to
-    use Taskwarrior, but found it too complex and buggy.
-*   `tot(1df)` adds up a list of integers.
-*   `try(1df)` repeats a command up to a given number of times until it succeeds,
-    only printing error output if all three attempts failed. Good for
+*   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
+    to use Taskwarrior, but found it too complex and buggy.
+*   `try(1df)` repeats a command up to a given number of times until it
+    succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
+*   `umake(1df)` iterates upwards through the directory tree from `$PWD` until
+    it finds a Makefile for which to run `make(1)` with the given arguments.
 
 There's some silly stuff in `install-games`:
 
@@ -466,12 +480,12 @@ Manuals
 
 The `install-bin` and `install-games` targets install manuals for each script
 they install. There's also an `install-dotfiles-man` target that uses
-`pandoc(1)` to reformat this document as a manual page for section 7df
+`pandoc(1)` to reformat this document as a manual page for section 7
 (`dotfiles(7df)`) if you want that. I haven't made that install by default,
 because `pandoc(1)` is a bit heavy.
 
 If you want to use the manuals, you may need to add `~/.local/share/man` to
-your `/etc/manpath` configuration, depending on your system.
+your `~/.manpath` or `/etc/manpath` configuration, depending on your system.
 
 Testing
 -------

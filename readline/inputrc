@@ -8,9 +8,6 @@ set bell-style none
 # Let readline do stuff like word killing, not stty(1)
 set bind-tty-special-chars off
 
-# Jump to the matching parenthesis briefly when closing one
-set blink-matching-paren on
-
 # Ignore case when matching and completing paths
 set completion-ignore-case on
 
@@ -85,7 +82,10 @@ $if Bash
 
 $endif
 
-# Don't let bc complete filenames (!?)
+# bc macros
 $if bc
-  Tab:
+
+    # Don't let bc complete filenames (!?)
+    Tab:
+
 $endif

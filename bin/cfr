@@ -1,8 +1,13 @@
 #!/bin/sh
 # Count all descendants of given directories; don't follow symlinks
 for dir in "${@:-.}" ; do
-    tot=$(find "$dir" -type d \
-        -exec sh -c 'cd -- "$1" && cf' _ {} \; |
-        cut -f1 | tot)
-    printf '%u\t%s\n' "$tot" "$dir"
+    if ! [ -d "$dir" ] ; then
+        printf >&2 'cfr: %s: Not a directory\n' "$dir"
+        ex=1
+        continue
+    fi
+    printf '%u\t%s\n' \
+        "$(find "$dir" -type d -exec cf -o -- {} \; | tot)" \
+        "$dir"
 done
+exit "${ex:-0}"
