@@ -1,0 +1,3 @@
+# Load POSIX interactive shell startup files, because Yash won't do it if not
+# invoked as sh(1)
+[ -e "$ENV" ] && . "$ENV"

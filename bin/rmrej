@@ -1,3 +1,0 @@
-#!/bin/sh
-# Delete all rejected hunks from patch(1)
-find "${1:-.}" -type f -name \*.rej -print -exec rm -- {} \;

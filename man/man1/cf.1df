@@ -5,13 +5,26 @@
 .SH SYNOPSIS
 .B cf
 .br
-.B cf /path/to/dir
+.B cf
+/path/to/dir
 .br
-.B cf dir1 dir2
+.B cf
+dir1 dir2
+.br
+.B cf
+-o dir1 dir2
 .SH DESCRIPTION
 .B cf
-counts all the entries in the given directories using glob
-expansion and prints the count. It defaults to the current
-directory.
+counts all the entries in the given directories using glob expansion and prints
+the count. It defaults to the current directory.
+.P
+Giving the -o option omits printing the directory name (i.e., prints only the
+count); this is intended for use in scripts such as cfr(1df).
+.P
+It uses globs to do the counting, so it will give you unexpected results if
+you're counting a directory that has more than ARG_MAX entries in it. You'll
+have to resort to find(1) loops in that case.
+.SH SEE ALSO
+cfr(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

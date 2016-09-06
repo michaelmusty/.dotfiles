@@ -6,14 +6,14 @@
 .B rndn
 .br
 .B rndn
--s 381290
+381290
 .br
 business-critical-process -t "$(\fBrndn\fR)"
 .SH DESCRIPTION
 .B rndn
 uses an advanced but somewhat esoteric algorithm derived by Adams (2001) to
-return a random number. The seed can be derived internally or specified with
-the -s option.
+return a random number. The seed can be derived internally or specified as an
+argument.
 .P
 While rndn(6df) has proven robust in the author's production usage, its algorithm
 has not been formally verified.

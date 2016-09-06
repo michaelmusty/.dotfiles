@@ -6,21 +6,22 @@ prompt() {
 
         # Turn complex, colored PS1 and debugging PS4 prompts on
         on)
+            setopt promptsubst promptpercent
+
             # Declare the PROMPT_RETURN variable as an integer
             declare -i PROMPT_RETURN
 
             # Set up pre-prompt command
-            PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
-
-            # If Bash 4.0 is available, trim very long paths in prompt
-            ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
+            precmd() {
+                PROMPT_RETURN=$?
+            }
 
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
-            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'\u@\h:'
+            if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
+                PS1=$PS1'%n@%m:'
             fi
-            PS1=$PS1'\w'
+            PS1=$PS1'%~'
 
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
@@ -29,59 +30,23 @@ prompt() {
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
 
             # Add terminating "$" or "#" sign
-            PS1=$PS1'\$'
+            PS1=$PS1'%#'
 
-            # Count available colors
-            local -i colors
-            colors=$( {
-                tput colors || tput Co
-            } 2>/dev/null )
-
-            # Prepare reset code
-            local reset
-            reset=$( {
-                tput sgr0 || tput me
-            } 2>/dev/null )
-
-            # Decide prompt color formatting based on color availability
-            local format
-
-            # Check if we have non-bold bright green available
-            if ((colors >= 16)) ; then
-                format=$( {
-                    : "${PROMPT_COLOR:=10}"
-                    tput setaf "$PROMPT_COLOR" ||
-                    tput setaf "$PROMPT_COLOR" 0 0 ||
-                    tput AF "$PROMPT_COLOR" ||
-                    tput AF "$PROMPT_COLOR" 0 0
-                } 2>/dev/null )
-
-            # If we have only eight colors, use bold green
-            elif ((colors >= 8)) ; then
-                format=$( {
-                    : "${PROMPT_COLOR:=2}"
-                    tput setaf "$PROMPT_COLOR" ||
-                    tput AF "$PROMPT_COLOR"
-                    tput bold || tput md
-                } 2>/dev/null )
-
-            # Otherwise, we just try bold
-            else
-                format=$( {
-                    tput bold || tput md
-                } 2>/dev/null )
+            # Bold and color the prompt if it looks like we can
+            if (( $({ tput colors || tput Co ; } 2>/dev/null) >= 8 )) ; then
+                PS1='%B%F{green}'$PS1'%f%b'
             fi
 
-            # String it all together
-            PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
+            # Add a space and define the rest of the prompts
+            PS1=$PS1' '
             PS2='> '
             PS3='? '
-            PS4='+<$?> ${BASH_SOURCE:-$BASH}:${FUNCNAME[0]}:$LINENO:'
+            PS4='+<$?> $LINENO:'
             ;;
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v PROMPT_COMMAND PROMPT_DIRTRIM PROMPT_RETURN
+            unset -v precmd PROMPT_RETURN
             PS1='\$ '
             PS2='> '
             PS3='? '
@@ -231,7 +196,7 @@ prompt() {
 
         # Print error
         *)
-            printf '%s: Unknown command %s\n' "${FUNCNAME[0]}" "$1" >&2
+            printf 'prompt: Unknown command %s\n' "$1" >&2
             return 2
             ;;
     esac

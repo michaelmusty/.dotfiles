@@ -1,9 +1,14 @@
 bin/han
+bin/mean
+bin/med
+bin/mftl
+bin/mode
 bin/rfct
 bin/rndi
 bin/sd2u
 bin/slsf
 bin/su2d
+bin/tot
 bin/unf
 games/acq
 games/kvlt
@@ -11,4 +16,6 @@ games/zs
 git/gitconfig
 gnupg/gpg.conf
 man/man7/dotfiles.7df
+mutt/muttrc
 tmux/tmux.conf
+urxvt/ext/select

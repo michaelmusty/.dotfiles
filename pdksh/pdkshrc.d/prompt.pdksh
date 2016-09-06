@@ -88,22 +88,36 @@ prompt() {
         git)
             # Bail if we're not in a work tree--or, implicitly, if we don't
             # have git(1).
-            [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]] ||
-                return
-
-            # Attempt to determine git branch, bail if we can't
-            typeset branch
-            branch=$( {
-                git symbolic-ref --quiet HEAD ||
-                git rev-parse --short HEAD
-            } 2>/dev/null )
-            if [[ ! -n $branch ]] ; then
-                return 1
-            fi
-            branch=${branch##*/}
+            typeset iswt
+            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+            [[ $iswt = true ]] || return
 
             # Refresh index so e.g. git-diff-files(1) is accurate
             git update-index --refresh >/dev/null
+
+            # Find a local branch, remote branch, or tag (annotated or not), or
+            # failing all of that just show the short commit ID, in that order
+            # of preference; if none of that works, bail out
+            typeset name
+            name=$( {
+                git symbolic-ref --quiet HEAD ||
+                git describe --all --always --exact-match HEAD
+            } 2>/dev/null) || return
+            name=${name##*/}
+            [[ -n $name ]] || return
+
+            # Check various files in .git to flag processes
+            typeset proc
+            [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                proc=${proc:+$proc,}'REBASE'
+            [[ -f .git/MERGE_HEAD ]] &&
+                proc=${proc:+$proc,}'MERGE'
+            [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                proc=${proc:+$proc,}'PICK'
+            [[ -f .git/REVERT_HEAD ]] &&
+                proc=${proc:+$proc,}'REVERT'
+            [[ -f .git/BISECT_LOG ]] &&
+                proc=${proc:+$proc,}'BISECT'
 
             # Collect symbols representing repository state
             typeset state
@@ -118,16 +132,18 @@ prompt() {
             ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null)
             ((ahead)) && state=${state}'>'
 
-            # Tracked files are modified
-            git diff-files --quiet ||
+            # Tracked files are modified; double exclamation mark because
+            # that's how you get a literal one in pdksh PS1
+            git diff-files --no-ext-diff --quiet ||
                 state=${state}'!!'
 
             # Changes are staged
-            git diff-index --cached --quiet HEAD 2>/dev/null ||
+            git diff-index --cached --no-ext-diff --quiet HEAD 2>/dev/null ||
                 state=${state}'+'
 
             # There are some untracked and unignored files
-            [[ -n $(git ls-files --others --exclude-standard) ]] &&
+            git ls-files --directory --error-unmatch --exclude-standard \
+                --no-empty-directory --others -- ':/*' >/dev/null 2>&1 &&
                 state=${state}'?'
 
             # There are stashed changes
@@ -136,8 +152,8 @@ prompt() {
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
-            printf '(%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "${branch:-unknown}" "$state"
+            printf '(%s%s%s%s)' \
+                "${PROMPT_VCS:+git:}" "$name" "${proc:+:$proc}" "$state"
             ;;
 
         # Revert to simple inexpensive prompts

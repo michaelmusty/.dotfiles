@@ -1,0 +1,19 @@
+.TH TOT 1df "September 2016" "Manual page for tot"
+.SH NAME
+.B tot
+\- print a count of entries in a directory
+.SH SYNOPSIS
+printf '%u\\n' 5 9 53 145 |
+.B tot
+.br
+.B tot
+file
+.br
+.B tot
+file1 file2
+.SH DESCRIPTION
+.B tot
+adds up all the newline-delimited integers given as input, and prints the
+total.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

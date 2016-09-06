@@ -1,0 +1,15 @@
+.TH UMAKE 1df "September 2016" "Manual page for umake"
+.SH NAME
+.B umake
+\- run make(1) with the closest Makefile in current working directory ancestry
+.SH USAGE
+.B umake
+.br
+.B umake
+prefix=/foo/bar install
+.SH DESCRIPTION
+Iterate up through the directory tree starting with the current directory,
+looking for a Makefile, and run make(1) with the given arguments as soon as one
+is found.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

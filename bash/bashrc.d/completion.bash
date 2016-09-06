@@ -8,18 +8,22 @@
 
 # Bash builtins
 complete -A builtin builtin
+complete -A enabled disable
+complete -A disabled enable
 
 # Bash options
 complete -A setopt set
 
 # Commands
-complete -A command command complete coproc exec hash type
+complete -A command command complete compopt coproc exec if hash time type until while
 
 # Directories
 complete -A directory cd pushd mkdir rmdir
 
-# Functions
+# Functions and variables
 complete -A function function
+complete -A function -A variable declare export local readonly typeset unset
+complete -A variable for getopts let read select
 
 # Help topics
 complete -A helptopic help
@@ -37,14 +41,8 @@ complete -A shopt shopt
 # Signal names
 complete -A signal trap
 
-# Variables
-complete -A variable declare export readonly typeset
-
-# Both functions and variables
-complete -A function -A variable unset
-
 # The `mapfile` builtin in Bash >= 4.0
-((BASH_VERSINFO[0] >= 4)) && complete -A arrayvar mapfile
+((BASH_VERSINFO[0] >= 4)) && complete -A arrayvar mapfile readarray
 
 # If we have dynamic completion loading (Bash>=4.0), use it
 if ((BASH_VERSINFO[0] >= 4)) ; then
