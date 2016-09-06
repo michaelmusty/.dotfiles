@@ -181,7 +181,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-        through your pager, using color if it can.
 *   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
