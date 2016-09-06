@@ -82,7 +82,10 @@ $if Bash
 
 $endif
 
-# Don't let bc complete filenames (!?)
+# bc macros
 $if bc
-  Tab:
+
+    # Don't let bc complete filenames (!?)
+    Tab:
+
 $endif
