@@ -1,0 +1,19 @@
+.TH RGL 1df "September 2016" "Manual page for rgl"
+.SH NAME
+.B rgl
+\- search files for patterns read from stdin
+.SH SYNOPSIS
+.B rgl
+file
+.br
+.B rgl
+file1 file2 file3
+.br
+.B rgl
+file < patterns
+.SH DESCRIPTION
+.B rgl ("read, grep, loop") searches the files given in its arguments for each
+of the patterns given on standard input with grep(1). If it detects its input
+is a terminal, it provides a forward slash as a prompt for the next pattern.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

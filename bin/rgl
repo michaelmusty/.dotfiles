@@ -1,0 +1,17 @@
+#!/bin/sh
+# Read grep(1) patterns from input and search for them in the given files
+
+# Check the arguments
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'rgl: Need at least one filename\n'
+    exit 2
+fi
+
+# Iterate over the patterns and search for each one; if the input is a terminal
+# include a slash prompt for the next pattern
+while { 
+    [ -t 0 ] && printf /
+    read -r pat
+} ; do
+    grep -- "$pat" "$@"
+done
