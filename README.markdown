@@ -237,6 +237,11 @@ files, for things I really do get tired of typing repeatedly:
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
+For commands that pretty much always want to operate on text, such as text file
+or stream editors, I exclude special file types and extensions I know are
+binary. I don't actually read the file, so this is more of a heuristic thing,
+and sometimes it will get things wrong.
+
 I also add completions for my own scripts and functions where useful. The
 completions are dynamically loaded if Bash is version 4.0 or greater.
 Otherwise, they're all loaded on startup.
