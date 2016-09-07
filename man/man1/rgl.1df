@@ -14,6 +14,6 @@ file < patterns
 .SH DESCRIPTION
 .B rgl ("read, grep, loop") searches the files given in its arguments for each
 of the patterns given on standard input with grep(1). If it detects its input
-is a terminal, it provides a forward slash as a prompt for the next pattern.
+is a terminal, it provides a prompt for the next pattern, in color if possible.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
