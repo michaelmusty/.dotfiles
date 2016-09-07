@@ -28,3 +28,8 @@ while {
     # Run grep(1) with the read pattern over the arguments
     grep -- "$pat" "$@"
 done
+
+# Print a newline if this was a terminal to clear the prompt
+if [ -t 0 ] ; then
+    printf '\n'
+fi
