@@ -62,7 +62,7 @@ prompt() {
             [[ $iswt = true ]] || return
 
             # Refresh index so e.g. git-diff-files(1) is accurate
-            git update-index --refresh >/dev/null
+            git update-index --refresh >/dev/null 2>&1
 
             # Find a local branch, remote branch, or tag (annotated or not), or
             # failing all of that just show the short commit ID, in that order
