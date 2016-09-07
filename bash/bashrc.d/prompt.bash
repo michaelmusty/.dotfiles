@@ -105,7 +105,8 @@ prompt() {
             local name
             name=$( {
                 git symbolic-ref --quiet HEAD ||
-                git describe --all --always --exact-match HEAD
+                git describe --tags --exact-match HEAD ||
+                git rev-parse --short HEAD
             } 2>/dev/null) || return
             name=${name##*/}
             [[ -n $name ]] || return
