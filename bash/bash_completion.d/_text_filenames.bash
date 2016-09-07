@@ -26,10 +26,6 @@ _text_filenames() {
             *.bmp|*.gif|*.ico|*.jpeg|*.jpg|*.png|*.tif|*.xcf) ;;
             *.BMP|*.GIF|*.ICO|*.JPEG|*.JPG|*.PNG|*.TIF|*.XCF) ;;
 
-            # Font files
-            *.ttf) ;;
-            *.TTF) ;;
-
             # Video file formats
             *.avi|*.gifv|*.mkv|*.mov|*.mpg|*.rm|*.webm) ;;
             *.AVI|*.gifv|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
@@ -42,26 +38,30 @@ _text_filenames() {
             *.aup|*.flac|*.mid|*.h2song|*.nwc|*.s3m|*.wav) ;;
             *.AUP|*.FLAC|*.MID|*.H2SONG|*.NWC|*.S3M|*.WAV) ;;
 
-            # Document formats
-            *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
-            *.CBR|*.DOC|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
-
-            # Index file formats
-            *.idx) ;;
-            *.IDX) ;;
-
             # Compressed/archived file formats
             # (Yes I know Vim can read these)
             *.bz2|*.cab|*.deb|*.gz|*.lzm|*.pack|*.tar|*.xz|*.zip) ;;
             *.BZ2|*.CAB|*.DEB|*.GZ|*.LZM|*.PACK|*.TAR|*.XZ|*.ZIP) ;;
 
-            # Encrypted file formats
-            *.gpg) ;;
-            *.GPG) ;;
+            # Document formats
+            *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
+            *.CBR|*.DOC|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
 
             # Filesystems/disk images
             *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;
             *.BIN|*.CUE|*.HDF|*.IMG|*.ISO|*.MDF|*.RAW) ;;
+
+            # Font files
+            *.ttf) ;;
+            *.TTF) ;;
+
+            # Index file formats
+            *.idx) ;;
+            *.IDX) ;;
+
+            # Encrypted file formats
+            *.gpg) ;;
+            *.GPG) ;;
 
             # Other known binary extensions
             # (I haven't included .com; on UNIX, that's more likely to be
