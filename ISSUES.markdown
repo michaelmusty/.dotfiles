@@ -30,4 +30,3 @@ Known issues
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
 *   Maybe I should port some of the prompt functions to POSIX sh so I don't
     have to maintain parallel versions for bash, pdksh, and zsh
-*   PID completion for `kill` builtin
