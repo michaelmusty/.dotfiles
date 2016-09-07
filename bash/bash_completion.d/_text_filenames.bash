@@ -55,6 +55,10 @@ _text_filenames() {
             *.bz2|*.cab|*.deb|*.gz|*.lzm|*.pack|*.tar|*.xz|*.zip) ;;
             *.BZ2|*.CAB|*.DEB|*.GZ|*.LZM|*.PACK|*.TAR|*.XZ|*.ZIP) ;;
 
+            # Encrypted file formats
+            *.gpg) ;;
+            *.GPG) ;;
+
             # Filesystems/disk images
             *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;
             *.BIN|*.CUE|*.HDF|*.IMG|*.ISO|*.MDF|*.RAW) ;;
