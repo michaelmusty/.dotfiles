@@ -23,35 +23,47 @@ _text_filenames() {
         case $item in
 
             # Binary image file formats
-            *.bmp|*.gif|*.jpeg|*.jpg|*.png|*.xcf) ;;
-            *.BMP|*.GIF|*.JPEG|*.JPG|*.PNG|*.XCF) ;;
+            *.bmp|*.gif|*.ico|*.jpeg|*.jpg|*.png|*.tif|*.xcf) ;;
+            *.BMP|*.GIF|*.ICO|*.JPEG|*.JPG|*.PNG|*.TIF|*.XCF) ;;
+
+            # Font files
+            *.ttf) ;;
+            *.TTF) ;;
 
             # Video file formats
             *.avi|*.gifv|*.mkv|*.mov|*.mpg|*.rm|*.webm) ;;
             *.AVI|*.gifv|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
 
-            # Audio file formats
-            *.au|*.aup|*.flac|*.mid|*.h2song|*.mp[34]|*.ogg|*.wav) ;;
-            *.AU|*.AUP|*.FLAC|*.MID|*.H2SONG|*.MP[34]|*.OGG|*.WAV) ;;
+            # Lossy audio file formats
+            *.au|*.mp[34]|*.ogg|*.snd|*.wma) ;;
+            *.AU|*.MP[34]|*.OGG|*.SND|*.WMA) ;;
+
+            # Lossless/source audio file formats
+            *.aup|*.flac|*.mid|*.h2song|*.nwc|*.s3m|*.wav) ;;
+            *.AUP|*.FLAC|*.MID|*.H2SONG|*.NWC|*.S3M|*.WAV) ;;
 
             # Document formats
-            *.cbr|*.doc|*.docx|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
-            *.CBR|*.DOC|*.DOCX|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
+            *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
+            *.CBR|*.DOC|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
+
+            # Index file formats
+            *.idx) ;;
+            *.IDX) ;;
 
             # Compressed/archived file formats
             # (Yes I know Vim can read these)
-            *.bz2|*.deb|*.gz|*.tar|*.xz|*.zip) ;;
-            *.BZ2|*.DEB|*.GZ|*.TAR|*.XZ|*.ZIP) ;;
+            *.bz2|*.cab|*.deb|*.gz|*.lzm|*.pack|*.tar|*.xz|*.zip) ;;
+            *.BZ2|*.CAB|*.DEB|*.GZ|*.LZM|*.PACK|*.TAR|*.XZ|*.ZIP) ;;
 
-            # Known binary extensions
+            # Filesystems/disk images
+            *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;
+            *.BIN|*.CUE|*.HDF|*.IMG|*.ISO|*.MDF|*.RAW) ;;
+
+            # Other known binary extensions
             # (I haven't included .com; on UNIX, that's more likely to be
             # something I saved from a website and named after the domain)
-            *.a|*.dat|*.drv|*.exe|*.o) ;;
-            *.A|*.DAT|*.DRV|*.EXE|*.O) ;;
-
-            # Filesystems
-            *.bin|*.cue|*.img|*.iso|*.raw) ;;
-            *.BIN|*.CUE|*.IMG|*.ISO|*.RAW) ;;
+            *.a|*.dat|*.drv|*.exe|*.o|*.torrent|*.wad|*.rom) ;;
+            *.A|*.DAT|*.DRV|*.EXE|*.O|*.TORRENT|*.WAD|*.ROM) ;;
 
             # Complete everything else; some of it will still be binary
             *) COMPREPLY[${#COMPREPLY[@]}]=$item ;;
