@@ -46,7 +46,7 @@ color normal     default      default
 color quoted     green        default
 color signature  cyan         default
 color status     default      color22
-color tilde      blue         default
+color tilde      brightblack  default
 color tree       default      default
 
 # Completion
