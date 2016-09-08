@@ -52,6 +52,32 @@ _git() {
                 2>/dev/null)
             ;;
 
+        # Complete with remote subcommands and then remote names
+        remote)
+            local word
+            while IFS= read -r word ; do
+                [[ -n $word ]] || continue
+                COMPREPLY[${#COMPREPLY[@]}]=$word
+            done < <(
+                if ((COMP_CWORD - sci > 1)) ; then
+                    git remote 2>/dev/null
+                else
+                    compgen -W '
+                        add
+                        get-url
+                        prune
+                        remove
+                        rename
+                        set-branches
+                        set-head
+                        set-url
+                        show
+                        update
+                    ' -- "${COMP_WORDS[COMP_CWORD]}"
+                fi
+            )
+            ;;
+
         # Complete with ref names
         *)
             local ref
