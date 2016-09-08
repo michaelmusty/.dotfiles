@@ -392,7 +392,7 @@ Installed by the `install-bin` target:
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
-*   Four simple aggregators for integer data:
+*   Four simple aggregators for numbers:
     *   `mean(1df)` prints the mean.
     *   `med(1df)` prints the median.
     *   `mode(1df)` prints the first encountered mode.

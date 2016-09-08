@@ -1,7 +1,7 @@
 .TH MED 1df "September 2016" "Manual page for med"
 .SH NAME
 .B med
-\- print the med of a list of integers
+\- print the med of a list of numbers
 .SH SYNOPSIS
 printf '%u\\n' 14 2 10 |
 .B med
@@ -13,7 +13,7 @@ file
 file1 file2
 .SH DESCRIPTION
 .B med
-collects all the newline-delimited integers given as input, and prints the
+collects all the newline-delimited numbers given as input, and prints the
 median. It uses the floor of the mean of the two median values if the number of
 records is even. The input must be sorted, and a warning will be issued if it
 isn't.

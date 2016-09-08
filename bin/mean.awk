@@ -4,5 +4,5 @@ END {
     # Error out if we read no values at all
     if (!NR)
         exit(1)
-    printf "%u\n", tot / NR
+    print tot / NR
 }
