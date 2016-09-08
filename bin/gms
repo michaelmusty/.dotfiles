@@ -20,12 +20,12 @@ uid=$(id -u) || exit
 
 # Iterate through the getmailrc.* files in $GETMAIL if defined, or
 # $HOME/.getmail if not
-for rcfile in "${GETMAIL:-$HOME/.getmail}"/getmailrc.* ; do
+for rcfile in "${GETMAIL:-$HOME/.getmail}"/getmailrc.* ; do {
     lockdir=${TMPDIR:-/tmp}/getmail.$uid.${rcfile##*/}.lock
     mkdir -m 0700 -- "$lockdir" 2>/dev/null || continue
     try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
     rm -fr -- "$lockdir" && lockdir=
-done
+} & done
 
 # Wait for all of the enqueued tasks to finish
 wait
