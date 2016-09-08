@@ -1,27 +1,71 @@
-# Completion for git(1) local branch names
+# Some simple completion for Git
 _git() {
+    
+    # Try to find the index of the Git subcommand
+    local -i sci i
+    for ((i = 1; !sci && i <= COMP_CWORD; i++)) ; do
+        case ${COMP_WORDS[i]} in
 
-    # Bail if not a git repo (or no git!)
-    git rev-parse --git-dir >/dev/null 2>&1 || return 1
+            # Skip --option=value
+            --*=*) ;;
 
-    # Switch on the previous word
-    case ${COMP_WORDS[1]} in
+            # These ones have arguments, so bump the index up one more
+            -C|-c|--exec-path|--git-dir|--work-tree|--namespace) ((i++)) ;;
 
-        # If the first word is appropriate, complete with branch/tag names
-        checkout|merge|rebase)
-            local branch
-            while read -r _ _ branch ; do
-                branch=${branch##*/}
-                [[ $branch == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                COMPREPLY[${#COMPREPLY[@]}]=$branch
-            done < <(git for-each-ref refs/heads refs/tags 2>/dev/null)
-            return
+            # Skip --option
+            --?*) ;;
+
+            # We have hopefully found our subcommand
+            *) ((sci = i)) ;;
+        esac
+    done
+
+    # Complete initial subcommand
+    if ((sci == COMP_CWORD)) || [[ ${COMP_WORDS[sci]} == 'help' ]] ; then
+        local ep
+        ep=$(git --exec-path) || return
+        local path
+        for path in "$ep"/git-"${COMP_WORDS[COMP_CWORD]}"* ; do
+            [[ -f $path ]] || continue
+            [[ -x $path ]] || continue
+            COMPREPLY[${#COMPREPLY[@]}]=${path#"$ep"/git-}
+        done
+        return
+    fi
+
+    # Test subcommand to choose completions
+    case ${COMP_WORDS[sci]} in
+
+        # Complete with untracked, unignored files
+        add)
+            local file
+            while read -rd '' file ; do
+                [[ -n $file ]] || continue
+                COMPREPLY[${#COMPREPLY[@]}]=$file
+            done < <(git ls-files \
+                --directory \
+                --exclude-standard \
+                --no-empty-directory \
+                --others \
+                -z \
+                -- "${COMP_WORDS[COMP_CWORD]}"'*' \
+                2>/dev/null)
             ;;
 
-        # Bail if it isn't
+        # Complete with ref names
         *)
-            return 1
+            local ref
+            while read -r ref ; do
+                [[ -n $ref ]] || continue
+                COMPREPLY[${#COMPREPLY[@]}]=${ref#refs/*/}
+            done < <(git for-each-ref \
+                --format '%(refname)' \
+                -- 'refs/*/'"${COMP_WORDS[COMP_CWORD]}"'*' \
+                2>/dev/null)
+            return
             ;;
     esac
 }
-complete -F _git -o default git
+
+# Defaulting to directory/file completion is important in Git's case
+complete -F _git -o bashdefault -o default git
