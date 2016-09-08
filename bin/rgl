@@ -14,7 +14,7 @@ while {
     # If the input is a terminal, print a slash prompt for the next pattern;
     # try to print it in bold red, too, but discard stderr if we can't
     if [ -t 0 ] ; then
-        tput setaf 1 || tput AF 1
+        tput setaf 1 || tput setaf 1 0 0 || tput AF 1 || tput AF 1 0 0
         tput bold || tput md
         printf '%s/' "$self"
         tput sgr0 || tput me
