@@ -167,6 +167,16 @@ _git() {
         branch|checkout|merge|rebase|tag)
             _git refs
             ;;
+
+        # I normally only want a refspec for "reset" if I'm using the --hard or
+        # --soft option; otherwise, files are fine
+        reset)
+            case ${COMP_WORDS[COMP_CWORD-1]} in
+                --hard|--soft)
+                    _git refs
+                    ;;
+            esac
+            ;;
     esac
 }
 
