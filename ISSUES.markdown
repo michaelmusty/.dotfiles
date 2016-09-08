@@ -10,8 +10,6 @@ Known issues
 *   The checks gscr(1df) makes to determine where it is are a bit naive (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) calls
-*   The \xFF syntax for regex as used in rfct(1df) is not POSIX. Need to decide
-    if it's well-supported enough to keep it anyway.
 *   I can probably share my psql() completions/shortcuts after sanitizing them
     a bit
 *   A key binding for importing sections of the screen and optionally uploading
