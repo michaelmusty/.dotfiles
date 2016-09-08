@@ -60,7 +60,7 @@ _git() {
                 COMPREPLY[${#COMPREPLY[@]}]=${ref#refs/*/}
             done < <(git for-each-ref \
                 --format '%(refname)' \
-                -- 'refs/*/'"${COMP_WORDS[COMP_CWORD]}"'*' \
+                -- 'refs/**/'"${COMP_WORDS[COMP_CWORD]}"'*' \
                 2>/dev/null)
             return
             ;;
