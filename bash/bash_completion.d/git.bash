@@ -132,7 +132,7 @@ _git() {
         # Complete with remote subcommands and then remote names
         remote)
             local word
-            if ((CWORD == 1)) ; then
+            if ((COMP_CWORD == 1)) ; then
                 while IFS= read -r word ; do
                     [[ -n $word ]] || continue
                     COMPREPLY[${#COMPREPLY[@]}]=$word
@@ -156,7 +156,7 @@ _git() {
 
         # Complete with remotes and then refs
         fetch|pull|push)
-            if ((CWORD == 1)) ; then
+            if ((COMP_CWORD == 1)) ; then
                 _git remotes
             else
                 _git refs
