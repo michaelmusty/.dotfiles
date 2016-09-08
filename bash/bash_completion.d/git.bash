@@ -83,10 +83,14 @@ _git() {
             local ref
             while IFS= read -r ref ; do
                 [[ -n $ref ]] || continue
-                COMPREPLY[${#COMPREPLY[@]}]=${ref#refs/*/}
+                ref=${ref#refs/*/}
+                case $ref in
+                    "${COMP_WORDS[COMP_CWORD]}"*)
+                        COMPREPLY[${#COMPREPLY[@]}]=$ref
+                        ;;
+                esac
             done < <(git for-each-ref \
                 --format '%(refname)' \
-                -- 'refs/**/'"${COMP_WORDS[COMP_CWORD]}"'*' \
                 2>/dev/null)
             return
             ;;
