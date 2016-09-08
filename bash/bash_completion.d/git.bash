@@ -39,7 +39,7 @@ _git() {
         # Complete with untracked, unignored files
         add)
             local file
-            while read -rd '' file ; do
+            while IFS= read -rd '' file ; do
                 [[ -n $file ]] || continue
                 COMPREPLY[${#COMPREPLY[@]}]=$file
             done < <(git ls-files \
@@ -55,7 +55,7 @@ _git() {
         # Complete with ref names
         *)
             local ref
-            while read -r ref ; do
+            while IFS= read -r ref ; do
                 [[ -n $ref ]] || continue
                 COMPREPLY[${#COMPREPLY[@]}]=${ref#refs/*/}
             done < <(git for-each-ref \
