@@ -38,16 +38,16 @@ attachments -I message/external-body
 set header_cache = '~/.cache/mutt/headers'
 
 # Colors
-color attachment brightyellow default
-color hdrdefault cyan         default
-color indicator  black        white
-color markers    brightred    default
-color normal     default      default
-color quoted     green        default
-color signature  cyan         default
-color status     default      color22
-color tilde      color8       default
-color tree       default      default
+color attachment color11 default
+color hdrdefault cyan    default
+color indicator  black   white
+color markers    color9  default
+color normal     default default
+color quoted     green   default
+color signature  cyan    default
+color status     default color22
+color tilde      color8  default
+color tree       default default
 
 # Completion
 bind editor <Tab> complete-query
