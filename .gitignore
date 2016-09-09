@@ -12,6 +12,7 @@ bin/tot
 bin/unf
 games/acq
 games/kvlt
+games/rot13
 games/zs
 git/gitconfig
 gnupg/gpg.conf
