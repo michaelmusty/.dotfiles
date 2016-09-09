@@ -154,6 +154,48 @@ _git() {
             return
             ;;
 
+        # Complete with stash subcommands
+        stash)
+            ((COMP_CWORD == 2)) || return
+            local word
+            while IFS= read -r word ; do
+                [[ -n $word ]] || continue
+                COMPREPLY[${#COMPREPLY[@]}]=$word
+            done < <(compgen -W '
+                apply
+                branch
+                clear
+                create
+                drop
+                list
+                pop
+                save
+                show
+                store
+            ' -- "${COMP_WORDS[COMP_CWORD]}")
+            return
+            ;;
+
+        # Complete with submodule subcommands
+        submodule)
+            ((COMP_CWORD == 2)) || return
+            local word
+            while IFS= read -r word ; do
+                [[ -n $word ]] || continue
+                COMPREPLY[${#COMPREPLY[@]}]=$word
+            done < <(compgen -W '
+                add
+                deinit
+                foreach
+                init
+                status
+                summary
+                sync
+                update
+            ' -- "${COMP_WORDS[COMP_CWORD]}")
+            return
+            ;;
+
         # Complete with remotes and then refs
         fetch|pull|push)
             if ((COMP_CWORD == 2)) ; then
