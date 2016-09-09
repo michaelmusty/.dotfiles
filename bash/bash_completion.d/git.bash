@@ -87,7 +87,7 @@ _git() {
             return
             ;;
     esac
-    
+
     # Try to find the index of the Git subcommand
     local -i sci i
     for ((i = 1; !sci && i <= COMP_CWORD; i++)) ; do
