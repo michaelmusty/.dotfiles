@@ -6,6 +6,7 @@
 
 [alias]
     others = ls-files --others --exclude-standard
+    fuckit = "!git clean -dfx ; git reset --hard"
 
 [color]
     ui = true
