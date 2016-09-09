@@ -382,9 +382,11 @@ Installed by the `install-bin` target:
         arguments.
     *   `stws(1df)` strips trailing spaces from the ends of lines of the files
         in its arguments.
-*   Five stream formatting scripts:
+*   Seven stream formatting scripts:
     *   `sd2u(1df)` converts DOS line endings in streams to UNIX ones.
     *   `su2d(1df)` converts UNIX line endings in streams to DOS ones.
+    *   `slow(1df)` converts uppercase to lowercase.
+    *   `supp(1df)` converts lowercase to uppercase.
     *   `tl(1df)` tags input lines with a prefix or suffix, basically a
         `sed(1)` shortcut.
     *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and
