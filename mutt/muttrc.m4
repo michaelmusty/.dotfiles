@@ -124,10 +124,8 @@ set crypt_replysign          = yes
 set crypt_replyencrypt       = yes
 set crypt_replysignencrypted = yes
 set crypt_use_gpgme          = yes
+set crypt_use_pka            = yes
 set crypt_verify_sig         = yes
-
-# PGP settings
-set pgp_auto_decode = yes
 
 # Vim-ish bindings
 bind index gg first-entry
