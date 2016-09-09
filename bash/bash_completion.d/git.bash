@@ -131,8 +131,8 @@ _git() {
 
         # Complete with remote subcommands and then remote names
         remote)
-            local word
             if ((COMP_CWORD == 2)) ; then
+                local word
                 while IFS= read -r word ; do
                     [[ -n $word ]] || continue
                     COMPREPLY[${#COMPREPLY[@]}]=$word
