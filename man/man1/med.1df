@@ -1,7 +1,7 @@
 .TH MED 1df "September 2016" "Manual page for med"
 .SH NAME
 .B med
-\- print the med of a list of numbers
+\- print the median of a list of numbers
 .SH SYNOPSIS
 printf '%u\\n' 14 2 10 |
 .B med
