@@ -56,6 +56,9 @@ set skip-completed-text on
 $if Bash
 
     # Expand ! history with a spacebar press
+    # Note that this makes your shell unusable if your Bash doesn't have
+    # magic-space. It's had this feature since 2.02, which is below the minimum
+    # 2.05a supported by these dotfiles.
     Space: magic-space
 
     # Tab does traditional blocking completion
