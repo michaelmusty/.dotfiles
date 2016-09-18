@@ -70,9 +70,10 @@ set edit_headers = yes
 set index_format = '%4C %Z %{%b %d %Y} %-15.15L (%?l?%4l&%4c?) %s'
 
 # Interaction
-set confirmappend = no
-set wait_key      = no
-set quit          = ask-yes
+set abort_unmodified = no
+set confirmappend    = no
+set wait_key         = no
+set quit             = ask-yes
 
 # Intervals
 set mail_check = 5
