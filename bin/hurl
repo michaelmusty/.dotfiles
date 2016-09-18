@@ -2,7 +2,7 @@
 # Extract <a href="..."> URLs from an HTML document or documents
 
 # Input is either stdin or the given arguments concatenated
-cat -- "${@:-/dev/stdin}" | # shellcheck disable=SC2002
+cat -- "${@:--}" |
 
 # Pipe through pup to get all the href links
 pup -p 'a attr{href}' |

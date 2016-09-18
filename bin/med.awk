@@ -13,7 +13,7 @@ END {
     } else {
         med = (vals[NR/2] + vals[NR/2+1]) / 2
     }
-    printf "%u\n", med
+    print med
     if (warn)
         exit(1)
 }

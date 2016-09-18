@@ -26,7 +26,6 @@ td=$(mktd "$self") || exit
 list=$td/list head=$td/head body=$td/body
 
 # Iterate through input; ignore leading/trailing whitespace
-# shellcheck disable=SC2002
 cat -- "${@:--}" >"$list"
 while read -r url ; do
 

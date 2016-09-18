@@ -229,7 +229,7 @@ files, for things I really do get tired of typing repeatedly:
 *   Bash builtins: commands, help topics, shell options, variables, etc.
 *   `find(1)`'s more portable options
 *   `ftp(1)` hostnames from `~/.netrc`
-*   `git(1)` branch names
+*   `git(1)` subcommands, remotes, branches, tags, and addable files
 *   `gpg(1)` long options
 *   `make(1)` targets read from a `Makefile`
 *   `man(1)` page titles
@@ -382,9 +382,11 @@ Installed by the `install-bin` target:
         arguments.
     *   `stws(1df)` strips trailing spaces from the ends of lines of the files
         in its arguments.
-*   Five stream formatting scripts:
+*   Seven stream formatting scripts:
     *   `sd2u(1df)` converts DOS line endings in streams to UNIX ones.
     *   `su2d(1df)` converts UNIX line endings in streams to DOS ones.
+    *   `slow(1df)` converts uppercase to lowercase.
+    *   `supp(1df)` converts lowercase to uppercase.
     *   `tl(1df)` tags input lines with a prefix or suffix, basically a
         `sed(1)` shortcut.
     *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and
@@ -392,7 +394,7 @@ Installed by the `install-bin` target:
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
-*   Four simple aggregators for integer data:
+*   Four simple aggregators for numbers:
     *   `mean(1df)` prints the mean.
     *   `med(1df)` prints the median.
     *   `mode(1df)` prints the first encountered mode.
@@ -476,6 +478,7 @@ There's some silly stuff in `install-games`:
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
+*   `rot13(6df)` rotates the Latin letters in its input.
 *   `xyzzy(6df)` teleports to a marked location on the filesystem.
 *   `zs(6df)` prepends "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.

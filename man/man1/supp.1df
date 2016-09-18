@@ -1,0 +1,20 @@
+.TH SUPP 1df "September 2016" "Manual page for supp"
+.SH NAME
+.B supp
+\- change lowercase letters in a stream to uppercase
+.SH USAGE
+.B supp
+FILE1 [FILE2 ...]
+.br
+.B supp
+< FILE
+.br
+program |
+.B supp
+.SH DESCRIPTION
+Applies tr(1) to change instances of characters from the current locale's
+lowercase letter set in the input into their uppercase equivalents.
+.SH SEE ALSO
+slow(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -28,8 +28,8 @@ ls() {
     [ -e "$HOME"/.cache/ls/hide-control-chars ] &&
         set -- --hide-control-chars "$@"
 
-    # Add --time-style='+%Y-%m-%d %H:%M:%S' to show trailing indicators of the
-    # filetype
+    # Add --time-style='+%Y-%m-%d %H:%M:%S' to show the date in my preferred
+    # format
     [ -e "$HOME"/.cache/ls/time-style ] &&
         set -- --time-style='+%Y-%m-%d %H:%M:%S' "$@"
 

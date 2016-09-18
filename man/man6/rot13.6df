@@ -1,0 +1,21 @@
+.TH ROT13 6df "September 2016" "Manual page for rot13"
+.SH NAME
+.B rot13
+\- Latin ROT13 cipher
+.SH USAGE
+.B rot13
+.br
+.B rot13
+file
+.br
+.B rot13
+file1 file2 file3
+.br
+.B rot13
+< file
+.SH DESCRIPTION
+.B rot13
+implements the ROT13 Caesar cipher for the Latin letters with sed(1), both
+upper and lowercase.
+.SH AUTHORS
+Tom Ryder <tom@sanctum.geek.nz>
