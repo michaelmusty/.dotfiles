@@ -32,9 +32,6 @@ HISTTIMEFORMAT='%F %T  '
 # Use a more compact format for the time builtin's output
 TIMEFORMAT='real:%lR user:%lU sys:%lS'
 
-# Don't allow the creation of aliases, functions are better
-enable -n alias unalias
-
 # Autocorrect fudged paths in cd calls
 shopt -s cdspell
 # Update the hash table properly
@@ -45,8 +42,6 @@ shopt -s checkwinsize
 shopt -s cmdhist
 # Include dotfiles in pattern matching
 shopt -s dotglob
-# Don't use aliases, functions are better
-shopt -u expand_aliases
 # Enable advanced pattern matching
 shopt -s extglob
 # Append rather than overwrite Bash history
