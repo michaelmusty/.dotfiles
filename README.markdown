@@ -443,6 +443,7 @@ Installed by the `install-bin` target:
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
     it exits with success or failure. Good for quick tests.
+*   `mex(1df)` makes given filenames in `$PATH` executable.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
