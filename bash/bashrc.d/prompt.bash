@@ -114,15 +114,15 @@ prompt() {
                 # Check various files in .git to flag processes
                 local proc
                 [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
-                    proc=${proc:+$proc,}'REBASE'
+                    proc=${proc:+"$proc",}'REBASE'
                 [[ -f .git/MERGE_HEAD ]] &&
-                    proc=${proc:+$proc,}'MERGE'
+                    proc=${proc:+"$proc",}'MERGE'
                 [[ -f .git/CHERRY_PICK_HEAD ]] &&
-                    proc=${proc:+$proc,}'PICK'
+                    proc=${proc:+"$proc",}'PICK'
                 [[ -f .git/REVERT_HEAD ]] &&
-                    proc=${proc:+$proc,}'REVERT'
+                    proc=${proc:+"$proc",}'REVERT'
                 [[ -f .git/BISECT_LOG ]] &&
-                    proc=${proc:+$proc,}'BISECT'
+                    proc=${proc:+"$proc",}'BISECT'
 
                 # Collect symbols representing repository state
                 local state
@@ -157,7 +157,7 @@ prompt() {
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "$name" "${proc:+:$proc}" "$state"
+                "${PROMPT_VCS:+git:}" "$name" "${proc:+:"$proc"}" "$state"
             ;;
 
         # Subversion prompt function
