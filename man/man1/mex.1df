@@ -1,0 +1,22 @@
+.TH MEX 1df "September 2016" "Manual page for mex"
+.SH NAME
+.B mex
+\- make first instance of filenames in $PATH executable
+.SH USAGE
+.B mex
+name
+.br
+.B mex
+name1 name2 name3
+.br
+PATH=/foo:/bar/baz
+name
+.SH DESCRIPTION
+Iterate through the contents of the PATH variable looking for files with any of
+the specified names that do not have the executable permissions bit set, and
+try to set it if found. Exit nonzero if any of the names were not found, or if
+any of the permissions changes failed.
+.SH SEE ALSO
+chmod(1), eds(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
