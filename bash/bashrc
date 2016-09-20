@@ -14,7 +14,7 @@ esac
 # shellcheck disable=SC2128
 [ -n "$BASH_VERSINFO" ] || return
 ((BASH_VERSINFO[0] == 2)) &&
-    ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) &&
+    ((10#${BASH_VERSINFO[1]%%[!0-9]*} < 5)) &&
     return
 
 # Don't do anything if running a restricted shell
