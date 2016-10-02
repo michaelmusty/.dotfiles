@@ -6,6 +6,9 @@
 # character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
 [[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
+# Aliases
+complete -A alias unalias
+
 # Bash builtins
 complete -A builtin builtin
 complete -A enabled disable
@@ -15,7 +18,7 @@ complete -A disabled enable
 complete -A setopt set
 
 # Commands
-complete -A command command complete compopt coproc exec if hash time type until while
+complete -A command alias command complete compopt coproc exec if hash time type until while
 
 # Directories
 complete -A directory cd pushd mkdir rmdir

@@ -339,9 +339,9 @@ install-gvim-config :
 install-vim-plugins : install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'install -m 0755 -d -- \
-			"$(HOME)"/.vim/"$${1#vim/}"' _ {} \; -o \
+			"$(HOME)"/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'install -m 0644 -- \
-			"$$1" "$(HOME)"/.vim/"$${1#vim/}"' _ {} \;
+			"$$1" "$(HOME)"/."$$1"' _ {} \;
 
 install-vim-pathogen : install-vim-plugins
 	install -m 0755 -d -- "$(HOME)"/.vim/autoload

@@ -101,19 +101,18 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash || ((errors++))
+                        rm -- "$bashkeep"/"$name".bash ||
+                            ((errors++))
 
-                    # Otherwise, attempt to create the keep file, using an
-                    # appropriate call to the declare builtin
-                    else
-                        { case $(type -t "$name") in
-                            'function')
-                                declare -f -- "$name"
-                                ;;
-                            *)
-                                declare -p -- "$name"
-                                ;;
-                        esac ; } > "$bashkeep"/"$name".bash || ((errors++))
+                    # Save a function
+                    elif [[ $(type -t "$name") = 'function' ]] ; then
+                        declare -f -- "$name" >"$bashkeep"/"$name".bash ||
+                            ((errors++))
+
+                    # Save a variable
+                    elif declare -p -- "$name" >/dev/null ; then
+                        declare -p -- "$name" >"$bashkeep"/"$name".bash ||
+                            ((errors++))
                     fi
                     ;;
             esac

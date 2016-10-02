@@ -28,7 +28,7 @@ _text_filenames() {
 
             # Video file formats
             *.avi|*.gifv|*.mkv|*.mov|*.mpg|*.rm|*.webm) ;;
-            *.AVI|*.gifv|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
+            *.AVI|*.GIFV|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
 
             # Lossy audio file formats
             *.au|*.mp[34]|*.ogg|*.snd|*.wma) ;;

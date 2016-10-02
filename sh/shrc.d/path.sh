@@ -58,11 +58,12 @@ path() {
             ;;
 
         # Check whether a directory is in PATH
-        check) (
-            # shellcheck disable=SC2030
-            path=:$PATH:
-            [ "$path" != "${path%:"$2":*}" ]
-            ) ;;
+        check)
+            case :$PATH: in
+                *:"$2":*) return 0 ;;
+            esac
+            return 1
+            ;;
 
         # Print help output (also done if command not found)
         help)
