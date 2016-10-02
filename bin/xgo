@@ -9,7 +9,7 @@ fi
 # Iterate over the URL arguments
 for url ; do (
 
-    # If it's a YouTube video without a given start time, load it in mpv(1)
+    # Look for patterns in the URL that suggest transformations
     case $url in
 
         # If this is a GitHub or GitLab link, swap "blob" for "raw" to get the actual file

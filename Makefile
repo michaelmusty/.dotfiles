@@ -97,6 +97,7 @@ clean distclean :
 		bin/unf \
 		games/acq \
 		games/kvlt \
+		games/rot13 \
 		games/zs \
 		git/gitconfig \
 		gnupg/gpg.conf \
@@ -209,7 +210,7 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/kvlt games/zs check-games install-games-man
+install-games : games/acq games/kvlt games/rot13 games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -338,9 +339,9 @@ install-gvim-config :
 install-vim-plugins : install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'install -m 0755 -d -- \
-			"$(HOME)"/.vim/"$${1#vim/}"' _ {} \; -o \
+			"$(HOME)"/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'install -m 0644 -- \
-			"$$1" "$(HOME)"/.vim/"$${1#vim/}"' _ {} \;
+			"$$1" "$(HOME)"/."$$1"' _ {} \;
 
 install-vim-pathogen : install-vim-plugins
 	install -m 0755 -d -- "$(HOME)"/.vim/autoload

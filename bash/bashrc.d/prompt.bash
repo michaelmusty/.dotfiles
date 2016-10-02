@@ -31,46 +31,43 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
-            # Count available colors
-            local -i colors
-            colors=$( {
-                tput colors || tput Co
-            } 2>/dev/null )
+            # Declare variables to contain terminal control strings
+            local format reset
 
-            # Prepare reset code
-            local reset
-            reset=$( {
-                tput sgr0 || tput me
-            } 2>/dev/null )
+            # Disregard output and error from these tput(1) calls
+            {
+                # Count available colors
+                local -i colors
+                colors=$(tput colors || tput Co)
 
-            # Decide prompt color formatting based on color availability
-            local format
+                # Prepare reset code
+                reset=$(tput sgr0 || tput me)
 
-            # Check if we have non-bold bright green available
-            if ((colors >= 16)) ; then
-                format=$( {
-                    : "${PROMPT_COLOR:=10}"
-                    tput setaf "$PROMPT_COLOR" ||
-                    tput setaf "$PROMPT_COLOR" 0 0 ||
-                    tput AF "$PROMPT_COLOR" ||
-                    tput AF "$PROMPT_COLOR" 0 0
-                } 2>/dev/null )
+                # Check if we have non-bold bright green available
+                if ((colors >= 16)) ; then
+                    format=$(
+                        : "${PROMPT_COLOR:=10}"
+                        tput setaf "$PROMPT_COLOR" ||
+                        tput setaf "$PROMPT_COLOR" 0 0 ||
+                        tput AF "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR" 0 0
+                    )
 
-            # If we have only eight colors, use bold green
-            elif ((colors >= 8)) ; then
-                format=$( {
-                    : "${PROMPT_COLOR:=2}"
-                    tput setaf "$PROMPT_COLOR" ||
-                    tput AF "$PROMPT_COLOR"
-                    tput bold || tput md
-                } 2>/dev/null )
+                # If we have only eight colors, use bold green
+                elif ((colors >= 8)) ; then
+                    format=$(
+                        : "${PROMPT_COLOR:=2}"
+                        tput setaf "$PROMPT_COLOR" ||
+                        tput AF "$PROMPT_COLOR"
+                        tput bold || tput md
+                    )
 
-            # Otherwise, we just try bold
-            else
-                format=$( {
-                    tput bold || tput md
-                } 2>/dev/null )
-            fi
+                # Otherwise, we just try bold
+                else
+                    format=$(tput bold || tput md)
+                fi
+
+            } >/dev/null 2>&1
 
             # String it all together
             PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
@@ -90,73 +87,77 @@ prompt() {
 
         # Git prompt function
         git)
-            # Bail if we're not in a work tree--or, implicitly, if we don't
-            # have git(1).
-            local iswt
-            iswt=$(git rev-parse --is-inside-work-tree 2>/dev/null)
-            [[ $iswt = true ]] || return
 
-            # Refresh index so e.g. git-diff-files(1) is accurate
-            git update-index --refresh >/dev/null
+            # Wrap as compound command; we don't want to see output from any of
+            # these git(1) calls
+            {
+                # Bail if we're not in a work tree--or, implicitly, if we don't
+                # have git(1).
+                [[ -n $(git rev-parse --is-inside-work-tree) ]] ||
+                    return
 
-            # Find a local branch, remote branch, or tag (annotated or not), or
-            # failing all of that just show the short commit ID, in that order
-            # of preference; if none of that works, bail out
-            local name
-            name=$( {
-                git symbolic-ref --quiet HEAD ||
-                git describe --all --always --exact-match HEAD
-            } 2>/dev/null) || return
-            name=${name##*/}
-            [[ -n $name ]] || return
+                # Refresh index so e.g. git-diff-files(1) is accurate
+                git update-index --refresh
 
-            # Check various files in .git to flag processes
-            local proc
-            [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
-                proc=${proc:+$proc,}'REBASE'
-            [[ -f .git/MERGE_HEAD ]] &&
-                proc=${proc:+$proc,}'MERGE'
-            [[ -f .git/CHERRY_PICK_HEAD ]] &&
-                proc=${proc:+$proc,}'PICK'
-            [[ -f .git/REVERT_HEAD ]] &&
-                proc=${proc:+$proc,}'REVERT'
-            [[ -f .git/BISECT_LOG ]] &&
-                proc=${proc:+$proc,}'BISECT'
+                # Find a local branch, remote branch, or tag (annotated or
+                # not), or failing all of that just show the short commit ID,
+                # in that order of preference; if none of that works, bail out
+                local name
+                name=$(
+                    git symbolic-ref --quiet HEAD ||
+                    git describe --tags --exact-match HEAD ||
+                    git rev-parse --short HEAD
+                ) || return
+                name=${name##*/}
+                [[ -n $name ]] || return
 
-            # Collect symbols representing repository state
-            local state
+                # Check various files in .git to flag processes
+                local proc
+                [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                    proc=${proc:+"$proc",}'REBASE'
+                [[ -f .git/MERGE_HEAD ]] &&
+                    proc=${proc:+"$proc",}'MERGE'
+                [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                    proc=${proc:+"$proc",}'PICK'
+                [[ -f .git/REVERT_HEAD ]] &&
+                    proc=${proc:+"$proc",}'REVERT'
+                [[ -f .git/BISECT_LOG ]] &&
+                    proc=${proc:+"$proc",}'BISECT'
 
-            # Upstream HEAD has commits after local HEAD; we're "behind"
-            local -i behind
-            behind=$(git rev-list --count 'HEAD..@{u}' 2>/dev/null)
-            ((behind)) && state=${state}'<'
+                # Collect symbols representing repository state
+                local state
 
-            # Local HEAD has commits after upstream HEAD; we're "ahead"
-            local -i ahead
-            ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null)
-            ((ahead)) && state=${state}'>'
+                # Upstream HEAD has commits after local HEAD; we're "behind"
+                (($(git rev-list --count 'HEAD..@{u}'))) &&
+                    state=${state}'<'
 
-            # Tracked files are modified
-            git diff-files --no-ext-diff --quiet ||
-                state=${state}'!'
+                # Local HEAD has commits after upstream HEAD; we're "ahead"
+                (($(git rev-list --count '@{u}..HEAD'))) &&
+                    state=${state}'>'
 
-            # Changes are staged
-            git diff-index --cached --no-ext-diff --quiet HEAD 2>/dev/null ||
-                state=${state}'+'
+                # Tracked files are modified
+                git diff-files --no-ext-diff --quiet ||
+                    state=${state}'!'
 
-            # There are some untracked and unignored files
-            git ls-files --directory --error-unmatch --exclude-standard \
-                --no-empty-directory --others -- ':/*' >/dev/null 2>&1 &&
-                state=${state}'?'
+                # Changes are staged
+                git diff-index --cached --no-ext-diff --quiet HEAD ||
+                    state=${state}'+'
 
-            # There are stashed changes
-            git rev-parse --quiet --verify refs/stash >/dev/null &&
-                state=${state}'^'
+                # There are some untracked and unignored files
+                git ls-files --directory --error-unmatch --exclude-standard \
+                    --no-empty-directory --others -- ':/*' &&
+                    state=${state}'?'
+
+                # There are stashed changes
+                git rev-parse --quiet --verify refs/stash &&
+                    state=${state}'^'
+
+            } >/dev/null 2>&1
 
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "$name" "${proc:+:$proc}" "$state"
+                "${PROMPT_VCS:+git:}" "$name" "${proc:+:"$proc"}" "$state"
             ;;
 
         # Subversion prompt function

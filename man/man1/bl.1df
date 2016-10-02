@@ -1,4 +1,4 @@
-.TH BL 1df "July 2016" "Manual page for bl"
+.TH BL 1df "September 2016" "Manual page for bl"
 .SH NAME
 .B bl
 \- generate the given number of blank lines

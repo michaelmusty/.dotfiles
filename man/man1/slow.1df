@@ -1,0 +1,20 @@
+.TH SLOW 1df "September 2016" "Manual page for slow"
+.SH NAME
+.B slow
+\- change uppercase letters in a stream to lowercase
+.SH USAGE
+.B slow
+FILE1 [FILE2 ...]
+.br
+.B slow
+< FILE
+.br
+program |
+.B slow
+.SH DESCRIPTION
+Applies tr(1) to change instances of characters from the current locale's
+uppercase letter set in the input into their lowercase equivalents.
+.SH SEE ALSO
+supp(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

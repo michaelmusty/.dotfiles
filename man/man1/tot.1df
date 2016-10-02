@@ -13,7 +13,7 @@ file
 file1 file2
 .SH DESCRIPTION
 .B tot
-adds up all the newline-delimited integers given as input, and prints the
+adds up all the newline-delimited numbers given as input, and prints the
 total.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

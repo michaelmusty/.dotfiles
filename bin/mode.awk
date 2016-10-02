@@ -9,5 +9,5 @@ END {
     for (val in vals)
         if (vals[val] > vals[mode])
             mode = val
-    printf "%u\n", mode
+    print mode
 }

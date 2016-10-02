@@ -5,7 +5,10 @@
     pushUpdateRejected = false
 
 [alias]
+    amend = commit --amend
+    ls = log --oneline
     others = ls-files --others --exclude-standard
+    fuckit = "!git clean -dfx ; git reset --hard"
 
 [color]
     ui = true

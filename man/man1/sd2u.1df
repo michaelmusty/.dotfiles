@@ -11,7 +11,6 @@ FILE1 [FILE2 ...]
 .br
 program |
 .B sd2u
-.B sd2u
 .SH DESCRIPTION
 Applies sed(1) to change DOS \\r\\n (CRLF) line endings to UNIX \\n line
 endings. Lines already in UNIX format should be unchanged.
