@@ -399,12 +399,15 @@ Installed by the `install-bin` target:
     *   `med(1df)` prints the median.
     *   `mode(1df)` prints the first encountered mode.
     *   `tot(1df)` totals the set.
+*   `ap(1df)` reads arguments for a given command from the standard input,
+    prompting if appropriate
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
+*   `bp(1df)` runs `br(1df)` after prompting for an URL
 *   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
