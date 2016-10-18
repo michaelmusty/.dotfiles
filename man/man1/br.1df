@@ -1,7 +1,7 @@
 .TH BR 1df "August 2016" "Manual page for br"
 .SH NAME
 .B br
-\- launch "$BROWSER"
+\- launch $BROWSER
 .SH SYNOPSIS
 .B br
 .br
@@ -18,6 +18,6 @@ arguments. That's it.
 It was written to have a clean way to launch $BROWSER from ~/.xbindkeysrc. It
 has no other reason to exist.
 .SH SEE ALSO
-xgo(1df), xgoc(1df)
+bp(1df), xgo(1df), xgoc(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

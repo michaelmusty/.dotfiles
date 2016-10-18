@@ -61,7 +61,7 @@ prompt() {
             {
                 # Bail if we're not in a work tree--or, implicitly, if we don't
                 # have git(1).
-                [[ -n $(git rev-parse --is-inside-work-tree) ]] ||
+                [[ $(git rev-parse --is-inside-work-tree) == true ]] ||
                     return
 
                 # Refresh index so e.g. git-diff-files(1) is accurate

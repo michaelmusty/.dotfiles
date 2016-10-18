@@ -1,0 +1,14 @@
+.TH AP 1df "October 2016" "Manual page for ap"
+.SH NAME
+.B ap
+\- read named arguments from stdin with prompts
+.SH SYNOPSIS
+.B ap PROGRAM ARGNAME1 [ARGNAME2...]
+.SH DESCRIPTION
+.B ap
+runs a program with arguments read from stdin, with an appropriate prompt if
+stdin is a terminal.
+.SH SEE ALSO
+bp(1df), xargs(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
