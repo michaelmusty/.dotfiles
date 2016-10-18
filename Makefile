@@ -220,7 +220,7 @@ install-games : games/acq games/drakon games/kvlt games/rot13 games/zs \
 	done
 
 install-games-man :
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6df
+	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
 	install -pm 0644 -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
 
 install-git : git/gitconfig
