@@ -1,0 +1,20 @@
+.TH DRAKON 6df "October 2016" "Manual page for drakon"
+.SH NAME
+.B drakon
+\- type like Andor Drakon from Ancient Domains of Mystery
+.SH USAGE
+$
+.B drakon
+/usr/share/dict/words
+.br
+lynx -dump https://sanctum.geek.nz/ |
+.B drakon
+.SH DESCRIPTION
+.B drakon
+emulates a "studlycaps" filter for the text given on standard input that
+resembles the format used for the speech of Andor Drakon, the Elder Chaos God,
+from the highly recommended roguelike game Ancient Domains of Mystery.
+.SH SEE ALSO
+<http://www.adom.de/home/index.html>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

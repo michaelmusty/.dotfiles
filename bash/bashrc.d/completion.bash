@@ -32,8 +32,8 @@ complete -A variable for getopts let read select
 complete -A helptopic help
 
 # Jobspecs
-complete -A job disown fg jobs
-complete -A stopped bg
+complete -P '%' -A job disown fg jobs
+complete -P '%' -A stopped bg
 
 # Readline bindings
 complete -A binding bind

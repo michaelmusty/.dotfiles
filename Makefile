@@ -96,6 +96,7 @@ clean distclean :
 		bin/tot \
 		bin/unf \
 		games/acq \
+		games/drakon \
 		games/kvlt \
 		games/rot13 \
 		games/zs \
@@ -210,7 +211,8 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/kvlt games/rot13 games/zs check-games install-games-man
+install-games : games/acq games/drakon games/kvlt games/rot13 games/zs \
+	check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
