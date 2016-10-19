@@ -14,7 +14,7 @@ scr=$1 intn=$2
 shift 2
 
 # Try and find the path to the interpreter command, bail out if we can't
-if ! intp=$(command -v "$intn" 2>/dev/null) ; then
+if ! intp=$(command -pv "$intn" 2>/dev/null) ; then
     printf >&2 '%s: %s: command not found\n' "$self" "$intn"
     exit 1
 fi
