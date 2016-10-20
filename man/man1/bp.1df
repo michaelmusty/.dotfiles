@@ -4,6 +4,7 @@
 \- launch $BROWSER with an URL read from stdin
 .SH SYNOPSIS
 .B bp
+.br
 BROWSER=firefox
 .B bp
 .SH DESCRIPTION
