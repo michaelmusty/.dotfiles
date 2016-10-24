@@ -15,6 +15,7 @@ Known issues
 *   A key binding for importing sections of the screen and optionally uploading
     it would be great, probably using ImageMagick import(1)
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
+*   I don't think that the the timeout for dmp(1df) is working
 *   New Git completion failing on 2.05a:
 
         ~$ ssh ancientbox
