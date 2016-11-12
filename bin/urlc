@@ -61,8 +61,7 @@ while read -r url ; do
 
     # Form a naïve attempt at a possible secure URL and try to request it,
     # point it out if it actually works
-    burl=${url#http://}
-    surl=https://$burl
+    surl=https://${url#http://}
     if curl -A Mozilla -fLsS -D "$head" -m "$tm" -o "$body" -- \
        "$surl" 2>/dev/null ; then
         printf >&2 '%s: %s has a working secure version at %s\n' \
