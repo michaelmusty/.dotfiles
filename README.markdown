@@ -462,6 +462,7 @@ Installed by the `install-bin` target:
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
+*   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.
 *   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
