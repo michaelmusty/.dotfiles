@@ -21,6 +21,14 @@ for sn ; do
     # Ignore this file if its name wouldn't change
     [ "$sn" != "$dn" ] || continue
 
+    # Ignore this file if its name already exists (don't overwrite)
+    if [ -e "$dn" ] ; then
+        printf >&2 '%s: File named %s already exists\n' \
+            "$self" "$dn"
+        ex=1
+        continue
+    fi
+
     # Attempt a rename, flag an error if there was one
     mv -- "$sn" "$dn" || ex=1
 done
