@@ -481,6 +481,8 @@ There's some silly stuff in `install-games`:
 *   `aaf(6df)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
     comic.
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
+*   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
+    ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
