@@ -1,9 +1,11 @@
 #!/bin/sh
 # Strip an extension from the given filenames
+self=stex
 
 # Check args
 if [ "$#" -lt 2 ] ; then
-    printf >&2 'Need an extension .ext and a filename\n'
+    printf >&2 '%s: Need an extension .ext and a filename\n' \
+        "$self"
     exit 2
 fi
 
