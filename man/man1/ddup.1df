@@ -1,0 +1,20 @@
+.TH DDUP 1df "November 2016" "Manual page for ddup"
+.SH NAME
+.B ddup
+\- remove duplicates from unsorted output
+.SH USAGE
+.B ddup
+FILE1 [FILE2 ...]
+.br
+.B ddup
+< FILE
+.br
+program |
+.B ddup
+.SH DESCRIPTION
+.B ddup
+removes duplicate lines from the input without requiring it to be sorted.
+Because it caches each unique line, this is less efficient than using sort(1)
+and then uniq(1), but necessary if maintaining the order is desirable.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

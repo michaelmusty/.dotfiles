@@ -417,6 +417,7 @@ Installed by the `install-bin` target:
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
     line
+*   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
 *   `dub(1df)` lists the biggest entries in a directory.

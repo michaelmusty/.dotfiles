@@ -66,7 +66,8 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := msmtp
 
-all : bin/han \
+all : bin/ddup \
+	bin/han \
 	bin/mean \
 	bin/med \
 	bin/mftl \
@@ -83,6 +84,7 @@ all : bin/han \
 
 clean distclean :
 	rm -f \
+		bin/ddup \
 		bin/han \
 		bin/mean \
 		bin/med \
@@ -181,7 +183,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/han bin/mean bin/med bin/mftl bin/mode bin/rfct \
+install-bin : bin/ddup bin/han bin/mean bin/med bin/mftl bin/mode bin/rfct \
 	bin/rndi bin/sd2u bin/slsf bin/su2d bin/tot bin/unf install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
