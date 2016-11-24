@@ -1,0 +1,14 @@
+.TH SQS 1df "November 2016" "Manual page for sqs"
+.SH NAME
+.B sqs
+\- strip query strings from the given filenames if present
+.SH SYNOPSIS
+.B sqs 'foo.php?bar=baz'
+.br
+.B sqs 'foo.php?bar=baz' 'quux.php?wibble&florb=1'
+.SH DESCRIPTION
+.B sqs
+renames any of the files given as its trailing arguments to remove a trailing
+HTTP query string. It is not an error if none of the files have the extension.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

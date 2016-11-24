@@ -1,4 +1,4 @@
-# Get mode of a list of integers
+# Get mode of a list of numbers
 # If the distribution is multimodal, the first mode is used
 { vals[$1]++ }
 END {

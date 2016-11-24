@@ -15,10 +15,10 @@ Known issues
 *   A key binding for importing sections of the screen and optionally uploading
     it would be great, probably using ImageMagick import(1)
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
-*   New Git completion failing on 2.05a:
+*   xrbg(1) is likely redundant:
 
-        ~$ ssh ancientbox
-        bash: complete: bashdefault: invalid option name
-        tom@ancientbox:~$ bash --version
-        GNU bash, version 2.05a.0(1)-release (i386-pc-linux-gnu)
-        Copyright 2001 Free Software Foundation, Inc.
+    13:31:51 <tejr> i pick a random one on startup with a little script
+    13:32:41 <cosarara> I run this on startup http://sprunge.us/JFCL
+    13:33:06 <tejr> haha i didn't even know about --randomize
+    13:33:14 <tejr> p sure that makes my script redundant actually
+    13:33:32 <tejr> yep it does

@@ -1,7 +1,7 @@
 .TH TOT 1df "September 2016" "Manual page for tot"
 .SH NAME
 .B tot
-\- print a count of entries in a directory
+\- sum a list of numbers
 .SH SYNOPSIS
 printf '%u\\n' 5 9 53 145 |
 .B tot

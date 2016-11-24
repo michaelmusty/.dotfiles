@@ -1,10 +1,7 @@
 #!/bin/sh
 
-# Sole optional argument is the password timeout (defaults to 10 seconds)
-timeout_sec=${1:-10}
-
 # Get the password store directory, bail if we can't
-pwsd=${PASSWORD_STORE_DIR:-$HOME/.password-store}
+pwsd=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
 pwsd=${pwsd%/}
 [ -n "$pwsd" ] || exit
 
@@ -25,8 +22,8 @@ pw=$(
 # Bail if we don't have a password
 [ -n "$pw" ] || exit
 
-# Pump the password into the clipboard xsel(2); allow 10 seconds
-pass show "$pw" | xsel -ibt "$((timeout_sec * 1000))" || exit
+# Pump the first line of the password into the clipboard
+pass show "$pw" | sed 1q | xsel -ib || exit
 
 # If we have notify-send(1), alert that the password has been copied
 if command -v notify-send >/dev/null >&2 ; then

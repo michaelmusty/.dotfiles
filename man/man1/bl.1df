@@ -5,10 +5,13 @@
 .SH SYNOPSIS
 .B bl
 10
+.br
 .B bl
 0
+.br
 .B bl
 237481728
+.br
 .SH DESCRIPTION
 .B bl
 generates the given number of blank lines and prints them to stdout.
