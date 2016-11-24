@@ -43,7 +43,7 @@ sd() {
     # Change positional parameters to what will hopefully be a completed
     # substitution
     set -- "$(
-    
+
         # Set the positional parameters to either the requested directory, or
         # all siblings of the current directory if no request
         spec=$1

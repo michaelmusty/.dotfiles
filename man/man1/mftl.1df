@@ -18,7 +18,7 @@ mftl
 .B mftl
 searches for targets in a Makefile specified as either targets or dependencies.
 Any targets it finds that are simple strings or filenames that look like they
-should be referenced by the user, are printed uniquely sorted to stdout.
+should be referenced by the user are printed uniquely sorted to stdout.
 .P
 This is not 100% accurate (and probably can't be); GNU Make's heresies make it
 particularly complicated. For simple POSIX-ish Makefiles, it should work well.

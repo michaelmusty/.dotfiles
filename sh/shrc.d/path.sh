@@ -9,7 +9,7 @@ path() {
             ;;
     esac
 
-    # Check first argument to figure out operation 
+    # Check first argument to figure out operation
     case $1 in
 
         # List current directories in PATH

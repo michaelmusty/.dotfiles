@@ -1,3 +1,5 @@
+.TH MAYBE 1df "October 2016" "Manual page for maybe"
+.SH NAME
 .B maybe
 \- possibly exit with success
 .SH USAGE

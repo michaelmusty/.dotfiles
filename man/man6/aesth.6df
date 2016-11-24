@@ -1,0 +1,19 @@
+.TH AESTH 6df "August 2016" "Manual page for aesth"
+.SH NAME
+.B aesth
+\- make your text more ＡＥＳＴＨＥＴＩＣ
+.SH USAGE
+.B aesth
+/usr/share/dict/words
+.br
+lynx -dump https://sanctum.geek.nz/ |
+.B aesth
+.SH DESCRIPTION
+.B aesth
+converts the 26 letters of the English alphabet, both upper and lower case, to
+their full-width text equivalents for the CJK environment from the Basic
+Multilingual Plane.
+.P
+The results are printed in UTF-8; they're hard-coded within the script.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

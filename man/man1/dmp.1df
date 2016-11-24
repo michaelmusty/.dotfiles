@@ -4,19 +4,13 @@
 \- pick a pass(1) password with dmenu(1)
 .SH SYNOPSIS
 .B dmp
-.br
-.B dmp
-25
 .SH DESCRIPTION
 .B dmp
 applies dmenu(1) to pick a password entry from a pass(1) store and put it into
-the X CLIPBOARD for a period of time, defaulting to 10 seconds, after which
-xsel(1) will remove it from the clipboard.
+the X CLIPBOARD for a period of time.
 .P
 If notify-send(1) is installed, a notification with the default priority will
 be written when the password is successfully clipped.
-.P
-The timeout in seconds can be specified as an optional argument.
 .SH SEE ALSO
 dmenu(1), notify-send(1), pass(1), xsel(1)
 .SH AUTHOR

@@ -14,8 +14,7 @@ file1 file2
 .SH DESCRIPTION
 .B med
 collects all the newline-delimited numbers given as input, and prints the
-median. It uses the floor of the mean of the two median values if the number of
-records is even. The input must be sorted, and a warning will be issued if it
-isn't.
+median. It uses the mean of the two median values if the number of records is
+even. The input must be sorted, and a warning will be issued if it isn't.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

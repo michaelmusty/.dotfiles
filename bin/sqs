@@ -1,25 +1,20 @@
 #!/bin/sh
-# Strip an extension from the given filenames
-self=stex
+# Chop a trailing query string off filenames
+self=sqs
 
 # Check args
-if [ "$#" -lt 2 ] ; then
-    printf >&2 '%s: Need an extension .ext and a filename\n' \
-        "$self"
+if [ "$#" -eq 0 ] ; then
+    printf >&2 '%s: Need a filename\n' "$self"
     exit 2
 fi
 
-# Extension is first arg, shift it off
-ext=$1
-shift
-
-# Iterate through the given files (remaining args)
+# Iterate through the given files
 for sn ; do
 
-    # Strip trailing slash if any and then extension
-    sn=${sn%/}
-    dn=${sn%"$ext"}
-
+    # Strip trailing slash if any and then query string
+    dn=${sn%/}
+    dn=${dn%%\?*}
+    
     # Ignore this file if its name wouldn't change
     [ "$sn" != "$dn" ] || continue
 

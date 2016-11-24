@@ -417,6 +417,7 @@ Installed by the `install-bin` target:
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
     line
+*   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
 *   `dub(1df)` lists the biggest entries in a directory.
@@ -459,8 +460,10 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
-*   `shb(1df)` attempts to build shebang lines for scripts from `$PATH`.
+*   `shb(1df)` attempts to build shebang lines for scripts from the system
+    paths.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
+*   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.
 *   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
@@ -479,6 +482,8 @@ There's some silly stuff in `install-games`:
 *   `aaf(6df)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
     comic.
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
+*   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
+    ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.

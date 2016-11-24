@@ -12,7 +12,7 @@ BEGIN {
 # Join backslash-broken lines
 /\\$/ {
     sub(/\\$/, "")
-    line = line $0 
+    line = line $0
     next
 }
 {

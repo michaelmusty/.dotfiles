@@ -9,7 +9,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate over the patterns and search for each one
-while { 
+while {
 
     # If the input is a terminal, print a slash prompt for the next pattern;
     # try to print it in bold red, too, but discard stderr if we can't

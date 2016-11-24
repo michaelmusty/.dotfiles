@@ -1,8 +1,13 @@
 # Completion setup for Make, completing targets
 _make() {
 
-    # Bail if no legible Makefile
-    [[ -r Makefile ]] || return 1
+    # Find a legible Makefile according to the POSIX spec (look for "makefile"
+    # first, then "Makefile"). You may want to add "GNU-makefile" after this.
+    local mf
+    for mf in makefile Makefile '' ; do
+        [[ -f $mf ]] && break
+    done
+    [[ -n $mf ]] || return 1
 
     # Iterate through the Makefile, line by line
     while IFS= read -r line ; do
@@ -40,6 +45,6 @@ _make() {
                 done
                 ;;
         esac
-    done < Makefile
+    done < "$mf"
 }
 complete -F _make -o default make

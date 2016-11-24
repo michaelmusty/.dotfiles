@@ -14,9 +14,10 @@ command |
 - awk -f
 .SH DESCRIPTION
 .B shb
-uses PATH to find a suitable program with the name given in the second
-argument, forms a "shebang" line from it and any arguments beyond the second,
-and then emits the contents of the first argument ('-' can be used for stdin).
+searches the system paths to find a suitable program with the name given in the
+second argument, forms a "shebang" line from it and any arguments beyond the
+second, and then emits the contents of the first argument ('-' can be used for
+stdin).
 .P
 This is intended as a minimal way to make portable shebang lines for Makefiles
 or other building or installation frameworks, handling subtleties like sed(1)
