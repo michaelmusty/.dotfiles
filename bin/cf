@@ -14,13 +14,9 @@ for dir in "${@:-.}" ; do
         continue
     fi
 
-    # Make an escaped form of the directory to handle cases where the directory
-    # name actually has find(1) pattern metacharacters in it
-    dirx=$(printf %s "$dir" | sed 's/\([*?\[\]]\)/\\\1/g')
-
     # Count the files
     count=$(
-        find "$dir" ! -path "$dirx" -prune -exec printf %.sx {} + |
+        find "$dir" -path "$dir"'/*' -prune -exec printf %.sx {} + |
         wc -c
     )
 
