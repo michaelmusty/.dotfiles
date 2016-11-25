@@ -427,6 +427,8 @@ Installed by the `install-bin` target:
     `~/.local/bin`, for personal scripting snippets.
 *   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
     with `gscr(1df)`.
+*   `finc(1df)` counts the number of results returned from a set of given
+    `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
     files, printing their paths and line counts
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the

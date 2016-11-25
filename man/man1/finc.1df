@@ -1,0 +1,22 @@
+.TH FINC 1df "November 2016" "Manual page for finc"
+.SH NAME
+.B finc
+\- accurately count results from a find(1) search
+.SH SYNOPSIS
+.B finc
+.br
+.B finc
+/path/to/dir
+.br
+.B finc
+/dira /dirb -type f -name 'a*'
+.SH DESCRIPTION
+.B finc
+runs find(1) with the given conditions and accurately counts the number of
+results, handling special cases like newlines in filenames.
+.P
+Don't add your own actions to it (-print, -exec etc) or you'll mess it up.
+.SH SEE ALSO
+cf(1df), cfr(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
