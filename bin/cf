@@ -1,22 +1,31 @@
 #!/bin/sh
 # Count entries in a given set of directories
-self=cf
 
 # Iterate over remaining non-option arguments (directories); default to current
 # directory if none given
 for dir in "${@:-.}" ; do
 
+    # Strip a trailing slash
+    dir=${dir%/}
+
+    # If the path is not absolute or already pre-dotted, tack a ./ to
+    # the front so that find(1) doesn't choke; otherwise juse use it
+    # as-is
+    case $dir in
+        /*|./*) fdir=$dir ;;
+        *) fdir=./$dir ;;
+    esac
+
     # Warn if a non-directory was given, flag errors, but continue
     if ! [ -d "$dir" ] ; then
-        printf >&2 '%s: %s: not a directory\n' \
-            "$self" "$dir"
+        printf >&2 'cf: %s: not a directory\n' "$dir"
         ex=1
         continue
     fi
 
     # Count the files
     count=$(
-        find "$dir" -path "$dir"'/*' -prune -exec printf %.sx {} + |
+        find "$fdir" -path "$fdir"'/*' -prune -exec printf %.sx {} + |
         wc -c
     )
 

@@ -1,13 +1,37 @@
 #!/bin/sh
 # Count all descendants of given directories; don't follow symlinks
+
+# Iterate over remaining non-option arguments (directories); default to current
+# directory if none given
 for dir in "${@:-.}" ; do
+
+    # Strip a trailing slash
+    dir=${dir%/}
+
+    # If the path is not absolute or already pre-dotted, tack a ./ to
+    # the front so that find(1) doesn't choke; otherwise juse use it
+    # as-is
+    case $dir in
+        /*|./*) fdir=$dir ;;
+        *) fdir=./$dir ;;
+    esac
+
+    # Warn if a non-directory was given, flag errors, but continue
     if ! [ -d "$dir" ] ; then
         printf >&2 'cfr: %s: Not a directory\n' "$dir"
         ex=1
         continue
     fi
-    count=$(find "$dir" -exec printf %.sx {} + | wc -c)
-    count=$((count - 1))
+
+    # Count the files recursively
+    count=$(
+        find "$fdir" -path "$fdir"'/*' -exec printf %.sx {} + |
+        wc -c
+    )
+
+    # Print the count and the dirname
     printf '%u\t%s\n' "$count" "$dir"
 done
+
+# Exit non-zero if a non-directory was given as an argument
 exit "${ex:-0}"
