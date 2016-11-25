@@ -16,21 +16,6 @@ counts all the entries in the directory trees rooted at the given arguments,
 and prints the total. It defaults to the current directory. It should correctly
 handle corner cases like filenames with newlines in them. It will count but
 will not follow symbolic links.
-.SH NOTES
-You might think this would be better; it's certainly faster:
-.P
-    $ find . -mindepth 1 -print | wc -l
-.P
-However, it's subtly wrong; it will double-count anything with a path that
-contains a newline! You could use -print0 and count null characters instead,
-but then you've broken POSIX already.
-.P
-cfr(1df) and cf(1df) are POSIX-fearing as far as I can tell (please correct
-me), but there are faster but less compatible ways to do this, while still
-remaining accurate. Here's a method using GNU find(1) adapted from an extremely
-clever suggestion from geirha on Freenode; it's much, much faster:
-.P
-    $ find . -mindepth 1 -printf %.sx | wc -c
 .SH SEE ALSO
 cf(1df), tot(1df)
 .SH AUTHOR

@@ -2,23 +2,6 @@
 # Count entries in a given set of directories
 self=cf
 
-# Parse options out
-while getopts 'o' opt ; do
-    case $opt in
-
-        # Print only the count, not the filename
-        o) only=1 ;;
-
-        # Unknown option
-        \?)
-            printf >&2 '%s: Unknown option %s\n' \
-                "$self" "$opt"
-            exit 2
-            ;;
-    esac
-done
-shift "$((OPTIND-1))"
-
 # Iterate over remaining non-option arguments (directories); default to current
 # directory if none given
 for dir in "${@:-.}" ; do
@@ -43,12 +26,8 @@ for dir in "${@:-.}" ; do
     [ "$1" = "$dir"/. ] && shift
     [ "$1" = "$dir"/.. ] && shift
 
-    # Print either just the count, or the count and the dirname
-    if [ -n "$only" ] ; then
-        printf '%u\n' "$#"
-    else
-        printf '%u\t%s\n' "$#" "$dir"
-    fi
+    # Print the count and the dirname
+    printf '%u\t%s\n' "$#" "$dir"
 done
 
 # Exit non-zero if a non-directory was given as an argument

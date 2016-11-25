@@ -6,8 +6,8 @@ for dir in "${@:-.}" ; do
         ex=1
         continue
     fi
-    printf '%u\t%s\n' \
-        "$(find "$dir" -type d -exec cf -o -- {} \; | tot)" \
-        "$dir"
+    count=$(find "$dir" -exec printf %.sx {} + | wc -c)
+    count=$((count - 1))
+    printf '%u\t%s\n' "$count" "$dir"
 done
 exit "${ex:-0}"
