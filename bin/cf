@@ -14,20 +14,14 @@ for dir in "${@:-.}" ; do
         continue
     fi
 
-    # Add files matching glob, shift them off if unexpanded (first and only
-    # entry doesn't exist)
-    set -- "$dir"/*
-    [ -e "$1" ] || shift
-
-    # Add dot files, shift off the "." and ".." entries (sh(1) implementations
-    # seem to vary on whether they include these)
-    set -- "$dir"/.* "$@"
-    [ -e "$1" ] || shift
-    [ "$1" = "$dir"/. ] && shift
-    [ "$1" = "$dir"/.. ] && shift
+    # Count the files
+    count=$(
+        find "$dir" ! -path "$dir" -prune -exec printf %.sx {} + |
+        wc -c
+    )
 
     # Print the count and the dirname
-    printf '%u\t%s\n' "$#" "$dir"
+    printf '%u\t%s\n' "$count" "$dir"
 done
 
 # Exit non-zero if a non-directory was given as an argument
