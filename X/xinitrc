@@ -11,6 +11,9 @@ fi
 # Read X resources
 xrdb "$HOME"/.Xresources
 
+# Faster mouse acceleration with a natural threshold
+xset m 5/2 0
+
 # Start dunst(1) to display libnotify messages
 dunst &
 
