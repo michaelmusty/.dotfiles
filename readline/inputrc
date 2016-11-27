@@ -48,10 +48,6 @@ set show-all-if-ambiguous on
 # Don't re-complete already completed text in the middle of a word
 set skip-completed-text on
 
-# Killing words should stop at /
-# <https://www.youtube.com/watch?v=VCiRpM_rbF0>
-"\C-w": backward-kill-word
-
 # Bash macros
 $if Bash
 
