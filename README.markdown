@@ -138,6 +138,8 @@ A terminal session with my prompt looks something like this:
     [1] 28937
     >tom@remote:~/.dotfiles(master+!){1}$
 
+If `SHLVL` is greater than one, right angle brackets are added to show how many
+`bash` instances deep into the process tree we are, taking into account `tmux`.
 The username and hostname are elided if not connected via SSH. The working
 directory is always shown. The rest of the prompt expands based on context to
 include these elements in this order:
@@ -150,7 +152,8 @@ include these elements in this order:
 *   The exit status of the last command, if non-zero
 
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
-do about what you'd expect.
+do about what you'd expect. `PROMPT_PREFIX` will appear after the `SHLVL` angle
+brackets.
 
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
