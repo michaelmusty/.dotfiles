@@ -126,8 +126,8 @@ after testing `BASH_VERSINFO` appropriately.
 A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
-    tom@remote:~$ cd .dotfiles
     tom@remote:~$ bash
+    >tom@remote:~$ cd .dotfiles
     >tom@remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
