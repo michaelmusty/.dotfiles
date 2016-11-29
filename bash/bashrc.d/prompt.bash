@@ -32,9 +32,9 @@ prompt() {
             PS1=$PS1'\$'
 
             # Add > signs at the front of the prompt to show the current shell
-            # level
-            local i
-            for ((i = 1; i < SHLVL; i++)) ; do
+            # level, taking tmux sessions into account
+            local shlvl
+            for ((shlvl = SHLVL - TMUX_SHLVL; shlvl > 1; shlvl--)) ; do
                 PS1='>'$PS1
             done
 
