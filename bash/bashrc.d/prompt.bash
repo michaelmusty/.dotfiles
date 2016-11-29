@@ -31,6 +31,13 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
+            # Add > signs at the front of the prompt to show the current shell
+            # level
+            local i
+            for ((i = 0; i < SHLVL; i++)) ; do
+                PS1='>'$PS1
+            done
+
             # Declare variables to contain terminal control strings
             local format reset
 

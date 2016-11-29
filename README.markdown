@@ -127,15 +127,16 @@ A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
     tom@remote:~$ cd .dotfiles
-    tom@remote:~/.dotfiles(master+!)$ git status
+    tom@remote:~$ bash
+    >tom@remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@remote:~/.dotfiles(master+!)$ foobar
+    >tom@remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
+    >tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@remote:~/.dotfiles(master+!){1}$
+    >tom@remote:~/.dotfiles(master+!){1}$
 
 The username and hostname are elided if not connected via SSH. The working
 directory is always shown. The rest of the prompt expands based on context to
