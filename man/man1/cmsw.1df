@@ -1,0 +1,24 @@
+.TH CSMW 1df "September 2016" "Manual page for csmw"
+.SH NAME
+.B csmw
+\- convert a list to monospace words in a sentence structure
+.SH USAGE
+.B csmw
+FILE1 [FILE2 ...]
+.br
+.B csmw
+< FILE
+.br
+program |
+.B csmw
+.SH DESCRIPTION
+Reads a list of whitespace-separated words and prints an English
+comma-and-"and" separated list:
+.P
+    $ csmw
+    foo
+    bar baz
+    ^D
+    `foo`, `bar`, and `baz`
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
