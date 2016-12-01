@@ -5,7 +5,9 @@
 [ "$#" -eq 1 ] || exit 2
 
 # Arcane string chopping
-n=1 a=0 nd=${1%+*} d=${nd#*d}
+n=1 a=0
+nd=${1%+*}
+d=${nd#*d}
 [ "${nd%d*}" != "" ] && n=${nd%d*}
 [ "${1#*+}" = "$1" ] || a=${1#*+}
 
