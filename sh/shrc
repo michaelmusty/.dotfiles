@@ -7,11 +7,13 @@ esac
 # Don't let anyone write(1) to my terminal
 command -p mesg n
 
-# Never beep at me
-command -p setterm -bfreq -blength 2>/dev/null
-
 # Turn off flow control and control character echo
 command -p stty -ixon -ctlecho 2>/dev/null
+
+# If setterm(1) is available, tell it never to beep at me
+if command -v setterm >/dev/null 2>&1 ; then
+    setterm -bfreq -blength 2>/dev/null
+fi
 
 # Keep around 4K lines of history in memory
 HISTSIZE=$((1 << 12))
