@@ -22,3 +22,5 @@ Known issues
     13:33:06 <tejr> haha i didn't even know about --randomize
     13:33:14 <tejr> p sure that makes my script redundant actually
     13:33:32 <tejr> yep it does
+
+*   dr(1df) is probably more practical in awk
