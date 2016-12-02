@@ -11,7 +11,7 @@ fi
 dir=$(mktd fnl) || exit
 
 # Run the command; keep its exit status
-"$@" >"$dir"/stdout 2>"$dir"/stderr
+{ "$@" ; } >"$dir"/stdout 2>"$dir"/stderr
 ret=$?
 
 # Run wc(1) on each of the files
