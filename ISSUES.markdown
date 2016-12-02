@@ -24,3 +24,5 @@ Known issues
     13:33:32 <tejr> yep it does
 
 *   dr(1df) is probably more practical in awk
+*   unf(1df) doesn't work on NetBSD sed(1); might be time to give up and
+    rewrite it in awk
