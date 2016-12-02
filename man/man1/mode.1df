@@ -15,6 +15,7 @@ file1 file2
 .B mode
 collects all the newline-delimited numbers given as input, and prints the
 mode. If two values have the same frequency (i.e. a multimodal distribution),
-it will print the one that reaches that frequency first in the data set.
+it will print one of them, but which one depends on whether your awk(1) sorts
+array indexes...
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
