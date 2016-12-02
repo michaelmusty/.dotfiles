@@ -5,9 +5,7 @@ command -p mesg n
 command -p stty -ixon -ctlecho 2>/dev/null
 
 # If setterm(1) is available, tell it never to beep at me
-if command -v setterm >/dev/null 2>&1 ; then
-    setterm -bfreq -blength 2>/dev/null
-fi
+{ setterm -bfreq -blength ; } >/dev/null >&2
 
 # Keep around 4K lines of history in memory
 HISTSIZE=$((1 << 12))
