@@ -307,6 +307,7 @@ install-sh : check-sh
 		"$(HOME)"/.shrc.d
 	install -pm 0644 -- sh/profile "$(HOME)"/.profile
 	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
+	install -pm 0644 -- sh/shinit "$(HOME)"/.shinit
 	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
 	install -pm 0644 -- sh/shrc.d/* "$(HOME)"/.shrc.d
 

@@ -97,8 +97,9 @@ they should work in most `sh(1)` implementations. Individual scripts called by
 management. Most of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
-Configuration that should be sourced for all POSIX-fearing shells is kept in
-`~/.shrc`, with subscripts read from `~/.shrc.d`.
+Configuration that should be sourced for all POSIX-fearing interactive shells
+is kept in `~/.shrc`, with subscripts read from `~/.shrc.d`. There's a shim in
+`~/.shinit` to act as `ENV`.
 
 I make an effort to target POSIX for my functions and scripts where I can, but
 Bash is my interactive shell of choice. My `.bash_profile` calls `.profile`,

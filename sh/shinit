@@ -1,0 +1,4 @@
+# If the shell is interactive, source ~/.shrc
+case $- in *i*)
+    [ -f "$HOME"/.shrc ] && . "$HOME"/.shrc ;;
+esac
