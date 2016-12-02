@@ -1,2 +1,3 @@
 # Convert UNIX line endings to DOS ones
-/[^\r]$/s/$/\r/g
+!/\r$/ { $0 = $0 "\r" }
+1

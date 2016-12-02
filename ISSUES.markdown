@@ -26,5 +26,3 @@ Known issues
 *   dr(1df) is probably more practical in awk
 *   unf(1df) doesn't work on NetBSD sed(1); might be time to give up and
     rewrite it in awk
-*   sd2u(1df) and su2d(1df) are not portable because \r in the replacement text
-    is not POSIX. Again, best bet is awk. *sigh*

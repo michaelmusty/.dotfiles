@@ -1,2 +1,3 @@
 # Convert DOS line endings to UNIX ones
-s/\r$//g
+{ sub(/\r$/, "") }
+1

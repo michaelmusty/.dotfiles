@@ -12,9 +12,9 @@ FILE1 [FILE2 ...]
 program |
 .B su2d
 .SH DESCRIPTION
-Applies sed(1) to change UNIX \\n line endings to DOS \\r\\n (CRLF) line
+Applies awk(1) to change UNIX \\n line endings to DOS \\r\\n (CRLF) line
 endings. Lines already in DOS format should be unchanged.
 .SH SEE ALSO
-sed(1), sd2u(1df), d2u(1df), u2d(1df)
+awk(1), sd2u(1df), d2u(1df), u2d(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
