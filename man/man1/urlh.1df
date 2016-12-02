@@ -12,6 +12,6 @@ makes a cURL HEAD request for the given URL, and searches the headers for a key
 matching the given name, case-insensitively. It prints any matching values to
 stdout.
 .SH SEE ALSO
-curl(1), urlmt(1df)
+curl(1), unf(1df), urlmt(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
