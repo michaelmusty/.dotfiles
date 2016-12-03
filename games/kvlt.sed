@@ -1,12 +1,12 @@
 # Type like a young black metal enthusiast
 
-# Lowercase to capitals
-y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
-
 # Pad the start and end of the line temporarily to work around GNU sed(1) not
 # respecting POSIX word boundaries, leaving us with no compatible options
 s/^/~/
 s/$/~/
+
+# Lowercase to capitals
+y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 
 # All numbers become 666
 s,[0-9][0-9]*,666,g
@@ -14,6 +14,7 @@ s,[0-9][0-9]*,666,g
 # Various words for KVLT
 s,\([^A-Z]\)ASSOCIATION\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)BUSINESS\([^A-Z]\),\1KVLT\2,g
+s,\([^A-Z]\)CHURCH\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)CLUB\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)COMPANY\([^A-Z]\),\1KVLT\2,g
 s,\([^A-Z]\)FOUNDATION\([^A-Z]\),\1KVLT\2,g
@@ -60,8 +61,8 @@ s,\([B-DF-HJ-NP-TV-XZ]\)U\([B-DF-HJ-NP-TV-XZ]\),\1V\2,g
 # THE -> DER
 s,\([^A-Z]\)THE\([^A-Z]\),\1DER\2,g
 
-# OF -> 0V
-s,\([^A-Z]\)OF\([^A-Z]\),\10V\2,g
+# OF -> OV
+s,\([^A-Z]\)OF\([^A-Z]\),\1OV\2,g
 
 # AND -> VND
 s,\([^A-Z]\)AND\([^A-Z]\),\1VND\2,g
@@ -69,9 +70,9 @@ s,\([^A-Z]\)AND\([^A-Z]\),\1VND\2,g
 # TRUE -> TRV
 s,\([^A-Z]\)TRUE\([^A-Z]\),\1TRV\2,g
 
+# O->0
+y/O/0/
+
 # Remove the padding established above
 s/^~//
 s/~$//
-
-# O->0
-y/O/0/
