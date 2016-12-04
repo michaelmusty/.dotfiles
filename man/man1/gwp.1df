@@ -1,0 +1,23 @@
+.TH GWP 1df "December 2016" "Manual page for gwp"
+.SH NAME
+.B gwp
+\- wordwise (alphanumeric) grep(1)
+.SH SYNOPSIS
+.B gwp WORD [FILE...]
+.br
+.SH DESCRIPTION
+.B gwp
+searches for complete alphanumeric words (not regular expressions) in the input and
+prints the line if found. This means you can search for "test" and it won't
+print lines just because they contain "latest". It's good for searching prose
+or poetry rather than code.
+.P
+This is intended as a workaround for the absence of a portable implementation
+of "word boundaries" in POSIX. Instead, this awk(1) script breaks each line
+down into alphanumeric words and tests each one for case-insensitive equality.
+.P
+It does not emulate all of grep(1)'s features by any means, but does include
+the feature of prefixing a matched line with the filename if more than one
+filename was searched.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

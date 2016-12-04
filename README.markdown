@@ -444,6 +444,7 @@ Installed by the `install-bin` target:
 *   `grc(1df)` quietly tests whether the given directory appears to be a Git
     repository with pending changes.
 *   `gscr(1df)` scrubs Git repositories.
+*   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1df)` wraps around a command to allow you to ignore error conditions
