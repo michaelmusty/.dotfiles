@@ -114,7 +114,7 @@ older syntax for certain things such as appending items to arrays:
     array[${#array[@]}]=$item
 
 Compare this to the much nicer syntax available since 3.1-alpha1, which
-actually works for arrays with sparse indexes, unlike the above syntax:
+actually works for arrays with sparse indices, unlike the above syntax:
 
     array+=("$item")
 
