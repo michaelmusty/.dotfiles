@@ -5,7 +5,7 @@ BEGIN {
     self = "gwp"
 
     # Words are separated by any non-alphanumeric character
-    FS = "[^[:alnum:]]"
+    FS = "[^a-zA-Z0-9]"
 
     # First argument is the word required; push its case downward so we can
     # match case-insensitively
