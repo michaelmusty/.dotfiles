@@ -1,4 +1,3 @@
-#!/usr/bin/awk -f
 # Search for alphanumeric words in a file
 BEGIN {
     
