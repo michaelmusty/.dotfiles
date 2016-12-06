@@ -1,6 +1,7 @@
 #!/bin/sh
 if [ "$#" -eq 0 ] ; then
-    printf 'loc: Need a search term\n'
+    printf >&2 'loc: Need a search term\n'
+    exit 2
 fi
 for pat ; do
     find . -name '*'"$pat"'*'
