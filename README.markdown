@@ -454,6 +454,7 @@ Installed by the `install-bin` target:
 *   `jfc(1df)` adds and commits lazily to a Git repository.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
+*   `loc(1df)` is a quick-search wrapped around `find(1)`.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
     it exits with success or failure. Good for quick tests.
