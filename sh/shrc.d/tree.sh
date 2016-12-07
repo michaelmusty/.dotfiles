@@ -7,7 +7,8 @@ tree() {
     if (
 
         # Not if -n is in the arguments and -C isn't
-        while getopts 'nC' opt ; do
+        # Don't tell me about missing options, either
+        while getopts 'nC' opt 2>/dev/null ; do
             case $opt in
                 n) n=1 ;;
                 C) C=1 ;;
