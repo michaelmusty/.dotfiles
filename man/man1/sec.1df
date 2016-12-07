@@ -1,0 +1,21 @@
+.TH SEC 1df "December 2016" "Manual page for sec"
+.SH NAME
+.B sec
+\- convert colon-delimited durations to seconds
+.SH USAGE
+.B sec
+FILE1 [FILE2 ...]
+.br
+.B sec
+< FILE
+.br
+printf '1:02:54\\n' |
+.br
+sec=$(printf '%s\n' "$timestamp" | sec)
+.B sec
+.SH DESCRIPTION
+Applies awk(1) to convert hh:mm:ss or mm:ss timestamps into a count of seconds.
+Exits zero if all lines were successfully recognised and converted, non-zero
+otherwise.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -9,6 +9,7 @@ bin/mode
 bin/rfct
 bin/rndi
 bin/sd2u
+bin/sec
 bin/slsf
 bin/su2d
 bin/tot

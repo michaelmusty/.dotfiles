@@ -77,6 +77,7 @@ all : bin/csmw \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
+	bin/sec \
 	bin/slsf \
 	bin/su2d \
 	bin/tot \
@@ -97,6 +98,7 @@ clean distclean :
 		bin/rfct \
 		bin/rndi \
 		bin/sd2u \
+		bin/sec \
 		bin/slsf \
 		bin/su2d \
 		bin/tot \
@@ -188,8 +190,8 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
 install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/mean bin/med bin/mftl \
-	bin/mode bin/rfct bin/rndi bin/sd2u bin/slsf bin/su2d bin/tot bin/unf \
-	install-bin-man
+	bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf bin/su2d bin/tot \
+	bin/unf install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
