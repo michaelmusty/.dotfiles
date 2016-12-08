@@ -1,0 +1,16 @@
+.TH UTS 1df "December 2016" "Manual page for uts"
+.SH NAME
+.B uts
+\- prints the current UNIX timestamp
+.SH SYNOPSIS
+.B uts
+.SH DESCRIPTION
+.B uts
+applies POSIX's specifications for the behaviour of its srand() function to
+print the current UNIX timestamp.
+.SH SEE ALSO
+date(1)
+.br
+<http://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#tag_20_06_13_12>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

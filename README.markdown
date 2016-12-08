@@ -488,6 +488,8 @@ Installed by the `install-bin` target:
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `umake(1df)` iterates upwards through the directory tree from `$PWD` until
     it finds a Makefile for which to run `make(1)` with the given arguments.
+*   `uts(1df)` gets the current UNIX timestamp in an unorthodox way that should
+    work on all POSIX-compliant operating systems.
 
 There's some silly stuff in `install-games`:
 
