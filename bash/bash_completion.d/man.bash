@@ -8,6 +8,12 @@ _man() {
     local word
     word=${COMP_WORDS[COMP_CWORD]}
 
+    # Don't bother if the word has slashes in it, the user is probably trying
+    # to complete an actual path
+    case $word in
+        */*) return 1 ;;
+    esac
+
     # If this is the second word, and the previous word started with a number,
     # we'll assume that's the section to search
     local section subdir
