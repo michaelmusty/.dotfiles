@@ -419,7 +419,7 @@ Installed by the `install-bin` target:
 *   `cf(1df)` prints a count of entries in a given directory.
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
     well.
-*   `chc(1df)` caches the output of a command
+*   `chc(1df)` caches the output of a command.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
     line
