@@ -6,10 +6,10 @@
 .B uts
 .SH DESCRIPTION
 .B uts
-applies POSIX's specifications for the behaviour of its srand() function to
+applies POSIX's specifications for the behaviour of awk's srand() function to
 print the current UNIX timestamp.
 .SH SEE ALSO
-date(1)
+awk(1), date(1)
 .br
 <http://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#tag_20_06_13_12>
 .SH AUTHOR
