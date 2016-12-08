@@ -14,6 +14,7 @@ bin/slsf
 bin/su2d
 bin/tot
 bin/unf
+bin/uts
 games/acq
 games/aesth
 games/drakon

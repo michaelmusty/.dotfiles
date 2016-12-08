@@ -1,4 +1,0 @@
-#!/bin/sh
-# Get the current timestamp in a POSIX compatible fashion
-PATH=$(getconf PATH)
-awk 'BEGIN { srand() ; print srand() }'

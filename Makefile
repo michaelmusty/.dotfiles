@@ -82,6 +82,7 @@ all : bin/csmw \
 	bin/su2d \
 	bin/tot \
 	bin/unf \
+	bin/uts \
 	git/gitconfig \
 	gnupg/gpg.conf
 
@@ -103,6 +104,7 @@ clean distclean :
 		bin/su2d \
 		bin/tot \
 		bin/unf \
+		bin/uts \
 		games/acq \
 		games/aesth \
 		games/drakon \
@@ -191,7 +193,7 @@ install-bash-completion : install-bash
 
 install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/mean bin/med bin/mftl \
 	bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf bin/su2d bin/tot \
-	bin/unf install-bin-man
+	bin/unf bin/uts install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
