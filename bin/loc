@@ -4,5 +4,7 @@ if [ "$#" -eq 0 ] ; then
     exit 2
 fi
 for pat ; do
-    find . -name '.*' ! -name '.' -prune -o -name '*'"$pat"'*' -prune -print
+    find . \
+        -name .\* ! -name . -prune -o \
+        -name \*"$pat"\* -prune -print
 done
