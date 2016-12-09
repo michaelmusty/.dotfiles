@@ -43,7 +43,7 @@ prompt() {
                 # Prepare reset code
                 reset=$(tput sgr0 || tput me)
 
-                # Check if we have non-bold bright green available
+                # Check if we have non-bold bright yellow available
                 if ((colors >= 16)) ; then
                     format=$(
                         : "${PROMPT_COLOR:=11}"
@@ -53,7 +53,7 @@ prompt() {
                         tput AF "$PROMPT_COLOR" 0 0
                     )
 
-                # If we have only eight colors, use bold green
+                # If we have only eight colors, use bold yellow
                 elif ((colors >= 8)) ; then
                     format=$(
                         : "${PROMPT_COLOR:=3}"
