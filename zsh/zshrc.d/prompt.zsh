@@ -32,6 +32,13 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'%#'
 
+            # Add > signs at the front of the prompt to show the current shell
+            # level, taking tmux sessions into account
+            local shlvl
+            for ((shlvl = SHLVL - TMUX_SHLVL; shlvl > 1; shlvl--)) ; do
+                PS1='>'$PS1
+            done
+
             # Bold and color the prompt if it looks like we can
             if (( $({ tput colors || tput Co ; } 2>/dev/null) >= 8 )) ; then
                 PS1='%B%F{green}'$PS1'%f%b'
