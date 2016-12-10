@@ -1,9 +1,7 @@
 # Convert [[[hh:]mm:]ss] timestamps to seconds
 
-# Separator is :
-BEGIN {
-    FS = ":"
-}
+# Separator is :, strip out leading zeroes
+BEGIN { FS = ":0*" }
 
 # If no fields, too many fields, or illegal characters, warn, skip line, accrue
 # errors
@@ -11,12 +9,6 @@ BEGIN {
     print "sec: Bad format" > "/dev/stderr"
     err = 1
     next
-}
-
-# Strip leading zeroes to stop awk trying to be octal
-{
-    for (i = 1; i <= NF; i++)
-        sub(/^0*/, "", $i)
 }
 
 # Match hh:mm:ss
