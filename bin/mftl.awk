@@ -28,7 +28,7 @@ BEGIN {
     # unique; this probably needs refinement
     for (i = 1; i < NF; i++)
         if ($i ~ /^[a-zA-Z0-9][a-zA-Z0-9.\/_-]*$/)
-            ats[$i]
+            ats[$i]++
 }
 
 # Print unique determined targets, sorted
