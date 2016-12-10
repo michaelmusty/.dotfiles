@@ -51,6 +51,4 @@ function fnpr() {
 }
 
 # Exit zero if we found at least one match, non-zero otherwise
-END {
-    exit(!found)
-}
+END { exit(!found) }

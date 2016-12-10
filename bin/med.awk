@@ -7,11 +7,10 @@ END {
     # Error out if we read no values at all
     if (!NR)
         exit(1)
-    if (NR % 2) {
+    if (NR % 2)
         med = vals[(NR+1)/2]
-    } else {
+    else
         med = (vals[NR/2] + vals[NR/2+1]) / 2
-    }
     print med
     if (warn)
         exit(1)

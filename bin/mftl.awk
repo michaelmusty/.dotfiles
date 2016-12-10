@@ -2,9 +2,7 @@
 # could be reasonably expected to call directly
 
 # Separators are space, tab, or colon
-BEGIN {
-    FS = "[ \t:]"
-}
+BEGIN { FS = "[ \t:]" }
 
 # Skip comments
 /^#/ { next }

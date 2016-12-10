@@ -12,21 +12,13 @@ BEGIN { FS = ":0*" }
 }
 
 # Match hh:mm:ss
-NF == 3 {
-    printf "%u\n", $1 * 3600 + $2 * 60 + $3
-}
+NF == 3 { printf "%u\n", $1 * 3600 + $2 * 60 + $3 }
 
 # Match mm:ss
-NF == 2 {
-    printf "%u\n", $1 * 60 + $2
-}
+NF == 2 { printf "%u\n", $1 * 60 + $2 }
 
 # Match ss (in which case all we've done is strip zeroes)
-NF == 1 {
-    printf "%u\n", $1
-}
+NF == 1 { printf "%u\n", $1 }
 
 # Done, exit 1 if we had any errors on the way
-END {
-    exit(err > 0)
-}
+END { exit(err > 0) }
