@@ -5,11 +5,6 @@ BEGIN {
     RS=""
 }
 
-# Skip any block without at least one alphanumeric char
-!/[[:alnum:]]/ { next }
-
-# Skip any block with a page break marker in it
-/\x0c/ { next }
-
-# Print the block followed by two newlines
-{ printf "%s\n\n", $0 }
+# Print the block followed by two newlines, as long as it has at least one
+# alphanumeric character and no pagebreak characters
+/[a-zA-Z0-9]/ && !/\x0c/ { printf "%s\n\n", $0 }
