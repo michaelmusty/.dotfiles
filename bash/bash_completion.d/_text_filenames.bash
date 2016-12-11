@@ -8,6 +8,7 @@
 # the thing I want, and I want it to stay fast.
 #
 _text_filenames() {
+    local item
     while IFS= read -r item ; do
 
         # Exclude blanks

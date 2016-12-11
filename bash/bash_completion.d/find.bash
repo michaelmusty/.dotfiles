@@ -7,6 +7,7 @@ _find() {
 
     # Backtrack through words so far; if none of them look like options, we're
     # still completing directory names
+    local i
     local -i opts
     for ((i = COMP_CWORD; i >= 0; i--)) ; do
         case ${COMP_WORDS[i]} in
@@ -26,6 +27,7 @@ _find() {
     compopt -o bashdefault -o default
 
     # Iterate through whatever the subshell gives us; don't add blank items, though
+    local item
     while read -r item ; do
         [[ -n $item ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$item

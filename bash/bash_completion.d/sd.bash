@@ -8,6 +8,7 @@ _sd() {
     [[ $PWD != / ]] || return 1
 
     # Build list of matching sibiling directories
+    local dirname
     while IFS= read -rd '' dirname ; do
         [[ -n $dirname ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$dirname

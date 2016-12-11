@@ -10,6 +10,7 @@ _make() {
     [[ -n $mf ]] || return 1
 
     # Iterate through the Makefile, line by line
+    local line
     while IFS= read -r line ; do
         case $line in
 

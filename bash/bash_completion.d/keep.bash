@@ -25,6 +25,7 @@ _keep() {
     # Complete with appropriate mode
     case $mode in
         names)
+            local word
             while IFS= read -r word ; do
                 [[ -n $word ]] || continue
                 COMPREPLY[${#COMPREPLY[@]}]=$word
@@ -32,6 +33,7 @@ _keep() {
                 -- "${COMP_WORDS[COMP_CWORD]}")
             ;;
         kept)
+            local word
             while IFS= read -r word ; do
                 [[ -n $word ]] || continue
                 COMPREPLY[${#COMPREPLY[@]}]=$word
