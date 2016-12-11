@@ -66,8 +66,8 @@ _text_filenames() {
             # Other known binary extensions
             # (I haven't included .com; on UNIX, that's more likely to be
             # something I saved from a website and named after the domain)
-            *.a|*.dat|*.drv|*.exe|*.o|*.torrent|*.wad|*.rom) ;;
-            *.A|*.DAT|*.DRV|*.EXE|*.O|*.TORRENT|*.WAD|*.ROM) ;;
+            *.a|*.drv|*.exe|*.o|*.torrent|*.wad|*.rom) ;;
+            *.A|*.DRV|*.EXE|*.O|*.TORRENT|*.WAD|*.ROM) ;;
 
             # Complete everything else; some of it will still be binary
             *) COMPREPLY[${#COMPREPLY[@]}]=$item ;;
