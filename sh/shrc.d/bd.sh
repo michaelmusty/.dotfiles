@@ -22,28 +22,28 @@ bd() {
         case $req in
 
             # Just go straight to the root or dot directories if asked
-            /|.|..)
+            (/|.|..)
                 dirname=$req
                 ;;
 
             # Anything with a leading / needs to anchor to the start of the
             # path. A strange request though. Why not just use cd?
-            /*)
+            (/*)
                 dirname=$req
                 case $PWD in
-                    "$dirname"/*) ;;
-                    *) dirname='' ;;
+                    ("$dirname"/*) ;;
+                    (*) dirname='' ;;
                 esac
                 ;;
 
             # In all other cases, iterate through the PWD to find a match, or
             # whittle the target down to an empty string trying
-            *)
+            (*)
                 dirname=$PWD
                 while [ -n "$dirname" ] ; do
                     dirname=${dirname%/*}
                     case $dirname in
-                        */"$req") break ;;
+                        (*/"$req") break ;;
                     esac
                 done
                 ;;
