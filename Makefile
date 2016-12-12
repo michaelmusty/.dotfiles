@@ -110,6 +110,7 @@ clean distclean :
 		games/drakon \
 		games/kvlt \
 		games/rot13 \
+		games/strik \
 		games/zs \
 		git/gitconfig \
 		gnupg/gpg.conf \
@@ -223,8 +224,8 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/aesth games/drakon games/kvlt games/rot13 games/zs \
-	check-games install-games-man
+install-games : games/acq games/aesth games/drakon games/kvlt games/rot13 \
+	games/strik games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
