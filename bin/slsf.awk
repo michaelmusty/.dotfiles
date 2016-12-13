@@ -6,5 +6,4 @@ FNR == 1 || /### sls/ { sls = 1 }
 
 # If processing flag set, directive is "Host", and hostname has no wildcards,
 # then print it
-!sls { next }
-$1 == "Host" && $2 !~ /\*/ { print $2 }
+sls && $1 == "Host" && $2 !~ /\*/ { print $2 }

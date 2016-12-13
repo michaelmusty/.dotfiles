@@ -18,9 +18,7 @@ body {
 }
 
 # Write any buffer contents once we hit a line not starting with a space
-/^[^ \t]/ {
-    wrbuf()
-}
+/^[^ \t]/ { wrbuf() }
 
 # Append the current line to the buffer
 {
@@ -29,6 +27,4 @@ body {
 }
 
 # Write the buffer out again when we hit the end
-END {
-    wrbuf()
-}
+END { wrbuf() }

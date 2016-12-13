@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'loc: Need a search term\n'
+    exit 2
+fi
+for pat ; do
+    find . \
+        -name .\* ! -name . -prune -o \
+        -name \*"$pat"\* -prune -print
+done

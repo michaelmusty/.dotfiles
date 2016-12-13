@@ -1,31 +1,31 @@
-" .shrc is a shell script
-autocmd BufNewFile,BufRead
-    \ .shrc
-    \ setlocal filetype=sh
+" Add automatic commands to
+augroup dfsh
 
-" .xinitrc is a shell script
-autocmd BufNewFile,BufRead
-    \ .xinitrc
-    \ setlocal filetype=sh
+  " Names/paths of things that are Bash shell script
+  autocmd BufNewFile,BufRead
+      \ **/.dotfiles/bash/**,bash-fc-*
+      \ let b:is_bash = 1 |
+      \ setlocal filetype=sh
 
-" Files in /etc/default are shell script
-autocmd BufNewFile,BufRead
-    \ /etc/default/*
-    \ setlocal filetype=sh
+  " Names/paths of things that are Korn shell script
+  autocmd BufNewFile,BufRead
+      \ **/.dotfiles/pdksh/**,.pdkshrc,*.pdksh
+      \ let b:is_kornshell = 1 |
+      \ setlocal filetype=sh
 
-" Files in **/.dotfiles/sh/** are shell script
-autocmd BufNewFile,BufRead
-    \ **/.dotfiles/sh/**
-    \ setlocal filetype=sh
+  " Names/paths of things that are POSIX shell script
+  autocmd BufNewFile,BufRead
+      \ **/.dotfiles/sh/**,.shinit,.shrc,.xinitrc,/etc/default/*
+      \ let b:is_posix = 1 |
+      \ setlocal filetype=sh
 
-" Edited bash command lines are Bash script
-autocmd BufNewFile,BufRead
-    \ bash-fc-*
-    \ let g:is_bash = 1 |
-    \ setlocal filetype=sh
+  " If we determined something is b:is_kornshell, tack on b:is_ksh as well so
+  " we can still tease out what is actually a kornshell script after sh.vim is
+  " done changing our options for us; it conflates POSIX with Korn shell.
+  autocmd BufNewFile,BufRead
+      \ *
+      \ if exists('b:is_kornshell') |
+      \   let b:is_ksh = 1 |
+      \ endif
 
-" Files in **/.dotfiles/bash/** are Bash script
-autocmd BufNewFile,BufRead
-    \ **/.dotfiles/bash/**
-    \ let g:is_bash = 1 |
-    \ setlocal filetype=sh
+augroup END

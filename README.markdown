@@ -114,7 +114,7 @@ older syntax for certain things such as appending items to arrays:
     array[${#array[@]}]=$item
 
 Compare this to the much nicer syntax available since 3.1-alpha1, which
-actually works for arrays with sparse indexes, unlike the above syntax:
+actually works for arrays with sparse indices, unlike the above syntax:
 
     array+=("$item")
 
@@ -167,6 +167,9 @@ terminals.
 If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
+*   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
+    `/usr/local/bin`, as long as they are unique, emulating a feature of the
+    Zsh `cd` builtin that I like.
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
@@ -419,6 +422,8 @@ Installed by the `install-bin` target:
 *   `cf(1df)` prints a count of entries in a given directory.
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
     well.
+*   `chc(1df)` caches the output of a command.
+*   `clog(1df)` is a tiny timestamped log system.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
     line
@@ -454,6 +459,7 @@ Installed by the `install-bin` target:
 *   `jfc(1df)` adds and commits lazily to a Git repository.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
+*   `loc(1df)` is a quick-search wrapped around `find(1)`.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
     it exits with success or failure. Good for quick tests.
@@ -472,6 +478,7 @@ Installed by the `install-bin` target:
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
+*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
@@ -486,6 +493,8 @@ Installed by the `install-bin` target:
     tolerating blips or temporary failures in `cron(8)` scripts.
 *   `umake(1df)` iterates upwards through the directory tree from `$PWD` until
     it finds a Makefile for which to run `make(1)` with the given arguments.
+*   `uts(1df)` gets the current UNIX timestamp in an unorthodox way that should
+    work on all POSIX-compliant operating systems.
 
 There's some silly stuff in `install-games`:
 
@@ -497,6 +506,7 @@ There's some silly stuff in `install-games`:
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
+*   `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 *   `rot13(6df)` rotates the Latin letters in its input.
 *   `xyzzy(6df)` teleports to a marked location on the filesystem.
 *   `zs(6df)` prepends "z" case-appropriately to every occurrence of "s" in the

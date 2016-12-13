@@ -1,0 +1,35 @@
+.TH CHC 1df "December 2016" "Manual page for chc"
+.SH NAME
+.B chc
+\- cache the output of a command to avoid running it too often
+.SH USAGE
+.B chc
+CACHE_PATH DURATION COMMAND [ARG1...]
+.SH SYNOPSIS
+.B chc
+/tmp/example.chc 20 curl http://www.example.com/
+.SH DESCRIPTION
+.B chc
+runs the command given in its third argument onwards, and saves the output in
+the file with path given in the first argument, and on each subsequent request
+before the duration in the second argument expires, it emits the content
+directly, rather than running the command. If it's run after the expiry date,
+it runs the command again, and refreshes the cache.
+.P
+This is intended as a quick way to just add three words in front of any given
+expensive command to prevent it running too often. This might be particularly
+useful if a script is called to get data far more often than it actually needs
+to poll to get that data.
+.P
+No file locking is implemented. If you need it, you're probably already at the
+point that you need to write a proper solution, but you could always use Linux
+flock(1) or daemontool's setlock(1) in the command if you're stubborn:
+.P
+    flock -x /var/lock/example.chc chc /var/cache/example.chc 20 curl http://www.example.com/
+.P
+If you want to express the duration in human-readable terms, sec(1df) might be
+useful too.
+.SH SEE ALSO
+sec(1df), uts(1df), flock(1), setlock(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

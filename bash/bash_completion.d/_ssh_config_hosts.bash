@@ -14,6 +14,7 @@ _ssh_config_hosts() {
     done
 
     # Generate completion reply
+    local host
     for host in "${hosts[@]}" ; do
         [[ $host == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$host
