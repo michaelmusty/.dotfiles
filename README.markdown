@@ -167,6 +167,9 @@ terminals.
 If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
+*   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
+    `/usr/local/bin`, as long as they are unique, emulating a feature of the
+    Zsh `cd` builtin that I like.
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `diff()` forces the unified format for `diff(1)`.
