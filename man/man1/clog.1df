@@ -1,0 +1,15 @@
+.TH CLOG 1df "December 2016" "Manual page for clog"
+.SH NAME
+.B clog
+\- record timestamped logs in a file
+.SH SYNOPSIS
+.B clog
+getting real tired of all this overengineering
+^D
+.SH DESCRIPTION
+.B clog
+receives a message on stdin, timestamps it with a leading date(1), and writes
+it to the file with path in environment variable CLOG, defaulting to ~/.clog,
+terminating each entry with two hyphens.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

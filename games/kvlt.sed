@@ -33,8 +33,9 @@ s,\([^A-Z]\)GOOD\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)GREAT\([^A-Z]\),\1TRUE\2,g
 s,\([^A-Z]\)NICE\([^A-Z]\),\1TRUE\2,g
 
-# WAR -> KRIEG
+# WAR/COOL -> KRIEG
 s,\([^A-Z]\)WAR\([^A-Z]\),\1KRIEG\2,g
+s,\([^A-Z]\)COOL\([^A-Z]\),\1KRIEG\2,g
 
 # Double-letters are easy
 s,CC,KK,g

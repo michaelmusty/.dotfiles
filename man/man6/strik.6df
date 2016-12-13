@@ -1,18 +1,18 @@
-.TH AESTH 6df "August 2016" "Manual page for aesth"
+.TH STRIK 6df "August 2016" "Manual page for strik"
 .SH NAME
-.B aesth
-\- make your text more ＡＥＳＴＨＥＴＩＣ
+.B strik
+\- strike out text
 .SH USAGE
-.B aesth
+.B strik
 /usr/share/dict/words
 .br
 lynx -dump https://sanctum.geek.nz/ |
-.B aesth
+.B strik
 .SH DESCRIPTION
-.B aesth
+.B strik
 converts the 26 letters of the English alphabet, both upper and lower case, the
-arabic numerals, and the space character to their full-width text equivalents
-for the CJK environment from the Basic Multilingual Plane.
+Arabic numerals, and the space character to their equivalents with a Unicode
+strikethrough.
 .P
 The results are printed in UTF-8; they're hard-coded within the script.
 .SH AUTHOR

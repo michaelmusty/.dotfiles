@@ -53,7 +53,7 @@ sd() {
         else
             for sib in ../.* ../* ; do
                 case ${sib#../} in
-                    .|..|"${PWD##*/}") continue ;;
+                    (.|..|"${PWD##*/}") continue ;;
                 esac
                 set -- "$@" "$sib"
             done
@@ -61,12 +61,12 @@ sd() {
 
         # We should have exactly one sibling
         case $# in
-            1) ;;
-            0)
+            (1) ;;
+            (0)
                 printf >&2 'sd(): No siblings\n'
                 exit 1
                 ;;
-            *)
+            (*)
                 printf >&2 'sd(): More than one sibling\n'
                 exit 1
                 ;;

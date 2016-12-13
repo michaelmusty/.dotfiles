@@ -77,10 +77,12 @@ all : bin/csmw \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
+	bin/sec \
 	bin/slsf \
 	bin/su2d \
 	bin/tot \
 	bin/unf \
+	bin/uts \
 	git/gitconfig \
 	gnupg/gpg.conf
 
@@ -97,15 +99,18 @@ clean distclean :
 		bin/rfct \
 		bin/rndi \
 		bin/sd2u \
+		bin/sec \
 		bin/slsf \
 		bin/su2d \
 		bin/tot \
 		bin/unf \
+		bin/uts \
 		games/acq \
 		games/aesth \
 		games/drakon \
 		games/kvlt \
 		games/rot13 \
+		games/strik \
 		games/zs \
 		git/gitconfig \
 		gnupg/gpg.conf \
@@ -188,8 +193,8 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
 install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/mean bin/med bin/mftl \
-	bin/mode bin/rfct bin/rndi bin/sd2u bin/slsf bin/su2d bin/tot bin/unf \
-	install-bin-man
+	bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf bin/su2d bin/tot \
+	bin/unf bin/uts install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -219,8 +224,8 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/aesth games/drakon games/kvlt games/rot13 games/zs \
-	check-games install-games-man
+install-games : games/acq games/aesth games/drakon games/kvlt games/rot13 \
+	games/strik games/zs check-games install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \

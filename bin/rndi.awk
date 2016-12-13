@@ -5,17 +5,15 @@
 BEGIN {
 
     # Seed with the third argument if given
-    if (ARGV[3]) {
+    if (ARGV[3])
         srand(ARGV[3])
-    }
 
     # If not, just seed with what is probably a date/time-derived value
-    else {
+    else
         srand()
-    }
 
     # Print a random integer bounded by the first and second arguments
-    print int(ARGV[1]+rand()*(ARGV[2]-ARGV[1]+1))
+    print int(ARGV[1] + rand() * (ARGV[2] - ARGV[1] + 1))
 
     # Bail before processing any lines
     exit

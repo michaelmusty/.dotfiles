@@ -4,6 +4,7 @@ _eds() {
     local edspath
     edspath=${EDSPATH:-"$HOME"/.local/bin}
     [[ -d $edspath ]] || return
+    local executable
     while IFS= read -rd '' executable ; do
         [[ -n $executable ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$executable

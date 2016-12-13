@@ -1,6 +1,7 @@
 # Complete kill builtin with jobspecs (prefixed with % so it will accept them)
 # and this user's PIDs (requires pgrep(1))
 _kill() {
+    local pid
     while read -r pid ; do
         case $pid in
             "${COMP_WORDS[COMP_CWORD]}"*)

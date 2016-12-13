@@ -21,7 +21,7 @@ fi
 # the script exits
 td=
 cleanup() {
-    [[ -n "$td" ]] && rm -fr -- "$td"
+    [[ -n $td ]] && rm -fr -- "$td"
 }
 trap cleanup EXIT
 td=$(mktd "$self") || exit

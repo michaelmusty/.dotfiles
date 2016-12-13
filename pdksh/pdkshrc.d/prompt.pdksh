@@ -23,7 +23,7 @@ prompt() {
             PS1=$PS1'\w'
 
             # Add sub-commands; VCS, job, and return status checks
-            PS1=$PS1'$(prompt vcs)$(prompt job)'
+            PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret "$?")'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
@@ -43,7 +43,7 @@ prompt() {
                 # Prepare reset code
                 reset=$(tput sgr0 || tput me)
 
-                # Check if we have non-bold bright green available
+                # Check if we have non-bold bright yellow available
                 if ((colors >= 16)) ; then
                     format=$(
                         : "${PROMPT_COLOR:=11}"
@@ -53,7 +53,7 @@ prompt() {
                         tput AF "$PROMPT_COLOR" 0 0
                     )
 
-                # If we have only eight colors, use bold green
+                # If we have only eight colors, use bold yellow
                 elif ((colors >= 8)) ; then
                     format=$(
                         : "${PROMPT_COLOR:=3}"
@@ -165,6 +165,12 @@ prompt() {
             for vcs in "${PROMPT_VCS[@]:-git}" ; do
                 prompt "$vcs" && return
             done
+            ;;
+
+        # Show return status of previous command in angle brackets, if not zero
+        ret)
+            local ret=$2
+            ((ret)) && printf '<%u>' "$ret"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero

@@ -1,12 +1,11 @@
-#!/usr/bin/awk -f
 # Search for alphanumeric words in a file
 BEGIN {
     
     # Name self
     self = "gwp"
 
-    # Words are separated by any non-alphanumeric character
-    FS = "[^[:alnum:]]"
+    # Words are separated by any non-alphanumeric characters
+    FS = "[^a-zA-Z0-9]+"
 
     # First argument is the word required; push its case downward so we can
     # match case-insensitively
@@ -52,6 +51,4 @@ function fnpr() {
 }
 
 # Exit zero if we found at least one match, non-zero otherwise
-END {
-    exit(!found)
-}
+END { exit(!found) }

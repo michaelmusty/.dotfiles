@@ -2,6 +2,7 @@
 _td() {
     local dir
     dir=${TODO_DIR:-"$HOME"/Todo}
+    local fn
     while IFS= read -rd '' fn ; do
         COMPREPLY[${#COMPREPLY[@]}]=$fn
     done < <(
