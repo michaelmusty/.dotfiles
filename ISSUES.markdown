@@ -24,3 +24,5 @@ Known issues
     13:33:32 <tejr> yep it does
 
 *   dr(1df) is probably more practical in awk
+*   How come commands I fix with the fc builtin always seem to exit 1 even if
+    they succeed? Did I do that or is it Bash?
