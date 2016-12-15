@@ -4,6 +4,7 @@
 \- try to get a random seed
 .SH SYNOPSIS
 .B rnds
+.br
 .B rnds
 1024
 .SH DESCRIPTION
