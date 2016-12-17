@@ -18,5 +18,3 @@ Known issues
 *   dr(1df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
     they succeed? Did I do that or is it Bash?
-*   Looks like -path for find(1) isn't specified by POSIX 2003.
-    cf(1df) and cfr(1df) use it though.
