@@ -1,5 +1,5 @@
 # Frontend to controlling prompt
-prompt() {
+function prompt {
 
     # If no arguments, print the prompt strings as they are
     if ! (($#)) ; then
