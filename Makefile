@@ -292,8 +292,10 @@ install-mysql :
 
 install-ksh : check-ksh install-sh
 	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
 		"$(HOME)"/.shrc.d \
 		"$(HOME)"/.kshrc.d
+	install -pm 0644 -- ksh/profile.d/* "$(HOME)"/.profile.d
 	install -pm 0644 -- ksh/shrc.d/* "$(HOME)"/.shrc.d
 	install -pm 0644 -- ksh/kshrc "$(HOME)"/.kshrc
 	install -pm 0644 -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
