@@ -1,5 +1,13 @@
 # All of this is only known to work on OpenBSD's fork of pdksh
-[[ $(uname -s) == OpenBSD ]] || return
+case $KSH_VERSION in
+    *'PD KSH'*)
+        case $(uname -s) in 
+            OpenBSD) ;;
+            *) return ;;
+        esac
+        ;;
+    *) return ;;
+esac
 
 # Frontend to controlling prompt
 prompt() {

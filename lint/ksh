@@ -1,0 +1,2 @@
+#!/bin/sh
+find ksh -type f -print -exec shellcheck -e SC1090 -s ksh -- {} \;

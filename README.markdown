@@ -53,13 +53,12 @@ Configuration is included for:
 *   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
+*   [Korn shell](http://www.kornshell.com/) -- Korn shell and its derivatives
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`pdksh(1)`](http://www.cs.mun.ca/~michael/pdksh/) -- public domain fork
-    of the Korn shell
 *   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
 *   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
@@ -254,12 +253,11 @@ I also add completions for my own scripts and functions where useful. The
 completions are dynamically loaded if Bash is version 4.0 or greater.
 Otherwise, they're all loaded on startup.
 
-#### pdksh
+#### Korn shell
 
-The pdksh configuration files and functions are not nearly as featureful as the
-Bash ones. They're tested on OpenBSD and FreeBSD pdksh implementations, but the
-former is the primary system for which I'm maintaining them, and there are some
-feature differences.
+The `ksh` configuration files and functions are not nearly as featureful as the
+Bash ones. At the moment these are mainly being maintained for use on OpenBSD
+`pdksh`.
 
 #### Yash
 

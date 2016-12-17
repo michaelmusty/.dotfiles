@@ -2,9 +2,7 @@
 # configuration if it was defined or if we can find it. Bash and Zsh invoke
 # their own rc files first, which I've written to then look for ~/.shrc; ksh
 # does it the other way around.
-case $KSH_VERSION in
-    *'PD KSH '*|*'MIRBSD KSH '*)
-        [ -f "${KSH_ENV:="$HOME"/.pdkshrc}" ] || return
-        . "$KSH_ENV"
-        ;;
-esac
+[ -n "$KSH_VERSION" ] || return
+[ -n "$KSH_ENV" ] || KSH_ENV=$HOME/.kshrc
+[ -f "$KSH_ENV" ] || return
+. "$KSH_ENV"
