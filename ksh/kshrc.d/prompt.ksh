@@ -37,7 +37,8 @@ prompt() {
 
             # Add > signs at the front of the prompt to show the current shell
             # level, taking tmux sessions into account, assuming this version
-            # of ksh does SHLVL (I think only ksh93 does it
+            # of ksh does SHLVL; I think only ksh93t+ does it from what I can
+            # tell
             typeset shlvl
             ((shlvl = SHLVL - TMUX_SHLVL))
             while ((shlvl > 1)); do
