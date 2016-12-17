@@ -35,6 +35,14 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
+            # Add > signs at the front of the prompt to show the current shell
+            # level, taking tmux sessions into account, assuming this version
+            # of ksh does SHLVL (I think only ksh93 does it
+            typeset shlvl
+            for ((shlvl = SHLVL - TMUX_SHLVL; shlvl > 1; shlvl--)) ; do
+                PS1='>'$PS1
+            done
+
             # Declare variables to contain terminal control strings
             typeset format reset
 
