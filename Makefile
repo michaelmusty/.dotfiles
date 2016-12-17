@@ -23,7 +23,7 @@
 	install-ncmcpp \
 	install-newsbeuter \
 	install-mysql \
-	install-pdksh \
+	install-ksh \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
@@ -46,7 +46,7 @@
 	check-bash \
 	check-bin \
 	check-games \
-	check-pdksh \
+	check-ksh \
 	check-sh \
 	check-urxvt \
 	check-yash \
@@ -54,7 +54,7 @@
 	lint-bash \
 	lint-bin \
 	lint-games \
-	lint-pdksh \
+	lint-ksh \
 	lint-yash \
 	lint-sh \
 	lint-urxvt
@@ -290,11 +290,13 @@ install-newsbeuter :
 install-mysql :
 	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
 
-install-pdksh : check-pdksh install-sh
+install-ksh : check-ksh install-sh
 	install -m 0755 -d -- \
-		"$(HOME)"/.pdkshrc.d
-	install -pm 0644 -- pdksh/pdkshrc "$(HOME)"/.pdkshrc
-	install -pm 0644 -- pdksh/pdkshrc.d/* "$(HOME)"/.pdkshrc.d
+		"$(HOME)"/.shrc.d \
+		"$(HOME)"/.kshrc.d
+	install -pm 0644 -- ksh/shrc.d/* "$(HOME)"/.shrc.d
+	install -pm 0644 -- ksh/kshrc "$(HOME)"/.kshrc
+	install -pm 0644 -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
 
 install-perlcritic :
 	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
@@ -371,10 +373,12 @@ install-wyrd :
 install-x :
 	install -m 0755 -d -- \
 		"$(HOME)"/.config \
+		"$(HOME)"/.xinitrc.d \
 		"$(HOME)"/.Xresources.d
 	install -pm 0644 -- X/redshift.conf "$(HOME)"/.config/redshift.conf
 	install -pm 0644 -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
 	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
+	install -pm 0644 -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
 	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
@@ -407,8 +411,8 @@ check-games :
 check-man :
 	check/man
 
-check-pdksh :
-	check/pdksh
+check-ksh :
+	check/ksh
 
 check-sh :
 	check/sh
@@ -423,7 +427,7 @@ lint : check \
 	lint-bash  \
 	lint-bin  \
 	lint-games  \
-	lint-pdksh  \
+	lint-ksh  \
 	lint-sh  \
 	lint-urxvt \
 	lint-yash
@@ -437,8 +441,8 @@ lint-bin :
 lint-games :
 	lint/games
 
-lint-pdksh :
-	lint/pdksh
+lint-ksh :
+	lint/ksh
 
 lint-sh :
 	lint/sh

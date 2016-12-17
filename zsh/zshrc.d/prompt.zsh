@@ -41,7 +41,7 @@ prompt() {
 
             # Bold and color the prompt if it looks like we can
             if (( $({ tput colors || tput Co ; } 2>/dev/null) >= 8 )) ; then
-                PS1='%B%F{green}'$PS1'%f%b'
+                PS1='%B%F{cyan}'$PS1'%f%b'
             fi
 
             # Add a space and define the rest of the prompts
