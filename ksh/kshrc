@@ -6,6 +6,10 @@ set -o emacs
 HISTFILE=$HOME/.ksh_history
 HISTSIZE=$((1 << 10))
 
+# If HOST and HOSTNAME aren't set by this version of ksh, set them
+HOSTNAME=$(uname -n)
+HOST=${HOSTNAME%%.*}
+
 # Load any supplementary scripts
 for kshrc in "$HOME"/.kshrc.d/*.ksh ; do
     [[ -e $kshrc ]] && . "$kshrc"
