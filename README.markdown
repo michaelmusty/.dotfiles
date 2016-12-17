@@ -259,6 +259,9 @@ The `ksh` configuration files and functions are not nearly as featureful as the
 Bash ones. At the moment these are mainly being maintained for use on OpenBSD
 `pdksh`.
 
+`ksh`, `ksh93`, `pdksh`, and `mksh` shells default to having a prompt coloured
+yellow.
+
 #### Yash
 
 Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
