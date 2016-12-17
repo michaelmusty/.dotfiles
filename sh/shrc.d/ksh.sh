@@ -11,12 +11,10 @@
 # proceed ...
 if [ -z "$KSH_VERSION" ] ; then
 
-    # Do we have the '[[' builtin? Good start
-    command -v '[[' >/dev/null 2>&1 || return
-
-    # Use the '[[' builtin to test whether $.sh.version is set (yes, that's a
-    # real variable name)
-    [[ -v .sh.version ]] || return
+    # Test whether we have content in the .sh.version variable. The odd name
+    # causes at least Bash to panic, so we suppress errors, and we run it in a
+    # subshell to work around parsing error precedence.
+    ( test -n "${.sh.version}" ) 2>/dev/null || return
 
     # If it is, that's our KSH_VERSION
     KSH_VERSION=${.sh.version}
