@@ -15,12 +15,6 @@ Known issues
 *   A key binding for importing sections of the screen and optionally uploading
     it would be great, probably using ImageMagick import(1)
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
-*   xrbg(1) is likely redundant:
-
-    13:31:51 <tejr> i pick a random one on startup with a little script
-    13:32:41 <cosarara> I run this on startup http://sprunge.us/JFCL
-    13:33:06 <tejr> haha i didn't even know about --randomize
-    13:33:14 <tejr> p sure that makes my script redundant actually
-    13:33:32 <tejr> yep it does
-
 *   dr(1df) is probably more practical in awk
+*   How come commands I fix with the fc builtin always seem to exit 1 even if
+    they succeed? Did I do that or is it Bash?

@@ -1,41 +1,14 @@
-# Browser within X is Firefox
-BROWSER=firefox
-export BROWSER
-
-# Set SSH_ASKPASS if we can find one
-if command -v ssh-askpass >/dev/null 2>&1 ; then
-    SSH_ASKPASS=$(command -v ssh-askpass)
-    export SSH_ASKPASS
-fi
-
 # Read X resources
 xrdb "$HOME"/.Xresources
 
 # Faster mouse acceleration with a natural threshold
 xset m 5/2 0
 
-# Start dunst(1) to display libnotify messages
-dunst &
-
-# Start mpdlrc-notify-send <https://sanctum.geek.nz/cgit/mpdlrc.git/about/>
-mpdlrc-notify-send &
-
-# Start redshift(1)
-redshift &
-
-# Map Caps Lock as a Ctrl key, use right alt as Compose, kill X server with
-# Ctrl+Alt+Backspace
-# <https://en.wikipedia.org/wiki/Compose_key#Common_compose_combinations>
-setxkbmap -option compose:ralt,ctrl:nocaps,terminate:ctrl_alt_bksp
-
-# Start urxvtd(1)
-urxvtd -o -q &
-
-# Start xbindkeys(1)
-xbindkeys -n &
-
-# Apply a random background image
-xrbg
+# Load all supplementary scripts in ~/.xinitrc.d
+for sh in "$HOME"/.xinitrc.d/*.sh ; do
+    [ -e "$sh" ] && . "$sh"
+done
+unset -v sh
 
 # Start window manager
 exec i3

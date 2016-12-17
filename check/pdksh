@@ -1,6 +1,0 @@
-#!/bin/sh
-for pdksh in pdksh/* pdksh/pdkshrc.d/* ; do
-    [ -f "$pdksh" ] || continue
-    ksh -n "$pdksh" || exit
-done
-printf 'All pdksh scripts parsed successfully.\n'

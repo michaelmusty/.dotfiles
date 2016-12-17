@@ -1,6 +1,3 @@
-# All of this is only known to work on OpenBSD's fork of pdksh
-[[ $(uname -s) == OpenBSD ]] || return
-
 # Frontend to controlling prompt
 prompt() {
 
@@ -18,12 +15,19 @@ prompt() {
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'\u@\h:'
+                PS1=$PS1'$USER@$HOST:'
             fi
-            PS1=$PS1'\w'
 
-            # Add sub-commands; VCS, job, and return status checks
-            PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret "$?")'
+            # Add sub-commands; working directory with ~ abbreviation, VCS,
+            # job, and return status checks
+            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)'
+
+            # If this is PDKSH, add the exit code of the previous command; this
+            # doesn't seem to work on ksh93, probably different timing for when
+            # $? is set
+            case $KSH_VERSION in
+                *'PD KSH'*) PS1=$PS1'$(prompt ret "$?")'
+            esac
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
@@ -70,7 +74,7 @@ prompt() {
             } >/dev/null 2>&1
 
             # String it all together
-            PS1='\['"$format"'\]'"$PS1"'\['"$reset"'\] '
+            PS1="${format}${PS1}${reset}"' '
             PS2='> '
             PS3='? '
             PS4='+<$?> $LINENO:'
@@ -159,6 +163,14 @@ prompt() {
             PS4='+ '
             ;;
 
+        # Abbreviated working directory
+        pwd)
+            case $PWD in
+                "$HOME"|"$HOME"/*) printf ~%s "${PWD#"$HOME"}" ;;
+                *) printf %s "$PWD" ;;
+            esac
+            ;;
+
         # VCS wrapper prompt function; print the first relevant prompt, if any
         vcs)
             typeset vcs
@@ -169,7 +181,7 @@ prompt() {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            local ret=$2
+            typeset ret=$2
             ((ret)) && printf '<%u>' "$ret"
             ;;
 

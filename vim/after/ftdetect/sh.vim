@@ -9,7 +9,7 @@ augroup dfsh
 
   " Names/paths of things that are Korn shell script
   autocmd BufNewFile,BufRead
-      \ **/.dotfiles/pdksh/**,.pdkshrc,*.pdksh
+      \ **/.dotfiles/ksh/**,.kshrc,*.ksh
       \ let b:is_kornshell = 1 |
       \ setlocal filetype=sh
 
