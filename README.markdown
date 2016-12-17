@@ -255,9 +255,8 @@ Otherwise, they're all loaded on startup.
 
 #### Korn shell
 
-The `ksh` configuration files and functions are not nearly as featureful as the
-Bash ones. At the moment these are mainly being maintained for use on OpenBSD
-`pdksh`.
+These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
+`ksh93`, and OpenBSD `pdksh`.
 
 `ksh`, `ksh93`, `pdksh`, and `mksh` shells default to having a prompt coloured
 yellow.
