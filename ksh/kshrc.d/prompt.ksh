@@ -39,8 +39,10 @@ prompt() {
             # level, taking tmux sessions into account, assuming this version
             # of ksh does SHLVL (I think only ksh93 does it
             typeset shlvl
-            for ((shlvl = SHLVL - TMUX_SHLVL; shlvl > 1; shlvl--)) ; do
+            ((shlvl = SHLVL - TMUX_SHLVL))
+            while ((shlvl > 1)); do
                 PS1='>'$PS1
+                ((shlvl--))
             done
 
             # Declare variables to contain terminal control strings
