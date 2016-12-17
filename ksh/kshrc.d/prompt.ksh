@@ -177,7 +177,7 @@ prompt() {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            local ret=$2
+            typeset ret=$2
             ((ret)) && printf '<%u>' "$ret"
             ;;
 
