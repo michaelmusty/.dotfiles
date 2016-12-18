@@ -16,8 +16,8 @@ set-environment -gru SHLVL
 set-option -g update-environment ''
 
 # Setting this makes each new pane a non-login shell, which suits me better
-set-option -g default-command "exec $SHELL"
-set-option -g default-shell "/bin/sh"
+# Clear away SHLVL again first to stop it getting incremented twice
+set-option -g default-command "unset SHLVL ; exec $SHELL"
 
 # Expect a 256-color terminal
 set-option -g default-terminal 'screen-256color'
