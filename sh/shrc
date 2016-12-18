@@ -21,4 +21,4 @@ done
 unset -v sh
 
 # If ENV_EXT was set and exists, source that too
-[ -f "$ENV_EXT" ] && . "$ENV_EXT"
+[ -e "$ENV_EXT" ] && . "$ENV_EXT"
