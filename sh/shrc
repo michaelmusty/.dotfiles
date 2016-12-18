@@ -19,3 +19,6 @@ for sh in "$HOME"/.shrc.d/*.sh ; do
     [ -e "$sh" ] && . "$sh"
 done
 unset -v sh
+
+# If ENV_EXT was set and exists, source that too
+[ -f "$ENV_EXT" ] && . "$ENV_EXT"

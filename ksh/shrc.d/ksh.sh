@@ -30,8 +30,5 @@ fi
 # If KSH_ENV isn't already set, set it
 [ -n "$KSH_ENV" ] || KSH_ENV=$HOME/.kshrc
 
-# Check the file named in KSH_ENV exists
-[ -f "$KSH_ENV" ] || return
-
-# Source it (finally)
-. "$KSH_ENV"
+# If ENV_EXT isn't already set, set it
+[ -n "$ENV_EXT" ] || ENV_EXT=$KSH_ENV
