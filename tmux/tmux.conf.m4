@@ -8,6 +8,9 @@ set-environment -gru SSH_CONNECTION
 set-environment -gru SSH_TTY
 set-environment -gru WINDOWID
 
+# Reset SHLVL
+set-environment -gru SHLVL
+
 # Otherwise, use the environment we had when we started; don't touch it during
 # a session unless I specifically ask
 set-option -g update-environment ''

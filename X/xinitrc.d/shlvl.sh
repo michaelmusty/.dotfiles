@@ -1,0 +1,2 @@
+# Reset SHLVL
+unset SHLVL

@@ -35,15 +35,12 @@ function prompt {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
-            # Add > signs at the front of the prompt to show the current shell
-            # level, taking tmux sessions into account, assuming this version
-            # of ksh does SHLVL; I think only ksh93t+ does it from what I can
-            # tell
+            # Add > symbols to show nested shells
             typeset shlvl
-            ((shlvl = SHLVL - TMUX_SHLVL))
-            while ((shlvl > 1)); do
+            shlvl=1
+            while ((shlvl < SHLVL)); do
                 PS1='>'$PS1
-                ((shlvl--))
+                ((shlvl++))
             done
 
             # Declare variables to contain terminal control strings

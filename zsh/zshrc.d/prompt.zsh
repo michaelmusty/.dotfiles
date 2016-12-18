@@ -32,10 +32,9 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'%#'
 
-            # Add > signs at the front of the prompt to show the current shell
-            # level, taking tmux sessions into account
+            # Add > symbols to show nested shells
             local shlvl
-            for ((shlvl = SHLVL - TMUX_SHLVL; shlvl > 1; shlvl--)) ; do
+            for ((shlvl = 1; shlvl < SHLVL; shlvl++)) ; do
                 PS1='>'$PS1
             done
 
