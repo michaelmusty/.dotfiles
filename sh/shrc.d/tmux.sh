@@ -17,3 +17,12 @@ tmux() {
     # Execute with concluded arguments
     command tmux "$@"
 }
+
+# If we have a SHLVL set from one of the shells that does that (bash, ksh93,
+# zsh), then set a SHLVL-derived value that takes tmux into account if we
+# haven't already. This can be used to show the current SHLVL in the prompt for
+# more advanced shells.
+if [ -n "$SHLVL" ] && [ -n "$TMUX" ] && [ -z "$TMUX_SHLVL" ] ; then
+    TMUX_SHLVL=$((SHLVL - 1))
+    export TMUX_SHLVL
+fi
