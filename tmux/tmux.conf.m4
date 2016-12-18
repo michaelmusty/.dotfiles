@@ -9,6 +9,8 @@ set-environment -gru SSH_TTY
 set-environment -gru WINDOWID
 
 # Reset SHLVL
+# This doesn't work quite right yet; if your SHELL is something that increments
+# SHLVL, it gets incremented twice; need to figure out a clean solution to this
 set-environment -gru SHLVL
 
 # Otherwise, use the environment we had when we started; don't touch it during
@@ -17,10 +19,6 @@ set-option -g update-environment ''
 
 # Setting this makes each new pane a non-login shell, which suits me better
 set-option -g default-command "$SHELL"
-
-# Set the default shell to /bin/sh to parse commands to be just a little bit
-# quicker, and to avoid incrementing SHLVL twice
-set-option -g default-shell "/bin/sh"
 
 # Expect a 256-color terminal
 set-option -g default-terminal 'screen-256color'
