@@ -1,5 +1,3 @@
 # Zsh doesn't source ~/.profile by default, even when this file is absent.
 # <https://sanctum.geek.nz/images/identifying-heresy.jpg>
-if [[ -e $HOME/.profile ]] ; then
-    source "$HOME"/.profile
-fi
+[[ -e $HOME/.profile ]] && source "$HOME"/.profile
