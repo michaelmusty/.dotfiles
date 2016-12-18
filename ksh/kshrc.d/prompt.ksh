@@ -1,5 +1,5 @@
 # Frontend to controlling prompt
-prompt() {
+function prompt {
 
     # If no arguments, print the prompt strings as they are
     if ! (($#)) ; then
@@ -15,12 +15,12 @@ prompt() {
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'$USER@$HOST:'
+                PS1=$PS1'$USER@${HOSTNAME%%.*}:'
             fi
 
             # Add sub-commands; working directory with ~ abbreviation, VCS,
-            # job, and return status checks
-            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)'
+            # job, and ksh version code
+            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)$(prompt ver)'
 
             # If this is PDKSH, add the exit code of the previous command; this
             # doesn't seem to work on ksh93, probably different timing for when
@@ -34,6 +34,17 @@ prompt() {
 
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
+
+            # Add > signs at the front of the prompt to show the current shell
+            # level, taking tmux sessions into account, assuming this version
+            # of ksh does SHLVL; I think only ksh93t+ does it from what I can
+            # tell
+            typeset shlvl
+            ((shlvl = SHLVL - TMUX_SHLVL))
+            while ((shlvl > 1)); do
+                PS1='>'$PS1
+                ((shlvl--))
+            done
 
             # Declare variables to contain terminal control strings
             typeset format reset
@@ -190,6 +201,16 @@ prompt() {
             typeset -i jobc
             jobc=$(jobs -p | sed -n '$=')
             ((jobc)) && printf '{%u}' "$jobc"
+            ;;
+
+        # Show a short code denoting the ksh flavour, if it can be gleaned from
+        # KSH_VERSION
+        ver)
+            case $KSH_VERSION in
+                *'PD KSH'*)     printf %s ':pd' ;;
+                *'MIRBSD KSH'*) printf %s ':mk' ;;
+                *' 93'*)        printf %s ':93' ;;
+            esac
             ;;
 
         # Print error
