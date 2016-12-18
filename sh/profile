@@ -7,8 +7,8 @@ for sh in "$HOME"/.profile.d/*.sh ; do
 done
 unset -v sh
 
-# If ENV is still unset, and ~/.shinit exists, use that
-if [ -z "$ENV" ] && [ -f "$HOME"/.shinit ] ; then
+# If ~/.shinit exists, set ENV to that
+if [ -f "$HOME"/.shinit ] ; then
     ENV=$HOME/.shinit
     export ENV
 fi
