@@ -190,7 +190,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `pd()` changes to the argument's parent directory.
-*   `pwgen()` generates just one decent password with `pwgen(1)`.
 *   `rd()` replaces the first instance of its first argument with its second
     argument in `$PWD`, emulating a feature of the Zsh `cd` builtin that I
     like.
@@ -473,6 +472,7 @@ Installed by the `install-bin` target:
 *   `plmu(1df)` retrieves a list of installed modules from
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
+*   `pwg(1df)` generates just one decent password with `pwgen(1)`.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.

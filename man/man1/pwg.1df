@@ -1,0 +1,16 @@
+.TH PWG 1df "December 2016" "Manual page for pwg"
+.SH NAME
+.B pwg
+\- generate just one secure password without symbols with pwgen(1)
+.SH SYNOPSIS
+.B pwg
+.SH DESCRIPTION
+.B pwg
+with no arguments runs pwgen(1) with the --secure options and arguments for one
+password of fifteen alphanumeric characters, to avoid pwgen(1)'s unusual
+default of generating very many relatively low-quality passwords, which is
+never what the author wants.
+.P
+If any arguments are provided, it simply passes these to pwgen(1) untouched.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
