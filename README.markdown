@@ -38,7 +38,7 @@ Tools
 
 Configuration is included for:
 
-*   Bourne-style POSIX shells:
+*   Bourne-style POSIX shells, sharing an `ENV` file and functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
     *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
     *   [Yash](https://yash.osdn.jp/index.html.en)
