@@ -12,8 +12,6 @@ Known issues
     git-reflog(1) calls
 *   I can probably share my psql() completions/shortcuts after sanitizing them
     a bit
-*   A key binding for importing sections of the screen and optionally uploading
-    it would be great, probably using ImageMagick import(1)
 *   sxhkd(1) might be nicer than xbindkeys; it's in Debian Testing now
 *   dr(1df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
