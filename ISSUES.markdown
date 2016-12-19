@@ -18,5 +18,3 @@ Known issues
 *   dr(1df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
     they succeed? Did I do that or is it Bash?
-*   typeset in ksh93 does not seem to make the variable local, maybe I'm
-    missing some magic
