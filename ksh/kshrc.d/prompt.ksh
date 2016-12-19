@@ -81,8 +81,13 @@ function prompt {
 
             } >/dev/null 2>&1
 
+            # Play ball with ksh's way of escaping non-printing characters
+            typeset es nl
+            es=$(printf '\00')
+            nl=$(printf '\n')
+
             # String it all together
-            PS1="${format}${PS1}${reset}"' '
+            PS1="${es}${nl}${es}${format}${es}${PS1}${es}${reset}${es}"' '
             PS2='> '
             PS3='? '
             PS4='+<$?> $LINENO:'
