@@ -475,7 +475,7 @@ Installed by the `install-bin` target:
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
-*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds
+*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
