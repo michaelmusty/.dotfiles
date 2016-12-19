@@ -21,6 +21,7 @@ if [ -z "$KSH_VERSION" ] ; then
 
     # Test whether we have content in the .sh.version variable. Suppress errors
     # and run it in a subshell to work around parsing error precedence.
+    # shellcheck disable=SC2154
     ( test -n "${.sh.version}" ) 2>/dev/null || return
 
     # If that peculiarly named variable was set, then that's our KSH_VERSION
