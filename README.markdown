@@ -38,8 +38,12 @@ Tools
 
 Configuration is included for:
 
+*   Bourne-style POSIX shells:
+    *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
+    *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
+    *   [Yash](https://yash.osdn.jp/index.html.en)
+    *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
-*   [Bash](https://www.gnu.org/software/bash/) -- GNU Bourne-Again Shell,
     including a `~/.profile` configured to work with most Bourne-compatible
     shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
@@ -53,7 +57,6 @@ Configuration is included for:
 *   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
-*   [Korn shell](http://www.kornshell.com/) -- Korn shell and its derivatives
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
@@ -78,10 +81,6 @@ Configuration is included for:
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network
     transparency for Unix
-*   [Yash](https://yash.osdn.jp/index.html.en) -- Yet another shell; just
-    enough configuration to make it read the portable POSIX stuff
-*   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
-    use
 
 The configurations for shells, GnuPG, Mutt, tmux, and Vim are the most
 expansive, and most likely to be of interest. The i3 configuration is mostly
