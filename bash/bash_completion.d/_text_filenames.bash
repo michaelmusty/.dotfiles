@@ -40,9 +40,8 @@ _text_filenames() {
             *.AUP|*.FLAC|*.MID|*.H2SONG|*.NWC|*.S3M|*.WAV) ;;
 
             # Compressed/archived file formats
-            # (Yes I know Vim can read these)
-            *.bz2|*.cab|*.deb|*.gz|*.lzm|*.pack|*.tar|*.xz|*.zip) ;;
-            *.BZ2|*.CAB|*.DEB|*.GZ|*.LZM|*.PACK|*.TAR|*.XZ|*.ZIP) ;;
+            *.cab|*.deb|*.lzm|*.pack|*.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.zip) ;;
+            *.CAB|*.DEB|*.LZM|*.PACK|*.TAR|*.TAR.BZ2|*.TAR.GZ|*.TAR.XZ|*.ZIP) ;;
 
             # Document formats
             *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
