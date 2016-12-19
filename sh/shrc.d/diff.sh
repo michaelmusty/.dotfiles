@@ -1,14 +1,14 @@
-# Use a unified format for diff(1) by default
+# Use a unified format for diff(1) by default if two files and no options given
 diff() {
     if (
         for arg ; do
             case $arg in
-                -*) shift ;;
                 --) shift ; break ;;
+                -*) return 1 ;;
                 *) break ;;
             esac
         done
-        [ "$#" -gt 1 ]
+        [ "$#" -eq 2 ]
     ) ; then
         set -- -u "$@"
     fi
