@@ -19,8 +19,8 @@ function prompt {
             fi
 
             # Add sub-commands; working directory with ~ abbreviation, VCS,
-            # job, and ksh version code
-            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)$(prompt ver)'
+            # and job count
+            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)'
 
             # If this is PDKSH, add the exit code of the previous command; this
             # doesn't seem to work on ksh93, probably different timing for when
@@ -198,16 +198,6 @@ function prompt {
             typeset -i jobc
             jobc=$(jobs -p | sed -n '$=')
             ((jobc)) && printf '{%u}' "$jobc"
-            ;;
-
-        # Show a short code denoting the ksh flavour, if it can be gleaned from
-        # KSH_VERSION
-        ver)
-            case $KSH_VERSION in
-                *'PD KSH'*)     printf %s ':pd' ;;
-                *'MIRBSD KSH'*) printf %s ':mk' ;;
-                *' 93'*)        printf %s ':93' ;;
-            esac
             ;;
 
         # Print error
