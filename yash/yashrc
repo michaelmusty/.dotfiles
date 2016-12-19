@@ -1,3 +1,9 @@
 # Load POSIX interactive shell startup files, because Yash won't do it if not
 # invoked as sh(1)
 [ -e "$ENV" ] && . "$ENV"
+
+# Load Bash-specific startup files
+for sh in "$HOME"/.yashrc.d/*.yash ; do
+    [ -e "$sh" ] && . "$sh"
+done
+unset -v sh

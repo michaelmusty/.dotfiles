@@ -383,8 +383,10 @@ install-x :
 	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
 install-yash : check-yash install-sh
-	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
+	install -m 0755 -d -- "$(HOME)"/.yashrc.d
 	install -pm 0644 -- yash/yash_profile "$(HOME)"/.yash_profile
+	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
+	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
 install-zsh : install-sh
 	install -m 0755 -d -- "$(HOME)"/.zshrc.d
