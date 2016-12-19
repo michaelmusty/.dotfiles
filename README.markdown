@@ -183,8 +183,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     depending on the capabilities of the system `grep(1)`.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
-*   `lhn()` gets the history number of the last command, if the POSIX `fc`
-    builtin is available.
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
