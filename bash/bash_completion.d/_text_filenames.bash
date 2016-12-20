@@ -50,8 +50,9 @@ _text_filenames() {
             *.CAB|*.DEB|*.LZM|*.PACK|*.TAR|*.TAR.BZ2|*.TAR.GZ|*.TAR.XZ|*.ZIP) ;;
 
             # Document formats
-            *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
-            *.CBR|*.DOC|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
+            # (Not .doc, it's a plaintext format sometimes)
+            *.cbr|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
+            *.CBR|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
 
             # Filesystems/disk images
             *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;
