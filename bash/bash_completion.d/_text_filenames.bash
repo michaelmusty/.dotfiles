@@ -12,13 +12,13 @@ _text_filenames() {
     while IFS= read -r item ; do
 
         # Exclude blanks
-        [[ -n $item ]] || return
+        [[ -n $item ]] || continue
 
         # Exclude files with block, character, pipe, or socket type
-        [[ ! -b $item ]] || return
-        [[ ! -c $item ]] || return
-        [[ ! -p $item ]] || return
-        [[ ! -S $item ]] || return
+        [[ ! -b $item ]] || continue
+        [[ ! -c $item ]] || continue
+        [[ ! -p $item ]] || continue
+        [[ ! -S $item ]] || continue
 
         # Check the filename extension to know what to exclude
         case $item in
