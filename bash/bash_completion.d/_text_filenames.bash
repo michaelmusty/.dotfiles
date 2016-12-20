@@ -14,6 +14,12 @@ _text_filenames() {
         # Exclude blanks
         [[ -n $item ]] || continue
 
+        # Accept directories
+        if [[ -d $item ]] ; then
+            COMPREPLY[${#COMPREPLY[@]}]=$item
+            continue
+        fi
+
         # Exclude files with block, character, pipe, or socket type
         [[ ! -b $item ]] || continue
         [[ ! -c $item ]] || continue
