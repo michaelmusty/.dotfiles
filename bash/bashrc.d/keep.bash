@@ -124,7 +124,7 @@ EOF
 
     # Deleting is an error, since we need at least one argument
     if ((delete)) ; then
-        printf 'bash: %s: must specify at least one NAME to delete\n'
+        printf 'bash: %s: must specify at least one NAME to delete\n' \
             "${FUNCNAME[0]}" >&2
         return 2
     fi

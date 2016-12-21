@@ -11,7 +11,7 @@ vared() {
                 prompt=$OPTARG
                 ;;
             \?)
-                printf 'bash: %s: -%s: invalid option\n'
+                printf 'bash: %s: -%s: invalid option\n' \
                     "${FUNCNAME[0]}" "$opt" >&2
                 return 2
                 ;;

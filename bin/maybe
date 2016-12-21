@@ -15,7 +15,7 @@ esac
 
 # Numerator must be zero or greater, denominator must be 1 or greater
 if [ "$((num >= 0 || den >= 1))" -ne 1 ] ; then
-    printf >&2 '%s: Illegal numerator/denominator %s\n' "$self"
+    printf >&2 '%s: Illegal numerator/denominator %s\n' "$self" "$num"
     exit 2
 fi
 
