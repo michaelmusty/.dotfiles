@@ -1,0 +1,10 @@
+#!/bin/sh
+# Run a command and print a string to stdout showing pass/fail
+"$@"
+ex=$?
+case $ex in
+    0) op='true'  ;;
+    *) op='false' ;;
+esac
+printf '%s\n' "$op"
+exit "$ex"

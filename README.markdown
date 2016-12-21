@@ -491,6 +491,9 @@ Installed by the `install-bin` target:
     it finds a Makefile for which to run `make(1)` with the given arguments.
 *   `uts(1df)` gets the current UNIX timestamp in an unorthodox way that should
     work on all POSIX-compliant operating systems.
+*   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
+*   `vex(1df)` runs a command and prints `true` or `false` explicitly to
+    `stdout` based on the exit value.
 
 There's some silly stuff in `install-games`:
 

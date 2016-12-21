@@ -1,0 +1,21 @@
+.TH VEX 1df "December 2016" "Manual page for vex"
+.SH NAME
+.B vex
+\- run a command and print true/false to stdout for success/failure
+.SH SYNOPSIS
+.B vex
+true
+.br
+.B vex
+test -f /foo/bar/baz
+.SH DESCRIPTION
+.B vex
+runs the command given in its arguments, and prints "true" or "false" as the
+last line of stdout based on the command's exit value. It does not interfere
+with any output or error from the command itself.
+.P
+The exit value is the same as the command wrapped.
+.SH SEE ALSO
+vest(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
