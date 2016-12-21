@@ -171,8 +171,7 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    because the various shells have different ways of listing exported
-    variables.
+    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use,
