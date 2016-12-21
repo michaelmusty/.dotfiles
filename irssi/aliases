@@ -1,0 +1,14 @@
+#
+# I don't think irssi lets you specify include files for configuration, and
+# you're not really supposed to edit it manually, but here are some commands to
+# create aliases to use the text files for tools in section 6.
+#
+# I'd love to know if there's a better way to do these; maybe I should make a
+# proper plugin?
+#
+alias aesth exec - -out printf %s "$*" | aesth
+alias drakon exec - -out printf %s "$*" | drakon
+alias kvlt exec - -out printf %s "$*" | kvlt
+alias rot13 exec - -out printf %s "$*" | rot13
+alias strik exec - -out printf %s "$*" | strik
+alias zs exec - -out printf %s "$*" | zs
