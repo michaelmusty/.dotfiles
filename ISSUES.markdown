@@ -16,3 +16,5 @@ Known issues
 *   dr(1df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
     they succeed? Did I do that or is it Bash?
+*   mksh(1) when running keep() prints out variables with a "typeset" prefix
+    that seems to mask them when read back in
