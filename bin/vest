@@ -1,2 +1,6 @@
 #!/bin/sh
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'vest: Need test(1) arguments\n'
+    exit 2
+fi
 vex test "$@"
