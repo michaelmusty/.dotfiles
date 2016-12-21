@@ -259,9 +259,7 @@ Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 #### Zsh
 
 These are experimental; I do not like Zsh much at the moment. The files started
-as a joke (`exec bash`).
-
-`zsh` shells default to having a prompt coloured cyan.
+as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 ### GnuPG
 
