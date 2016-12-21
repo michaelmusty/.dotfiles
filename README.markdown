@@ -249,10 +249,8 @@ Otherwise, they're all loaded on startup.
 #### Korn shell
 
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
-`ksh93`, and OpenBSD `pdksh`.
-
-`ksh`, `ksh93`, `pdksh`, and `mksh` shells default to having a prompt coloured
-yellow.
+`ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
+prompt if detected.
 
 #### Yash
 
