@@ -147,6 +147,6 @@ EOF
 
 # Load any existing scripts in kshkeep
 for kshkeep in "${KSHKEEP:-"$HOME"/.kshkeep.d}"/*.ksh ; do
-    [[ -e $kshkeep ]] && source "$kshkeep"
+    [[ -e $kshkeep ]] && . "$kshkeep"
 done
 unset -v kshkeep
