@@ -211,10 +211,10 @@ There are a few other little tricks defined for other shells:
 *   `prompt()` sets up my interactive prompt (Bash, Korn Shell, Z shell).
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin
     (Bash).
-*   `ver()` prints the current shell's version information (Bash, Korn Shell,
-    Yash, Z shell).
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name (Bash).
+*   `ver()` prints the current shell's version information (Bash, Korn Shell,
+    Yash, Z shell).
 
 #### Completion
 
