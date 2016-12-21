@@ -213,6 +213,7 @@ There are a few other little tricks defined for other shells, mostly in
 *   `keep()` stores ad-hoc shell functions and variables.
 *   `prompt()` sets up my interactive prompt.
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
+*   `ver()` prints the current shell's version information.
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name.
 
