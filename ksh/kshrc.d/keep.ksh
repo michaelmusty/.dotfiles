@@ -1,3 +1,10 @@
+# Limit to ksh93; most of this works in mksh, but not all of it, and pdksh
+# doesn't have a `typeset -p` that includes printable values at all.
+case $KSH_VERSION in
+    *' 93'*) ;;
+    *) return ;;
+esac
+
 #
 # keep -- Main function for kshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
@@ -114,7 +121,7 @@ EOF
                             ((errors++))
 
                     # Save a variable
-                    elif [[ -n "$name" ]] ; then
+                    elif [[ -v "$name" ]] ; then
                         typeset -p -- "$name" >"$kshkeep"/"$name".ksh ||
                             ((errors++))
                     fi
@@ -147,6 +154,6 @@ EOF
 
 # Load any existing scripts in kshkeep
 for kshkeep in "${KSHKEEP:-"$HOME"/.kshkeep.d}"/*.ksh ; do
-    [[ -e $kshkeep ]] && . "$kshkeep"
+    [[ -e $kshkeep ]] && source "$kshkeep"
 done
 unset -v kshkeep
