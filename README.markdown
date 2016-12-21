@@ -97,12 +97,11 @@ system and the software it has available.
 
 Configuration that should be sourced for all POSIX-fearing interactive shells
 is kept in `~/.shrc`, with subscripts read from `~/.shrc.d`. There's a shim in
-`~/.shinit` to act as `ENV`.
+`~/.shinit` to act as `ENV`. I make an effort to target POSIX for my functions
+and scripts where I can so that the same files can be loaded for all shells.
 
-I make an effort to target POSIX for my functions and scripts where I can, but
-Bash is my interactive shell of choice. My `.bash_profile` calls `.profile`,
-and then `.bashrc`, which only applies for interactive shells. Subscripts for
-`.bashrc` are loaded from `.bashrc.d`.
+On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell, preferably
+`ksh93` if it's available.
 
 As I occasionally have work on very old internal systems, my Bash is written to
 work with [any version 2.05a or
