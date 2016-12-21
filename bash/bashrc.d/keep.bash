@@ -90,7 +90,7 @@ EOF
 
                 # NAME must start with letters or an underscore, and contain no
                 # characters besides letters, numbers, or underscores
-                *[^a-zA-Z0-9_]*|[^a-zA-Z_]*)
+                *[!a-zA-Z0-9_]*|[!a-zA-Z_]*)
                     printf 'bash: %s: %s not a valid NAME\n' \
                         "${FUNCNAME[0]}" "$name" >&2
                     ((errors++))
