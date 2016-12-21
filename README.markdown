@@ -207,15 +207,16 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     repository.
 *   `x()` is a one-key shortcut for `exec startx`.
 
-There are a few other little tricks defined for other shells, mostly in
-`bash/bashrc.d`:
+There are a few other little tricks defined for other shells:
 
-*   `keep()` stores ad-hoc shell functions and variables.
-*   `prompt()` sets up my interactive prompt.
-*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
-*   `ver()` prints the current shell's version information.
+*   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93).
+*   `prompt()` sets up my interactive prompt (Bash, Korn Shell, Z shell).
+*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin
+    (Bash).
+*   `ver()` prints the current shell's version information (Bash, Korn Shell,
+    Yash, Z shell).
 *   `vared()` allows interactively editing a variable with Readline, emulating
-    a Zsh function I like by the same name.
+    a Zsh function I like by the same name (Bash).
 
 #### Completion
 
