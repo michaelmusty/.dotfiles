@@ -121,7 +121,7 @@ EOF
                             ((errors++))
 
                     # Save a variable
-                    elif [[ -v "$name" ]] ; then
+                    elif [[ -n "$name" ]] ; then
                         typeset -p -- "$name" >"$kshkeep"/"$name".ksh ||
                             ((errors++))
                     fi
