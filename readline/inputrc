@@ -73,8 +73,6 @@ $if Bash
 
     # Alt-M (for muxer) to run tmux
     "\em": "\C-utmux\C-j\C-y"
-    # Alt-T (for todo) to edit my to-do file with td(1df)
-    "\et": "\C-atd\C-j\C-y"
 
     # Ctrl-Alt-B to move backward a shell-quoted word
     "\e\C-b": shell-backward-word
