@@ -71,10 +71,6 @@ $if Bash
     # Alt-S (for set) to wrap current command in (set -x ; ...)
     "\es": "\C-a(set -x ; \C-e)\C-b"
 
-    # Alt-H (for home) to go $HOME
-    "\eh": "\C-ucd\C-j\C-y"
-    # Alt-L (for ls) to run ls -Al
-    "\el": "\C-uls -Al\C-j\C-y"
     # Alt-M (for muxer) to run tmux
     "\em": "\C-utmux\C-j\C-y"
     # Alt-T (for todo) to edit my to-do file with td(1df)
