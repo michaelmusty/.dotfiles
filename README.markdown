@@ -207,7 +207,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 There are a few other little tricks defined for other shells:
 
-*   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93).
+*   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93,
+    Z shell).
 *   `prompt()` sets up my interactive prompt (Bash, Korn Shell, Z shell).
 *   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin
     (Bash).
