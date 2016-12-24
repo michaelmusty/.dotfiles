@@ -58,19 +58,18 @@ function prompt {
                 # Check if we have non-bold bright yellow available
                 if ((colors >= 16)) ; then
                     format=$(
-                        : "${PROMPT_COLOR:=11}"
-                        tput setaf "$PROMPT_COLOR" ||
-                        tput setaf "$PROMPT_COLOR" 0 0 ||
-                        tput AF "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR" 0 0
+                        pc=${PROMPT_COLOR:-11}
+                        tput setaf "$pc" ||
+                        tput setaf "$pc" 0 0 ||
+                        tput AF "$pc" ||
+                        tput AF "$pc" 0 0
                     )
 
                 # If we have only eight colors, use bold yellow
                 elif ((colors >= 8)) ; then
                     format=$(
-                        : "${PROMPT_COLOR:=3}"
-                        tput setaf "$PROMPT_COLOR" ||
-                        tput AF "$PROMPT_COLOR"
+                        pc=${PROMPT_COLOR:-3}
+                        tput setaf "$pc" || tput AF "$pc"
                         tput bold || tput md
                     )
 
@@ -81,8 +80,13 @@ function prompt {
 
             } >/dev/null 2>&1
 
+            # Play ball with ksh's way of escaping non-printing characters
+            typeset es nl
+            es=$(printf '\00')
+            nl=$(printf '\n')
+
             # String it all together
-            PS1="${format}${PS1}${reset}"' '
+            PS1="${es}${nl}${es}${format}${es}${PS1}${es}${reset}${es}"' '
             PS2='> '
             PS3='? '
             PS4='+<$?> $LINENO:'

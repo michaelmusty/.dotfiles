@@ -12,13 +12,19 @@ _text_filenames() {
     while IFS= read -r item ; do
 
         # Exclude blanks
-        [[ -n $item ]] || return
+        [[ -n $item ]] || continue
+
+        # Accept directories
+        if [[ -d $item ]] ; then
+            COMPREPLY[${#COMPREPLY[@]}]=$item
+            continue
+        fi
 
         # Exclude files with block, character, pipe, or socket type
-        [[ ! -b $item ]] || return
-        [[ ! -c $item ]] || return
-        [[ ! -p $item ]] || return
-        [[ ! -S $item ]] || return
+        [[ ! -b $item ]] || continue
+        [[ ! -c $item ]] || continue
+        [[ ! -p $item ]] || continue
+        [[ ! -S $item ]] || continue
 
         # Check the filename extension to know what to exclude
         case $item in
@@ -40,13 +46,13 @@ _text_filenames() {
             *.AUP|*.FLAC|*.MID|*.H2SONG|*.NWC|*.S3M|*.WAV) ;;
 
             # Compressed/archived file formats
-            # (Yes I know Vim can read these)
-            *.bz2|*.cab|*.deb|*.gz|*.lzm|*.pack|*.tar|*.xz|*.zip) ;;
-            *.BZ2|*.CAB|*.DEB|*.GZ|*.LZM|*.PACK|*.TAR|*.XZ|*.ZIP) ;;
+            *.cab|*.deb|*.lzm|*.pack|*.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.zip) ;;
+            *.CAB|*.DEB|*.LZM|*.PACK|*.TAR|*.TAR.BZ2|*.TAR.GZ|*.TAR.XZ|*.ZIP) ;;
 
             # Document formats
-            *.cbr|*.doc|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
-            *.CBR|*.DOC|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
+            # (Not .doc, it's a plaintext format sometimes)
+            *.cbr|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
+            *.CBR|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
 
             # Filesystems/disk images
             *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;

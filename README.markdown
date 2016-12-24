@@ -38,8 +38,12 @@ Tools
 
 Configuration is included for:
 
+*   Bourne-style POSIX shells, sharing an `ENV` file and functions:
+    *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
+    *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
+    *   [Yash](https://yash.osdn.jp/index.html.en)
+    *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
-*   [Bash](https://www.gnu.org/software/bash/) -- GNU Bourne-Again Shell,
     including a `~/.profile` configured to work with most Bourne-compatible
     shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
@@ -53,7 +57,6 @@ Configuration is included for:
 *   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
-*   [Korn shell](http://www.kornshell.com/) -- Korn shell and its derivatives
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
@@ -78,10 +81,6 @@ Configuration is included for:
     frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network
     transparency for Unix
-*   [Yash](https://yash.osdn.jp/index.html.en) -- Yet another shell; just
-    enough configuration to make it read the portable POSIX stuff
-*   [Zsh](https://www.zsh.org/) -- Bourne-style shell designed for interactive
-    use
 
 The configurations for shells, GnuPG, Mutt, tmux, and Vim are the most
 expansive, and most likely to be of interest. The i3 configuration is mostly
@@ -98,12 +97,11 @@ system and the software it has available.
 
 Configuration that should be sourced for all POSIX-fearing interactive shells
 is kept in `~/.shrc`, with subscripts read from `~/.shrc.d`. There's a shim in
-`~/.shinit` to act as `ENV`.
+`~/.shinit` to act as `ENV`. I make an effort to target POSIX for my functions
+and scripts where I can so that the same files can be loaded for all shells.
 
-I make an effort to target POSIX for my functions and scripts where I can, but
-Bash is my interactive shell of choice. My `.bash_profile` calls `.profile`,
-and then `.bashrc`, which only applies for interactive shells. Subscripts for
-`.bashrc` are loaded from `.bashrc.d`.
+On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell, preferably
+`ksh93` if it's available.
 
 As I occasionally have work on very old internal systems, my Bash is written to
 work with [any version 2.05a or
@@ -167,15 +165,13 @@ If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-    `/usr/local/bin`, as long as they are unique, emulating a feature of the
-    Zsh `cd` builtin that I like.
+    `/usr/local/bin`, as long as they are unique.
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    because the various shells have different ways of listing exported
-    variables.
+    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use,
@@ -209,14 +205,17 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     repository.
 *   `x()` is a one-key shortcut for `exec startx`.
 
-There are a few other little tricks defined for other shells, mostly in
-`bash/bashrc.d`:
+There are a few other little tricks defined for other shells:
 
-*   `keep()` stores ad-hoc shell functions and variables.
-*   `prompt()` sets up my interactive prompt.
-*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
+*   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93,
+    Z shell).
+*   `prompt()` sets up my interactive prompt (Bash, Korn Shell, Z shell).
+*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin
+    (Bash).
 *   `vared()` allows interactively editing a variable with Readline, emulating
-    a Zsh function I like by the same name.
+    a Zsh function I like by the same name (Bash).
+*   `ver()` prints the current shell's version information (Bash, Korn Shell,
+    Yash, Z shell).
 
 #### Completion
 
@@ -251,10 +250,8 @@ Otherwise, they're all loaded on startup.
 #### Korn shell
 
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
-`ksh93`, and OpenBSD `pdksh`.
-
-`ksh`, `ksh93`, `pdksh`, and `mksh` shells default to having a prompt coloured
-yellow.
+`ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
+prompt if detected.
 
 #### Yash
 
@@ -263,9 +260,7 @@ Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 #### Zsh
 
 These are experimental; I do not like Zsh much at the moment. The files started
-as a joke (`exec bash`).
-
-`zsh` shells default to having a prompt coloured cyan.
+as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 ### GnuPG
 
@@ -476,7 +471,7 @@ Installed by the `install-bin` target:
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
-*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds
+*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
@@ -493,6 +488,9 @@ Installed by the `install-bin` target:
     it finds a Makefile for which to run `make(1)` with the given arguments.
 *   `uts(1df)` gets the current UNIX timestamp in an unorthodox way that should
     work on all POSIX-compliant operating systems.
+*   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
+*   `vex(1df)` runs a command and prints `true` or `false` explicitly to
+    `stdout` based on the exit value.
 
 There's some silly stuff in `install-games`:
 

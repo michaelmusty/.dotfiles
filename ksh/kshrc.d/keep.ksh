@@ -1,7 +1,14 @@
+# Limit to ksh93; most of this works in mksh, but not all of it, and pdksh
+# doesn't have a `typeset -p` that includes printable values at all.
+case $KSH_VERSION in
+    *' 93'*) ;;
+    *) return ;;
+esac
+
 #
-# keep -- Main function for bashkeep; provided with a list of NAMEs, whether
+# keep -- Main function for kshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
-# directory $BASHKEEP (defaults to ~/.bashkeep.d) with a .bash suffix, each of
+# directory $KSHKEEP (defaults to ~/.kshkeep.d) with a .ksh suffix, each of
 # which is reloaded each time this file is called. This allows you to quickly
 # arrange to keep that useful shell function or variable you made inline on
 # subsequent logins.
@@ -25,16 +32,20 @@
 #
 #   $ keep -d ayy
 #
-keep() {
+function keep {
+
+    # Name self
+    typeset self
+    self=keep
 
     # Figure out the directory to which we're reading and writing these scripts
-    local bashkeep
-    bashkeep=${BASHKEEP:-"$HOME"/.bashkeep.d}
-    mkdir -p -- "$bashkeep" || return
+    typeset kshkeep
+    kshkeep=${KSHKEEP:-"$HOME"/.kshkeep.d}
+    mkdir -p -- "$kshkeep" || return
 
     # Parse options
-    local opt delete
-    local OPTERR OPTIND OPTARG
+    typeset opt delete
+    typeset OPTERR OPTIND OPTARG
     while getopts 'dh' opt ; do
         case $opt in
 
@@ -46,18 +57,18 @@ keep() {
             # -h given; means show help
             h)
                 cat <<EOF
-${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing them to
-named scripts iterated on shell start, in \$BASHKEEP (defaults to
-~/.bashkeep.d).
+$self: Keep variables and functions in shell permanently by writing them to
+named scripts iterated on shell start, in \$KSHKEEP (defaults to
+~/.kshkeep.d).
 
 USAGE:
-  ${FUNCNAME[0]}
+  $self
     List all the current kept variables and functions
-  ${FUNCNAME[0]} NAME1 [NAME2 ...]
+  $self NAME1 [NAME2 ...]
     Write the current definition for the given NAMEs to keep files
-  ${FUNCNAME[0]} -d NAME1 [NAME2 ...]
+  $self -d NAME1 [NAME2 ...]
     Delete the keep files for the given NAMEs
-  ${FUNCNAME[0]} -h
+  $self -h
     Show this help
 
 EOF
@@ -66,8 +77,8 @@ EOF
 
             # Unknown other option
             \?)
-                printf 'bash: %s -%s: invalid option\n' \
-                    "${FUNCNAME[0]}" "$opt" >&2
+                printf 'ksh: %s -%s: invalid option\n' \
+                    "$self" "$opt" >&2
                 return 2
                 ;;
         esac
@@ -78,11 +89,11 @@ EOF
     if (($#)) ; then
 
         # Start keeping count of any errors
-        local -i errors
+        typeset -i errors
         errors=0
 
         # Iterate through the NAMEs given
-        local name
+        typeset name
         for name ; do
 
             # Check NAMEs for validity
@@ -91,8 +102,8 @@ EOF
                 # NAME must start with letters or an underscore, and contain no
                 # characters besides letters, numbers, or underscores
                 *[!a-zA-Z0-9_]*|[!a-zA-Z_]*)
-                    printf 'bash: %s: %s not a valid NAME\n' \
-                        "${FUNCNAME[0]}" "$name" >&2
+                    printf 'ksh: %s: %s not a valid NAME\n' \
+                        "$self" "$name" >&2
                     ((errors++))
                     ;;
 
@@ -101,17 +112,17 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash ||
+                        rm -- "$kshkeep"/"$name".ksh ||
                             ((errors++))
 
                     # Save a function
-                    elif [[ $(type -t "$name") = 'function' ]] ; then
-                        declare -f -- "$name" >"$bashkeep"/"$name".bash ||
+                    elif [[ $(whence -v "$name" 2>/dev/null) == *' is a function' ]] ; then
+                        typeset -f -- "$name" >"$kshkeep"/"$name".ksh ||
                             ((errors++))
 
                     # Save a variable
-                    elif declare -p -- "$name" >/dev/null ; then
-                        declare -p -- "$name" >"$bashkeep"/"$name".bash ||
+                    elif [[ -n "$name" ]] ; then
+                        typeset -p -- "$name" >"$kshkeep"/"$name".ksh ||
                             ((errors++))
                     fi
                     ;;
@@ -124,25 +135,25 @@ EOF
 
     # Deleting is an error, since we need at least one argument
     if ((delete)) ; then
-        printf 'bash: %s: must specify at least one NAME to delete\n' \
-            "${FUNCNAME[0]}" >&2
+        printf 'ksh: %s: must specify at least one NAME to delete\n' \
+            "$self" >&2
         return 2
     fi
 
     # Otherwise the user must want us to print all the NAMEs kept
     (
-        shopt -s dotglob nullglob
-        declare -a keeps
-        keeps=("$bashkeep"/*.bash)
-        keeps=("${keeps[@]##*/}")
-        keeps=("${keeps[@]%.bash}")
-        ((${#keeps[@]})) || exit 0
-        printf '%s\n' "${keeps[@]}"
+        typeset keep
+        for keep in "$kshkeep"/*.ksh ; do
+            [[ -f "$keep" ]] || break
+            keep=${keep##*/}
+            keep=${keep%.ksh}
+            printf '%s\n' "$keep"
+        done
     )
 }
 
-# Load any existing scripts in bashkeep
-for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
-    [[ -e $bashkeep ]] && source "$bashkeep"
+# Load any existing scripts in kshkeep
+for kshkeep in "${KSHKEEP:-"$HOME"/.kshkeep.d}"/*.ksh ; do
+    [[ -e $kshkeep ]] && source "$kshkeep"
 done
-unset -v bashkeep
+unset -v kshkeep

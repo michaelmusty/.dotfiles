@@ -1,7 +1,7 @@
 #
-# keep -- Main function for bashkeep; provided with a list of NAMEs, whether
+# keep -- Main function for zshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
-# directory $BASHKEEP (defaults to ~/.bashkeep.d) with a .bash suffix, each of
+# directory $ZSHKEEP (defaults to ~/.zshkeep.d) with a .zsh suffix, each of
 # which is reloaded each time this file is called. This allows you to quickly
 # arrange to keep that useful shell function or variable you made inline on
 # subsequent logins.
@@ -28,9 +28,9 @@
 keep() {
 
     # Figure out the directory to which we're reading and writing these scripts
-    local bashkeep
-    bashkeep=${BASHKEEP:-"$HOME"/.bashkeep.d}
-    mkdir -p -- "$bashkeep" || return
+    local zshkeep
+    zshkeep=${ZSHKEEP:-"$HOME"/.zshkeep.d}
+    mkdir -p -- "$zshkeep" || return
 
     # Parse options
     local opt delete
@@ -47,8 +47,8 @@ keep() {
             h)
                 cat <<EOF
 ${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing them to
-named scripts iterated on shell start, in \$BASHKEEP (defaults to
-~/.bashkeep.d).
+named scripts iterated on shell start, in \$ZSHKEEP (defaults to
+~/.zshkeep.d).
 
 USAGE:
   ${FUNCNAME[0]}
@@ -66,7 +66,7 @@ EOF
 
             # Unknown other option
             \?)
-                printf 'bash: %s -%s: invalid option\n' \
+                printf 'zsh: %s -%s: invalid option\n' \
                     "${FUNCNAME[0]}" "$opt" >&2
                 return 2
                 ;;
@@ -91,7 +91,7 @@ EOF
                 # NAME must start with letters or an underscore, and contain no
                 # characters besides letters, numbers, or underscores
                 *[!a-zA-Z0-9_]*|[!a-zA-Z_]*)
-                    printf 'bash: %s: %s not a valid NAME\n' \
+                    printf 'zsh: %s: %s not a valid NAME\n' \
                         "${FUNCNAME[0]}" "$name" >&2
                     ((errors++))
                     ;;
@@ -101,17 +101,17 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash ||
+                        rm -- "$zshkeep"/"$name".zsh ||
                             ((errors++))
 
                     # Save a function
-                    elif [[ $(type -t "$name") = 'function' ]] ; then
-                        declare -f -- "$name" >"$bashkeep"/"$name".bash ||
+                    elif [[ $(whence -w "$name") = *': function' ]] ; then
+                        declare -f -- "$name" >"$zshkeep"/"$name".zsh ||
                             ((errors++))
 
                     # Save a variable
                     elif declare -p -- "$name" >/dev/null ; then
-                        declare -p -- "$name" >"$bashkeep"/"$name".bash ||
+                        declare -p -- "$name" >"$zshkeep"/"$name".zsh ||
                             ((errors++))
                     fi
                     ;;
@@ -124,25 +124,24 @@ EOF
 
     # Deleting is an error, since we need at least one argument
     if ((delete)) ; then
-        printf 'bash: %s: must specify at least one NAME to delete\n' \
+        printf 'zsh: %s: must specify at least one NAME to delete\n' \
             "${FUNCNAME[0]}" >&2
         return 2
     fi
 
     # Otherwise the user must want us to print all the NAMEs kept
     (
-        shopt -s dotglob nullglob
         declare -a keeps
-        keeps=("$bashkeep"/*.bash)
+        keeps=("$zshkeep"/*.zsh(N))
         keeps=("${keeps[@]##*/}")
-        keeps=("${keeps[@]%.bash}")
+        keeps=("${keeps[@]%.zsh}")
         ((${#keeps[@]})) || exit 0
         printf '%s\n' "${keeps[@]}"
     )
 }
 
-# Load any existing scripts in bashkeep
-for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
-    [[ -e $bashkeep ]] && source "$bashkeep"
+# Load any existing scripts in zshkeep
+for zshkeep in "${ZSHKEEP:-"$HOME"/.zshkeep.d}"/*.zsh(N) ; do
+    [[ -e $zshkeep ]] && source "$zshkeep"
 done
-unset -v bashkeep
+unset -v zshkeep

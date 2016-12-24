@@ -1,0 +1,19 @@
+.TH VEST 1df "December 2016" "Manual page for vest"
+.SH NAME
+.B vest
+\- run a test(1) command and print true/false to stdout for success/failure
+.SH SYNOPSIS
+.B vest
+\-f /foo/bar/baz
+.br
+.B vest
+\-s /etc/hostname
+.SH DESCRIPTION
+.B vest
+wraps the test(1) command, but prints an explicit "true" or "false" to stdout
+to show whether the test was true or false. It exits with the same value as the
+test it ran.
+.SH SEE ALSO
+test(1), vex(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

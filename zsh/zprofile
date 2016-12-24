@@ -1,3 +1,2 @@
-# Zsh doesn't source ~/.profile by default, even when this file is absent.
-# <https://sanctum.geek.nz/images/identifying-heresy.jpg>
+# Source ~/.profile, since Zsh doesn't do this by default
 [[ -e $HOME/.profile ]] && source "$HOME"/.profile
