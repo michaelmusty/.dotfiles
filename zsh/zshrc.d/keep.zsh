@@ -1,14 +1,7 @@
-# Limit to ksh93; most of this works in mksh, but not all of it, and pdksh
-# doesn't have a `typeset -p` that includes printable values at all.
-case $KSH_VERSION in
-    *' 93'*) ;;
-    *) return ;;
-esac
-
 #
-# keep -- Main function for kshkeep; provided with a list of NAMEs, whether
+# keep -- Main function for zshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
-# directory $KSHKEEP (defaults to ~/.kshkeep.d) with a .ksh suffix, each of
+# directory $ZSHKEEP (defaults to ~/.zshkeep.d) with a .zsh suffix, each of
 # which is reloaded each time this file is called. This allows you to quickly
 # arrange to keep that useful shell function or variable you made inline on
 # subsequent logins.
@@ -32,20 +25,16 @@ esac
 #
 #   $ keep -d ayy
 #
-function keep {
-
-    # Name self
-    typeset self
-    self=keep
+keep() {
 
     # Figure out the directory to which we're reading and writing these scripts
-    typeset kshkeep
-    kshkeep=${KSHKEEP:-"$HOME"/.kshkeep.d}
-    mkdir -p -- "$kshkeep" || return
+    local zshkeep
+    zshkeep=${ZSHKEEP:-"$HOME"/.zshkeep.d}
+    mkdir -p -- "$zshkeep" || return
 
     # Parse options
-    typeset opt delete
-    typeset OPTERR OPTIND OPTARG
+    local opt delete
+    local OPTERR OPTIND OPTARG
     while getopts 'dh' opt ; do
         case $opt in
 
@@ -57,18 +46,18 @@ function keep {
             # -h given; means show help
             h)
                 cat <<EOF
-$self: Keep variables and functions in shell permanently by writing them to
-named scripts iterated on shell start, in \$KSHKEEP (defaults to
-~/.kshkeep.d).
+${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing them to
+named scripts iterated on shell start, in \$ZSHKEEP (defaults to
+~/.zshkeep.d).
 
 USAGE:
-  $self
+  ${FUNCNAME[0]}
     List all the current kept variables and functions
-  $self NAME1 [NAME2 ...]
+  ${FUNCNAME[0]} NAME1 [NAME2 ...]
     Write the current definition for the given NAMEs to keep files
-  $self -d NAME1 [NAME2 ...]
+  ${FUNCNAME[0]} -d NAME1 [NAME2 ...]
     Delete the keep files for the given NAMEs
-  $self -h
+  ${FUNCNAME[0]} -h
     Show this help
 
 EOF
@@ -77,8 +66,8 @@ EOF
 
             # Unknown other option
             \?)
-                printf 'ksh: %s -%s: invalid option\n' \
-                    "$self" "$opt" >&2
+                printf 'zsh: %s -%s: invalid option\n' \
+                    "${FUNCNAME[0]}" "$opt" >&2
                 return 2
                 ;;
         esac
@@ -89,11 +78,11 @@ EOF
     if (($#)) ; then
 
         # Start keeping count of any errors
-        typeset -i errors
+        local -i errors
         errors=0
 
         # Iterate through the NAMEs given
-        typeset name
+        local name
         for name ; do
 
             # Check NAMEs for validity
@@ -102,8 +91,8 @@ EOF
                 # NAME must start with letters or an underscore, and contain no
                 # characters besides letters, numbers, or underscores
                 *[!a-zA-Z0-9_]*|[!a-zA-Z_]*)
-                    printf 'ksh: %s: %s not a valid NAME\n' \
-                        "$self" "$name" >&2
+                    printf 'zsh: %s: %s not a valid NAME\n' \
+                        "${FUNCNAME[0]}" "$name" >&2
                     ((errors++))
                     ;;
 
@@ -112,17 +101,17 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$kshkeep"/"$name".ksh ||
+                        rm -- "$zshkeep"/"$name".zsh ||
                             ((errors++))
 
                     # Save a function
-                    elif [[ $(whence -v "$name" 2>/dev/null) == *' is a function' ]] ; then
-                        typeset -f -- "$name" >"$kshkeep"/"$name".ksh ||
+                    elif [[ $(whence -w "$name") = *': function' ]] ; then
+                        declare -f -- "$name" >"$zshkeep"/"$name".zsh ||
                             ((errors++))
 
                     # Save a variable
-                    elif [[ -n "$name" ]] ; then
-                        typeset -p -- "$name" >"$kshkeep"/"$name".ksh ||
+                    elif declare -p -- "$name" >/dev/null ; then
+                        declare -p -- "$name" >"$zshkeep"/"$name".zsh ||
                             ((errors++))
                     fi
                     ;;
@@ -135,25 +124,24 @@ EOF
 
     # Deleting is an error, since we need at least one argument
     if ((delete)) ; then
-        printf 'ksh: %s: must specify at least one NAME to delete\n' \
-            "$self" >&2
+        printf 'zsh: %s: must specify at least one NAME to delete\n' \
+            "${FUNCNAME[0]}" >&2
         return 2
     fi
 
     # Otherwise the user must want us to print all the NAMEs kept
     (
-        typeset keep
-        for keep in "$kshkeep"/*.ksh ; do
-            [[ -f "$keep" ]] || break
-            keep=${keep##*/}
-            keep=${keep%.ksh}
-            printf '%s\n' "$keep"
-        done
+        declare -a keeps
+        keeps=("$zshkeep"/*.zsh(N))
+        keeps=("${keeps[@]##*/}")
+        keeps=("${keeps[@]%.zsh}")
+        ((${#keeps[@]})) || exit 0
+        printf '%s\n' "${keeps[@]}"
     )
 }
 
-# Load any existing scripts in kshkeep
-for kshkeep in "${KSHKEEP:-"$HOME"/.kshkeep.d}"/*.ksh ; do
-    [[ -e $kshkeep ]] && source "$kshkeep"
+# Load any existing scripts in zshkeep
+for zshkeep in "${ZSHKEEP:-"$HOME"/.zshkeep.d}"/*.zsh(N) ; do
+    [[ -e $zshkeep ]] && source "$zshkeep"
 done
-unset -v kshkeep
+unset -v zshkeep

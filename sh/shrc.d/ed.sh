@@ -11,8 +11,8 @@ ed() {
     [ -e "$HOME"/.cache/ed/verbose ] &&
         set -- --verbose "$@"
 
-    # Add a colon prompt (POSIX feature)
-    set -- -p: "$@"
+    # Add an asterisk prompt (POSIX feature)
+    set -- -p\* "$@"
 
     # Run in rlwrap(1) if available
     set -- ed "$@"

@@ -165,15 +165,13 @@ If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
 *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-    `/usr/local/bin`, as long as they are unique, emulating a feature of the
-    Zsh `cd` builtin that I like.
+    `/usr/local/bin`, as long as they are unique.
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `bd()` changes into a named ancestor of the current directory.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    because the various shells have different ways of listing exported
-    variables.
+    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use,
@@ -207,14 +205,17 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     repository.
 *   `x()` is a one-key shortcut for `exec startx`.
 
-There are a few other little tricks defined for other shells, mostly in
-`bash/bashrc.d`:
+There are a few other little tricks defined for other shells:
 
-*   `keep()` stores ad-hoc shell functions and variables.
-*   `prompt()` sets up my interactive prompt.
-*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin.
+*   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93,
+    Z shell).
+*   `prompt()` sets up my interactive prompt (Bash, Korn Shell, Z shell).
+*   `pushd()` adds a default destination of `$HOME` to the `pushd` builtin
+    (Bash).
 *   `vared()` allows interactively editing a variable with Readline, emulating
-    a Zsh function I like by the same name.
+    a Zsh function I like by the same name (Bash).
+*   `ver()` prints the current shell's version information (Bash, Korn Shell,
+    Yash, Z shell).
 
 #### Completion
 
@@ -249,10 +250,8 @@ Otherwise, they're all loaded on startup.
 #### Korn shell
 
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
-`ksh93`, and OpenBSD `pdksh`.
-
-`ksh`, `ksh93`, `pdksh`, and `mksh` shells default to having a prompt coloured
-yellow.
+`ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
+prompt if detected.
 
 #### Yash
 
@@ -261,9 +260,7 @@ Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 #### Zsh
 
 These are experimental; I do not like Zsh much at the moment. The files started
-as a joke (`exec bash`).
-
-`zsh` shells default to having a prompt coloured cyan.
+as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 ### GnuPG
 
