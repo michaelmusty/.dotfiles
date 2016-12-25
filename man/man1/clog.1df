@@ -4,7 +4,9 @@
 \- record timestamped logs in a file
 .SH SYNOPSIS
 .B clog
+.br
 getting real tired of all this overengineering
+.br
 ^D
 .SH DESCRIPTION
 .B clog
