@@ -17,7 +17,7 @@ ed() {
     # Run in rlwrap(1) if available
     set -- ed "$@"
     command -v rlwrap >/dev/null 2>&1 &&
-        set -- rlwrap "$@"
+        set -- rlwrap --history-filename=/dev/null "$@"
 
     # Run determined command
     command "$@"

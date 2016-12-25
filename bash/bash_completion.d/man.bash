@@ -2,7 +2,7 @@
 _man() {
 
     # Don't even bother if we don't have manpath(1)
-    hash manpath || return 1
+    hash manpath 2>/dev/null || return 1
 
     # Snarf the word
     local word
