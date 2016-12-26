@@ -18,3 +18,5 @@ Known issues
     they succeed? Did I do that or is it Bash?
 *   Wouldn't be too hard to add some HTTP BASIC auth to ix(1df) to make pastes
     manageable
+*   On non-OBSD pdksh and mksh, !! comes out as literal !! after subshell
+    expansion; a version switch might be necessary
