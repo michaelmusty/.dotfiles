@@ -215,6 +215,7 @@ prompt() {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
+            # shellcheck disable=SC2154
             ((ret)) && printf '<%u>' "$ret"
             ;;
 
