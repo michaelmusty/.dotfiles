@@ -18,19 +18,16 @@ function prompt {
                 PS1=$PS1'$USER@${HOSTNAME%%.*}:'
             fi
 
-            # Add sub-commands; working directory with ~ abbreviation, VCS,
-            # and job count
-            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)'
-
-            # If this is PDKSH, add the exit code of the previous command; this
-            # doesn't seem to work on ksh93, probably different timing for when
-            # $? is set
-            case $KSH_VERSION in
-                *'PD KSH'*) PS1=$PS1'$(prompt ret "$?")'
-            esac
+            # Add sub-commands; working directory with ~ abbreviation, VCS, job
+            # count, and previous command return value
+            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)$(prompt ret)'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
+
+            # Add a wrapper around the prompt as determined so far so that the
+            # return value from the previous command doesn't get lost
+            PS1='$(ret=$?;printf %s "'"$PS1"'")'
 
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
@@ -193,7 +190,6 @@ function prompt {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            typeset ret=$2
             ((ret)) && printf '<%u>' "$ret"
             ;;
 
