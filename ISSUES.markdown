@@ -16,3 +16,5 @@ Known issues
 *   dr(1df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
     they succeed? Did I do that or is it Bash?
+*   Wouldn't be too hard to add some HTTP BASIC auth to ix(1df) to make pastes
+    manageable
