@@ -156,6 +156,11 @@ prompt() {
 
             } >/dev/null 2>&1
 
+            # For some reason, five commands in the above block seem to stick
+            # around as jobs after this command is over; I don't know why, but
+            # this clears it; might be a bug
+            jobs >/dev/null
+
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
