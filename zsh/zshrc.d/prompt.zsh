@@ -8,14 +8,6 @@ prompt() {
         on)
             setopt promptsubst promptpercent
 
-            # Declare the PROMPT_RETURN variable as an integer
-            declare -i PROMPT_RETURN
-
-            # Set up pre-prompt command
-            precmd() {
-                PROMPT_RETURN=$?
-            }
-
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
@@ -24,7 +16,7 @@ prompt() {
             PS1=$PS1'%~'
 
             # Add sub-commands; VCS, job, and return status checks
-            PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
+            PS1=$PS1'$(ret=$?;prompt vcs;prompt job;prompt ret)'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
@@ -52,7 +44,6 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v precmd PROMPT_RETURN
             PS1='\$ '
             PS2='> '
             PS3='? '
@@ -187,7 +178,7 @@ prompt() {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            ((PROMPT_RETURN)) && printf '<%u>' "$PROMPT_RETURN"
+            ((ret)) && printf '<%u>' "$ret"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero

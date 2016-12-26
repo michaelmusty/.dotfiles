@@ -6,11 +6,8 @@ prompt() {
 
         # Turn complex, colored PS1 and debugging PS4 prompts on
         on)
-            # Declare the PROMPT_RETURN variable as an integer
-            declare -i PROMPT_RETURN
-
             # Set up pre-prompt command
-            PROMPT_COMMAND='PROMPT_RETURN=$? ; history -a'
+            PROMPT_COMMAND='history -a'
 
             # If Bash 4.0 is available, trim very long paths in prompt
             ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
@@ -23,7 +20,7 @@ prompt() {
             PS1=$PS1'\w'
 
             # Add sub-commands; VCS, job, and return status checks
-            PS1=$PS1'$(prompt vcs)$(prompt job)$(prompt ret)'
+            PS1=$PS1'$(ret=$?;prompt vcs;prompt job;prompt ret)'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
@@ -83,7 +80,7 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            unset -v PROMPT_COMMAND PROMPT_DIRTRIM PROMPT_RETURN
+            unset -v PROMPT_COMMAND PROMPT_DIRTRIM
             PS1='\$ '
             PS2='> '
             PS3='? '
@@ -218,7 +215,7 @@ prompt() {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
-            ((PROMPT_RETURN)) && printf '<%u>' "$PROMPT_RETURN"
+            ((ret)) && printf '<%u>' "$ret"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
