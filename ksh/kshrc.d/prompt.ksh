@@ -20,14 +20,10 @@ function prompt {
 
             # Add sub-commands; working directory with ~ abbreviation, VCS, job
             # count, and previous command return value
-            PS1=$PS1'$(prompt pwd)$(prompt vcs)$(prompt job)$(prompt ret)'
+            PS1=$PS1'$(ret=$?;prompt pwd;prompt vcs;prompt job;prompt ret)'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
-
-            # Add a wrapper around the prompt as determined so far so that the
-            # return value from the previous command doesn't get lost
-            PS1='$(ret=$?;printf %s "'"$PS1"'")'
 
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
@@ -190,6 +186,7 @@ function prompt {
 
         # Show return status of previous command in angle brackets, if not zero
         ret)
+            # shellcheck disable=SC2154
             ((ret)) && printf '<%u>' "$ret"
             ;;
 
