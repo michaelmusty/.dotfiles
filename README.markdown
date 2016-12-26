@@ -448,6 +448,7 @@ Installed by the `install-bin` target:
     that don't actually worry you, exiting with 0 anyway.
 *   `isgr(1df)` quietly tests whether the given directory appears to be a Git
     repository.
+*   `ix(1df)` posts its input to the ix.io pastebin.
 *   `jfc(1df)` adds and commits lazily to a Git repository.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
@@ -472,7 +473,6 @@ Installed by the `install-bin` target:
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
 *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
-*   `spr(1df)` posts its input to the sprunge.us pastebin.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.

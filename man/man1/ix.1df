@@ -1,23 +1,23 @@
-.TH SPR 1df "July 2016" "Manual page for spr"
+.TH IX 1df "December 2016" "Manual page for ix"
 .SH NAME
-.B spr
-\- post input to sprunge.us pastebin and print the URL to stdout
+.B ix
+\- post input to ix.io pastebin and print the URL to stdout
 .SH SYNOPSIS
-.B spr
+.B ix
 file
 .br
-.B spr
+.B ix
 file1 file2 file3
 .br
 declare -p |
-.B spr
+.B ix
 .SH DESCRIPTION
-.B spr
+.B ix
 uses curl(1) to make an HTTP POST request submitting all of its input (whether
-files or stdin) to the sprunge.us pastebin.
+files or stdin) to the ix.io pastebin.
 .SH SEE ALSO
 curl(1)
 .br
-https://github.com/rupa/sprunge
+http://ix.io/
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
