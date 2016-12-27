@@ -24,5 +24,3 @@ Known issues
     jobspecs around that flee after a jobs builtin run; only saw this manifest
     after 90dcadf; either I understand job specs really poorly or this may be a
     bug in bash
-*   Pressing Enter after an empty first line in ksh93 sets $? to 1; a bit
-    annoying. Maybe check history number somehow?

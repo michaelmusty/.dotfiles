@@ -20,7 +20,7 @@ function prompt {
 
             # Add sub-commands; working directory with ~ abbreviation, VCS, job
             # count, and previous command return value
-            PS1=$PS1'$(ret=$?;jobc=$(jobs -p|sed -n \$=);prompt pwd;prompt vcs;prompt job;prompt ret)'
+            PS1=$PS1'$(ret=$?;jobc=$(jobs -p|sed -n \$=);prompt pwd;prompt vcs;prompt job;prompt ret;:)'
 
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
