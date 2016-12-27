@@ -1,0 +1,2 @@
+#!/bin/sh
+find zsh -type f -print -exec shellcheck -e SC1090 -s ksh -- {} \;

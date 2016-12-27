@@ -1,0 +1,19 @@
+.TH MIN 1df "September 2016" "Manual page for min"
+.SH NAME
+.B min
+\- print the minimum of a list of numbers
+.SH SYNOPSIS
+printf '%u\\n' 182 2 22 |
+.B min
+.br
+.B min
+file
+.br
+.B min
+file1 file2
+.SH DESCRIPTION
+.B min
+collects all the newline-delimited numbers given as input, and prints the
+minimum.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
