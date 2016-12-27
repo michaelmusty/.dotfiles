@@ -50,6 +50,7 @@
 	check-sh \
 	check-urxvt \
 	check-yash \
+	check-zsh \
 	lint \
 	lint-bash \
 	lint-bin \
@@ -388,7 +389,7 @@ install-yash : check-yash install-sh
 	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
 	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
-install-zsh : install-sh
+install-zsh : check-zsh install-sh
 	install -m 0755 -d -- "$(HOME)"/.zshrc.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
@@ -424,6 +425,9 @@ check-urxvt :
 
 check-yash :
 	check/yash
+
+check-zsh :
+	check/zsh
 
 lint : check \
 	lint-bash  \
