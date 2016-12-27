@@ -192,6 +192,7 @@ function prompt {
 
         # Show the count of background jobs in curly brackets, if not zero
         job)
+            # shellcheck disable=SC2154
             ((jobc)) && printf '{%u}' "$jobc"
             ;;
 
