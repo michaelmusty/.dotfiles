@@ -20,7 +20,11 @@ Known issues
     manageable
 *   On non-OBSD pdksh and mksh, !! comes out as literal !! after subshell
     expansion; a version switch might be necessary
+    *   Or using a different character
 *   Running the block of git(1) commands in the prompt leaves five "stale"
     jobspecs around that flee after a jobs builtin run; only saw this manifest
     after 90dcadf; either I understand job specs really poorly or this may be a
     bug in bash
+*   The directory navigation tools may not be handling directories with
+    terminal newlines in their names due to subshell expansion chomping them;
+    could maybe fix this by adding a slash to what's returned
