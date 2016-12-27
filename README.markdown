@@ -394,9 +394,11 @@ Installed by the `install-bin` target:
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
-*   Four simple aggregators for numbers:
+*   Six simple aggregators for numbers:
+    *   `max(1df)` prints the maximum.
     *   `mean(1df)` prints the mean.
     *   `med(1df)` prints the median.
+    *   `min(1df)` prints the minimum.
     *   `mode(1df)` prints the first encountered mode.
     *   `tot(1df)` totals the set.
 *   `ap(1df)` reads arguments for a given command from the standard input,

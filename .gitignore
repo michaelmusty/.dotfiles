@@ -2,9 +2,11 @@ bin/csmw
 bin/ddup
 bin/gwp
 bin/han
+bin/max
 bin/mean
 bin/med
 bin/mftl
+bin/min
 bin/mode
 bin/rfct
 bin/rndi
