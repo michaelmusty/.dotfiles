@@ -394,7 +394,10 @@ install-yash : check-yash install-sh
 	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
 install-zsh : check-zsh install-sh
-	install -m 0755 -d -- "$(HOME)"/.zshrc.d
+	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
+		"$(HOME)"/.zshrc.d
+	install -pm 0644 -- zsh/profile.d/* "$(HOME)"/.profile.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d

@@ -20,8 +20,3 @@ Known issues
 *   The directory navigation tools may not be handling directories with
     terminal newlines in their names due to subshell expansion chomping them;
     could maybe fix this by adding a slash to what's returned
-*   zsh when invoked as sh does not source ENV at the end of ~/.profile if it's
-    set *during* the profile script, only if it was set when the shell started.
-    I can't find anything in the POSIX spec that says this isn't allowed, but
-    all the plain sh(1)es I've tried (and Bash/ksh93 as sh) do what I expect.
-    Would be good to work out why this is and work around it if it's by design.
