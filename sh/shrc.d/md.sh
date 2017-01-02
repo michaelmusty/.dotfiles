@@ -26,5 +26,6 @@ md() {
     fi
 
     # Save the specified path in the marked directory var
+    # shellcheck disable=SC2034
     PMD=$1
 }
