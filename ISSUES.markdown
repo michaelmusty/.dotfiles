@@ -7,7 +7,7 @@ Known issues
 *   OpenBSD doesn't have a `pandoc` package at all. It would be nice to find
     some way of converting the README.markdown into a palatable troff format
     with some more readily available (and preferably less heavyweight) tool.
-*   The checks gscr(1df) makes to determine where it is are a bit naive (don't
+*   The checks gscr(1df) makes to determine where it is are a bit naïve (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) calls
 *   dr(6df) is probably more practical in awk
