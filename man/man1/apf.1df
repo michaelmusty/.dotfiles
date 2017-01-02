@@ -44,7 +44,7 @@ We could do this:
     b
     c
 .P
-We could then make a permanent wrapper script in two line:
+We could then make a permanent wrapper script in two lines:
 .P
     $ cat >~/.local/bin/printargs
     #!/bin/sh
