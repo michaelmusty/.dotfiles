@@ -489,6 +489,8 @@ Installed by the `install-bin` target:
 *   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
+*   `swr(1df)` allows you to run commands locally specifying remote files in
+    `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
 *   `try(1df)` repeats a command up to a given number of times until it
