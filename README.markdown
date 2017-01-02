@@ -170,10 +170,21 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     *   `gd()` goes to the marked directory.
     *   `pmd()` prints the marked directory.
     *   `xd()` swaps the current and marked directories.
-*   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-    `/usr/local/bin`, as long as they are unique.
+*   Nine other directory management and navigation functions:
+    *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
+        `/usr/local/bin`, as long as they are unique.
+    *   `bd()` changes into a named ancestor of the current directory.
+    *   `mkcd()` creates a directory and changes into it.
+    *   `pd()` changes to the argument's parent directory.
+    *   `rd()` replaces the first instance of its first argument with its
+        second argument in `$PWD`, emulating a feature of the Zsh `cd` builtin
+        that I like.
+    *   `scr()` creates a temporary directory and changes into it.
+    *   `sd()` changes into a sibling of the current directory.
+    *   `ud()` changes into an indexed ancestor of a directory.
+    *   `vr()` tries to change to the root directory of a source control
+        repository.
 *   `bc()` silences startup messages from GNU `bc(1)`.
-*   `bd()` changes into a named ancestor of the current directory.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
@@ -187,28 +198,18 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-*   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
-*   `pd()` changes to the argument's parent directory.
-*   `rd()` replaces the first instance of its first argument with its second
-    argument in `$PWD`, emulating a feature of the Zsh `cd` builtin that I
-    like.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
-*   `scr()` creates a temporary directory and changes into it.
-*   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
     preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
-*   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
-*   `vr()` tries to change to the root directory of a source control
-    repository.
 *   `x()` is a one-key shortcut for `exec startx`.
 
 There are a few other little tricks defined for other shells:
