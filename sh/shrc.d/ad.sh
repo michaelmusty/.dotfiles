@@ -15,7 +15,7 @@ ad() {
         req=${1%/}/
         case $req in
             (/*) ;;
-            (*) req=${PWD%/}/${req#/}/ ;;
+            (*) req=${PWD%/}/${req#/} ;;
         esac
 
         # Start building the target directory; go through the request piece by
