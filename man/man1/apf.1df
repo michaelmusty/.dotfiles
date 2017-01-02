@@ -52,7 +52,7 @@ We could then make a permanent wrapper script in two lines:
     ^D
     $ chmod +x ~/.local/bin/printargs
 .P
-Or just a shell function, if it's needed interactively:
+Or just a shell function, if it's only wanted for interactive shells:
 .P
     $ printargs() { apf "$HOME"/.printargsrc printargs "$@" ; }
 .P
