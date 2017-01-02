@@ -10,7 +10,7 @@ Known issues
 *   The checks gscr(1df) makes to determine where it is are a bit naive (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) calls
-*   dr(1df) is probably more practical in awk
+*   dr(6df) is probably more practical in awk
 *   How come commands I fix with the fc builtin always seem to exit 1 even if
     they succeed? Did I do that or is it Bash?
 *   Running the block of git(1) commands in the prompt leaves five "stale"
