@@ -212,7 +212,8 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     `vi(1)` and `view(1)` implementation if it's available.
 *   `x()` is a one-key shortcut for `exec startx`.
 
-There are a few other little tricks defined for other shells:
+There are a few other little tricks defined for other shells providing
+non-POSIX features, as compatibility allows:
 
 *   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93,
     Z shell).
