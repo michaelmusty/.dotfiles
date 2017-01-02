@@ -4,5 +4,5 @@
 BEGIN { RS = "" }
 
 # Print the block followed by two newlines, as long as it has at least one
-# alphanumeric character and no pagebreak characters
-/[a-zA-Z0-9]/ && !/\x0c/ { printf "%s\n\n", $0 }
+# alphanumeric character and no pagebreak (^L, 0x0C) characters
+/[a-zA-Z0-9]/ && !// { printf "%s\n\n", $0 }
