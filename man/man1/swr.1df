@@ -1,0 +1,37 @@
+.TH SWR 1df "January 2017" "Manual page for swr"
+.SH NAME
+.B swr
+\- run a command including remote file arguments for scp(1) retrieval
+.SH SYNOPSIS
+.B swr
+cat remote:.ssh/authorized_keys
+.br
+.B swr
+diff .shrc remote:.shrc
+.SH DESCRIPTION
+.B swr
+runs the command given in its arguments, first replacing any arguments in the
+form HOST:PATH with copies of the specified files as retrieved with scp(1),
+copied into a temporary directory that should be removed on exit under most
+circumstances.
+.P
+This even works for the first argument (i.e. the command), provided that it
+will run on the local system once copied in.
+.SH CAVEATS
+This only works for simple commands; you can't put shell syntax into any of the
+arguments.
+.P
+The whole script will stop if even one of its arguments can't be copied in, as
+there's no way to tell whether it's safe to proceed without some of the data.
+.P
+Don't even think about using this for mission-critical cases or situations
+requiring high security. It's a convenience wrapper.
+.P
+You may not need this at all if your shell has working command substitution and
+you find its syntax clearer:
+.P
+    diff .shrc <(ssh remote 'cat .shrc')
+.SH SEE ALSO
+scp(1), mktd(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -72,9 +72,12 @@ sd() {
                 ;;
         esac
 
-        # Print the target
-        printf '%s\n' "$1"
+        # Print the target with trailing slash to work around newline stripping
+        printf '%s/' "${1%/}"
     )"
+
+    # Remove trailing slash
+    set -- "${1%/}"
 
     # If the subshell printed nothing, return with failure
     [ -n "$1" ] || return

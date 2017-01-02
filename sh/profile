@@ -12,3 +12,11 @@ if [ -f "$HOME"/.shinit ] ; then
     ENV=$HOME/.shinit
     export ENV
 fi
+
+# If ENV_FORCE is set and we're interactive, source ENV explicitly
+# At the moment this is just for zsh-as-ksh/sh
+if [ -n "$ENV_FORCE" ] ; then
+    case $- in *i*)
+        [ -f "$ENV" ] && . "$ENV" ;;
+    esac
+fi

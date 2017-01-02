@@ -1,4 +1,4 @@
-" Add automatic commands to
+" Add automatic commands to choose shell flavours based on filename pattern
 augroup dfsh
 
   " Names/paths of things that are Bash shell script

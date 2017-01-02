@@ -7,9 +7,9 @@
 .SH DESCRIPTION
 .B pwg
 with no arguments runs pwgen(1) with the --secure options and arguments for one
-password of fifteen alphanumeric characters, to avoid pwgen(1)'s unusual
-default of generating very many relatively low-quality passwords, which is
-never what the author wants.
+password of 16 alphanumeric characters, to avoid pwgen(1)'s unusual default of
+generating very many relatively low-quality passwords, which is never what the
+author wants.
 .P
 If any arguments are provided, it simply passes these to pwgen(1) untouched.
 .SH AUTHOR

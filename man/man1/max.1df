@@ -1,0 +1,19 @@
+.TH MAX 1df "September 2016" "Manual page for max"
+.SH NAME
+.B max
+\- print the maximum of a list of numbers
+.SH SYNOPSIS
+printf '%u\\n' 3 55 17 |
+.B max
+.br
+.B max
+file
+.br
+.B max
+file1 file2
+.SH DESCRIPTION
+.B max
+collects all the newline-delimited numbers given as input, and prints the
+maximum.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

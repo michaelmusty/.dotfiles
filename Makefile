@@ -50,6 +50,7 @@
 	check-sh \
 	check-urxvt \
 	check-yash \
+	check-zsh \
 	lint \
 	lint-bash \
 	lint-bin \
@@ -70,9 +71,11 @@ all : bin/csmw \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
+	bin/max \
 	bin/mean \
 	bin/med \
 	bin/mftl \
+	bin/min \
 	bin/mode \
 	bin/rfct \
 	bin/rndi \
@@ -92,9 +95,11 @@ clean distclean :
 		bin/ddup \
 		bin/gwp \
 		bin/han \
+		bin/max \
 		bin/mean \
 		bin/med \
 		bin/mftl \
+		bin/min \
 		bin/mode \
 		bin/rfct \
 		bin/rndi \
@@ -192,9 +197,9 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/mean bin/med bin/mftl \
-	bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf bin/su2d bin/tot \
-	bin/unf bin/uts install-bin-man
+install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/max bin/mean bin/med \
+	bin/mftl bin/min bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf \
+	bin/su2d bin/tot bin/unf bin/uts install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -388,8 +393,11 @@ install-yash : check-yash install-sh
 	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
 	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
-install-zsh : install-sh
-	install -m 0755 -d -- "$(HOME)"/.zshrc.d
+install-zsh : check-zsh install-sh
+	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
+		"$(HOME)"/.zshrc.d
+	install -pm 0644 -- zsh/profile.d/* "$(HOME)"/.profile.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
@@ -424,6 +432,9 @@ check-urxvt :
 
 check-yash :
 	check/yash
+
+check-zsh :
+	check/zsh
 
 lint : check \
 	lint-bash  \
