@@ -164,6 +164,12 @@ terminals.
 If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
+*   Four functions for using a "marked" directory, which I find a more
+    manageable concept than the `pushd`/`popd` directory stack:
+    *   `md()` marks a given (or the current) directory.
+    *   `gd()` goes to the marked directory.
+    *   `pmd()` prints the marked directory.
+    *   `xd()` swaps the current and marked directories.
 *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
     `/usr/local/bin`, as long as they are unique.
 *   `bc()` silences startup messages from GNU `bc(1)`.
