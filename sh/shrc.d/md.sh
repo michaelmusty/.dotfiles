@@ -10,6 +10,15 @@ md() {
     # If first arg unset or empty, assume the user means the current dir
     [ -n "$1" ] || set -- "$PWD"
 
+    # If specified path is . or .., quietly expand it
+    case $1 in
+        .) set -- "${PWD%/}" ;;
+        ..)
+            set -- "${PWD%/}"
+            set -- "${1%/*}"
+            ;;
+    esac
+
     # If specified path not a directory, refuse to mark it
     if ! [ -d "$1" ] ; then
         printf >&2 'md(): Not a directory\n'
