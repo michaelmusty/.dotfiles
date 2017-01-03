@@ -6,6 +6,7 @@ esac
 
 # Don't do anything if restricted, not even sourcing the ENV file
 # Testing $- for "r" doesn't work
+# shellcheck disable=SC2128
 [ -n "$BASH_VERSINFO" ] && shopt -q restricted_shell && return
 
 # If ENV is set, source it to get all the POSIX-compatible interactive stuff;
