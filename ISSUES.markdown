@@ -19,3 +19,4 @@ Known issues
     that would probably be worthwhile.
 *   I can't find a clean way of detecting a restricted shell for ksh instances
     to prevent trying to load anything fancy (works for Bash)
+    *   Zsh, either! $options[restricted] is "off" within the startup file
