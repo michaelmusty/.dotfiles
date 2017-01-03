@@ -1,4 +1,4 @@
-.TH CALC 1df "January 2017" "Manual page for bcq"
+.TH BCQ 1df "January 2017" "Manual page for bcq"
 .SH NAME
 .B bcq
 \- run bc(1), quieting it if need be
