@@ -415,6 +415,7 @@ Installed by the `install-bin` target:
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
+*   `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL

@@ -1,0 +1,13 @@
+.TH CALC 1df "January 2017" "Manual page for bcq"
+.SH NAME
+.B bcq
+\- run bc(1), quieting it if need be
+.SH SYNOPSIS
+.B bcq
+.SH DESCRIPTION
+.B bcq
+starts bc(1), checking ~/.cache/bc/quiet to see if a --quiet option is
+available, adding it if so to elide the annoying GNU boilerplate for an
+interactive session.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
