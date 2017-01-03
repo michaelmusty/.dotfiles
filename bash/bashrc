@@ -4,6 +4,10 @@ case $- in
     *) return ;;
 esac
 
+# Don't do anything if restricted, not even sourcing the ENV file
+# Testing $- for "r" doesn't work
+[ -n "$BASH_VERSINFO" ] && shopt -q restricted_shell && return
+
 # If ENV is set, source it to get all the POSIX-compatible interactive stuff;
 # we should be able to do this even if we're running a truly ancient Bash
 [ -n "$ENV" ] && . "$ENV"
@@ -16,9 +20,6 @@ esac
 ((BASH_VERSINFO[0] == 2)) &&
     ((10#${BASH_VERSINFO[1]%%[!0-9]*} < 5)) &&
     return
-
-# Don't do anything if running a restricted shell
-shopt -q restricted_shell && return
 
 # Keep around 32K lines of history in file
 HISTFILESIZE=$((1 << 15))
