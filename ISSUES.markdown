@@ -17,3 +17,5 @@ Known issues
     bug in bash
 *   md() does not handle e.g. "../..". If there's a tidy way of making it do so
     that would probably be worthwhile.
+*   I can't find a clean way of detecting a restricted shell for ksh instances
+    to prevent trying to load anything fancy (works for Bash)
