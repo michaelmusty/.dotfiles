@@ -67,7 +67,7 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := msmtp
 
-all : bin/csmw \
+BINS = bin/csmw \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
@@ -86,30 +86,12 @@ all : bin/csmw \
 	bin/tot \
 	bin/unf \
 	bin/uts \
-	git/gitconfig \
-	gnupg/gpg.conf
+
+all : $(BINS) git/gitconfig gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
-		bin/csmw \
-		bin/ddup \
-		bin/gwp \
-		bin/han \
-		bin/max \
-		bin/mean \
-		bin/med \
-		bin/mftl \
-		bin/min \
-		bin/mode \
-		bin/rfct \
-		bin/rndi \
-		bin/sd2u \
-		bin/sec \
-		bin/slsf \
-		bin/su2d \
-		bin/tot \
-		bin/unf \
-		bin/uts \
+		$(BINS) \
 		games/acq \
 		games/aesth \
 		games/chkl \
@@ -198,9 +180,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/max bin/mean bin/med \
-	bin/mftl bin/min bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf \
-	bin/su2d bin/tot bin/unf bin/uts install-bin-man
+install-bin : $(BINS) install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
