@@ -1,3 +1,4 @@
+bin/brnl
 bin/csmw
 bin/ddup
 bin/gwp
@@ -10,6 +11,7 @@ bin/med
 bin/mftl
 bin/min
 bin/mode
+bin/nlbr
 bin/onl
 bin/rfct
 bin/rndi

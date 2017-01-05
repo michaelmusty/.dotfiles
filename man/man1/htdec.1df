@@ -13,6 +13,6 @@ curl http://example.com/netstat.html |
 unescapes left angle quotes, right angle quotes, and ampersands to put HTML
 text node content into plain text.
 .SH SEE ALSO
-htdec(1df)
+htenc(1df), brnl(1df), nlbr(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

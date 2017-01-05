@@ -13,6 +13,6 @@ netstat -aunt |
 escapes ampersands, left angle quotes, and right angle quotes to put text into
 a form that should be suitable to include in XML/HTML text nodes.
 .SH SEE ALSO
-htdec(1df)
+htdec(1df), brnl(1df), nlbr(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

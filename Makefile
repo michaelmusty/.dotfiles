@@ -67,7 +67,8 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := msmtp
 
-BINS = bin/csmw \
+BINS = bin/brnl \
+	bin/csmw \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
@@ -79,6 +80,7 @@ BINS = bin/csmw \
 	bin/mftl \
 	bin/min \
 	bin/mode \
+	bin/nlbr \
 	bin/onl \
 	bin/rfct \
 	bin/rndi \
