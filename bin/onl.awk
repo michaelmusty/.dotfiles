@@ -3,7 +3,7 @@
 # For each line of input ...
 { 
     # Strip out non-printable characters and rebuild the fields
-    gsub(/[^[:print:]]+/, "")
+    gsub(/[[:cntrl:]]/, "")
 
     # Print each field, without a newline; add a leading space if it's not the
     # very first one
