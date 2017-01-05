@@ -394,10 +394,10 @@ check : check-bash \
 check-bash :
 	check/bash
 
-check-bin :
+check-bin : $(BINS)
 	check/bin
 
-check-games :
+check-games : $(GAMES)
 	check/games
 
 check-man :
@@ -430,10 +430,10 @@ lint : check \
 lint-bash :
 	lint/bash
 
-lint-bin :
+lint-bin : $(BINS)
 	lint/bin
 
-lint-games :
+lint-games : $(GAMES)
 	lint/games
 
 lint-ksh :
