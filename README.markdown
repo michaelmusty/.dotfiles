@@ -409,6 +409,9 @@ Installed by the `install-bin` target:
     *   `min(1df)` prints the minimum.
     *   `mode(1df)` prints the first encountered mode.
     *   `tot(1df)` totals the set.
+*   Two quick-and-dirty HTML text node content encoding tools:
+    *   `htenc(1df)` encodes.
+    *   `htdec(1df)` decodes.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate
 *   `apf(1df)` prepends arguments to a command with ones read from a file,

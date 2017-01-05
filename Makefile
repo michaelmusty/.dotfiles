@@ -71,6 +71,8 @@ BINS = bin/csmw \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
+	bin/htdec \
+	bin/htenc \
 	bin/max \
 	bin/mean \
 	bin/med \
