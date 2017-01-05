@@ -1,27 +1,14 @@
 # Flatten input into one single-space separated line with no unprintable chars
 
-# For each not-all-spaces line:
+# For each line of input ...
 { 
-    # Strip unprintable chars
-    gsub(/[^[:print:]]/, "")
+    # Strip out non-printable characters and rebuild the fields
+    gsub(/[^[:print:]]+/, "")
 
-    # All horizontal whitespace groups to one space
-    gsub(/[ \t]+/, " ")
-
-    # No leading or trailing space
-    sub(/^ /, "")
-    sub(/ $/, "")
-
-    # If there's nothing left, go on to the next line
-    if (!length)
-        next
-
-    # If this isn't the first line, add a leading space
-    if (NR > 1)
-        printf " "
-
-    # Print the content without a newline
-    printf "%s", $0
+    # Print each field, without a newline; add a leading space if it's not the
+    # very first one
+    for (i = 1; i <= NF; i++)
+        printf (f++) ? " %s" : "%s", $i
 }
 
 # Print a newline to close the line
