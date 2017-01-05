@@ -1,4 +1,4 @@
-.TH HTENC 1df "June 2016" "Manual page for htenc"
+.TH HTENC 1df "January 2017" "Manual page for htenc"
 .SH NAME
 .B htenc
 \- quick-and-dirty text to HTML encoding for text nodes

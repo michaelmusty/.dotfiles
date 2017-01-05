@@ -1,4 +1,4 @@
-.TH HTDEC 1df "June 2016" "Manual page for htdec"
+.TH HTDEC 1df "January 2017" "Manual page for htdec"
 .SH NAME
 .B htdec
 \- quick-and-dirty HTML to text decoding for text nodes
