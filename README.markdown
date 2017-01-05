@@ -464,6 +464,7 @@ Installed by the `install-bin` target:
     repository.
 *   `ix(1df)` posts its input to the ix.io pastebin.
 *   `jfc(1df)` adds and commits lazily to a Git repository.
+*   `jfp(1df)` prints its input, excluding any shebang on the first line only.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.

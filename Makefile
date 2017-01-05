@@ -74,6 +74,7 @@ BINS = bin/brnl \
 	bin/han \
 	bin/htdec \
 	bin/htenc \
+	bin/jfp \
 	bin/max \
 	bin/mean \
 	bin/med \
