@@ -79,6 +79,7 @@ BINS = bin/csmw \
 	bin/mftl \
 	bin/min \
 	bin/mode \
+	bin/onl \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \

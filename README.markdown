@@ -475,6 +475,7 @@ Installed by the `install-bin` target:
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `onl(1df)` crunches input down to one printable line.
 *   `pa(1df)` prints its arguments, one per line.
 *   `paz(1df)` print its arguments terminated by NULL chars.
 *   `pit(1df)` runs its input through a pager if its standard output looks like
