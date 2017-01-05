@@ -8,8 +8,8 @@
     # Print each field, without a newline; add a leading space if it's not the
     # very first one
     for (i = 1; i <= NF; i++)
-        printf (f++) ? " %s" : "%s", $i
+        printf (f++) ? OFS "%s" : "%s", $i
 }
 
 # Print a newline to close the line
-END { printf "\n" }
+END { print "" }
