@@ -15,9 +15,6 @@ Known issues
     jobspecs around that flee after a jobs builtin run; only saw this manifest
     after 90dcadf; either I understand job specs really poorly or this may be a
     bug in bash
-*   md() does not handle e.g. "../..". If there's a tidy way of making it do so
-    that would probably be worthwhile. Maybe by trying to go there in a
-    subshell and printing PWD?
 *   I can't find a clean way of detecting a restricted shell for ksh instances
     to prevent trying to load anything fancy (works for Bash)
     *   Zsh, either! $options[restricted] is "off" within the startup file

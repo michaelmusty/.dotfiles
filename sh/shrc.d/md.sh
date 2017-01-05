@@ -10,20 +10,12 @@ md() {
     # If first arg unset or empty, assume the user means the current dir
     [ -n "$1" ] || set -- "$PWD"
 
-    # If specified path is . or .., quietly expand it
-    case $1 in
-        .) set -- "${PWD%/}" ;;
-        ..)
-            set -- "${PWD%/}"
-            set -- "${1%/*}"
-            ;;
-    esac
+    # Jump to the dir and emit PWD from a subshell to get an absolute path
+    set -- "$(cd -- "$1" && printf %s "$PWD")"
 
-    # If specified path not a directory, refuse to mark it
-    if ! [ -d "$1" ] ; then
-        printf >&2 'md(): Not a directory\n'
-        return 2
-    fi
+    # If that turned up empty, we have failed; the cd call probably threw an
+    # error for us too
+    [ -n "$1" ] || return
 
     # Save the specified path in the marked directory var
     # shellcheck disable=SC2034
