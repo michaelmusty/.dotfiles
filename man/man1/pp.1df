@@ -9,6 +9,8 @@
 .B pp
 uses $PWD to print the full path to each of its arguments, unless they begin
 with a slash, in which case they are printed verbatim.
+.P
+The path need not actually exist.
 .SH CAVEATS
 Newlines in filenames will still work, but the results won't really make sense
 as they'll be indistinguishable from newlines separating the files. This is for

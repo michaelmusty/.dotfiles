@@ -1,14 +1,9 @@
 #!/bin/sh
-# Print the full path to each argument; file need not exist
+# Print the full path to each argument; path need not exist
 for arg ; do
     case $arg in
-        */*)
-            dir=$(cd -- "${arg%/*}" ; printf '%s/' "$PWD")
-            dir=${dir%/}
-            ;;
-        *)
-            dir=$PWD
-            ;;
+        /*) path=$arg ;;
+        *) path=$PWD/$arg ;;
     esac
-    printf '%s/%s\n' "$dir" "${arg##*/}"
+    printf '%s\n' "$path"
 done
