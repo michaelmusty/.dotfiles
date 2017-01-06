@@ -3,13 +3,13 @@ case $KSH_VERSION in
 
     # ksh93 is lovely, but complex; rebind ^L so it does the same as Alt-^L
     *'93'*)
-        bind() {
+        keybd_trap() {
             # shellcheck disable=SC2154
             case ${.sh.edchar} in
                 $'\f') .sh.edchar=$'\e\f' ;;
             esac
         }
-        trap bind KEYBD
+        trap keybd_trap KEYBD
         ;;
 
     # More straightforward with mksh; bind keys to the appropriate emacs mode
