@@ -164,10 +164,27 @@ terminals.
 If a function can be written in POSIX `sh` without too much hackery, I put it
 in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 
-*   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-    `/usr/local/bin`, as long as they are unique.
+*   Four functions for using a "marked" directory, which I find a more
+    manageable concept than the `pushd`/`popd` directory stack:
+    *   `md()` marks a given (or the current) directory.
+    *   `gd()` goes to the marked directory.
+    *   `pmd()` prints the marked directory.
+    *   `xd()` swaps the current and marked directories.
+*   Nine other directory management and navigation functions:
+    *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
+        `/usr/local/bin`, as long as they are unique.
+    *   `bd()` changes into a named ancestor of the current directory.
+    *   `mkcd()` creates a directory and changes into it.
+    *   `pd()` changes to the argument's parent directory.
+    *   `rd()` replaces the first instance of its first argument with its
+        second argument in `$PWD`, emulating a feature of the Zsh `cd` builtin
+        that I like.
+    *   `scr()` creates a temporary directory and changes into it.
+    *   `sd()` changes into a sibling of the current directory.
+    *   `ud()` changes into an indexed ancestor of a directory.
+    *   `vr()` tries to change to the root directory of a source control
+        repository.
 *   `bc()` silences startup messages from GNU `bc(1)`.
-*   `bd()` changes into a named ancestor of the current directory.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
 *   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
@@ -181,31 +198,22 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `ls()` tries to apply color to `ls(1)` for interactive use if available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-*   `mkcd()` creates a directory and changes into it.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
     `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
-*   `pd()` changes to the argument's parent directory.
-*   `rd()` replaces the first instance of its first argument with its second
-    argument in `$PWD`, emulating a feature of the Zsh `cd` builtin that I
-    like.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
-*   `scr()` creates a temporary directory and changes into it.
-*   `sd()` changes into a sibling of the current directory.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
     preserved; I hate having `root`-owned files in my home directory.
 *   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
     if a session exists, or creates a new session if one doesn't.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
-*   `ud()` changes into an indexed ancestor of a directory.
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
     `vi(1)` and `view(1)` implementation if it's available.
-*   `vr()` tries to change to the root directory of a source control
-    repository.
 *   `x()` is a one-key shortcut for `exec startx`.
 
-There are a few other little tricks defined for other shells:
+There are a few other little tricks defined for other shells providing
+non-POSIX features, as compatibility allows:
 
 *   `keep()` stores ad-hoc shell functions and variables (Bash, Korn Shell 93,
     Z shell).
@@ -394,17 +402,23 @@ Installed by the `install-bin` target:
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
-*   Four simple aggregators for numbers:
+*   Six simple aggregators for numbers:
+    *   `max(1df)` prints the maximum.
     *   `mean(1df)` prints the mean.
     *   `med(1df)` prints the median.
+    *   `min(1df)` prints the minimum.
     *   `mode(1df)` prints the first encountered mode.
     *   `tot(1df)` totals the set.
+*   Two quick-and-dirty HTML text node content encoding tools:
+    *   `htenc(1df)` encodes.
+    *   `htdec(1df)` decodes.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
+*   `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL
@@ -450,6 +464,7 @@ Installed by the `install-bin` target:
     repository.
 *   `ix(1df)` posts its input to the ix.io pastebin.
 *   `jfc(1df)` adds and commits lazily to a Git repository.
+*   `jfp(1df)` prints its input, excluding any shebang on the first line only.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.
@@ -461,7 +476,10 @@ Installed by the `install-bin` target:
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `onl(1df)` crunches input down to one printable line.
 *   `pa(1df)` prints its arguments, one per line.
+*   `pp(1df)` prints the full path of each argument using `$PWD`.
+*   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
 *   `paz(1df)` print its arguments terminated by NULL chars.
 *   `pit(1df)` runs its input through a pager if its standard output looks like
     a terminal.
@@ -479,6 +497,8 @@ Installed by the `install-bin` target:
 *   `sue(8df)` execs `sudoedit(8)` as the owner of all the file arguments given,
     perhaps in cases where you may not necessarily have `root` `sudo(8)`
     privileges.
+*   `swr(1df)` allows you to run commands locally specifying remote files in
+    `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
 *   `try(1df)` repeats a command up to a given number of times until it

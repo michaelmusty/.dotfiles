@@ -136,8 +136,28 @@ function prompt {
                     state=${state}'>'
 
                 # Tracked files are modified
-                git diff-files --no-ext-diff --quiet ||
-                    state=${state}'!!'
+                if ! git diff-files --no-ext-diff --quiet ; then
+
+                    # Different ksh flavours process a bang in PS1 after prompt
+                    # parameter expansion in different ways
+                    case $KSH_VERSION in
+
+                        # ksh93 requires a double-bang to escape it
+                        (*'93'*) state=${state}'!!' ;;
+
+                        # OpenBSD's pdksh requires a double-bang too, but its
+                        # upstream does not
+                        (*'PD KSH'*)
+                            case $OS in
+                                ('OpenBSD') state=${state}'!!' ;;
+                                (*) state=${state}'!' ;;
+                            esac
+                            ;;
+
+                        # Everything else should need only one bang
+                        (*) state=${state}'!' ;;
+                    esac
+                fi
 
                 # Changes are staged
                 git diff-index --cached --no-ext-diff --quiet HEAD ||
@@ -192,6 +212,7 @@ function prompt {
 
         # Show the count of background jobs in curly brackets, if not zero
         job)
+            # shellcheck disable=SC2154
             ((jobc)) && printf '{%u}' "$jobc"
             ;;
 

@@ -50,6 +50,7 @@
 	check-sh \
 	check-urxvt \
 	check-yash \
+	check-zsh \
 	lint \
 	lint-bash \
 	lint-bin \
@@ -66,14 +67,22 @@ EMAIL := tom@sanctum.geek.nz
 KEY := 0xC14286EA77BB8872
 SENDMAIL := msmtp
 
-all : bin/csmw \
+BINS = bin/brnl \
+	bin/csmw \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
+	bin/htdec \
+	bin/htenc \
+	bin/jfp \
+	bin/max \
 	bin/mean \
 	bin/med \
 	bin/mftl \
+	bin/min \
 	bin/mode \
+	bin/nlbr \
+	bin/onl \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
@@ -83,35 +92,22 @@ all : bin/csmw \
 	bin/tot \
 	bin/unf \
 	bin/uts \
-	git/gitconfig \
-	gnupg/gpg.conf
+
+GAMES = games/acq \
+	games/aesth \
+	games/chkl \
+	games/drakon \
+	games/kvlt \
+	games/rot13 \
+	games/strik \
+	games/zs
+
+all : $(BINS) git/gitconfig gnupg/gpg.conf
 
 clean distclean :
 	rm -f \
-		bin/csmw \
-		bin/ddup \
-		bin/gwp \
-		bin/han \
-		bin/mean \
-		bin/med \
-		bin/mftl \
-		bin/mode \
-		bin/rfct \
-		bin/rndi \
-		bin/sd2u \
-		bin/sec \
-		bin/slsf \
-		bin/su2d \
-		bin/tot \
-		bin/unf \
-		bin/uts \
-		games/acq \
-		games/aesth \
-		games/drakon \
-		games/kvlt \
-		games/rot13 \
-		games/strik \
-		games/zs \
+		$(BINS) \
+		$(GAMES) \
 		git/gitconfig \
 		gnupg/gpg.conf \
 		man/man7/dotfiles.7df \
@@ -192,9 +188,7 @@ install-bash-completion : install-bash
 	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
 	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
-install-bin : bin/csmw bin/ddup bin/gwp bin/han bin/mean bin/med bin/mftl \
-	bin/mode bin/rfct bin/rndi bin/sd2u bin/sec bin/slsf bin/su2d bin/tot \
-	bin/unf bin/uts install-bin-man
+install-bin : $(BINS) install-bin-man
 	install -m 0755 -d -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -224,8 +218,7 @@ install-finger :
 	install -pm 0644 -- finger/project "$(HOME)"/.project
 	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
 
-install-games : games/acq games/aesth games/drakon games/kvlt games/rot13 \
-	games/strik games/zs check-games install-games-man
+install-games : $(GAMES) install-games-man
 	install -m 0755 -d -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
@@ -388,8 +381,11 @@ install-yash : check-yash install-sh
 	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
 	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
-install-zsh : install-sh
-	install -m 0755 -d -- "$(HOME)"/.zshrc.d
+install-zsh : check-zsh install-sh
+	install -m 0755 -d -- \
+		"$(HOME)"/.profile.d \
+		"$(HOME)"/.zshrc.d
+	install -pm 0644 -- zsh/profile.d/* "$(HOME)"/.profile.d
 	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
 	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
 	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
@@ -404,10 +400,10 @@ check : check-bash \
 check-bash :
 	check/bash
 
-check-bin :
+check-bin : $(BINS)
 	check/bin
 
-check-games :
+check-games : $(GAMES)
 	check/games
 
 check-man :
@@ -425,6 +421,9 @@ check-urxvt :
 check-yash :
 	check/yash
 
+check-zsh :
+	check/zsh
+
 lint : check \
 	lint-bash  \
 	lint-bin  \
@@ -437,10 +436,10 @@ lint : check \
 lint-bash :
 	lint/bash
 
-lint-bin :
+lint-bin : $(BINS)
 	lint/bin
 
-lint-games :
+lint-games : $(GAMES)
 	lint/games
 
 lint-ksh :

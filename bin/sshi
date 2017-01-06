@@ -7,9 +7,9 @@ if [ -z "$SSH_CONNECTION" ] ; then
     exit 1
 fi
 
-# Print the two variables into a subshell so we can chop them up with read
-printf '%s\n' "$SSH_CONNECTION" "${SSH_TTY:-unknown}" | (
-
+# Print the two variables into a compound command so we can `read` them
+printf '%s\n' "$SSH_CONNECTION" "${SSH_TTY:-unknown}" |
+{
     # Read connection details from first line
     read -r ci cp si sp
 
@@ -25,4 +25,4 @@ printf '%s\n' "$SSH_CONNECTION" "${SSH_TTY:-unknown}" | (
         "${ch:-"$ci"}" "$cp" \
         "${sh:-"$si"}" "$sp" \
         "$tty"
-)
+}

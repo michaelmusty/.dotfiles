@@ -1,0 +1,18 @@
+.TH HTDEC 1df "January 2017" "Manual page for htdec"
+.SH NAME
+.B htdec
+\- quick-and-dirty HTML to text decoding for text nodes
+.SH SYNOPSIS
+.B htdec
+/usr/share/lovecraft/the-silver-key.html > the-silver-key.txt
+.br
+curl http://example.com/netstat.html |
+.B htdec
+.SH DESCRIPTION
+.B htdec
+unescapes left angle quotes, right angle quotes, and ampersands to put HTML
+text node content into plain text.
+.SH SEE ALSO
+htenc(1df), brnl(1df), nlbr(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

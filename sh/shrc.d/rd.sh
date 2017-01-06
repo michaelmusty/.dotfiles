@@ -51,9 +51,12 @@ rd() {
             exit 1
         fi
 
-        # Print the target
-        printf '%s\n' "$new"
+        # Print the target with trailing slash to work around newline stripping
+        printf '%s/' "${new%/}"
     )"
+
+    # Remove trailing slash
+    set -- "${1%/}"
 
     # If the subshell printed nothing, return with failure
     [ -n "$1" ] || return
