@@ -6,29 +6,18 @@ case $KSH_VERSION in
         bind ^L=clear-screen
         ;;
 
-    # Works pretty well, but only on an empty line
-    *'PD KSH'*)
-        bind -m '^L'=clear'^J'
-        ;;
-
-    # Not great; only works on an empty line, and skips a line after clearing;
-    # need a better way to redraw the prompt after clearing, or some suitable
-    # way to fake it with tput (can I clear-but-one)?
+    # Works great
     *'93'*)
-
-        # Bind function to run on each KEYBD trap
         bind() {
             case ${.sh.edchar} in
-                $'\x0c') # ^L
-
-                    # Write a sequence to clear the screen
-                    tput clear
-
-                    # Change key to Enter to redraw the prompt
-                    .sh.edchar=$'\x0d'
-                    ;;
+                $'\f') .sh.edchar=$'\e\f' ;;
             esac
         }
         trap bind KEYBD
+        ;;
+
+    # Works pretty well, but only on an empty line
+    *'PD KSH'*)
+        bind -m '^L'=clear'^J'
         ;;
 esac
