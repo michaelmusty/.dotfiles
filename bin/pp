@@ -1,0 +1,14 @@
+#!/bin/sh
+# Print the full path to each argument; file need not exist
+for arg ; do
+    case $arg in
+        */*)
+            dir=$(cd -- "${arg%/*}" ; printf '%s/' "$PWD")
+            dir=${dir%/}
+            ;;
+        *)
+            dir=$PWD
+            ;;
+    esac
+    printf '%s/%s\n' "$dir" "${arg##*/}"
+done

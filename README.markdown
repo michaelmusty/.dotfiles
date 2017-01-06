@@ -478,6 +478,8 @@ Installed by the `install-bin` target:
 *   `motd(1df)` shows the system MOTD.
 *   `onl(1df)` crunches input down to one printable line.
 *   `pa(1df)` prints its arguments, one per line.
+*   `pp(1df)` prints the full path of each argument using `$PWD`.
+*   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
 *   `paz(1df)` print its arguments terminated by NULL chars.
 *   `pit(1df)` runs its input through a pager if its standard output looks like
     a terminal.
