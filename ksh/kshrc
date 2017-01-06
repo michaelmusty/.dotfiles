@@ -1,6 +1,17 @@
-# Emacs-style key bindings
+# Emacs-style key bindings; these are present in ksh88 and pdksh
 set -o braceexpand
 set -o emacs
+
+# Use subshells to test these newer options, as ksh93 seems to get very upset
+# if you try to set an option and it doesn't exist
+
+# Try to get "**" as a recursive glob
+(set -o globstar) 2>/dev/null &&
+    set -o globstar
+
+# Try to get !-style history expansion
+(set -o histexpand) 2>/dev/null &&
+    set -o histexpand
 
 # Save history
 HISTFILE=$HOME/.ksh_history
