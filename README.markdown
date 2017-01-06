@@ -409,12 +409,16 @@ Installed by the `install-bin` target:
     *   `min(1df)` prints the minimum.
     *   `mode(1df)` prints the first encountered mode.
     *   `tot(1df)` totals the set.
+*   Two quick-and-dirty HTML text node content encoding tools:
+    *   `htenc(1df)` encodes.
+    *   `htdec(1df)` decodes.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
+*   `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL
@@ -460,6 +464,7 @@ Installed by the `install-bin` target:
     repository.
 *   `ix(1df)` posts its input to the ix.io pastebin.
 *   `jfc(1df)` adds and commits lazily to a Git repository.
+*   `jfp(1df)` prints its input, excluding any shebang on the first line only.
 *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
     any.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.
@@ -471,7 +476,10 @@ Installed by the `install-bin` target:
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `onl(1df)` crunches input down to one printable line.
 *   `pa(1df)` prints its arguments, one per line.
+*   `pp(1df)` prints the full path of each argument using `$PWD`.
+*   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
 *   `paz(1df)` print its arguments terminated by NULL chars.
 *   `pit(1df)` runs its input through a pager if its standard output looks like
     a terminal.

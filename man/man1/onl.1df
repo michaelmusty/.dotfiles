@@ -1,0 +1,18 @@
+.TH ONL 1df "January 2017" "Manual page for onl"
+.SH NAME
+.B onl
+\- force standard input onto one printable line
+.SH USAGE
+.B onl
+FILE1 [FILE2 ...]
+.br
+.B onl
+< FILE
+.br
+program |
+.B onl
+.SH DESCRIPTION
+Condense input down to one line with only printable characters, no leading or
+trailing spaces, and a single space in place of multiple spaces or tabs.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -1,0 +1,21 @@
+.TH NLBR 1df "January 2017" "Manual page for nlbr"
+.SH NAME
+.B nlbr
+\- add trailing HTML linebreaks
+.SH SYNOPSIS
+.B nlbr
+FILE
+.br
+.B nlbr
+FILE1 FILE...
+.br
+command |
+.B nlbr
+.SH DESCRIPTION
+.B nlbr
+adds trailing HTML linebreaks (<br>) to content. Good for running after
+htenc(1df).
+.SH SEE ALSO
+htenc(1df), htdec(1df), brnl(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

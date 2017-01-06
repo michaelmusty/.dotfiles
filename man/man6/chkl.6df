@@ -1,0 +1,32 @@
+.TH CHKL 6df "January 2017" "Manual page for chkl"
+.SH NAME
+.B chkl
+\- format an ASCII checklist with Unicode symbols
+.SH USAGE
+.B chkl
+.br
+[/] rekt
+.br
+[ ] not rekt
+.br
+^D
+.SH DESCRIPTION
+.B chkl
+replaces ASCII approximations for checkboxes in ticked, crossed, or blank state
+at the start of lines with appropriate Unicode symbols:
+.IP ☐ 0.2i
+Unicode Character 'BALLOT BOX' (U+2610)
+.IP ☑
+Unicode Character 'BALLOT BOX WITH CHECK' (U+2611)
+.IP ☒
+Unicode Character 'BALLOT BOX WITH X' (U+2612)
+.P
+Lines with a leading # will be ignored.
+.SH SEE ALSO
+<http://www.fileformat.info/info/unicode/char/2610/index.htm>
+.br
+<http://www.fileformat.info/info/unicode/char/2611/index.htm>
+.br
+<http://www.fileformat.info/info/unicode/char/2612/index.htm>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

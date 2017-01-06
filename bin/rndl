@@ -36,7 +36,7 @@ lc=$(sed -- '$=;d' "$@") || exit
 # If there were none, bail
 case $lc in
     ''|0)
-        printf 2>&1 'rndl: No lines found on input\n'
+        printf >&2 'rndl: No lines found on input\n'
         exit 2
         ;;
 esac

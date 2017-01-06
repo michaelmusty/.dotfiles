@@ -23,7 +23,7 @@ BEGIN {
 
 # Bailout function
 function fail(str) {
-    printf "%s: %s\n", self, str > "/dev/stderr"
+    printf "%s: %s\n", self, str | "cat >&2"
     exit(1)
 }
 
