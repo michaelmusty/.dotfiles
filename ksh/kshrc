@@ -2,6 +2,9 @@
 set -o braceexpand
 set -o emacs
 
+# Track locations of binaries
+set -o trackall
+
 # Use subshells to test these newer options, as ksh93 seems to get very upset
 # if you try to set an option and it doesn't exist
 
