@@ -2,7 +2,7 @@
 bindkey -e
 
 # If ENV is set, source it to get all the POSIX-compatible interactive stuff
-[[ -n $ENV ]] && . "$ENV"
+[[ -n $ENV ]] && source "$ENV"
 
 # History settings
 setopt histignorealldups sharehistory
