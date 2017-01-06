@@ -3,6 +3,7 @@ case $KSH_VERSION in
 
     *'93'*)
         bind() {
+            # shellcheck disable=SC2154
             case ${.sh.edchar} in
                 $'\f') .sh.edchar=$'\e\f' ;;
             esac
@@ -11,11 +12,11 @@ case $KSH_VERSION in
         ;;
 
     *'MIRBSD KSH'*)
-        bind ^L=clear-screen
+        bind '^L'='clear-screen'
         ;;
 
     *'PD KSH'*)
-        bind -m '^L'='^U'clear'^J^Y'
+        bind -m '^L'='^Uclear^J^Y'
         ;;
 
 esac
