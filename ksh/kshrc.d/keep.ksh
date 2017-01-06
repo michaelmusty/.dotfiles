@@ -142,7 +142,6 @@ EOF
 
     # Otherwise the user must want us to print all the NAMEs kept
     (
-        typeset keep
         for keep in "$kshkeep"/*.ksh ; do
             [[ -f "$keep" ]] || break
             keep=${keep##*/}

@@ -1,0 +1,39 @@
+.TH JFP 1df "January 2017" "Manual page for jfp"
+.SH NAME
+.B jfp
+\- print input, excluding any shebang on the first line
+.SH SYNOPSIS
+.B jfp
+FILE [FILE2 ...]
+.br
+.B jfp
+< FILE
+.P
+#!/usr/bin/env jfp
+.br
+All this content will be printed verbatim,
+.br
+except for the first line,
+.br
+because it's a shebang.
+.SH DESCRIPTION
+.B jfp
+prints all the input given to it except for the first line if it starts with a
+shebang "#!". This means it can be used in a shebang to simply echo the entire
+remaining contents of the script.
+.SH NOTES
+Can you guess what it stands for?
+.P
+A portable way to do the same thing could be using a heredoc with cat(1):
+.P
+    #!/bin/sh
+    cat <<'EOD'
+    All this content will be printed verbatim...
+    ...except for the first line...
+    ...because it's a shebang.
+    EOD
+.P
+The only snag there is having to check the token word doesn't appear in the
+document.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

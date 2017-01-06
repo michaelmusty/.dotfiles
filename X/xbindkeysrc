@@ -27,3 +27,6 @@
 
 "exec amixer -q sset Master 5%- unmute"
   XF86AudioLowerVolume
+
+"exec urxvtcd -e bcq"
+  XF86Calculator

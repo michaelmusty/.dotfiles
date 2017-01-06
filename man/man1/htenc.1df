@@ -1,0 +1,18 @@
+.TH HTENC 1df "January 2017" "Manual page for htenc"
+.SH NAME
+.B htenc
+\- quick-and-dirty text to HTML encoding for text nodes
+.SH SYNOPSIS
+.B htenc
+/usr/share/lovecraft/the-silver-key.txt > the-silver-key.html
+.br
+netstat -aunt |
+.B htenc > netstat.html
+.SH DESCRIPTION
+.B htenc
+escapes ampersands, left angle quotes, and right angle quotes to put text into
+a form that should be suitable to include in XML/HTML text nodes.
+.SH SEE ALSO
+htdec(1df), brnl(1df), nlbr(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

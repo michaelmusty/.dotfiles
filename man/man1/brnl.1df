@@ -1,0 +1,20 @@
+.TH BRNL 1df "January 2017" "Manual page for brnl"
+.SH NAME
+.B brnl
+\- strip trailing HTML linebreaks
+.SH SYNOPSIS
+.B brnl
+FILE
+.br
+.B brnl
+FILE1 FILE...
+.br
+command |
+.B brnl
+.SH DESCRIPTION
+.B brnl
+strips trailing HTML linebreaks (<br>) from content. It reverses nlbr(1df).
+.SH SEE ALSO
+htenc(1df), htdec(1df), nlbr(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

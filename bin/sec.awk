@@ -6,7 +6,7 @@ BEGIN { FS = ":0*" }
 # If no fields, too many fields, or illegal characters, warn, skip line, accrue
 # errors
 !NF || NF > 3 || /[^0-9:]/ {
-    print "sec: Bad format" > "/dev/stderr"
+    print "sec: Bad format" | "cat >&2"
     err = 1
     next
 }

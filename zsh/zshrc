@@ -1,14 +1,16 @@
 # Emacs keybindings even if EDITOR is vi(1)
 bindkey -e
 
+# If ENV is set, source it to get all the POSIX-compatible interactive stuff
+[[ -n $ENV ]] && source "$ENV"
+
 # History settings
 setopt histignorealldups sharehistory
 HISTFILE=$HOME/.zsh_history
 SAVEHIST=$((1 << 12))
-HISTSIZE=$((1 << 10))
 
-# Load POSIX shell startup files and then Bash-specific ones
-for sh in "$ENV" "$HOME"/.zshrc.d/*.zsh ; do
+# Load Zsh-specific startup files
+for sh in "$HOME"/.zshrc.d/*.zsh ; do
     [[ -e $sh ]] && source "$sh"
 done
 unset -v sh

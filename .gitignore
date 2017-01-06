@@ -1,13 +1,19 @@
+bin/brnl
 bin/csmw
 bin/ddup
 bin/gwp
+bin/jfp
 bin/han
+bin/htdec
+bin/htenc
 bin/max
 bin/mean
 bin/med
 bin/mftl
 bin/min
 bin/mode
+bin/nlbr
+bin/onl
 bin/rfct
 bin/rndi
 bin/sd2u
@@ -19,6 +25,7 @@ bin/unf
 bin/uts
 games/acq
 games/aesth
+games/chkl
 games/drakon
 games/kvlt
 games/rot13

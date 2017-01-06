@@ -1,0 +1,16 @@
+.TH PPH 1df "January 2017" "Manual page for pp"
+.SH NAME
+.B pp
+\- print the full path to each argument, hostname prepended
+.SH SYNOPSIS
+.B pp
+/arg arg2 ./arg3
+.SH DESCRIPTION
+.B pph
+runs pp(1df) on the arguments to print the full path to each one, and also
+prepends the machine's hostname and a colon to each line.
+.SH CAVEATS
+Newlines in filenames will mess this up. This is for generating human-readable
+file lists, not for machines. 
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

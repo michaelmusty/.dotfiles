@@ -15,7 +15,7 @@ ad() {
         req=${1%/}/
         case $req in
             (/*) ;;
-            (*) req=${PWD%/}/${req#/}/ ;;
+            (*) req=${PWD%/}/${req#/} ;;
         esac
 
         # Start building the target directory; go through the request piece by
@@ -65,9 +65,12 @@ ad() {
 
         done
 
-        # Print the target
-        printf '%s\n' "$dir"
+        # Print the target with trailing slash to work around newline stripping
+        printf '%s/' "${dir%/}"
     )"
+
+    # Remove trailing slash
+    set -- "${1%/}"
 
     # If the subshell printed nothing, return with failure
     [ -n "$1" ] || return
