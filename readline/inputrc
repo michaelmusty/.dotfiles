@@ -74,8 +74,8 @@ $if Bash
     # Alt-S (for set) to wrap current command in (set -x ; ...)
     "\es": "\C-a(set -x ; \C-e)\C-b"
 
-    # Alt-M (for muxer) to run tmux
-    "\em": "\C-utmux\C-j\C-y"
+    # Alt-M (for muxer) to run tm(1df)
+    "\em": "\C-utm\C-j\C-y"
 
     # Ctrl-Alt-B to move backward a shell-quoted word
     "\e\C-b": shell-backward-word
