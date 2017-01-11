@@ -18,7 +18,6 @@ BEGIN {
             if ($1 == ARGV[i]) {
                 found = 1
                 print $2
-                continue
             }
         }
     }
