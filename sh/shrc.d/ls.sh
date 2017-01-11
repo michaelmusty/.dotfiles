@@ -6,8 +6,8 @@
 # does, just get rid of it
 unalias ls >/dev/null 2>&1
 
-# Discard LS_OPTIONS
-unset -v LS_OPTIONS
+# Discard LS_OPTIONS and LS_COLORS
+unset -v LS_OPTIONS LS_COLORS
 
 # Define function proper
 ls() {
