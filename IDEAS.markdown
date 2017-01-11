@@ -9,3 +9,5 @@ Ideas
 *   Have eds(1df) accept stdin with the "starting content" for the script
 *   Convert all the manual pages to mandoc maybe? <https://en.wikipedia.org/wiki/Mandoc>
 *   Add "pop" and "shift" methods to path()
+*   `ls()` function flags can probably be made more generic by looking for
+    their short POSIX equivalents if any
