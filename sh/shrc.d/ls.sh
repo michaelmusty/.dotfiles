@@ -6,6 +6,9 @@
 # does, just get rid of it
 unalias ls >/dev/null 2>&1
 
+# Discard LS_OPTIONS
+unset -v LS_OPTIONS
+
 # Define function proper
 ls() {
 
