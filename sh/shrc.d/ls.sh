@@ -5,14 +5,10 @@
 # Define function proper
 ls() {
 
-    # Add -F to show trailing indicators of the filetype
-    set -- -F "$@"
-
-    # Add -q to replace control chars with '?'
-    set -- -q "$@"
-
-    # Format with entries sorted across, not down, in columns
-    set -- -x "$@"
+    # -F to show trailing indicators of the filetype
+    # -q to replace control chars with '?'
+    # -x to format entries across, not down
+    set -- -Fqx "$@"
 
     # Add --block-size=K to always show the filesize in kibibytes
     [ -e "$HOME"/.cache/ls/block-size ] &&
