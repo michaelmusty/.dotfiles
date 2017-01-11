@@ -511,6 +511,8 @@ Installed by the `install-bin` target:
 *   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
 *   `vex(1df)` runs a command and prints `true` or `false` explicitly to
     `stdout` based on the exit value.
+*   `xrq(1df)` gets the values of specific resources out of `xrdb -query`
+    output.
 
 There's some silly stuff in `install-games`:
 
