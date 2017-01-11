@@ -1,6 +1,15 @@
 "exec urxvtcd"
   Mod4 + Return
 
+"exec urxvtcd -e sh"
+  Mod4 + Control + Return
+
+"exec urxvtcd -e ksh"
+  Mod4 + Shift + Return
+
+"exec urxvtcd -e zsh"
+  Mod4 + Alt + Return
+
 "exec br"
   Mod4 + b
 

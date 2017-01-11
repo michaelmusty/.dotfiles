@@ -1,0 +1,12 @@
+.TH TM 1df "January 2017" "Manual page for tm"
+.SH NAME
+.B tm
+\- tmux shortcut
+.SH SYNOPSIS
+.B tm
+.SH DESCRIPTION
+If arguments are given, pass them to tmux(1) unchanged. If not, check if a tmux
+session exists; if it does, attach to it. If not, create a new session with
+name given in environment variable $TMUX_SESSION, default "default".
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

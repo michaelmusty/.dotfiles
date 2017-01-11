@@ -92,6 +92,7 @@ BINS = bin/brnl \
 	bin/tot \
 	bin/unf \
 	bin/uts \
+	bin/xrq
 
 GAMES = games/acq \
 	games/aesth \

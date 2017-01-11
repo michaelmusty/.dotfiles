@@ -204,8 +204,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
     preserved; I hate having `root`-owned files in my home directory.
-*   `tmux()` changes the default command for `tmux(1)` to `attach-session -d`
-    if a session exists, or creates a new session if one doesn't.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
 *   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
@@ -501,6 +499,8 @@ Installed by the `install-bin` target:
     `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
+*   `tm()` runs `tmux(1)` with `attach-session -d` if a session exists, and
+    `new-session` if it doesn't.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
@@ -511,6 +511,8 @@ Installed by the `install-bin` target:
 *   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
 *   `vex(1df)` runs a command and prints `true` or `false` explicitly to
     `stdout` based on the exit value.
+*   `xrq(1df)` gets the values of specific resources out of `xrdb -query`
+    output.
 
 There's some silly stuff in `install-games`:
 
