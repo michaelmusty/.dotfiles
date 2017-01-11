@@ -6,7 +6,7 @@
 # does, just get rid of it
 unalias ls >/dev/null 2>&1
 
-# Discard LS_OPTIONS and LS_COLORS
+# Discard GNU ls(1) environment variables if the environment set them
 unset -v LS_OPTIONS LS_COLORS
 
 # Define function proper
