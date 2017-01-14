@@ -38,7 +38,6 @@
 	install-gvim-config \
 	install-vim-plugins \
 	install-vim-pathogen \
-	install-wyrd \
 	install-x \
 	install-yash \
 	install-zsh \
@@ -360,9 +359,6 @@ install-vim-pathogen : install-vim-plugins
 	rm -f -- "$(HOME)"/.vim/autoload/pathogen.vim
 	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
 		"$(HOME)"/.vim/autoload/pathogen.vim
-
-install-wyrd :
-	install -pm 0644 -- wyrd/wyrdrc "$(HOME)"/.wyrdrc
 
 install-x :
 	install -m 0755 -d -- \

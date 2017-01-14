@@ -77,8 +77,6 @@ Configuration is included for:
 *   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
     Screen
 *   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
-*   [Wyrd](https://packages.debian.org/sid/wyrd) -- a `curses` calendar
-    frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network
     transparency for Unix
 
