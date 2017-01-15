@@ -509,6 +509,7 @@ Installed by the `install-bin` target:
 *   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
 *   `vex(1df)` runs a command and prints `true` or `false` explicitly to
     `stdout` based on the exit value.
+*   `xrbg(1df)` applies the same randomly-selected background to each X screen.
 *   `xrq(1df)` gets the values of specific resources out of `xrdb -query`
     output.
 
