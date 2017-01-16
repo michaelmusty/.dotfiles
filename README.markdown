@@ -77,8 +77,6 @@ Configuration is included for:
 *   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
     Screen
 *   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
-*   [Wyrd](https://packages.debian.org/sid/wyrd) -- a `curses` calendar
-    frontend for [Remind](https://www.roaringpenguin.com/products/remind)
 *   [X11](https://www.x.org/wiki/) -- Windowing system with network
     transparency for Unix
 
@@ -511,6 +509,7 @@ Installed by the `install-bin` target:
 *   `vest(1df)` runs `test(1)` but fails with explicit output via `vex(1df)`.
 *   `vex(1df)` runs a command and prints `true` or `false` explicitly to
     `stdout` based on the exit value.
+*   `xrbg(1df)` applies the same randomly-selected background to each X screen.
 *   `xrq(1df)` gets the values of specific resources out of `xrdb -query`
     output.
 

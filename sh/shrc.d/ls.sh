@@ -2,6 +2,13 @@
 # options for us; if not, we won't be wrapping ls(1) with a function at all
 [ -d "$HOME"/.cache/ls ] || return
 
+# If the system has already aliased ls(1) for us, like Slackware or OpenBSD
+# does, just get rid of it
+unalias ls >/dev/null 2>&1
+
+# Discard GNU ls(1) environment variables if the environment set them
+unset -v LS_OPTIONS LS_COLORS
+
 # Define function proper
 ls() {
 

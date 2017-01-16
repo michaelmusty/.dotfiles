@@ -1,7 +1,7 @@
-.TH XRQ 1df "August 2016" "Manual page for xrq"
+.TH XRQ 1df "January 2017" "Manual page for xrq"
 .SH NAME
 .B xrq
-\- view the given URL in an appropriate program, falling back on $BROWSER
+\- query X resource values
 .SH SYNOPSIS
 .B xrq
 Xft.hintstyle

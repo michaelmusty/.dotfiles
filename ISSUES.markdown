@@ -18,3 +18,7 @@ Known issues
 *   I can't find a clean way of detecting a restricted shell for ksh instances
     to prevent trying to load anything fancy (works for Bash)
     *   Zsh, either! $options[restricted] is "off" within the startup file
+*   The stty tab0/tabs settings in .shrc work on my home machine but not at
+    work for some reason; pressing Tab in a cat(1) process still indents by
+    eight spaces; if I run "tabs 4" again it indents by 3 spaces then 4 spaces
+    (!)
