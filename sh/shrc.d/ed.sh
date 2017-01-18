@@ -19,10 +19,10 @@ ed() {
             tput setaf "$ec" 0 0 ||
             tput AF "$ec" ||
             tput AF "$ec" 0 0
-            printf %s "${ED_PROMPT:-'*'}"
+            printf %s "${ED_PROMPT:-*}"
             tput sgr0 || tput me
         else
-            printf %s "${ED_PROMPT:-'*'}"
+            printf %s "${ED_PROMPT:-*}"
         fi 2>/dev/null
     )" "$@"
 
