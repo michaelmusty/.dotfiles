@@ -1,5 +1,5 @@
 #!/bin/sh
 # Run pp(1df) on args, prefix with machine hostname
-hostname=$(hostname -s) || exit
+hn=$(hostname -s) || exit
 pp "$@" |
-sed 's_^_'"$hostname":'_'
+awk -v hn="$hn" '{ print hn ":" $0 }'
