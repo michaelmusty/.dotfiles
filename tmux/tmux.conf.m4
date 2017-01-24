@@ -112,17 +112,16 @@ set-option -g message-style "bg=colour18,fg=colour231"
 # Window choosers are white on blue
 set-window-option -g mode-style "bg=colour18,fg=colour231"
 
-# Pane borders are always in dark gray
-set-option -g pane-border-style "fg=TMUX_COLOR"
-set-option -g pane-active-border-style "fg=TMUX_COLOR"
+# Pane borders are always in the background color
+set-option -g pane-border-style "fg=TMUX_BG"
+set-option -g pane-active-border-style "fg=TMUX_BG"
 
-# Inactive windows have a slightly grayed-out background and default text
+# Inactive windows have slightly washed-out system colours
 set-option -g window-style "bg=colour232,fg=colour248"
 set-option -g window-active-style "bg=colour0,fg=colour15"
 
-# The status bar defaults to light gray on dark gray, which applies to the left
-# and right status bar sections described in status-left and status-right above
-set-option -g status-style "bg=TMUX_COLOR,fg=colour248"
+# The status bar has the defined background and foreground colours
+set-option -g status-style "bg=TMUX_BG,fg=TMUX_FG"
 
 # Titles of windows default to black text with no embellishment
 set-window-option -g window-status-style "fg=colour16"

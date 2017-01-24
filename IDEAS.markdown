@@ -10,5 +10,3 @@ Ideas
 *   Convert all the manual pages to mandoc maybe? <https://en.wikipedia.org/wiki/Mandoc>
 *   Add "pop" and "shift" methods to path()
 *   edio(1df), like vipe(1)
-*   Allow specifying foreground and background colours for tmux configuration
-    files; would be useful for work
