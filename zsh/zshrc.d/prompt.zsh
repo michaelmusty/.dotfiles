@@ -24,12 +24,6 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'%#'
 
-            # Add > symbols to show nested shells
-            local shlvl
-            for ((shlvl = 1; shlvl < SHLVL; shlvl++)) ; do
-                PS1='>'$PS1
-            done
-
             # Bold and color the prompt if it looks like we can
             if (( $({ tput colors || tput Co ; } 2>/dev/null) >= 8 )) ; then
                 PS1='%B%F{cyan}'$PS1'%f%b'

@@ -122,20 +122,17 @@ after testing `BASH_VERSINFO` appropriately.
 A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
-    tom@remote:~$ bash
-    >tom@remote:~$ cd .dotfiles
-    >tom@remote:~/.dotfiles(master+!)$ git status
+    tom@remote:~$ cd .dotfiles
+    tom@remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    >tom@remote:~/.dotfiles(master+!)$ foobar
+    tom@remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    >tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
+    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    >tom@remote:~/.dotfiles(master+!){1}$
+    tom@remote:~/.dotfiles(master+!){1}$
 
-If `SHLVL` is greater than one, right angle brackets are added to show how many
-`bash` instances deep into the process tree we are, taking into account `tmux`.
 The username and hostname are elided if not connected via SSH. The working
 directory is always shown. The rest of the prompt expands based on context to
 include these elements in this order:
@@ -148,8 +145,7 @@ include these elements in this order:
 *   The exit status of the last command, if non-zero
 
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
-do about what you'd expect. `PROMPT_PREFIX` will appear after the `SHLVL` angle
-brackets.
+do about what you'd expect.
 
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most

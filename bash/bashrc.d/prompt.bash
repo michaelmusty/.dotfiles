@@ -28,12 +28,6 @@ prompt() {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
-            # Add > symbols to show nested shells
-            local shlvl
-            for ((shlvl = 1; shlvl < SHLVL; shlvl++)) ; do
-                PS1='>'$PS1
-            done
-
             # Declare variables to contain terminal control strings
             local format reset
 

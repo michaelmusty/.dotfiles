@@ -28,14 +28,6 @@ function prompt {
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
 
-            # Add > symbols to show nested shells
-            typeset shlvl
-            shlvl=1
-            while ((shlvl < SHLVL)); do
-                PS1='>'$PS1
-                ((shlvl++))
-            done
-
             # Declare variables to contain terminal control strings
             typeset format reset
 
