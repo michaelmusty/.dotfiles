@@ -73,6 +73,7 @@ BINS = bin/brnl \
 	bin/han \
 	bin/htdec \
 	bin/htenc \
+	bin/htref \
 	bin/jfp \
 	bin/max \
 	bin/mean \
@@ -136,10 +137,11 @@ mutt/muttrc : mutt/muttrc.m4
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		mutt/muttrc.m4 > mutt/muttrc
 
-TMUX_COLOR := colour237
+TMUX_BG := colour237
+TMUX_FG := colour248
 
 tmux/tmux.conf : tmux/tmux.conf.m4
-	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
+	m4 -D TMUX_BG="$(TMUX_BG)" -D TMUX_FG="$(TMUX_FG)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 .awk :

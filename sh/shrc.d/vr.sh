@@ -19,10 +19,16 @@ vr() {
         cd -- "$path" || exit
 
         # Ask Git the top level (good)
-        git rev-parse --show-toplevel 2>/dev/null && exit
+        if git rev-parse --show-toplevel 2>/dev/null ; then
+            printf /
+            exit
+        fi
 
         # Ask Mercurial the top level (great)
-        hg root 2>/dev/null && exit
+        if hg root 2>/dev/null ; then
+            printf /
+            exit
+        fi
 
         # If we can get SVN info, iterate upwards until we cannot; hopefully
         # that is the root (bad)
@@ -32,7 +38,7 @@ vr() {
             cd .. || exit
         done
         if [ -n "$root" ] ; then
-            printf '%s\n' "$root"
+            printf '%s\n/' "$root"
             exit
         fi
 
@@ -40,6 +46,9 @@ vr() {
         printf >&2 'vr(): Failed to find repository root\n'
         exit 1
     )"
+
+    # Chop the trailing newline and slash
+    set -- "${1%?/}"
 
     # Check we figured out a target, or bail
     [ -n "$1" ] || return

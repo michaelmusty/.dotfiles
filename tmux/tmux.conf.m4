@@ -8,16 +8,12 @@ set-environment -gru SSH_CONNECTION
 set-environment -gru SSH_TTY
 set-environment -gru WINDOWID
 
-# Reset SHLVL
-set-environment -gru SHLVL
-
 # Otherwise, use the environment we had when we started; don't touch it during
 # a session unless I specifically ask
 set-option -g update-environment ''
 
 # Setting this makes each new pane a non-login shell, which suits me better
-# Clear away SHLVL again first to stop it getting incremented twice
-set-option -g default-command "unset SHLVL ; exec $SHELL"
+set-option -g default-command "$SHELL"
 
 # Expect a 256-color terminal
 set-option -g default-terminal 'screen-256color'
@@ -116,17 +112,16 @@ set-option -g message-style "bg=colour18,fg=colour231"
 # Window choosers are white on blue
 set-window-option -g mode-style "bg=colour18,fg=colour231"
 
-# Pane borders are always in dark gray
-set-option -g pane-border-style "fg=TMUX_COLOR"
-set-option -g pane-active-border-style "fg=TMUX_COLOR"
+# Pane borders are always in the background color
+set-option -g pane-border-style "fg=TMUX_BG"
+set-option -g pane-active-border-style "fg=TMUX_BG"
 
-# Inactive windows have a slightly grayed-out background and default text
+# Inactive windows have slightly washed-out system colours
 set-option -g window-style "bg=colour232,fg=colour248"
 set-option -g window-active-style "bg=colour0,fg=colour15"
 
-# The status bar defaults to light gray on dark gray, which applies to the left
-# and right status bar sections described in status-left and status-right above
-set-option -g status-style "bg=TMUX_COLOR,fg=colour248"
+# The status bar has the defined background and foreground colours
+set-option -g status-style "bg=TMUX_BG,fg=TMUX_FG"
 
 # Titles of windows default to black text with no embellishment
 set-window-option -g window-status-style "fg=colour16"

@@ -6,6 +6,7 @@ bin/jfp
 bin/han
 bin/htdec
 bin/htenc
+bin/htref
 bin/max
 bin/mean
 bin/med
