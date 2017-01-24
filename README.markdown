@@ -140,9 +140,9 @@ include these elements in this order:
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
     support can also be enabled (I need it at work), in which case a `git:` or
-    `svn:` prefix is added appropriately
-*   The number of running background jobs, if non-zero
-*   The exit status of the last command, if non-zero
+    `svn:` prefix is added appropriately.
+*   The number of running background jobs, if non-zero.
+*   The exit status of the last command, if non-zero.
 
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
 do about what you'd expect.
@@ -406,7 +406,7 @@ Installed by the `install-bin` target:
     *   `htdec(1df)` decodes.
     *   `htrec(1df)` wraps `a` tags around URLs.
 *   `ap(1df)` reads arguments for a given command from the standard input,
-    prompting if appropriate
+    prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
 *   `ax(1df)` evaluates an awk expression given on the command line; this is
@@ -414,7 +414,7 @@ Installed by the `install-bin` target:
 *   `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
-*   `bp(1df)` runs `br(1df)` after prompting for an URL
+*   `bp(1df)` runs `br(1df)` after prompting for an URL.
 *   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
     it knows of one.
 *   `ca(1df)` prints a count of its given arguments.
@@ -425,9 +425,9 @@ Installed by the `install-bin` target:
 *   `clog(1df)` is a tiny timestamped log system.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
-    line
+    line.
 *   `csmw(1df)` prints an English list of monospace-quoted words read from the
-    input
+    input.
 *   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
@@ -441,7 +441,7 @@ Installed by the `install-bin` target:
 *   `finc(1df)` counts the number of results returned from a set of given
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
-    files, printing their paths and line counts
+    files, printing their paths and line counts.
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
