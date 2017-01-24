@@ -2,6 +2,9 @@
 # options for us; if not, we won't be wrapping grep(1) with a function at all
 [ -d "$HOME"/.cache/grep ] || return
 
+# Discard GNU grep(1) environment variables if the environment set them
+unset -v GREP_OPTIONS
+
 # Define function proper
 grep() {
 

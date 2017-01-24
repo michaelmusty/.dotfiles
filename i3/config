@@ -7,6 +7,9 @@ font pango:Verdana 7
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# No title bar
+new_window 1pixel
+
 # Mod+Shift+r restarts i3wm
 bindsym $mod+Shift+r restart
 

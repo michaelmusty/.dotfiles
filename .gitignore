@@ -6,6 +6,7 @@ bin/jfp
 bin/han
 bin/htdec
 bin/htenc
+bin/htref
 bin/max
 bin/mean
 bin/med
@@ -23,6 +24,7 @@ bin/su2d
 bin/tot
 bin/unf
 bin/uts
+bin/xrq
 games/acq
 games/aesth
 games/chkl

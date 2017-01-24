@@ -38,7 +38,6 @@
 	install-gvim-config \
 	install-vim-plugins \
 	install-vim-pathogen \
-	install-wyrd \
 	install-x \
 	install-yash \
 	install-zsh \
@@ -74,6 +73,7 @@ BINS = bin/brnl \
 	bin/han \
 	bin/htdec \
 	bin/htenc \
+	bin/htref \
 	bin/jfp \
 	bin/max \
 	bin/mean \
@@ -92,6 +92,7 @@ BINS = bin/brnl \
 	bin/tot \
 	bin/unf \
 	bin/uts \
+	bin/xrq
 
 GAMES = games/acq \
 	games/aesth \
@@ -136,10 +137,11 @@ mutt/muttrc : mutt/muttrc.m4
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		mutt/muttrc.m4 > mutt/muttrc
 
-TMUX_COLOR := colour237
+TMUX_BG := colour237
+TMUX_FG := colour248
 
 tmux/tmux.conf : tmux/tmux.conf.m4
-	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
+	m4 -D TMUX_BG="$(TMUX_BG)" -D TMUX_FG="$(TMUX_FG)" \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 .awk :
@@ -359,9 +361,6 @@ install-vim-pathogen : install-vim-plugins
 	rm -f -- "$(HOME)"/.vim/autoload/pathogen.vim
 	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
 		"$(HOME)"/.vim/autoload/pathogen.vim
-
-install-wyrd :
-	install -pm 0644 -- wyrd/wyrdrc "$(HOME)"/.wyrdrc
 
 install-x :
 	install -m 0755 -d -- \
