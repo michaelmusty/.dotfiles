@@ -100,7 +100,7 @@ function prompt {
                     git describe --tags --exact-match HEAD ||
                     git rev-parse --short HEAD
                 ) || return
-                name=${name##*/}
+                name=${name#refs/*/}
                 [[ -n $name ]] || return
 
                 # Check various files in .git to flag processes
