@@ -22,6 +22,20 @@ function prompt {
             # count, and previous command return value
             PS1=$PS1'$(ret=$?;jobc=$(jobs -p|sed -n '\''$='\'');prompt pwd;prompt vcs;prompt job;prompt ret;:)'
 
+            # Add a helpful prefix if this shell appears to be exotic
+            typeset ksh
+            case $KSH_VERSION in
+                (*'93'*) ksh=ksh93 ;;
+                (*'PD KSH'*) ksh=pdksh ;;
+                (*'MIRBSD KSH'*) ksh=mksh ;;
+            esac
+            case ${SHELL##*/} in
+                ('') ;;
+                (ksh) ;;
+                ("$ksh") ;;
+                (*) PS1=$ksh:$PS1 ;;
+            esac
+
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
 

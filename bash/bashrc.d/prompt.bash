@@ -22,6 +22,12 @@ prompt() {
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(ret=$?;prompt vcs;prompt job;prompt ret)'
 
+            # Add a helpful prefix if this shell appears to be exotic
+            case ${SHELL##*/} in
+                (bash) ;;
+                (*) PS1=bash:$PS1 ;;
+            esac
+
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
 
