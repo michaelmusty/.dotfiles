@@ -132,9 +132,12 @@ man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
+MAILDIR := $(HOME)/Mail
+
 mutt/muttrc : mutt/muttrc.m4
 	m4 \
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
+		-D DOTFILES_MAILDIR="$(MAILDIR)" \
 		mutt/muttrc.m4 > mutt/muttrc
 
 TMUX_BG := colour237
@@ -258,12 +261,12 @@ install-less :
 
 install-maildir :
 	install -m 0755 -d -- \
-		"$(HOME)"/Mail/inbox/cur \
-		"$(HOME)"/Mail/inbox/new \
-		"$(HOME)"/Mail/inbox/tmp \
-		"$(HOME)"/Mail/sent/cur \
-		"$(HOME)"/Mail/sent/new \
-		"$(HOME)"/Mail/sent/tmp
+		"$(MAILDIR)"/inbox/cur \
+		"$(MAILDIR)"/inbox/new \
+		"$(MAILDIR)"/inbox/tmp \
+		"$(MAILDIR)"/sent/cur \
+		"$(MAILDIR)"/sent/new \
+		"$(MAILDIR)"/sent/tmp
 
 install-mutt : mutt/muttrc install-maildir
 	install -m 0755 -d -- \

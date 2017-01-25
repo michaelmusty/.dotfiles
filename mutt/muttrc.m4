@@ -12,7 +12,7 @@ set sendmail = 'DOTFILES_SENDMAIL'
 
 # Mailbox type and location
 set mbox_type = 'Maildir'
-set folder    = '~/Mail/'
+set folder    = 'DOTFILES_MAILDIR'
 
 # Submailboxes
 set spoolfile = '+inbox'
