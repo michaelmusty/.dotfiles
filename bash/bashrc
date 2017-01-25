@@ -9,6 +9,11 @@ esac
 # shellcheck disable=SC2128
 [ -n "$BASH_VERSINFO" ] && shopt -q restricted_shell && return
 
+# Clear away all aliases; we do this here rather than in $ENV because the ksh
+# family of shells relies on aliases to implement certain POSIX utilities like
+# fc(1) and type(1)
+unalias -a
+
 # If ENV is set, source it to get all the POSIX-compatible interactive stuff;
 # we should be able to do this even if we're running a truly ancient Bash
 [ -n "$ENV" ] && . "$ENV"

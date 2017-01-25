@@ -147,6 +147,9 @@ include these elements in this order:
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
 do about what you'd expect.
 
+If you start up Bash, Ksh, or Zsh and it detects that it's not normally your
+`$SHELL`, the prompt will display an appropriate prefix.
+
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
 common terminals using both `termcap(5)` and `terminfo(5)`, including \*BSD
