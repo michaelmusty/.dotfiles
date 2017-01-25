@@ -8,5 +8,4 @@ Ideas
     manageable
 *   Have eds(1df) accept stdin with the "starting content" for the script
 *   Convert all the manual pages to mandoc maybe? <https://en.wikipedia.org/wiki/Mandoc>
-*   Add "pop" and "shift" methods to path()
 *   edio(1df), like vipe(1)

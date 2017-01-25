@@ -19,3 +19,6 @@ Known issues
 *   I can't find a clean way of detecting a restricted shell for ksh instances
     to prevent trying to load anything fancy (works for Bash)
     *   Zsh, either! $options[restricted] is "off" within the startup file
+*   I'm still not sure that the special character escaping for the ksh prompt
+    actually works. The line-wrapping behaviour for ksh93 seems to be a bit
+    weird. This requires debugging.

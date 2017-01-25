@@ -6,7 +6,7 @@ _path() {
 
         # Complete operation as first word
         local cmd
-        for cmd in list insert append remove check help ; do
+        for cmd in list insert append remove shift pop check help ; do
             [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
             COMPREPLY[${#COMPREPLY[@]}]=$cmd
         done
