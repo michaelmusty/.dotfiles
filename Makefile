@@ -18,6 +18,7 @@
 	install-gtk \
 	install-i3 \
 	install-less \
+	install-mail \
 	install-maildir \
 	install-mutt \
 	install-ncmcpp \
@@ -111,6 +112,7 @@ clean distclean :
 		$(GAMES) \
 		git/gitconfig \
 		gnupg/gpg.conf \
+		mail/mailrc \
 		man/man7/dotfiles.7df \
 		mutt/muttrc \
 		tmux/tmux.conf \
@@ -127,6 +129,10 @@ git/gitconfig : git/gitconfig.m4
 gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 -D DOTFILES_HOME="$(HOME)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+
+mail/mailrc : mail/mailrc.m4
+	m4 -D DOTFILES_SENDMAIL="$$(command -v "$(SENDMAIL)")" \
+		mail/mailrc.m4 > "$@"
 
 man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
@@ -259,6 +265,9 @@ install-less :
 	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
 	command -v lesskey && lesskey
 
+install-mail :
+	install -pm 0644 -- mail/mailrc "$(HOME)"/.mailrc
+
 install-maildir :
 	install -m 0755 -d -- \
 		"$(MAILDIR)"/inbox/cur \
@@ -268,7 +277,7 @@ install-maildir :
 		"$(MAILDIR)"/sent/new \
 		"$(MAILDIR)"/sent/tmp
 
-install-mutt : mutt/muttrc install-maildir
+install-mutt : mutt/muttrc install-mail install-maildir
 	install -m 0755 -d -- \
 		"$(HOME)"/.mutt \
 		"$(HOME)"/.cache/mutt

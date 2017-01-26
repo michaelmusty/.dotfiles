@@ -35,6 +35,7 @@ games/strik
 games/zs
 git/gitconfig
 gnupg/gpg.conf
+mail/mailrc
 man/man7/dotfiles.7df
 mutt/muttrc
 tmux/tmux.conf
