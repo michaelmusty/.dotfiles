@@ -274,6 +274,9 @@ install-mail : mail/mailrc
 
 install-maildir :
 	install -m 0755 -d -- \
+		"$(MAILDIR)"/drafts/cur \
+		"$(MAILDIR)"/drafts/new \
+		"$(MAILDIR)"/drafts/tmp \
 		"$(MAILDIR)"/inbox/cur \
 		"$(MAILDIR)"/inbox/new \
 		"$(MAILDIR)"/inbox/tmp \
