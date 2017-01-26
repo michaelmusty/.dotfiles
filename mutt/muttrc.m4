@@ -1,7 +1,3 @@
-# Person-specific settings
-# (Define 'from', 'realname', and specify alternate addresses in here)
-source ~/.mutt/muttrc.local
-
 # Names
 set use_domain   = yes
 set use_from     = yes
@@ -152,3 +148,6 @@ macro generic,index,browser,pager gm '!gms --quiet &<enter>' 'Run gms'
 
 # Shortcut to add addresses to abook
 macro index,pager A '<pipe-message>abook --add-email<enter>' 'Add sender address to abook'
+
+# Machine or account specific settings
+source ~/.mutt/muttrc.local
