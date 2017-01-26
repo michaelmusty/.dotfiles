@@ -13,7 +13,8 @@ program |
 .B csmw
 .SH DESCRIPTION
 Reads a list of whitespace-separated words and prints an English
-comma-and-"and" separated list:
+comma-and-"and" separated list, with each word between backticks with the
+expectation it'll be used in Markdown.
 .P
     $ csmw
     foo
