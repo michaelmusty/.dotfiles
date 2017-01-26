@@ -18,6 +18,7 @@
 	install-gtk \
 	install-i3 \
 	install-less \
+	install-mail \
 	install-maildir \
 	install-mutt \
 	install-ncmcpp \
@@ -111,6 +112,7 @@ clean distclean :
 		$(GAMES) \
 		git/gitconfig \
 		gnupg/gpg.conf \
+		mail/mailrc \
 		man/man7/dotfiles.7df \
 		mutt/muttrc \
 		tmux/tmux.conf \
@@ -124,17 +126,28 @@ git/gitconfig : git/gitconfig.m4
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		git/gitconfig.m4 > git/gitconfig
 
+KEYSERVER := hkps://hkps.pool.sks-keyservers.net
+
 gnupg/gpg.conf : gnupg/gpg.conf.m4
-	m4 -D DOTFILES_HOME="$(HOME)" \
+	m4 \
+		-D DOTFILES_HOME="$(HOME)" \
+		-D DOTFILES_KEYSERVER="$(KEYSERVER)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+
+mail/mailrc : mail/mailrc.m4
+	m4 -D DOTFILES_SENDMAIL="$$(command -v "$(SENDMAIL)")" \
+		mail/mailrc.m4 > "$@"
 
 man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
+MAILDIR := $(HOME)/Mail
+
 mutt/muttrc : mutt/muttrc.m4
 	m4 \
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
+		-D DOTFILES_MAILDIR="$(MAILDIR)" \
 		mutt/muttrc.m4 > mutt/muttrc
 
 TMUX_BG := colour237
@@ -256,21 +269,24 @@ install-less :
 	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
 	command -v lesskey && lesskey
 
-install-maildir :
-	install -m 0755 -d -- \
-		"$(HOME)"/Mail/inbox/cur \
-		"$(HOME)"/Mail/inbox/new \
-		"$(HOME)"/Mail/inbox/tmp \
-		"$(HOME)"/Mail/sent/cur \
-		"$(HOME)"/Mail/sent/new \
-		"$(HOME)"/Mail/sent/tmp
+install-mail : mail/mailrc
+	install -pm 0644 -- mail/mailrc "$(HOME)"/.mailrc
 
-install-mutt : mutt/muttrc install-maildir
+install-maildir :
+	for box in drafts inbox sent ; do \
+		for dir in cur new tmp ; do \
+			install -m 0755 -d -- \
+				"$(MAILDIR)"/"$$box"/"$$dir" ; \
+		done ; \
+	done
+
+install-mutt : mutt/muttrc install-mail install-maildir
 	install -m 0755 -d -- \
 		"$(HOME)"/.mutt \
 		"$(HOME)"/.cache/mutt
 	install -pm 0644 -- mutt/muttrc "$(HOME)"/.muttrc
 	install -pm 0644 -- mutt/signature "$(HOME)"/.signature
+	[ -f "$(HOME)"/.mutt/muttrc.local ] || touch "$(HOME)"/.mutt/muttrc.local
 
 install-ncmcpp :
 	install -m 0755 -d -- "$(HOME)"/.ncmpcpp
