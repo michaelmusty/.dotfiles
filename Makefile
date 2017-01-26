@@ -269,7 +269,7 @@ install-less :
 	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
 	command -v lesskey && lesskey
 
-install-mail :
+install-mail : mail/mailrc
 	install -pm 0644 -- mail/mailrc "$(HOME)"/.mailrc
 
 install-maildir :
