@@ -273,16 +273,12 @@ install-mail : mail/mailrc
 	install -pm 0644 -- mail/mailrc "$(HOME)"/.mailrc
 
 install-maildir :
-	install -m 0755 -d -- \
-		"$(MAILDIR)"/drafts/cur \
-		"$(MAILDIR)"/drafts/new \
-		"$(MAILDIR)"/drafts/tmp \
-		"$(MAILDIR)"/inbox/cur \
-		"$(MAILDIR)"/inbox/new \
-		"$(MAILDIR)"/inbox/tmp \
-		"$(MAILDIR)"/sent/cur \
-		"$(MAILDIR)"/sent/new \
-		"$(MAILDIR)"/sent/tmp
+	for box in drafts inbox sent ; do \
+		for dir in cur new tmp ; do \
+			install -m 0755 -d -- \
+				"$(MAILDIR)"/"$$box"/"$$dir" ; \
+		done ; \
+	done
 
 install-mutt : mutt/muttrc install-mail install-maildir
 	install -m 0755 -d -- \
