@@ -126,8 +126,12 @@ git/gitconfig : git/gitconfig.m4
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		git/gitconfig.m4 > git/gitconfig
 
+KEYSERVER := hkps://hkps.pool.sks-keyservers.net
+
 gnupg/gpg.conf : gnupg/gpg.conf.m4
-	m4 -D DOTFILES_HOME="$(HOME)" \
+	m4 \
+		-D DOTFILES_HOME="$(HOME)" \
+		-D DOTFILES_KEYSERVER="$(KEYSERVER)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
 mail/mailrc : mail/mailrc.m4

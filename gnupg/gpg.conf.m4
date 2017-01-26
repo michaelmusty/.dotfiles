@@ -22,7 +22,7 @@ fixed-list-mode
 keyid-format 0xlong
 
 # Use a pool of servers which support HKPS (encrypted key retrieval)
-keyserver hkps://hkps.pool.sks-keyservers.net
+keyserver DOTFILES_KEYSERVER
 
 # Retrieve keys automatically; check the keyserver port cert; use whichever
 # server is proffered from the pool
