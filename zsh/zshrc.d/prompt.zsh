@@ -44,10 +44,13 @@ prompt() {
 
         # Revert to simple inexpensive prompts
         off)
-            PS1='\$ '
+            PS1='$ '
             PS2='> '
             PS3='? '
             PS4='+ '
+            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
+                PS1=$(id -nu)'@'$(hostname -s)'$ '
+            fi
             ;;
 
         # Git prompt function
