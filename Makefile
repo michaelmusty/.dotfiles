@@ -84,6 +84,7 @@ BINS = bin/brnl \
 	bin/mode \
 	bin/nlbr \
 	bin/onl \
+	bin/quo \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \

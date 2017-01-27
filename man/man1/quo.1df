@@ -1,0 +1,22 @@
+.TH QUO 1df "January 2017" "Manual page for quo"
+.SH NAME
+.B quo
+\- quote the input with right-angle brackets
+.SH SYNOPSIS
+.B quo
+.br
+Text on standard input.
+.br
+^D
+.br
+.B quo
+FILE1 [FILE2...]
+.br
+.B quo < FILE
+.SH DESCRIPTION
+.B quo
+quotes its input by insert a right-angle bracket followed by a space at the
+start of every unquoted line. If the line was already quoted, it adds another
+level of right-angle bracket.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
