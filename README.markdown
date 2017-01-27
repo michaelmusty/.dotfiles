@@ -426,6 +426,7 @@ Installed by the `install-bin` target:
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
     well.
 *   `chc(1df)` caches the output of a command.
+*   `chn(1df)` runs a filter over its input a given number of times.
 *   `clog(1df)` is a tiny timestamped log system.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each

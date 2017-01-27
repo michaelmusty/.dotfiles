@@ -1,0 +1,47 @@
+.TH CHN 1df "January 2017" "Manual page for chn"
+.SH NAME
+.B chn
+\- filter standard input through multiple runs of a command
+.SH USAGE
+.B chn
+COUNT
+COMMAND [ARG1...]
+.SH DESCRIPTION
+Run the given command the specified number of times, passing the standard
+output of each run into the standard input of the next.
+.P
+As an example, to quote some text with quo(1df) repeatedly:
+.P
+    $ cat msg
+    Hello!
+    $ chn 2 quo < msg
+    >> Hello!
+    $ chn 5 quo < msg
+    >>>> Hello!
+.P
+Zero is a valid count; in this case the input is passed untouched to output:
+.P
+    $ chn 0 quo < msg
+    Hello!
+.P
+Don't confuse this with simply repeating a command. This happens to work:
+.P
+    $ chn 5 sync
+.P
+But this will not do what you expect:
+.P
+    $ chn 5 echo foo
+.SH CAVEATS
+It's slow.
+.P
+It's not a real pipe. The commands are run successively, not in parallel. That
+means you can't pass one line to it and have it return another line before
+sending EOF, for unbuffered (e.g. linewise) tools.
+.P
+There's almost certainly a better way to do this, fixing one or both of the
+above issues, and possibly even in shell; maybe with curlier file descriptor
+logic to save unneeded open(2) syscalls. I smell `eval` usage on the horizon.
+.SH SEE ALSO
+maybe(1df), try(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
