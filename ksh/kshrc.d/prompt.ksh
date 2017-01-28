@@ -80,7 +80,7 @@ function prompt {
             } >/dev/null 2>&1
 
             # Play ball with ksh's way of escaping non-printing characters
-            typeset es nl
+            typeset es cr
             es=$(printf '\01')
             cr=$(printf '\r')
 
