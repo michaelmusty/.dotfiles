@@ -15,6 +15,7 @@ bin/min
 bin/mode
 bin/nlbr
 bin/onl
+bin/quo
 bin/rfct
 bin/rndi
 bin/sd2u
@@ -37,6 +38,5 @@ git/gitconfig
 gnupg/gpg.conf
 mail/mailrc
 man/man7/dotfiles.7df
-mutt/muttrc
 tmux/tmux.conf
 urxvt/ext/select

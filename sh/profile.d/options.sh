@@ -10,15 +10,15 @@ options() {
     shift
 
     # Directory already exists; bail out
-    [ -d "$dir" ] && exit
+    [ -d "$dir" ] && return
 
     # Create the directory and step into it
-    command -p mkdir -p -- "$dir" || exit
-    cd -- "$dir" || exit
+    command -p mkdir -p -- "$dir" || return
+    cd -- "$dir" || return
 
     # Write the program's --help output to a file, even if it's empty
     # This probably only works with GNU tools in general
-    "$prog" --help </dev/null >help 2>/dev/null || exit
+    "$prog" --help </dev/null >help 2>/dev/null || return
 
     # Iterate through remaining arguments (desired options), creating files to
     # show they're available if found in the help output

@@ -6,6 +6,10 @@
 # character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
 [[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
+# If ~/.hosts exists, use that as the host completion file rather than
+# /etc/hosts, so I can populate the list myself
+[[ -f $HOME/.hosts ]] && HOSTFILE=$HOME/.hosts
+
 # Aliases
 complete -A alias unalias
 

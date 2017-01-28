@@ -426,6 +426,7 @@ Installed by the `install-bin` target:
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
     well.
 *   `chc(1df)` caches the output of a command.
+*   `chn(1df)` runs a filter over its input a given number of times.
 *   `clog(1df)` is a tiny timestamped log system.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
@@ -484,6 +485,7 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `pwg(1df)` generates just one decent password with `pwgen(1)`.
+*   `quo(1df)` quotes its input with right angle brackets.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.

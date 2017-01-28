@@ -18,8 +18,6 @@
 	install-gtk \
 	install-i3 \
 	install-less \
-	install-mail \
-	install-maildir \
 	install-mutt \
 	install-ncmcpp \
 	install-newsbeuter \
@@ -84,6 +82,7 @@ BINS = bin/brnl \
 	bin/mode \
 	bin/nlbr \
 	bin/onl \
+	bin/quo \
 	bin/rfct \
 	bin/rndi \
 	bin/sd2u \
@@ -112,9 +111,7 @@ clean distclean :
 		$(GAMES) \
 		git/gitconfig \
 		gnupg/gpg.conf \
-		mail/mailrc \
-		man/man7/dotfiles.7df \
-		mutt/muttrc \
+		man/man8/dotfiles.7df \
 		tmux/tmux.conf \
 		urxvt/ext/select
 
@@ -134,21 +131,11 @@ gnupg/gpg.conf : gnupg/gpg.conf.m4
 		-D DOTFILES_KEYSERVER="$(KEYSERVER)" \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
-mail/mailrc : mail/mailrc.m4
-	m4 -D DOTFILES_SENDMAIL="$$(command -v "$(SENDMAIL)")" \
-		mail/mailrc.m4 > "$@"
-
 man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
 MAILDIR := $(HOME)/Mail
-
-mutt/muttrc : mutt/muttrc.m4
-	m4 \
-		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
-		-D DOTFILES_MAILDIR="$(MAILDIR)" \
-		mutt/muttrc.m4 > mutt/muttrc
 
 TMUX_BG := colour237
 TMUX_FG := colour248
@@ -269,24 +256,12 @@ install-less :
 	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
 	command -v lesskey && lesskey
 
-install-mail : mail/mailrc
-	install -pm 0644 -- mail/mailrc "$(HOME)"/.mailrc
-
-install-maildir :
-	for box in drafts inbox sent ; do \
-		for dir in cur new tmp ; do \
-			install -m 0755 -d -- \
-				"$(MAILDIR)"/"$$box"/"$$dir" ; \
-		done ; \
-	done
-
-install-mutt : mutt/muttrc install-mail install-maildir
+install-mutt :
 	install -m 0755 -d -- \
-		"$(HOME)"/.mutt \
+		"$(HOME)"/.muttrc.d \
 		"$(HOME)"/.cache/mutt
 	install -pm 0644 -- mutt/muttrc "$(HOME)"/.muttrc
-	install -pm 0644 -- mutt/signature "$(HOME)"/.signature
-	[ -f "$(HOME)"/.mutt/muttrc.local ] || touch "$(HOME)"/.mutt/muttrc.local
+	install -pm 0755 -- mutt/muttrc.d/src "$(HOME)"/.muttrc.d
 
 install-ncmcpp :
 	install -m 0755 -d -- "$(HOME)"/.ncmpcpp

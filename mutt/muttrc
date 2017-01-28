@@ -1,23 +1,8 @@
-# Names
-set use_domain   = yes
-set use_from     = yes
-set reverse_name = yes
-
-# SMTP implementation
-set sendmail = 'DOTFILES_SENDMAIL'
-
-# Mailbox type and location
-set mbox_type = 'Maildir'
-set folder    = 'DOTFILES_MAILDIR'
-
-# Submailboxes
-set spoolfile = '+inbox'
-set postponed = '+drafts'
-set record    = '+sent'
-mailboxes !
-
 # Addresses
 set query_command = 'abook --mutt-query %s'
+set reverse_name  = yes
+set use_domain    = yes
+set use_from      = yes
 
 # Alerts
 set beep_new = yes
@@ -113,7 +98,7 @@ set strict_threads  = yes
 set thorough_search = yes
 
 # SSH
-set time_inc=250
+set time_inc = 250
 
 # Encryption settings
 set crypt_replysign          = yes
@@ -136,18 +121,14 @@ bind generic,index,browser,pager \Cb previous-page
 # Turn off annoying mailbox lock feature
 bind index '%' noop
 
-# Jump to mailboxes
-macro generic,index,browser,pager gi '<change-folder>=inbox<enter>' 'Change to inbox folder'
-macro generic,index,browser,pager gs '<change-folder>=sent<enter>' 'Change to sent folder'
-
 # Blindly save message to whatever box is suggested
 macro index,pager S 's<enter>' 'Save message blindly'
 
 # Run gms to retrieve all mail
-macro generic,index,browser,pager gm '!gms --quiet &<enter>' 'Run gms'
+macro generic,index,browser,pager gm '!gms --quiet &<enter>' 'Run gms(1df)'
 
 # Shortcut to add addresses to abook
 macro index,pager A '<pipe-message>abook --add-email<enter>' 'Add sender address to abook'
 
 # Machine or account specific settings
-source ~/.mutt/muttrc.local
+source ~/.muttrc.d/src|

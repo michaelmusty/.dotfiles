@@ -80,7 +80,7 @@ function prompt {
             } >/dev/null 2>&1
 
             # Play ball with ksh's way of escaping non-printing characters
-            typeset es nl
+            typeset es cr
             es=$(printf '\01')
             cr=$(printf '\r')
 
@@ -188,10 +188,13 @@ function prompt {
 
         # Revert to simple inexpensive prompts
         off)
-            PS1='\$ '
+            PS1='$ '
             PS2='> '
             PS3='? '
             PS4='+ '
+            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
+                PS1=$(id -nu)'@'$(hostname -s)'$ '
+            fi
             ;;
 
         # Abbreviated working directory

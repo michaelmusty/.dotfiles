@@ -57,8 +57,8 @@ shopt -s histappend
 shopt -s histreedit
 # Repeat the expanded line on successful history expansion
 shopt -s histverify
-# Don't use Bash's builtin host completion
-shopt -u hostcomplete
+# Use Bash's builtin host completion
+shopt -s hostcomplete
 # Don't change newlines to semicolons in history
 shopt -s lithist
 # Don't warn me about new mail all the time
