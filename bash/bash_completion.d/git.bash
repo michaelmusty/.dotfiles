@@ -109,8 +109,8 @@ _git() {
 
     # Complete initial subcommand or alias
     if ((sci == COMP_CWORD)) ; then
-        _git subcommands
-        _git aliases
+        "${FUNCNAME[0]}" subcommands
+        "${FUNCNAME[0]}" aliases
         return
     fi
 
@@ -119,13 +119,13 @@ _git() {
 
         # Complete with untracked, unignored files
         add)
-            _git untracked_files
+            "${FUNCNAME[0]}" untracked_files
             return
             ;;
 
         # Help on real subcommands (not aliases)
         help)
-            _git subcommands
+            "${FUNCNAME[0]}" subcommands
             return
             ;;
 
@@ -149,7 +149,7 @@ _git() {
                     update
                 ' -- "${COMP_WORDS[COMP_CWORD]}")
             else
-                _git remotes
+                "${FUNCNAME[0]}" remotes
             fi
             return
             ;;
@@ -199,15 +199,15 @@ _git() {
         # Complete with remotes and then refs
         fetch|pull|push)
             if ((COMP_CWORD == 2)) ; then
-                _git remotes
+                "${FUNCNAME[0]}" remotes
             else
-                _git refs
+                "${FUNCNAME[0]}" refs
             fi
             ;;
 
         # Commands for which I'm likely to want a ref
         branch|checkout|merge|rebase|tag)
-            _git refs
+            "${FUNCNAME[0]}" refs
             ;;
 
         # I normally only want a refspec for "reset" if I'm using the --hard or
@@ -215,7 +215,7 @@ _git() {
         reset)
             case ${COMP_WORDS[COMP_CWORD-1]} in
                 --hard|--soft)
-                    _git refs
+                    "${FUNCNAME[0]}" refs
                     ;;
             esac
             ;;
