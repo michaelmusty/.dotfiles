@@ -189,11 +189,12 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
-*   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`.
+*   `grep()` tries to apply color and other options good for interactive use if
+    available.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
-*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+*   `ls()` tries to apply color and other options good for interactive use if
+    available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
