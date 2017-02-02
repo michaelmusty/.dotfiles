@@ -12,7 +12,8 @@ Text on standard input.
 .B quo
 FILE1 [FILE2...]
 .br
-.B quo < FILE
+.B quo
+< FILE
 .SH DESCRIPTION
 .B quo
 quotes its input by insert a right-angle bracket followed by a space at the
