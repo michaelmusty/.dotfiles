@@ -10,3 +10,4 @@ Ideas
 *   Convert all the manual pages to mandoc maybe? <https://en.wikipedia.org/wiki/Mandoc>
 *   edio(1df), like vipe(1)
 *   Detect appropriate shell family to install in Makefile
+*   qmp(1df)--quick man page
