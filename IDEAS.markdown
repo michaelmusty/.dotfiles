@@ -11,3 +11,6 @@ Ideas
 *   edio(1df), like vipe(1)
 *   Detect appropriate shell family to install in Makefile
 *   qmp(1df)--quick man page
+*   ad() could be more intelligent; if there's only one directory that matches
+    the *whole pattern*, we can assume it's safe to use that one, rather than
+    stopping each time any node has more than one match
