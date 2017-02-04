@@ -12,7 +12,7 @@ FILE1 [FILE2 ...]
 printf '1:02:54\\n' |
 .B sec
 .br
-sec=$(printf '%s\n' "$timestamp" | sec)
+sec=$(printf '%s\\n' "$timestamp" | sec)
 .SH DESCRIPTION
 Applies awk(1) to convert hh:mm:ss or mm:ss timestamps into a count of seconds.
 Exits zero if all lines were successfully recognised and converted, non-zero
