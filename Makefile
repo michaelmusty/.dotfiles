@@ -70,6 +70,7 @@ BINS = bin/brnl \
 	bin/ddup \
 	bin/gwp \
 	bin/han \
+	bin/hms \
 	bin/htdec \
 	bin/htenc \
 	bin/htref \

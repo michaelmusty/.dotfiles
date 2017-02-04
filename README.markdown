@@ -424,6 +424,9 @@ Installed by the `install-bin` target:
     *   `jfc(1df)` adds and commits lazily to a Git repository.
     *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it
         sees any.
+*   Two time duration functions:
+    *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
+    *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -493,7 +496,6 @@ Installed by the `install-bin` target:
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
-*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.
