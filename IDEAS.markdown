@@ -14,7 +14,3 @@ Ideas
 *   ad() could be more intelligent; if there's only one directory that matches
     the *whole pattern*, we can assume it's safe to use that one, rather than
     stopping each time any node has more than one match
-*   It seems likely that testing the terminal with tput to check if we can use
-    --color with GNU grep(1) or ls(1) is overkill--I suspect it probably tests
-    that internally, which would simplify the function wrappers. Need to check
-    the source probably.
