@@ -410,6 +410,9 @@ Installed by the `install-bin` target:
     *   `htenc(1df)` encodes.
     *   `htdec(1df)` decodes.
     *   `htrec(1df)` wraps `a` tags around URLs.
+*   Two internet message quoting tools:
+    *   `quo(1df)` indents with quoting right angle-brackets.
+    *   `wro(1df)` adds a quote attribution header to its input.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -486,7 +489,6 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `pwg(1df)` generates just one decent password with `pwgen(1)`.
-*   `quo(1df)` quotes its input with right angle brackets.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.

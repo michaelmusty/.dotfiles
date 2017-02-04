@@ -1,0 +1,20 @@
+.TH WRO 1df "January 2017" "Manual page for wro"
+.SH NAME
+.B wro
+\- add a quote header to the standard input
+.SH SYNOPSIS
+.B wro
+luser@example.com
+.br
+.B wro
+luser@example.com '2017-01-15 9:00am'
+Text on standard input.
+^D
+.SH DESCRIPTION
+.B wro
+adds an email-style quote lead-in to its standard input. It's intended to
+receive input from quo(1df).
+.SH SEE ALSO
+quo(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
