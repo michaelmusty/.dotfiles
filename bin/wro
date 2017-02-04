@@ -13,7 +13,7 @@ fi
 if [ -n "$1" ] ; then
     from=$1
 else
-    un=$(id -n)
+    un=$(id -nu)
     if [ -f /etc/mailname ] ; then
         read -r hn < /etc/mailname
     else
