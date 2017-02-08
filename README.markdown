@@ -189,11 +189,12 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
-*   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`.
+*   `grep()` tries to apply color and other options good for interactive use if
+    available.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
-*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+*   `ls()` tries to apply color and other options good for interactive use if
+    available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
@@ -409,6 +410,23 @@ Installed by the `install-bin` target:
     *   `htenc(1df)` encodes.
     *   `htdec(1df)` decodes.
     *   `htrec(1df)` wraps `a` tags around URLs.
+*   Two internet message quoting tools:
+    *   `quo(1df)` indents with quoting right angle-brackets.
+    *   `wro(1df)` adds a quote attribution header to its input.
+*   Six Git-related tools:
+    *   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
+        with `gscr(1df)`.
+    *   `grc(1df)` quietly tests whether the given directory appears to be a
+        Git repository with pending changes.
+    *   `gscr(1df)` scrubs Git repositories.
+    *   `isgr(1df)` quietly tests whether the given directory appears to be a
+        Git repository.
+    *   `jfc(1df)` adds and commits lazily to a Git repository.
+    *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it
+        sees any.
+*   Two time duration functions:
+    *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
+    *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -441,8 +459,6 @@ Installed by the `install-bin` target:
     any options, mostly useful for scripts.
 *   `eds(1df)` edits executable script files in `EDSPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
-    with `gscr(1df)`.
 *   `finc(1df)` counts the number of results returned from a set of given
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
@@ -450,21 +466,13 @@ Installed by the `install-bin` target:
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
-*   `grc(1df)` quietly tests whether the given directory appears to be a Git
-    repository with pending changes.
-*   `gscr(1df)` scrubs Git repositories.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1df)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
-*   `isgr(1df)` quietly tests whether the given directory appears to be a Git
-    repository.
 *   `ix(1df)` posts its input to the ix.io pastebin.
-*   `jfc(1df)` adds and commits lazily to a Git repository.
 *   `jfp(1df)` prints its input, excluding any shebang on the first line only.
-*   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
-    any.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
@@ -485,11 +493,9 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `pwg(1df)` generates just one decent password with `pwgen(1)`.
-*   `quo(1df)` quotes its input with right angle brackets.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
-*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.

@@ -128,7 +128,7 @@ macro index,pager S 's<enter>' 'Save message blindly'
 macro generic,index,browser,pager gm '!gms --quiet &<enter>' 'Run gms(1df)'
 
 # Shortcut to add addresses to abook
-macro index,pager A '<pipe-message>abook --add-email<enter>' 'Add sender address to abook'
+macro index,pager A '<pipe-message>abook --add-email-quiet<enter>' 'Add sender address to abook'
 
 # Machine or account specific settings
 source ~/.muttrc.d/src|
