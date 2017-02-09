@@ -1,9 +1,9 @@
-# Various easy completions for Bash builtins; more specific stuff goes in
-# ~/.bash_completion.d
+# Simple completions for Bash builtins and POSIX utilities; more specific or
+# complex stuff goes in ~/.bash_completion.d, for possible dynamic loading
 
 # If COMP_WORDBREAKS has a value, strip all colons from it; this allows
-# completing filenames correctly, since an unquoted colon is not a syntactic
-# character: <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
+# completing filenames correctly, since a colon is not a shell metacharacter:
+# <http://tiswww.case.edu/php/chet/bash/FAQ> (E13)
 [[ -n $COMP_WORDBREAKS ]] && COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
 
 # If ~/.hosts exists, use that as the host completion file rather than
