@@ -22,7 +22,8 @@ complete -A disabled enable
 complete -A setopt set
 
 # Commands
-complete -A command alias command complete compopt coproc exec if hash time type until while
+complete -A command alias command complete compopt coproc exec if hash time \
+    type until while
 
 # Directories
 complete -A directory cd pushd mkdir rmdir
