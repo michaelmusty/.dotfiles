@@ -48,4 +48,10 @@ _make() {
         esac
     done < "$mf"
 }
-complete -F _make -o default make
+
+# bashdefault requires Bash >=3.0
+if ((BASH_VERSINFO[0] >= 3)) ; then
+    complete -F _make -o bashdefault -o default make
+else
+    complete -F _make -o default make
+fi
