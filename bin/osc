@@ -48,6 +48,8 @@ case $serv in
         set -- "$@" -starttls xmpp
         ;;
 esac
+## Send the host parameter as the server name (SNI)
+set -- "$@" -servername "$host"
 ## Finally, add the host and service to connect to
 set -- "$@" -connect "$host":"$serv"
 
