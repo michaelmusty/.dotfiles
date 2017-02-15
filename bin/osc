@@ -44,6 +44,9 @@ case $serv in
     imap|143)
         set -- "$@" -starttls imap
         ;;
+    xmpp-client|5222)
+        set -- "$@" -starttls xmpp
+        ;;
 esac
 ## Finally, add the host and service to connect to
 set -- "$@" -connect "$host":"$serv"
