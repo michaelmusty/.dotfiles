@@ -18,7 +18,6 @@ set -o trackall
 
 # Save history
 HISTFILE=$HOME/.ksh_history
-((HISTSIZE=1 << 10))
 
 # Load any supplementary scripts
 for kshrc in "$HOME"/.kshrc.d/*.ksh ; do
