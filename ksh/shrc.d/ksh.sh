@@ -28,8 +28,5 @@ if [ -z "$KSH_VERSION" ] ; then
     KSH_VERSION=${.sh.version}
 fi
 
-# If KSH_ENV isn't already set, set it
-[ -n "$KSH_ENV" ] || KSH_ENV=$HOME/.kshrc
-
 # If ENV_EXT isn't already set, set it
-[ -n "$ENV_EXT" ] || ENV_EXT=$KSH_ENV
+[ -n "$ENV_EXT" ] || ENV_EXT=$HOME/.kshrc
