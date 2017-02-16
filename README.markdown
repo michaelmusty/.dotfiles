@@ -508,7 +508,7 @@ Installed by the `install-bin` target:
     `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
-*   `tm()` runs `tmux(1)` with `attach-session -d` if a session exists, and
+*   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
