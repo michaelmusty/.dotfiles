@@ -173,143 +173,143 @@ install : install-bash \
 	install-vim
 
 install-abook :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.abook
-	install -pm 0644 -- abook/abookrc "$(HOME)"/.abook
+	cp -p -- abook/abookrc "$(HOME)"/.abook
 
 install-bash : check-bash install-sh
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.bashrc.d
-	install -pm 0644 -- bash/bashrc "$(HOME)"/.bashrc
-	install -pm 0644 -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
-	install -pm 0644 -- bash/bash_profile "$(HOME)"/.bash_profile
-	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
+	cp -p -- bash/bashrc "$(HOME)"/.bashrc
+	cp -p -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
+	cp -p -- bash/bash_profile "$(HOME)"/.bash_profile
+	cp -p -- bash/bash_logout "$(HOME)"/.bash_logout
 
 install-bash-completion : install-bash
-	install -m 0755 -d -- "$(HOME)"/.bash_completion.d
-	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
-	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
+	mkdir -p -- "$(HOME)"/.bash_completion.d
+	cp -p -- bash/bash_completion "$(HOME)"/.config/bash_completion
+	cp -p -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
 
 install-bin : $(BINS) install-bin-man
-	install -m 0755 -d -- "$(HOME)"/.local/bin
+	mkdir -p -- "$(HOME)"/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
-		install -m 0755 -- "$$name" "$(HOME)"/.local/bin ; \
+		cp -p -- "$$name" "$(HOME)"/.local/bin ; \
 	done
 
 install-bin-man :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.local/share/man/man1 \
 		"$(HOME)"/.local/share/man/man8
-	install -pm 0644 -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
+	cp -p -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
+	cp -p -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
 
 install-curl :
-	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
+	cp -p -- curl/curlrc "$(HOME)"/.curlrc
 
 install-dotfiles-man : man/man7/dotfiles.7df
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
-	install -pm 0644 -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
+	mkdir -p -- "$(HOME)"/.local/share/man/man7
+	cp -p -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
 
 install-dunst : install-x
-	install -m 0755 -d -- "$(HOME)"/.config/dunst
-	install -pm 0644 -- dunst/dunstrc "$(HOME)"/.config/dunst
+	mkdir -p -- "$(HOME)"/.config/dunst
+	cp -p -- dunst/dunstrc "$(HOME)"/.config/dunst
 
 install-finger :
-	install -pm 0644 -- finger/plan "$(HOME)"/.plan
-	install -pm 0644 -- finger/project "$(HOME)"/.project
-	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
+	cp -p -- finger/plan "$(HOME)"/.plan
+	cp -p -- finger/project "$(HOME)"/.project
+	cp -p -- finger/pgpkey "$(HOME)"/.pgpkey
 
 install-games : $(GAMES) install-games-man
-	install -m 0755 -d -- "$(HOME)"/.local/games
+	mkdir -p -- "$(HOME)"/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
-		install -m 0755 -- "$$name" "$(HOME)"/.local/games ; \
+		cp -p -- "$$name" "$(HOME)"/.local/games ; \
 	done
 
 install-games-man :
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
-	install -pm 0644 -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
+	mkdir -p -- "$(HOME)"/.local/share/man/man6
+	cp -p -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
 
 install-git : git/gitconfig
-	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
+	cp -p -- git/gitconfig "$(HOME)"/.gitconfig
 
 install-gnupg : gnupg/gpg.conf
-	install -m 0700 -d -- \
+	mkdir -m 0700 -p -- \
 		"$(HOME)"/.gnupg \
 		"$(HOME)"/.gnupg/sks-keyservers.net
-	install -pm 0600 -- gnupg/*.conf "$(HOME)"/.gnupg
-	install -pm 0644 -- gnupg/sks-keyservers.net/* \
+	cp -p -- gnupg/*.conf "$(HOME)"/.gnupg
+	cp -p -- gnupg/sks-keyservers.net/* \
 		"$(HOME)"/.gnupg/sks-keyservers.net
 
 install-gtk :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.config/gtkrc-3.0
-	install -pm 0644 -- gtk/gtkrc-2.0 "$(HOME)"/.gtkrc-2.0
-	install -pm 0644 -- gtk/gtkrc-3.0/settings.ini "$(HOME)"/.config/gtkrc-3.0
+	cp -p -- gtk/gtkrc-2.0 "$(HOME)"/.gtkrc-2.0
+	cp -p -- gtk/gtkrc-3.0/settings.ini "$(HOME)"/.config/gtkrc-3.0
 
 install-i3 : install-x
-	install -m 0755 -d -- "$(HOME)"/.i3
-	install -pm 0644 -- i3/* "$(HOME)"/.i3
+	mkdir -p -- "$(HOME)"/.i3
+	cp -p -- i3/* "$(HOME)"/.i3
 
 install-less :
-	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
+	cp -p -- less/lesskey "$(HOME)"/.lesskey
 	command -v lesskey && lesskey
 
 install-mutt :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.muttrc.d \
 		"$(HOME)"/.cache/mutt
-	install -pm 0644 -- mutt/muttrc "$(HOME)"/.muttrc
-	install -pm 0755 -- mutt/muttrc.d/src "$(HOME)"/.muttrc.d
+	cp -p -- mutt/muttrc "$(HOME)"/.muttrc
+	cp -p -- mutt/muttrc.d/src "$(HOME)"/.muttrc.d
 
 install-ncmcpp :
-	install -m 0755 -d -- "$(HOME)"/.ncmpcpp
-	install -pm 0644 -- ncmpcpp/config "$(HOME)"/.ncmpcpp/config
+	mkdir -p -- "$(HOME)"/.ncmpcpp
+	cp -p -- ncmpcpp/config "$(HOME)"/.ncmpcpp/config
 
 install-newsbeuter :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.config/newsbeuter \
 		"$(HOME)"/.local/share/newsbeuter
-	install -pm 0644 -- newsbeuter/config "$(HOME)"/.config/newsbeuter/config
+	cp -p -- newsbeuter/config "$(HOME)"/.config/newsbeuter/config
 
 install-mysql :
-	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
+	cp -p -- mysql/my.cnf "$(HOME)"/.my.cnf
 
 install-ksh : check-ksh install-sh
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.shrc.d \
 		"$(HOME)"/.kshrc.d
-	install -pm 0644 -- ksh/shrc.d/* "$(HOME)"/.shrc.d
-	install -pm 0644 -- ksh/kshrc "$(HOME)"/.kshrc
-	install -pm 0644 -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
+	cp -p -- ksh/shrc.d/* "$(HOME)"/.shrc.d
+	cp -p -- ksh/kshrc "$(HOME)"/.kshrc
+	cp -p -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
 
 install-perlcritic :
-	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
+	cp -p -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
 
 install-perltidy :
-	install -pm 0644 -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
+	cp -p -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
 
 install-psql :
-	install -pm 0644 -- psql/psqlrc "$(HOME)"/.psqlrc
+	cp -p -- psql/psqlrc "$(HOME)"/.psqlrc
 
 install-readline :
-	install -pm 0644 -- readline/inputrc "$(HOME)"/.inputrc
+	cp -p -- readline/inputrc "$(HOME)"/.inputrc
 
 install-sh : check-sh
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.profile.d \
 		"$(HOME)"/.shrc.d
-	install -pm 0644 -- sh/profile "$(HOME)"/.profile
-	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
-	install -pm 0644 -- sh/shinit "$(HOME)"/.shinit
-	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
-	install -pm 0644 -- sh/shrc.d/* "$(HOME)"/.shrc.d
+	cp -p -- sh/profile "$(HOME)"/.profile
+	cp -p -- sh/profile.d/* "$(HOME)"/.profile.d
+	cp -p -- sh/shinit "$(HOME)"/.shinit
+	cp -p -- sh/shrc "$(HOME)"/.shrc
+	cp -p -- sh/shrc.d/* "$(HOME)"/.shrc.d
 
 install-subversion :
-	install -m 0755 -d -- "$(HOME)"/.subversion
-	install -pm 0644 -- subversion/config "$(HOME)"/.subversion/config
+	mkdir -p -- "$(HOME)"/.subversion
+	cp -p -- subversion/config "$(HOME)"/.subversion/config
 
 install-terminfo :
 	for info in terminfo/*.info ; do \
@@ -317,14 +317,14 @@ install-terminfo :
 	done
 
 install-tmux : tmux/tmux.conf install-terminfo
-	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
+	cp -p -- tmux/tmux.conf "$(HOME)"/.tmux.conf
 
 install-urxvt : urxvt/ext/select check-urxvt
-	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
+	mkdir -p -- "$(HOME)"/.urxvt/ext
 	for name in urxvt/ext/* ; do \
 		case $$name in \
 			*.pl) ;; \
-			*) install -m 0644 -- "$$name" "$(HOME)"/.urxvt/ext ;; \
+			*) cp -p -- "$$name" "$(HOME)"/.urxvt/ext ;; \
 		esac \
 	done
 
@@ -336,50 +336,50 @@ install-gvim : install-vim \
 	install-gvim-config
 
 install-vim-config :
-	install -pm 0644 -- vim/vimrc "$(HOME)"/.vimrc
+	cp -p -- vim/vimrc "$(HOME)"/.vimrc
 
 install-gvim-config :
-	install -pm 0644 -- vim/gvimrc "$(HOME)"/.gvimrc
+	cp -p -- vim/gvimrc "$(HOME)"/.gvimrc
 
 install-vim-plugins : install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
-		-type d -exec sh -c 'install -m 0755 -d -- \
+		-type d -exec sh -c 'mkdir -p -- \
 			"$(HOME)"/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'install -m 0644 -- \
+		-type f -exec sh -c 'cp -p -- \
 			"$$1" "$(HOME)"/."$$1"' _ {} \;
 
 install-vim-pathogen : install-vim-plugins
-	install -m 0755 -d -- "$(HOME)"/.vim/autoload
+	mkdir -p -- "$(HOME)"/.vim/autoload
 	rm -f -- "$(HOME)"/.vim/autoload/pathogen.vim
 	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
 		"$(HOME)"/.vim/autoload/pathogen.vim
 
 install-x :
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.config \
 		"$(HOME)"/.xinitrc.d \
 		"$(HOME)"/.Xresources.d
-	install -pm 0644 -- X/redshift.conf "$(HOME)"/.config/redshift.conf
-	install -pm 0644 -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
-	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
-	install -pm 0644 -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
-	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
-	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
+	cp -p -- X/redshift.conf "$(HOME)"/.config/redshift.conf
+	cp -p -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
+	cp -p -- X/xinitrc "$(HOME)"/.xinitrc
+	cp -p -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
+	cp -p -- X/Xresources "$(HOME)"/.Xresources
+	cp -p -- X/Xresources.d/* "$(HOME)"/.Xresources.d
 
 install-yash : check-yash install-sh
-	install -m 0755 -d -- "$(HOME)"/.yashrc.d
-	install -pm 0644 -- yash/yash_profile "$(HOME)"/.yash_profile
-	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
-	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
+	mkdir -p -- "$(HOME)"/.yashrc.d
+	cp -p -- yash/yash_profile "$(HOME)"/.yash_profile
+	cp -p -- yash/yashrc "$(HOME)"/.yashrc
+	cp -p -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
 
 install-zsh : check-zsh install-sh
-	install -m 0755 -d -- \
+	mkdir -p -- \
 		"$(HOME)"/.profile.d \
 		"$(HOME)"/.zshrc.d
-	install -pm 0644 -- zsh/profile.d/* "$(HOME)"/.profile.d
-	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
-	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
-	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
+	cp -p -- zsh/profile.d/* "$(HOME)"/.profile.d
+	cp -p -- zsh/zprofile "$(HOME)"/.zprofile
+	cp -p -- zsh/zshrc "$(HOME)"/.zshrc
+	cp -p -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
 
 check : check-bash \
 	check-bin \
