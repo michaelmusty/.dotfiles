@@ -28,9 +28,9 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
 The default target will install the core terminal-only files: cURL, Git, GnuPG,
-Vim, shell scripts and functions, and shell setup files. The remaining dotfiles
-can be installed with the other targets. Take a look at the `Makefile` to see
-what's available.
+vi/Vim, shell scripts and functions, and shell setup files. The remaining
+dotfiles can be installed with the other targets. Take a look at the `Makefile`
+to see what's available.
 
 Tools
 -----

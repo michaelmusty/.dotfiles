@@ -10,6 +10,7 @@
 	install-curl \
 	install-dotfiles-man \
 	install-dunst \
+	install-ex \
 	install-finger \
 	install-games \
 	install-games-man \
@@ -165,6 +166,7 @@ install : install-bash \
 	install-bash-completion \
 	install-bin \
 	install-curl \
+	install-ex \
 	install-git \
 	install-gnupg \
 	install-less \
@@ -215,6 +217,9 @@ install-dotfiles-man : man/man7/dotfiles.7df
 install-dunst : install-x
 	mkdir -p -- "$(HOME)"/.config/dunst
 	cp -p -- dunst/dunstrc "$(HOME)"/.config/dunst
+
+install-ex :
+	cp -p -- ex/exrc "$(HOME)"/.exrc
 
 install-finger :
 	cp -p -- finger/plan "$(HOME)"/.plan
