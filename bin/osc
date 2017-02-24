@@ -5,7 +5,7 @@ self=osc
 # Check we have openssl(1); we need to fail early lest we go setting up FIFOs
 # needlessly
 if ! command -v openssl >/dev/null 2>&1 ; then
-    printf >&2 '%s: openssl(1) not found in $PATH\n'
+    printf >&2 '%s: openssl(1) not found\n' "$self"
     exit 1
 fi
 
@@ -55,7 +55,7 @@ set -- "$@" -connect "$host":"$serv"
 
 # Do the POSIX dance to kill child processes and clean up temp files even if
 # killed by a signal
-td= fil=
+td='' fil=''
 cleanup() {
     trap - EXIT "$1"
     [ -n "$fil" ] && kill -TERM "$fil"
@@ -65,6 +65,7 @@ cleanup() {
     fi
 }
 for sig in EXIT HUP INT TERM ; do
+    # shellcheck disable=SC2064
     trap "cleanup $sig" "$sig"
 done
  
