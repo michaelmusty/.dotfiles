@@ -15,8 +15,7 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `bash(1)`, `git(1)`, `install(1)`,
-`make(1)`, and `m4(1)`.
+For the default `all` target, you'll need `bash(1)`, `make(1)`, and `m4(1)`.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -29,9 +28,9 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
 The default target will install the core terminal-only files: cURL, Git, GnuPG,
-Vim, shell scripts and functions, and shell and terminal setup files. The
-remaining dotfiles can be installed with the other targets. Take a look at the
-`Makefile` to see what's available.
+vi/Vim, shell scripts and functions, and shell setup files. The remaining
+dotfiles can be installed with the other targets. Take a look at the `Makefile`
+to see what's available.
 
 Tools
 -----
@@ -483,6 +482,8 @@ Installed by the `install-bin` target:
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
 *   `onl(1df)` crunches input down to one printable line.
+*   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
+    `s_client` subcommand.
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
@@ -506,7 +507,7 @@ Installed by the `install-bin` target:
     `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
-*   `tm()` runs `tmux(1)` with `attach-session -d` if a session exists, and
+*   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
