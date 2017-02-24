@@ -416,11 +416,11 @@ check-zsh :
 	check/zsh
 
 lint : check \
-	lint-bash  \
-	lint-bin  \
-	lint-games  \
-	lint-ksh  \
-	lint-sh  \
+	lint-bash \
+	lint-bin \
+	lint-games \
+	lint-ksh \
+	lint-sh \
 	lint-urxvt \
 	lint-yash
 
