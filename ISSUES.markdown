@@ -20,3 +20,6 @@ Known issues
     *   Zsh, either! $options[restricted] is "off" within the startup file
 *   Git completion for "add" is error-prone; probably best just to let it add
     plain files
+*   Would be good to complete the Makefile variables for NAME, EMAIL etc with
+    educated guesses (`id -u`@`cat /etc/mailname`) etc rather than hardcoding
+    my own stuff in there
