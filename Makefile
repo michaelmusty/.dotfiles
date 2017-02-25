@@ -362,10 +362,11 @@ install-vim-pathogen : install-vim-plugins
 install-x :
 	mkdir -p -- \
 		"$(HOME)"/.config \
+		"$(HOME)"/.config/sxhkdrc \
 		"$(HOME)"/.xinitrc.d \
 		"$(HOME)"/.Xresources.d
 	cp -p -- X/redshift.conf "$(HOME)"/.config/redshift.conf
-	cp -p -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
+	cp -p -- X/sxhkdrc "$(HOME)"/.config/sxhkd/sxhkdrc 
 	cp -p -- X/xinitrc "$(HOME)"/.xinitrc
 	cp -p -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
 	cp -p -- X/Xresources "$(HOME)"/.Xresources
