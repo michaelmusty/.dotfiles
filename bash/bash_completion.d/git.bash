@@ -69,23 +69,6 @@ _git() {
             done
             return
             ;;
-
-        # Untracked files
-        untracked_files)
-            local file
-            while IFS= read -rd '' file ; do
-                [[ -n $file ]] || continue
-                COMPREPLY[${#COMPREPLY[@]}]=$file
-            done < <(git ls-files \
-                --directory \
-                --exclude-standard \
-                --no-empty-directory \
-                --others \
-                -z \
-                -- "${COMP_WORDS[COMP_CWORD]}"'*' \
-                2>/dev/null)
-            return
-            ;;
     esac
 
     # Try to find the index of the Git subcommand
@@ -116,12 +99,6 @@ _git() {
 
     # Test subcommand to choose completions
     case ${COMP_WORDS[sci]} in
-
-        # Complete with untracked, unignored files
-        add)
-            "${FUNCNAME[0]}" untracked_files
-            return
-            ;;
 
         # Help on real subcommands (not aliases)
         help)
