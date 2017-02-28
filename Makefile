@@ -61,10 +61,10 @@
 
 .SUFFIXES: .awk .bash .pl .sed
 
-NAME := Tom Ryder
-EMAIL := tom@sanctum.geek.nz
-KEY := 0xC14286EA77BB8872
-SENDMAIL := msmtp
+NAME = Tom Ryder
+EMAIL = tom@sanctum.geek.nz
+KEY = 0xC14286EA77BB8872
+SENDMAIL = msmtp
 
 BINS = bin/brnl \
 	bin/csmw \
@@ -125,7 +125,7 @@ git/gitconfig : git/gitconfig.m4
 		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
 		git/gitconfig.m4 > git/gitconfig
 
-KEYSERVER := hkps://hkps.pool.sks-keyservers.net
+KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf : gnupg/gpg.conf.m4
 	m4 \
@@ -137,10 +137,10 @@ man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o "$@"
 
-MAILDIR := $(HOME)/Mail
+MAILDIR = $(HOME)/Mail
 
-TMUX_BG := colour237
-TMUX_FG := colour248
+TMUX_BG = colour237
+TMUX_FG = colour248
 
 tmux/tmux.conf : tmux/tmux.conf.m4
 	m4 -D TMUX_BG="$(TMUX_BG)" -D TMUX_FG="$(TMUX_FG)" \
