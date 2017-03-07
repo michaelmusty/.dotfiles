@@ -27,10 +27,23 @@ directory so you can explore:
     $ make install HOME="$tmpdir"
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
-The default target will install the core terminal-only files: cURL, Git, GnuPG,
-vi/Vim, shell scripts and functions, and shell setup files. The remaining
-dotfiles can be installed with the other targets. Take a look at the `Makefile`
-to see what's available.
+The default `install` target will install these targets and all their
+dependencies:
+
+*   `install-bash`
+*   `install-bin`
+*   `install-bin-man`
+*   `install-curl`
+*   `install-ex`
+*   `install-git`
+*   `install-gnupg`
+*   `install-less`
+*   `install-readline`
+*   `install-sh`
+*   `install-vim`
+
+The remaining dotfiles can be installed with the other `install-*` targets. Try
+`bin/mftl Makefile` in the project's root directory to see a list.
 
 Tools
 -----
