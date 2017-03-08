@@ -217,8 +217,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate having `root`-owned files in my home directory.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
-*   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
-    `vi(1)` and `view(1)` implementation if it's available.
 *   `x()` is a one-key shortcut for `exec startx`.
 
 There are a few other little tricks defined for other shells providing
