@@ -3,12 +3,16 @@
 .B wro
 \- add a quote header to the standard input
 .SH SYNOPSIS
+$
 .B wro
-luser@example.com
+luser@example.com < file
 .br
+$
 .B wro
 luser@example.com '2017-01-15 9:00am'
+.br
 Text on standard input.
+.br
 ^D
 .SH DESCRIPTION
 .B wro

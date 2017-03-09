@@ -14,9 +14,6 @@ BROWSER=firefox
 .B br
 just execs the program in the $BROWSER environment variable with the given
 arguments. That's it.
-.P
-It was written to have a clean way to launch $BROWSER from ~/.xbindkeysrc. It
-has no other reason to exist.
 .SH SEE ALSO
 bp(1df), xgo(1df), xgoc(1df)
 .SH AUTHOR

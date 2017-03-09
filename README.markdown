@@ -27,10 +27,23 @@ directory so you can explore:
     $ make install HOME="$tmpdir"
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
-The default target will install the core terminal-only files: cURL, Git, GnuPG,
-vi/Vim, shell scripts and functions, and shell setup files. The remaining
-dotfiles can be installed with the other targets. Take a look at the `Makefile`
-to see what's available.
+The default `install` target will install these targets and all their
+dependencies:
+
+*   `install-bash`
+*   `install-bin`
+*   `install-bin-man`
+*   `install-curl`
+*   `install-ex`
+*   `install-git`
+*   `install-gnupg`
+*   `install-less`
+*   `install-readline`
+*   `install-sh`
+*   `install-vim`
+
+The remaining dotfiles can be installed with the other `install-*` targets. Try
+`bin/mftl Makefile` in the project's root directory to see a list.
 
 Tools
 -----
@@ -204,8 +217,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate having `root`-owned files in my home directory.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
-*   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
-    `vi(1)` and `view(1)` implementation if it's available.
 *   `x()` is a one-key shortcut for `exec startx`.
 
 There are a few other little tricks defined for other shells providing
