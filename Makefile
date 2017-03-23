@@ -149,19 +149,19 @@ tmux/tmux.conf: tmux/tmux.conf.m4
 
 .awk:
 	bin/shb $< awk -f > $@
-	chmod +x $@
+	chmod +x -- $@
 
 .bash:
 	bin/shb $< bash > $@
-	chmod +x $@
+	chmod +x -- $@
 
 .pl:
 	bin/shb $< perl > $@
-	chmod +x $@
+	chmod +x -- $@
 
 .sed:
 	bin/shb $< sed -f > $@
-	chmod +x $@
+	chmod +x -- $@
 
 install: install-bash \
 	install-bash-completion \
