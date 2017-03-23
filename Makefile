@@ -124,7 +124,7 @@ git/gitconfig: git/gitconfig.m4
 		-D DF_EMAIL=$(EMAIL) \
 		-D DF_KEY=$(KEY) \
 		-D DF_SENDMAIL=$(SENDMAIL) \
-		git/gitconfig.m4 > git/gitconfig
+		git/gitconfig.m4 > $@
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
@@ -132,7 +132,7 @@ gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
 		-D DF_HOME=$(HOME) \
 		-D DF_KEYSERVER=$(KEYSERVER) \
-		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+		gnupg/gpg.conf.m4 > $@
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
@@ -145,7 +145,7 @@ TMUX_FG = colour248
 
 tmux/tmux.conf: tmux/tmux.conf.m4
 	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
-		tmux/tmux.conf.m4 > tmux/tmux.conf
+		tmux/tmux.conf.m4 > $@
 
 .awk:
 	bin/shb $< awk -f > $@
