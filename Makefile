@@ -119,18 +119,18 @@ clean distclean:
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DOTFILES_NAME=$(NAME) \
-		-D DOTFILES_EMAIL=$(EMAIL) \
-		-D DOTFILES_KEY=$(KEY) \
-		-D DOTFILES_SENDMAIL=$(SENDMAIL) \
+		-D DF_NAME=$(NAME) \
+		-D DF_EMAIL=$(EMAIL) \
+		-D DF_KEY=$(KEY) \
+		-D DF_SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > git/gitconfig
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
-		-D DOTFILES_HOME=$(HOME) \
-		-D DOTFILES_KEYSERVER=$(KEYSERVER) \
+		-D DF_HOME=$(HOME) \
+		-D DF_KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
@@ -143,7 +143,7 @@ TMUX_BG = colour237
 TMUX_FG = colour248
 
 tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 -D TMUX_BG=$(TMUX_BG) -D TMUX_FG=$(TMUX_FG) \
+	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 .awk:
