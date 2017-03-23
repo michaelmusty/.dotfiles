@@ -1,4 +1,5 @@
 .POSIX:
+
 .PHONY: all \
 	clean \
 	distclean \
@@ -109,7 +110,7 @@ GAMES = games/acq \
 all: $(BINS) git/gitconfig gnupg/gpg.conf
 
 clean distclean:
-	rm -f \
+	rm -f -- \
 		$(BINS) \
 		$(GAMES) \
 		git/gitconfig \
@@ -129,9 +130,7 @@ git/gitconfig: git/gitconfig.m4
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
-	m4 \
-		-D DF_HOME=$(HOME) \
-		-D DF_KEYSERVER=$(KEYSERVER) \
+	m4 -D DF_HOME=$(HOME) -D DF_KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
@@ -176,35 +175,28 @@ install: install-bash \
 	install-vim
 
 install-abook:
-	mkdir -p -- \
-		$(HOME)/.abook
+	mkdir -p -- $(HOME)/.abook
 	cp -p -- abook/abookrc $(HOME)/.abook
 
 install-bash: check-bash install-sh
-	mkdir -p -- \
-		$(HOME)/.config \
-		$(HOME)/.bashrc.d
+	mkdir -p -- $(HOME)/.bashrc.d
 	cp -p -- bash/bashrc $(HOME)/.bashrc
 	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
 	cp -p -- bash/bash_profile $(HOME)/.bash_profile
 	cp -p -- bash/bash_logout $(HOME)/.bash_logout
 
 install-bash-completion: install-bash
-	mkdir -p -- $(HOME)/.bash_completion.d
-	cp -p -- bash/bash_completion $(HOME)/.config/bash_completion
+	mkdir -p -- $(HOME)/.bash_completion.d $(HOME)/.config
+	cp -p -- bash/bash_completion $(HOME)/.config
 	cp -p -- bash/bash_completion.d/* $(HOME)/.bash_completion.d
 
 install-bin: $(BINS) install-bin-man
 	mkdir -p -- $(HOME)/.local/bin
-	for name in bin/* ; do \
-		[ -x "$$name" ] || continue ; \
-		cp -p -- "$$name" $(HOME)/.local/bin ; \
-	done
+	find bin -type f -perm -u=x \
+		-exec cp -p -- {} $(HOME)/.local/bin \;
 
 install-bin-man:
-	mkdir -p -- \
-		$(HOME)/.local/share/man/man1 \
-		$(HOME)/.local/share/man/man8
+	mkdir -p -- $(HOME)/.local/share/man/man1 $(HOME)/.local/share/man/man8
 	cp -p -- man/man1/*.1df $(HOME)/.local/share/man/man1
 	cp -p -- man/man8/*.8df $(HOME)/.local/share/man/man8
 
@@ -229,10 +221,8 @@ install-finger:
 
 install-games: $(GAMES) install-games-man
 	mkdir -p -- $(HOME)/.local/games
-	for name in games/* ; do \
-		[ -x "$$name" ] || continue ; \
-		cp -p -- "$$name" $(HOME)/.local/games ; \
-	done
+	find games -type f -perm -u=x \
+		-exec cp -p -- {} $(HOME)/.local/games \;
 
 install-games-man:
 	mkdir -p -- $(HOME)/.local/share/man/man6
@@ -242,16 +232,12 @@ install-git: git/gitconfig
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
 install-gnupg: gnupg/gpg.conf
-	mkdir -m 0700 -p -- \
-		$(HOME)/.gnupg \
-		$(HOME)/.gnupg/sks-keyservers.net
+	mkdir -m 0700 -p -- $(HOME)/.gnupg $(HOME)/.gnupg/sks-keyservers.net
 	cp -p -- gnupg/*.conf $(HOME)/.gnupg
-	cp -p -- gnupg/sks-keyservers.net/* \
-		$(HOME)/.gnupg/sks-keyservers.net
+	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
-	mkdir -p -- \
-		$(HOME)/.config/gtkrc-3.0
+	mkdir -p -- $(HOME)/.config/gtkrc-3.0
 	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
 	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
 
@@ -264,29 +250,23 @@ install-less:
 	command -v lesskey && lesskey
 
 install-mutt:
-	mkdir -p -- \
-		$(HOME)/.muttrc.d \
-		$(HOME)/.cache/mutt
+	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
 install-ncmcpp:
 	mkdir -p -- $(HOME)/.ncmpcpp
-	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp/config
+	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
 install-newsbeuter:
-	mkdir -p -- \
-		$(HOME)/.config/newsbeuter \
-		$(HOME)/.local/share/newsbeuter
-	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter/config
+	mkdir -p -- $(HOME)/.config/newsbeuter $(HOME)/.local/share/newsbeuter
+	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter
 
 install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
-	mkdir -p -- \
-		$(HOME)/.shrc.d \
-		$(HOME)/.kshrc.d
+	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
@@ -304,9 +284,7 @@ install-readline:
 	cp -p -- readline/inputrc $(HOME)/.inputrc
 
 install-sh: check-sh
-	mkdir -p -- \
-		$(HOME)/.profile.d \
-		$(HOME)/.shrc.d
+	mkdir -p -- $(HOME)/.profile.d $(HOME)/.shrc.d
 	cp -p -- sh/profile $(HOME)/.profile
 	cp -p -- sh/profile.d/* $(HOME)/.profile.d
 	cp -p -- sh/shinit $(HOME)/.shinit
@@ -315,24 +293,19 @@ install-sh: check-sh
 
 install-subversion:
 	mkdir -p -- $(HOME)/.subversion
-	cp -p -- subversion/config $(HOME)/.subversion/config
+	cp -p -- subversion/config $(HOME)/.subversion
 
 install-terminfo:
-	for info in terminfo/*.info ; do \
-		tic -- "$$info" ; \
-	done
+	find terminfo -type f -name '*.info' \
+		-exec tic -- {} \;
 
 install-tmux: tmux/tmux.conf install-terminfo
 	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
 
 install-urxvt: urxvt/ext/select check-urxvt
 	mkdir -p -- $(HOME)/.urxvt/ext
-	for name in urxvt/ext/* ; do \
-		case $$name in \
-			*.pl) ;; \
-			*) cp -p -- "$$name" $(HOME)/.urxvt/ext ;; \
-		esac \
-	done
+	find urxvt/ext -type f ! -name '*.pl' \
+		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
 install-vim: install-vim-config \
 	install-vim-plugins \
@@ -356,9 +329,7 @@ install-vim-plugins: install-vim-config
 
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
-	rm -f -- $(HOME)/.vim/autoload/pathogen.vim
-	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
-		$(HOME)/.vim/autoload/pathogen.vim
+	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
 install-x:
 	mkdir -p -- \
@@ -366,8 +337,8 @@ install-x:
 		$(HOME)/.config/sxhkdrc \
 		$(HOME)/.xinitrc.d \
 		$(HOME)/.Xresources.d
-	cp -p -- X/redshift.conf $(HOME)/.config/redshift.conf
-	cp -p -- X/sxhkdrc $(HOME)/.config/sxhkd/sxhkdrc
+	cp -p -- X/redshift.conf $(HOME)/.config
+	cp -p -- X/sxhkdrc $(HOME)/.config/sxhkd
 	cp -p -- X/xinitrc $(HOME)/.xinitrc
 	cp -p -- X/xinitrc.d/* $(HOME)/.xinitrc.d
 	cp -p -- X/Xresources $(HOME)/.Xresources
@@ -380,9 +351,7 @@ install-yash: check-yash install-sh
 	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
 
 install-zsh: check-zsh install-sh
-	mkdir -p -- \
-		$(HOME)/.profile.d \
-		$(HOME)/.zshrc.d
+	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
 	cp -p -- zsh/zprofile $(HOME)/.zprofile
 	cp -p -- zsh/zshrc $(HOME)/.zshrc
