@@ -119,23 +119,23 @@ clean distclean:
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DOTFILES_NAME="$(NAME)" \
-		-D DOTFILES_EMAIL="$(EMAIL)" \
-		-D DOTFILES_KEY="$(KEY)" \
-		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
+		-D DOTFILES_NAME=$(NAME) \
+		-D DOTFILES_EMAIL=$(EMAIL) \
+		-D DOTFILES_KEY=$(KEY) \
+		-D DOTFILES_SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > git/gitconfig
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
-		-D DOTFILES_HOME="$(HOME)" \
-		-D DOTFILES_KEYSERVER="$(KEYSERVER)" \
+		-D DOTFILES_HOME=$(HOME) \
+		-D DOTFILES_KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > gnupg/gpg.conf
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
-		pandoc -sS -t man -o "$@"
+		pandoc -sS -t man -o $@
 
 MAILDIR = $(HOME)/Mail
 
@@ -143,24 +143,24 @@ TMUX_BG = colour237
 TMUX_FG = colour248
 
 tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 -D TMUX_BG="$(TMUX_BG)" -D TMUX_FG="$(TMUX_FG)" \
+	m4 -D TMUX_BG=$(TMUX_BG) -D TMUX_FG=$(TMUX_FG) \
 		tmux/tmux.conf.m4 > tmux/tmux.conf
 
 .awk:
-	bin/shb "$<" awk -f > "$@"
-	chmod +x "$@"
+	bin/shb $< awk -f > $@
+	chmod +x $@
 
 .bash:
-	bin/shb "$<" bash > "$@"
-	chmod +x "$@"
+	bin/shb $< bash > $@
+	chmod +x $@
 
 .pl:
-	bin/shb "$<" perl > "$@"
-	chmod +x "$@"
+	bin/shb $< perl > $@
+	chmod +x $@
 
 .sed:
-	bin/shb "$<" sed -f > "$@"
-	chmod +x "$@"
+	bin/shb $< sed -f > $@
+	chmod +x $@
 
 install: install-bash \
 	install-bash-completion \
@@ -176,145 +176,145 @@ install: install-bash \
 
 install-abook:
 	mkdir -p -- \
-		"$(HOME)"/.abook
-	cp -p -- abook/abookrc "$(HOME)"/.abook
+		$(HOME)/.abook
+	cp -p -- abook/abookrc $(HOME)/.abook
 
 install-bash: check-bash install-sh
 	mkdir -p -- \
-		"$(HOME)"/.config \
-		"$(HOME)"/.bashrc.d
-	cp -p -- bash/bashrc "$(HOME)"/.bashrc
-	cp -p -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
-	cp -p -- bash/bash_profile "$(HOME)"/.bash_profile
-	cp -p -- bash/bash_logout "$(HOME)"/.bash_logout
+		$(HOME)/.config \
+		$(HOME)/.bashrc.d
+	cp -p -- bash/bashrc $(HOME)/.bashrc
+	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
+	cp -p -- bash/bash_profile $(HOME)/.bash_profile
+	cp -p -- bash/bash_logout $(HOME)/.bash_logout
 
 install-bash-completion: install-bash
-	mkdir -p -- "$(HOME)"/.bash_completion.d
-	cp -p -- bash/bash_completion "$(HOME)"/.config/bash_completion
-	cp -p -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
+	mkdir -p -- $(HOME)/.bash_completion.d
+	cp -p -- bash/bash_completion $(HOME)/.config/bash_completion
+	cp -p -- bash/bash_completion.d/* $(HOME)/.bash_completion.d
 
 install-bin: $(BINS) install-bin-man
-	mkdir -p -- "$(HOME)"/.local/bin
+	mkdir -p -- $(HOME)/.local/bin
 	for name in bin/* ; do \
 		[ -x "$$name" ] || continue ; \
-		cp -p -- "$$name" "$(HOME)"/.local/bin ; \
+		cp -p -- "$$name" $(HOME)/.local/bin ; \
 	done
 
 install-bin-man:
 	mkdir -p -- \
-		"$(HOME)"/.local/share/man/man1 \
-		"$(HOME)"/.local/share/man/man8
-	cp -p -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
-	cp -p -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
+		$(HOME)/.local/share/man/man1 \
+		$(HOME)/.local/share/man/man8
+	cp -p -- man/man1/*.1df $(HOME)/.local/share/man/man1
+	cp -p -- man/man8/*.8df $(HOME)/.local/share/man/man8
 
 install-curl:
-	cp -p -- curl/curlrc "$(HOME)"/.curlrc
+	cp -p -- curl/curlrc $(HOME)/.curlrc
 
 install-dotfiles-man: man/man7/dotfiles.7df
-	mkdir -p -- "$(HOME)"/.local/share/man/man7
-	cp -p -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
+	mkdir -p -- $(HOME)/.local/share/man/man7
+	cp -p -- man/man7/*.7df $(HOME)/.local/share/man/man7
 
 install-dunst: install-x
-	mkdir -p -- "$(HOME)"/.config/dunst
-	cp -p -- dunst/dunstrc "$(HOME)"/.config/dunst
+	mkdir -p -- $(HOME)/.config/dunst
+	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
 
 install-ex:
-	cp -p -- ex/exrc "$(HOME)"/.exrc
+	cp -p -- ex/exrc $(HOME)/.exrc
 
 install-finger:
-	cp -p -- finger/plan "$(HOME)"/.plan
-	cp -p -- finger/project "$(HOME)"/.project
-	cp -p -- finger/pgpkey "$(HOME)"/.pgpkey
+	cp -p -- finger/plan $(HOME)/.plan
+	cp -p -- finger/project $(HOME)/.project
+	cp -p -- finger/pgpkey $(HOME)/.pgpkey
 
 install-games: $(GAMES) install-games-man
-	mkdir -p -- "$(HOME)"/.local/games
+	mkdir -p -- $(HOME)/.local/games
 	for name in games/* ; do \
 		[ -x "$$name" ] || continue ; \
-		cp -p -- "$$name" "$(HOME)"/.local/games ; \
+		cp -p -- "$$name" $(HOME)/.local/games ; \
 	done
 
 install-games-man:
-	mkdir -p -- "$(HOME)"/.local/share/man/man6
-	cp -p -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
+	mkdir -p -- $(HOME)/.local/share/man/man6
+	cp -p -- man/man6/*.6df $(HOME)/.local/share/man/man6
 
 install-git: git/gitconfig
-	cp -p -- git/gitconfig "$(HOME)"/.gitconfig
+	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
 install-gnupg: gnupg/gpg.conf
 	mkdir -m 0700 -p -- \
-		"$(HOME)"/.gnupg \
-		"$(HOME)"/.gnupg/sks-keyservers.net
-	cp -p -- gnupg/*.conf "$(HOME)"/.gnupg
+		$(HOME)/.gnupg \
+		$(HOME)/.gnupg/sks-keyservers.net
+	cp -p -- gnupg/*.conf $(HOME)/.gnupg
 	cp -p -- gnupg/sks-keyservers.net/* \
-		"$(HOME)"/.gnupg/sks-keyservers.net
+		$(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
 	mkdir -p -- \
-		"$(HOME)"/.config/gtkrc-3.0
-	cp -p -- gtk/gtkrc-2.0 "$(HOME)"/.gtkrc-2.0
-	cp -p -- gtk/gtkrc-3.0/settings.ini "$(HOME)"/.config/gtkrc-3.0
+		$(HOME)/.config/gtkrc-3.0
+	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
+	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
 
 install-i3: install-x
-	mkdir -p -- "$(HOME)"/.i3
-	cp -p -- i3/* "$(HOME)"/.i3
+	mkdir -p -- $(HOME)/.i3
+	cp -p -- i3/* $(HOME)/.i3
 
 install-less:
-	cp -p -- less/lesskey "$(HOME)"/.lesskey
+	cp -p -- less/lesskey $(HOME)/.lesskey
 	command -v lesskey && lesskey
 
 install-mutt:
 	mkdir -p -- \
-		"$(HOME)"/.muttrc.d \
-		"$(HOME)"/.cache/mutt
-	cp -p -- mutt/muttrc "$(HOME)"/.muttrc
-	cp -p -- mutt/muttrc.d/src "$(HOME)"/.muttrc.d
+		$(HOME)/.muttrc.d \
+		$(HOME)/.cache/mutt
+	cp -p -- mutt/muttrc $(HOME)/.muttrc
+	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
 install-ncmcpp:
-	mkdir -p -- "$(HOME)"/.ncmpcpp
-	cp -p -- ncmpcpp/config "$(HOME)"/.ncmpcpp/config
+	mkdir -p -- $(HOME)/.ncmpcpp
+	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp/config
 
 install-newsbeuter:
 	mkdir -p -- \
-		"$(HOME)"/.config/newsbeuter \
-		"$(HOME)"/.local/share/newsbeuter
-	cp -p -- newsbeuter/config "$(HOME)"/.config/newsbeuter/config
+		$(HOME)/.config/newsbeuter \
+		$(HOME)/.local/share/newsbeuter
+	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter/config
 
 install-mysql:
-	cp -p -- mysql/my.cnf "$(HOME)"/.my.cnf
+	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
 	mkdir -p -- \
-		"$(HOME)"/.shrc.d \
-		"$(HOME)"/.kshrc.d
-	cp -p -- ksh/shrc.d/* "$(HOME)"/.shrc.d
-	cp -p -- ksh/kshrc "$(HOME)"/.kshrc
-	cp -p -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
+		$(HOME)/.shrc.d \
+		$(HOME)/.kshrc.d
+	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
+	cp -p -- ksh/kshrc $(HOME)/.kshrc
+	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
 
 install-perlcritic:
-	cp -p -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
+	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
 
 install-perltidy:
-	cp -p -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
+	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
 
 install-psql:
-	cp -p -- psql/psqlrc "$(HOME)"/.psqlrc
+	cp -p -- psql/psqlrc $(HOME)/.psqlrc
 
 install-readline:
-	cp -p -- readline/inputrc "$(HOME)"/.inputrc
+	cp -p -- readline/inputrc $(HOME)/.inputrc
 
 install-sh: check-sh
 	mkdir -p -- \
-		"$(HOME)"/.profile.d \
-		"$(HOME)"/.shrc.d
-	cp -p -- sh/profile "$(HOME)"/.profile
-	cp -p -- sh/profile.d/* "$(HOME)"/.profile.d
-	cp -p -- sh/shinit "$(HOME)"/.shinit
-	cp -p -- sh/shrc "$(HOME)"/.shrc
-	cp -p -- sh/shrc.d/* "$(HOME)"/.shrc.d
+		$(HOME)/.profile.d \
+		$(HOME)/.shrc.d
+	cp -p -- sh/profile $(HOME)/.profile
+	cp -p -- sh/profile.d/* $(HOME)/.profile.d
+	cp -p -- sh/shinit $(HOME)/.shinit
+	cp -p -- sh/shrc $(HOME)/.shrc
+	cp -p -- sh/shrc.d/* $(HOME)/.shrc.d
 
 install-subversion:
-	mkdir -p -- "$(HOME)"/.subversion
-	cp -p -- subversion/config "$(HOME)"/.subversion/config
+	mkdir -p -- $(HOME)/.subversion
+	cp -p -- subversion/config $(HOME)/.subversion/config
 
 install-terminfo:
 	for info in terminfo/*.info ; do \
@@ -322,14 +322,14 @@ install-terminfo:
 	done
 
 install-tmux: tmux/tmux.conf install-terminfo
-	cp -p -- tmux/tmux.conf "$(HOME)"/.tmux.conf
+	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
 
 install-urxvt: urxvt/ext/select check-urxvt
-	mkdir -p -- "$(HOME)"/.urxvt/ext
+	mkdir -p -- $(HOME)/.urxvt/ext
 	for name in urxvt/ext/* ; do \
 		case $$name in \
 			*.pl) ;; \
-			*) cp -p -- "$$name" "$(HOME)"/.urxvt/ext ;; \
+			*) cp -p -- "$$name" $(HOME)/.urxvt/ext ;; \
 		esac \
 	done
 
@@ -341,51 +341,51 @@ install-gvim: install-vim \
 	install-gvim-config
 
 install-vim-config:
-	cp -p -- vim/vimrc "$(HOME)"/.vimrc
+	cp -p -- vim/vimrc $(HOME)/.vimrc
 
 install-gvim-config:
-	cp -p -- vim/gvimrc "$(HOME)"/.gvimrc
+	cp -p -- vim/gvimrc $(HOME)/.gvimrc
 
 install-vim-plugins: install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- \
-			"$(HOME)"/."$$1"' _ {} \; -o \
+			$(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- \
-			"$$1" "$(HOME)"/."$$1"' _ {} \;
+			"$$1" $(HOME)/."$$1"' _ {} \;
 
 install-vim-pathogen: install-vim-plugins
-	mkdir -p -- "$(HOME)"/.vim/autoload
-	rm -f -- "$(HOME)"/.vim/autoload/pathogen.vim
+	mkdir -p -- $(HOME)/.vim/autoload
+	rm -f -- $(HOME)/.vim/autoload/pathogen.vim
 	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
-		"$(HOME)"/.vim/autoload/pathogen.vim
+		$(HOME)/.vim/autoload/pathogen.vim
 
 install-x:
 	mkdir -p -- \
-		"$(HOME)"/.config \
-		"$(HOME)"/.config/sxhkdrc \
-		"$(HOME)"/.xinitrc.d \
-		"$(HOME)"/.Xresources.d
-	cp -p -- X/redshift.conf "$(HOME)"/.config/redshift.conf
-	cp -p -- X/sxhkdrc "$(HOME)"/.config/sxhkd/sxhkdrc 
-	cp -p -- X/xinitrc "$(HOME)"/.xinitrc
-	cp -p -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
-	cp -p -- X/Xresources "$(HOME)"/.Xresources
-	cp -p -- X/Xresources.d/* "$(HOME)"/.Xresources.d
+		$(HOME)/.config \
+		$(HOME)/.config/sxhkdrc \
+		$(HOME)/.xinitrc.d \
+		$(HOME)/.Xresources.d
+	cp -p -- X/redshift.conf $(HOME)/.config/redshift.conf
+	cp -p -- X/sxhkdrc $(HOME)/.config/sxhkd/sxhkdrc
+	cp -p -- X/xinitrc $(HOME)/.xinitrc
+	cp -p -- X/xinitrc.d/* $(HOME)/.xinitrc.d
+	cp -p -- X/Xresources $(HOME)/.Xresources
+	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
 install-yash: check-yash install-sh
-	mkdir -p -- "$(HOME)"/.yashrc.d
-	cp -p -- yash/yash_profile "$(HOME)"/.yash_profile
-	cp -p -- yash/yashrc "$(HOME)"/.yashrc
-	cp -p -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
+	mkdir -p -- $(HOME)/.yashrc.d
+	cp -p -- yash/yash_profile $(HOME)/.yash_profile
+	cp -p -- yash/yashrc $(HOME)/.yashrc
+	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
 
 install-zsh: check-zsh install-sh
 	mkdir -p -- \
-		"$(HOME)"/.profile.d \
-		"$(HOME)"/.zshrc.d
-	cp -p -- zsh/profile.d/* "$(HOME)"/.profile.d
-	cp -p -- zsh/zprofile "$(HOME)"/.zprofile
-	cp -p -- zsh/zshrc "$(HOME)"/.zshrc
-	cp -p -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
+		$(HOME)/.profile.d \
+		$(HOME)/.zshrc.d
+	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
+	cp -p -- zsh/zprofile $(HOME)/.zprofile
+	cp -p -- zsh/zshrc $(HOME)/.zshrc
+	cp -p -- zsh/zshrc.d/* $(HOME)/.zshrc.d
 
 check: check-bash \
 	check-bin \
