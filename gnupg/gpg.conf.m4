@@ -22,11 +22,11 @@ fixed-list-mode
 keyid-format 0xlong
 
 # Use a pool of servers which support HKPS (encrypted key retrieval)
-keyserver DOTFILES_KEYSERVER
+keyserver DF_KEYSERVER
 
 # Retrieve keys automatically; check the keyserver port cert; use whichever
 # server is proffered from the pool
-keyserver-options auto-key-retrieve check-cert no-honor-keyserver-url ca-certfile=DOTFILES_HOME/.gnupg/sks-keyservers.net/sks-keyservers.netCA.pem
+keyserver-options auto-key-retrieve check-cert no-honor-keyserver-url ca-certfile=DF_HOME/.gnupg/sks-keyservers.net/sks-keyservers.netCA.pem
 
 # Include trust/validity for UIDs in listings
 list-options show-uid-validity
