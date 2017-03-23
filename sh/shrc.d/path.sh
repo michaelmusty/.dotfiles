@@ -1,14 +1,6 @@
 # Function to manage contents of PATH variable within the current shell
 path() {
 
-    # The second argument, the directory, can never have a colon
-    case $2 in
-        *:*)
-            printf >&2 'path(): %s illegal colon\n' "$2"
-            return 2
-            ;;
-    esac
-
     # Check first argument to figure out operation
     case $1 in
 
