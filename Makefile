@@ -148,19 +148,19 @@ tmux/tmux.conf: tmux/tmux.conf.m4
 		tmux/tmux.conf.m4 > $@
 
 .awk:
-	bin/shb $< awk -f > $@
+	bin/shb awk -f < $< > $@
 	chmod +x -- $@
 
 .bash:
-	bin/shb $< bash > $@
+	bin/shb bash < $< > $@
 	chmod +x -- $@
 
 .pl:
-	bin/shb $< perl > $@
+	bin/shb perl < $< > $@
 	chmod +x -- $@
 
 .sed:
-	bin/shb $< sed -f > $@
+	bin/shb sed -f < $< > $@
 	chmod +x -- $@
 
 install: install-bash \
