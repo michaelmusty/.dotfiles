@@ -61,7 +61,7 @@
 
 .SUFFIXES: .awk .bash .pl .sed
 
-NAME = Tom Ryder
+NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
 KEY = 0xC14286EA77BB8872
 SENDMAIL = msmtp
