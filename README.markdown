@@ -469,6 +469,7 @@ Installed by the `install-bin` target:
     any options, mostly useful for scripts.
 *   `eds(1df)` edits executable script files in `EDSPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
+*   `exm(1df)` works around a screen-clearing quirk of Vim's `ex` mode.
 *   `finc(1df)` counts the number of results returned from a set of given
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary

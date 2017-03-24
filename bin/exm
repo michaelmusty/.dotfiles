@@ -1,0 +1,10 @@
+#!/bin/sh
+# If input is a terminal and ex(1) is the Vim version, force it to use a dumb
+# terminal so it doesn't clear the screen
+if [ -t 0 ] ; then
+    ver=$(ex --version | sed '1{s/ .*//;q}') 2>/dev/null
+    case $ver in
+        VIM) set -- -T builtin_dumb "$@" ;;
+    esac
+fi
+exec ex "$@"
