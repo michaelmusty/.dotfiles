@@ -11,12 +11,9 @@ works around a quirk of Vim that causes it to clear the screen when invoked as
 ex(1) interactively. It applies Vim's -T option to force the terminal to the
 builtin "dumb" terminal.
 .SH CAVEATS
-This doesn't work on its first invocation from any given terminal, but does
-work thereafter. I haven't yet figured out why.
-.P
-This breaks switching to visual mode with :visual somewhat, as the terminal
+This breaks switching to visual mode with :visual completely, as the terminal
 will persist in its dumb state. I'm not sure there's a way to fix this. If
 there were a Vim :autocmd for mode switching, it might be possible, or perhaps
-by wrapping :visual somehow to :set terminal=$TERM.
+by wrapping :visual somehow to :set terminal=$TERM before the switch.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
