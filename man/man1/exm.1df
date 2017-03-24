@@ -8,8 +8,8 @@
 .SH DESCRIPTION
 .B exm
 works around a quirk of Vim that causes it to clear the screen when invoked as
-ex(1) interactively. It applies Vim's -T option to force the terminal to the
-builtin "dumb" terminal.
+ex(1) interactively. It applies Vim's -T option to force the terminal to a
+"dumb" terminal.
 .SH CAVEATS
 This breaks switching to visual mode with :visual completely, as the terminal
 will persist in its dumb state. I'm not sure there's a way to fix this. If
