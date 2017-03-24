@@ -1,0 +1,11 @@
+#!/bin/sh
+# Prevent Vim's ex(1) implementation from clearing the screen
+if [ -t 0 ] ; then
+    ver=$(ex --version | sed '1{s/ .*//;q;}') 2>/dev/null
+    case $ver in
+        # Lie to Vim; tell it it's a dumb terminal, and that its required "cm"
+        # feature is invoked with a newline character.
+        VIM) set -- -T dumb --cmd 'exe "set t_cm=\<C-M>"' "$@" ;;
+    esac
+fi
+exec ex "$@"
