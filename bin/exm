@@ -4,8 +4,10 @@ if [ -t 0 ] ; then
     ver=$(ex --version 2>/dev/null | sed '1{s/ .*//;q;}')
     case $ver in
         # Lie to Vim; tell it it's a dumb terminal, and that its required "cm"
-        # feature is invoked with a newline character.
-        VIM) set -- -T dumb --cmd 'exe "set t_cm=\<C-M>"' "$@" ;;
+        # feature is invoked with a carriage return.
+        VIM)
+            cmd=$(printf 'set t_cm=\r|')
+            set -- -T dumb --cmd "${cmd%|}" "$@" ;;
     esac
 fi
 exec ex "$@"

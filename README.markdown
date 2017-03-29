@@ -180,10 +180,12 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     *   `gd()` goes to the marked directory.
     *   `pmd()` prints the marked directory.
     *   `xd()` swaps the current and marked directories.
-*   Nine other directory management and navigation functions:
+*   Ten other directory management and navigation functions:
     *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
         `/usr/local/bin`, as long as they are unique.
     *   `bd()` changes into a named ancestor of the current directory.
+    *   `gt()` changes into a directory or into a file's directory.
+    *   `lgt()` runs `gt()` on the first result from a `loc(1df)` search.
     *   `mkcd()` creates a directory and changes into it.
     *   `pd()` changes to the argument's parent directory.
     *   `rd()` replaces the first instance of its first argument with its

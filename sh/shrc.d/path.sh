@@ -6,7 +6,6 @@ path() {
 
         # List current directories in PATH
         list|'') (
-            # shellcheck disable=SC2030
             path=$PATH:
             while [ -n "$path" ] ; do
                 dir=${path%%:*}
