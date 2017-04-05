@@ -341,7 +341,7 @@ install-i3: install-x
 
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
-	command -v lesskey && lesskey
+	lesskey
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
