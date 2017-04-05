@@ -68,43 +68,133 @@ EMAIL = tom@sanctum.geek.nz
 KEY = 0xC14286EA77BB8872
 SENDMAIL = msmtp
 
-BINS = bin/brnl \
+BINS = bin/ap \
+	bin/apf \
+	bin/ax \
+	bin/bcq \
+	bin/bel \
+	bin/bl \
+	bin/bp \
+	bin/br \
+	bin/brnl \
+	bin/ca \
+	bin/cf \
+	bin/cfr \
+	bin/chc \
+	bin/chn \
+	bin/clog \
+	bin/clrd \
+	bin/clwr \
 	bin/csmw \
+	bin/d2u \
 	bin/ddup \
+	bin/dmp \
+	bin/dub \
+	bin/edda \
+	bin/eds \
+	bin/exm \
+	bin/fgscr \
+	bin/finc \
+	bin/fnl \
+	bin/gms \
+	bin/grc \
+	bin/gscr \
 	bin/gwp \
 	bin/han \
 	bin/hms \
 	bin/htdec \
 	bin/htenc \
 	bin/htref \
+	bin/hurl \
+	bin/igex \
+	bin/isgr \
+	bin/ix \
+	bin/jfc \
+	bin/jfcd \
 	bin/jfp \
+	bin/loc \
 	bin/max \
+	bin/maybe \
 	bin/mean \
 	bin/med \
+	bin/mex \
 	bin/mftl \
 	bin/min \
+	bin/mkcp \
+	bin/mkmv \
+	bin/mktd \
 	bin/mode \
+	bin/motd \
+	bin/murl \
 	bin/nlbr \
 	bin/onl \
+	bin/osc \
+	bin/pa \
+	bin/paz \
+	bin/pit \
+	bin/plmu \
+	bin/pp \
+	bin/pph \
+	bin/pwg \
 	bin/quo \
+	bin/rfcf \
+	bin/rfcr \
 	bin/rfct \
+	bin/rgl \
+	bin/rnda \
+	bin/rndf \
 	bin/rndi \
+	bin/rndl \
+	bin/rnds \
 	bin/sd2u \
 	bin/sec \
+	bin/shb \
+	bin/slow \
+	bin/sls \
 	bin/slsf \
+	bin/sqs \
+	bin/sra \
+	bin/sshi \
+	bin/sta \
+	bin/stbl \
+	bin/stex \
+	bin/stws \
 	bin/su2d \
+	bin/sue \
+	bin/supp \
+	bin/swr \
+	bin/td \
+	bin/tl \
+	bin/tlcs \
+	bin/tm \
 	bin/tot \
+	bin/try \
+	bin/u2d \
+	bin/umake \
 	bin/unf \
+	bin/urlc \
+	bin/urlh \
+	bin/urlmt \
 	bin/uts \
+	bin/vest \
+	bin/vex \
+	bin/wro \
+	bin/xgo \
+	bin/xgoc \
+	bin/xrbg \
 	bin/xrq
 
-GAMES = games/acq \
+GAMES = games/aaf \
+	games/acq \
 	games/aesth \
 	games/chkl \
+	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/rndn \
 	games/rot13 \
 	games/strik \
+	games/xyzzy \
 	games/zs
 
 all: $(BINS) git/gitconfig gnupg/gpg.conf
@@ -147,19 +237,23 @@ tmux/tmux.conf: tmux/tmux.conf.m4
 		tmux/tmux.conf.m4 > $@
 
 .awk:
-	bin/shb awk -f < $< > $@
+	sh bin/shb.sh awk -f < $< > $@
 	chmod +x ./$@
 
 .bash:
-	bin/shb bash < $< > $@
+	sh bin/shb.sh bash < $< > $@
 	chmod +x ./$@
 
 .pl:
-	bin/shb perl < $< > $@
+	sh bin/shb.sh perl < $< > $@
 	chmod +x ./$@
 
 .sed:
-	bin/shb sed -f < $< > $@
+	sh bin/shb.sh sed -f < $< > $@
+	chmod +x ./$@
+
+.sh:
+	sh bin/shb.sh sh < $< > $@
 	chmod +x ./$@
 
 install: install-bash \
@@ -403,10 +497,10 @@ lint: check \
 lint-bash:
 	lint/bash
 
-lint-bin: $(BINS)
+lint-bin:
 	lint/bin
 
-lint-games: $(GAMES)
+lint-games:
 	lint/games
 
 lint-ksh:

@@ -1,11 +1,2 @@
 #!/bin/sh
-for game in games/* ; do
-    [ -f "$game" ] || continue
-    hb=$(sed 1q "$game") || exit
-    case $hb in
-        *sh)
-            printf '%s\n' "$game"
-            shellcheck -- "$game"
-            ;;
-    esac
-done
+find games -type f -name '*.sh' -print -exec shellcheck -e SC1090 -s sh -- {} +

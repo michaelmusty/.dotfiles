@@ -15,7 +15,10 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `bash(1)`, `make(1)`, and `m4(1)`.
+For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
+POSIX-fearing `sh(1)`. If you're on a system where `/bin/sh` is not a POSIX
+shell, you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
+`$PATH` at build time.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
