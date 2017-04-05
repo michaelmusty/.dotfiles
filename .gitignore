@@ -113,13 +113,17 @@ bin/xgo
 bin/xgoc
 bin/xrbg
 bin/xrq
+games/aaf
 games/acq
 games/aesth
 games/chkl
+games/dr
 games/drakon
 games/kvlt
+games/rndn
 games/rot13
 games/strik
+games/xyzzy
 games/zs
 git/gitconfig
 gnupg/gpg.conf
