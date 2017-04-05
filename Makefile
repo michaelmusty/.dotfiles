@@ -359,7 +359,7 @@ install-newsbeuter:
 install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
-install-ksh: check-ksh install-sh
+install-ksh: install-sh
 	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
@@ -377,7 +377,7 @@ install-psql:
 install-readline:
 	cp -p -- readline/inputrc $(HOME)/.inputrc
 
-install-sh: check-sh
+install-sh:
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.shrc.d
 	cp -p -- sh/profile $(HOME)/.profile
 	cp -p -- sh/profile.d/* $(HOME)/.profile.d
@@ -396,7 +396,7 @@ install-terminfo:
 install-tmux: tmux/tmux.conf install-terminfo
 	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
 
-install-urxvt: urxvt/ext/select check-urxvt
+install-urxvt: urxvt/ext/select
 	mkdir -p -- $(HOME)/.urxvt/ext
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
@@ -438,13 +438,13 @@ install-x:
 	cp -p -- X/Xresources $(HOME)/.Xresources
 	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash: check-yash install-sh
+install-yash: install-sh
 	mkdir -p -- $(HOME)/.yashrc.d
 	cp -p -- yash/yash_profile $(HOME)/.yash_profile
 	cp -p -- yash/yashrc $(HOME)/.yashrc
 	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
 
-install-zsh: check-zsh install-sh
+install-zsh: install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
 	cp -p -- zsh/zprofile $(HOME)/.zprofile
@@ -461,10 +461,10 @@ check: check-bash \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS)
+check-bin:
 	sh check/bin.sh
 
-check-games: $(GAMES)
+check-games:
 	sh check/games.sh
 
 check-man:
