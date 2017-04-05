@@ -46,7 +46,7 @@ dependencies:
 *   `install-vim`
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
-`bin/mftl Makefile` in the project's root directory to see a list.
+`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
 
 Tools
 -----
