@@ -1,4 +1,3 @@
-#!/bin/sh
 for yash in yash/* ; do
     [ -f "$yash" ] || continue
     yash -n "$yash" || exit

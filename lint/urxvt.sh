@@ -1,2 +1,1 @@
-#!/bin/sh
 find urxvt/ext -type f ! -name '*.pl' -print -exec perlcritic --brutal -- {} \;

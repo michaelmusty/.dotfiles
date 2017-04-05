@@ -1,4 +1,3 @@
-#!/bin/sh
 # Check that manual pages and logical binaries match up
 
 # Need some scripts from the source directory

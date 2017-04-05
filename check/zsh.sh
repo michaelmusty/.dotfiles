@@ -1,4 +1,3 @@
-#!/bin/sh
 for zsh in zsh/* zsh/zshrc.d/* ; do
     [ -f "$zsh" ] || continue
     zsh -n "$zsh" || exit

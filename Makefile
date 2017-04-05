@@ -459,31 +459,31 @@ check: check-bash \
 	check-urxvt
 
 check-bash:
-	check/bash
+	sh check/bash.sh
 
 check-bin: $(BINS)
-	check/bin
+	sh check/bin.sh
 
 check-games: $(GAMES)
-	check/games
+	sh check/games.sh
 
 check-man:
-	check/man
+	sh check/man.sh
 
 check-ksh:
-	check/ksh
+	sh check/ksh.sh
 
 check-sh:
-	check/sh
+	sh check/sh.sh
 
 check-urxvt:
-	check/urxvt
+	sh check/urxvt.sh
 
 check-yash:
-	check/yash
+	sh check/yash.sh
 
 check-zsh:
-	check/zsh
+	sh check/zsh.sh
 
 lint: check \
 	lint-bash \
@@ -495,22 +495,22 @@ lint: check \
 	lint-yash
 
 lint-bash:
-	lint/bash
+	sh lint/bash.sh
 
 lint-bin:
-	lint/bin
+	sh lint/bin.sh
 
 lint-games:
-	lint/games
+	sh lint/games.sh
 
 lint-ksh:
-	lint/ksh
+	sh lint/ksh.sh
 
 lint-sh:
-	lint/sh
+	sh lint/sh.sh
 
 lint-urxvt:
-	lint/urxvt
+	sh lint/urxvt.sh
 
 lint-yash:
-	lint/yash
+	sh lint/yash.sh
