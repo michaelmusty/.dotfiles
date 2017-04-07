@@ -32,7 +32,7 @@ directory so you can explore:
 
     $ tmpdir=$(mktemp -d)
     $ make install HOME="$tmpdir"
-    $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
+    $ env -i HOME="$tmpdir" TERM="$TERM" "$SHELL" -l
 
 The default `install` target will install these targets and all their
 dependencies. Note that you don't actually have to have any of this except `sh`
