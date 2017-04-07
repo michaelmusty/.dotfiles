@@ -16,8 +16,12 @@ Installation
     $ make install
 
 For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
-POSIX-fearing `sh(1)`. If you're on a system where `/bin/sh` is not a POSIX
-shell, you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
+POSIX-fearing environment, including `sh(1)`. This should work on most
+GNU/Linux and BSD systems, and possibly on other UNIX types, but those are not
+as thoroughly or frequently tested.
+
+If you're on a system where `/bin/sh` is not a POSIX shell (e.g. OpenSolaris),
+you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
 `$PATH` at build time.
 
 The installation `Makefile` will overwrite things standing in the way of its
@@ -31,7 +35,8 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
 The default `install` target will install these targets and all their
-dependencies:
+dependencies. Note that you don't actually have to have any of this except `sh`
+installed.
 
 *   `install-bash`
 *   `install-bin`
@@ -149,8 +154,8 @@ A terminal session with my prompt looks something like this:
     tom@remote:~/.dotfiles(master+!){1}$
 
 The username and hostname are elided if not connected via SSH. The working
-directory is always shown. The rest of the prompt expands based on context to
-include these elements in this order:
+directory with tilde abbreviation for `$HOME` is always shown. The rest of the
+prompt expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
