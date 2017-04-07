@@ -60,7 +60,8 @@
 	lint-sh \
 	lint-urxvt
 
-.SUFFIXES: .awk .bash .pl .sed
+.SUFFIXES:
+.SUFFIXES: .awk .bash .pl .sed .sh
 
 NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
