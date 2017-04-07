@@ -21,5 +21,3 @@ Known issues
 *   Would be good to complete the Makefile variables for NAME, EMAIL etc with
     educated guesses (`id -u`@`cat /etc/mailname`) etc rather than hardcoding
     my own stuff in there
-*   vim's implementation of ex clears the screen; would be good to find a way
-    to prevent that (preferably without something awful like `TERM=t100 ex`).

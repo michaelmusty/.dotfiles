@@ -14,8 +14,10 @@ ls() {
 
     # -F to show trailing indicators of the filetype
     # -q to replace control chars with '?'
-    # -x to format entries across, not down
-    set -- -Fqx "$@"
+    set -- -Fq "$@"
+
+    # If output is to a terminal, add -x to format entries across, not down
+    [ -t 1 ] && set -- -x "$@"
 
     # Add --block-size=K to always show the filesize in kibibytes
     [ -e "$HOME"/.cache/ls/block-size ] &&

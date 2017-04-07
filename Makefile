@@ -6,7 +6,6 @@
 	install \
 	install-abook \
 	install-bash \
-	install-bash-completion \
 	install-bin \
 	install-bin-man \
 	install-curl \
@@ -68,43 +67,133 @@ EMAIL = tom@sanctum.geek.nz
 KEY = 0xC14286EA77BB8872
 SENDMAIL = msmtp
 
-BINS = bin/brnl \
+BINS = bin/ap \
+	bin/apf \
+	bin/ax \
+	bin/bcq \
+	bin/bel \
+	bin/bl \
+	bin/bp \
+	bin/br \
+	bin/brnl \
+	bin/ca \
+	bin/cf \
+	bin/cfr \
+	bin/chc \
+	bin/chn \
+	bin/clog \
+	bin/clrd \
+	bin/clwr \
 	bin/csmw \
+	bin/d2u \
 	bin/ddup \
+	bin/dmp \
+	bin/dub \
+	bin/edda \
+	bin/eds \
+	bin/exm \
+	bin/fgscr \
+	bin/finc \
+	bin/fnl \
+	bin/gms \
+	bin/grc \
+	bin/gscr \
 	bin/gwp \
 	bin/han \
 	bin/hms \
 	bin/htdec \
 	bin/htenc \
 	bin/htref \
+	bin/hurl \
+	bin/igex \
+	bin/isgr \
+	bin/ix \
+	bin/jfc \
+	bin/jfcd \
 	bin/jfp \
+	bin/loc \
 	bin/max \
+	bin/maybe \
 	bin/mean \
 	bin/med \
+	bin/mex \
 	bin/mftl \
 	bin/min \
+	bin/mkcp \
+	bin/mkmv \
+	bin/mktd \
 	bin/mode \
+	bin/motd \
+	bin/murl \
 	bin/nlbr \
 	bin/onl \
+	bin/osc \
+	bin/pa \
+	bin/paz \
+	bin/pit \
+	bin/plmu \
+	bin/pp \
+	bin/pph \
+	bin/pwg \
 	bin/quo \
+	bin/rfcf \
+	bin/rfcr \
 	bin/rfct \
+	bin/rgl \
+	bin/rnda \
+	bin/rndf \
 	bin/rndi \
+	bin/rndl \
+	bin/rnds \
 	bin/sd2u \
 	bin/sec \
+	bin/shb \
+	bin/slow \
+	bin/sls \
 	bin/slsf \
+	bin/sqs \
+	bin/sra \
+	bin/sshi \
+	bin/sta \
+	bin/stbl \
+	bin/stex \
+	bin/stws \
 	bin/su2d \
+	bin/sue \
+	bin/supp \
+	bin/swr \
+	bin/td \
+	bin/tl \
+	bin/tlcs \
+	bin/tm \
 	bin/tot \
+	bin/try \
+	bin/u2d \
+	bin/umake \
 	bin/unf \
+	bin/urlc \
+	bin/urlh \
+	bin/urlmt \
 	bin/uts \
+	bin/vest \
+	bin/vex \
+	bin/wro \
+	bin/xgo \
+	bin/xgoc \
+	bin/xrbg \
 	bin/xrq
 
-GAMES = games/acq \
+GAMES = games/aaf \
+	games/acq \
 	games/aesth \
 	games/chkl \
+	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/rndn \
 	games/rot13 \
 	games/strik \
+	games/xyzzy \
 	games/zs
 
 all: $(BINS) git/gitconfig gnupg/gpg.conf
@@ -147,46 +236,45 @@ tmux/tmux.conf: tmux/tmux.conf.m4
 		tmux/tmux.conf.m4 > $@
 
 .awk:
-	bin/shb awk -f < $< > $@
+	sh bin/shb.sh awk -f < $< > $@
 	chmod +x ./$@
 
 .bash:
-	bin/shb bash < $< > $@
+	sh bin/shb.sh bash < $< > $@
 	chmod +x ./$@
 
 .pl:
-	bin/shb perl < $< > $@
+	sh bin/shb.sh perl < $< > $@
 	chmod +x ./$@
 
 .sed:
-	bin/shb sed -f < $< > $@
+	sh bin/shb.sh sed -f < $< > $@
 	chmod +x ./$@
 
-install: install-bash \
-	install-bash-completion \
-	install-bin \
+.sh:
+	sh bin/shb.sh sh < $< > $@
+	chmod +x ./$@
+
+install: install-bin \
 	install-curl \
 	install-ex \
 	install-git \
 	install-gnupg \
 	install-less \
 	install-readline \
-	install-sh \
+	install-login-shell \
 	install-vim
 
 install-abook:
 	mkdir -p -- $(HOME)/.abook
 	cp -p -- abook/abookrc $(HOME)/.abook
 
-install-bash: check-bash install-sh
-	mkdir -p -- $(HOME)/.bashrc.d
+install-bash: install-sh
+	mkdir -p -- $(HOME)/.bashrc.d $(HOME)/.bash_completion.d $(HOME)/.config
 	cp -p -- bash/bashrc $(HOME)/.bashrc
 	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
 	cp -p -- bash/bash_profile $(HOME)/.bash_profile
 	cp -p -- bash/bash_logout $(HOME)/.bash_logout
-
-install-bash-completion: install-bash
-	mkdir -p -- $(HOME)/.bash_completion.d $(HOME)/.config
 	cp -p -- bash/bash_completion $(HOME)/.config
 	cp -p -- bash/bash_completion.d/* $(HOME)/.bash_completion.d
 
@@ -247,7 +335,7 @@ install-i3: install-x
 
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
-	command -v lesskey && lesskey
+	lesskey
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
@@ -265,11 +353,14 @@ install-newsbeuter:
 install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
-install-ksh: check-ksh install-sh
+install-ksh: install-sh
 	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
+
+install-login-shell:
+	sh dist/install-login-shell.sh
 
 install-perlcritic:
 	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
@@ -283,7 +374,7 @@ install-psql:
 install-readline:
 	cp -p -- readline/inputrc $(HOME)/.inputrc
 
-install-sh: check-sh
+install-sh:
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.shrc.d
 	cp -p -- sh/profile $(HOME)/.profile
 	cp -p -- sh/profile.d/* $(HOME)/.profile.d
@@ -302,7 +393,7 @@ install-terminfo:
 install-tmux: tmux/tmux.conf install-terminfo
 	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
 
-install-urxvt: urxvt/ext/select check-urxvt
+install-urxvt: urxvt/ext/select
 	mkdir -p -- $(HOME)/.urxvt/ext
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
@@ -322,10 +413,8 @@ install-gvim-config:
 
 install-vim-plugins: install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
-		-type d -exec sh -c 'mkdir -p -- \
-			$(HOME)/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'cp -p -- \
-			"$$1" $(HOME)/."$$1"' _ {} \;
+		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
+		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
@@ -344,13 +433,13 @@ install-x:
 	cp -p -- X/Xresources $(HOME)/.Xresources
 	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash: check-yash install-sh
+install-yash: install-sh
 	mkdir -p -- $(HOME)/.yashrc.d
 	cp -p -- yash/yash_profile $(HOME)/.yash_profile
 	cp -p -- yash/yashrc $(HOME)/.yashrc
 	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
 
-install-zsh: check-zsh install-sh
+install-zsh: install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
 	cp -p -- zsh/zprofile $(HOME)/.zprofile
@@ -365,31 +454,31 @@ check: check-bash \
 	check-urxvt
 
 check-bash:
-	check/bash
+	sh check/bash.sh
 
-check-bin: $(BINS)
-	check/bin
+check-bin:
+	sh check/bin.sh
 
-check-games: $(GAMES)
-	check/games
+check-games:
+	sh check/games.sh
 
 check-man:
-	check/man
+	sh check/man.sh
 
 check-ksh:
-	check/ksh
+	sh check/ksh.sh
 
 check-sh:
-	check/sh
+	sh check/sh.sh
 
 check-urxvt:
-	check/urxvt
+	sh check/urxvt.sh
 
 check-yash:
-	check/yash
+	sh check/yash.sh
 
 check-zsh:
-	check/zsh
+	sh check/zsh.sh
 
 lint: check \
 	lint-bash \
@@ -401,22 +490,22 @@ lint: check \
 	lint-yash
 
 lint-bash:
-	lint/bash
+	sh lint/bash.sh
 
-lint-bin: $(BINS)
-	lint/bin
+lint-bin:
+	sh lint/bin.sh
 
-lint-games: $(GAMES)
-	lint/games
+lint-games:
+	sh lint/games.sh
 
 lint-ksh:
-	lint/ksh
+	sh lint/ksh.sh
 
 lint-sh:
-	lint/sh
+	sh lint/sh.sh
 
 lint-urxvt:
-	lint/urxvt
+	sh lint/urxvt.sh
 
 lint-yash:
-	lint/yash
+	sh lint/yash.sh

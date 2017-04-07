@@ -15,7 +15,14 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `bash(1)`, `make(1)`, and `m4(1)`.
+For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
+POSIX-fearing environment, including `sh(1)`. This should work on most
+GNU/Linux and BSD systems, and possibly on other UNIX types, but those are not
+as thoroughly or frequently tested.
+
+If you're on a system where `/bin/sh` is not a POSIX shell (e.g. OpenSolaris),
+you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
+`$PATH` at build time.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -28,9 +35,9 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
 
 The default `install` target will install these targets and all their
-dependencies:
+dependencies. Note that you don't actually have to have any of this except `sh`
+installed.
 
-*   `install-bash`
 *   `install-bin`
 *   `install-bin-man`
 *   `install-curl`
@@ -38,12 +45,15 @@ dependencies:
 *   `install-git`
 *   `install-gnupg`
 *   `install-less`
+*   `install-login-shell`
 *   `install-readline`
-*   `install-sh`
 *   `install-vim`
 
+The `install-login-shell` looks at your `SHELL` environment variable and tries
+to figure out which shell to install, falling back on just plain `install-sh`.
+
 The remaining dotfiles can be installed with the other `install-*` targets. Try
-`bin/mftl Makefile` in the project's root directory to see a list.
+`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
 
 Tools
 -----
@@ -70,7 +80,6 @@ Configuration is included for:
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
-*   `mail(1)` -- classic mail program
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 *   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
@@ -147,8 +156,8 @@ A terminal session with my prompt looks something like this:
     tom@remote:~/.dotfiles(master+!){1}$
 
 The username and hostname are elided if not connected via SSH. The working
-directory is always shown. The rest of the prompt expands based on context to
-include these elements in this order:
+directory with tilde abbreviation for `$HOME` is always shown. The rest of the
+prompt expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
