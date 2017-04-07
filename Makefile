@@ -272,7 +272,7 @@ install-abook:
 	mkdir -p -- $(HOME)/.abook
 	cp -p -- abook/abookrc $(HOME)/.abook
 
-install-bash: check-bash install-sh
+install-bash: install-sh
 	mkdir -p -- $(HOME)/.bashrc.d
 	cp -p -- bash/bashrc $(HOME)/.bashrc
 	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
