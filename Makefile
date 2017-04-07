@@ -261,8 +261,8 @@ install: install-bin \
 	install-git \
 	install-gnupg \
 	install-less \
-	install-readline \
 	install-login-shell \
+	install-readline \
 	install-vim
 
 install-abook:
