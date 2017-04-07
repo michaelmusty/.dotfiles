@@ -416,10 +416,8 @@ install-gvim-config:
 
 install-vim-plugins: install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
-		-type d -exec sh -c 'mkdir -p -- \
-			$(HOME)/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'cp -p -- \
-			"$$1" $(HOME)/."$$1"' _ {} \;
+		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
+		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
