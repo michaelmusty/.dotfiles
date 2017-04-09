@@ -51,6 +51,7 @@
 	check-login-shell \
 	check-sh \
 	check-urxvt \
+	check-xinit \
 	check-yash \
 	check-zsh \
 	lint \
@@ -60,6 +61,7 @@
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
+	lint-xinit \
 	lint-yash
 
 .SUFFIXES:
@@ -423,7 +425,7 @@ install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
-install-x:
+install-x: check-xinit
 	mkdir -p -- \
 		$(HOME)/.config \
 		$(HOME)/.config/sxhkdrc \
@@ -478,6 +480,9 @@ check-sh:
 check-urxvt:
 	sh check/urxvt.sh
 
+check-xinit:
+	sh check/xinit.sh
+
 check-yash:
 	sh check/yash.sh
 
@@ -490,7 +495,7 @@ lint: lint-bash \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
-	lint-x \
+	lint-xinit \
 	lint-yash
 
 lint-bash: check-bash
@@ -510,6 +515,9 @@ lint-sh: check-sh
 
 lint-urxvt: check-urxvt
 	sh lint/urxvt.sh
+
+lint-xinit: check-xinit
+	sh lint/xinit.sh
 
 lint-yash: check-yash
 	sh lint/yash.sh
