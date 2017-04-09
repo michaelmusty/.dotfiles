@@ -32,7 +32,7 @@ directory so you can explore:
 
     $ tmpdir=$(mktemp -d)
     $ make install HOME="$tmpdir"
-    $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
+    $ env -i HOME="$tmpdir" TERM="$TERM" "$SHELL" -l
 
 The default `install` target will install these targets and all their
 dependencies. Note that you don't actually have to have any of this except `sh`
@@ -611,4 +611,5 @@ advocacy group, and let me know you did it because of this project:
 
 * [Free Software Foundation](https://www.fsf.org/)
 * [Software in the Public Interest](http://www.spi-inc.org/)
+* [FreeBSD Foundation](https://www.freebsdfoundation.org/)
 * [OpenBSD Foundation](http://www.openbsdfoundation.org/)

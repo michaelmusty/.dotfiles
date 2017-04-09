@@ -20,6 +20,7 @@
 	install-gtk \
 	install-i3 \
 	install-less \
+	install-login-shell \
 	install-mutt \
 	install-ncmcpp \
 	install-newsbeuter \
@@ -34,9 +35,9 @@
 	install-tmux \
 	install-urxvt \
 	install-vim \
-	install-gvim \
+	install-vim-gui \
 	install-vim-config \
-	install-gvim-config \
+	install-vim-gui-config \
 	install-vim-plugins \
 	install-vim-pathogen \
 	install-x \
@@ -47,8 +48,10 @@
 	check-bin \
 	check-games \
 	check-ksh \
+	check-login-shell \
 	check-sh \
 	check-urxvt \
+	check-xinit \
 	check-yash \
 	check-zsh \
 	lint \
@@ -56,11 +59,13 @@
 	lint-bin \
 	lint-games \
 	lint-ksh \
-	lint-yash \
 	lint-sh \
-	lint-urxvt
+	lint-urxvt \
+	lint-xinit \
+	lint-yash
 
-.SUFFIXES: .awk .bash .pl .sed
+.SUFFIXES:
+.SUFFIXES: .awk .bash .pl .sed .sh
 
 NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
@@ -261,15 +266,15 @@ install: install-bin \
 	install-git \
 	install-gnupg \
 	install-less \
-	install-readline \
 	install-login-shell \
+	install-readline \
 	install-vim
 
 install-abook:
 	mkdir -p -- $(HOME)/.abook
 	cp -p -- abook/abookrc $(HOME)/.abook
 
-install-bash: install-sh
+install-bash: check-bash install-sh
 	mkdir -p -- $(HOME)/.bashrc.d $(HOME)/.bash_completion.d $(HOME)/.config
 	cp -p -- bash/bashrc $(HOME)/.bashrc
 	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
@@ -353,14 +358,14 @@ install-newsbeuter:
 install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
-install-ksh: install-sh
+install-ksh: check-ksh install-sh
 	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
 
-install-login-shell:
-	sh dist/install-login-shell.sh
+install-login-shell: check-login-shell
+	sh install/install-login-shell.sh
 
 install-perlcritic:
 	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
@@ -374,7 +379,7 @@ install-psql:
 install-readline:
 	cp -p -- readline/inputrc $(HOME)/.inputrc
 
-install-sh:
+install-sh: check-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.shrc.d
 	cp -p -- sh/profile $(HOME)/.profile
 	cp -p -- sh/profile.d/* $(HOME)/.profile.d
@@ -402,13 +407,13 @@ install-vim: install-vim-config \
 	install-vim-plugins \
 	install-vim-pathogen
 
-install-gvim: install-vim \
-	install-gvim-config
-
 install-vim-config:
 	cp -p -- vim/vimrc $(HOME)/.vimrc
 
-install-gvim-config:
+install-vim-gui: install-vim \
+	install-vim-gui-config
+
+install-vim-gui-config:
 	cp -p -- vim/gvimrc $(HOME)/.gvimrc
 
 install-vim-plugins: install-vim-config
@@ -420,7 +425,7 @@ install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
-install-x:
+install-x: check-xinit
 	mkdir -p -- \
 		$(HOME)/.config \
 		$(HOME)/.config/sxhkdrc \
@@ -433,25 +438,23 @@ install-x:
 	cp -p -- X/Xresources $(HOME)/.Xresources
 	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash: install-sh
+install-yash: install-yash install-sh
 	mkdir -p -- $(HOME)/.yashrc.d
 	cp -p -- yash/yash_profile $(HOME)/.yash_profile
 	cp -p -- yash/yashrc $(HOME)/.yashrc
 	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
 
-install-zsh: install-sh
+install-zsh: check-zsh install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
 	cp -p -- zsh/zprofile $(HOME)/.zprofile
 	cp -p -- zsh/zshrc $(HOME)/.zshrc
 	cp -p -- zsh/zshrc.d/* $(HOME)/.zshrc.d
 
-check: check-bash \
-	check-bin \
-	check-games \
+check: check-bin \
+	check-login-shell \
 	check-man \
-	check-sh \
-	check-urxvt
+	check-sh
 
 check-bash:
 	sh check/bash.sh
@@ -468,11 +471,17 @@ check-man:
 check-ksh:
 	sh check/ksh.sh
 
+check-login-shell:
+	sh check/login-shell.sh
+
 check-sh:
 	sh check/sh.sh
 
 check-urxvt:
 	sh check/urxvt.sh
+
+check-xinit:
+	sh check/xinit.sh
 
 check-yash:
 	sh check/yash.sh
@@ -480,32 +489,35 @@ check-yash:
 check-zsh:
 	sh check/zsh.sh
 
-lint: check \
-	lint-bash \
+lint: lint-bash \
 	lint-bin \
 	lint-games \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
+	lint-xinit \
 	lint-yash
 
-lint-bash:
+lint-bash: check-bash
 	sh lint/bash.sh
 
-lint-bin:
+lint-bin: check-bin
 	sh lint/bin.sh
 
-lint-games:
+lint-games: check-games
 	sh lint/games.sh
 
-lint-ksh:
+lint-ksh: check-ksh
 	sh lint/ksh.sh
 
-lint-sh:
+lint-sh: check-sh
 	sh lint/sh.sh
 
-lint-urxvt:
+lint-urxvt: check-urxvt
 	sh lint/urxvt.sh
 
-lint-yash:
+lint-xinit: check-xinit
+	sh lint/xinit.sh
+
+lint-yash: check-yash
 	sh lint/yash.sh
