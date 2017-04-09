@@ -365,7 +365,7 @@ install-ksh: check-ksh install-sh
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
 
 install-login-shell: check-login-shell
-	sh dist/install-login-shell.sh
+	sh install/install-login-shell.sh
 
 install-perlcritic:
 	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
