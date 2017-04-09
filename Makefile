@@ -20,6 +20,7 @@
 	install-gtk \
 	install-i3 \
 	install-less \
+	install-login-shell \
 	install-mutt \
 	install-ncmcpp \
 	install-newsbeuter \
