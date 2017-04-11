@@ -1,0 +1,22 @@
+.TH OSC 1df "February 2017" "Manual page for osc"
+.SH NAME
+.B osc
+\- netcat-like wrapper for openssl s_client
+.SH SYNOPSIS
+.B osc [HOST [SERVICE]]
+.SH DESCRIPTION
+.B osc
+runs openssl(1ssl)'s s_client subcommand with some options to make it behave a
+bit like netcat(1), quieting errors and even handling STARTTLS if it knows how,
+but still forcing correct verification of certificates and only connecting with
+TLS (not SSL).
+.P
+If rlwrap(1) is available, the client will be run within that to allow line
+editing.
+.P
+It's intended to be run as an interactive tool for cases where you want to
+focus more on debugging the data exchange with the actual server, and not
+debugging the OpenSSL negotiation itself. The author finds it handy for poking
+his STARTTLS SMTP mailserver.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

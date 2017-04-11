@@ -21,15 +21,11 @@ if [ -z "$KSH_VERSION" ] ; then
 
     # Test whether we have content in the .sh.version variable. Suppress errors
     # and run it in a subshell to work around parsing error precedence.
-    # shellcheck disable=SC2154
     ( test -n "${.sh.version}" ) 2>/dev/null || return
 
     # If that peculiarly named variable was set, then that's our KSH_VERSION
     KSH_VERSION=${.sh.version}
 fi
 
-# If KSH_ENV isn't already set, set it
-[ -n "$KSH_ENV" ] || KSH_ENV=$HOME/.kshrc
-
 # If ENV_EXT isn't already set, set it
-[ -n "$ENV_EXT" ] || ENV_EXT=$KSH_ENV
+[ -n "$ENV_EXT" ] || ENV_EXT=$HOME/.kshrc

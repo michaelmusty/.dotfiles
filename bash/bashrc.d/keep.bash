@@ -46,8 +46,8 @@ keep() {
             # -h given; means show help
             h)
                 cat <<EOF
-${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing them to
-named scripts iterated on shell start, in \$BASHKEEP (defaults to
+${FUNCNAME[0]}: Keep variables and functions in shell permanently by writing
+them to named scripts iterated on shell start, in \$BASHKEEP (defaults to
 ~/.bashkeep.d).
 
 USAGE:

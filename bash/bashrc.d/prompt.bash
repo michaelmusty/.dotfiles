@@ -22,6 +22,12 @@ prompt() {
             # Add sub-commands; VCS, job, and return status checks
             PS1=$PS1'$(ret=$?;prompt vcs;prompt job;prompt ret)'
 
+            # Add a helpful prefix if this shell appears to be exotic
+            case ${SHELL##*/} in
+                (bash) ;;
+                (*) PS1=bash:$PS1 ;;
+            esac
+
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
 
@@ -75,10 +81,13 @@ prompt() {
         # Revert to simple inexpensive prompts
         off)
             unset -v PROMPT_COMMAND PROMPT_DIRTRIM
-            PS1='\$ '
+            PS1='$ '
             PS2='> '
             PS3='? '
             PS4='+ '
+            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
+                PS1=$(id -nu)'@'$(hostname -s)'$ '
+            fi
             ;;
 
         # Git prompt function

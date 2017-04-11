@@ -52,13 +52,13 @@
 
 [sendemail]
     confirm = compose
-    smtpServer = DOTFILES_SENDMAIL
+    smtpServer = DF_SENDMAIL
 
 [status]
     short = true
     showUntrackedFiles = all
 
 [user]
-    name = DOTFILES_NAME
-    email = DOTFILES_EMAIL
-    signingKey = DOTFILES_KEY
+    name = DF_NAME
+    email = DF_EMAIL
+    signingKey = DF_KEY

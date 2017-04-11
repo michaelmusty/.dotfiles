@@ -14,4 +14,10 @@ _gpg() {
         COMPREPLY[${#COMPREPLY[@]}]=$option
     done < <(gpg --dump-options 2>/dev/null)
 }
-complete -F _gpg -o default gpg
+
+# bashdefault requires Bash >=3.0
+if ((BASH_VERSINFO[0] >= 3)) ; then
+    complete -F _gpg -o bashdefault -o default gpg
+else
+    complete -F _gpg -o default gpg
+fi

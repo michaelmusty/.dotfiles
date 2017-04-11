@@ -1,20 +1,11 @@
 # Function to manage contents of PATH variable within the current shell
 path() {
 
-    # The second argument, the directory, can never have a colon
-    case $2 in
-        *:*)
-            printf >&2 'path(): %s illegal colon\n' "$2"
-            return 2
-            ;;
-    esac
-
     # Check first argument to figure out operation
     case $1 in
 
         # List current directories in PATH
         list|'') (
-            # shellcheck disable=SC2030
             path=$PATH:
             while [ -n "$path" ] ; do
                 dir=${path%%:*}
@@ -79,6 +70,40 @@ path() {
             PATH=${PATH%%:}
             ;;
 
+        # Remove the first directory in $PATH
+        shift)
+            case $PATH in
+                '')
+                    printf >&2 'path(): %s: PATH is empty!\n' "$@"
+                    return 1
+                    ;;
+                *:*)
+                    PATH=${PATH#*:}
+                    ;;
+                *)
+                    # shellcheck disable=SC2123
+                    PATH=
+                    ;;
+            esac
+            ;;
+
+        # Remove the last directory in $PATH
+        pop)
+            case $PATH in
+                '')
+                    printf >&2 'path(): %s: PATH is empty!\n' "$@"
+                    return 1
+                    ;;
+                *:*)
+                    PATH=${PATH%:*}
+                    ;;
+                *)
+                    # shellcheck disable=SC2123
+                    PATH=
+                    ;;
+            esac
+            ;;
+
         # Check whether a directory is in PATH
         check)
             path _argcheck "$@" || return
@@ -103,6 +128,10 @@ USAGE:
     Add directory DIR (default $PWD) to the end of PATH
   path remove [DIR]
     Remove directory DIR (default $PWD) from PATH
+  path shift
+    Remove the first directory from PATH
+  path pop
+    Remove the last directory from PATH
   path check [DIR]
     Return whether directory DIR (default $PWD) is a component of PATH
   path help

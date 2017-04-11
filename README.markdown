@@ -15,8 +15,14 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `bash(1)`, `git(1)`, `install(1)`,
-`make(1)`, and `m4(1)`.
+For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
+POSIX-fearing environment, including `sh(1)`. This should work on most
+GNU/Linux and BSD systems, and possibly on other UNIX types, but those are not
+as thoroughly or frequently tested.
+
+If you're on a system where `/bin/sh` is not a POSIX shell (e.g. OpenSolaris),
+you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
+`$PATH` at build time.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -26,12 +32,28 @@ directory so you can explore:
 
     $ tmpdir=$(mktemp -d)
     $ make install HOME="$tmpdir"
-    $ env -i HOME="$tmpdir" TERM="$TERM" bash -l
+    $ env -i HOME="$tmpdir" TERM="$TERM" "$SHELL" -l
 
-The default target will install the core terminal-only files: cURL, Git, GnuPG,
-Vim, shell scripts and functions, and shell and terminal setup files. The
-remaining dotfiles can be installed with the other targets. Take a look at the
-`Makefile` to see what's available.
+The default `install` target will install these targets and all their
+dependencies. Note that you don't actually have to have any of this except `sh`
+installed.
+
+*   `install-bin`
+*   `install-bin-man`
+*   `install-curl`
+*   `install-ex`
+*   `install-git`
+*   `install-gnupg`
+*   `install-less`
+*   `install-login-shell`
+*   `install-readline`
+*   `install-vim`
+
+The `install-login-shell` looks at your `SHELL` environment variable and tries
+to figure out which shell to install, falling back on just plain `install-sh`.
+
+The remaining dotfiles can be installed with the other `install-*` targets. Try
+`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
 
 Tools
 -----
@@ -134,8 +156,8 @@ A terminal session with my prompt looks something like this:
     tom@remote:~/.dotfiles(master+!){1}$
 
 The username and hostname are elided if not connected via SSH. The working
-directory is always shown. The rest of the prompt expands based on context to
-include these elements in this order:
+directory with tilde abbreviation for `$HOME` is always shown. The rest of the
+prompt expands based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
@@ -146,6 +168,9 @@ include these elements in this order:
 
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
 do about what you'd expect.
+
+If you start up Bash, Ksh, or Zsh and it detects that it's not normally your
+`$SHELL`, the prompt will display an appropriate prefix.
 
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
@@ -164,10 +189,12 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     *   `gd()` goes to the marked directory.
     *   `pmd()` prints the marked directory.
     *   `xd()` swaps the current and marked directories.
-*   Nine other directory management and navigation functions:
+*   Ten other directory management and navigation functions:
     *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
         `/usr/local/bin`, as long as they are unique.
     *   `bd()` changes into a named ancestor of the current directory.
+    *   `gt()` changes into a directory or into a file's directory.
+    *   `lgt()` runs `gt()` on the first result from a `loc(1df)` search.
     *   `mkcd()` creates a directory and changes into it.
     *   `pd()` changes to the argument's parent directory.
     *   `rd()` replaces the first instance of its first argument with its
@@ -185,11 +212,12 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
-*   `grep()` tries to apply color and other options good for interactive use,
-    depending on the capabilities of the system `grep(1)`.
+*   `grep()` tries to apply color and other options good for interactive use if
+    available.
 *   `hgrep()` allows searching `$HISTFILE`.
 *   `keychain()` keeps `$GPG_TTY` up to date if a GnuPG agent is available.
-*   `ls()` tries to apply color to `ls(1)` for interactive use if available.
+*   `ls()` tries to apply color and other options good for interactive use if
+    available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
 *   `mysql()` allows shortcuts to MySQL configuration files stored in
@@ -200,8 +228,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     preserved; I hate having `root`-owned files in my home directory.
 *   `tree()` colorizes GNU `tree(1)` output if possible (without having
     `LS_COLORS` set).
-*   `vim()` defines three functions to always use `vim(1)` as my `ex(1)`,
-    `vi(1)` and `view(1)` implementation if it's available.
 *   `x()` is a one-key shortcut for `exec startx`.
 
 There are a few other little tricks defined for other shells providing
@@ -405,6 +431,23 @@ Installed by the `install-bin` target:
     *   `htenc(1df)` encodes.
     *   `htdec(1df)` decodes.
     *   `htrec(1df)` wraps `a` tags around URLs.
+*   Two internet message quoting tools:
+    *   `quo(1df)` indents with quoting right angle-brackets.
+    *   `wro(1df)` adds a quote attribution header to its input.
+*   Six Git-related tools:
+    *   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
+        with `gscr(1df)`.
+    *   `grc(1df)` quietly tests whether the given directory appears to be a
+        Git repository with pending changes.
+    *   `gscr(1df)` scrubs Git repositories.
+    *   `isgr(1df)` quietly tests whether the given directory appears to be a
+        Git repository.
+    *   `jfc(1df)` adds and commits lazily to a Git repository.
+    *   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it
+        sees any.
+*   Two time duration functions:
+    *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
+    *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -422,6 +465,7 @@ Installed by the `install-bin` target:
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
     well.
 *   `chc(1df)` caches the output of a command.
+*   `chn(1df)` runs a filter over its input a given number of times.
 *   `clog(1df)` is a tiny timestamped log system.
 *   `clrd(1df)` sets up a per-line file read, clearing the screen first.
 *   `clwr(1df)` sets up a per-line file write, clearing the screen before each
@@ -436,8 +480,7 @@ Installed by the `install-bin` target:
     any options, mostly useful for scripts.
 *   `eds(1df)` edits executable script files in `EDSPATH`, defaulting to
     `~/.local/bin`, for personal scripting snippets.
-*   `fgscr(1df)` finds Git repositories in a directory root and scrubs them
-    with `gscr(1df)`.
+*   `exm(1df)` works around a screen-clearing quirk of Vim's `ex` mode.
 *   `finc(1df)` counts the number of results returned from a set of given
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
@@ -445,21 +488,13 @@ Installed by the `install-bin` target:
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
-*   `grc(1df)` quietly tests whether the given directory appears to be a Git
-    repository with pending changes.
-*   `gscr(1df)` scrubs Git repositories.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
 *   `igex(1df)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
-*   `isgr(1df)` quietly tests whether the given directory appears to be a Git
-    repository.
 *   `ix(1df)` posts its input to the ix.io pastebin.
-*   `jfc(1df)` adds and commits lazily to a Git repository.
 *   `jfp(1df)` prints its input, excluding any shebang on the first line only.
-*   `jfcd(1df)` watches a directory for changes and runs `jfc(1df)` if it sees
-    any.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
@@ -470,6 +505,8 @@ Installed by the `install-bin` target:
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
 *   `onl(1df)` crunches input down to one printable line.
+*   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
+    `s_client` subcommand.
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
@@ -483,7 +520,6 @@ Installed by the `install-bin` target:
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
-*   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
 *   `sqs(1df)` chops off query strings from filenames, usually downloads.
 *   `sshi(1df)` prints human-readable SSH connection details.
 *   `stex(1df)` strips extensions from filenames.
@@ -494,7 +530,7 @@ Installed by the `install-bin` target:
     `scp(1)`'s HOST:PATH format.
 *   `td(1df)` manages a to-do file for you with `$EDITOR` and `git(1)`; I used
     to use Taskwarrior, but found it too complex and buggy.
-*   `tm()` runs `tmux(1)` with `attach-session -d` if a session exists, and
+*   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
@@ -575,4 +611,5 @@ advocacy group, and let me know you did it because of this project:
 
 * [Free Software Foundation](https://www.fsf.org/)
 * [Software in the Public Interest](http://www.spi-inc.org/)
+* [FreeBSD Foundation](https://www.freebsdfoundation.org/)
 * [OpenBSD Foundation](http://www.openbsdfoundation.org/)
