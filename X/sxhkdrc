@@ -28,6 +28,9 @@ super + m
 super + p
     dmp
 
+super + v
+    urxvtcd -e "$VISUAL"
+
 super + slash
     i3lock --color=#000000 --image ~/.i3/lock.png --nofork
 
