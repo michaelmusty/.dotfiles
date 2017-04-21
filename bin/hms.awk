@@ -1,3 +1,4 @@
+# Convert seconds to colon-delimited durations
 BEGIN {
     OFS = ":"
 }
