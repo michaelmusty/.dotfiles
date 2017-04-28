@@ -76,15 +76,15 @@ Configuration is included for:
 *   [Git](https://git-scm.com/) -- Distributed version control system
 *   [GnuPG](https://www.gnupg.org/) -- GNU Privacy Guard, for private
     communication and file encryption
-*   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
+*   [GTK+](https://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
-*   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
+*   [`mysql(1)`](https://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
+*   [`psql(1)`](https://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
 *   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
     engine for Perl
@@ -301,7 +301,7 @@ neither tilde nor `$HOME` expansion works for this.
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
-[maildrop](http://www.courier-mta.org/maildrop/), and
+[maildrop](https://www.courier-mta.org/maildrop/), and
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
@@ -327,7 +327,7 @@ Perl extensions. If you're missing functionality, try changing
 
 My choice of font is [Ubuntu Mono](http://font.ubuntu.com/), but the file
 should allow falling back to the more common [Deja Vu Sans
-Mono](http://dejavu-fonts.org/wiki/Main_Page). I've found
+Mono](https://dejavu-fonts.github.io/). I've found
 [Terminus](http://terminus-font.sourceforge.net/) works well too, but bitmap
 fonts are not really my cup of tea. The Lohit Kannada font bit is purely to
 make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
@@ -612,6 +612,6 @@ If you're feeling generous, please join and/or donate to a free software
 advocacy group, and let me know you did it because of this project:
 
 * [Free Software Foundation](https://www.fsf.org/)
-* [Software in the Public Interest](http://www.spi-inc.org/)
+* [Software in the Public Interest](https://www.spi-inc.org/)
 * [FreeBSD Foundation](https://www.freebsdfoundation.org/)
 * [OpenBSD Foundation](http://www.openbsdfoundation.org/)
