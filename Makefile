@@ -104,6 +104,8 @@ BINS = bin/ap \
 	bin/fnl \
 	bin/gms \
 	bin/grc \
+	bin/grec \
+	bin/gred \
 	bin/gscr \
 	bin/gwp \
 	bin/han \

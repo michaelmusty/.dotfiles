@@ -488,6 +488,8 @@ Installed by the `install-bin` target:
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
+*   `grec(1df)` is a more logically-named `grep -c`.
+*   `gred(1df)` is a more logically-named `grep -v`.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
