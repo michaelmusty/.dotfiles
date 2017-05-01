@@ -1,4 +1,4 @@
-# Make a square out of each line of input
+# Make a reduced Latin square out of each line of input
 {
     str = toupper($0)
     len = length(str)
