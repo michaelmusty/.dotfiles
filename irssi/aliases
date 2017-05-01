@@ -10,5 +10,6 @@ alias aesth exec - -out printf %s "$*" | aesth
 alias drakon exec - -out printf %s "$*" | drakon
 alias kvlt exec - -out printf %s "$*" | kvlt
 alias rot13 exec - -out printf %s "$*" | rot13
+alias squ exec - -out printf %s "$*" | squ
 alias strik exec - -out printf %s "$*" | strik
 alias zs exec - -out printf %s "$*" | zs
