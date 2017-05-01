@@ -555,7 +555,7 @@ There's some silly stuff in `install-games`:
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
 *   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
     ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
-*   `squ(6df)` makes a word square out of each line of input.
+*   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
