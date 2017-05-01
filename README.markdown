@@ -61,14 +61,13 @@ Tools
 
 Configuration is included for:
 
-*   Bourne-style POSIX shells, sharing an `ENV` file and functions:
+*   Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and
+    some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
     *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
     *   [Yash](https://yash.osdn.jp/index.html.en)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
-    including a `~/.profile` configured to work with most Bourne-compatible
-    shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
     with URL syntax
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
