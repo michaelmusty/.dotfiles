@@ -50,7 +50,8 @@ installed.
 *   `install-vim`
 
 The `install-login-shell` looks at your `SHELL` environment variable and tries
-to figure out which shell to install, falling back on just plain `install-sh`.
+to figure out which shell’s configuration files to install, falling back on
+`install-sh`.
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
 `sh bin/mftl.sh Makefile` in the project's root directory to see a list.
