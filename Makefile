@@ -201,6 +201,7 @@ GAMES = games/aaf \
 	games/kvlt \
 	games/rndn \
 	games/rot13 \
+	games/squ \
 	games/strik \
 	games/xyzzy \
 	games/zs

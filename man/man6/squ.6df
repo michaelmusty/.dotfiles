@@ -1,0 +1,28 @@
+.TH SQU 6df "May 2017" "Manual page for squ"
+.SH NAME
+.B squ
+\- print a word square out of each line of input
+.SH USAGE
+.B squ
+.br
+london
+.br
+^D
+.br
+L O N D O N
+.br
+O N D O N L
+.br
+N D O N L O
+.br
+D O N L O N
+.br
+O N L O N D
+.br
+N L O N D O
+.SH DESCRIPTION
+.B squ
+makes a kind of letter square out of the characters on each line of input,
+uppercasing them first.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
