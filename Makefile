@@ -139,10 +139,13 @@ BINS = bin/ap \
 	bin/osc \
 	bin/pa \
 	bin/paz \
+	bin/ped \
 	bin/pit \
 	bin/plmu \
 	bin/pp \
 	bin/pph \
+	bin/pst \
+	bin/pvi \
 	bin/pwg \
 	bin/quo \
 	bin/rfcf \

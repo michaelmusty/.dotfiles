@@ -448,6 +448,11 @@ Installed by the `install-bin` target:
 *   Two time duration functions:
     *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
     *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
+*   Three pipe interaction tools:
+    *   `pst(1df)` runs an interactive program on data before passing it along
+        a pipeline.
+    *   `ped(1df)` runs `pst(1df)` with `$EDITOR` or `ed(1)`.
+    *   `pvi(1df)` runs `pvi(1df)` with `$VISUAL` or `vi(1)`.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
