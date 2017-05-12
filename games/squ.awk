@@ -6,5 +6,5 @@
         let[i - 1] = substr(str, i, 1)
     for (j in let)
         for (k in let)
-            printf (k < len - 1) ? "%s " : "%s\n", let[(k + j) % len]
+            printf (k + 1 < len) ? "%s " : "%s\n", let[(k + j) % len]
 }
