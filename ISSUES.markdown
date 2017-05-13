@@ -23,3 +23,4 @@ Known issues
     my own stuff in there
 *   Completion for custom functions e.g. `sd` should ideally respect
     `completion-ignore-case` setting
+*   Copy-mode configuration for tmux needs to be reinstated.
