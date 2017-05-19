@@ -28,6 +28,8 @@ bin/finc
 bin/fnl
 bin/gms
 bin/grc
+bin/grec
+bin/gred
 bin/gscr
 bin/gwp
 bin/han
@@ -61,10 +63,13 @@ bin/onl
 bin/osc
 bin/pa
 bin/paz
+bin/ped
 bin/pit
 bin/plmu
 bin/pp
 bin/pph
+bin/pst
+bin/pvi
 bin/pwg
 bin/quo
 bin/rfcf
@@ -122,6 +127,7 @@ games/drakon
 games/kvlt
 games/rndn
 games/rot13
+games/squ
 games/strik
 games/xyzzy
 games/zs

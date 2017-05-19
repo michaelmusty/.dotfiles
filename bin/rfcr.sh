@@ -1,3 +1,4 @@
+# Fetch and format an RFC from the IETF website and view it on a terminal
 
 # Check arguments
 if [ "$#" -ne 1 ] ; then

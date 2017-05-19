@@ -1,0 +1,19 @@
+.TH PED 1df "May 2017" "Manual page for pvi"
+.SH NAME
+.B pvi
+\- stop a pipe for $EDITOR intervention
+.SH SYNOPSIS
+prog1 |
+.B 
+pvi
+| prog2
+.SH DESCRIPTION
+.B pvi
+saves all its standard input into a temporary file and runs $VISUAL, or vi(1)
+if unset, on that file. Once the editor exits, it emits the contents of the
+same file (changed or unchanged). This can be used as a way to edit data
+manually as it goes through a pipe.
+.SH SEE ALSO
+pst(1df), ped(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

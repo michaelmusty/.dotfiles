@@ -1,0 +1,13 @@
+.TH GRED 1df "April 2017" "Manual page for gred"
+.SH NAME
+.B gred
+\- saner name for grep -v
+.SH SYNOPSIS
+.B gred PATTERN [FILE...]
+.br
+.SH DESCRIPTION
+.B gred
+is the same as grep(1) when run with a a -v option, because the name always
+bugged me a bit--"g/re/p, except don't print it, delete it"?
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

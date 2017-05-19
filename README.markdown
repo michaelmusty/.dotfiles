@@ -50,7 +50,8 @@ installed.
 *   `install-vim`
 
 The `install-login-shell` looks at your `SHELL` environment variable and tries
-to figure out which shell to install, falling back on just plain `install-sh`.
+to figure out which shell’s configuration files to install, falling back on
+`install-sh`.
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
 `sh bin/mftl.sh Makefile` in the project's root directory to see a list.
@@ -60,14 +61,13 @@ Tools
 
 Configuration is included for:
 
-*   Bourne-style POSIX shells, sharing an `ENV` file and functions:
+*   Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and
+    some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
     *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
     *   [Yash](https://yash.osdn.jp/index.html.en)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
-    including a `~/.profile` configured to work with most Bourne-compatible
-    shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
     with URL syntax
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
@@ -76,15 +76,15 @@ Configuration is included for:
 *   [Git](https://git-scm.com/) -- Distributed version control system
 *   [GnuPG](https://www.gnupg.org/) -- GNU Privacy Guard, for private
     communication and file encryption
-*   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
+*   [GTK+](https://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
-*   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
+*   [`mysql(1)`](https://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
+*   [`psql(1)`](https://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
 *   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
     engine for Perl
@@ -301,7 +301,7 @@ neither tilde nor `$HOME` expansion works for this.
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
-[maildrop](http://www.courier-mta.org/maildrop/), and
+[maildrop](https://www.courier-mta.org/maildrop/), and
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
@@ -327,7 +327,7 @@ Perl extensions. If you're missing functionality, try changing
 
 My choice of font is [Ubuntu Mono](http://font.ubuntu.com/), but the file
 should allow falling back to the more common [Deja Vu Sans
-Mono](http://dejavu-fonts.org/wiki/Main_Page). I've found
+Mono](https://dejavu-fonts.github.io/). I've found
 [Terminus](http://terminus-font.sourceforge.net/) works well too, but bitmap
 fonts are not really my cup of tea. The Lohit Kannada font bit is purely to
 make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
@@ -448,6 +448,11 @@ Installed by the `install-bin` target:
 *   Two time duration functions:
     *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
     *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
+*   Three pipe interaction tools:
+    *   `pst(1df)` runs an interactive program on data before passing it along
+        a pipeline.
+    *   `ped(1df)` runs `pst(1df)` with `$EDITOR` or `ed(1)`.
+    *   `pvi(1df)` runs `pvi(1df)` with `$VISUAL` or `vi(1)`.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -488,6 +493,8 @@ Installed by the `install-bin` target:
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
+*   `grec(1df)` is a more logically-named `grep -c`.
+*   `gred(1df)` is a more logically-named `grep -v`.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
@@ -553,6 +560,7 @@ There's some silly stuff in `install-games`:
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
 *   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
     ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
+*   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
@@ -592,15 +600,6 @@ Known issues
 
 See ISSUES.markdown.
 
-Note for previous visitors
---------------------------
-
-Most of this repository's five-year history was rewritten shortly after I moved
-it from GitHub to cgit, taking advantage of the upheaval to reduce its size and
-remove useless binary blobs and third-party stuff that I never should have
-versioned anyway. If you've checked this out before, you'll probably need to do
-it again, and per-commit links are likely to be broken. Sorry about that.
-
 License
 -------
 
@@ -610,6 +609,6 @@ If you're feeling generous, please join and/or donate to a free software
 advocacy group, and let me know you did it because of this project:
 
 * [Free Software Foundation](https://www.fsf.org/)
-* [Software in the Public Interest](http://www.spi-inc.org/)
+* [Software in the Public Interest](https://www.spi-inc.org/)
 * [FreeBSD Foundation](https://www.freebsdfoundation.org/)
 * [OpenBSD Foundation](http://www.openbsdfoundation.org/)

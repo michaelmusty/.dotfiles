@@ -5,7 +5,7 @@ options() {
 
     # Check or create the directory to cache the options
     # Shift the program name off; remaining arguments are the options to check
-    dir=$HOME/.cache/$1
+    dir=$HOME/.cache/sh/opt/$1
     prog=$1
     shift
 

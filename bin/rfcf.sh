@@ -1,3 +1,4 @@
+# Fetch an RFC from the IETF site and write it to stdout
 
 # Check arguments
 if [ "$#" -ne 1 ] ; then

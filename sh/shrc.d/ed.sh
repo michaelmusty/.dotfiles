@@ -8,7 +8,7 @@ ed() {
     fi
 
     # Add --verbose to explain errors
-    [ -e "$HOME"/.cache/ed/verbose ] &&
+    [ -e "$HOME"/.cache/sh/opt/ed/verbose ] &&
         set -- --verbose "$@"
 
     # Add an asterisk prompt (POSIX feature)

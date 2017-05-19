@@ -1,3 +1,4 @@
+# Upgrade plenv modules with cpanm(1)
 
 # Set up exceptions file if it exists
 ef=$HOME/.plenv/non-cpanm-modules

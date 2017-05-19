@@ -19,27 +19,28 @@
 	install-gnupg \
 	install-gtk \
 	install-i3 \
+	install-ksh \
 	install-less \
 	install-login-shell \
 	install-mutt \
+	install-mysql \
 	install-ncmcpp \
 	install-newsbeuter \
-	install-mysql \
-	install-ksh \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
 	install-readline \
 	install-sh \
 	install-subversion \
+	install-terminfo \
 	install-tmux \
 	install-urxvt \
 	install-vim \
-	install-vim-gui \
 	install-vim-config \
+	install-vim-gui \
 	install-vim-gui-config \
-	install-vim-plugins \
 	install-vim-pathogen \
+	install-vim-plugins \
 	install-x \
 	install-yash \
 	install-zsh \
@@ -49,6 +50,7 @@
 	check-games \
 	check-ksh \
 	check-login-shell \
+	check-man \
 	check-sh \
 	check-urxvt \
 	check-xinit \
@@ -102,6 +104,8 @@ BINS = bin/ap \
 	bin/fnl \
 	bin/gms \
 	bin/grc \
+	bin/grec \
+	bin/gred \
 	bin/gscr \
 	bin/gwp \
 	bin/han \
@@ -135,10 +139,13 @@ BINS = bin/ap \
 	bin/osc \
 	bin/pa \
 	bin/paz \
+	bin/ped \
 	bin/pit \
 	bin/plmu \
 	bin/pp \
 	bin/pph \
+	bin/pst \
+	bin/pvi \
 	bin/pwg \
 	bin/quo \
 	bin/rfcf \
@@ -197,6 +204,7 @@ GAMES = games/aaf \
 	games/kvlt \
 	games/rndn \
 	games/rot13 \
+	games/squ \
 	games/strik \
 	games/xyzzy \
 	games/zs

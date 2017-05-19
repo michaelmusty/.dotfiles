@@ -1,0 +1,13 @@
+.TH GREC 1df "April 2017" "Manual page for grec"
+.SH NAME
+.B grec
+\- saner name for grep -c
+.SH SYNOPSIS
+.B grec PATTERN [FILE...]
+.br
+.SH DESCRIPTION
+.B grec
+is the same as grep(1) when run with a a -c option, because the name always
+bugged me a bit--"g/re/p, except don't print it, count it"?
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

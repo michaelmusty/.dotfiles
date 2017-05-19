@@ -1,3 +1,4 @@
+# Pick a pass(1) password with dmenu(1)
 
 # Get the password store directory, bail if we can't
 pwsd=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
