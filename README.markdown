@@ -54,7 +54,7 @@ to figure out which shell’s configuration files to install, falling back on
 `install-sh`.
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
-`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
+`awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
 Tools
 -----
