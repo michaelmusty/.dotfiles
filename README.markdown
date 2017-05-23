@@ -220,8 +220,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-*   `mysql()` allows shortcuts to MySQL configuration files stored in
-    `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
@@ -260,7 +258,6 @@ files, for things I really do get tired of typing repeatedly:
 *   `gpg(1)` long options
 *   `make(1)` targets read from a `Makefile`
 *   `man(1)` page titles
-*   `mysql(1)` databases from `~/.mysql/*.cnf`
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
