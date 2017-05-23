@@ -41,6 +41,8 @@ bind-key Tab last-pane
 
 # Use the vi mode for tmux interaction behaviour in copy and choice modes
 set-window-option -g mode-keys vi
+bind-key -T copy-mode-vi v send -X begin-selection
+bind-key -T copy-mode-vi y send -X copy-selection-and-cancel
 
 # Detach with Alt-M, no prefix required
 bind-key -n M-m detach
