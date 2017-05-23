@@ -64,7 +64,7 @@ Configuration is included for:
 *   Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and
     some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
-    *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
+    *   [Korn shell](http://www.kornshell.com/) (`ksh93`, `pdksh`, `mksh`)
     *   [Yash](https://yash.osdn.jp/index.html.en)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
