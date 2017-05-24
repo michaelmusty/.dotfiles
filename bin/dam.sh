@@ -19,7 +19,7 @@ td=$(mktd "$self") || exit
 
 # We'll operate on stdin in the temp directory; write the script's stdin to it
 # with cat(1)
-cat -- "${@:-}" >"$td"/stdin
+cat -- "${@:--}" >"$td"/stdin
 
 # Only when that write is finished do we finally spit it all back out again
 cat -- "$td"/stdin
