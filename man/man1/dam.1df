@@ -9,7 +9,8 @@ dam
 | prog2
 .SH DESCRIPTION
 .B dam
-stores all its input in a temporary file before emitting it as output, behaving
-like a fully-buffered cat(1), and with some of the functionality of sponge(1).
+buffers all its input before emitting it as output. Useful if you don't
+actually want a line-by-line flow between programs, such as pasting a complete
+document into a sed(1) pipeline on the terminal.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
