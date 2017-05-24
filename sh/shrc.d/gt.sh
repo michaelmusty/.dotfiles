@@ -4,7 +4,7 @@ gt() {
 
     # Check argument count
     if [ "$#" -gt 1 ] ; then
-        printf >&2 'gd(): Too many arguments\n'
+        printf >&2 'gt(): Too many arguments\n'
         return 2
     fi
 
