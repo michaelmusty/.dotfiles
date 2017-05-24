@@ -42,7 +42,6 @@
 	install-vim-pathogen \
 	install-vim-plugins \
 	install-x \
-	install-yash \
 	install-zsh \
 	check \
 	check-bash \
@@ -54,7 +53,6 @@
 	check-sh \
 	check-urxvt \
 	check-xinit \
-	check-yash \
 	check-zsh \
 	lint \
 	lint-bash \
@@ -63,8 +61,7 @@
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
-	lint-xinit \
-	lint-yash
+	lint-xinit
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .pl .sed .sh
@@ -446,12 +443,6 @@ install-x: check-xinit
 	cp -p -- X/Xresources $(HOME)/.Xresources
 	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash: install-yash install-sh
-	mkdir -p -- $(HOME)/.yashrc.d
-	cp -p -- yash/yash_profile $(HOME)/.yash_profile
-	cp -p -- yash/yashrc $(HOME)/.yashrc
-	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
-
 install-zsh: check-zsh install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
@@ -491,9 +482,6 @@ check-urxvt:
 check-xinit:
 	sh check/xinit.sh
 
-check-yash:
-	sh check/yash.sh
-
 check-zsh:
 	sh check/zsh.sh
 
@@ -503,8 +491,7 @@ lint: lint-bash \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
-	lint-xinit \
-	lint-yash
+	lint-xinit
 
 lint-bash: check-bash
 	sh lint/bash.sh
@@ -526,6 +513,3 @@ lint-urxvt: check-urxvt
 
 lint-xinit: check-xinit
 	sh lint/xinit.sh
-
-lint-yash: check-yash
-	sh lint/yash.sh

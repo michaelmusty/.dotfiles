@@ -65,7 +65,6 @@ Configuration is included for:
     some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
     *   [Korn shell](http://www.kornshell.com/) (`ksh93`, `pdksh`, `mksh`)
-    *   [Yash](https://yash.osdn.jp/index.html.en)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
@@ -239,7 +238,7 @@ non-POSIX features, as compatibility allows:
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name (Bash).
 *   `ver()` prints the current shell's version information (Bash, Korn Shell,
-    Yash, Z shell).
+    Z shell).
 
 #### Completion
 
@@ -275,10 +274,6 @@ Otherwise, they're all loaded on startup.
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
 `ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
 prompt if detected.
-
-#### Yash
-
-Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 
 #### Zsh
 
