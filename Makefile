@@ -89,6 +89,7 @@ BINS = bin/ap \
 	bin/clrd \
 	bin/clwr \
 	bin/csmw \
+	bin/dam \
 	bin/d2u \
 	bin/ddup \
 	bin/dmp \

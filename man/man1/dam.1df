@@ -1,0 +1,15 @@
+.TH DAM 1df "May 2017" "Manual page for dam"
+.SH NAME
+.B dam
+\- read all input before emitting as output
+.SH SYNOPSIS
+prog1 |
+.B 
+dam
+| prog2
+.SH DESCRIPTION
+.B dam
+stores all its input in a temporary file before emitting it as output, behaving
+like a fully-buffered cat(1), and with some of the functionality of sponge(1).
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

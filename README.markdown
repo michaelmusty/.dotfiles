@@ -469,6 +469,7 @@ Installed by the `install-bin` target:
     line.
 *   `csmw(1df)` prints an English list of monospace-quoted words read from the
     input.
+*   `dam(1df)` buffers all its input before emitting it as output.
 *   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
