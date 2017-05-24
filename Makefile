@@ -177,6 +177,7 @@ BINS = bin/ap \
 	bin/tlcs \
 	bin/tm \
 	bin/tot \
+	bin/trs \
 	bin/try \
 	bin/u2d \
 	bin/umake \

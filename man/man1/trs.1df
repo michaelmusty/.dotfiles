@@ -1,0 +1,23 @@
+.TH TRS 1df "May 2017" "Manual page for trs"
+.SH NAME
+.B trs
+\- string version of tr(1)
+.SH SYNOPSIS
+.B trs
+STRING REPLACEMENT
+< file
+.br
+program | 
+.B trs
+STRING REPLACEMENT
+.SH DESCRIPTION
+.B trs
+replaces the string given in its first argument with the string given in its
+second, with no regex metacharacters, in a way that should work on all POSIX
+implementations. It is thereby the string complement for tr(1).
+.P
+The first argument cannot be a null string. The second argument can be blank
+(but must still be specified) to implicitly delete all occurrences of the
+string.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -532,6 +532,7 @@ Installed by the `install-bin` target:
     to use Taskwarrior, but found it too complex and buggy.
 *   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
+*   `trs(1df)` replaces strings (not regular expression) in its input.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
