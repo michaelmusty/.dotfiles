@@ -7,8 +7,8 @@ bd() {
         return 2
     fi
 
-    # Look at argument given
-    case $1 in
+    # Look at argument given; default to going up one level
+    case ${1:-..} in
 
         # If it has a leading slash or is . or .., don't touch the arguments
         /*|.|..) ;;
@@ -18,7 +18,7 @@ bd() {
         *)
 
             # Push the current directory onto the stack
-            set -- "$1" "$PWD"
+            set -- "${1%/}" "$PWD"
 
             # Keep chopping at the current directory until it's empty or it
             # matches the request

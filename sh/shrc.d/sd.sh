@@ -40,48 +40,50 @@ sd() {
         return 2
     fi
 
-    # Change positional parameters to what will hopefully be a completed
-    # substitution
-    set -- "$(
+    # Read sole optional argument
+    case $1 in
 
-        # Set the positional parameters to either the requested directory, or
-        # all siblings of the current directory if no request
-        spec=$1
-        set --
-        if [ -n "$spec" ] ; then
-            set -- "$@" ../"$spec"
-        else
-            for sib in ../.* ../* ; do
-                case ${sib#../} in
-                    (.|..|"${PWD##*/}") continue ;;
-                esac
-                set -- "$@" "$sib"
-            done
-        fi
+        # If blank, get a full list of directories at this level; include
+        # dotfiles, but not the . and .. entries, using glob tricks to avoid
+        # Bash ruining things with `dotglob`
+        '')
+            set -- ../[!.]*/
+            [ -e "$1" ] || shift
+            set -- ../.[!.]*/ "$@"
+            [ -e "$1" ] || shift
+            set -- ../..?*/ "$@"
+            [ -e "$1" ] || shift
+            ;;
 
-        # We should have exactly one sibling
-        case $# in
-            (1) ;;
-            (0)
-                printf >&2 'sd(): No siblings\n'
-                exit 1
-                ;;
-            (*)
-                printf >&2 'sd(): More than one sibling\n'
-                exit 1
-                ;;
-        esac
+        # If not, get that directory, and the current one; shift it off if it
+        # doesn't exist
+        *)
+            set -- ../"${1%/}"/ ../"${PWD##*/}"/
+            [ -e "$1" ] || shift
+            ;;
+    esac
 
-        # Print the target with trailing slash to work around newline stripping
-        printf '%s/' "${1%/}"
-    )"
+    # We should now have two parameters: the current directory and the matched
+    # sibling
+    case $# in
+        2) ;;
+        0|1)
+            printf >&2 'sd(): No match\n'
+            return 1
+            ;;
+        *)
+            printf >&2 'sd(): Multiple matches\n'
+            return 1
+            ;;
+    esac
 
-    # Remove trailing slash
-    set -- "${1%/}"
+    # Find which of these two is not the current directory and set that as our
+    # sole parameter
+    case $1 in
+        ../"${PWD##*/}"/) set -- "$2" ;;
+        *) set -- "$1" ;;
+    esac
 
-    # If the subshell printed nothing, return with failure
-    [ -n "$1" ] || return
-
-    # Try to change into the determined directory
-    command cd -- "$@"
+    # Try and change into the first parameter
+    command cd -- "$1"
 }
