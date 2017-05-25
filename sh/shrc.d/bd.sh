@@ -22,18 +22,18 @@ bd() {
 
             # Keep chopping at the current directory until it's empty or it
             # matches the request
-            while [ -n "$2" ] ; do
-                set -- "$1" "${2%/*}"
+            while set -- "$1" "${2%/*}" ; do
                 case $2 in
-                    (*/"$1") break ;;
+                    */"$1") break ;;
+                    */*) ;;
+                    *)
+                        printf >&2 'bd(): No match\n'
+                        return 1
+                        ;;
                 esac
             done
 
             # If the first argument ended up empty, we have no match
-            if [ -z "$2" ] ; then
-                printf >&2 'bd(): No match\n'
-                return 1
-            fi
             shift
             ;;
     esac
