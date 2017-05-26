@@ -1,14 +1,17 @@
 # Move back up the directory tree to the first directory matching the name
 bd() {
 
-    # Check argument count
-    if [ "$#" -gt 1 ] ; then
-        printf >&2 'bd(): Too many arguments\n'
-        return 2
-    fi
+    # Check argument count; default to ".."
+    case $# in
+        0) set -- .. ;;
+        1) ;;
+        *)
+            printf >&2 'bd(): Too many arguments\n'
+            return 2
+    esac
 
     # Look at argument given; default to going up one level
-    case ${1:-..} in
+    case $1 in
 
         # If it has a leading slash or is . or .., don't touch the arguments
         /*|.|..) ;;
