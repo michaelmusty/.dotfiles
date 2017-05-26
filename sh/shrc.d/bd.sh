@@ -1,31 +1,48 @@
 # Move back up the directory tree to the first directory matching the name
 bd() {
 
-    # Check argument count; default to ".."
-    case $# in
-        0) set -- .. ;;
-        1) ;;
-        *)
-            printf >&2 'bd(): Too many arguments\n'
-            return 2
-    esac
+    # Check arguments; default to ".."
+    if [ "$#" -gt 1 ] ; then
+        printf >&2 'bd(): Too many arguments\n'
+        return 2
+    fi
+    set -- "${1:-..}"
 
     # Look at argument given; default to going up one level
     case $1 in
 
-        # If it has a leading slash or is . or .., don't touch the arguments
-        /*|.|..) ;;
+        # If it's slash, dot, or dot-dot, we'll just go there, like `cd` would
+        /|.|..) ;;
+
+        # Anything else with a slash anywhere is an error
+        */*)
+            printf >&2 'bd(): Illegal slash\n'
+            return 2
+            ;;
 
         # Otherwise, we'll try to find a matching ancestor and then shift the
         # initial request off the argument list
         *)
 
             # Push the current directory onto the stack
-            set -- "${1%/}" "$PWD"
+            set -- "$1" "$PWD"
 
             # Keep chopping at the current directory until it's empty or it
             # matches the request
-            while set -- "$1" "${2%/*}" ; do
+            while : ; do
+
+                # Make certain there are no trailing slashes to foul us up
+                while : ; do
+                    case $2 in
+                        */) set -- "$1" "${2%/}" ;;
+                        *) break ;;
+                    esac
+                done
+
+                # Strip a path element
+                set -- "$1" "${2%/*}"
+
+                # Check whether we're arrived
                 case $2 in
                     */"$1") break ;;
                     */*) ;;
