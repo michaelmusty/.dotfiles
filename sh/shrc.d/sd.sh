@@ -1,4 +1,3 @@
-#
 # Shortcut to switch to another directory with the same parent, i.e. a sibling
 # of the current directory.
 #
@@ -31,7 +30,6 @@
 #     /tmp/tmp.ZSunna5Eup/a
 #
 # Seems to work for symbolic links.
-#
 sd() {
 
     # Check argument count

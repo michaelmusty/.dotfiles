@@ -1,4 +1,3 @@
-#
 # Replace the first instance of the first argument string with the second
 # argument string in $PWD, and make that the target of the cd builtin. This is
 # to emulate a feature of the `cd` builtin in Zsh that I like, but that I think
@@ -12,7 +11,6 @@
 #     $ rd usr opt
 #     $ pwd
 #     /opt/bin
-#
 rd() {
 
     # Check argument count
