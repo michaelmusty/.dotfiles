@@ -8,7 +8,6 @@ ud() {
         return 2
     fi
     set -- "${1:-1}" "${2:-"$PWD"}"
-    set -- "$1" "$2"
 
     # Check first argument, number of steps upward. "0" is weird, but valid;
     # "-1" however makes no sense at all
