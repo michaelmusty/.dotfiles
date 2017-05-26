@@ -1,4 +1,4 @@
-# Transparently wrap scp(1) targets on the command line
+# Transparently wrap scp(1) targets to read (not write) on the command line
 self=swr
 
 # Create a temporary directory with name in $td, and handle POSIX-ish traps to
