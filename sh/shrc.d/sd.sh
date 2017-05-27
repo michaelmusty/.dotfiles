@@ -41,45 +41,75 @@ sd() {
     # Read sole optional argument
     case $1 in
 
-        # If blank, get a full list of directories at this level; include
-        # dotfiles, but not the . and .. entries, using glob tricks to avoid
-        # Bash ruining things with `dotglob`
+        # Slashes aren't allowed
+        */*)
+            printf >&2 'bd(): Illegal slash\n'
+            return 2
+            ;;
+
+        # If blank, we try to find if there's just one sibling, and change to
+        # that if so
         '')
+            # First a special case: root dir
+            case $PWD in
+                *[!/]*) ;;
+                *)
+                    printf >&2 'sd(): No siblings\n'
+                    return 1
+                    ;;
+            esac
+
+            # Get a full list of directories at this level; include dotfiles,
+            # but not the . and .. entries, using glob tricks to avoid Bash
+            # ruining things with `dotglob`
             set -- ../[!.]*/
             [ -e "$1" ] || shift
             set -- ../.[!.]*/ "$@"
             [ -e "$1" ] || shift
             set -- ../..?*/ "$@"
             [ -e "$1" ] || shift
+
+            # Check the number of matches
+            case $# in
+
+                # One match? Must be $PWD, so no siblings--throw in 0 just in
+                # case, but that Shouldn't Happen (TM)
+                0|1)
+                    printf >&2 'sd(): No siblings\n'
+                    return 1
+                    ;;
+
+                # Two matches; hopefully just one sibling, but which is it?
+                2)
+
+                    # Push PWD onto the stack, strip trailing slashes
+                    set -- "$1" "$2" "$PWD"
+                    while : ; do
+                        case $3 in
+                            */) set -- "$1" "$2" "${3%/}" ;;
+                            *) break ;;
+                        esac
+                    done
+
+                    # Pick whichever of our two parameters doesn't look like
+                    # PWD as our sole parameter
+                    case $1 in
+                        ../"${3##*/}"/) set -- "$2" ;;
+                        *) set -- "$1" ;;
+                    esac
+                    ;;
+
+                # Anything else? Multiple siblings--user will need to specify
+                *)
+                    printf >&2 'sd(): Multiple siblings\n'
+                    return 1
+                    ;;
+            esac
             ;;
 
-        # If not, get that directory, and the current one; shift it off if it
-        # doesn't exist
-        *)
-            set -- ../"${1%/}"/ ../"${PWD##*/}"/
-            [ -e "$1" ] || shift
-            ;;
-    esac
-
-    # We should now have two parameters: the current directory and the matched
-    # sibling
-    case $# in
-        2) ;;
-        0|1)
-            printf >&2 'sd(): No match\n'
-            return 1
-            ;;
-        *)
-            printf >&2 'sd(): Multiple matches\n'
-            return 1
-            ;;
-    esac
-
-    # Find which of these two is not the current directory and set that as our
-    # sole parameter
-    case $1 in
-        ../"${PWD##*/}"/) set -- "$2" ;;
-        *) set -- "$1" ;;
+        # If not, simply set our target to that directory, and let `cd` do the
+        # complaining if it doesn't exist
+        *) set -- ../"$1" ;;
     esac
 
     # Try and change into the first parameter
