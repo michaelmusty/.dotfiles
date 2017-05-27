@@ -14,5 +14,5 @@ gd() {
     fi
 
     # Go to the marked directory
-    cd -- "$PMD" || return
+    cd -- "$PMD"
 }
