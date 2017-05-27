@@ -23,5 +23,3 @@ Known issues
     my own stuff in there
 *   Completion for custom functions e.g. `sd` should ideally respect
     `completion-ignore-case` setting
-*   Would be good to remove the remaining subshell expansions in sh/shrc.d if
-    possible, have already removed them from bd/pd/sd/ud()
