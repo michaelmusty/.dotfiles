@@ -8,7 +8,7 @@ gd() {
     fi
 
     # Complain if mark not actually set yet
-    if ! [ -n "$PMD" ] ; then
+    if [ -z "$PMD" ] ; then
         printf >&2 'gd(): Mark not set\n'
         return 1
     fi
