@@ -21,6 +21,9 @@ it always should have been--no flags, and hence no need for end-of-options for
 filenames that start with a dash.
 .P
 Quicker to type, too.
+.P
+Still treats an "-" argument as a shorthand for "standard input" though,
+because I like that and it's POSIX.
 .SH SEE ALSO
 cat(1)
 .SH AUTHOR
