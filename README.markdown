@@ -502,6 +502,8 @@ Installed by the `install-bin` target:
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `mw(1df)` prints alphabetic space-delimited words from the input one per
+    line.
 *   `onl(1df)` crunches input down to one printable line.
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.

@@ -132,6 +132,7 @@ BINS = bin/ap \
 	bin/mode \
 	bin/motd \
 	bin/murl \
+	bin/mw \
 	bin/nlbr \
 	bin/onl \
 	bin/osc \
