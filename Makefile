@@ -141,6 +141,7 @@ BINS = bin/ap \
 	bin/ped \
 	bin/pit \
 	bin/plmu \
+	bin/p \
 	bin/pp \
 	bin/pph \
 	bin/pst \

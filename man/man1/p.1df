@@ -1,0 +1,27 @@
+.TH P 1df "May 2017" "Manual page for p"
+.SH NAME
+.B p
+\- print standard input to standard output
+.SH SYNOPSIS
+.B p
+FILE1 [FILE2...]
+.br
+prog1 |
+.B
+p
+.br
+prog1 |
+.B
+p
+FILE1 - FILE2
+.SH DESCRIPTION
+.B p
+prints concatenated standard input from files to, and nothing else; cat(1) as
+it always should have been--no flags, and hence no need for end-of-options for
+filenames that start with a dash.
+.P
+Quicker to type, too.
+.SH SEE ALSO
+cat(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
