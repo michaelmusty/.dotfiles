@@ -24,6 +24,18 @@ Quicker to type, too.
 .P
 Still treats an "-" argument as a shorthand for "standard input" though,
 because I like that and it's POSIX.
+.SH POETRY
+    "Prophet!" said I, "thing of evil!--prophet still, if bird or devil!--
+.br
+    Whether Tempter sent, or whether tempest tossed thee here ashore,
+.br
+    Desolate yet all undaunted, on this desert land enchanted--
+.br
+    On this home by Horror haunted--tell me truly, I implore--
+.br
+    Is there--is there balm in Gilead?--tell me--tell me, I implore!"
+.br
+    Quoth the Raven "Nevermore." 
 .SH SEE ALSO
 cat(1)
 .SH AUTHOR
