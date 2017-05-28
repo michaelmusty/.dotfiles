@@ -13,15 +13,15 @@ each of the files given as arguments. Example:
    w
    EOF
 .SH WISDOM
-"Each man who is wise and would wise be called,
+    Each man who is wise and would wise be called,
 .br
- Must ask and answer aright.
+    Must ask and answer aright.
 .br
- Let one know thy secret, but never a second;
+    Let one know thy secret, but never a second;
 .br
- If three, a thousand shall know."
+    If three, a thousand shall know."
 .P
-   -- Poetic Edda, Hávamál, 63
+        -- Poetic Edda, Hávamál, 63
 .br
 .SH SEE ALSO
 ed(1)
