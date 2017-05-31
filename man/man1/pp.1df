@@ -15,5 +15,7 @@ The path need not actually exist.
 Newlines in filenames will still work, but the results won't really make sense
 as they'll be indistinguishable from newlines separating the files. This is for
 generating human-readable file lists, not for machines.
+.SH SEE ALSO
+pph(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
