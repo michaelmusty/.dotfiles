@@ -10,3 +10,5 @@ Ideas
 *   qmp(1df)--quick man page
 *   The solution to chn(1df) not running in parallel is probably backgrounded
     processes and mkfifo(1).
+*   Write something like hcat(1df) or tcat(1df) that includes filename headings
+    for each concatenated file.
