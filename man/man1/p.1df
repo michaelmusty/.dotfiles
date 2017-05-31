@@ -16,9 +16,9 @@ p
 FILE1 - FILE2
 .SH DESCRIPTION
 .B p
-prints concatenated standard input from files to, and nothing else; cat(1) as
-it always should have been--no flags, and hence no need for end-of-options for
-filenames that start with a dash.
+prints concatenated standard input from files to standard output, and nothing
+else; cat(1) as it always should have been--no flags, and hence no need for
+end-of-options for filenames that start with a dash.
 .P
 Quicker to type, too.
 .P
