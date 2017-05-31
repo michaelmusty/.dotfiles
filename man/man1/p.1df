@@ -34,8 +34,9 @@ because I like that and it's POSIX.
     On this home by Horror haunted--tell me truly, I implore--
 .br
     Is there--is there balm in Gilead?--tell me--tell me, I implore!"
-.P
+.br
     Quoth the Raven "Nevermore." 
+.P
         -- Poe
 .SH SEE ALSO
 cat(1)
