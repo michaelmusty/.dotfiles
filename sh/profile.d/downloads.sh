@@ -8,6 +8,6 @@
         set -- "$dir"/*
         [ -e "$1" ] || shift
         [ "$#" -gt 0 ] || continue
-        printf 'You have %u unsorted files in %s.\n' "$#" "$dir"
+        printf '\nYou have %u unsorted files in %s.\n\n' "$#" "$dir"
     done < "$HOME"/.downloads
 )
