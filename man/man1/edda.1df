@@ -8,10 +8,10 @@
 Duplicate any data on stdin into a temporary file, and run ed(1) options over
 each of the files given as arguments. Example:
 .P
-   $ edda /etc/app.d/*.conf <<'EOF'
-   ,s/foo/bar/g
-   w
-   EOF
+    $ edda /etc/app.d/*.conf <<'EOF'
+    ,s/foo/bar/g
+    w
+    EOF
 .SH WISDOM
     Each man who is wise and would wise be called,
 .br
