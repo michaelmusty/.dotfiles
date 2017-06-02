@@ -1,4 +1,3 @@
-#!/bin/sh
 # Record a timestamped message to a logfile, defaulting to ~/.clog
 self=clog
 
