@@ -455,8 +455,7 @@ Installed by the `install-bin` target:
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL.
-*   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
-    it knows of one.
+*   `br(1df)` launches `$BROWSER`.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
