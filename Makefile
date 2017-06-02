@@ -64,7 +64,7 @@
 	lint-xinit
 
 .SUFFIXES:
-.SUFFIXES: .awk .bash .mi5 .pl .sed .sh
+.SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
 
 NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
@@ -217,14 +217,66 @@ clean distclean:
 	rm -f -- \
 		$(BINS) \
 		$(GAMES) \
+		bin/chn.sh \
+		bin/chn.m4 \
+		bin/edda.sh \
+		bin/edda.m4 \
+		bin/pst.sh \
+		bin/pst.m4 \
+		bin/rndl.sh \
+		bin/rndl.m4 \
+		bin/swr.sh \
+		bin/swr.m4 \
+		bin/tlcs.sh \
+		bin/tlcs.m4 \
+		bin/try.sh \
+		bin/try.m4 \
+		bin/urlc.sh \
+		bin/urlc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
 		gnupg/gpg.conf \
 		gnupg/gpg.conf.m4 \
+		include/mktd.m4 \
 		man/man8/dotfiles.7df \
 		tmux/tmux.conf \
 		tmux/tmux.conf.m4 \
 		urxvt/ext/select
+
+.awk:
+	sh bin/shb.sh awk -f < $< > $@
+	chmod +x ./$@
+
+.bash:
+	sh bin/shb.sh bash < $< > $@
+	chmod +x ./$@
+
+.pl:
+	sh bin/shb.sh perl < $< > $@
+	chmod +x ./$@
+
+.sed:
+	sh bin/shb.sh sed -f < $< > $@
+	chmod +x ./$@
+
+.sh:
+	sh bin/shb.sh sh < $< > $@
+	chmod +x ./$@
+
+.mi5.m4:
+	awk -f bin/mi5.awk < $< > $@
+
+.m4.sh:
+	m4 < $< > $@
+
+bin/chn.sh: include/mktd.m4
+bin/edda.sh: include/mktd.m4
+bin/pst.sh: include/mktd.m4
+bin/rndl.sh: include/mktd.m4
+bin/swr.sh: include/mktd.m4
+bin/tlcs.sh: include/mktd.m4
+bin/try.sh: include/mktd.m4
+bin/urlc.sh: include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
@@ -252,29 +304,6 @@ TMUX_FG = colour248
 tmux/tmux.conf: tmux/tmux.conf.m4
 	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
 		tmux/tmux.conf.m4 > $@
-
-.awk:
-	sh bin/shb.sh awk -f < $< > $@
-	chmod +x ./$@
-
-.bash:
-	sh bin/shb.sh bash < $< > $@
-	chmod +x ./$@
-
-.pl:
-	sh bin/shb.sh perl < $< > $@
-	chmod +x ./$@
-
-.sed:
-	sh bin/shb.sh sed -f < $< > $@
-	chmod +x ./$@
-
-.sh:
-	sh bin/shb.sh sh < $< > $@
-	chmod +x ./$@
-
-.mi5:
-	awk -f bin/mi5.awk < $< > $@
 
 install: install-bin \
 	install-curl \
