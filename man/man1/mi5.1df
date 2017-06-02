@@ -10,7 +10,8 @@ FILE > out.m4
 FILE1 FILE2 > out.m4
 .br
 prog |
-.B mi5 > out.m4
+.B mi5
+> out.m4
 .br
 .SH DESCRIPTION
 .B mi5
@@ -19,21 +20,23 @@ and predictable for its author, who wants badly to like m4 but doesn't. It's
 primarily intended for situations where the majority of a file is simple static
 text, and only a few simple macros need to be defined and expanded, which
 covers almost every usage case for the author. It's written to work with any
-POSIX m4.
+POSIX awk and to generate output for any POSIX m4.
 .P
 mi5 inverts m4's usual approach by approaching most of the file as if it were
 part of an m4 quote, with <% and %> as the delimiters to specify markers in
-which macro expansion should occur. This makes m4 work in a way reminiscent of
-templating libraries or languages like PHP.
+which macro expansion should occur. This is therefore a way to shoehorn m4 into
+working in a way reminiscent of templating libraries or languages like PHP.
 .P
 Macros can be expanded as blocks:
 .P
     <%
-    define(`FOO', `bar')
-    define(`BAZ', include(`include/quux.inc')
-    ?>
+
+        define(`FOO', `bar')
+        define(`BAZ', include(`include/quux.inc')
+
+    %>
 .P
-For this format, "dnl" macros to delete newlines for each declaration are
+For this format, `dnl' macros to delete newlines for each declaration are
 inserted for you. Blank lines are skipped, and leading and trailing spaces are
 ignored. The above code therefore produces no actual output, as it only has two
 define calls.
@@ -43,15 +46,19 @@ For inline expansion, the syntax is similar, but the behaviour slightly differen
     The value of the FOO macro is <% FOO %>.
 .P
 Spaces immediately after the opening delimiter and before the closing delimiter
-are ignored, but spaces produced within the macro are preserved.
+are ignored, but spaces produced within the macro are preserved. `dnl` macros
+are not inserted for inline blocks.
 .P
-Ideally, you do macro definition in an mi5 block at the top of your file, and
-very simple macro expansion in an mi5 inline.
+Ideally, you do your complex macro definition in a block at the top of your
+file, and your simple macro expansion of those results in an inline.
 .SH CAVEATS
-Only very simple macro expansions work in inline calls at the moment. This can
-be fixed by the author tokenizing the line properly, which he'll do Real Soon
-Now (TM). Specifically, quote delimiters do not work.
+The <% delimiters %> are hardcoded for now.
+.P
+Inline expansions cannot span multiple lines. Use blocks for that.
+.P
+Doesn't cope at all with `changequote'. If you need that, you should probably
+write raw m4.
 .SH SEE ALSO
-bp(1df), xargs(1)
+m4(1)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

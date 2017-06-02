@@ -16,32 +16,51 @@ NF == 1 && $1 == "%>" && mac {
     next
 }
 
-# If processing macros, strip leading and trailing whitespace and skip blank
-# lines
-mac {
+# If in a block, print each line with any content on it after stripping leading
+# and trailing whitespace
+mac && NF {
     sub(/^ */, "")
     sub(/ *$/, "")
-}
-mac && !NF { next }
-
-# Inlines
-mac {
     print $0 "dnl"
 }
+
+# If not in a block, look for inlines to process
 !mac {
 
-    # Don't let apostrophes close the comment
-    gsub(/'/, "''`")
+    # We'll empty one variable into another
+    src = $0
+    dst = ""
 
-    # Replace m5 opener with m4 closer
-    gsub(/<% */, "'")
+    # As long as there's a pair of opening and closing tags
+    while (src ~ /<%.*%>/) {
 
-    # Replace m5 closer with m4 opener
-    gsub(/ *%>/, "`")
-    print
+        # Read up to opening tag into seg, shift from src
+        ind = index(src, "<%")
+        seg = substr(src, 1, ind - 1)
+        src = substr(src, ind)
+
+        # Escape quote closer and add to dst
+        gsub(/'/, "''`", seg)
+        dst = dst seg
+
+        # Read up to closing tag into seg, shift from src
+        ind = index(src, "%>")
+        seg = substr(src, 1, ind + 1)
+        src = substr(src, ind + 2)
+
+        # Translate tags to quote open and close and add to dst
+        sub(/^<% */ , "'", seg)
+        sub(/ *%>$/ , "`", seg)
+        dst = dst seg
+    }
+
+    # Escape quote closers in whatever's left
+    gsub(/'/, "''`", src)
+
+    # Tack that onto the end, and print it
+    dst = dst src
+    print dst
 }
 
 # Print an m4 closer and newline deleter as the last bytes
-END {
-    print "'dnl"
-}
+END { print "'dnl" }

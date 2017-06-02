@@ -12,5 +12,3 @@ Ideas
     processes and mkfifo(1).
 *   Write something like hcat(1df) or tcat(1df) that includes filename headings
     for each concatenated file.
-*   mi5(1df) could be made to handle comment delimiters and $1 $2 expansions
-    without too much pain (substr/index counting)
