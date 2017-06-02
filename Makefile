@@ -64,7 +64,7 @@
 	lint-xinit
 
 .SUFFIXES:
-.SUFFIXES: .awk .bash .pl .sed .sh
+.SUFFIXES: .awk .bash .mi5 .pl .sed .sh
 
 NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
@@ -218,9 +218,12 @@ clean distclean:
 		$(BINS) \
 		$(GAMES) \
 		git/gitconfig \
+		git/gitconfig.m4 \
 		gnupg/gpg.conf \
+		gnupg/gpg.conf.m4 \
 		man/man8/dotfiles.7df \
 		tmux/tmux.conf \
+		tmux/tmux.conf.m4 \
 		urxvt/ext/select
 
 git/gitconfig: git/gitconfig.m4
@@ -269,6 +272,9 @@ tmux/tmux.conf: tmux/tmux.conf.m4
 .sh:
 	sh bin/shb.sh sh < $< > $@
 	chmod +x ./$@
+
+.mi5:
+	awk -f bin/mi5.awk < $< > $@
 
 install: install-bin \
 	install-curl \

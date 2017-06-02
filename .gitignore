@@ -137,7 +137,10 @@ games/strik
 games/xyzzy
 games/zs
 git/gitconfig
+git/gitconfig.m4
 gnupg/gpg.conf
+gnupg/gpg.conf.m4
 man/man7/dotfiles.7df
 tmux/tmux.conf
+tmux/tmux.conf.m4
 urxvt/ext/select
