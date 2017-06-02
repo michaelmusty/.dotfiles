@@ -511,7 +511,7 @@ Installed by the `install-bin` target:
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
 *   `p(1df)` prints concatenated standard input; `cat(1)` as it should always
-    have been
+    have been.
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
