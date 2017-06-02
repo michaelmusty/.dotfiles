@@ -38,6 +38,7 @@ mac {
 
     # Replace m5 closer with m4 opener
     gsub(/ *%>/, "`")
+
     print
 }
 
