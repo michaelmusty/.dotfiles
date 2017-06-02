@@ -119,6 +119,7 @@ BINS = bin/ap \
 	bin/jfcd \
 	bin/jfp \
 	bin/loc \
+	bin/mi5 \
 	bin/max \
 	bin/maybe \
 	bin/mean \

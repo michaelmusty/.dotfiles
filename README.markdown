@@ -498,6 +498,8 @@ Installed by the `install-bin` target:
     success,
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
+*   `mi5(1df)` pre-processes a crude but less painful macro expansion file
+    format into m4.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.

@@ -1,0 +1,63 @@
+.TH MI5 1df "June 2017" "Manual page for mi5"
+.SH NAME
+.B mi5
+\- m4 inverted preprocessor
+.SH SYNOPSIS
+.B mi5
+FILE > out.m4
+.br
+.B mi5
+FILE1 FILE2 > out.m4
+.br
+prog |
+.B mi5 > out.m4
+.br
+.SH DESCRIPTION
+.B mi5
+is a simple and crude m4 preprocessor to make using m4 slightly more bearable
+and predictable for its author, who wants badly to like m4 but doesn't. It's
+primarily intended for situations where the majority of a file is simple static
+text, and only a few simple macros need to be defined and expanded, which
+covers almost every usage case for the author. It's written to work with any
+POSIX m4.
+.P
+mi5 inverts m4's usual approach by approaching most of the file as if it were
+part of an m4 comment, with <% and %> as the delimiters to specify markers in
+which macro expansion should occur. This makes m4 work in a way reminiscent of
+templating libraries or languages like PHP.
+.P
+Macros can be expanded as blocks:
+.P
+    <%
+    define(`FOO', `bar')
+    define(`BAZ', include(`include/quux.inc')
+    ?>
+.P
+For this format, "dnl" macros to delete newlines for each declaration are
+inserted for you. Blank lines are skipped, and leading and trailing spaces are
+ignored. The above code therefore produces no actual output, as it only has two
+define calls.
+.P
+For inline expansion, the syntax is similar, but the behaviour slightly different:
+.P
+    The value of the FOO macro is <% FOO %>.
+.P
+Spaces immediately after the opening delimiter and before the closing delimiter
+are ignored, but spaces produced within the macro are preserved.
+.P
+Ideally, you do macro definition in an mi5 block at the top of your file, and
+very simple macro expansion in an mi5 inline.
+.SH CAVEATS
+Only very simple macro expansions work in inline calls at the moment. This can
+be fixed by the author tokenizing the line properly, which he'll do Real Soon
+Now (TM). Specifically, neither comment delimiters nor macro parameters work.
+The latter is because of a nasty corner-case in m4 where parameter expansions
+$1, $2, $*, etc are expanded
+.B even within comments,
+one of m4's darkest corners. The workaround is to do as much logic as you can
+in a block, defining your result as a single simple macros, and then expanding
+that inline.
+.SH SEE ALSO
+bp(1df), xargs(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
