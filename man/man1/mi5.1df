@@ -56,6 +56,9 @@ The <% delimiters %> are hardcoded for now.
 .P
 Inline expansions cannot span multiple lines. Use blocks for that.
 .P
+You can't include the closing delimiter %> anywhere within an inline expansion,
+even quoted. The parser is too dumb to cope with that.
+.P
 Doesn't cope at all with `changequote'. If you need that, you should probably
 write raw m4.
 .SH SEE ALSO
