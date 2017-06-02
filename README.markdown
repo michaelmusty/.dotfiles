@@ -4,6 +4,10 @@ Dotfiles (Tom Ryder)
 This is my personal repository of configuration files and scripts for `$HOME`,
 including most of the settings that migrate well between machines.
 
+This repository began as a simple way to share Vim and tmux configuration, but
+over time a lot of scripts and shell configuration have been added, making it
+into a personal suite of custom Unix tools.
+
 Installation
 ------------
 
