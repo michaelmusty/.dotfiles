@@ -33,9 +33,6 @@ mac {
     # Don't let apostrophes close the comment
     gsub(/'/, "''`")
 
-    # Don't let $ signs confound expansion
-    gsub(/\$/, "$'`")
-
     # Replace m5 opener with m4 closer
     gsub(/<% */, "'")
 

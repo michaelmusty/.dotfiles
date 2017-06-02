@@ -50,13 +50,7 @@ very simple macro expansion in an mi5 inline.
 .SH CAVEATS
 Only very simple macro expansions work in inline calls at the moment. This can
 be fixed by the author tokenizing the line properly, which he'll do Real Soon
-Now (TM). Specifically, neither quote delimiters nor macro parameters work.
-The latter is because of a nasty corner-case in m4 where parameter expansions
-$1, $2, $*, etc are expanded
-.B even within quotes,
-one of m4's darkest corners. The workaround is to do as much logic as you can
-in a block, defining your result as a single simple macros, and then expanding
-that inline.
+Now (TM). Specifically, quote delimiters do not work.
 .SH SEE ALSO
 bp(1df), xargs(1)
 .SH AUTHOR
