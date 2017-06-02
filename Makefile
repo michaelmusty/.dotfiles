@@ -197,6 +197,15 @@ BINS = bin/ap \
 	bin/xrbg \
 	bin/xrq
 
+BINS_MI5 = bin/chn.sh \
+	bin/edda.sh \
+	bin/pst.sh \
+	bin/rndl.sh \
+	bin/swr.sh \
+	bin/tlcs.sh \
+	bin/try.sh \
+	bin/urlc.sh
+
 GAMES = games/aaf \
 	games/acq \
 	games/aesth \
@@ -269,14 +278,7 @@ clean distclean:
 .m4.sh:
 	m4 < $< > $@
 
-bin/chn.sh: include/mktd.m4
-bin/edda.sh: include/mktd.m4
-bin/pst.sh: include/mktd.m4
-bin/rndl.sh: include/mktd.m4
-bin/swr.sh: include/mktd.m4
-bin/tlcs.sh: include/mktd.m4
-bin/try.sh: include/mktd.m4
-bin/urlc.sh: include/mktd.m4
+$(BINS_MI5): include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
@@ -498,7 +500,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin:
+check-bin: $(BINS_MI5)
 	sh check/bin.sh
 
 check-games:
