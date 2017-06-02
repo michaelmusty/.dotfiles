@@ -337,12 +337,10 @@ The configuration file is created with `m4(1)` to allow specifying a color
 theme. This is just because I use a different color for my work session. The
 default is a dark grey.
 
-The configuration for Bash includes a `tmux` function designed to make `attach`
-into the default command if no arguments are given and sessions do already
-exist. The default command is normally `new-session`.
-
-My `~/.inputrc` file binds Alt+M to attach to or create a `tmux` session, and
-Tmux in turn binds the same key combination to detach.
+The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
+the default command if no arguments are given and sessions do already exist. My
+`~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same key
+combination to detach.
 
 ### Vim
 
