@@ -149,6 +149,7 @@ BINS = bin/ap \
 	bin/pvi \
 	bin/pwg \
 	bin/quo \
+	bin/rep \
 	bin/rfcf \
 	bin/rfcr \
 	bin/rfct \
