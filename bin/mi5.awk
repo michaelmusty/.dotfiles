@@ -11,13 +11,11 @@ BEGIN {
 NR == 1 { printf "`" }
 
 # Blocks
-NF == 1 && $1 == open && !mac {
-    mac = 1
+NF == 1 && $1 == open && !mac++ {
     printf "'"
     next
 }
-NF == 1 && $1 == shut && mac {
-    mac = 0
+NF == 1 && $1 == shut && mac-- {
     printf "`"
     next
 }
