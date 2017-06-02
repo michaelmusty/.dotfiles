@@ -1,5 +1,5 @@
 # Make a reduced Latin square out of each line of input
-l = length {
+l = length($0) {
     str = toupper($0)
     for (j = 0; j < l; j++)
         for (k = 0; k < l; k++)
