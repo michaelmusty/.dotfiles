@@ -286,7 +286,7 @@ as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
 practices](https://riseup.net/en/security/message-security/openpgp/best-practices).
-The configuration file is rebuilt using `m4(1)` and `make(1)` because it
+The configuration file is rebuilt using `mi5(1df)` and `make(1)` because it
 requires hard-coding a path to the SKS keyserver certificate authority, and
 neither tilde nor `$HOME` expansion works for this.
 
@@ -333,7 +333,7 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
-The configuration file is created with `m4(1)` to allow specifying a color
+The configuration file is created with `mi5(1df)` to allow specifying a color
 theme. This is just because I use a different color for my work session. The
 default is a dark grey.
 
@@ -501,7 +501,7 @@ Installed by the `install-bin` target:
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
 *   `mi5(1df)` pre-processes a crude but less painful macro expansion file
-    format into m4.
+    format into `m4` input.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
