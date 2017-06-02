@@ -22,7 +22,7 @@ covers almost every usage case for the author. It's written to work with any
 POSIX m4.
 .P
 mi5 inverts m4's usual approach by approaching most of the file as if it were
-part of an m4 comment, with <% and %> as the delimiters to specify markers in
+part of an m4 quote, with <% and %> as the delimiters to specify markers in
 which macro expansion should occur. This makes m4 work in a way reminiscent of
 templating libraries or languages like PHP.
 .P
@@ -50,10 +50,10 @@ very simple macro expansion in an mi5 inline.
 .SH CAVEATS
 Only very simple macro expansions work in inline calls at the moment. This can
 be fixed by the author tokenizing the line properly, which he'll do Real Soon
-Now (TM). Specifically, neither comment delimiters nor macro parameters work.
+Now (TM). Specifically, neither quote delimiters nor macro parameters work.
 The latter is because of a nasty corner-case in m4 where parameter expansions
 $1, $2, $*, etc are expanded
-.B even within comments,
+.B even within quotes,
 one of m4's darkest corners. The workaround is to do as much logic as you can
 in a block, defining your result as a single simple macros, and then expanding
 that inline.
