@@ -10,7 +10,8 @@ FILE > out.m4
 FILE1 FILE2 > out.m4
 .br
 prog |
-.B mi5 > out.m4
+.B mi5
+> out.m4
 .br
 .SH DESCRIPTION
 .B mi5
