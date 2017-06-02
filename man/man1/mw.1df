@@ -1,0 +1,25 @@
+.TH MW 1df "May 2017" "Manual page for mw"
+.SH NAME
+.B mw
+\- get space-delimited alphabetic words from input, one per line
+.SH SYNOPSIS
+.B mw FILE1
+[FILE2...]
+.br
+prog1 |
+.B mw
+.SH DESCRIPTION
+.B mw
+separates the input into space-delimited words and prints them one per line,
+with no deduplication or sorting. It's a fairly naïve approach to the problem
+but it works fine as a crude initial approach.
+.SH NOTES
+This was written after watching that lovely old AT&T video where members of the
+Unix team (specifically Brian Kernighan and Lorinda Cherry) demonstrate piping
+programs together; Kernighan demonstrates `makewords` during his example.
+.P
+<https://www.youtube.com/watch?v=tc4ROCJYbm0&t=5m30s>
+.SH SEE ALSO
+ddup(1df), sort(1), uniq(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -54,7 +54,7 @@ to figure out which shell’s configuration files to install, falling back on
 `install-sh`.
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
-`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
+`awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
 Tools
 -----
@@ -64,8 +64,7 @@ Configuration is included for:
 *   Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and
     some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
-    *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
-    *   [Yash](https://yash.osdn.jp/index.html.en)
+    *   [Korn shell](http://www.kornshell.com/) (`ksh93`, `pdksh`, `mksh`)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
@@ -190,8 +189,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     *   `pmd()` prints the marked directory.
     *   `xd()` swaps the current and marked directories.
 *   Ten other directory management and navigation functions:
-    *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-        `/usr/local/bin`, as long as they are unique.
     *   `bd()` changes into a named ancestor of the current directory.
     *   `gt()` changes into a directory or into a file's directory.
     *   `lgt()` runs `gt()` on the first result from a `loc(1df)` search.
@@ -220,8 +217,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-*   `mysql()` allows shortcuts to MySQL configuration files stored in
-    `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
@@ -241,7 +236,7 @@ non-POSIX features, as compatibility allows:
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name (Bash).
 *   `ver()` prints the current shell's version information (Bash, Korn Shell,
-    Yash, Z shell).
+    Z shell).
 
 #### Completion
 
@@ -260,7 +255,6 @@ files, for things I really do get tired of typing repeatedly:
 *   `gpg(1)` long options
 *   `make(1)` targets read from a `Makefile`
 *   `man(1)` page titles
-*   `mysql(1)` databases from `~/.mysql/*.cnf`
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
@@ -278,10 +272,6 @@ Otherwise, they're all loaded on startup.
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
 `ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
 prompt if detected.
-
-#### Yash
-
-Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
 
 #### Zsh
 
@@ -477,6 +467,7 @@ Installed by the `install-bin` target:
     line.
 *   `csmw(1df)` prints an English list of monospace-quoted words read from the
     input.
+*   `dam(1df)` buffers all its input before emitting it as output.
 *   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
@@ -507,13 +498,19 @@ Installed by the `install-bin` target:
     success,
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
+*   `mi5(1df)` pre-processes a crude but less painful macro expansion file
+    format into m4.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `mw(1df)` prints alphabetic space-delimited words from the input one per
+    line.
 *   `onl(1df)` crunches input down to one printable line.
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
+*   `p(1df)` prints concatenated standard input; `cat(1)` as it should always
+    have been
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
@@ -539,6 +536,7 @@ Installed by the `install-bin` target:
     to use Taskwarrior, but found it too complex and buggy.
 *   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
+*   `trs(1df)` replaces strings (not regular expression) in its input.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.

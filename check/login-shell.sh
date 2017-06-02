@@ -4,8 +4,6 @@ case ${SHELL##*/} in
         target=check-bash ;;
     ksh|ksh88|ksh93|mksh|pdksh)
         target=check-ksh ;;
-    yash)
-        target=check-yash ;;
     zsh)
         target=check-zsh ;;
 esac

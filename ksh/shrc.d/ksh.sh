@@ -9,7 +9,7 @@
 # makes other shells throw tantrums.
 
 # Does the name of our shell have "ksh" in it at all? This is in no way
-# guaranteed. It's just a heuristic that e.g. Bash and Yash shouldn't pass.
+# guaranteed. It's just a heuristic that e.g. Bash shouldn't pass.
 case $0 in
     *ksh*) ;;
     *) return ;;

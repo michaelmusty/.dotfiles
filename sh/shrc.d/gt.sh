@@ -3,26 +3,24 @@
 gt() {
 
     # Check argument count
-    if [ "$#" -gt 1 ] ; then
-        printf >&2 'gd(): Too many arguments\n'
+    if [ "$#" -ne 1 ] ; then
+        printf >&2 'gt(): Need one argument\n'
         return 2
     fi
 
-    # Strip trailing slash
-    set -- "${1%/}"
-
-    # If target doesn't have a leading slash, add PWD prefix
-    case $1 in
-        /*) ;;
-        *) set -- "${PWD%/}"/"$1"
-    esac
+    # Make certain there are no trailing slashes to foul us up, and anchor path
+    # if relative
+    while : ; do
+        case $1 in
+            */) set -- "${1%/}" ;;
+            /*) break ;;
+            *) set -- "$PWD"/"$1" ;;
+        esac
+    done
 
     # If target isn't a directory, chop to its parent
     [ -d "$1" ] || set -- "${1%/*}"
 
-    # If target is now empty, go to the root
-    [ -n "$1" ] || set -- /
-
-    # Try to change into the determined directory
-    command cd -- "$@"
+    # Try to change into the determined directory, or root if empty
+    command cd -- "${1:-/}"
 }

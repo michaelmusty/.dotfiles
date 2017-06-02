@@ -24,7 +24,7 @@ BEGIN {
 # Bailout function
 function fail(str) {
     printf "%s: %s\n", self, str | "cat >&2"
-    exit(1)
+    exit(2)
 }
 
 # If there's more than one filename, precede the print of the current line with

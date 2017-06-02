@@ -5,7 +5,8 @@
 .SH SYNOPSIS
 .B fgscr
 .br
-.B fgscr /path1 /path2
+.B fgscr
+/path1 /path2
 .SH DESCRIPTION
 .B fgscr
 searches for Git repositories recursively with the given ancestor directory

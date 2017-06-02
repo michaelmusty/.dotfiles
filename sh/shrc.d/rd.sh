@@ -1,4 +1,3 @@
-#
 # Replace the first instance of the first argument string with the second
 # argument string in $PWD, and make that the target of the cd builtin. This is
 # to emulate a feature of the `cd` builtin in Zsh that I like, but that I think
@@ -12,7 +11,6 @@
 #     $ rd usr opt
 #     $ pwd
 #     /opt/bin
-#
 rd() {
 
     # Check argument count
@@ -25,42 +23,17 @@ rd() {
             ;;
     esac
 
-    # Set the positional parameters to an option terminator and what will
-    # hopefully end up being the substituted directory name
-    set -- "$(
-
-        # Current path: e.g. /foo/ayy/bar/ayy
-        cur=$PWD
-        # Pattern to replace: e.g. ayy
-        pat=$1
-        # Text with which to replace pattern: e.g. lmao
-        # This can be a null string or unset, in order to *remove* the pattern
-        rep=$2
-
-        # /foo/
-        curtc=${cur%%"$pat"*}
-        # /bar/ayy
-        curlc=${cur#*"$pat"}
-        # /foo/lmao/bar/ayy
-        new=${curtc}${rep}${curlc}
-
-        # Check that a substitution resulted in an actual change and that we
-        # ended up with a non-null target, or print an error to stderr
-        if [ "$cur" = "$curtc" ] || [ -z "$new" ] ; then
+    # Check there's something to substitute, and do it
+    case $PWD in
+        *"$1"*)
+            set -- "${PWD%%"$1"*}""$2""${PWD#*"$1"}"
+            ;;
+        *)
             printf >&2 'rd(): Substitution failed\n'
-            exit 1
-        fi
-
-        # Print the target with trailing slash to work around newline stripping
-        printf '%s/' "${new%/}"
-    )"
-
-    # Remove trailing slash
-    set -- "${1%/}"
-
-    # If the subshell printed nothing, return with failure
-    [ -n "$1" ] || return
+            return 1
+            ;;
+    esac
 
     # Try to change into the determined directory
-    command cd -- "$@"
+    command cd -- "$1"
 }

@@ -1,4 +1,4 @@
-.TH PED 1df "May 2017" "Manual page for pvi"
+.TH PVI 1df "May 2017" "Manual page for pvi"
 .SH NAME
 .B pvi
 \- stop a pipe for $EDITOR intervention
