@@ -52,7 +52,7 @@ are not inserted for inline blocks.
 Ideally, you do your complex macro definition in a block at the top of your
 file, and your simple macro expansion of those results in an inline.
 .SH CAVEATS
-The <% delimiters %> are hardcoded for now.
+The <% delimiters %> are hardcoded for now, and there's no way to escape them.
 .P
 Inline expansions cannot span multiple lines. Use blocks for that.
 .P
