@@ -38,7 +38,7 @@ mac && NF {
     dst = ""
 
     # As long as there's a pair of opening and closing tags
-    while (src ~ open ".*" shut) {
+    while (index(src,open)) {
 
         # Read up to opening tag into seg, shift from src
         ind = index(src, open)
@@ -51,12 +51,12 @@ mac && NF {
 
         # Read up to closing tag into seg, shift from src
         ind = index(src, shut)
-        seg = substr(src, 1, ind + length(shut) - 1)
+        seg = substr(src, length(open) + 1, ind - length(shut) - 1)
         src = substr(src, ind + length(shut))
 
         # Translate tags to quote open and close and add to dst
-        sub("^" open " *", "'", seg)
-        sub(" *" shut "$", "`", seg)
+        sub(/^ */, "'", seg)
+        sub(/ *$/, "`", seg)
         dst = dst seg
     }
 
