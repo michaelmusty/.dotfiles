@@ -36,7 +36,7 @@ Macros can be expanded as blocks:
     <%
 
         define(`FOO', `bar')
-        define(`BAZ', include(`include/quux.inc')
+        define(`BAZ', include(`include/quux.inc'))
 
     %>
 .P
