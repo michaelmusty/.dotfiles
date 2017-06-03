@@ -1,0 +1,7 @@
+<%
+
+    define(`FOO', `foo')
+
+%>
+FOO is <% FOO %>. Happy? Here it is again: <% FOO %>.
+I hope this has been enlightening for you.
