@@ -36,7 +36,7 @@ mac && NF {
     dst = ""
 
     # As long as there's a pair of opening and closing tags
-    while (ind = index(src, open) && index(src, shut) > ind) {
+    while ((ind = index(src, open)) && index(src, shut) > ind) {
 
         # Read up to opening tag into seg, shift from src
         seg = substr(src, 1, ind - 1)
