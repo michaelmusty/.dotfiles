@@ -82,6 +82,7 @@ bin/pst.m4
 bin/pvi
 bin/pwg
 bin/quo
+bin/rep
 bin/rfcf
 bin/rfcr
 bin/rfct

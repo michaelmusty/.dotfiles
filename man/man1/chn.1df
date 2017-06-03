@@ -24,11 +24,12 @@ Zero is a valid count; in this case the input is passed untouched to output:
     $ chn 0 quo < msg
     Hello!
 .P
-Don't confuse this with simply repeating a command. This happens to work:
+Don't confuse this with simply repeating a command--use rep(1df) for that..
+This happens to do what you might expect:
 .P
     $ chn 5 sync
 .P
-But this will not do what you expect:
+But this won't:
 .P
     $ chn 5 echo foo
 .SH CAVEATS
@@ -42,6 +43,6 @@ There's almost certainly a better way to do this, fixing one or both of the
 above issues, and possibly even in shell; maybe with curlier file descriptor
 logic to save unneeded open(2) syscalls. I smell `eval` usage on the horizon.
 .SH SEE ALSO
-maybe(1df), try(1df)
+maybe(1df), rep(1df), try(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

@@ -3,7 +3,8 @@
 .B edda
 \- run ed(1) over multiple files
 .SH SYNOPSIS
-.B edda FILE1 [FILE2...]
+.B edda
+FILE1 [FILE2...] < script.ed
 .SH DESCRIPTION
 Duplicate any data on stdin into a temporary file, and run ed(1) options over
 each of the files given as arguments. Example:

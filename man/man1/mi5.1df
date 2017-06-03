@@ -7,6 +7,9 @@
 FILE > out.m4
 .br
 .B mi5
+-v open='{{{' -v shut='}}}' FILE > out.m4
+.br
+.B mi5
 FILE1 FILE2 > out.m4
 .br
 prog |
@@ -23,9 +26,10 @@ covers almost every usage case for the author. It's written to work with any
 POSIX awk and to generate output for any POSIX m4.
 .P
 mi5 inverts m4's usual approach by approaching most of the file as if it were
-part of an m4 quote, with <% and %> as the delimiters to specify markers in
-which macro expansion should occur. This is therefore a way to shoehorn m4 into
-working in a way reminiscent of templating libraries or languages like PHP.
+part of an m4 quote, with <% and %> as the (default) delimiters to specify
+markers in which macro expansion should occur. This is therefore a way to
+shoehorn m4 into working in a way reminiscent of templating libraries or
+languages like PHP.
 .P
 Macros can be expanded as blocks:
 .P
@@ -52,7 +56,7 @@ are not inserted for inline blocks.
 Ideally, you do your complex macro definition in a block at the top of your
 file, and your simple macro expansion of those results in an inline.
 .SH CAVEATS
-The <% delimiters %> are hardcoded for now.
+There's no way to escape the delimiters.
 .P
 Inline expansions cannot span multiple lines. Use blocks for that.
 .P

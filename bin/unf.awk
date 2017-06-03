@@ -8,7 +8,7 @@ function wrbuf() {
 }
 
 # Flag to stop processing once we hit the first blank line
-!length {
+!length($0) {
     wrbuf() 
     body = 1
 }

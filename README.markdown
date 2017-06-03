@@ -4,6 +4,10 @@ Dotfiles (Tom Ryder)
 This is my personal repository of configuration files and scripts for `$HOME`,
 including most of the settings that migrate well between machines.
 
+This repository began as a simple way to share Vim and tmux configuration, but
+over time a lot of scripts and shell configuration have been added, making it
+into a personal suite of custom Unix tools.
+
 Installation
 ------------
 
@@ -282,7 +286,7 @@ as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
 practices](https://riseup.net/en/security/message-security/openpgp/best-practices).
-The configuration file is rebuilt using `m4(1)` and `make(1)` because it
+The configuration file is rebuilt using `mi5(1df)` and `make(1)` because it
 requires hard-coding a path to the SKS keyserver certificate authority, and
 neither tilde nor `$HOME` expansion works for this.
 
@@ -329,16 +333,14 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
-The configuration file is created with `m4(1)` to allow specifying a color
+The configuration file is created with `mi5(1df)` to allow specifying a color
 theme. This is just because I use a different color for my work session. The
 default is a dark grey.
 
-The configuration for Bash includes a `tmux` function designed to make `attach`
-into the default command if no arguments are given and sessions do already
-exist. The default command is normally `new-session`.
-
-My `~/.inputrc` file binds Alt+M to attach to or create a `tmux` session, and
-Tmux in turn binds the same key combination to detach.
+The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
+the default command if no arguments are given and sessions do already exist. My
+`~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same key
+combination to detach.
 
 ### Vim
 
@@ -453,8 +455,7 @@ Installed by the `install-bin` target:
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL.
-*   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
-    it knows of one.
+*   `br(1df)` launches `$BROWSER`.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
@@ -499,7 +500,7 @@ Installed by the `install-bin` target:
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
 *   `mi5(1df)` pre-processes a crude but less painful macro expansion file
-    format into m4.
+    format into `m4` input.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
@@ -510,7 +511,7 @@ Installed by the `install-bin` target:
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
 *   `p(1df)` prints concatenated standard input; `cat(1)` as it should always
-    have been
+    have been.
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
@@ -521,6 +522,7 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `pwg(1df)` generates just one decent password with `pwgen(1)`.
+*   `rep(1df)` repeats a command a given number of times.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
