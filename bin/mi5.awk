@@ -1,69 +1,136 @@
 # Crude m4 preprocessor
 BEGIN {
-    mac = 0
+    self = "mi5"
+
+    # You can change any of these, but while changing these is still relatively
+    # sane...
     if (!length(open))
         open = "<%"
     if (!length(shut))
         shut = "%>"
+
+    # ... changing these probably isn't, and should compel you to rethink your
+    # code, or quite possibly your entire life thus far.
+    if (!length(quote))
+        quote = "`"
+    if (!length(unquote))
+        unquote = "'"
+    if (!length(dnl))
+        dnl = "dnl"
+}
+
+# Fatal error function
+function fatal(str) {
+    printf "%s: %s\n", self, str | "cat >&2"
+    exit(1)
 }
 
 # Print an m4 opener as the first byte
-NR == 1 { printf "`" }
+NR == 1 { printf "%s", quote }
 
 # Blocks
-NF == 1 && $1 == open && !mac++ {
-    printf "'"
+NF == 1 && $1 == open && !bmac++ {
+    printf "%s", unquote
     next
 }
-NF == 1 && $1 == shut && mac-- {
-    printf "`"
+NF == 1 && $1 == shut && bmac-- {
+    printf "%s", quote
     next
 }
 
 # If in a block, print each line with any content on it after stripping leading
 # and trailing whitespace
-mac && NF {
-    sub(/^ */, "")
-    sub(/ *$/, "")
+bmac && NF {
+    gsub(/(^ +| +$)/, "")
     print $0 "dnl"
 }
 
 # If not in a block, look for inlines to process
-!mac {
+!bmac {
 
-    # We'll empty one variable into another
+    # We'll parse one variable into another...
     src = $0
     dst = ""
 
-    # As long as there's a pair of opening and closing tags
-    while ((ind = index(src, open)) && index(src, shut) > ind) {
+    # Crude and slow, clansman. Your parser was no better than that of a clumsy
+    # child.
+    for (i = 1; i <= length(src); ) {
 
-        # Read up to opening tag into seg, shift from src
-        seg = substr(src, 1, ind - 1)
-        src = substr(src, ind)
+        # Inline macro expansion: commented
+        if (iquo) {
 
-        # Escape quote closer and add to dst
-        gsub(/'/, "''`", seg)
-        dst = dst seg
+            # Look for end of comment and tip flag accordingly
+            if (substr(src, i, length(unquote)) == unquote)
+                iquo = 0
+        }
 
-        # Read up to closing tag into seg, shift from src
-        ind = index(src, shut)
-        seg = substr(src, length(open) + 1, ind - length(shut) - 1)
-        src = substr(src, ind + length(shut))
+        # Inline macro expansion
+        else if (imac) {
 
-        # Translate tags to quote open and close and add to dst
-        sub(/^ */, "'", seg)
-        sub(/ *$/, "`", seg)
-        dst = dst seg
+            # Close the current inline macro expansion if a close tag is found
+            # (in m4 terms: open a new quote), looking ahead past any spaces
+            # from this point first
+            for (j = i; substr(src, j, 1) ~ /[ \t]/; j++)
+                continue
+            if (substr(src, j, length(shut)) == shut) {
+                dst = dst quote
+                i = j
+                i += length(shut)
+                imac = 0
+                continue
+            }
+
+            # Look for start of comment and tip flag accordingly
+            if (substr(src, i, length(quote)) == quote)
+                iquo = 1
+        }
+
+        # Plain text mode
+        else {
+
+            # Open a new inline macro expansion if an open tag is found (in m4
+            # terms: close the quote), and then look ahead past any spaces from
+            # that point afterward
+            if (substr(src, i, length(open)) == open) {
+                dst = dst unquote
+                imac = 1
+                for (i += length(open); substr(src, i, 1) ~ /[ \t]/; i++)
+                    continue
+                continue
+            }
+
+            # Escape quote terminators
+            if (substr(src, i, length(unquote)) == unquote) {
+
+                # Dear Mr. President. There are too many variables nowadays.
+                # Please eliminate three. I am NOT a crackpot.
+                dst = dst unquote unquote quote
+
+                i += length(unquote)
+                continue
+            }
+        }
+
+        # If we got down here, we can just add the next character and move on
+        dst = dst substr(src, i, 1)
+        i += 1
     }
 
-    # Escape quote closers in whatever's left
-    gsub(/'/, "''`", src)
-
-    # Tack that onto the end, and print it
-    dst = dst src
-    print dst
+    # If we're still in a macro expansion or quote by this point, something's
+    # wrong; say so and stop, rather than print anything silly.
+    if (iquo)
+        fatal("Unterminated inline quote");
+    else if (imac)
+        fatal("Unterminated inline macro");
+    else
+        print dst
 }
 
-# Print an m4 closer and newline deleter as the last bytes
-END { print "'dnl" }
+# Print an m4 closer and newline deleter as the last bytes if we've correctly
+# stopped all our blocks
+END {
+    if (bmac)
+        fatal("Unterminated block macro");
+    else
+        print unquote dnl
+}
