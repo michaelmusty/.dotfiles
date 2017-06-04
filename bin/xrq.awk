@@ -8,7 +8,7 @@ BEGIN {
 
     # Check we have at least one resource name
     if (ARGC < 2) {
-        print "xrq: Need at least one resource name" | "cat 1>&2"
+        print "xrq: Need at least one resource name" | "cat >&2"
         exit(2)
     }
 
