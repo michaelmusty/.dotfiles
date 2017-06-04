@@ -60,10 +60,10 @@ There's no way to escape the delimiters.
 .P
 Inline expansions cannot span multiple lines. Use blocks for that.
 .P
-Doesn't cope at all with `changequote'. The ` and ' quote delimiters are
-hardcoded. If you need to change them, you can change the "quote" and "unquote"
-vars, but if you're getting to that point then you should probably write raw
-m4.
+Doesn't cope at all with `changequote'. If you need to specify different ones
+from this tool's point of view, you can change the "quote" and "unquote" vars
+in the same way as "open" and "shut", but if you're getting to that point then
+you should probably write raw m4.
 .SH SEE ALSO
 m4(1)
 .SH AUTHOR
