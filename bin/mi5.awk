@@ -60,8 +60,7 @@ bmac && NF {
         if (iquo) {
 
             # Look for end of comment and tip flag accordingly
-            if (substr(src, i, length(unquote)) == unquote)
-                iquo = 0
+            iquo = (substr(src, i, length(unquote)) != unquote)
         }
 
         # Inline macro expansion
@@ -81,8 +80,7 @@ bmac && NF {
             }
 
             # Look for start of comment and tip flag accordingly
-            if (substr(src, i, length(quote)) == quote)
-                iquo = 1
+            iquo = (substr(src, i, length(quote)) == quote)
         }
 
         # Plain text mode
