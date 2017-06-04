@@ -17,6 +17,9 @@ BEGIN {
         unquote = "'"
     if (!length(dnl))
         dnl = "dnl"
+
+    # We do not start in a block
+    bmac = 0
 }
 
 # Fatal error function
@@ -42,27 +45,27 @@ NF == 1 && $1 == shut && bmac-- {
 # and trailing whitespace
 bmac && NF {
     gsub(/(^ +| +$)/, "")
-    print $0 "dnl"
+    print $0 dnl
 }
 
 # If not in a block, look for inlines to process
 !bmac {
 
-    # We'll parse one variable into another...
+    # We'll parse one variable into another.
     src = $0
     dst = ""
+
+    # Start off neither quoting nor macroing.
+    iquo = imac = 0
 
     # Crude and slow, clansman. Your parser was no better than that of a clumsy
     # child.
     for (i = 1; i <= length(src); ) {
 
         # Inline macro expansion: commented
-        if (iquo) {
-
-            # Look for end of comment and tip flag accordingly
-            if (substr(src, i, length(unquote)) == unquote)
-                iquo = 0
-        }
+        # Look for end of comment and tip flag accordingly
+        if (iquo)
+            iquo = (substr(src, i, length(unquote)) != unquote)
 
         # Inline macro expansion
         else if (imac) {
@@ -74,15 +77,13 @@ bmac && NF {
                 continue
             if (substr(src, j, length(shut)) == shut) {
                 dst = dst quote
-                i = j
-                i += length(shut)
+                i = j + length(shut)
                 imac = 0
                 continue
             }
 
             # Look for start of comment and tip flag accordingly
-            if (substr(src, i, length(quote)) == quote)
-                iquo = 1
+            iquo = (substr(src, i, length(quote)) == quote)
         }
 
         # Plain text mode
@@ -112,8 +113,7 @@ bmac && NF {
         }
 
         # If we got down here, we can just add the next character and move on
-        dst = dst substr(src, i, 1)
-        i += 1
+        dst = dst substr(src, i++, 1)
     }
 
     # If we're still in a macro expansion or quote by this point, something's
