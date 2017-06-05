@@ -3,7 +3,8 @@
 .B grec
 \- saner name for grep -c
 .SH SYNOPSIS
-.B grec PATTERN [FILE...]
+.B grec
+PATTERN [FILE...]
 .br
 .SH DESCRIPTION
 .B grec

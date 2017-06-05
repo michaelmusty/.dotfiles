@@ -3,7 +3,8 @@
 .B gred
 \- saner name for grep -v
 .SH SYNOPSIS
-.B gred PATTERN [FILE...]
+.B gred
+PATTERN [FILE...]
 .br
 .SH DESCRIPTION
 .B gred
