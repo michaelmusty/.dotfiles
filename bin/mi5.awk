@@ -119,9 +119,9 @@ bmac && NF {
     # If we're still in a macro expansion or quote by this point, something's
     # wrong; say so and stop, rather than print anything silly.
     if (iquo)
-        fatal("Unterminated inline quote");
+        fatal("Unterminated inline quote")
     else if (imac)
-        fatal("Unterminated inline macro");
+        fatal("Unterminated inline macro")
     else
         print dst
 }
@@ -130,7 +130,7 @@ bmac && NF {
 # stopped all our blocks
 END {
     if (bmac)
-        fatal("Unterminated block macro");
+        fatal("Unterminated block macro")
     else
         print unquote dnl
 }
