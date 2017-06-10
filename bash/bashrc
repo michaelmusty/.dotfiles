@@ -27,6 +27,9 @@ unalias -a
     ((10#${BASH_VERSINFO[1]%%[!0-9]*} < 5)) &&
     return
 
+# Clear away command_not_found_handle if a system bashrc file set it up
+unset -f command_not_found_handle
+
 # Keep around 32K lines of history in file
 HISTFILESIZE=$((1 << 15))
 
