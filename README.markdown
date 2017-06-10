@@ -19,14 +19,8 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
-POSIX-fearing environment, including `sh(1)`. This should work on most
-GNU/Linux and BSD systems, and possibly on other UNIX types, but those are not
-as thoroughly or frequently tested.
-
-If you're on a system where `/bin/sh` is not a POSIX shell (e.g. OpenSolaris),
-you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
-`$PATH` at build time.
+For the default `all` target, you'll need a POSIX-fearing userland, including
+`make(1)` and `m4(1)`.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
