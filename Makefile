@@ -198,7 +198,16 @@ BINS = bin/ap \
 	bin/xrbg \
 	bin/xrq
 
-BINS_MI5 = bin/chn.sh \
+BINS_M4 = bin/chn.m4 \
+	bin/edda.m4 \
+	bin/pst.m4 \
+	bin/rndl.m4 \
+	bin/swr.m4 \
+	bin/tlcs.m4 \
+	bin/try.m4 \
+	bin/urlc.m4
+
+BINS_SH = bin/chn.sh \
 	bin/edda.sh \
 	bin/pst.sh \
 	bin/rndl.sh \
@@ -226,23 +235,9 @@ all: $(BINS) git/gitconfig gnupg/gpg.conf
 clean distclean:
 	rm -f -- \
 		$(BINS) \
+		$(BINS_M4) \
+		$(BINS_SH) \
 		$(GAMES) \
-		bin/chn.sh \
-		bin/chn.m4 \
-		bin/edda.sh \
-		bin/edda.m4 \
-		bin/pst.sh \
-		bin/pst.m4 \
-		bin/rndl.sh \
-		bin/rndl.m4 \
-		bin/swr.sh \
-		bin/swr.m4 \
-		bin/tlcs.sh \
-		bin/tlcs.m4 \
-		bin/try.sh \
-		bin/try.m4 \
-		bin/urlc.sh \
-		bin/urlc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
 		gnupg/gpg.conf \
@@ -279,7 +274,14 @@ clean distclean:
 .m4.sh:
 	m4 < $< > $@
 
-$(BINS_MI5): include/mktd.m4
+bin/chn.sh: bin/chn.m4 include/mktd.m4
+bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/pst.sh: bin/pst.m4 include/mktd.m4
+bin/rndl.sh: bin/rndl.m4 include/mktd.m4
+bin/swr.sh: bin/swr.m4 include/mktd.m4
+bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
+bin/try.sh: bin/try.m4 include/mktd.m4
+bin/urlc.sh: bin/urlc.m4 include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
@@ -501,7 +503,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS_MI5)
+check-bin: $(BINS_SH)
 	sh check/bin.sh
 
 check-games:
