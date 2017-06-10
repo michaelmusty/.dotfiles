@@ -17,13 +17,10 @@ unf |
 sd2u |
 
 # Use awk to find any values for the header case-insensitively
-awk -v header="$header" '
-BEGIN {
-    FS=": *"
-    header = tolower(header)
-}
+awk -F ': *' -v header="$header" '
+BEGIN { header = tolower(header) }
 tolower($1) == header {
-    sub(/^[^ ]*: */, "")
+    sub(/^[^:]*: */, "")
     print
 }
 '
