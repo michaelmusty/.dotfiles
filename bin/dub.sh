@@ -24,4 +24,4 @@ find . ! -name . -prune \( \
 sort -k1,1nr |
 
 # Limit the output to the given number of lines
-sed "$lines"q
+sed "$((lines))"q
