@@ -1,9 +1,9 @@
-.TH PPH 1df "January 2017" "Manual page for pp"
+.TH PPH 1df "January 2017" "Manual page for pph"
 .SH NAME
-.B pp
+.B pph
 \- print the full path to each argument, hostname prepended
 .SH SYNOPSIS
-.B pp
+.B pph
 /arg arg2 ./arg3
 .SH DESCRIPTION
 .B pph
@@ -12,5 +12,7 @@ prepends the machine's hostname and a colon to each line.
 .SH CAVEATS
 Newlines in filenames will mess this up. This is for generating human-readable
 file lists, not for machines. 
+.SH SEE ALSO
+pp(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

@@ -1,4 +1,3 @@
-
 # Watch a directory for changes and commit them with jfc(1d) if there are any;
 # requires inotifywait(1)
 self=jfcd

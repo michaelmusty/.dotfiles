@@ -6,11 +6,11 @@
 hgrep() {
     if [ "$#" -eq 0 ] ; then
         printf >&2 'hgrep(): Need a pattern\n'
-        exit 2
+        return 2
     fi
-    if ! [ -n "$HISTFILE" ] ; then
+    if [ -z "$HISTFILE" ] ; then
         printf >&2 'hgrep(): No HISTFILE\n'
-        exit 2
+        return 2
     fi
     grep "$@" "$HISTFILE"
 }

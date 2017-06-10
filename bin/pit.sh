@@ -1,3 +1,4 @@
+# Show arguments or output in a pager if stdout looks like a terminal
 
 # If no arguments, we'll use stdin
 if [ "$#" -eq 0 ] ; then

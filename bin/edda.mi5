@@ -1,0 +1,21 @@
+# Run ed(1) over multiple files, duplicating stdin.
+self=edda
+
+# Need at least one file
+if [ "$#" -eq 0 ] ; then
+    printf >&2 'edda: Need at least one file\n'
+    exit 2
+fi
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Duplicate stdin into a file
+script=$td/script
+cat >"$script" || exit
+
+# Run ed(1) over each file with the stdin given
+for file ; do
+    ed -- "$file" <"$script"
+done

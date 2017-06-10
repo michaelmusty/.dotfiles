@@ -15,6 +15,10 @@
 lists the biggest entries in a given directory, defaulting to the current
 directory. It defaults to printing 10 entries unless a second argument is
 given.
+.SH CAVEATS
+Skips filenames with newlines in them with an explicit warning to stderr, for
+the least dangerous POSIX-compatible approach. Even so, you probably shouldn't
+use this in critical scripts.
 .SH SEE ALSO
 du(1)
 .SH AUTHOR

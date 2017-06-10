@@ -41,6 +41,8 @@ bind-key Tab last-pane
 
 # Use the vi mode for tmux interaction behaviour in copy and choice modes
 set-window-option -g mode-keys vi
+bind-key -T copy-mode-vi v send -X begin-selection
+bind-key -T copy-mode-vi y send -X copy-selection-and-cancel
 
 # Detach with Alt-M, no prefix required
 bind-key -n M-m detach
@@ -56,11 +58,6 @@ bind-key h select-pane -L
 bind-key j select-pane -D
 bind-key k select-pane -U
 bind-key l select-pane -R
-
-# Vim-like keys for visual mode and yanking therefrom
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-bind-key -t vi-copy Escape cancel
 
 # Join and break panes
 bind-key J choose-window "join-pane -h -s '%%'"
@@ -113,15 +110,15 @@ set-option -g message-style "bg=colour18,fg=colour231"
 set-window-option -g mode-style "bg=colour18,fg=colour231"
 
 # Pane borders are always in the background color
-set-option -g pane-border-style "fg=DF_TMUX_BG"
-set-option -g pane-active-border-style "fg=DF_TMUX_BG"
+set-option -g pane-border-style "fg=<% DF_TMUX_BG %>"
+set-option -g pane-active-border-style "fg=<% DF_TMUX_BG %>"
 
 # Inactive windows have slightly washed-out system colours
 set-option -g window-style "bg=colour232,fg=colour248"
 set-option -g window-active-style "bg=colour0,fg=colour15"
 
 # The status bar has the defined background and foreground colours
-set-option -g status-style "bg=DF_TMUX_BG,fg=DF_TMUX_FG"
+set-option -g status-style "bg=<% DF_TMUX_BG %>,fg=<% DF_TMUX_FG %>"
 
 # Titles of windows default to black text with no embellishment
 set-window-option -g window-status-style "fg=colour16"

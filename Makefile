@@ -42,7 +42,6 @@
 	install-vim-pathogen \
 	install-vim-plugins \
 	install-x \
-	install-yash \
 	install-zsh \
 	check \
 	check-bash \
@@ -54,7 +53,6 @@
 	check-sh \
 	check-urxvt \
 	check-xinit \
-	check-yash \
 	check-zsh \
 	lint \
 	lint-bash \
@@ -63,11 +61,10 @@
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
-	lint-xinit \
-	lint-yash
+	lint-xinit
 
 .SUFFIXES:
-.SUFFIXES: .awk .bash .pl .sed .sh
+.SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
 
 NAME = 'Tom Ryder'
 EMAIL = tom@sanctum.geek.nz
@@ -92,6 +89,7 @@ BINS = bin/ap \
 	bin/clrd \
 	bin/clwr \
 	bin/csmw \
+	bin/dam \
 	bin/d2u \
 	bin/ddup \
 	bin/dmp \
@@ -104,6 +102,8 @@ BINS = bin/ap \
 	bin/fnl \
 	bin/gms \
 	bin/grc \
+	bin/grec \
+	bin/gred \
 	bin/gscr \
 	bin/gwp \
 	bin/han \
@@ -119,6 +119,7 @@ BINS = bin/ap \
 	bin/jfcd \
 	bin/jfp \
 	bin/loc \
+	bin/mi5 \
 	bin/max \
 	bin/maybe \
 	bin/mean \
@@ -132,17 +133,23 @@ BINS = bin/ap \
 	bin/mode \
 	bin/motd \
 	bin/murl \
+	bin/mw \
 	bin/nlbr \
 	bin/onl \
 	bin/osc \
 	bin/pa \
 	bin/paz \
+	bin/ped \
 	bin/pit \
 	bin/plmu \
+	bin/p \
 	bin/pp \
 	bin/pph \
+	bin/pst \
+	bin/pvi \
 	bin/pwg \
 	bin/quo \
+	bin/rep \
 	bin/rfcf \
 	bin/rfcr \
 	bin/rfct \
@@ -174,6 +181,7 @@ BINS = bin/ap \
 	bin/tlcs \
 	bin/tm \
 	bin/tot \
+	bin/trs \
 	bin/try \
 	bin/u2d \
 	bin/umake \
@@ -190,6 +198,15 @@ BINS = bin/ap \
 	bin/xrbg \
 	bin/xrq
 
+BINS_MI5 = bin/chn.sh \
+	bin/edda.sh \
+	bin/pst.sh \
+	bin/rndl.sh \
+	bin/swr.sh \
+	bin/tlcs.sh \
+	bin/try.sh \
+	bin/urlc.sh
+
 GAMES = games/aaf \
 	games/acq \
 	games/aesth \
@@ -199,6 +216,7 @@ GAMES = games/aaf \
 	games/kvlt \
 	games/rndn \
 	games/rot13 \
+	games/squ \
 	games/strik \
 	games/xyzzy \
 	games/zs
@@ -209,11 +227,59 @@ clean distclean:
 	rm -f -- \
 		$(BINS) \
 		$(GAMES) \
+		bin/chn.sh \
+		bin/chn.m4 \
+		bin/edda.sh \
+		bin/edda.m4 \
+		bin/pst.sh \
+		bin/pst.m4 \
+		bin/rndl.sh \
+		bin/rndl.m4 \
+		bin/swr.sh \
+		bin/swr.m4 \
+		bin/tlcs.sh \
+		bin/tlcs.m4 \
+		bin/try.sh \
+		bin/try.m4 \
+		bin/urlc.sh \
+		bin/urlc.m4 \
 		git/gitconfig \
+		git/gitconfig.m4 \
 		gnupg/gpg.conf \
+		gnupg/gpg.conf.m4 \
+		include/mktd.m4 \
 		man/man8/dotfiles.7df \
 		tmux/tmux.conf \
+		tmux/tmux.conf.m4 \
 		urxvt/ext/select
+
+.awk:
+	sh bin/shb.sh awk -f < $< > $@
+	chmod +x ./$@
+
+.bash:
+	sh bin/shb.sh bash < $< > $@
+	chmod +x ./$@
+
+.pl:
+	sh bin/shb.sh perl < $< > $@
+	chmod +x ./$@
+
+.sed:
+	sh bin/shb.sh sed -f < $< > $@
+	chmod +x ./$@
+
+.sh:
+	sh bin/shb.sh sh < $< > $@
+	chmod +x ./$@
+
+.mi5.m4:
+	awk -f bin/mi5.awk < $< > $@
+
+.m4.sh:
+	m4 < $< > $@
+
+$(BINS_MI5): include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
@@ -241,26 +307,6 @@ TMUX_FG = colour248
 tmux/tmux.conf: tmux/tmux.conf.m4
 	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
 		tmux/tmux.conf.m4 > $@
-
-.awk:
-	sh bin/shb.sh awk -f < $< > $@
-	chmod +x ./$@
-
-.bash:
-	sh bin/shb.sh bash < $< > $@
-	chmod +x ./$@
-
-.pl:
-	sh bin/shb.sh perl < $< > $@
-	chmod +x ./$@
-
-.sed:
-	sh bin/shb.sh sed -f < $< > $@
-	chmod +x ./$@
-
-.sh:
-	sh bin/shb.sh sh < $< > $@
-	chmod +x ./$@
 
 install: install-bin \
 	install-curl \
@@ -440,12 +486,6 @@ install-x: check-xinit
 	cp -p -- X/Xresources $(HOME)/.Xresources
 	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash: install-yash install-sh
-	mkdir -p -- $(HOME)/.yashrc.d
-	cp -p -- yash/yash_profile $(HOME)/.yash_profile
-	cp -p -- yash/yashrc $(HOME)/.yashrc
-	cp -p -- yash/yashrc.d/* $(HOME)/.yashrc.d
-
 install-zsh: check-zsh install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
 	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
@@ -461,7 +501,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin:
+check-bin: $(BINS_MI5)
 	sh check/bin.sh
 
 check-games:
@@ -485,9 +525,6 @@ check-urxvt:
 check-xinit:
 	sh check/xinit.sh
 
-check-yash:
-	sh check/yash.sh
-
 check-zsh:
 	sh check/zsh.sh
 
@@ -497,8 +534,7 @@ lint: lint-bash \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
-	lint-xinit \
-	lint-yash
+	lint-xinit
 
 lint-bash: check-bash
 	sh lint/bash.sh
@@ -520,6 +556,3 @@ lint-urxvt: check-urxvt
 
 lint-xinit: check-xinit
 	sh lint/xinit.sh
-
-lint-yash: check-yash
-	sh lint/yash.sh

@@ -16,7 +16,7 @@ d=${nd#*d}
 
 # Check this is a real die you can actually roll
 case $d in
-    4|6|8|10|12|20) : ;;
+    4|6|8|10|12|20) ;;
     *) exit 2 ;;
 esac
 

@@ -21,3 +21,5 @@ Known issues
 *   Would be good to complete the Makefile variables for NAME, EMAIL etc with
     educated guesses (`id -u`@`cat /etc/mailname`) etc rather than hardcoding
     my own stuff in there
+*   Completion for custom functions e.g. `sd` should ideally respect
+    `completion-ignore-case` setting

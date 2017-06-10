@@ -16,9 +16,9 @@ FILE1 [FILE2...]
 < FILE
 .SH DESCRIPTION
 .B quo
-quotes its input by insert a right-angle bracket followed by a space at the
+quotes its input by inserting a right-angle bracket followed by a space at the
 start of every unquoted line. If the line was already quoted, it adds another
-level of right-angle bracket.
+level of right-angle brackets.
 .SH SEE ALSO
 wro(1df)
 .SH AUTHOR

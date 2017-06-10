@@ -17,7 +17,7 @@ serv=${2:-https}
 set --
 ## If we have rlwrap, use it, but don't complain if we don't
 if command -v rlwrap >/dev/null 2>&1 ; then
-    set -- "$@" rlwrap
+    set -- "$@" rlwrap --history-filename=/dev/null
 fi
 ## The actual openssl(1ssl) and subcommand call
 set -- "$@" openssl s_client

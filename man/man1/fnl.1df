@@ -1,7 +1,7 @@
 .TH FNL 1df "August 2016" "Manual page for fnl"
 .SH NAME
 .B fnl
-\- list the biggest files in the given directory
+\- run a command and put stdout and stderr into temporary files
 .SH SYNOPSIS
 .B fnl
 command arg1 ...

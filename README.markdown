@@ -4,6 +4,10 @@ Dotfiles (Tom Ryder)
 This is my personal repository of configuration files and scripts for `$HOME`,
 including most of the settings that migrate well between machines.
 
+This repository began as a simple way to share Vim and tmux configuration, but
+over time a lot of scripts and shell configuration have been added, making it
+into a personal suite of custom Unix tools.
+
 Installation
 ------------
 
@@ -50,24 +54,23 @@ installed.
 *   `install-vim`
 
 The `install-login-shell` looks at your `SHELL` environment variable and tries
-to figure out which shell to install, falling back on just plain `install-sh`.
+to figure out which shell’s configuration files to install, falling back on
+`install-sh`.
 
 The remaining dotfiles can be installed with the other `install-*` targets. Try
-`sh bin/mftl.sh Makefile` in the project's root directory to see a list.
+`awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
 Tools
 -----
 
 Configuration is included for:
 
-*   Bourne-style POSIX shells, sharing an `ENV` file and functions:
+*   Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and
+    some helper functions:
     *   [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
-    *   [Korn shell](http://www.kornshell.com/) (including `pdksh`, `mksh`)
-    *   [Yash](https://yash.osdn.jp/index.html.en)
+    *   [Korn shell](http://www.kornshell.com/) (`ksh93`, `pdksh`, `mksh`)
     *   [Z shell](https://www.zsh.org/)
 *   [Abook](http://abook.sourceforge.net/) -- curses address book program
-    including a `~/.profile` configured to work with most Bourne-compatible
-    shells
 *   [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data
     with URL syntax
 *   [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
@@ -76,15 +79,15 @@ Configuration is included for:
 *   [Git](https://git-scm.com/) -- Distributed version control system
 *   [GnuPG](https://www.gnupg.org/) -- GNU Privacy Guard, for private
     communication and file encryption
-*   [GTK+](http://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
+*   [GTK+](https://www.gtk.org/) -- GIMP Toolkit, for graphical user interface
     elements
 *   [i3](https://i3wm.org/) -- Tiling window manager
 *   [less](https://www.gnu.org/software/less/) -- Terminal pager
 *   [Mutt](http://www.mutt.org/) -- Terminal mail user agent
-*   [`mysql(1)`](http://linux.die.net/man/1/mysql) -- Command-line MySQL client
+*   [`mysql(1)`](https://linux.die.net/man/1/mysql) -- Command-line MySQL client
 *   [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
 *   [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
-*   [`psql(1)`](http://linux.die.net/man/1/psql) -- Command-line PostgreSQL
+*   [`psql(1)`](https://linux.die.net/man/1/psql) -- Command-line PostgreSQL
     client
 *   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
     engine for Perl
@@ -190,8 +193,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     *   `pmd()` prints the marked directory.
     *   `xd()` swaps the current and marked directories.
 *   Ten other directory management and navigation functions:
-    *   `ad()` is a `cd` shortcut accepting targets like `/u/l/b` for
-        `/usr/local/bin`, as long as they are unique.
     *   `bd()` changes into a named ancestor of the current directory.
     *   `gt()` changes into a directory or into a file's directory.
     *   `lgt()` runs `gt()` on the first result from a `loc(1df)` search.
@@ -220,8 +221,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     available.
     *   `la()` runs `ls -A` if it can, or `ls -a` otherwise.
     *   `ll()` runs `ls -Al` if it can, or `ls -al` otherwise.
-*   `mysql()` allows shortcuts to MySQL configuration files stored in
-    `~/.mysql`.
 *   `path()` manages the contents of `PATH` conveniently.
 *   `scp()` tries to detect forgotten hostnames in `scp(1)` command calls.
 *   `sudo()` forces `-H` for `sudo(8)` calls so that `$HOME` is never
@@ -241,7 +240,7 @@ non-POSIX features, as compatibility allows:
 *   `vared()` allows interactively editing a variable with Readline, emulating
     a Zsh function I like by the same name (Bash).
 *   `ver()` prints the current shell's version information (Bash, Korn Shell,
-    Yash, Z shell).
+    Z shell).
 
 #### Completion
 
@@ -260,7 +259,6 @@ files, for things I really do get tired of typing repeatedly:
 *   `gpg(1)` long options
 *   `make(1)` targets read from a `Makefile`
 *   `man(1)` page titles
-*   `mysql(1)` databases from `~/.mysql/*.cnf`
 *   `pass(1)` entries
 *   `ssh(1)` hostnames from `~/.ssh/config`
 
@@ -279,10 +277,6 @@ These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
 `ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
 prompt if detected.
 
-#### Yash
-
-Just enough configuration to coax it into reading `~/.profile` and `~/.shrc`.
-
 #### Zsh
 
 These are experimental; I do not like Zsh much at the moment. The files started
@@ -292,7 +286,7 @@ as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
 
 The configuration for GnuPG is intended to follow [RiseUp's OpenPGP best
 practices](https://riseup.net/en/security/message-security/openpgp/best-practices).
-The configuration file is rebuilt using `m4(1)` and `make(1)` because it
+The configuration file is rebuilt using `mi5(1df)` and `make(1)` because it
 requires hard-coding a path to the SKS keyserver certificate authority, and
 neither tilde nor `$HOME` expansion works for this.
 
@@ -301,7 +295,7 @@ neither tilde nor `$HOME` expansion works for this.
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
-[maildrop](http://www.courier-mta.org/maildrop/), and
+[maildrop](https://www.courier-mta.org/maildrop/), and
 [MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
@@ -327,7 +321,7 @@ Perl extensions. If you're missing functionality, try changing
 
 My choice of font is [Ubuntu Mono](http://font.ubuntu.com/), but the file
 should allow falling back to the more common [Deja Vu Sans
-Mono](http://dejavu-fonts.org/wiki/Main_Page). I've found
+Mono](https://dejavu-fonts.github.io/). I've found
 [Terminus](http://terminus-font.sourceforge.net/) works well too, but bitmap
 fonts are not really my cup of tea. The Lohit Kannada font bit is purely to
 make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
@@ -339,16 +333,14 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
-The configuration file is created with `m4(1)` to allow specifying a color
+The configuration file is created with `mi5(1df)` to allow specifying a color
 theme. This is just because I use a different color for my work session. The
 default is a dark grey.
 
-The configuration for Bash includes a `tmux` function designed to make `attach`
-into the default command if no arguments are given and sessions do already
-exist. The default command is normally `new-session`.
-
-My `~/.inputrc` file binds Alt+M to attach to or create a `tmux` session, and
-Tmux in turn binds the same key combination to detach.
+The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
+the default command if no arguments are given and sessions do already exist. My
+`~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same key
+combination to detach.
 
 ### Vim
 
@@ -448,6 +440,11 @@ Installed by the `install-bin` target:
 *   Two time duration functions:
     *   `hms(1df)` converts seconds to `hh:mm:ss` or `mm:ss` timestamps.
     *   `sec(1df)` converts `hh:mm:ss` or `mm:ss` timestamps to seconds.
+*   Three pipe interaction tools:
+    *   `pst(1df)` runs an interactive program on data before passing it along
+        a pipeline.
+    *   `ped(1df)` runs `pst(1df)` with `$EDITOR` or `ed(1)`.
+    *   `pvi(1df)` runs `pvi(1df)` with `$VISUAL` or `vi(1)`.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
 *   `apf(1df)` prepends arguments to a command with ones read from a file,
@@ -458,8 +455,7 @@ Installed by the `install-bin` target:
 *   `bel(1df)` prints a terminal bell character.
 *   `bl(1df)` generates a given number of blank lines.
 *   `bp(1df)` runs `br(1df)` after prompting for an URL.
-*   `br(1df)` launches `$BROWSER`, or a more suitable application for an URL if
-    it knows of one.
+*   `br(1df)` launches `$BROWSER`.
 *   `ca(1df)` prints a count of its given arguments.
 *   `cf(1df)` prints a count of entries in a given directory.
 *   `cfr(1df)` does the same as `cf(1df)`, but recurses into subdirectories as
@@ -472,6 +468,7 @@ Installed by the `install-bin` target:
     line.
 *   `csmw(1df)` prints an English list of monospace-quoted words read from the
     input.
+*   `dam(1df)` buffers all its input before emitting it as output.
 *   `ddup(1df)` removes duplicate lines from unsorted input.
 *   `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X
     CLIPBOARD.
@@ -488,6 +485,8 @@ Installed by the `install-bin` target:
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
+*   `grec(1df)` is a more logically-named `grep -c`.
+*   `gred(1df)` is a more logically-named `grep -v`.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 *   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
     look for `help` topics. You could use it from the shell too.
@@ -500,13 +499,19 @@ Installed by the `install-bin` target:
     success,
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
+*   `mi5(1df)` pre-processes a crude but less painful macro expansion file
+    format into `m4` input.
 *   `mftl(1df)` finds usable-looking targets in Makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
+*   `mw(1df)` prints alphabetic space-delimited words from the input one per
+    line.
 *   `onl(1df)` crunches input down to one printable line.
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
+*   `p(1df)` prints concatenated standard input; `cat(1)` as it should always
+    have been.
 *   `pa(1df)` prints its arguments, one per line.
 *   `pp(1df)` prints the full path of each argument using `$PWD`.
 *   `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
@@ -517,6 +522,7 @@ Installed by the `install-bin` target:
     [`plenv`](https://github.com/tokuhirom/plenv), filters out any modules in
     `~/.plenv/non-cpan-modules`, and updates them all.
 *   `pwg(1df)` generates just one decent password with `pwgen(1)`.
+*   `rep(1df)` repeats a command a given number of times.
 *   `rgl(1df)` is a very crude interactive `grep(1)` loop.
 *   `shb(1df)` attempts to build shebang lines for scripts from the system
     paths.
@@ -532,6 +538,7 @@ Installed by the `install-bin` target:
     to use Taskwarrior, but found it too complex and buggy.
 *   `tm(1df)` runs `tmux(1)` with `attach-session -d` if a session exists, and
     `new-session` if it doesn't.
+*   `trs(1df)` replaces strings (not regular expression) in its input.
 *   `try(1df)` repeats a command up to a given number of times until it
     succeeds, only printing error output if all three attempts failed. Good for
     tolerating blips or temporary failures in `cron(8)` scripts.
@@ -553,6 +560,7 @@ There's some silly stuff in `install-games`:
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
 *   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
     ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
+*   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
@@ -592,15 +600,6 @@ Known issues
 
 See ISSUES.markdown.
 
-Note for previous visitors
---------------------------
-
-Most of this repository's five-year history was rewritten shortly after I moved
-it from GitHub to cgit, taking advantage of the upheaval to reduce its size and
-remove useless binary blobs and third-party stuff that I never should have
-versioned anyway. If you've checked this out before, you'll probably need to do
-it again, and per-commit links are likely to be broken. Sorry about that.
-
 License
 -------
 
@@ -610,6 +609,6 @@ If you're feeling generous, please join and/or donate to a free software
 advocacy group, and let me know you did it because of this project:
 
 * [Free Software Foundation](https://www.fsf.org/)
-* [Software in the Public Interest](http://www.spi-inc.org/)
+* [Software in the Public Interest](https://www.spi-inc.org/)
 * [FreeBSD Foundation](https://www.freebsdfoundation.org/)
 * [OpenBSD Foundation](http://www.openbsdfoundation.org/)

@@ -1,70 +1,47 @@
 # Move back up the directory tree to the first directory matching the name
 bd() {
 
-    # Check argument count
+    # Check arguments; default to ".."
     if [ "$#" -gt 1 ] ; then
-        printf >&2 'bd(): Too many arguments'
+        printf >&2 'bd(): Too many arguments\n'
         return 2
     fi
+    set -- "${1:-..}"
 
-    # Set positional parameters to an option terminator and what will hopefully
-    # end up being a target directory
-    set -- "$(
+    # Look at argument given; default to going up one level
+    case $1 in
 
-        # The requested pattern is the first argument, defaulting to just the
-        # parent directory
-        req=${1:-..}
+        # If it's slash, dot, or dot-dot, we'll just go there, like `cd` would
+        /|.|..) ;;
 
-        # Strip trailing slashes if a trailing slash is not the whole pattern
-        [ "$req" = / ] || req=${req%/}
+        # Anything else with a slash anywhere is an error
+        */*)
+            printf >&2 'bd(): Illegal slash\n'
+            return 2
+            ;;
 
-        # What to do now depends on the request
-        case $req in
-
-            # Just go straight to the root or dot directories if asked
-            (/|.|..)
-                dirname=$req
-                ;;
-
-            # Anything with a leading / needs to anchor to the start of the
-            # path. A strange request though. Why not just use cd?
-            (/*)
-                dirname=$req
-                case $PWD in
-                    ("$dirname"/*) ;;
-                    (*) dirname='' ;;
+        # Otherwise, add and keep chopping at the current directory until it's
+        # empty or it matches the request, then shift the request off
+        *)
+            set -- "$1" "$PWD"
+            while : ; do
+                case $2 in
+                    */"$1"|'') break ;;
+                    */) set -- "$1" "${2%/}" ;;
+                    */*) set -- "$1" "${2%/*}" ;;
+                    *) set -- "$1" '' ;;
                 esac
-                ;;
+            done
+            shift
+            ;;
+    esac
 
-            # In all other cases, iterate through the PWD to find a match, or
-            # whittle the target down to an empty string trying
-            (*)
-                dirname=$PWD
-                while [ -n "$dirname" ] ; do
-                    dirname=${dirname%/*}
-                    case $dirname in
-                        (*/"$req") break ;;
-                    esac
-                done
-                ;;
-        esac
+    # If we have nothing to change into, there's an error
+    if [ -z "$1" ] ; then
+        printf >&2 'bd(): No match\n'
+        return 1
+    fi
 
-        # Check we have a target after all that
-        if [ -z "$dirname" ] ; then
-            printf >&2 'bd(): Directory name not in path\n'
-            exit 1
-        fi
-
-        # Print the target with trailing slash to work around newline stripping
-        printf '%s/' "${dirname%/}"
-    )"
-
-    # Remove trailing slash
-    set -- "${1%/}"
-
-    # If the subshell printed nothing, return with failure
-    [ -n "$1" ] || return
-
-    # Try to change into the determined directory
-    command cd -- "$@"
+    # We have a match; try and change into it
+    command cd -- "$1"
 }
