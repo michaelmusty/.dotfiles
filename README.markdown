@@ -476,6 +476,8 @@ Installed by the `install-bin` target:
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
     files, printing their paths and line counts.
+*   `fnp(1df)` prints the given files to stdout, each with a plaintext heading
+    with the filename in it.
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.

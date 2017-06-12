@@ -1,0 +1,24 @@
+.TH FNP 1df "June 2017" "Manual page for fnp"
+.SH NAME
+.B fnp
+\- print input with filename headings
+.SH SYNOPSIS
+.B fnp
+FILE1 [FILE2...]
+.br
+prog1 |
+.B
+fnp
+.br
+prog1 |
+.B
+fnp
+FILE1 - FILE2
+.SH DESCRIPTION
+.B fnp
+prints concatenated standard input from files to standard output, prepending a
+filename title with an underline made of hyphen characters to each one.
+.SH SEE ALSO
+p(1df), pp(1df), pph(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

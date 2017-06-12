@@ -100,6 +100,7 @@ BINS = bin/ap \
 	bin/fgscr \
 	bin/finc \
 	bin/fnl \
+	bin/fnp \
 	bin/gms \
 	bin/grc \
 	bin/grec \
