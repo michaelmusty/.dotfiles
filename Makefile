@@ -385,9 +385,9 @@ install-gnupg: gnupg/gpg.conf
 	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
-	mkdir -p -- $(HOME)/.config/gtkrc-3.0
+	mkdir -p -- $(HOME)/.config/gtk-3.0
 	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
-	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
+	cp -p -- gtk/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0
 
 install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
