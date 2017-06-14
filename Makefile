@@ -311,8 +311,8 @@ TMUX_FG = colour248
 
 tmux/tmux.conf: tmux/tmux.conf.m4
 	m4 \
-		-D BG=$(TMUX_BG) \
-		-D FG=$(TMUX_FG) \
+		-D TMUX_BG=$(TMUX_BG) \
+		-D TMUX_FG=$(TMUX_FG) \
 		tmux/tmux.conf.m4 > $@
 
 install: install-bin \
