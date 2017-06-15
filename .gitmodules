@@ -13,9 +13,6 @@
 [submodule "vim/bundle/lion"]
     path = vim/bundle/lion
     url = https://sanctum.geek.nz/clone/vim-lion.git
-[submodule "vim/bundle/nagios"]
-    path = vim/bundle/nagios
-    url = https://sanctum.geek.nz/code/vim-nagios.git
 [submodule "vim/bundle/pathogen"]
     path = vim/bundle/pathogen
     url = https://sanctum.geek.nz/clone/vim-pathogen.git
@@ -31,9 +28,6 @@
 [submodule "vim/bundle/targets"]
     path = vim/bundle/targets
     url = https://sanctum.geek.nz/clone/targets.vim.git
-[submodule "vim/bundle/tmux"]
-    path = vim/bundle/tmux
-    url = https://sanctum.geek.nz/clone/vim-tmux.git
 [submodule "vim/bundle/unimpaired"]
     path = vim/bundle/unimpaired
     url = https://sanctum.geek.nz/clone/vim-unimpaired.git
