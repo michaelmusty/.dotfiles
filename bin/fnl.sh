@@ -3,7 +3,7 @@
 # Check we have at least one argument
 if [ "$#" -eq 0 ] ; then
     printf >&2 'fnl: Command needed\n'
-    return 2
+    exit 2
 fi
 
 # Create a temporary directory; note that we *don't* clean it up on exit
