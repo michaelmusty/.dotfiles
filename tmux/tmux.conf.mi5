@@ -71,7 +71,7 @@ bind-key s choose-session
 set-option -g status-left '[#S] '
 
 # Username, hostname, and the current date on the right side of the status bar
-set-option -g status-right ' [#(whoami)@#H] #(date +"%F %T")'
+set-option -g status-right ' [#H] %F %T'
 
 # Update the status bar every second
 set-option -g status-interval 1
