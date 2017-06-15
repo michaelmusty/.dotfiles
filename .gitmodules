@@ -33,7 +33,7 @@
     url = https://sanctum.geek.nz/clone/targets.vim.git
 [submodule "vim/bundle/tmux"]
     path = vim/bundle/tmux
-    url = https://sanctum.geek.nz/code/vim-tmux.git
+    url = https://sanctum.geek.nz/clone/vim-tmux.git
 [submodule "vim/bundle/unimpaired"]
     path = vim/bundle/unimpaired
     url = https://sanctum.geek.nz/clone/vim-unimpaired.git
