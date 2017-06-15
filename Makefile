@@ -245,8 +245,6 @@ clean distclean:
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		tmux/tmux.conf \
-		tmux/tmux.conf.m4 \
 		urxvt/ext/select
 
 .awk:
@@ -308,12 +306,6 @@ MAILDIR = $(HOME)/Mail
 
 TMUX_BG = colour237
 TMUX_FG = colour248
-
-tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 \
-		-D TMUX_BG=$(TMUX_BG) \
-		-D TMUX_FG=$(TMUX_FG) \
-		tmux/tmux.conf.m4 > $@
 
 install: install-bin \
 	install-curl \

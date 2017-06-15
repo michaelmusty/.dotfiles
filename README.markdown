@@ -327,10 +327,6 @@ Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
-The configuration file is created with `mi5(1df)` to allow specifying a color
-theme. This is just because I use a different color for my work session. The
-default is a dark grey.
-
 The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
 the default command if no arguments are given and sessions do already exist. My
 `~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same key
