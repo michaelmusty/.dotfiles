@@ -304,9 +304,6 @@ man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 
 MAILDIR = $(HOME)/Mail
 
-TMUX_BG = colour237
-TMUX_FG = colour248
-
 install: install-bin \
 	install-curl \
 	install-ex \
