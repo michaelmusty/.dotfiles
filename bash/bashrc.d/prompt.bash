@@ -249,5 +249,5 @@ prompt() {
     esac
 }
 
-# Start with full-fledged prompt
-prompt on
+# Default to a full-featured prompt, but use PROMPT_MODE if that's set
+prompt "${PROMPT_MODE:-on}"
