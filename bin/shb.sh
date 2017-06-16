@@ -1,10 +1,10 @@
 # Use PATH to build a shebang for a script given on stdin
 self=shb
 
-# Need at least two arguments
+# Need at least one argument
 if [ "$#" -lt 1 ] ; then
     printf >&2 '%s: Need interpreter command\n' "$self"
-    exit 1
+    exit 2
 fi
 
 # First argument is the name of the interpreter
@@ -23,4 +23,4 @@ set -- "$intp" "$@"
 printf '#!%s\n' "$*"
 
 # Emit the rest of the input
-cat
+cat -

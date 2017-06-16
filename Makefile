@@ -100,6 +100,7 @@ BINS = bin/ap \
 	bin/fgscr \
 	bin/finc \
 	bin/fnl \
+	bin/fnp \
 	bin/gms \
 	bin/grc \
 	bin/grec \
@@ -198,7 +199,16 @@ BINS = bin/ap \
 	bin/xrbg \
 	bin/xrq
 
-BINS_MI5 = bin/chn.sh \
+BINS_M4 = bin/chn.m4 \
+	bin/edda.m4 \
+	bin/pst.m4 \
+	bin/rndl.m4 \
+	bin/swr.m4 \
+	bin/tlcs.m4 \
+	bin/try.m4 \
+	bin/urlc.m4
+
+BINS_SH = bin/chn.sh \
 	bin/edda.sh \
 	bin/pst.sh \
 	bin/rndl.sh \
@@ -226,31 +236,15 @@ all: $(BINS) git/gitconfig gnupg/gpg.conf
 clean distclean:
 	rm -f -- \
 		$(BINS) \
+		$(BINS_M4) \
+		$(BINS_SH) \
 		$(GAMES) \
-		bin/chn.sh \
-		bin/chn.m4 \
-		bin/edda.sh \
-		bin/edda.m4 \
-		bin/pst.sh \
-		bin/pst.m4 \
-		bin/rndl.sh \
-		bin/rndl.m4 \
-		bin/swr.sh \
-		bin/swr.m4 \
-		bin/tlcs.sh \
-		bin/tlcs.m4 \
-		bin/try.sh \
-		bin/try.m4 \
-		bin/urlc.sh \
-		bin/urlc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
 		gnupg/gpg.conf \
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		tmux/tmux.conf \
-		tmux/tmux.conf.m4 \
 		urxvt/ext/select
 
 .awk:
@@ -279,20 +273,29 @@ clean distclean:
 .m4.sh:
 	m4 < $< > $@
 
-$(BINS_MI5): include/mktd.m4
+bin/chn.sh: bin/chn.m4 include/mktd.m4
+bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/pst.sh: bin/pst.m4 include/mktd.m4
+bin/rndl.sh: bin/rndl.m4 include/mktd.m4
+bin/swr.sh: bin/swr.m4 include/mktd.m4
+bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
+bin/try.sh: bin/try.m4 include/mktd.m4
+bin/urlc.sh: bin/urlc.m4 include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DF_NAME=$(NAME) \
-		-D DF_EMAIL=$(EMAIL) \
-		-D DF_KEY=$(KEY) \
-		-D DF_SENDMAIL=$(SENDMAIL) \
+		-D NAME=$(NAME) \
+		-D EMAIL=$(EMAIL) \
+		-D KEY=$(KEY) \
+		-D SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > $@
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
-	m4 -D DF_HOME=$(HOME) -D DF_KEYSERVER=$(KEYSERVER) \
+	m4 \
+		-D HOME=$(HOME) \
+		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
@@ -300,13 +303,6 @@ man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 		pandoc -sS -t man -o $@
 
 MAILDIR = $(HOME)/Mail
-
-TMUX_BG = colour237
-TMUX_FG = colour248
-
-tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
-		tmux/tmux.conf.m4 > $@
 
 install: install-bin \
 	install-curl \
@@ -378,9 +374,9 @@ install-gnupg: gnupg/gpg.conf
 	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
-	mkdir -p -- $(HOME)/.config/gtkrc-3.0
+	mkdir -p -- $(HOME)/.config/gtk-3.0
 	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
-	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
+	cp -p -- gtk/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0
 
 install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
@@ -501,7 +497,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS_MI5)
+check-bin: $(BINS_SH)
 	sh check/bin.sh
 
 check-games:

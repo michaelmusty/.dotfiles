@@ -52,13 +52,13 @@
 
 [sendemail]
     confirm = compose
-    smtpServer = <% DF_SENDMAIL %>
+    smtpServer = <% SENDMAIL %>
 
 [status]
     short = true
     showUntrackedFiles = all
 
 [user]
-    name = <% DF_NAME %>
-    email = <% DF_EMAIL %>
-    signingKey = <% DF_KEY %>
+    name = <% NAME %>
+    email = <% EMAIL %>
+    signingKey = <% KEY %>

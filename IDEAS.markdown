@@ -12,3 +12,6 @@ Ideas
     processes and mkfifo(1).
 *   Write something like hcat(1df) or tcat(1df) that includes filename headings
     for each concatenated file.
+*   I can probably get rid of all that nasty templated shell by writing
+    something that wraps around td(1df) and generates shell script to run, and
+    calls that via `eval`.

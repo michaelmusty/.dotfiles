@@ -3,6 +3,7 @@
 # There should be at least two arguments
 if [ "$#" -eq 0 ] ; then
     printf >&2 'igs: Need an ignore list x,y,z and a command\n';
+    exit 2
 fi
 
 # The list of values to ignore is the first argument; add a trailing comma for

@@ -4,7 +4,7 @@ self=dub
 # First optional argument is the directory, defaulting to the
 # current dir; second optional argument is the number of files to
 # show, defaulting to 20
-dir=${1:-.} lines=${2:-10}
+dir=${1:-.} lim=${2:-10}
 
 # Enter the target dir or bail
 cd -- "$dir" || exit
@@ -24,4 +24,4 @@ find . ! -name . -prune \( \
 sort -k1,1nr |
 
 # Limit the output to the given number of lines
-sed "$((lines))"q
+awk -v lim="$lim" 'NR<=lim'
