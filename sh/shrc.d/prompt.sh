@@ -5,7 +5,7 @@ unset PS1 PS2 PS3 PS4
 PS1='$ ' PS2='> ' PS3='? ' PS4='+ '
 
 # If we have an SSH_CLIENT or SSH_CONNECTION environment variable, put the
-# username and hostname in PS1 too.
+# hostname in PS1 too.
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ] ; then
-    PS1=$(id -nu)'@'$(hostname)'$ '
+    PS1=$(hostname)'$ '
 fi
