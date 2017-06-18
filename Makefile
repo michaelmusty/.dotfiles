@@ -383,12 +383,16 @@ install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
 	cp -p -- i3/* $(HOME)/.i3
 
+install-keychain: install-sh
+	cp -p -- keychain/profile.d/* $(HOME)/.profile.d
+	cp -p -- keychain/shrc.d/* $(HOME)/.shrc.d
+
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
 
 install-mpd: install-sh
-	mkdir -p -- $(HOME)/.profile.d $(HOME)/.mpd $(HOME)/.mpd/playlists
+	mkdir -p -- $(HOME)/.mpd/playlists
 	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
 	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
@@ -409,7 +413,7 @@ install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
-	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
+	mkdir -p -- $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
@@ -423,8 +427,7 @@ install-perlcritic:
 install-perltidy:
 	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
 
-install-plenv:
-	mkdir -p -- $(HOME)/.profile.d/ $(HOME)/.shrc.d
+install-plenv: install-sh
 	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
 	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
