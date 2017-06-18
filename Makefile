@@ -22,6 +22,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-mpd \
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
@@ -386,12 +387,17 @@ install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
 
+install-mpd: install-sh
+	mkdir -p -- $(HOME)/.profile.d $(HOME)/.mpd $(HOME)/.mpd/playlists
+	cp -p .. mpd/profile.d/mpd.sh $(HOME)/.profile.d
+	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
+
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
-install-ncmcpp:
+install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
