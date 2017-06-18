@@ -389,7 +389,7 @@ install-less:
 
 install-mpd: install-sh
 	mkdir -p -- $(HOME)/.profile.d $(HOME)/.mpd $(HOME)/.mpd/playlists
-	cp -p .. mpd/profile.d/mpd.sh $(HOME)/.profile.d
+	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
 	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
@@ -422,6 +422,11 @@ install-perlcritic:
 
 install-perltidy:
 	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
+
+install-plenv:
+	mkdir -p -- $(HOME)/.profile.d/ $(HOME)/.shrc.d
+	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
+	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
 install-psql:
 	cp -p -- psql/psqlrc $(HOME)/.psqlrc
