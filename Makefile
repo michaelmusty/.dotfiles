@@ -22,6 +22,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-mpd \
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
@@ -100,6 +101,7 @@ BINS = bin/ap \
 	bin/fgscr \
 	bin/finc \
 	bin/fnl \
+	bin/fnp \
 	bin/gms \
 	bin/grc \
 	bin/grec \
@@ -244,8 +246,6 @@ clean distclean:
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		tmux/tmux.conf \
-		tmux/tmux.conf.m4 \
 		urxvt/ext/select
 
 .awk:
@@ -285,16 +285,18 @@ bin/urlc.sh: bin/urlc.m4 include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DF_NAME=$(NAME) \
-		-D DF_EMAIL=$(EMAIL) \
-		-D DF_KEY=$(KEY) \
-		-D DF_SENDMAIL=$(SENDMAIL) \
+		-D NAME=$(NAME) \
+		-D EMAIL=$(EMAIL) \
+		-D KEY=$(KEY) \
+		-D SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > $@
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
-	m4 -D DF_HOME=$(HOME) -D DF_KEYSERVER=$(KEYSERVER) \
+	m4 \
+		-D HOME=$(HOME) \
+		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
@@ -302,13 +304,6 @@ man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 		pandoc -sS -t man -o $@
 
 MAILDIR = $(HOME)/Mail
-
-TMUX_BG = colour237
-TMUX_FG = colour248
-
-tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
-		tmux/tmux.conf.m4 > $@
 
 install: install-bin \
 	install-curl \
@@ -380,24 +375,33 @@ install-gnupg: gnupg/gpg.conf
 	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
-	mkdir -p -- $(HOME)/.config/gtkrc-3.0
+	mkdir -p -- $(HOME)/.config/gtk-3.0
 	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
-	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
+	cp -p -- gtk/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0
 
 install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
 	cp -p -- i3/* $(HOME)/.i3
 
+install-keychain: install-sh
+	cp -p -- keychain/profile.d/* $(HOME)/.profile.d
+	cp -p -- keychain/shrc.d/* $(HOME)/.shrc.d
+
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
+
+install-mpd: install-sh
+	mkdir -p -- $(HOME)/.mpd/playlists
+	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
-install-ncmcpp:
+install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
@@ -409,7 +413,7 @@ install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
-	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
+	mkdir -p -- $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
@@ -422,6 +426,10 @@ install-perlcritic:
 
 install-perltidy:
 	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
+
+install-plenv: install-sh
+	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
+	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
 install-psql:
 	cp -p -- psql/psqlrc $(HOME)/.psqlrc

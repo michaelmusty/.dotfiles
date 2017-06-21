@@ -1,7 +1,8 @@
-auto-reload     yes
-confirm-exit    yes
-reload-threads  5
-reload-time     30
+auto-reload         yes
+confirm-exit        yes
+keep-articles-days  180
+reload-threads      5
+reload-time         30
 
 bind-key  j  next
 bind-key  k  prev
