@@ -9,7 +9,7 @@ hgrep() {
         return 2
     fi
     if [ -z "$HISTFILE" ] ; then
-        printf >&2 'hgrep(): No HISTFILE\n'
+        printf >&2 'hgrep(): HISTFILE unset or null\n'
         return 2
     fi
     grep "$@" "$HISTFILE"
