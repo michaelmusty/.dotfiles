@@ -42,6 +42,7 @@
 	install-vim-gui-config \
 	install-vim-pathogen \
 	install-vim-plugins \
+	install-wget \
 	install-x \
 	install-zsh \
 	check \
@@ -482,6 +483,9 @@ install-vim-plugins: install-vim-config
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
+
+install-wget:
+	cp -p -- wget/wgetrc $(HOME)/.wgetrc
 
 install-x: check-xinit
 	mkdir -p -- \
