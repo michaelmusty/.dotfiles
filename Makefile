@@ -296,7 +296,6 @@ KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
-		-D HOME=$(HOME) \
 		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
@@ -371,9 +370,8 @@ install-git: git/gitconfig
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
 install-gnupg: gnupg/gpg.conf
-	mkdir -m 0700 -p -- $(HOME)/.gnupg $(HOME)/.gnupg/sks-keyservers.net
+	mkdir -m 0700 -p -- $(HOME)/.gnupg
 	cp -p -- gnupg/*.conf $(HOME)/.gnupg
-	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
 	mkdir -p -- $(HOME)/.config/gtk-3.0
