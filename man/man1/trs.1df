@@ -19,5 +19,7 @@ implementations. It is thereby the string complement for tr(1).
 The first argument cannot be a null string. The second argument can be blank
 (but must still be specified) to implicitly delete all occurrences of the
 string.
+.SH CAVEATS
+It can't replace newlines.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

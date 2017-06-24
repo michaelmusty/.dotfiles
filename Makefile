@@ -22,6 +22,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-mpd \
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
@@ -41,6 +42,7 @@
 	install-vim-gui-config \
 	install-vim-pathogen \
 	install-vim-plugins \
+	install-wget \
 	install-x \
 	install-zsh \
 	check \
@@ -382,16 +384,25 @@ install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
 	cp -p -- i3/* $(HOME)/.i3
 
+install-keychain: install-sh
+	cp -p -- keychain/profile.d/* $(HOME)/.profile.d
+	cp -p -- keychain/shrc.d/* $(HOME)/.shrc.d
+
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
+
+install-mpd: install-sh
+	mkdir -p -- $(HOME)/.mpd/playlists
+	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
-install-ncmcpp:
+install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
@@ -403,7 +414,7 @@ install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
-	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
+	mkdir -p -- $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
@@ -416,6 +427,10 @@ install-perlcritic:
 
 install-perltidy:
 	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
+
+install-plenv: install-sh
+	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
+	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
 install-psql:
 	cp -p -- psql/psqlrc $(HOME)/.psqlrc
@@ -468,6 +483,9 @@ install-vim-plugins: install-vim-config
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
+
+install-wget:
+	cp -p -- wget/wgetrc $(HOME)/.wgetrc
 
 install-x: check-xinit
 	mkdir -p -- \

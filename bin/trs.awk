@@ -1,4 +1,4 @@
-# Substitute one string for another in input (no regex)
+# Substitute one string for another in input (no newlines, no regex)
 BEGIN {
     # Name self
     self = "trs"

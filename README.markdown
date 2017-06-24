@@ -141,20 +141,20 @@ after testing `BASH_VERSINFO` appropriately.
 A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
-    tom@remote:~$ cd .dotfiles
-    tom@remote:~/.dotfiles(master+!)$ git status
+    remote:~$ cd .dotfiles
+    remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@remote:~/.dotfiles(master+!)$ foobar
+    remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
+    remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@remote:~/.dotfiles(master+!){1}$
+    remote:~/.dotfiles(master+!){1}$
 
-The username and hostname are elided if not connected via SSH. The working
-directory with tilde abbreviation for `$HOME` is always shown. The rest of the
-prompt expands based on context to include these elements in this order:
+The hostname is elided if not connected via SSH. The working directory with
+tilde abbreviation for `$HOME` is always shown. The rest of the prompt expands
+based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion

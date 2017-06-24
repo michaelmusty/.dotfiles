@@ -15,7 +15,7 @@ prompt() {
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'\u@\h:'
+                PS1=$PS1'\h:'
             fi
             PS1=$PS1'\w'
 
@@ -86,7 +86,7 @@ prompt() {
             PS3='? '
             PS4='+ '
             if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
-                PS1=$(id -nu)'@'$(hostname -s)'$ '
+                PS1=$(hostname -s)'$ '
             fi
             ;;
 
