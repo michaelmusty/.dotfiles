@@ -7,5 +7,5 @@ PS1='$ ' PS2='> ' PS3='? ' PS4='+ '
 # If we have an SSH_CLIENT or SSH_CONNECTION environment variable, put the
 # hostname in PS1 too.
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ] ; then
-    PS1=$(hostname)'$ '
+    PS1=$(hostname -s)'$ '
 fi
