@@ -395,7 +395,7 @@ install-less:
 
 install-mpd: install-sh
 	mkdir -p -- $(HOME)/.mpd/playlists
-	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/profile.d/* $(HOME)/.profile.d
 	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
