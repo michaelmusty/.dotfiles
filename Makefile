@@ -315,6 +315,9 @@ install: install-bin \
 	install-readline \
 	install-vim
 
+install-conf:
+	sh install/install-conf.sh
+
 install-abook:
 	mkdir -p -- $(HOME)/.abook
 	cp -p -- abook/abookrc $(HOME)/.abook

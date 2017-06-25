@@ -23,3 +23,4 @@ Known issues
     my own stuff in there
 *   Completion for custom functions e.g. `sd` should ideally respect
     `completion-ignore-case` setting
+*   Document `install-conf` target once I'm sure it's not a dumb idea
