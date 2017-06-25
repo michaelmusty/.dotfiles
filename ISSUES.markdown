@@ -24,3 +24,4 @@ Known issues
 *   Completion for custom functions e.g. `sd` should ideally respect
     `completion-ignore-case` setting
 *   Document `install-conf` target once I'm sure it's not a dumb idea
+*   Need to decide whether I care about XDG, and implement it if I do
