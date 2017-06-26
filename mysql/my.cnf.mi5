@@ -1,0 +1,11 @@
+[mysql]
+default-character-set=utf8
+no-auto-rehash
+prompt='(\u@\h:\d) mysql> '
+safe-updates
+skip-pager
+
+[client]
+<% ifdef(`MYSQL_HOST', ``host='MYSQL_HOST', `dnl') %>
+<% ifdef(`MYSQL_USER', ``user='MYSQL_USER', `dnl') %>
+<% ifdef(`MYSQL_PASSWORD', ``password='MYSQL_PASSWORD', `dnl') %>

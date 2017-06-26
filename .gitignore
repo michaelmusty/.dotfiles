@@ -160,4 +160,6 @@ gnupg/gpg.conf
 gnupg/gpg.conf.m4
 include/mktd.m4
 man/man7/dotfiles.7df
+mysql/my.cnf
+mysql/my.cnf.m4
 urxvt/ext/select
