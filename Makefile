@@ -247,8 +247,6 @@ clean distclean:
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		mysql/my.cnf \
-		mysql/my.cnf.m4 \
 		urxvt/ext/select
 
 .awk:
@@ -304,13 +302,6 @@ gnupg/gpg.conf: gnupg/gpg.conf.m4
 man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
 	cat man/man7/dotfiles.7df.header README.markdown | \
 		pandoc -sS -t man -o $@
-
-mysql/my.cnf: mysql/my.cnf.m4
-	m4 \
-		-D MYSQL_HOST=$(MYSQL_HOST) \
-		-D MYSQL_USER=$(MYSQL_USER) \
-		-D MYSQL_PASSWORD=$(MYSQL_PASSWORD) \
-		mysql/my.cnf.m4 > $@
 
 MAILDIR = $(HOME)/Mail
 
@@ -420,7 +411,7 @@ install-newsbeuter:
 	mkdir -p -- $(HOME)/.config/newsbeuter $(HOME)/.local/share/newsbeuter
 	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter
 
-install-mysql: mysql/my.cnf
+install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
