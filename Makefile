@@ -420,7 +420,7 @@ install-newsbeuter:
 	mkdir -p -- $(HOME)/.config/newsbeuter $(HOME)/.local/share/newsbeuter
 	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter
 
-install-mysql:
+install-mysql: mysql/my.cnf
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
