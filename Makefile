@@ -138,6 +138,7 @@ BINS = bin/ap \
 	bin/murl \
 	bin/mw \
 	bin/nlbr \
+	bin/oii \
 	bin/onl \
 	bin/osc \
 	bin/pa \
@@ -203,6 +204,7 @@ BINS = bin/ap \
 
 BINS_M4 = bin/chn.m4 \
 	bin/edda.m4 \
+	bin/oii.m4 \
 	bin/pst.m4 \
 	bin/rndl.m4 \
 	bin/swr.m4 \
@@ -212,6 +214,7 @@ BINS_M4 = bin/chn.m4 \
 
 BINS_SH = bin/chn.sh \
 	bin/edda.sh \
+	bin/oii.sh \
 	bin/pst.sh \
 	bin/rndl.sh \
 	bin/swr.sh \
@@ -277,6 +280,7 @@ clean distclean:
 
 bin/chn.sh: bin/chn.m4 include/mktd.m4
 bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/oii.sh: bin/oii.m4 include/mktd.m4
 bin/pst.sh: bin/pst.m4 include/mktd.m4
 bin/rndl.sh: bin/rndl.m4 include/mktd.m4
 bin/swr.sh: bin/swr.m4 include/mktd.m4

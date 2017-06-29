@@ -67,6 +67,9 @@ bin/motd
 bin/murl
 bin/mw
 bin/nlbr
+bin/oii
+bin/oii.sh
+bin/oii.m4
 bin/onl
 bin/osc
 bin/p
