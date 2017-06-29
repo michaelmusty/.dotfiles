@@ -203,8 +203,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
-*   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use if
