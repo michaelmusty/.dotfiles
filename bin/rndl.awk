@@ -8,7 +8,10 @@ BEGIN {
 
     # Seed the random number generator
     "rnds 2>/dev/null" | getline seed
-    srand(seed)
+    if (length(seed))
+        srand(seed)
+    else
+        srand()
 }
 
 # Iterate over the lines, randomly assigning the first field of each one with a
