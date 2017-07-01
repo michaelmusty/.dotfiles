@@ -34,7 +34,7 @@ END {
     # Strip trailing possessives and punctuation
     sub(/[^[:alpha:]]+s*$/, "", wr)
 
-    # Two or three "has"? Important decisions here folks
+    # Two or three "ha"s? Important decisions here folks
     hr = int(rand()*2+1)
     for (ha = "Ha"; hi < hr; hi++)
         ha = ha ", ha"
