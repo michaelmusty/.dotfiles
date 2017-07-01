@@ -554,6 +554,7 @@ There's some silly stuff in `install-games`:
 *   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
+*   `pks(6df)` laughs at a randomly selected word.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
 *   `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 *   `rot13(6df)` rotates the Latin letters in its input.

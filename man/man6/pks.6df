@@ -1,0 +1,21 @@
+.TH PKS 6df "July 2017" "Manual page for pks"
+.SH NAME
+.B pks
+\- select and laugh at a random word from a system dictionary or fileset
+.SH USAGE
+.B pks
+.br
+.B pks
+FILE1 FILE2
+.br
+DICT=$HOME/dict
+.B pks
+.SH DESCRIPTION
+.B pks
+picks a random word from a set of files and laughs at it. If no files are
+given, it defaults to /usr/share/dict/words, or the value of DICT (ha, ha!) if
+specified in the environment.
+.SH SEE ALSO
+<https://www.youtube.com/watch?v=F8ID1KJQxB8>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

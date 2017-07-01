@@ -228,6 +228,7 @@ GAMES = games/aaf \
 	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/pks \
 	games/rndn \
 	games/rot13 \
 	games/squ \
