@@ -30,9 +30,7 @@ function prompt {
                 (*'MIRBSD KSH'*) ksh=mksh ;;
             esac
             case ${SHELL##*/} in
-                ('') ;;
-                (ksh) ;;
-                ("$ksh") ;;
+                (''|ksh|"$ksh") ;;
                 (*) PS1=$ksh:$PS1 ;;
             esac
 

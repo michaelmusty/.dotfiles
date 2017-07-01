@@ -5,7 +5,7 @@ if [ "$#" -gt 0 ] ; then
     :
 
 # If a session exists, just attach to it
-elif command tmux has-session 2>/dev/null ; then
+elif tmux has-session 2>/dev/null ; then
     set -- attach-session -d
 
 # Create a new session with an appropriate name

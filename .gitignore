@@ -67,6 +67,9 @@ bin/motd
 bin/murl
 bin/mw
 bin/nlbr
+bin/oii
+bin/oii.sh
+bin/oii.m4
 bin/onl
 bin/osc
 bin/p
@@ -159,5 +162,4 @@ git/gitconfig.m4
 gnupg/gpg.conf
 gnupg/gpg.conf.m4
 include/mktd.m4
-man/man7/dotfiles.7df
 urxvt/ext/select

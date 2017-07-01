@@ -1,0 +1,19 @@
+# Only run a command on input if there was at least one byte
+self=oii
+
+# Need at least a command name
+if [ "$#" -eq 0 ] ; then
+    printf >&2 '%s: Need a command\n' "$self"
+    exit 2
+fi
+
+<%
+include(`include/mktd.m4')
+%>
+
+# There is probably a way better way to do this than writing the whole file to
+# disk and then reading it off again, but until I think of something better,
+# this works and is byte-safe.
+cat - > "$td"/in
+[ -s "$td"/in ] || exit
+"$@" < "$td"/in
