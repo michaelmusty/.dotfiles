@@ -37,7 +37,11 @@ for name ; do
     # If the "found" variable was defined to something, we'll try to change its
     # permissions
     if [ -n "$found" ] ; then
-        chmod +x -- "$found" || ex=1
+        case $found in
+            /*) ;;
+            *) found=$PWD/$found ;;
+        esac
+        chmod +x "$found" || ex=1
 
     # If not, we'll report that we couldn't find it, and flag an error for the
     # exit status
