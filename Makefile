@@ -205,7 +205,6 @@ BINS_M4 = bin/chn.m4 \
 	bin/edda.m4 \
 	bin/oii.m4 \
 	bin/pst.m4 \
-	bin/rndl.m4 \
 	bin/swr.m4 \
 	bin/tlcs.m4 \
 	bin/try.m4 \
@@ -215,7 +214,6 @@ BINS_SH = bin/chn.sh \
 	bin/edda.sh \
 	bin/oii.sh \
 	bin/pst.sh \
-	bin/rndl.sh \
 	bin/swr.sh \
 	bin/tlcs.sh \
 	bin/try.sh \
@@ -228,6 +226,7 @@ GAMES = games/aaf \
 	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/pks \
 	games/rndn \
 	games/rot13 \
 	games/squ \
@@ -281,7 +280,6 @@ bin/chn.sh: bin/chn.m4 include/mktd.m4
 bin/edda.sh: bin/edda.m4 include/mktd.m4
 bin/oii.sh: bin/oii.m4 include/mktd.m4
 bin/pst.sh: bin/pst.m4 include/mktd.m4
-bin/rndl.sh: bin/rndl.m4 include/mktd.m4
 bin/swr.sh: bin/swr.m4 include/mktd.m4
 bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
 bin/try.sh: bin/try.m4 include/mktd.m4

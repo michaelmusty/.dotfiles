@@ -95,8 +95,6 @@ bin/rnda
 bin/rndf
 bin/rndi
 bin/rndl
-bin/rndl.sh
-bin/rndl.m4
 bin/rnds
 bin/sd2u
 bin/sec
@@ -151,6 +149,7 @@ games/chkl
 games/dr
 games/drakon
 games/kvlt
+games/pks
 games/rndn
 games/rot13
 games/squ

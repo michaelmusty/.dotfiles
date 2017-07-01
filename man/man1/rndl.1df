@@ -13,7 +13,7 @@ command |
 .B rndl
 .SH DESCRIPTION
 .B rndl
-prints a random line from its input, using rndi(1df) to choose it. This is
+prints a random line from its input, using rnds(1df) as a seed. This is
 probably not a high-quality source, but should differ within seconds and
 between runs on most systems.
 .SH SEE ALSO
