@@ -13,12 +13,13 @@ BEGIN {
     }
 
     # Seed the random number generator
-    srand()
+    "rnds 2>/dev/null" | getline seed
+    srand(seed)
 }
 
 # Iterate over the lines, randomly assigning the first field of each one with a
 # decreasing probability; this method
-rand() * NR < 1 { wr = $1 }
+$1 ~ /[[:alpha:]]/ && rand() * ++n < 1 { wr = $1 }
 
 # Ha, ha, ha! Incompetent!
 END {
@@ -27,11 +28,10 @@ END {
     if (!NR)
         exit 1
 
-    # Strip trailing possessives
-    sub(/'s*$/, "", wr)
+    # Strip trailing possessives and punctuation
+    sub(/[^[:alpha:]]+s*$/, "", wr)
 
     # Two or three "has"? Important decisions here folks
-    srand()
     hr = int(rand()*2+1)
     for (ha = "Ha"; hi < hr; hi++)
         ha = ha ", ha"
