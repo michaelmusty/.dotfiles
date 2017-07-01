@@ -23,7 +23,7 @@ BEGIN {
 # Iterate over the lines, randomly assigning the first field of each one with a
 # decreasing probability; this method allows a single pass over the input,
 # though it requires a lot of random numbers
-$1 ~ /[[:alpha:]]/ && rand() * ++n < 1 { wr = $1 }
+$1 ~ /[a-zA-Z]/ && rand() * ++n < 1 { wr = $1 }
 
 # Ha, ha! Conclusion!
 END {
@@ -33,7 +33,7 @@ END {
         exit 1
 
     # Strip trailing possessives and punctuation
-    sub(/[^[:alpha:]]+s*$/, "", wr)
+    sub(/[^a-zA-Z]+s*$/, "", wr)
 
     # Two or three "ha"s? Important decisions here folks
     hr = int(rand()*2+1)
