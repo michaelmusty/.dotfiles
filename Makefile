@@ -9,7 +9,6 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dotfiles-man \
 	install-dunst \
 	install-ex \
 	install-finger \
@@ -303,10 +302,6 @@ gnupg/gpg.conf: gnupg/gpg.conf.m4
 		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
-man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
-	cat man/man7/dotfiles.7df.header README.markdown | \
-		pandoc -sS -t man -o $@
-
 MAILDIR = $(HOME)/Mail
 
 install: install-bin \
@@ -347,10 +342,6 @@ install-bin-man:
 
 install-curl:
 	cp -p -- curl/curlrc $(HOME)/.curlrc
-
-install-dotfiles-man: man/man7/dotfiles.7df
-	mkdir -p -- $(HOME)/.local/share/man/man7
-	cp -p -- man/man7/*.7df $(HOME)/.local/share/man/man7
 
 install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst

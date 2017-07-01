@@ -565,13 +565,9 @@ Manuals
 -------
 
 The `install-bin` and `install-games` targets install manuals for each script
-they install. There's also an `install-dotfiles-man` target that uses
-`pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7df)`) if you want that. I haven't made that install by default,
-because `pandoc(1)` is a bit heavy.
-
-If you want to use the manuals, you may need to add `~/.local/share/man` to
-your `~/.manpath` or `/etc/manpath` configuration, depending on your system.
+they install. If you want to use the manuals, you may need to add
+`~/.local/share/man` to your `~/.manpath` or `/etc/manpath` configuration,
+depending on your system.
 
 Testing
 -------

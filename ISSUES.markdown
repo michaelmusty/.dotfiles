@@ -4,9 +4,6 @@ Known issues
 *   man(1) completion doesn't work on OpenBSD as manpath(1) isn't a thing on
     that system; need to find some way of finding which manual directories
     should be searched at runtime, if there is one.
-*   pandoc(1) is awesome, but heavy as hell and requires Haskell. A more
-    lightweight recipe to make an acceptable man page out of the README would
-    be great.
 *   The checks gscr(1df) makes to determine where it is are a bit naïve (don't
     work with bare repos) and could probably be improved with some appropriate
     git-reflog(1) calls
