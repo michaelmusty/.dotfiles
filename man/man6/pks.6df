@@ -12,6 +12,8 @@ program |
 .B pks
 -
 .br
+.B pks
+--phil
 DICT=$HOME/dict
 .B pks
 .SH DESCRIPTION
@@ -21,6 +23,8 @@ no files are given, it defaults to /usr/share/dict/words, or the value of DICT
 (ha, ha!) if specified in the environment.
 .P
 A hyphen character "-" can be given as an argument to select standard input.
+.P
+Adding --phil will show a picture of our founder, Phil Ken Sebben.
 .SH SEE ALSO
 <https://www.youtube.com/watch?v=F8ID1KJQxB8>
 .SH AUTHOR
