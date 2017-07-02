@@ -8,12 +8,16 @@ BEGIN {
 
     # Check we have at least one resource name
     if (ARGC < 2) {
-        print "xrq: Need at least one resource name" | "cat >&2"
+        stderr = "cat >&2"
+        print "xrq: Need at least one resource name" | stderr
+        close(stderr)
         exit(2)
     }
 
     # Run `xrdb -query` and search for instances of the requested resource
-    while ("xrdb -query" | getline) {
+    xrdb = "xrdb -query"
+    found = 0
+    while (xrdb | getline) {
         for (i in ARGV) {
             if ($1 == ARGV[i]) {
                 found = 1
@@ -21,6 +25,7 @@ BEGIN {
             }
         }
     }
+    close(xrdb)
 
     # Exit successfully if we found at least one result
     exit(!found)

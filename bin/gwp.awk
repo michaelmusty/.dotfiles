@@ -7,6 +7,9 @@ BEGIN {
     # Words are separated by any non-alphanumeric characters
     FS = "[^a-zA-Z0-9]+"
 
+    # Nothing found yet
+    found = 0
+
     # First argument is the word required; push its case downward so we can
     # match case-insensitively
     word = tolower(ARGV[1])
@@ -15,15 +18,17 @@ BEGIN {
     ARGV[1] = ""
 
     # Bail out if we don't have a suitable word
-    if (!word)
+    if (!length(word))
         fail("Need a single non-null alphanumeric string as a search word")
     if (word ~ FS)
         fail("Word contains non-alphanumeric characters; use grep(1)")
 }
 
 # Bailout function
-function fail(str) {
-    printf "%s: %s\n", self, str | "cat >&2"
+function fail(msg) {
+    stderr = "cat >&2"
+    printf "%s: %s\n", self, msg | stderr
+    close(stderr)
     exit(2)
 }
 

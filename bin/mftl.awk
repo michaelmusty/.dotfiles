@@ -31,6 +31,12 @@ BEGIN { FS = "[ \t:]" }
 
 # Print unique determined targets, sorted
 END {
-    for (t in ats)
-        print t | "sort"
+    sort = ""
+    for (t in ats) {
+        if (!sort)
+            sort = "sort"
+        print t | sort
+    }
+    if (sort)
+        close(sort)
 }

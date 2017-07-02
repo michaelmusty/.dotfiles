@@ -7,7 +7,7 @@
 FILE > out.m4
 .br
 .B mi5
--v open='{{{' -v shut='}}}' FILE > out.m4
+open='{{{' shut='}}}' FILE > out.m4
 .br
 .B mi5
 FILE1 FILE2 > out.m4

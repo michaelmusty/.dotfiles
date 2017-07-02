@@ -13,7 +13,9 @@ BEGIN {
     }
 
     # Seed the random number generator
-    "rnds 2>/dev/null" | getline seed
+    rnds = "rnds 2>/dev/null"
+    rnds | getline seed
+    close(rnds)
     if (length(seed))
         srand(seed + 0)
     else
