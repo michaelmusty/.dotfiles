@@ -15,7 +15,7 @@ BEGIN {
     # Seed the random number generator
     "rnds 2>/dev/null" | getline seed
     if (length(seed))
-        srand(seed)
+        srand(seed + 0)
     else
         srand()
 }
