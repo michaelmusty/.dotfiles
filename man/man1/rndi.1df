@@ -5,14 +5,10 @@
 .SH SYNOPSIS
 .B rndi
 0 10
-.br
-.B rndi
-0 10
 .SH DESCRIPTION
 .B rndi
 returns a random integer ranging from the first argument to the second argument
 in a POSIX-compliant way (using awk), using rnds(1df) if available for a seed.
-seed.
 .P
 The answer returned is low-quality; on some platforms, it may even return the
 same result if run within the same second. This should not be used in any sort
