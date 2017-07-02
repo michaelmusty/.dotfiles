@@ -3,9 +3,6 @@ BEGIN {
     # Name self
     self = "trs"
 
-    # No wordsplitting required
-    FS = ""
-
     # Two and only two arguments required
     if (ARGC != 3)
         fail("Need a string and a replacement")
