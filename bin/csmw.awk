@@ -1,4 +1,5 @@
 # Print an English comma-separated list of monospace-quoted words (backticks)
+BEGIN { wc = 0 }
 {
     for (i = 1; i <= NF; i++)
         ws[++wc] = "`" $i "`"

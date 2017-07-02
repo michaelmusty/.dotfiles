@@ -7,7 +7,9 @@ BEGIN {
     self = "rndl"
 
     # Seed the random number generator
-    "rnds 2>/dev/null" | getline seed
+    rnds = "rnds 2>/dev/null"
+    rnds | getline seed
+    close(rnds)
     if (length(seed))
         srand(seed + 0)
     else
@@ -23,7 +25,9 @@ END {
 
     # Check that we processed at least one line
     if (!NR) {
-        printf "%s: No lines found on input\n", self | "cat >&2"
+        stderr = "cat >&2"
+        printf "%s: No lines found on input\n", self | stderr
+        close(stderr)
         exit(1)
     }
 
