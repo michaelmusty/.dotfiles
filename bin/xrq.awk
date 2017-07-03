@@ -17,14 +17,12 @@ BEGIN {
     # Run `xrdb -query` and search for instances of the requested resource
     xrdb = "xrdb -query"
     found = 0
-    while (xrdb | getline) {
-        for (i in ARGV) {
+    while (xrdb | getline)
+        for (i in ARGV)
             if ($1 == ARGV[i]) {
                 found = 1
                 print $2
             }
-        }
-    }
     close(xrdb)
 
     # Exit successfully if we found at least one result
