@@ -19,7 +19,7 @@ BEGIN { FS = "[ \t:]" }
 }
 
 # Check lines matching expected "targets:dependencies" format
-/^[a-zA-Z0-9][a-zA-Z0-9 \t_-]+:([^=]|$)/ {
+/^[a-zA-Z0-9][a-zA-Z0-9./ \t_-]+:([^=]|$)/ {
 
     # Iterate through the targets that don't look like substitutions or
     # inference rules and stack them up into an array's keys to keep them
