@@ -12,10 +12,13 @@ BEGIN {
             ARGV[1] = "/usr/share/dict/words"
     }
 
-    # Seed the random number generator
+    # Get a random seed if rnds(1df) available
     rnds = "rnds 2>/dev/null"
     rnds | getline seed
     close(rnds)
+
+    # Truncate the seed to 8 characters because mawk might choke on it
+    seed = substr(seed,1,8)
     if (length(seed))
         srand(seed + 0)
     else
