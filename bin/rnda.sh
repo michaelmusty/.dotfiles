@@ -6,11 +6,8 @@ if [ "$#" -eq 0 ] ; then
     exit 2
 fi
 
-# Get a random seed from rnds(1df); if it's empty, that's still workable
-seed=$(rnds)
-
-# Get a random integet from 1 to the number of arguments
-argi=$(rndi 1 "$#" "$seed") || exit
+# Get a random integer from 1 to the number of arguments
+argi=$(rndi 1 "$#") || exit
 
 # Shift until that argument is the first argument
 shift "$((argi-1))"

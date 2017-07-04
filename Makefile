@@ -226,6 +226,7 @@ GAMES = games/aaf \
 	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/philsay \
 	games/pks \
 	games/rndn \
 	games/rot13 \
