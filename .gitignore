@@ -67,6 +67,9 @@ bin/motd
 bin/murl
 bin/mw
 bin/nlbr
+bin/oii
+bin/oii.sh
+bin/oii.m4
 bin/onl
 bin/osc
 bin/p
@@ -92,8 +95,6 @@ bin/rnda
 bin/rndf
 bin/rndi
 bin/rndl
-bin/rndl.sh
-bin/rndl.m4
 bin/rnds
 bin/sd2u
 bin/sec
@@ -148,6 +149,8 @@ games/chkl
 games/dr
 games/drakon
 games/kvlt
+games/philsay
+games/pks
 games/rndn
 games/rot13
 games/squ
@@ -159,5 +162,4 @@ git/gitconfig.m4
 gnupg/gpg.conf
 gnupg/gpg.conf.m4
 include/mktd.m4
-man/man7/dotfiles.7df
 urxvt/ext/select

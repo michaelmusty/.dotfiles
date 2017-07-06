@@ -4,19 +4,14 @@ BEGIN {
 
     # You can change any of these, but while changing these is still relatively
     # sane...
-    if (!length(open))
-        open = "<%"
-    if (!length(shut))
-        shut = "%>"
+    open = "<%"
+    shut = "%>"
 
     # ... changing these probably isn't, and should compel you to rethink your
     # code, or quite possibly your entire life thus far.
-    if (!length(quote))
-        quote = "`"
-    if (!length(unquote))
-        unquote = "'"
-    if (!length(dnl))
-        dnl = "dnl"
+    quote = "`"
+    unquote = "'"
+    dnl = "dnl"
 
     # We do not start in a block
     bmac = 0
@@ -24,7 +19,9 @@ BEGIN {
 
 # Fatal error function
 function fatal(str) {
-    printf "%s: %s\n", self, str | "cat >&2"
+    stderr = "cat >&2"
+    printf "%s: %s\n", self, str | stderr
+    close(stderr)
     exit(1)
 }
 

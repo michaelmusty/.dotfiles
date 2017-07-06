@@ -9,7 +9,6 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dotfiles-man \
 	install-dunst \
 	install-ex \
 	install-finger \
@@ -42,6 +41,7 @@
 	install-vim-gui-config \
 	install-vim-pathogen \
 	install-vim-plugins \
+	install-wget \
 	install-x \
 	install-zsh \
 	check \
@@ -137,6 +137,7 @@ BINS = bin/ap \
 	bin/murl \
 	bin/mw \
 	bin/nlbr \
+	bin/oii \
 	bin/onl \
 	bin/osc \
 	bin/pa \
@@ -202,8 +203,8 @@ BINS = bin/ap \
 
 BINS_M4 = bin/chn.m4 \
 	bin/edda.m4 \
+	bin/oii.m4 \
 	bin/pst.m4 \
-	bin/rndl.m4 \
 	bin/swr.m4 \
 	bin/tlcs.m4 \
 	bin/try.m4 \
@@ -211,8 +212,8 @@ BINS_M4 = bin/chn.m4 \
 
 BINS_SH = bin/chn.sh \
 	bin/edda.sh \
+	bin/oii.sh \
 	bin/pst.sh \
-	bin/rndl.sh \
 	bin/swr.sh \
 	bin/tlcs.sh \
 	bin/try.sh \
@@ -225,6 +226,8 @@ GAMES = games/aaf \
 	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/philsay \
+	games/pks \
 	games/rndn \
 	games/rot13 \
 	games/squ \
@@ -276,8 +279,8 @@ clean distclean:
 
 bin/chn.sh: bin/chn.m4 include/mktd.m4
 bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/oii.sh: bin/oii.m4 include/mktd.m4
 bin/pst.sh: bin/pst.m4 include/mktd.m4
-bin/rndl.sh: bin/rndl.m4 include/mktd.m4
 bin/swr.sh: bin/swr.m4 include/mktd.m4
 bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
 bin/try.sh: bin/try.m4 include/mktd.m4
@@ -295,13 +298,8 @@ KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
-		-D HOME=$(HOME) \
 		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
-
-man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
-	cat man/man7/dotfiles.7df.header README.markdown | \
-		pandoc -sS -t man -o $@
 
 MAILDIR = $(HOME)/Mail
 
@@ -314,6 +312,9 @@ install: install-bin \
 	install-login-shell \
 	install-readline \
 	install-vim
+
+install-conf:
+	sh install/install-conf.sh
 
 install-abook:
 	mkdir -p -- $(HOME)/.abook
@@ -341,10 +342,6 @@ install-bin-man:
 install-curl:
 	cp -p -- curl/curlrc $(HOME)/.curlrc
 
-install-dotfiles-man: man/man7/dotfiles.7df
-	mkdir -p -- $(HOME)/.local/share/man/man7
-	cp -p -- man/man7/*.7df $(HOME)/.local/share/man/man7
-
 install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst
 	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
@@ -370,9 +367,8 @@ install-git: git/gitconfig
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
 install-gnupg: gnupg/gpg.conf
-	mkdir -m 0700 -p -- $(HOME)/.gnupg $(HOME)/.gnupg/sks-keyservers.net
+	mkdir -m 0700 -p -- $(HOME)/.gnupg
 	cp -p -- gnupg/*.conf $(HOME)/.gnupg
-	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
 	mkdir -p -- $(HOME)/.config/gtk-3.0
@@ -393,7 +389,7 @@ install-less:
 
 install-mpd: install-sh
 	mkdir -p -- $(HOME)/.mpd/playlists
-	cp -p .. mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/profile.d/* $(HOME)/.profile.d
 	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
@@ -482,6 +478,9 @@ install-vim-plugins: install-vim-config
 install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
+
+install-wget:
+	cp -p -- wget/wgetrc $(HOME)/.wgetrc
 
 install-x: check-xinit
 	mkdir -p -- \

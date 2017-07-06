@@ -203,8 +203,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
-*   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use if
@@ -499,6 +497,7 @@ Installed by the `install-bin` target:
 *   `motd(1df)` shows the system MOTD.
 *   `mw(1df)` prints alphabetic space-delimited words from the input one per
     line.
+*   `oii(1df)` runs a command on input only if there is any.
 *   `onl(1df)` crunches input down to one printable line.
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
@@ -555,6 +554,8 @@ There's some silly stuff in `install-games`:
 *   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
+*   `philsay(6df)` shows a picture to accompany `pks(6df)` output.
+*   `pks(6df)` laughs at a randomly selected word.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
 *   `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 *   `rot13(6df)` rotates the Latin letters in its input.
@@ -566,13 +567,9 @@ Manuals
 -------
 
 The `install-bin` and `install-games` targets install manuals for each script
-they install. There's also an `install-dotfiles-man` target that uses
-`pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7df)`) if you want that. I haven't made that install by default,
-because `pandoc(1)` is a bit heavy.
-
-If you want to use the manuals, you may need to add `~/.local/share/man` to
-your `~/.manpath` or `/etc/manpath` configuration, depending on your system.
+they install. If you want to use the manuals, you may need to add
+`~/.local/share/man` to your `~/.manpath` or `/etc/manpath` configuration,
+depending on your system.
 
 Testing
 -------
