@@ -14,7 +14,7 @@ grep() {
 
     # Add --color=auto if the terminal has at least 8 colors
     [ -e "$HOME"/.cache/sh/opt/grep/color ] &&
-    [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
+    [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"
 
     # Add --devices=skip to gracefully skip devices
