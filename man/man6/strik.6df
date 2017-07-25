@@ -10,10 +10,10 @@ lynx -dump https://sanctum.geek.nz/ |
 .B strik
 .SH DESCRIPTION
 .B strik
-converts the 26 letters of the English alphabet, both upper and lower case, the
-Arabic numerals, and the space character to their equivalents with a Unicode
-strikethrough.
-.P
-The results are printed in UTF-8; they're hard-coded within the script.
+adds a Unicode combining strikethrough character COMBINING LONG STROKE OVERLAY
+(U+0036) after each character of input, giving the appearance of struck-out
+text with appropriate glyph support.
+.SH SEE ALSO
+<http://www.fileformat.info/info/unicode/char/0036/index.htm>
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
