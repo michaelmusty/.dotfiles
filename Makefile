@@ -9,7 +9,6 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dotfiles-man \
 	install-dunst \
 	install-ex \
 	install-finger \
@@ -22,6 +21,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-mpd \
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
@@ -41,6 +41,7 @@
 	install-vim-gui-config \
 	install-vim-pathogen \
 	install-vim-plugins \
+	install-wget \
 	install-x \
 	install-zsh \
 	check \
@@ -100,6 +101,7 @@ BINS = bin/ap \
 	bin/fgscr \
 	bin/finc \
 	bin/fnl \
+	bin/fnp \
 	bin/gms \
 	bin/grc \
 	bin/grec \
@@ -135,6 +137,7 @@ BINS = bin/ap \
 	bin/murl \
 	bin/mw \
 	bin/nlbr \
+	bin/oii \
 	bin/onl \
 	bin/osc \
 	bin/pa \
@@ -198,10 +201,19 @@ BINS = bin/ap \
 	bin/xrbg \
 	bin/xrq
 
-BINS_MI5 = bin/chn.sh \
+BINS_M4 = bin/chn.m4 \
+	bin/edda.m4 \
+	bin/oii.m4 \
+	bin/pst.m4 \
+	bin/swr.m4 \
+	bin/tlcs.m4 \
+	bin/try.m4 \
+	bin/urlc.m4
+
+BINS_SH = bin/chn.sh \
 	bin/edda.sh \
+	bin/oii.sh \
 	bin/pst.sh \
-	bin/rndl.sh \
 	bin/swr.sh \
 	bin/tlcs.sh \
 	bin/try.sh \
@@ -214,6 +226,8 @@ GAMES = games/aaf \
 	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/philsay \
+	games/pks \
 	games/rndn \
 	games/rot13 \
 	games/squ \
@@ -226,31 +240,15 @@ all: $(BINS) git/gitconfig gnupg/gpg.conf
 clean distclean:
 	rm -f -- \
 		$(BINS) \
+		$(BINS_M4) \
+		$(BINS_SH) \
 		$(GAMES) \
-		bin/chn.sh \
-		bin/chn.m4 \
-		bin/edda.sh \
-		bin/edda.m4 \
-		bin/pst.sh \
-		bin/pst.m4 \
-		bin/rndl.sh \
-		bin/rndl.m4 \
-		bin/swr.sh \
-		bin/swr.m4 \
-		bin/tlcs.sh \
-		bin/tlcs.m4 \
-		bin/try.sh \
-		bin/try.m4 \
-		bin/urlc.sh \
-		bin/urlc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
 		gnupg/gpg.conf \
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		tmux/tmux.conf \
-		tmux/tmux.conf.m4 \
 		urxvt/ext/select
 
 .awk:
@@ -279,34 +277,31 @@ clean distclean:
 .m4.sh:
 	m4 < $< > $@
 
-$(BINS_MI5): include/mktd.m4
+bin/chn.sh: bin/chn.m4 include/mktd.m4
+bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/oii.sh: bin/oii.m4 include/mktd.m4
+bin/pst.sh: bin/pst.m4 include/mktd.m4
+bin/swr.sh: bin/swr.m4 include/mktd.m4
+bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
+bin/try.sh: bin/try.m4 include/mktd.m4
+bin/urlc.sh: bin/urlc.m4 include/mktd.m4
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DF_NAME=$(NAME) \
-		-D DF_EMAIL=$(EMAIL) \
-		-D DF_KEY=$(KEY) \
-		-D DF_SENDMAIL=$(SENDMAIL) \
+		-D NAME=$(NAME) \
+		-D EMAIL=$(EMAIL) \
+		-D KEY=$(KEY) \
+		-D SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > $@
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
-	m4 -D DF_HOME=$(HOME) -D DF_KEYSERVER=$(KEYSERVER) \
+	m4 \
+		-D KEYSERVER=$(KEYSERVER) \
 		gnupg/gpg.conf.m4 > $@
 
-man/man7/dotfiles.7df: README.markdown man/man7/dotfiles.7df.header
-	cat man/man7/dotfiles.7df.header README.markdown | \
-		pandoc -sS -t man -o $@
-
 MAILDIR = $(HOME)/Mail
-
-TMUX_BG = colour237
-TMUX_FG = colour248
-
-tmux/tmux.conf: tmux/tmux.conf.m4
-	m4 -D DF_TMUX_BG=$(TMUX_BG) -D DF_TMUX_FG=$(TMUX_FG) \
-		tmux/tmux.conf.m4 > $@
 
 install: install-bin \
 	install-curl \
@@ -317,6 +312,9 @@ install: install-bin \
 	install-login-shell \
 	install-readline \
 	install-vim
+
+install-conf:
+	sh install/install-conf.sh
 
 install-abook:
 	mkdir -p -- $(HOME)/.abook
@@ -344,10 +342,6 @@ install-bin-man:
 install-curl:
 	cp -p -- curl/curlrc $(HOME)/.curlrc
 
-install-dotfiles-man: man/man7/dotfiles.7df
-	mkdir -p -- $(HOME)/.local/share/man/man7
-	cp -p -- man/man7/*.7df $(HOME)/.local/share/man/man7
-
 install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst
 	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
@@ -373,29 +367,37 @@ install-git: git/gitconfig
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
 install-gnupg: gnupg/gpg.conf
-	mkdir -m 0700 -p -- $(HOME)/.gnupg $(HOME)/.gnupg/sks-keyservers.net
+	mkdir -m 0700 -p -- $(HOME)/.gnupg
 	cp -p -- gnupg/*.conf $(HOME)/.gnupg
-	cp -p -- gnupg/sks-keyservers.net/* $(HOME)/.gnupg/sks-keyservers.net
 
 install-gtk:
-	mkdir -p -- $(HOME)/.config/gtkrc-3.0
+	mkdir -p -- $(HOME)/.config/gtk-3.0
 	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
-	cp -p -- gtk/gtkrc-3.0/settings.ini $(HOME)/.config/gtkrc-3.0
+	cp -p -- gtk/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0
 
 install-i3: install-x
 	mkdir -p -- $(HOME)/.i3
 	cp -p -- i3/* $(HOME)/.i3
 
+install-keychain: install-sh
+	cp -p -- keychain/profile.d/* $(HOME)/.profile.d
+	cp -p -- keychain/shrc.d/* $(HOME)/.shrc.d
+
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
+
+install-mpd: install-sh
+	mkdir -p -- $(HOME)/.mpd/playlists
+	cp -p -- mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
-install-ncmcpp:
+install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
@@ -407,7 +409,7 @@ install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
 install-ksh: check-ksh install-sh
-	mkdir -p -- $(HOME)/.shrc.d $(HOME)/.kshrc.d
+	mkdir -p -- $(HOME)/.kshrc.d
 	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
 	cp -p -- ksh/kshrc $(HOME)/.kshrc
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
@@ -420,6 +422,10 @@ install-perlcritic:
 
 install-perltidy:
 	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
+
+install-plenv: install-sh
+	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
+	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
 install-psql:
 	cp -p -- psql/psqlrc $(HOME)/.psqlrc
@@ -473,6 +479,9 @@ install-vim-pathogen: install-vim-plugins
 	mkdir -p -- $(HOME)/.vim/autoload
 	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
+install-wget:
+	cp -p -- wget/wgetrc $(HOME)/.wgetrc
+
 install-x: check-xinit
 	mkdir -p -- \
 		$(HOME)/.config \
@@ -501,7 +510,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS_MI5)
+check-bin: $(BINS_SH)
 	sh check/bin.sh
 
 check-games:

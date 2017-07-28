@@ -3,6 +3,7 @@
 # Check arguments
 if [ "$#" -eq 0 ] ; then
     printf >&2 'xgo: At least one URL required\n'
+    exit 2
 fi
 
 # Iterate over the URL arguments

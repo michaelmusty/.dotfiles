@@ -19,14 +19,8 @@ Installation
     $ make -n install
     $ make install
 
-For the default `all` target, you'll need `make(1)`, `m4(1)`, and a
-POSIX-fearing environment, including `sh(1)`. This should work on most
-GNU/Linux and BSD systems, and possibly on other UNIX types, but those are not
-as thoroughly or frequently tested.
-
-If you're on a system where `/bin/sh` is not a POSIX shell (e.g. OpenSolaris),
-you may need to check you have e.g. `/usr/xpg4/bin` at the front of your
-`$PATH` at build time.
+For the default `all` target, you'll need a POSIX-fearing userland, including
+`make(1)` and `m4(1)`.
 
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
@@ -147,20 +141,20 @@ after testing `BASH_VERSINFO` appropriately.
 A terminal session with my prompt looks something like this:
 
     ~$ ssh remote
-    tom@remote:~$ cd .dotfiles
-    tom@remote:~/.dotfiles(master+!)$ git status
+    remote:~$ cd .dotfiles
+    remote:~/.dotfiles(master+!)$ git status
      M README.markdown
     M  bash/bashrc.d/prompt.bash
     A  init
-    tom@remote:~/.dotfiles(master+!)$ foobar
+    remote:~/.dotfiles(master+!)$ foobar
     foobar: command not found
-    tom@remote:~/.dotfiles(master+!)<127>$ sleep 5 &
+    remote:~/.dotfiles(master+!)<127>$ sleep 5 &
     [1] 28937
-    tom@remote:~/.dotfiles(master+!){1}$
+    remote:~/.dotfiles(master+!){1}$
 
-The username and hostname are elided if not connected via SSH. The working
-directory with tilde abbreviation for `$HOME` is always shown. The rest of the
-prompt expands based on context to include these elements in this order:
+The hostname is elided if not connected via SSH. The working directory with
+tilde abbreviation for `$HOME` is always shown. The rest of the prompt expands
+based on context to include these elements in this order:
 
 *   Whether in a Git repository if applicable, and punctuation to show
     repository status including reference to upstreams at a glance. Subversion
@@ -209,8 +203,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 *   `bc()` silences startup messages from GNU `bc(1)`.
 *   `ed()` tries to get verbose error messages, a prompt, and a Readline
     environment for `ed(1)`.
-*   `env()` sorts the output of `env(1)` if it was invoked with no arguments,
-    just for convenience when running it interactively.
 *   `gdb()` silences startup messages from `gdb(1)`.
 *   `gpg()` quietens `gpg(1)` down for most commands.
 *   `grep()` tries to apply color and other options good for interactive use if
@@ -332,10 +324,6 @@ These are just generally vi-friendly settings, not much out of the ordinary.
 Note that the configuration presently uses a hard-coded 256-color colorscheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
-
-The configuration file is created with `mi5(1df)` to allow specifying a color
-theme. This is just because I use a different color for my work session. The
-default is a dark grey.
 
 The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
 the default command if no arguments are given and sessions do already exist. My
@@ -482,6 +470,8 @@ Installed by the `install-bin` target:
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
     files, printing their paths and line counts.
+*   `fnp(1df)` prints the given files to stdout, each with a plaintext heading
+    with the filename in it.
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
@@ -507,6 +497,7 @@ Installed by the `install-bin` target:
 *   `motd(1df)` shows the system MOTD.
 *   `mw(1df)` prints alphabetic space-delimited words from the input one per
     line.
+*   `oii(1df)` runs a command on input only if there is any.
 *   `onl(1df)` crunches input down to one printable line.
 *   `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
     `s_client` subcommand.
@@ -563,6 +554,8 @@ There's some silly stuff in `install-games`:
 *   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
+*   `philsay(6df)` shows a picture to accompany `pks(6df)` output.
+*   `pks(6df)` laughs at a randomly selected word.
 *   `rndn(6df)` implements an esoteric random number generation algorithm.
 *   `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 *   `rot13(6df)` rotates the Latin letters in its input.
@@ -574,13 +567,9 @@ Manuals
 -------
 
 The `install-bin` and `install-games` targets install manuals for each script
-they install. There's also an `install-dotfiles-man` target that uses
-`pandoc(1)` to reformat this document as a manual page for section 7
-(`dotfiles(7df)`) if you want that. I haven't made that install by default,
-because `pandoc(1)` is a bit heavy.
-
-If you want to use the manuals, you may need to add `~/.local/share/man` to
-your `~/.manpath` or `/etc/manpath` configuration, depending on your system.
+they install. If you want to use the manuals, you may need to add
+`~/.local/share/man` to your `~/.manpath` or `/etc/manpath` configuration,
+depending on your system.
 
 Testing
 -------

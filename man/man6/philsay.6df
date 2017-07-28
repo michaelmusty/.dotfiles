@@ -1,0 +1,28 @@
+.TH PHILSAY 6df "July 2017" "Manual page for philsay"
+.SH NAME
+.B philsay
+\- Ha, ha, ha! ASCII art!
+.SH USAGE
+.B philsay
+.br
+.B philsay
+FILE1 FILE2
+.br
+program |
+.B philsay
+-
+.br
+DICT=$HOME/dict
+.B philsay
+.SH DESCRIPTION
+.B philsay
+shows a picture of our founder, Phil Ken Sebben, saying the first word of a
+line randomly chosen from the input using pks(6df).
+.P
+A hyphen character "-" can be given as an argument to select standard input.
+.SH SEE ALSO
+pks(6df), cowsay(1df)
+.br
+<https://www.youtube.com/watch?v=F8ID1KJQxB8>
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

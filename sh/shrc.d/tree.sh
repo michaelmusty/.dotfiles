@@ -21,7 +21,7 @@ tree() {
         [ -t 1 ] || exit
 
         # Not if output terminal doesn't have at least 8 colors
-        [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] || exit
+        [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ]
 
     ) ; then
         set -- -C "$@"

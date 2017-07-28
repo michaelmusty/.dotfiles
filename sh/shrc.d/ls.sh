@@ -25,7 +25,7 @@ ls() {
 
     # Add --color if the terminal has at least 8 colors
     [ -e "$HOME"/.cache/sh/opt/ls/color ] &&
-    [ "$({ tput colors || tput Co ; } 2>/dev/null)" -ge 8 ] &&
+    [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] &&
         set -- --color=auto "$@"
 
     # Add --time-style='+%Y-%m-%d %H:%M:%S' to show the date in my preferred

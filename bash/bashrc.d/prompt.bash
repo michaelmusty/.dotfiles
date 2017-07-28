@@ -15,7 +15,7 @@ prompt() {
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'\u@\h:'
+                PS1=$PS1'\h:'
             fi
             PS1=$PS1'\w'
 
@@ -86,7 +86,7 @@ prompt() {
             PS3='? '
             PS4='+ '
             if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
-                PS1=$(id -nu)'@'$(hostname -s)'$ '
+                PS1=$(hostname -s)'$ '
             fi
             ;;
 
@@ -167,7 +167,10 @@ prompt() {
             # Print the status in brackets; add a git: prefix only if there
             # might be another VCS prompt (because PROMPT_VCS is set)
             printf '(%s%s%s%s)' \
-                "${PROMPT_VCS:+git:}" "$name" "${proc:+:"$proc"}" "$state"
+                "${PROMPT_VCS:+git:}" \
+                "${name//\\/\\\\}" \
+                "${proc:+:"${proc//\\/\\\\}"}" \
+                "${state//\\/\\\\}"
             ;;
 
         # Subversion prompt function
@@ -193,6 +196,7 @@ prompt() {
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}
+            [[ -n $branch ]] || branch=unknown
 
             # Parse the output of svn status to determine working copy state
             local symbol
@@ -210,7 +214,9 @@ prompt() {
             ((untracked)) && state=${state}'?'
 
             # Print the state in brackets with an svn: prefix
-            printf '(svn:%s%s)' "${branch:-unknown}" "$state"
+            printf '(svn:%s%s)' \
+                "${branch//\\/\\\\}" \
+                "${state//\\/\\\\}"
             ;;
 
         # VCS wrapper prompt function; print the first relevant prompt, if any
@@ -224,7 +230,7 @@ prompt() {
         # Show return status of previous command in angle brackets, if not zero
         ret)
             # shellcheck disable=SC2154
-            ((ret)) && printf '<%u>' "$ret"
+            ((ret)) && printf '<%u>' "${ret//\\/\\\\}"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
@@ -233,7 +239,7 @@ prompt() {
             while read -r ; do
                 ((jobc++))
             done < <(jobs -p)
-            ((jobc)) && printf '{%u}' "$jobc"
+            ((jobc)) && printf '{%u}' "${jobc//\\/\\\\}"
             ;;
 
         # No argument given, print prompt strings and vars
@@ -249,5 +255,5 @@ prompt() {
     esac
 }
 
-# Start with full-fledged prompt
-prompt on
+# Default to a full-featured prompt, but use PROMPT_MODE if that's set
+prompt "${PROMPT_MODE:-on}"

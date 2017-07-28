@@ -1,10 +1,7 @@
-# Substitute one string for another in input (no regex)
+# Substitute one string for another in input (no newlines, no regex)
 BEGIN {
     # Name self
     self = "trs"
-
-    # No wordsplitting required
-    FS = ""
 
     # Two and only two arguments required
     if (ARGC != 3)
@@ -21,8 +18,10 @@ BEGIN {
 }
 
 # Bailout function
-function fail(str) {
-    printf "%s: %s\n", self, str | "cat >&2"
+function fail(msg) {
+    stderr = "cat >&2"
+    printf "%s: %s\n", self, msg | stderr
+    close(stderr)
     exit(2)
 }
 

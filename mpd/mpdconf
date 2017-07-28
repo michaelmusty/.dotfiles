@@ -1,0 +1,15 @@
+bind_to_address "~/.mpd/socket"
+
+db_file  "~/.mpd/database"
+log_file "~/.mpd/log"
+
+music_directory    "/mnt/media/shares/music"
+playlist_directory "~/.mpd/playlists"
+pid_file           "~/.mpd/pid"
+state_file         "~/.mpd/state"
+sticker_file       "~/.mpd/sticker.sql"
+
+audio_output {
+	type "pulse"
+	name "PulseAudio"
+}

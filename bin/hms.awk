@@ -1,19 +1,23 @@
 # Convert seconds to colon-delimited durations
 BEGIN {
     OFS = ":"
+    ex = 0
+    stderr = ""
 }
 
 # Refuse to deal with anything that's not a positive (unsigned) integer
 /[^0-9]/ {
-    print "hms: Bad number" | "cat >&2"
-    err = 1
+    if (!stderr)
+        stderr = "cat >&2"
+    print "hms: Bad number" | stderr
+    ex = 1
     next
 }
 
 # Integer looks valid
 {
     # Break it down into hours, minutes, and seconds
-    s = $0
+    s = int($0 + 0)
     h = int(s / 3600)
     s %= 3600
     m = int(s / 60)
@@ -29,4 +33,8 @@ BEGIN {
 }
 
 # Done, exit 1 if we had any errors on the way
-END { exit(err > 0) }
+END {
+    if (stderr)
+        close(stderr)
+    exit(ex)
+}

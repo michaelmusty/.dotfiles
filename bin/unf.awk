@@ -1,5 +1,7 @@
 # Unfold header lines in an internet message, don't touch the body
 
+BEGIN { buf = "" }
+
 # Function to write and empty the buffer
 function wrbuf() {
     if (length(buf))
