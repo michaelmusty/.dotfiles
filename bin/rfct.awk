@@ -13,5 +13,5 @@ BEGIN {
 # Strip out other control characters, but allow newline and tab
 { gsub(/[\a\b\r\v]/, "") }
 
-# If there's anything left after tha, print it
+# If there's anything left after that, print it
 length($0)
