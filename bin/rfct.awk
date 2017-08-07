@@ -6,9 +6,12 @@ BEGIN {
     ORS = "\n\n"
 }
 
-# Skip paragraphs with ^L chars in them
-# We have to be literal here due to mawk's failures
-// { next }
+# Skip paragraphs with ^L chars in them, as they likely contain headers and
+# footers
+/\f/ { next }
 
-# If there's anything left, print it
+# Strip out other control characters, but allow newline and tab
+{ gsub(/[\a\b\r\v]/, "") }
+
+# If there's anything left after tha, print it
 length($0)
