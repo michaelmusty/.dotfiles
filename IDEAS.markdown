@@ -1,6 +1,8 @@
 Ideas
 =====
 
+*   A wrapper sil(1df) or nec(1df) to turn stty -echo off for the duration of a
+    paste?
 *   I can probably share my psql() completions/shortcuts after sanitizing them
     a bit
 *   Wouldn't be too hard to add some HTTP BASIC auth to ix(1df) to make pastes
