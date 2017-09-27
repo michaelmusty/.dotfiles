@@ -9,3 +9,8 @@ severity = brutal
 # Add some networking terms to the list of legal numbered names
 [Bangs::ProhibitNumberedNames]
 add_exceptions = inet4 inet6 ipv4 ipv6
+
+# Soften this policy a bit; tolerate all the single-digit integers as literals,
+# and also 100 (for calculating percentages)
+[ValuesAndExpressions::ProhibitMagicNumbers]
+allowed_values = 0..9 100
