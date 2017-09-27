@@ -1,3 +1,4 @@
+# No mercy!
 severity = brutal
 exclude = Bangs::ProhibitBitwiseOperators
 
