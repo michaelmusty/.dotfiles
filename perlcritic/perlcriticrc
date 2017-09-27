@@ -14,7 +14,3 @@ add_exceptions = inet4 inet6 ipv4 ipv6
 # and also 100 (for calculating percentages)
 [ValuesAndExpressions::ProhibitMagicNumbers]
 allowed_values = 0..9 100
-
-# These are all explicitly listed as deprecated in perlvar
-[Variables::ProhibitEvilVariables]
-variables = $# $* $[
