@@ -6,5 +6,6 @@ severity = brutal
 # policy documentation suggests
 [-Bangs::ProhibitBitwiseOperators]
 
+# Add some networking terms to the list of legal numbered names
 [Bangs::ProhibitNumberedNames]
-exceptions = inet4 inet6 ipv4 ipv6 md5 sha1 sha256 sha512 x11 utf8
+add_exceptions = inet4 inet6 ipv4 ipv6
