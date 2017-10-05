@@ -11,6 +11,6 @@ severity = brutal
 add_exceptions = inet4 inet6 ipv4 ipv6
 
 # Soften this policy a bit; tolerate all the single-digit integers as literals,
-# and also 100 (for calculating percentages)
+# and also three powers of 10 (for percentages, milliseconds etc)
 [ValuesAndExpressions::ProhibitMagicNumbers]
-allowed_values = 0..9 100
+allowed_values = 0..9 10 100 1000
