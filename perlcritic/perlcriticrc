@@ -10,6 +10,10 @@ severity = brutal
 [Bangs::ProhibitNumberedNames]
 add_exceptions = inet4 inet6 ipv4 ipv6
 
+# I'll keep code running for old Perls, but users are on their own with
+# documentation, so allow e.g. L<http://...> on Perl 5.6
+[-Compatibility::PodMinimumVersion]
+
 # Soften this policy a bit; tolerate all the single-digit integers as literals,
 # and also three powers of 10 (for percentages, milliseconds etc)
 [ValuesAndExpressions::ProhibitMagicNumbers]
