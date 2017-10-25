@@ -1,4 +1,3 @@
-#!/bin/sh
 # Roll D&D-style dice in a ndn+n formula, e.g. 10d6+2
 
 # Need exactly one argument
