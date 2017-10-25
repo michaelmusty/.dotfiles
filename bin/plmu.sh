@@ -14,7 +14,7 @@ fi
 # the existing sorting
 plenv list-modules | sort |
 
-# Exclude any modules in ~.plenv/non-cpanm-modules if it exists
+# Exclude any modules in ~/.plenv/non-cpanm-modules if it exists
 comm -23 -- - "$ef" |
 
 # Read that list of modules to upgrade and upgrade them one by one

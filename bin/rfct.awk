@@ -6,8 +6,12 @@ BEGIN {
     ORS = "\n\n"
 }
 
-# Strip out control characters, except tab and newline
-{ gsub(/[^[:print:]\n\t]/, "") }
+# Skip paragraphs with ^L chars in them, as they likely contain headers and
+# footers
+/\f/ { next }
 
-# If there's anything left, print it
+# Strip out other control characters, but allow newline and tab
+{ gsub(/[\a\b\r\v]/, "") }
+
+# If there's anything left after that, print it
 length($0)

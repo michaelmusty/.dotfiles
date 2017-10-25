@@ -1,5 +1,12 @@
 # Cache the output of a command and emit it straight from the cache if not
 # expired on each run
+self=chc
+
+# Check arguments for sanity
+if [ "$#" -lt 3 ] ; then
+    printf >&2 '%s: Need a cache path, a duration, and a command\n' "$self"
+    exit 2
+fi
 
 # First argument is the cache path, second is the duration in seconds
 cac=$1 dur=$2
