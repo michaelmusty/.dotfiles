@@ -15,6 +15,7 @@ esac
 
 # Count files in each directory, report if greater than zero
 (
+    lc=0
     while IFS= read -r dir ; do
         case $dir in
             '#'*) continue ;;
@@ -23,6 +24,8 @@ esac
         set -- "$dir"/*
         [ -e "$1" ] || shift
         [ "$#" -gt 0 ] || continue
-        printf '\nYou have %u unsorted files in %s.\n\n' "$#" "$dir"
+        printf 'You have %u unsorted files in %s.\n' "$#" "$dir"
+        lc=$((lc+1))
     done < "$HOME"/.downloads
+    [ "$((lc > 0))" -eq 1 ] && printf '\n'
 )

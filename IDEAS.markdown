@@ -1,6 +1,10 @@
 Ideas
 =====
 
+*   A wrapper ksw(1df) (kill-switch) that caches SIGINT traps to kill a called
+    program or loop immediately rather than aborting a loop (is this possible?)
+*   A wrapper sil(1df) or nec(1df) to turn stty -echo off for the duration of a
+    paste?
 *   I can probably share my psql() completions/shortcuts after sanitizing them
     a bit
 *   Wouldn't be too hard to add some HTTP BASIC auth to ix(1df) to make pastes

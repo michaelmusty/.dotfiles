@@ -1,4 +1,3 @@
-#!/bin/sh
 # Roll D&D-style dice in a ndn+n formula, e.g. 10d6+2
 
 # Need exactly one argument
@@ -23,8 +22,7 @@ esac
 # Roll the dice the appropriate number of times using rndi(1df)
 i=0 t=0
 while [ "$i" -lt "$n" ] ; do
-    seed=$(rnds)
-    r=$(rndi 1 "$d" "$seed")
+    r=$(rndi 1 "$d")
     t=$((t + r))
     i=$((i + 1))
 done
