@@ -54,13 +54,6 @@ set fileformats+=mac
 " to it; note that it wipes out your z mark, if you happen to use it
 nnoremap J mzJ`z
 
-" Try to run the version of matchit.vim included in the distribution, if there
-" is one; extends % to match more than it does by default
-silent! runtime macros/matchit.vim
-
-" Match all forms of brackets in pairs (including angle brackets)
-set matchpairs=(:),{:},[:],<:>
-
 " Don't show the Vim startup message, I have registered Vim and donated to
 " Uganda
 set shortmess+=I
