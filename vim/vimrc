@@ -58,13 +58,6 @@ endif
 " the open buffers; I'll open the file if I want to complete from it
 set complete-=i
 
-" A few very important custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
-endif
-
 " Try Mac line-endings if UNIX or DOS don't make sense; this has never
 " happened to me but who knows, it might one day
 set fileformats+=mac
