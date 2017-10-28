@@ -21,6 +21,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-man \
 	install-mpd \
 	install-mutt \
 	install-mysql \
@@ -309,6 +310,7 @@ install: install-bin \
 	install-git \
 	install-gnupg \
 	install-less \
+	install-man \
 	install-login-shell \
 	install-readline \
 	install-vim
@@ -386,6 +388,10 @@ install-keychain: install-sh
 install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
+
+install-man:
+	mkdir -p -- $(HOME)/.local/share/man/man7
+	cp -p -- man/man7/dotfiles.7df $(HOME)/.local/share/man/man7
 
 install-mpd: install-sh
 	mkdir -p -- $(HOME)/.mpd/playlists
