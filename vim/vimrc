@@ -208,7 +208,9 @@ set report=0
 
 " Always use forward slashes, I very seldom need to use Vim on Windows for
 " more than scratch space anyway
-set shellslash
+if exists('+shellslash')
+  set shellslash
+fi
 
 " Don't show line numbers by default, but \n toggles them
 set nonumber
