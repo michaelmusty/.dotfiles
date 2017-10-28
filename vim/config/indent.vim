@@ -1,8 +1,3 @@
-" Load indentation for file types
-if has('autocmd')
-  filetype indent on
-endif
-
 " Adopt the indent of the last line on new lines; interestingly, plugins that
 " do clever things with indenting will often assume this is set
 set autoindent

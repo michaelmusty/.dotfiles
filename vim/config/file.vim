@@ -1,6 +1,6 @@
 " Load plugins for file types
 if has('autocmd')
-  filetype plugin on
+  filetype plugin indent on
 endif
 
 " Use all ancestors of current directory for :find
