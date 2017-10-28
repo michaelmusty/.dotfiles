@@ -462,7 +462,9 @@ install-vim: install-vim-config \
 	install-vim-pathogen
 
 install-vim-config:
+	mkdir -p -- $(HOME)/.vim/config
 	cp -p -- vim/vimrc $(HOME)/.vimrc
+	cp -p -- vim/config/*.vim $(HOME)/.vim/config
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
