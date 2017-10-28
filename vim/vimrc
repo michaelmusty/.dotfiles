@@ -28,10 +28,6 @@ endif
 " to it; note that it wipes out your z mark, if you happen to use it
 nnoremap J mzJ`z
 
-" Don't show the Vim startup message, I have registered Vim and donated to
-" Uganda
-set shortmess+=I
-
 " Let me backspace over pretty much anything, even if it's not text I inserted
 " in the current session
 set backspace=indent,eol,start
