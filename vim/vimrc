@@ -44,11 +44,3 @@ set tildeop
 " the cursor, but Y yanks the whole line, which is inconsistent (and can be
 " done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
-
-" Allow jumping between windows and tabs to find an open instance of a given
-" buffer with :sbuffer.
-if v:version >= 701
-  set switchbuf=useopen,usetab
-else
-  set switchbuf=useopen
-endif
