@@ -99,10 +99,6 @@ set report=0
 " more than scratch space anyway
 set shellslash
 
-" Don't show line numbers by default, but \n toggles them
-set nonumber
-nnoremap <leader>n :setlocal number!<CR>
-
 " Start paste mode with F10 to prevent console Vim from confusing a swathe of
 " pre-formatted pasted text with actual keyboard input, and thereby attempting
 " to indent it inappropriately. If unimpaired.vim is available, it's generally
