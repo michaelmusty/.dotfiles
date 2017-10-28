@@ -17,6 +17,10 @@ if has('cmdline_info')
   set showmode
 endif
 
+" Always use forward slashes, I very seldom need to use Vim on Windows for
+" more than scratch space anyway
+set shellslash
+
 " Tolerate typos like :Wq, :Q, or :Qa and do what I mean, including any
 " arguments or modifiers; I fat-finger these commands a lot because I type
 " them so rapidly, and they don't correspond to any other commands I use

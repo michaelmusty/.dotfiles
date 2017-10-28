@@ -56,10 +56,6 @@ set nomodeline
 " zero-padded decimal, so increment and decrement with ^A and ^X on that basis
 set nrformats-=octal
 
-" Always use forward slashes, I very seldom need to use Vim on Windows for
-" more than scratch space anyway
-set shellslash
-
 " Allow the cursor to get to the top or bottom of the screen before scrolling
 " vertically, but set a reasonably wide gutter for scrolling horizontally; no
 " particular reason, just suits me better
