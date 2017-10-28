@@ -1,4 +1,4 @@
-#!/bin/sh
+# ADVENTURE
 if [ -e "$HOME"/.xyzzy ] ; then
     printf >&2 '%s\n' 'Nothing happens.'
     exit 1

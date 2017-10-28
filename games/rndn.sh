@@ -1,4 +1,3 @@
-#!/bin/sh
 # Esoteric random number generator
 
 # Single optional argument is a random seed, otherwise use rnds(1df)
