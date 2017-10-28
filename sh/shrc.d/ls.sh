@@ -33,6 +33,16 @@ ls() {
     [ -e "$HOME"/.cache/sh/opt/ls/time-style ] &&
         set -- --time-style='+%Y-%m-%d %H:%M:%S' "$@"
 
+    # If the operating system is FreeBSD, there are some specific options we
+    # can add that might mean different things to e.g. GNU ls(1)
+    case $OS in
+        FreeBSD)
+            # -D: Timestamp format
+            # -G: Use color
+            set -- -D '%Y-%m-%d %H:%M:%S' -G "$@"
+            ;;
+    esac
+
     # Run ls(1) with the concluded arguments
     command ls "$@"
 }

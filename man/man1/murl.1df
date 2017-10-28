@@ -4,7 +4,7 @@
 \- convert Markdown to HTML with pandoc(1) and extract URLs from it with hurl(1df)
 .SH SYNOPSIS
 .B murl
-README.markdown
+README.md
 .br
 .B murl
 page1.md page2.md
