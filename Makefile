@@ -40,7 +40,6 @@
 	install-vim-config \
 	install-vim-gui \
 	install-vim-gui-config \
-	install-vim-pathogen \
 	install-vim-plugins \
 	install-wget \
 	install-x \
@@ -464,8 +463,7 @@ install-urxvt: urxvt/ext/select
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
 install-vim: install-vim-config \
-	install-vim-plugins \
-	install-vim-pathogen
+	install-vim-plugins
 
 install-vim-config:
 	mkdir -p -- $(HOME)/.vim/config
@@ -482,10 +480,6 @@ install-vim-plugins: install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
-
-install-vim-pathogen: install-vim-plugins
-	mkdir -p -- $(HOME)/.vim/autoload
-	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
 install-wget:
 	cp -p -- wget/wgetrc $(HOME)/.wgetrc

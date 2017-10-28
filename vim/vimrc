@@ -14,6 +14,11 @@ runtime! config/*.vim
 " If our version isn't ancient and Pathogen is available, call it to load all
 " the plugins in .vim/bundle; these are saved as submodules
 if v:version >= 701
+
+  " Bootstrap Pathogen
+  runtime bundle/pathogen/autoload/pathogen.vim
+
+  " Run Pathogen to broaden 'realtimepath' for plugin code and help tags
   silent! call pathogen#infect()
   silent! call pathogen#helptags()
 
