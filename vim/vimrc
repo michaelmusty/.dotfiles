@@ -81,13 +81,6 @@ set nrformats-=octal
 " more than scratch space anyway
 set shellslash
 
-" Start paste mode with F10 to prevent console Vim from confusing a swathe of
-" pre-formatted pasted text with actual keyboard input, and thereby attempting
-" to indent it inappropriately. If unimpaired.vim is available, it's generally
-" nicer to use yo or yO.
-set nopaste
-set pastetoggle=<F10>
-
 " If the Vim buffer for a file doesn't have any changes and Vim detects the
 " file has been altered, quietly update it
 set autoread
