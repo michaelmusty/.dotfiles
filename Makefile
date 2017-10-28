@@ -1,15 +1,16 @@
-.PHONY : all \
+.POSIX:
+
+.PHONY: all \
 	clean \
 	distclean \
 	install \
 	install-abook \
 	install-bash \
-	install-bash-completion \
 	install-bin \
 	install-bin-man \
 	install-curl \
-	install-dotfiles-man \
 	install-dunst \
+	install-ex \
 	install-finger \
 	install-games \
 	install-games-man \
@@ -17,439 +18,550 @@
 	install-gnupg \
 	install-gtk \
 	install-i3 \
+	install-ksh \
 	install-less \
-	install-maildir \
+	install-login-shell \
+	install-mpd \
 	install-mutt \
+	install-mysql \
 	install-ncmcpp \
 	install-newsbeuter \
-	install-mysql \
-	install-ksh \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
 	install-readline \
 	install-sh \
 	install-subversion \
+	install-terminfo \
 	install-tmux \
 	install-urxvt \
 	install-vim \
-	install-gvim \
 	install-vim-config \
-	install-gvim-config \
-	install-vim-plugins \
+	install-vim-gui \
+	install-vim-gui-config \
 	install-vim-pathogen \
-	install-wyrd \
+	install-vim-plugins \
+	install-wget \
 	install-x \
-	install-yash \
 	install-zsh \
 	check \
 	check-bash \
 	check-bin \
 	check-games \
 	check-ksh \
+	check-login-shell \
+	check-man \
 	check-sh \
 	check-urxvt \
-	check-yash \
+	check-xinit \
 	check-zsh \
 	lint \
 	lint-bash \
 	lint-bin \
 	lint-games \
 	lint-ksh \
-	lint-yash \
 	lint-sh \
-	lint-urxvt
+	lint-urxvt \
+	lint-xinit
 
-.SUFFIXES: .awk .bash .pl .sed
+.SUFFIXES:
+.SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
 
-NAME := Tom Ryder
-EMAIL := tom@sanctum.geek.nz
-KEY := 0xC14286EA77BB8872
-SENDMAIL := msmtp
+NAME = 'Tom Ryder'
+EMAIL = tom@sanctum.geek.nz
+KEY = 0xC14286EA77BB8872
+SENDMAIL = msmtp
 
-BINS = bin/brnl \
+BINS = bin/ap \
+	bin/apf \
+	bin/ax \
+	bin/bcq \
+	bin/bel \
+	bin/bl \
+	bin/bp \
+	bin/br \
+	bin/brnl \
+	bin/ca \
+	bin/cf \
+	bin/cfr \
+	bin/chc \
+	bin/chn \
+	bin/clog \
+	bin/clrd \
+	bin/clwr \
 	bin/csmw \
+	bin/dam \
+	bin/d2u \
 	bin/ddup \
+	bin/dmp \
+	bin/dub \
+	bin/edda \
+	bin/eds \
+	bin/exm \
+	bin/fgscr \
+	bin/finc \
+	bin/fnl \
+	bin/fnp \
+	bin/gms \
+	bin/grc \
+	bin/grec \
+	bin/gred \
+	bin/gscr \
 	bin/gwp \
 	bin/han \
+	bin/hms \
 	bin/htdec \
 	bin/htenc \
+	bin/htref \
+	bin/hurl \
+	bin/igex \
+	bin/isgr \
+	bin/ix \
+	bin/jfc \
+	bin/jfcd \
 	bin/jfp \
+	bin/loc \
+	bin/mi5 \
 	bin/max \
+	bin/maybe \
 	bin/mean \
 	bin/med \
+	bin/mex \
 	bin/mftl \
 	bin/min \
+	bin/mkcp \
+	bin/mkmv \
+	bin/mktd \
 	bin/mode \
+	bin/motd \
+	bin/murl \
+	bin/mw \
 	bin/nlbr \
+	bin/oii \
 	bin/onl \
+	bin/osc \
+	bin/pa \
+	bin/paz \
+	bin/ped \
+	bin/pit \
+	bin/plmu \
+	bin/p \
+	bin/pp \
+	bin/pph \
+	bin/pst \
+	bin/pvi \
+	bin/pwg \
+	bin/quo \
+	bin/rep \
+	bin/rfcf \
+	bin/rfcr \
 	bin/rfct \
+	bin/rgl \
+	bin/rnda \
+	bin/rndf \
 	bin/rndi \
+	bin/rndl \
+	bin/rnds \
 	bin/sd2u \
 	bin/sec \
+	bin/shb \
+	bin/slow \
+	bin/sls \
 	bin/slsf \
+	bin/sqs \
+	bin/sra \
+	bin/sshi \
+	bin/sta \
+	bin/stbl \
+	bin/stex \
+	bin/stws \
 	bin/su2d \
+	bin/sue \
+	bin/supp \
+	bin/swr \
+	bin/td \
+	bin/tl \
+	bin/tlcs \
+	bin/tm \
 	bin/tot \
+	bin/trs \
+	bin/try \
+	bin/u2d \
+	bin/umake \
 	bin/unf \
+	bin/urlc \
+	bin/urlh \
+	bin/urlmt \
 	bin/uts \
+	bin/vest \
+	bin/vex \
+	bin/wro \
+	bin/xgo \
+	bin/xgoc \
+	bin/xrbg \
+	bin/xrq
 
-GAMES = games/acq \
+BINS_M4 = bin/chn.m4 \
+	bin/edda.m4 \
+	bin/oii.m4 \
+	bin/pst.m4 \
+	bin/swr.m4 \
+	bin/tlcs.m4 \
+	bin/try.m4 \
+	bin/urlc.m4
+
+BINS_SH = bin/chn.sh \
+	bin/edda.sh \
+	bin/oii.sh \
+	bin/pst.sh \
+	bin/swr.sh \
+	bin/tlcs.sh \
+	bin/try.sh \
+	bin/urlc.sh
+
+GAMES = games/aaf \
+	games/acq \
 	games/aesth \
 	games/chkl \
+	games/dr \
 	games/drakon \
 	games/kvlt \
+	games/philsay \
+	games/pks \
+	games/rndn \
 	games/rot13 \
+	games/squ \
 	games/strik \
+	games/xyzzy \
 	games/zs
 
-all : $(BINS) git/gitconfig gnupg/gpg.conf
+all: $(BINS) git/gitconfig gnupg/gpg.conf
 
-clean distclean :
-	rm -f \
+clean distclean:
+	rm -f -- \
 		$(BINS) \
+		$(BINS_M4) \
+		$(BINS_SH) \
 		$(GAMES) \
 		git/gitconfig \
+		git/gitconfig.m4 \
 		gnupg/gpg.conf \
-		man/man7/dotfiles.7df \
-		mutt/muttrc \
-		tmux/tmux.conf \
+		gnupg/gpg.conf.m4 \
+		include/mktd.m4 \
+		man/man8/dotfiles.7df \
 		urxvt/ext/select
 
-git/gitconfig : git/gitconfig.m4
+.awk:
+	sh bin/shb.sh awk -f < $< > $@
+	chmod +x ./$@
+
+.bash:
+	sh bin/shb.sh bash < $< > $@
+	chmod +x ./$@
+
+.pl:
+	sh bin/shb.sh perl < $< > $@
+	chmod +x ./$@
+
+.sed:
+	sh bin/shb.sh sed -f < $< > $@
+	chmod +x ./$@
+
+.sh:
+	sh bin/shb.sh sh < $< > $@
+	chmod +x ./$@
+
+.mi5.m4:
+	awk -f bin/mi5.awk < $< > $@
+
+.m4.sh:
+	m4 < $< > $@
+
+bin/chn.sh: bin/chn.m4 include/mktd.m4
+bin/edda.sh: bin/edda.m4 include/mktd.m4
+bin/oii.sh: bin/oii.m4 include/mktd.m4
+bin/pst.sh: bin/pst.m4 include/mktd.m4
+bin/swr.sh: bin/swr.m4 include/mktd.m4
+bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
+bin/try.sh: bin/try.m4 include/mktd.m4
+bin/urlc.sh: bin/urlc.m4 include/mktd.m4
+
+git/gitconfig: git/gitconfig.m4
 	m4 \
-		-D DOTFILES_NAME="$(NAME)" \
-		-D DOTFILES_EMAIL="$(EMAIL)" \
-		-D DOTFILES_KEY="$(KEY)" \
-		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
-		git/gitconfig.m4 > git/gitconfig
+		-D NAME=$(NAME) \
+		-D EMAIL=$(EMAIL) \
+		-D KEY=$(KEY) \
+		-D SENDMAIL=$(SENDMAIL) \
+		git/gitconfig.m4 > $@
 
-gnupg/gpg.conf : gnupg/gpg.conf.m4
-	m4 -D DOTFILES_HOME="$(HOME)" \
-		gnupg/gpg.conf.m4 > gnupg/gpg.conf
+KEYSERVER = hkps://hkps.pool.sks-keyservers.net
 
-man/man7/dotfiles.7df : README.markdown man/man7/dotfiles.7df.header
-	cat man/man7/dotfiles.7df.header README.markdown | \
-		pandoc -sS -t man -o "$@"
-
-mutt/muttrc : mutt/muttrc.m4
+gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
-		-D DOTFILES_SENDMAIL="$(SENDMAIL)" \
-		mutt/muttrc.m4 > mutt/muttrc
+		-D KEYSERVER=$(KEYSERVER) \
+		gnupg/gpg.conf.m4 > $@
 
-TMUX_COLOR := colour237
+MAILDIR = $(HOME)/Mail
 
-tmux/tmux.conf : tmux/tmux.conf.m4
-	m4 -D TMUX_COLOR="$(TMUX_COLOR)" \
-		tmux/tmux.conf.m4 > tmux/tmux.conf
-
-.awk :
-	bin/shb "$<" awk -f > "$@"
-	chmod +x "$@"
-
-.bash :
-	bin/shb "$<" bash > "$@"
-	chmod +x "$@"
-
-.pl :
-	bin/shb "$<" perl > "$@"
-	chmod +x "$@"
-
-.sed :
-	bin/shb "$<" sed -f > "$@"
-	chmod +x "$@"
-
-install : install-bash \
-	install-bash-completion \
-	install-bin \
+install: install-bin \
 	install-curl \
+	install-ex \
 	install-git \
 	install-gnupg \
 	install-less \
+	install-login-shell \
 	install-readline \
-	install-sh \
 	install-vim
 
-install-abook :
-	install -m 0755 -d -- \
-		"$(HOME)"/.abook
-	install -pm 0644 -- abook/abookrc "$(HOME)"/.abook
+install-conf:
+	sh install/install-conf.sh
 
-install-bash : check-bash install-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.config \
-		"$(HOME)"/.bashrc.d
-	install -pm 0644 -- bash/bashrc "$(HOME)"/.bashrc
-	install -pm 0644 -- bash/bashrc.d/* "$(HOME)"/.bashrc.d
-	install -pm 0644 -- bash/bash_profile "$(HOME)"/.bash_profile
-	install -pm 0644 -- bash/bash_logout "$(HOME)"/.bash_logout
+install-abook:
+	mkdir -p -- $(HOME)/.abook
+	cp -p -- abook/abookrc $(HOME)/.abook
 
-install-bash-completion : install-bash
-	install -m 0755 -d -- "$(HOME)"/.bash_completion.d
-	install -pm 0644 -- bash/bash_completion "$(HOME)"/.config/bash_completion
-	install -pm 0644 -- bash/bash_completion.d/* "$(HOME)"/.bash_completion.d
+install-bash: check-bash install-sh
+	mkdir -p -- $(HOME)/.bashrc.d $(HOME)/.bash_completion.d $(HOME)/.config
+	cp -p -- bash/bashrc $(HOME)/.bashrc
+	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
+	cp -p -- bash/bash_profile $(HOME)/.bash_profile
+	cp -p -- bash/bash_logout $(HOME)/.bash_logout
+	cp -p -- bash/bash_completion $(HOME)/.config
+	cp -p -- bash/bash_completion.d/* $(HOME)/.bash_completion.d
 
-install-bin : $(BINS) install-bin-man
-	install -m 0755 -d -- "$(HOME)"/.local/bin
-	for name in bin/* ; do \
-		[ -x "$$name" ] || continue ; \
-		install -m 0755 -- "$$name" "$(HOME)"/.local/bin ; \
-	done
+install-bin: $(BINS) install-bin-man
+	mkdir -p -- $(HOME)/.local/bin
+	find bin -type f -perm -u=x \
+		-exec cp -p -- {} $(HOME)/.local/bin \;
 
-install-bin-man :
-	install -m 0755 -d -- \
-		"$(HOME)"/.local/share/man/man1 \
-		"$(HOME)"/.local/share/man/man8
-	install -pm 0644 -- man/man1/*.1df "$(HOME)"/.local/share/man/man1
-	install -pm 0644 -- man/man8/*.8df "$(HOME)"/.local/share/man/man8
+install-bin-man:
+	mkdir -p -- $(HOME)/.local/share/man/man1 $(HOME)/.local/share/man/man8
+	cp -p -- man/man1/*.1df $(HOME)/.local/share/man/man1
+	cp -p -- man/man8/*.8df $(HOME)/.local/share/man/man8
 
-install-curl :
-	install -pm 0644 -- curl/curlrc "$(HOME)"/.curlrc
+install-curl:
+	cp -p -- curl/curlrc $(HOME)/.curlrc
 
-install-dotfiles-man : man/man7/dotfiles.7df
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man7
-	install -pm 0644 -- man/man7/*.7df "$(HOME)"/.local/share/man/man7
+install-dunst: install-x
+	mkdir -p -- $(HOME)/.config/dunst
+	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
 
-install-dunst : install-x
-	install -m 0755 -d -- "$(HOME)"/.config/dunst
-	install -pm 0644 -- dunst/dunstrc "$(HOME)"/.config/dunst
+install-ex:
+	cp -p -- ex/exrc $(HOME)/.exrc
 
-install-finger :
-	install -pm 0644 -- finger/plan "$(HOME)"/.plan
-	install -pm 0644 -- finger/project "$(HOME)"/.project
-	install -pm 0644 -- finger/pgpkey "$(HOME)"/.pgpkey
+install-finger:
+	cp -p -- finger/plan $(HOME)/.plan
+	cp -p -- finger/project $(HOME)/.project
+	cp -p -- finger/pgpkey $(HOME)/.pgpkey
 
-install-games : $(GAMES) install-games-man
-	install -m 0755 -d -- "$(HOME)"/.local/games
-	for name in games/* ; do \
-		[ -x "$$name" ] || continue ; \
-		install -m 0755 -- "$$name" "$(HOME)"/.local/games ; \
-	done
+install-games: $(GAMES) install-games-man
+	mkdir -p -- $(HOME)/.local/games
+	find games -type f -perm -u=x \
+		-exec cp -p -- {} $(HOME)/.local/games \;
 
-install-games-man :
-	install -m 0755 -d -- "$(HOME)"/.local/share/man/man6
-	install -pm 0644 -- man/man6/*.6df "$(HOME)"/.local/share/man/man6
+install-games-man:
+	mkdir -p -- $(HOME)/.local/share/man/man6
+	cp -p -- man/man6/*.6df $(HOME)/.local/share/man/man6
 
-install-git : git/gitconfig
-	install -pm 0644 -- git/gitconfig "$(HOME)"/.gitconfig
+install-git: git/gitconfig
+	cp -p -- git/gitconfig $(HOME)/.gitconfig
 
-install-gnupg : gnupg/gpg.conf
-	install -m 0700 -d -- \
-		"$(HOME)"/.gnupg \
-		"$(HOME)"/.gnupg/sks-keyservers.net
-	install -pm 0600 -- gnupg/*.conf "$(HOME)"/.gnupg
-	install -pm 0644 -- gnupg/sks-keyservers.net/* \
-		"$(HOME)"/.gnupg/sks-keyservers.net
+install-gnupg: gnupg/gpg.conf
+	mkdir -m 0700 -p -- $(HOME)/.gnupg
+	cp -p -- gnupg/*.conf $(HOME)/.gnupg
 
-install-gtk :
-	install -m 0755 -d -- \
-		"$(HOME)"/.config/gtkrc-3.0
-	install -pm 0644 -- gtk/gtkrc-2.0 "$(HOME)"/.gtkrc-2.0
-	install -pm 0644 -- gtk/gtkrc-3.0/settings.ini "$(HOME)"/.config/gtkrc-3.0
+install-gtk:
+	mkdir -p -- $(HOME)/.config/gtk-3.0
+	cp -p -- gtk/gtkrc-2.0 $(HOME)/.gtkrc-2.0
+	cp -p -- gtk/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0
 
-install-i3 : install-x
-	install -m 0755 -d -- "$(HOME)"/.i3
-	install -pm 0644 -- i3/* "$(HOME)"/.i3
+install-i3: install-x
+	mkdir -p -- $(HOME)/.i3
+	cp -p -- i3/* $(HOME)/.i3
 
-install-less :
-	install -pm 0644 -- less/lesskey "$(HOME)"/.lesskey
-	command -v lesskey && lesskey
+install-keychain: install-sh
+	cp -p -- keychain/profile.d/* $(HOME)/.profile.d
+	cp -p -- keychain/shrc.d/* $(HOME)/.shrc.d
 
-install-maildir :
-	install -m 0755 -d -- \
-		"$(HOME)"/Mail/inbox/cur \
-		"$(HOME)"/Mail/inbox/new \
-		"$(HOME)"/Mail/inbox/tmp \
-		"$(HOME)"/Mail/sent/cur \
-		"$(HOME)"/Mail/sent/new \
-		"$(HOME)"/Mail/sent/tmp
+install-less:
+	cp -p -- less/lesskey $(HOME)/.lesskey
+	lesskey
 
-install-mutt : mutt/muttrc install-maildir
-	install -m 0755 -d -- \
-		"$(HOME)"/.mutt \
-		"$(HOME)"/.cache/mutt
-	install -pm 0644 -- mutt/muttrc "$(HOME)"/.muttrc
-	install -pm 0644 -- mutt/signature "$(HOME)"/.signature
+install-mpd: install-sh
+	mkdir -p -- $(HOME)/.mpd/playlists
+	cp -p -- mpd/profile.d/* $(HOME)/.profile.d
+	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
 
-install-ncmcpp :
-	install -m 0755 -d -- "$(HOME)"/.ncmpcpp
-	install -pm 0644 -- ncmpcpp/config "$(HOME)"/.ncmpcpp/config
+install-mutt:
+	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
+	cp -p -- mutt/muttrc $(HOME)/.muttrc
+	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
 
-install-newsbeuter :
-	install -m 0755 -d -- \
-		"$(HOME)"/.config/newsbeuter \
-		"$(HOME)"/.local/share/newsbeuter
-	install -pm 0644 -- newsbeuter/config "$(HOME)"/.config/newsbeuter/config
+install-ncmcpp: install-mpd
+	mkdir -p -- $(HOME)/.ncmpcpp
+	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
-install-mysql :
-	install -pm 0644 -- mysql/my.cnf "$(HOME)"/.my.cnf
+install-newsbeuter:
+	mkdir -p -- $(HOME)/.config/newsbeuter $(HOME)/.local/share/newsbeuter
+	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter
 
-install-ksh : check-ksh install-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.shrc.d \
-		"$(HOME)"/.kshrc.d
-	install -pm 0644 -- ksh/shrc.d/* "$(HOME)"/.shrc.d
-	install -pm 0644 -- ksh/kshrc "$(HOME)"/.kshrc
-	install -pm 0644 -- ksh/kshrc.d/* "$(HOME)"/.kshrc.d
+install-mysql:
+	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
 
-install-perlcritic :
-	install -pm 0644 -- perlcritic/perlcriticrc "$(HOME)"/.perlcriticrc
+install-ksh: check-ksh install-sh
+	mkdir -p -- $(HOME)/.kshrc.d
+	cp -p -- ksh/shrc.d/* $(HOME)/.shrc.d
+	cp -p -- ksh/kshrc $(HOME)/.kshrc
+	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
 
-install-perltidy :
-	install -pm 0644 -- perltidy/perltidyrc "$(HOME)"/.perltidyrc
+install-login-shell: check-login-shell
+	sh install/install-login-shell.sh
 
-install-psql :
-	install -pm 0644 -- psql/psqlrc "$(HOME)"/.psqlrc
+install-perlcritic:
+	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
 
-install-readline :
-	install -pm 0644 -- readline/inputrc "$(HOME)"/.inputrc
+install-perltidy:
+	cp -p -- perltidy/perltidyrc $(HOME)/.perltidyrc
 
-install-sh : check-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.profile.d \
-		"$(HOME)"/.shrc.d
-	install -pm 0644 -- sh/profile "$(HOME)"/.profile
-	install -pm 0644 -- sh/profile.d/* "$(HOME)"/.profile.d
-	install -pm 0644 -- sh/shinit "$(HOME)"/.shinit
-	install -pm 0644 -- sh/shrc "$(HOME)"/.shrc
-	install -pm 0644 -- sh/shrc.d/* "$(HOME)"/.shrc.d
+install-plenv: install-sh
+	cp -p -- plenv/profile.d/* $(HOME)/.profile.d
+	cp -p -- plenv/shrc.d/* $(HOME)/.shrc.d
 
-install-subversion :
-	install -m 0755 -d -- "$(HOME)"/.subversion
-	install -pm 0644 -- subversion/config "$(HOME)"/.subversion/config
+install-psql:
+	cp -p -- psql/psqlrc $(HOME)/.psqlrc
 
-install-terminfo :
-	for info in terminfo/*.info ; do \
-		tic -- "$$info" ; \
-	done
+install-readline:
+	cp -p -- readline/inputrc $(HOME)/.inputrc
 
-install-tmux : tmux/tmux.conf install-terminfo
-	install -pm 0644 -- tmux/tmux.conf "$(HOME)"/.tmux.conf
+install-sh: check-sh
+	mkdir -p -- $(HOME)/.profile.d $(HOME)/.shrc.d
+	cp -p -- sh/profile $(HOME)/.profile
+	cp -p -- sh/profile.d/* $(HOME)/.profile.d
+	cp -p -- sh/shinit $(HOME)/.shinit
+	cp -p -- sh/shrc $(HOME)/.shrc
+	cp -p -- sh/shrc.d/* $(HOME)/.shrc.d
 
-install-urxvt : urxvt/ext/select check-urxvt
-	install -m 0755 -d -- "$(HOME)"/.urxvt/ext
-	for name in urxvt/ext/* ; do \
-		case $$name in \
-			*.pl) ;; \
-			*) install -m 0644 -- "$$name" "$(HOME)"/.urxvt/ext ;; \
-		esac \
-	done
+install-subversion:
+	mkdir -p -- $(HOME)/.subversion
+	cp -p -- subversion/config $(HOME)/.subversion
 
-install-vim : install-vim-config \
+install-terminfo:
+	find terminfo -type f -name '*.info' \
+		-exec tic -- {} \;
+
+install-tmux: tmux/tmux.conf install-terminfo
+	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
+
+install-urxvt: urxvt/ext/select
+	mkdir -p -- $(HOME)/.urxvt/ext
+	find urxvt/ext -type f ! -name '*.pl' \
+		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
+
+install-vim: install-vim-config \
 	install-vim-plugins \
 	install-vim-pathogen
 
-install-gvim : install-vim \
-	install-gvim-config
+install-vim-config:
+	cp -p -- vim/vimrc $(HOME)/.vimrc
 
-install-vim-config :
-	install -pm 0644 -- vim/vimrc "$(HOME)"/.vimrc
+install-vim-gui: install-vim \
+	install-vim-gui-config
 
-install-gvim-config :
-	install -pm 0644 -- vim/gvimrc "$(HOME)"/.gvimrc
+install-vim-gui-config:
+	cp -p -- vim/gvimrc $(HOME)/.gvimrc
 
-install-vim-plugins : install-vim-config
+install-vim-plugins: install-vim-config
 	find vim/after vim/bundle -name .git -prune -o \
-		-type d -exec sh -c 'install -m 0755 -d -- \
-			"$(HOME)"/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'install -m 0644 -- \
-			"$$1" "$(HOME)"/."$$1"' _ {} \;
+		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
+		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
-install-vim-pathogen : install-vim-plugins
-	install -m 0755 -d -- "$(HOME)"/.vim/autoload
-	rm -f -- "$(HOME)"/.vim/autoload/pathogen.vim
-	ln -s -- ../bundle/pathogen/autoload/pathogen.vim \
-		"$(HOME)"/.vim/autoload/pathogen.vim
+install-vim-pathogen: install-vim-plugins
+	mkdir -p -- $(HOME)/.vim/autoload
+	ln -fs -- ../bundle/pathogen/autoload/pathogen.vim $(HOME)/.vim/autoload
 
-install-wyrd :
-	install -pm 0644 -- wyrd/wyrdrc "$(HOME)"/.wyrdrc
+install-wget:
+	cp -p -- wget/wgetrc $(HOME)/.wgetrc
 
-install-x :
-	install -m 0755 -d -- \
-		"$(HOME)"/.config \
-		"$(HOME)"/.xinitrc.d \
-		"$(HOME)"/.Xresources.d
-	install -pm 0644 -- X/redshift.conf "$(HOME)"/.config/redshift.conf
-	install -pm 0644 -- X/xbindkeysrc "$(HOME)"/.xbindkeysrc
-	install -pm 0644 -- X/xinitrc "$(HOME)"/.xinitrc
-	install -pm 0644 -- X/xinitrc.d/* "$(HOME)"/.xinitrc.d
-	install -pm 0644 -- X/Xresources "$(HOME)"/.Xresources
-	install -pm 0644 -- X/Xresources.d/* "$(HOME)"/.Xresources.d
+install-x: check-xinit
+	mkdir -p -- \
+		$(HOME)/.config \
+		$(HOME)/.config/sxhkdrc \
+		$(HOME)/.xinitrc.d \
+		$(HOME)/.Xresources.d
+	cp -p -- X/redshift.conf $(HOME)/.config
+	cp -p -- X/sxhkdrc $(HOME)/.config/sxhkd
+	cp -p -- X/xinitrc $(HOME)/.xinitrc
+	cp -p -- X/xinitrc.d/* $(HOME)/.xinitrc.d
+	cp -p -- X/Xresources $(HOME)/.Xresources
+	cp -p -- X/Xresources.d/* $(HOME)/.Xresources.d
 
-install-yash : check-yash install-sh
-	install -m 0755 -d -- "$(HOME)"/.yashrc.d
-	install -pm 0644 -- yash/yash_profile "$(HOME)"/.yash_profile
-	install -pm 0644 -- yash/yashrc "$(HOME)"/.yashrc
-	install -pm 0644 -- yash/yashrc.d/* "$(HOME)"/.yashrc.d
+install-zsh: check-zsh install-sh
+	mkdir -p -- $(HOME)/.profile.d $(HOME)/.zshrc.d
+	cp -p -- zsh/profile.d/* $(HOME)/.profile.d
+	cp -p -- zsh/zprofile $(HOME)/.zprofile
+	cp -p -- zsh/zshrc $(HOME)/.zshrc
+	cp -p -- zsh/zshrc.d/* $(HOME)/.zshrc.d
 
-install-zsh : check-zsh install-sh
-	install -m 0755 -d -- \
-		"$(HOME)"/.profile.d \
-		"$(HOME)"/.zshrc.d
-	install -pm 0644 -- zsh/profile.d/* "$(HOME)"/.profile.d
-	install -pm 0644 -- zsh/zprofile "$(HOME)"/.zprofile
-	install -pm 0644 -- zsh/zshrc "$(HOME)"/.zshrc
-	install -pm 0644 -- zsh/zshrc.d/* "$(HOME)"/.zshrc.d
-
-check : check-bash \
-	check-bin \
-	check-games \
+check: check-bin \
+	check-login-shell \
 	check-man \
-	check-sh \
-	check-urxvt
+	check-sh
 
-check-bash :
-	check/bash
+check-bash:
+	sh check/bash.sh
 
-check-bin : $(BINS)
-	check/bin
+check-bin: $(BINS_SH)
+	sh check/bin.sh
 
-check-games : $(GAMES)
-	check/games
+check-games:
+	sh check/games.sh
 
-check-man :
-	check/man
+check-man:
+	sh check/man.sh
 
-check-ksh :
-	check/ksh
+check-ksh:
+	sh check/ksh.sh
 
-check-sh :
-	check/sh
+check-login-shell:
+	sh check/login-shell.sh
 
-check-urxvt :
-	check/urxvt
+check-sh:
+	sh check/sh.sh
 
-check-yash :
-	check/yash
+check-urxvt:
+	sh check/urxvt.sh
 
-check-zsh :
-	check/zsh
+check-xinit:
+	sh check/xinit.sh
 
-lint : check \
-	lint-bash  \
-	lint-bin  \
-	lint-games  \
-	lint-ksh  \
-	lint-sh  \
+check-zsh:
+	sh check/zsh.sh
+
+lint: lint-bash \
+	lint-bin \
+	lint-games \
+	lint-ksh \
+	lint-sh \
 	lint-urxvt \
-	lint-yash
+	lint-xinit
 
-lint-bash :
-	lint/bash
+lint-bash: check-bash
+	sh lint/bash.sh
 
-lint-bin : $(BINS)
-	lint/bin
+lint-bin: check-bin
+	sh lint/bin.sh
 
-lint-games : $(GAMES)
-	lint/games
+lint-games: check-games
+	sh lint/games.sh
 
-lint-ksh :
-	lint/ksh
+lint-ksh: check-ksh
+	sh lint/ksh.sh
 
-lint-sh :
-	lint/sh
+lint-sh: check-sh
+	sh lint/sh.sh
 
-lint-urxvt :
-	lint/urxvt
+lint-urxvt: check-urxvt
+	sh lint/urxvt.sh
 
-lint-yash :
-	lint/yash
+lint-xinit: check-xinit
+	sh lint/xinit.sh

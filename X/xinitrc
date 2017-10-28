@@ -1,3 +1,6 @@
+# If a file ~/.xrandrrc exists for monitor setup, source that first
+[ -e "$HOME"/.xrandrrc ] && . "$HOME"/.xrandrrc
+
 # Read X resources
 xrdb "$HOME"/.Xresources
 

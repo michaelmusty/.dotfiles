@@ -1,0 +1,65 @@
+# Attempt a certain number of times to perform a task, buffer stderr unless and
+# until all command attempts fail
+self=try
+
+# Parse options
+while getopts 's:n:' opt ; do
+    case $opt in
+        n)
+            attn=$OPTARG
+            ;;
+        s)
+            sleep=$OPTARG
+            ;;
+        \?)
+            printf >&2 '%s: Unknown option\n' "$self"
+            exit 2
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Check we have at least one argument left (the command to run)
+if [ "$#" -eq 0 ] ; then
+    printf >&2 '%s: Need a command to run\n' "$self"
+    exit 2
+fi
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Open a filehandle to the error buffer, just to save on file operations
+errbuff=$td/errbuff
+exec 3>"$errbuff"
+
+# Keep trying the command, writing error output to the buffer file, and exit
+# if we succeed on any of them
+attc=1
+: "${attn:=3}" "${sleep:=0}"
+while [ "$attc" -le "$attn" ] ; do
+
+    # Try running the command; if it succeeds, we're done, and any previous
+    # failures get their errors discarded
+    if "$@" 2>&3 ; then
+        exit
+
+    # If the command failed, record the exit value
+    else
+        ex=$?
+    fi
+
+    # If this isn't the last run, have a sleep
+    if [ "$attc" -lt "$attn" ] ; then
+        sleep "${sleep:=0}"
+    fi
+
+    # Increment the attempt count
+    attc=$((attc + 1))
+done
+
+# Attempts were exhausted, and all failed; print the error output from all of
+# the failures and exit with the non-zero exit value of the most recent one
+exec 3>&-
+cat -- "$td"/errbuff >&2
+exit "$ex"

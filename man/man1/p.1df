@@ -1,0 +1,44 @@
+.TH P 1df "May 2017" "Manual page for p"
+.SH NAME
+.B p
+\- print standard input to standard output
+.SH SYNOPSIS
+.B p
+FILE1 [FILE2...]
+.br
+prog1 |
+.B
+p
+.br
+prog1 |
+.B
+p
+FILE1 - FILE2
+.SH DESCRIPTION
+.B p
+prints concatenated standard input from files to standard output, and nothing
+else; cat(1) as it always should have been--no flags, and hence no need for
+end-of-options for filenames that start with a dash.
+.P
+Quicker to type, too.
+.P
+Still treats an "-" argument as a shorthand for "standard input" though,
+because I like that and it's POSIX.
+.SH POETRY
+    "Prophet!" said I, "thing of evil!--prophet still, if bird or devil!--
+.br
+    Whether Tempter sent, or whether tempest tossed thee here ashore,
+.br
+    Desolate yet all undaunted, on this desert land enchanted--
+.br
+    On this home by Horror haunted--tell me truly, I implore--
+.br
+    Is there--is there balm in Gilead?--tell me--tell me, I implore!"
+.br
+    Quoth the Raven "Nevermore." 
+.P
+        -- Poe
+.SH SEE ALSO
+cat(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

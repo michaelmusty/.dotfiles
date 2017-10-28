@@ -1,3 +1,7 @@
+# Our ~/.profile should already have made a directory with the supported
+# options for us; if not, we won't be wrapping ed(1) with a function at all
+[ -d "$HOME"/.cache/sh/opt/ed ] || return
+
 # Define function proper
 ed() {
 
@@ -8,7 +12,7 @@ ed() {
     fi
 
     # Add --verbose to explain errors
-    [ -e "$HOME"/.cache/ed/verbose ] &&
+    [ -e "$HOME"/.cache/sh/opt/ed/verbose ] &&
         set -- --verbose "$@"
 
     # Add an asterisk prompt (POSIX feature)

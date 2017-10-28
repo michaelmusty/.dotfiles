@@ -1,0 +1,16 @@
+.TH DAM 1df "May 2017" "Manual page for dam"
+.SH NAME
+.B dam
+\- read all input before emitting as output
+.SH SYNOPSIS
+prog1 |
+.B 
+dam
+| prog2
+.SH DESCRIPTION
+.B dam
+buffers all its input before emitting it as output. Useful if you don't
+actually want a line-by-line flow between programs, such as pasting a complete
+document into a sed(1) pipeline on the terminal.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

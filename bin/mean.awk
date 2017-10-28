@@ -1,5 +1,6 @@
 # Get the mean of a list of numbers
-{ tot += $1 }
+BEGIN { tot = 0 }
+{ tot += $1 + 0 }
 END {
     # Error out if we read no values at all
     if (!NR)

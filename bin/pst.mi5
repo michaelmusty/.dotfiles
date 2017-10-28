@@ -1,0 +1,19 @@
+# Interrupt a pipe with manual /dev/tty input to a program
+self=pst
+
+# Don't accept terminal as stdin
+if [ -t 0 ] ; then
+    printf >&2 '%s: stdin is a term\n' "$self"
+    exit 2
+fi
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Run the interactive command on the temporary file forcing /dev/tty as
+# input/output
+tf=$td/data
+cat - > "$tf" || exit
+"${@:-"${PAGER:-more}"}" "$tf" </dev/tty >/dev/tty
+cat -- "$tf" || exit

@@ -5,10 +5,10 @@ self=han
 # due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
 # 2.05a).
 # shellcheck disable=SC2128
-[ -n "$BASH_VERSINFO" ] || return
+[ -n "$BASH_VERSINFO" ] || exit
 ((BASH_VERSINFO[0] == 2)) &&
     ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) &&
-    return
+    exit
 
 # Figure out the options with which we can call help; Bash >=4.0 has an -m
 # option which prints the help output in a man-page like format

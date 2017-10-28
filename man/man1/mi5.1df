@@ -1,0 +1,70 @@
+.TH MI5 1df "June 2017" "Manual page for mi5"
+.SH NAME
+.B mi5
+\- m4 inverted preprocessor
+.SH SYNOPSIS
+.B mi5
+FILE > out.m4
+.br
+.B mi5
+open='{{{' shut='}}}' FILE > out.m4
+.br
+.B mi5
+FILE1 FILE2 > out.m4
+.br
+prog |
+.B mi5
+> out.m4
+.br
+.SH DESCRIPTION
+.B mi5
+is a simple and crude m4 preprocessor to make using m4 slightly more bearable
+and predictable for its author, who wants badly to like m4 but doesn't. It's
+primarily intended for situations where the majority of a file is simple static
+text, and only a few simple macros need to be defined and expanded, which
+covers almost every usage case for the author. It's written to work with any
+POSIX awk and to generate output for any POSIX m4.
+.P
+mi5 inverts m4's usual approach by approaching most of the file as if it were
+part of an m4 quote, with <% and %> as the (default) delimiters to specify
+markers in which macro expansion should occur. This is therefore a way to
+shoehorn m4 into working in a way reminiscent of templating libraries or
+languages like PHP.
+.P
+Macros can be expanded as blocks:
+.P
+    <%
+
+        define(`FOO', `bar')
+        define(`BAZ', include(`include/quux.inc'))
+
+    %>
+.P
+For this format, `dnl' macros to delete newlines for each declaration are
+inserted for you. Blank lines are skipped, and leading and trailing spaces are
+ignored. The above code therefore produces no actual output, as it only has two
+define calls.
+.P
+For inline expansion, the syntax is similar, but the behaviour slightly different:
+.P
+    The value of the FOO macro is <% FOO %>.
+.P
+Spaces immediately after the opening delimiter and before the closing delimiter
+are ignored, but spaces produced within the macro are preserved. `dnl` macros
+are not inserted for inline blocks.
+.P
+Ideally, you do your complex macro definition in a block at the top of your
+file, and your simple macro expansion of those results in an inline.
+.SH CAVEATS
+There's no way to escape the delimiters.
+.P
+Inline expansions cannot span multiple lines. Use blocks for that.
+.P
+Doesn't cope at all with `changequote'. If you need to specify different ones
+from this tool's point of view, you can change the "quote" and "unquote" vars
+in the same way as "open" and "shut", but if you're getting to that point then
+you should probably write raw m4.
+.SH SEE ALSO
+m4(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

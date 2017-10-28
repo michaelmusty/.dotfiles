@@ -4,20 +4,16 @@
 \- insert a shebang line above a file
 .SH SYNOPSIS
 .B shb
-script bash
+bash < foo.bash > foo
 .br
+cat *.sed |
 .B shb
-script sed -f
-.br
-command |
-.B shb
-- awk -f
+sed -f > sedbatch
 .SH DESCRIPTION
 .B shb
-searches the system paths to find a suitable program with the name given in the
-second argument, forms a "shebang" line from it and any arguments beyond the
-second, and then emits the contents of the first argument ('-' can be used for
-stdin).
+searches the system paths to find a suitable program with the name given in its
+first argument, forms a "shebang" line from it and any remaining arguments, and
+then emits the contents of stdin.
 .P
 This is intended as a minimal way to make portable shebang lines for Makefiles
 or other building or installation frameworks, handling subtleties like sed(1)

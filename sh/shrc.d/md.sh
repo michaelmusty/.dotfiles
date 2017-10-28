@@ -7,11 +7,14 @@ md() {
         return 2
     fi
 
-    # If first arg unset or empty, assume the user means the current dir
-    [ -n "$1" ] || set -- "$PWD"
-
-    # Jump to the dir and emit PWD from a subshell to get an absolute path
-    set -- "$(cd -- "$1" && printf %s "$PWD")"
+    # If argument given, change to it in subshell to get absolute path.
+    # If not, use current working directory.
+    if [ -n "$1" ] ; then
+        set -- "$(cd -- "$1" && printf '%s/' "$PWD")"
+        set -- "${1%%/}"
+    else
+        set -- "$PWD"
+    fi
 
     # If that turned up empty, we have failed; the cd call probably threw an
     # error for us too

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Helper script to emit the source all muttrc subfiles, in LC_COLLATE order
+for rc in "$HOME"/.muttrc.d/*.rc ; do
+    [ -e "$rc" ] || continue
+    cat -- "$rc"
+done

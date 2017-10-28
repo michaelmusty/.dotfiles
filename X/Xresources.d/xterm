@@ -1,0 +1,9 @@
+! XTerm
+xterm*bellIsUrgent    : true
+xterm*internalBorder  : 0
+xterm*colorMode       : false
+xterm*eightBitInput   : false
+xterm*faceName        : Ubuntu Mono:size=12
+xterm*locale          : true
+xterm*metaSendsEscape : true
+xterm*termName        : xterm-mono
