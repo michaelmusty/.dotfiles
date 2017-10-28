@@ -23,11 +23,6 @@ if v:version >= 701
   endif
 endif
 
-" Don't jump my screen around when I join lines, keep my cursor in the same
-" place; this is done by dropping a mark first and then immediately returning
-" to it; note that it wipes out your z mark, if you happen to use it
-nnoremap J mzJ`z
-
 " Don't assume a number with a leading zero is octal; it's far more likely a
 " zero-padded decimal, so increment and decrement with ^A and ^X on that basis
 set nrformats-=octal
