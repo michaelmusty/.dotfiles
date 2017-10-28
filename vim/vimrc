@@ -9,7 +9,7 @@ endif
 
 " Load configuration files from ~/.vim/config or its analogue, before Pathogen
 " loads all its directories into 'runtimepath'
-runtime config/*.vim
+runtime! config/*.vim
 
 " If our version isn't ancient and Pathogen is available, call it to load all
 " the plugins in .vim/bundle; these are saved as submodules
