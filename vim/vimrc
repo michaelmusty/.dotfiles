@@ -18,11 +18,6 @@ if v:version >= 701
   silent! call pathogen#helptags()
 endif
 
-" Load plugins for file types
-if has('autocmd')
-  filetype plugin on
-endif
-
 " Options dependent on the syntax feature
 if has('syntax')
 
@@ -36,18 +31,9 @@ if has('syntax')
   silent! colorscheme sahara
 endif
 
-" Use all ancestors of current directory for :find
-if has('file_in_path')
-  set path=**
-endif
-
 " Don't try to complete strings from included files, just use the strings in
 " the open buffers; I'll open the file if I want to complete from it
 set complete-=i
-
-" Try Mac line-endings if UNIX or DOS don't make sense; this has never
-" happened to me but who knows, it might one day
-set fileformats+=mac
 
 " Don't jump my screen around when I join lines, keep my cursor in the same
 " place; this is done by dropping a mark first and then immediately returning
@@ -74,14 +60,6 @@ set nrformats-=octal
 " more than scratch space anyway
 set shellslash
 
-" If the Vim buffer for a file doesn't have any changes and Vim detects the
-" file has been altered, quietly update it
-set autoread
-
-" Save a file automatically if I change buffers or perform operations with the
-" argument list; this is particularly helpful for me as I don't use 'hidden'
-set autowrite
-
 " Allow the cursor to get to the top or bottom of the screen before scrolling
 " vertically, but set a reasonably wide gutter for scrolling horizontally; no
 " particular reason, just suits me better
@@ -102,12 +80,6 @@ endif
 " Use the tilde as an operator with motions, rather than just swapping the
 " case of the character under the cursor
 set tildeop
-
-" I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
-" write of the current buffer, but doesn't quit, and ZA forces a write of all
-" buffers but doesn't quit
-nnoremap ZW :w!<CR>
-nnoremap ZA :wa!<CR>
 
 " Change and delete with C and D both cut off the remainder of the line from
 " the cursor, but Y yanks the whole line, which is inconsistent (and can be
