@@ -7,7 +7,7 @@ _sd() {
     # Current directory can't be root directory
     [[ $PWD != / ]] || return 1
 
-    # Build list of matching sibiling directories
+    # Build list of matching sibling directories
     local dirname
     while IFS= read -rd '' dirname ; do
         [[ -n $dirname ]] || continue

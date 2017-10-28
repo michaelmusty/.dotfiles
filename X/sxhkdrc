@@ -1,0 +1,47 @@
+super + Return
+    urxvtcd
+
+super + control + Return
+    urxvtcd -e sh
+
+super + shift + Return
+    urxvtcd -e ksh
+
+super + alt + Return
+    urxvtcd -e zsh
+
+super + b
+    br
+
+super + d
+    dmenu_run
+
+super + g
+    xgoc
+
+super + i
+    gimp
+
+super + m
+    urxvtcd -e tm
+
+super + p
+    dmp
+
+super + v
+    urxvtcd -e "$VISUAL"
+
+super + slash
+    i3lock --color=#000000 --image ~/.i3/lock.png --nofork
+
+XF86AudioMute
+    amixer -q sset Master toggle
+
+XF86AudioRaiseVolume
+    amixer -q sset Master 5%+ unmute
+
+XF86AudioLowerVolume
+    amixer -q sset Master 5%- unmute
+
+XF86Calculator
+    urxvtcd -e bcq

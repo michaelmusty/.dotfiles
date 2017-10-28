@@ -1,7 +1,7 @@
 .TH SWR 1df "January 2017" "Manual page for swr"
 .SH NAME
 .B swr
-\- run a command including remote file arguments for scp(1) retrieval
+\- run a command including remote file arguments for scp(1) reading
 .SH SYNOPSIS
 .B swr
 cat remote:.ssh/authorized_keys
@@ -18,6 +18,9 @@ circumstances.
 This even works for the first argument (i.e. the command), provided that it
 will run on the local system once copied in.
 .SH CAVEATS
+You can't write to remote files with it. The arguments only work as input
+streams, so e.g. "cp .vimrc remote:.vimrc" won't do what you expect.
+.P
 This only works for simple commands; you can't put shell syntax into any of the
 arguments.
 .P

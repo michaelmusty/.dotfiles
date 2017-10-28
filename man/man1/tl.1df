@@ -3,7 +3,8 @@
 .B tl
 \- tag lines with a string prefix and/or suffix
 .SH USAGE
-.B tl [-p PREFIX] [-s SUFFIX] [--] [FILE1 FILE2 ...]
+.B tl
+[-p PREFIX] [-s SUFFIX] [--] [FILE1 FILE2 ...]
 .SH DESCRIPTION
 Tag lines from files or stdin with a string prefix or suffix before writing
 them to stdout. Specifying neither prefix nor suffix is acceptable, in which

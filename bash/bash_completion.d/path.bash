@@ -6,7 +6,7 @@ _path() {
 
         # Complete operation as first word
         local cmd
-        for cmd in list insert append remove check help ; do
+        for cmd in list insert append remove shift pop check help ; do
             [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
             COMPREPLY[${#COMPREPLY[@]}]=$cmd
         done
@@ -49,7 +49,7 @@ _path() {
                 local part
                 for part in "${promptarr[@]}" ; do
                     [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                    COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q\0' "$part")
+                    COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
                 done
                 ;;
 

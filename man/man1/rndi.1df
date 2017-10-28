@@ -5,20 +5,15 @@
 .SH SYNOPSIS
 .B rndi
 0 10
-.br
-.B rndi
-0 10 "$(rnds)"
 .SH DESCRIPTION
 .B rndi
 returns a random integer ranging from the first argument to the second argument
-in a POSIX-compliant way (using awk), using the optional third argument as a
-seed.
+in a POSIX-compliant way (using awk), using rnds(1df) if available for a seed.
 .P
-The answer returned is low-quality; given some implementations of awk and no
-properly random seed, it may even return the same result if run within the same
-second. This should not be used in any sort of security or statistical context.
-The author wrote it to support scripts to choose a random background image from
-a directory.
+The answer returned is low-quality; on some platforms, it may even return the
+same result if run within the same second. This should not be used in any sort
+of security or statistical context. The author wrote it to support scripts to
+choose a random background image from a directory.
 .SH SEE ALSO
 rnda(1df), rndf(1df), rndl(1df), rnds(1df), rndn(6df)
 .SH AUTHOR

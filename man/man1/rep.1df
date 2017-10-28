@@ -1,0 +1,15 @@
+.TH REP 1df "August 2017" "Manual page for rep"
+.SH NAME
+.B rep
+\- run a command repeatedly
+.SH USAGE
+.B rep
+COUNT
+COMMAND [ARG1...]
+.SH DESCRIPTION
+Run the given command the specified number of times. Zero is a valid count;
+nothing happens.
+.SH SEE ALSO
+chn(1df), maybe(1df), try(1df), watch(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

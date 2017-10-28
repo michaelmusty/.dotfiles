@@ -17,6 +17,6 @@ run.
    $ try maybe
    $ try -n5 -s10 gms
 .SH SEE ALSO
-maybe(1df)
+maybe(1df), chn(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

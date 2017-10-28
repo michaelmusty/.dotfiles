@@ -1,0 +1,23 @@
+.TH HMS 1df "February 2017" "Manual page for hms"
+.SH NAME
+.B hms
+\- convert seconds to colon-delimited durations
+.SH USAGE
+.B hms
+FILE1 [FILE2 ...]
+.br
+.B hms
+< FILE
+.br
+printf '1:02:54\\n' |
+.B hms
+.br
+hms=$(printf '%s\\n' "$seconds" | hms)
+.SH DESCRIPTION
+Applies awk(1) to convert counts of seconds into hh:mm:ss or mm:ss timestamps.
+Exits zero if all lines were successfully recognised and converted, non-zero
+otherwise.
+.SH SEE ALSO
+sec(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

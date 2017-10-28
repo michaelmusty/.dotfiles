@@ -1,5 +1,23 @@
+# No mercy!
 severity = brutal
-exclude = Bangs::ProhibitBitwiseOperators
 
+# I flatly disagree with this policy; sometimes bitwise operators are in fact
+# what I want, and I don't have the problem of using | instead of || as the
+# policy documentation suggests
+[-Bangs::ProhibitBitwiseOperators]
+
+# Add some networking terms to the list of legal numbered names
 [Bangs::ProhibitNumberedNames]
-exceptions = inet4 inet6 ipv4 ipv6 md5 sha1 sha256 sha512 x11 utf8
+add_exceptions = inet4 inet6 ipv4 ipv6
+
+# I'll keep code running for old Perls, but users are on their own with
+# documentation, so allow e.g. L<http://...> on Perl 5.6
+[-Compatibility::PodMinimumVersion]
+
+# This one causes more trouble than it's worth, too
+[-Documentation::RequirePODUseEncodingUTF8]
+
+# Soften this policy a bit; tolerate all the single-digit integers as literals,
+# and also three powers of 10 (for percentages, milliseconds etc)
+[ValuesAndExpressions::ProhibitMagicNumbers]
+allowed_values = 0..9 10 100 1000

@@ -15,13 +15,13 @@ Like true(1) or false(1), but exits with success randomly with a given
 probability. Good for using in tests. Exits with 2 rather than 1 on usage
 errors.
 .P
-The numerator default to 1 and the denominator to 2 for a roughly equal chance
+The numerator defaults to 1 and the denominator to 2 for a roughly equal chance
 of success or failure. rndi(1df) is used for the randomness.
 .P
    $ maybe
    $ maybe 3
    $ maybe 2 5
 .SH SEE ALSO
-true(1), false(1), try(1df), rndi(1df)
+true(1), false(1), chn(1df), try(1df), rndi(1df)
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

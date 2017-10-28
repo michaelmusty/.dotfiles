@@ -10,12 +10,13 @@ name
 name1 name2 name3
 .br
 PATH=/foo:/bar/baz
+.B mex
 name
 .SH DESCRIPTION
-Iterate through the contents of the PATH variable looking for files with any of
+Iterate through the directories named in $PATH looking for files with any of
 the specified names that do not have the executable permissions bit set, and
-try to set it if found. Exit nonzero if any of the names were not found, or if
-any of the permissions changes failed.
+attempt to set them if any such files are found. Exit nonzero if any of the
+names were not found, or if any of the permissions changes failed.
 .SH SEE ALSO
 chmod(1), eds(1df)
 .SH AUTHOR

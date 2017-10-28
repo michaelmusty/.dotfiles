@@ -1,7 +1,13 @@
 # Get the median of a list of numbers
+BEGIN {
+    self = "med"
+    stderr = "cat >&2"
+}
 { vals[NR] = $1 }
 NR > 1 && vals[NR] < vals[NR-1] && !warn++ {
-    printf "med: Input not sorted!\n" | "cat >&2"
+    if (!stderr)
+        stderr = "cat >&2"
+    printf "%s: Input not sorted!\n", self | stderr
 }
 END {
     # Error out if we read no values at all
@@ -12,6 +18,8 @@ END {
     else
         med = (vals[NR/2] + vals[NR/2+1]) / 2
     print med
+    if (stderr)
+        close(stderr)
     if (warn)
         exit(1)
 }

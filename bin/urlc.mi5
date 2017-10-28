@@ -1,0 +1,64 @@
+# Try to find erroneous or insecure URLs
+self=urlc
+
+# cURL request timeout
+tm=${URLCHECK_TIMEOUT:-8}
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Create buffer files for the headers and body content, to be cleaned up on
+# exit
+list=$td/list head=$td/head body=$td/body
+
+# Iterate through input; ignore leading/trailing whitespace
+cat -- "${@:--}" >"$list"
+while read -r url ; do
+
+    # Skip anything that doesn't start with HTTP
+    case $url in
+        http*) ;;
+        *) continue ;;
+    esac
+
+    # Make initial request, log head and body to files, cry and skip on error
+    if ! curl -A Mozilla -fHLsS -D "$head" -m "$tm" -o "$body" -- \
+       "$url" ; then
+        printf >&2 '%s: %s raises error\n' \
+            "$self" "$url"
+        ex=1
+        continue
+    fi
+
+    # Iterate through header file, cry about the first redirect we find
+    while IFS=': ' read -r header value ; do
+        [ "$header" = 'Location' ] || continue
+        printf >&2 '%s: %s redirects to %s\n' \
+            "$self" "$url" "$value" >&2
+        ex=1
+        break
+    done < "$head"
+
+    # Skip anything that's already secure
+    case $url in
+        https*) continue ;;
+        *) ;;
+    esac
+
+    # Form a naïve attempt at a possible secure URL and try to request it,
+    # point it out if it actually works
+    surl=https://${url#http://}
+    if curl -A Mozilla -fLsS -D "$head" -m "$tm" -o "$body" -- \
+       "$surl" 2>/dev/null ; then
+        printf >&2 '%s: %s has a working secure version at %s\n' \
+            "$self" "$url" "$surl"
+        ex=1
+    fi
+done <"$list"
+
+# Wait for the input process to finish
+wait
+
+# Exit if any errors
+exit "${ex:-0}"

@@ -53,10 +53,10 @@ s,C\([^H]\),K\1,g
 # -S[^H] -> Z (so "sharp" doesn't become "ZHARP")
 s,S\([^H]\),Z\1,g
 
-# consant-I-consonant -> -Y-
+# consonant-I-consonant -> -Y-
 s,\([B-DF-HJ-NP-TV-XZ]\)I\([B-DF-HJ-NP-TV-XZ]\),\1Y\2,g
 
-# consant-U-consonant -> -V-
+# consonant-U-consonant -> -V-
 s,\([B-DF-HJ-NP-TV-XZ]\)U\([B-DF-HJ-NP-TV-XZ]\),\1V\2,g
 
 # THE -> DER

@@ -35,4 +35,10 @@ _mysql() {
         fi
     )
 }
-complete -F _mysql -o default mysql
+
+# bashdefault requires Bash >=3.0
+if ((BASH_VERSINFO[0] >= 3)) ; then
+    complete -F _mysql -o bashdefault -o default mysql
+else
+    complete -F _mysql -o default mysql
+fi

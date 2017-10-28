@@ -1,0 +1,30 @@
+.TH SQU 6df "May 2017" "Manual page for squ"
+.SH NAME
+.B squ
+\- print a reduced Latin square made out of each line of input
+.SH USAGE
+.B squ
+.br
+london
+.br
+^D
+.br
+L O N D O N
+.br
+O N D O N L
+.br
+N D O N L O
+.br
+D O N L O N
+.br
+O N L O N D
+.br
+N L O N D O
+.SH DESCRIPTION
+.B squ
+makes a reduced Latin square [1] out of the characters on each line of input,
+uppercasing them first.
+.SH SEE ALSO
+[1]: https://en.wikipedia.org/wiki/Latin_square#Reduced_form
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

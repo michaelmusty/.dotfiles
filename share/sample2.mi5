@@ -1,0 +1,7 @@
+{{{
+
+    define(`BAR', `bar')
+
+}}}
+BAR is {{{ BAR }}}. Happy? Here it is again: {{{ BAR }}}.
+You need to change the mi5 delimiter for that to work.

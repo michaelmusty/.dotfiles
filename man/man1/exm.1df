@@ -1,0 +1,19 @@
+.TH EXM 1df "March 2017" "Manual page for exm"
+.SH NAME
+.B exm
+\- invoke Vim's ex(1) with a dumb terminal
+.SH SYNOPSIS
+.B exm
+[EX_OPTIONS...] [FILES]
+.SH DESCRIPTION
+.B exm
+works around a quirk of Vim that causes it to clear the screen when invoked as
+ex(1) interactively. It applies Vim's -T option to force the terminal to a
+"dumb" terminal.
+.SH CAVEATS
+This breaks switching to visual mode with :visual completely, as the terminal
+will persist in its dumb state. I'm not sure there's a way to fix this. If
+there were a Vim :autocmd for mode switching, it might be possible, or perhaps
+by wrapping :visual somehow to :set terminal=$TERM before the switch.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

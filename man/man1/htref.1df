@@ -1,0 +1,20 @@
+.TH HTREF 1df "January 2017" "Manual page for htref"
+.SH NAME
+.B htref
+\- turn URLs into HTML links
+.SH SYNOPSIS
+htenc urls |
+.B htref
+| nlbr > urls.html
+.SH DESCRIPTION
+.B htref
+looks for http:// and https:// URLs, and wraps <a href="..."> tags around them
+pointing to the same URL. HTML encoding of the URL should be done before this
+step.
+.P
+All characters that are not spaces, tabs, or angle brackets are included in the
+URL.
+.SH SEE ALSO
+htenc(1df)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

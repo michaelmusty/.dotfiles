@@ -2,8 +2,9 @@
 
 # For each line of input ...
 { 
-    # Strip out non-printable characters and rebuild the fields
-    gsub(/[[:cntrl:]]/, "")
+    # Replace groups of spaces and control characters with one space,
+    # implicitly re-splitting the fields
+    gsub(/[\a\b\f\n\r\t\v ]+/, " ")
 
     # Print each field, without a newline; add a leading space if it's not the
     # very first one

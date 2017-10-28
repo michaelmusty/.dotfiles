@@ -1,13 +1,19 @@
 # Convert [[[hh:]mm:]ss] timestamps to seconds
 
 # Separator is :, strip out leading zeroes
-BEGIN { FS = ":0*" }
+BEGIN {
+    FS = ":0*"
+    stderr = ""
+    ex = 0
+}
 
 # If no fields, too many fields, or illegal characters, warn, skip line, accrue
 # errors
 !NF || NF > 3 || /[^0-9:]/ {
-    print "sec: Bad format" | "cat >&2"
-    err = 1
+    if (!stderr)
+        stderr = "cat >&2"
+    print "sec: Bad format" | stderr
+    ex = 1
     next
 }
 
@@ -21,4 +27,8 @@ NF == 2 { printf "%u\n", $1 * 60 + $2 }
 NF == 1 { printf "%u\n", $1 }
 
 # Done, exit 1 if we had any errors on the way
-END { exit(err > 0) }
+END {
+    if (stderr)
+        close(stderr)
+    exit(ex)
+}

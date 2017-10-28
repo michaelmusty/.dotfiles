@@ -15,26 +15,30 @@ function prompt {
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
             if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
-                PS1=$PS1'$USER@${HOSTNAME%%.*}:'
+                PS1=$PS1'${HOSTNAME%%.*}:'
             fi
 
             # Add sub-commands; working directory with ~ abbreviation, VCS, job
             # count, and previous command return value
             PS1=$PS1'$(ret=$?;jobc=$(jobs -p|sed -n '\''$='\'');prompt pwd;prompt vcs;prompt job;prompt ret;:)'
 
+            # Add a helpful prefix if this shell appears to be exotic
+            typeset ksh
+            case $KSH_VERSION in
+                (*'93'*) ksh=ksh93 ;;
+                (*'PD KSH'*) ksh=pdksh ;;
+                (*'MIRBSD KSH'*) ksh=mksh ;;
+            esac
+            case ${SHELL##*/} in
+                (''|ksh|"$ksh") ;;
+                (*) PS1=$ksh:$PS1 ;;
+            esac
+
             # Add prefix and suffix
             PS1='${PROMPT_PREFIX}'$PS1'${PROMPT_SUFFIX}'
 
             # Add terminating "$" or "#" sign
             PS1=$PS1'\$'
-
-            # Add > symbols to show nested shells
-            typeset shlvl
-            shlvl=1
-            while ((shlvl < SHLVL)); do
-                PS1='>'$PS1
-                ((shlvl++))
-            done
 
             # Declare variables to contain terminal control strings
             typeset format reset
@@ -74,12 +78,12 @@ function prompt {
             } >/dev/null 2>&1
 
             # Play ball with ksh's way of escaping non-printing characters
-            typeset es nl
-            es=$(printf '\00')
-            nl=$(printf '\n')
+            typeset es cr
+            es=$(printf '\01')
+            cr=$(printf '\r')
 
             # String it all together
-            PS1="${es}${nl}${es}${format}${es}${PS1}${es}${reset}${es}"' '
+            PS1="${es}${cr}${es}${format}${es}${PS1}${es}${reset}${es}"' '
             PS2='> '
             PS3='? '
             PS4='+<$?> $LINENO:'
@@ -108,7 +112,7 @@ function prompt {
                     git describe --tags --exact-match HEAD ||
                     git rev-parse --short HEAD
                 ) || return
-                name=${name##*/}
+                name=${name#refs/*/}
                 [[ -n $name ]] || return
 
                 # Check various files in .git to flag processes
@@ -182,10 +186,13 @@ function prompt {
 
         # Revert to simple inexpensive prompts
         off)
-            PS1='\$ '
+            PS1='$ '
             PS2='> '
             PS3='? '
             PS4='+ '
+            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
+                PS1=$(hostname -s)'$ '
+            fi
             ;;
 
         # Abbreviated working directory
@@ -225,5 +232,5 @@ function prompt {
     esac
 }
 
-# Start with full-fledged prompt
-prompt on
+# Default to a full-featured prompt, but use PROMPT_MODE if that's set
+prompt "${PROMPT_MODE:-on}"

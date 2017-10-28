@@ -1,4 +1,3 @@
-#!/bin/sed -f
 # Change an ASCII checklist with [/], [x], and [ ] boxes to a Unicode one
 /^#/d
 s_^\[ \]_☐_
