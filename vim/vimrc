@@ -1,8 +1,11 @@
-" This file is UTF-8, of course
-scriptencoding utf-8
-
 " Don't make any effort to be compatible with vi, use more sensible settings
 set nocompatible
+
+" Use UTF-8 by default wherever possible, including in this file
+if has('multi_byte')
+  set encoding=utf-8
+  scriptencoding utf-8
+endif
 
 " If our version isn't ancient and Pathogen is available, call it to load all
 " the plugins in .vim/bundle; these are saved as submodules
@@ -91,11 +94,6 @@ endif
 " Try Mac line-endings if UNIX or DOS don't make sense; this has never
 " happened to me but who knows, it might one day
 set fileformats+=mac
-
-" Use UTF-8 by default wherever possible
-if has('multi_byte')
-  set encoding=utf-8
-endif
 
 " Adopt the indent of the last line on new lines; interestingly, plugins that
 " do clever things with indenting will often assume this is set
