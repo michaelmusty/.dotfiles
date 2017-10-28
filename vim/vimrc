@@ -1,4 +1,6 @@
-" Don't make any effort to be compatible with vi, use more sensible settings
+" Don't make any effort to be compatible with vi, use more sensible settings.
+" This is only here in case this file gets loaded explicitly with -u; the mere
+" existence of a ~/.vimrc file already turns this off.
 set nocompatible
 
 " Use UTF-8 by default wherever possible, including in this file
