@@ -18,9 +18,9 @@ if v:version >= 701
   silent! call pathogen#helptags()
 endif
 
-" Load plugins and indentation for file types
+" Load plugins for file types
 if has('autocmd')
-  filetype indent plugin on
+  filetype plugin on
 endif
 
 " Options dependent on the syntax feature
@@ -46,7 +46,6 @@ if has('cmdline_info')
 
   " Show my current position in the status bar
   set ruler
-
   " Show the keystrokes being entered in the screen
   set showcmd
 
@@ -61,31 +60,6 @@ set complete-=i
 " Try Mac line-endings if UNIX or DOS don't make sense; this has never
 " happened to me but who knows, it might one day
 set fileformats+=mac
-
-" Adopt the indent of the last line on new lines; interestingly, plugins that
-" do clever things with indenting will often assume this is set
-set autoindent
-
-" Use spaces instead of tabs
-set expandtab
-
-" Indent with four spaces when an indent operation is used
-set shiftwidth=4
-
-" Insert four spaces when Tab is pressed
-set softtabstop=4
-
-" How many spaces to show for a literal tab when 'list' is unset
-set tabstop=4
-
-" Indent intelligently to 'shiftwidth' at the starts of lines with Tab, but
-" use 'tabstop' everywhere else
-set smarttab
-
-" When indenting lines with < or >, round the indent to a multiple of
-" 'shiftwidth', so even if the line is indented by one space it will indent
-" up to 4 and down to 0, for example
-set shiftround
 
 " Don't join lines with two spaces at the end of sentences; I don't two-space,
 " despite the noble Steve Losh's exhortations
