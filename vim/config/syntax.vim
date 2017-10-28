@@ -5,4 +5,8 @@ if has('syntax')
   silent! syntax enable
   silent! syntax sync minlines=100
 
+  " I almost always use a dark background, so use that version of the selected
+  " colorscheme
+  set background=dark
+
 endif
