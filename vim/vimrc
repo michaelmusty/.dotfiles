@@ -84,11 +84,6 @@ endif
 " Keep plenty of command and search history, because disk space is cheap
 set history=2000
 
-" Don't show whitespace characters or end-of-line characters visually by
-" default, but make \l toggle between them
-set nolist
-nnoremap <leader>l :setlocal list!<CR>
-
 " Try to run the version of matchit.vim included in the distribution, if there
 " is one; extends % to match more than it does by default
 silent! runtime macros/matchit.vim
@@ -207,10 +202,6 @@ set display=lastline
 " Don't wrap by default, but use \w to toggle it on or off quickly
 set nowrap
 nnoremap <leader>w :set wrap!<CR>
-
-" Clearly show when the start or end of the row does not correspond to the
-" start and end of the line
-set listchars+=precedes:<,extends:>
 
 " Don't write the output of :make to the terminal
 set shellpipe=>
