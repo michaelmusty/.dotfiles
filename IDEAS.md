@@ -19,3 +19,5 @@ Ideas
 *   I can probably get rid of all that nasty templated shell by writing
     something that wraps around td(1df) and generates shell script to run, and
     calls that via `eval`.
+*   The BigFileMeasures() function in .vim/config/bigfile.vim should maybe be a
+    self-contained plugin rather than a config subfile.
