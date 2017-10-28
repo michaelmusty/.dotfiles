@@ -20,6 +20,10 @@ set autoread
 " argument list; this is particularly helpful for me as I don't use 'hidden'
 set autowrite
 
+" Don't use modelines at all, they're apparently potential security problems
+" and I've never used them anyway
+set nomodeline
+
 " I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
 " write of the current buffer, but doesn't quit, and ZA forces a write of all
 " buffers but doesn't quit

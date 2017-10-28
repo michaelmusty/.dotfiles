@@ -32,10 +32,6 @@ nnoremap J mzJ`z
 " in the current session
 set backspace=indent,eol,start
 
-" Don't use modelines at all, they're apparently potential security problems
-" and I've never used them anyway
-set nomodeline
-
 " Don't assume a number with a leading zero is octal; it's far more likely a
 " zero-padded decimal, so increment and decrement with ^A and ^X on that basis
 set nrformats-=octal
