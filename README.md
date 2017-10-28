@@ -143,7 +143,7 @@ A terminal session with my prompt looks something like this:
     ~$ ssh remote
     remote:~$ cd .dotfiles
     remote:~/.dotfiles(master+!)$ git status
-     M README.markdown
+     M README.md
     M  bash/bashrc.d/prompt.bash
     A  init
     remote:~/.dotfiles(master+!)$ foobar
