@@ -38,6 +38,7 @@
 	install-urxvt \
 	install-vim \
 	install-vim-config \
+	install-vim-ftdetect \
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-plugins \
@@ -463,12 +464,17 @@ install-urxvt: urxvt/ext/select
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
 install-vim: install-vim-config \
+	install-vim-ftdetect \
 	install-vim-plugins
 
 install-vim-config:
 	mkdir -p -- $(HOME)/.vim/config
 	cp -p -- vim/vimrc $(HOME)/.vimrc
 	cp -p -- vim/config/*.vim $(HOME)/.vim/config
+
+install-vim-ftdetect:
+	mkdir -p -- $(HOME)/.vim/ftdetect
+	cp -p -- vim/ftdetect/*.vim $(HOME)/.vim/ftdetect
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
