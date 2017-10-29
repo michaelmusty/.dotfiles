@@ -2,9 +2,6 @@
 .\"
 .TH "DOTFILES" "7" "October 2017" "Tom Ryder's personal scripts and configuration" ""
 .hy
-.PP
-% DOTFILES(7) Tom Ryder's personal scripts and configuration % Tom Ryder
-% June 2016
 .SH Dotfiles (Tom Ryder)
 .PP
 This is my personal repository of configuration files and scripts for
