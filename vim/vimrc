@@ -24,8 +24,10 @@ if v:version >= 701
   silent! call pathogen#infect()
   silent! call pathogen#helptags()
 
-  " With the plugins loaded, we might now be able to use my custom colorscheme
+  " The 'sahara' colorscheme only works for dark backgrounds with 256 colors
   if has('syntax')
+        \ && &background == 'dark'
+        \ && (has('gui_running') || &t_Co == 256)
     silent! colorscheme sahara
   endif
 endif
