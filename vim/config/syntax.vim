@@ -7,7 +7,7 @@ if has('syntax')
 
   " Invert Vim's built-in logic for choosing dark or light backgrounds; we'll
   " default to choosing a dark background unless we find some reason *not* to.
-  if has('eval')
+  if has('eval') && v:version >= 701
 
     " Wrap all this logic in a function
     function! DetectBackground()
@@ -30,6 +30,9 @@ if has('syntax')
     " Cull the function just defined directly
     call DetectBackground()
 
+  " Ancient or cut-down Vim? Just go dark
+  else
+    set background=dark
   endif
 
 endif
