@@ -37,6 +37,7 @@
 	install-tmux \
 	install-urxvt \
 	install-vim \
+	install-vim-after \
 	install-vim-bundle \
 	install-vim-config \
 	install-vim-ftdetect \
@@ -465,14 +466,20 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
-install-vim: install-vim-bundle \
+install-vim: install-vim-after \
+	install-vim-bundle \
 	install-vim-config \
 	install-vim-ftdetect \
 	install-vim-ftplugin \
 	install-vim-indent
 
+install-vim-after:
+	find vim/after -name .git -prune -o \
+		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
+		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
+
 install-vim-bundle: install-vim-config
-	find vim/after vim/bundle -name .git -prune -o \
+	find vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
