@@ -37,12 +37,12 @@
 	install-tmux \
 	install-urxvt \
 	install-vim \
+	install-vim-bundle \
 	install-vim-config \
 	install-vim-ftdetect \
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
-	install-vim-plugins \
 	install-wget \
 	install-x \
 	install-zsh \
@@ -464,10 +464,15 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
-install-vim: install-vim-config \
+install-vim: install-vim-bundle \
+	install-vim-config \
 	install-vim-ftdetect \
-	install-vim-indent \
-	install-vim-plugins
+	install-vim-indent
+
+install-vim-bundle: install-vim-config
+	find vim/after vim/bundle -name .git -prune -o \
+		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
+		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
 install-vim-config:
 	mkdir -p -- $(HOME)/.vim/config
@@ -487,11 +492,6 @@ install-vim-gui: install-vim \
 
 install-vim-gui-config:
 	cp -p -- vim/gvimrc $(HOME)/.gvimrc
-
-install-vim-plugins: install-vim-config
-	find vim/after vim/bundle -name .git -prune -o \
-		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
 
 install-wget:
 	cp -p -- wget/wgetrc $(HOME)/.wgetrc
