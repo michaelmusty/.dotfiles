@@ -41,6 +41,7 @@
 	install-vim-ftdetect \
 	install-vim-gui \
 	install-vim-gui-config \
+	install-vim-indent \
 	install-vim-plugins \
 	install-wget \
 	install-x \
@@ -465,6 +466,7 @@ install-urxvt: urxvt/ext/select
 
 install-vim: install-vim-config \
 	install-vim-ftdetect \
+	install-vim-indent \
 	install-vim-plugins
 
 install-vim-config:
@@ -475,6 +477,10 @@ install-vim-config:
 install-vim-ftdetect:
 	mkdir -p -- $(HOME)/.vim/ftdetect
 	cp -p -- vim/ftdetect/*.vim $(HOME)/.vim/ftdetect
+
+install-vim-indent:
+	mkdir -p -- $(HOME)/.vim/indent
+	cp -p -- vim/indent/*.vim $(HOME)/.vim/indent
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
