@@ -24,7 +24,7 @@ if has('linebreak')
   set showbreak=...
 
   " If we have the option, indent wrapped lines as much as the first line;
-  " keep
+  " keep the value as a script variable for the toggle function.
   let s:breakindent = v:version > 704
         \ || v:version ==# 704 && has('patch338')
   if s:breakindent
