@@ -66,6 +66,7 @@
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
+	lint-vim \
 	lint-xinit
 
 .SUFFIXES:
@@ -570,6 +571,7 @@ lint: lint-bash \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
+	lint-vim \
 	lint-xinit
 
 lint-bash: check-bash
@@ -589,6 +591,9 @@ lint-sh: check-sh
 
 lint-urxvt: check-urxvt
 	sh lint/urxvt.sh
+
+lint-vim:
+	sh lint/vim.sh
 
 lint-xinit: check-xinit
 	sh lint/xinit.sh

@@ -4,7 +4,7 @@
 if has('linebreak')
   set linebreak
   set showbreak=...
-  if v:version > 704 || v:version == 704 && has('patch338')
+  if v:version > 704 || v:version ==# 704 && has('patch338')
     set breakindent
   endif
 
@@ -15,13 +15,13 @@ if has('linebreak')
       if &linebreak
         set nolinebreak
         set showbreak=
-        if v:version > 704 || v:version == 704 && has('patch338')
+        if v:version > 704 || v:version ==# 704 && has('patch338')
           set nobreakindent
         endif
       else
         set linebreak
         set showbreak=...
-        if v:version > 704 || v:version == 704 && has('patch338')
+        if v:version > 704 || v:version ==# 704 && has('patch338')
           set breakindent
         endif
       endif

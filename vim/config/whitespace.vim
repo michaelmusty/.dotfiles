@@ -5,10 +5,11 @@ set nojoinspaces
 " Strip trailing whitespace with \x
 if has('eval')
   function! StripTrailingWhitespace()
-    let l:search = @/
-    %substitute/\s\+$//e
-    let @/ = l:search
-    nohlsearch
+    let l:li = 1
+    for l:line in getline(1,'$')
+      call setline(l:li, substitute(l:line, '\m\C\s\+$', '', 'g'))
+      let l:li = l:li + 1
+    endfor
   endfunction
   nnoremap <silent> <leader>x :<C-U>call StripTrailingWhitespace()<CR>
 endif

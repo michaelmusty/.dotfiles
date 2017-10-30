@@ -1,8 +1,3 @@
-" Don't make any effort to be compatible with vi, use more sensible settings.
-" This is only here in case this file gets loaded explicitly with -u; the mere
-" existence of a ~/.vimrc file already turns this off.
-set nocompatible
-
 " Use UTF-8 by default wherever possible, including in this file
 if has('multi_byte')
   set encoding=utf-8
@@ -26,8 +21,8 @@ if v:version >= 701
 
   " The 'sahara' colorscheme only works for dark backgrounds with 256 colors
   if has('syntax')
-        \ && &background == 'dark'
-        \ && (has('gui_running') || &t_Co == 256)
+        \ && &background ==# 'dark'
+        \ && (has('gui_running') || &t_Co ==# 256)
     silent! colorscheme sahara
   endif
 endif
