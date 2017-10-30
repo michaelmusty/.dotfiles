@@ -18,7 +18,7 @@ if !strlen($SUDO_USER) && has('unix')
   " filesystems; this is because they're used as scratch spaces for tools
   " like sudoedit(8) and pass(1) and hence could present a security problem
   if has('autocmd')
-    augroup swapskip
+    augroup dotfiles_swap_skip
       autocmd!
       silent! autocmd BufNewFile,BufReadPre
             \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*

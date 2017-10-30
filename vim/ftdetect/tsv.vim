@@ -1,5 +1,5 @@
 " Add automatic commands to detect TSV files
-augroup dftsv
+augroup dotfiles_ftdetect_tsv
   autocmd!
   autocmd BufNewFile,BufRead
         \ *.tsv

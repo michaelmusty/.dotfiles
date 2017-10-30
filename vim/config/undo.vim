@@ -22,7 +22,7 @@ if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
 
   " Don't track changes to sensitive files
   if has('autocmd')
-    augroup undoskip
+    augroup dotfiles_undo_skip
       autocmd!
       silent! autocmd BufWritePre
             \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*

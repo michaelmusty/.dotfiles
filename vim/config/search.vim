@@ -17,7 +17,7 @@ if has('extra_search')
   " Clear search highlighting as soon as I enter insert mode, and restore it
   " once I leave it
   if has('autocmd')
-    augroup highlight
+    augroup dotfiles_highlight
       autocmd!
       silent! autocmd InsertEnter * set nohlsearch
       silent! autocmd InsertLeave * set hlsearch

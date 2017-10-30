@@ -10,7 +10,7 @@ if has('syntax')
   if has('eval') && v:version >= 701
 
     " Wrap all this logic in a function
-    function! DetectBackground()
+    function! s:DetectBackground()
 
       " Split up the value of $COLORFGBG (if any) by semicolons
       let l:colorfgbg = split($COLORFGBG, ';')
@@ -28,7 +28,7 @@ if has('syntax')
     endfunction
 
     " Call the function just defined directly
-    call DetectBackground()
+    call s:DetectBackground()
 
   " Ancient or cut-down Vim? Just go dark
   else

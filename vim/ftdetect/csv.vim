@@ -1,5 +1,5 @@
 " Add automatic commands to detect CSV files
-augroup dfcsv
+augroup dotfiles_ftdetect_csv
   autocmd!
   autocmd BufNewFile,BufRead
         \ *.csv

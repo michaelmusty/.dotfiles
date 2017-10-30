@@ -1,5 +1,5 @@
 " Add automatic commands to choose shell flavours based on filename pattern
-augroup dfsh
+augroup dotfiles_ftdetect_sh
   autocmd!
 
   " Names/paths of things that are Bash shell script

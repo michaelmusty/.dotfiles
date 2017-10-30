@@ -2,7 +2,7 @@
 " memory filesystems; this is because they're used as scratch spaces for tools
 " like sudoedit(8) and pass(1) and hence could present a security problem
 if has('viminfo') && has('autocmd')
-  augroup viminfoskip
+  augroup dotfiles_viminfo_skip
     autocmd!
     silent! autocmd BufNewFile,BufReadPre
           \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*

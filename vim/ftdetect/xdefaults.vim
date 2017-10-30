@@ -1,5 +1,5 @@
 " Add automatic commands to find Xresources subfiles
-augroup dfxdefaults
+augroup dotfiles_ftdetect_xdefaults
   autocmd!
   autocmd BufNewFile,BufRead
         \ **/.Xresources.d/*

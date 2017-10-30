@@ -11,7 +11,7 @@ if has('linebreak')
   " Bind \b to turn off linebreak and toggle the showbreak characters on and
   " off for convenience of copypasting multiple lines from terminal emulators.
   if has('eval')
-    function! ToggleBreak()
+    function! s:ToggleBreak()
       if &linebreak
         set nolinebreak
         set showbreak=
@@ -26,6 +26,6 @@ if has('linebreak')
         endif
       endif
     endfunction
-    nnoremap <silent> <leader>b :<C-U>call ToggleBreak()<CR>
+    nnoremap <silent> <leader>b :<C-U>call <SID>ToggleBreak()<CR>
   endif
 endif
