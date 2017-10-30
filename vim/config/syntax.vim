@@ -27,7 +27,7 @@ if has('syntax')
 
     endfunction
 
-    " Cull the function just defined directly
+    " Call the function just defined directly
     call DetectBackground()
 
   " Ancient or cut-down Vim? Just go dark
