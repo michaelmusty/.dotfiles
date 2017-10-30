@@ -20,7 +20,9 @@ nnoremap k gk
 if has('linebreak')
   set linebreak
   set showbreak=...
-  if v:version > 704 || v:version ==# 704 && has('patch338')
+  let s:breakindent = v:version > 704
+        \ || v:version ==# 704 && has('patch338')
+  if s:breakindent
     set breakindent
   endif
 
@@ -31,13 +33,13 @@ if has('linebreak')
       if &l:linebreak
         setlocal nolinebreak
         setlocal showbreak=
-        if v:version > 704 || v:version ==# 704 && has('patch338')
+        if s:breakindent
           setlocal nobreakindent
         endif
       else
         setlocal linebreak
         setlocal showbreak=...
-        if v:version > 704 || v:version ==# 704 && has('patch338')
+        if s:breakindent
           setlocal breakindent
         endif
       endif
