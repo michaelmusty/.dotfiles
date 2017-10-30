@@ -20,16 +20,26 @@ endif
 " very handy
 "
 if has('eval')
+
+  " Declare function
   function! s:ToggleFormatFlag(flag)
+
+    " Decide on whether we're adding or removing the flag
     if &l:formatoptions =~# a:flag
       let l:command = 'setlocal formatoptions-=' . a:flag
     else
       let l:command = 'setlocal formatoptions+=' . a:flag
     endif
+
+    " Execute the command we determined and show the result
     silent! execute l:command
     setlocal formatoptions?
+
   endfunction
+
+  " Map leader-letters to corresponding format option flags
   nnoremap <silent> <leader>a :<C-U>call <SID>ToggleFormatFlag('a')<CR>
   nnoremap <silent> <leader>c :<C-U>call <SID>ToggleFormatFlag('c')<CR>
   nnoremap <silent> <leader>t :<C-U>call <SID>ToggleFormatFlag('t')<CR>
+
 endif
