@@ -2,6 +2,6 @@
 augroup dfcsv
   autocmd!
   autocmd BufNewFile,BufRead
-      \ *.csv
-      \ setfiletype csv
+        \ *.csv
+        \ setfiletype csv
 augroup END

@@ -2,6 +2,6 @@
 augroup dfxdefaults
   autocmd!
   autocmd BufNewFile,BufRead
-      \ **/.Xresources.d/*
-      \ setfiletype xdefaults
+        \ **/.Xresources.d/*
+        \ setfiletype xdefaults
 augroup END

@@ -2,6 +2,6 @@
 augroup dftsv
   autocmd!
   autocmd BufNewFile,BufRead
-      \ *.tsv
-      \ setfiletype tsv
+        \ *.tsv
+        \ setfiletype tsv
 augroup END

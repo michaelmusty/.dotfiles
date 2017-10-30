@@ -21,8 +21,8 @@ if !strlen($SUDO_USER) && has('unix')
     augroup swapskip
       autocmd!
       silent! autocmd BufNewFile,BufReadPre
-          \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-          \ setlocal noswapfile
+            \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+            \ setlocal noswapfile
     augroup END
   endif
 
