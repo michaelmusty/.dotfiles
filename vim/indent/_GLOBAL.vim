@@ -7,7 +7,7 @@ setlocal expandtab<
 " Unfortunately, older versions of Vim (6.2 is known) accept neither the
 " `option<` nor `option=` syntax for resetting these numeric values.
 if v:version >= 700
-  setlocal shiftwidth=
-  setlocal softtabstop=
-  setlocal tabstop=
+  setlocal shiftwidth<
+  setlocal softtabstop<
+  setlocal tabstop<
 endif
