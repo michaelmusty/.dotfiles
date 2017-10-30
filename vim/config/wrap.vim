@@ -5,7 +5,7 @@ set display=lastline
 
 " Don't wrap by default, but use \w to toggle it on or off quickly
 set nowrap
-nnoremap <leader>w :set wrap!<CR>
+nnoremap <leader>w :setlocal wrap!<CR>
 
 " When wrapping, j and k should move by screen row, and not to the same
 " column number in the previous logical line, which feels very clumsy and is
@@ -28,17 +28,17 @@ if has('linebreak')
   " off for convenience of copypasting multiple lines from terminal emulators.
   if has('eval')
     function! s:ToggleBreak()
-      if &linebreak
-        set nolinebreak
-        set showbreak=
+      if &l:linebreak
+        setlocal nolinebreak
+        setlocal showbreak=
         if v:version > 704 || v:version ==# 704 && has('patch338')
-          set nobreakindent
+          setlocal nobreakindent
         endif
       else
-        set linebreak
-        set showbreak=...
+        setlocal linebreak
+        setlocal showbreak=...
         if v:version > 704 || v:version ==# 704 && has('patch338')
-          set breakindent
+          setlocal breakindent
         endif
       endif
     endfunction
