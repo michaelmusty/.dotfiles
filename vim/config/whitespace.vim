@@ -1,4 +1,4 @@
-" Strip trailing whitespace with \x
+" Strip trailing whitespace with \x in the whole document
 if has('eval')
 
   " Define function for stripping whitespace
