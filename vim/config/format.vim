@@ -21,8 +21,11 @@ endif
 "
 if has('eval')
   function! s:ToggleFormatFlag(flag)
-    let l:operation = (&l:formatoptions =~# a:flag) ? '-=' : '+='
-    silent! exec 'setlocal formatoptions' . l:operation . a:flag
+    if &l:formatoptions =~# a:flag
+      silent! exec 'setlocal formatoptions-=' . a:flag
+    else
+      silent! exec 'setlocal formatoptions+=' . a:flag
+    endif
     setlocal formatoptions?
   endfunction
   nnoremap <silent> <leader>a :<C-U>call <SID>ToggleFormatFlag('a')<CR>
