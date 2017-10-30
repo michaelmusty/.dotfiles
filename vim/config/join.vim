@@ -1,4 +1,24 @@
-" Don't jump my screen around when I join lines, keep my cursor in the same
-" place; this is done by dropping a mark first and then immediately returning
-" to it; note that it wipes out your z mark, if you happen to use it
-nnoremap J mzJ`z
+
+" Keep my cursor in place when I join lines
+if has('eval')
+
+  " Declare function
+  function! s:StableNormalJoin()
+
+    " Save current cursor position
+    let l:lc = line('.')
+    let l:cc = col('.')
+
+    " Build and execute join command
+    let l:command = '.,+' . v:count1 . 'join'
+    execute l:command
+
+    " Restore cursor position
+    call cursor(l:lc, l:cc)
+
+  endfunction
+
+  " Remap J to the above function
+  nnoremap <silent> J :<C-U>call <SID>StableNormalJoin()<CR>
+
+endif
