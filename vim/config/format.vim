@@ -21,7 +21,7 @@ endif
 "
 if has('eval')
   function! s:ToggleFormatFlag(flag)
-    let l:operation = (&formatoptions =~ a:flag) ? '-=' : '+='
+    let l:operation = (&l:formatoptions =~ a:flag) ? '-=' : '+='
     silent! exec 'setlocal formatoptions' . l:operation . a:flag
     setlocal formatoptions?
   endfunction
