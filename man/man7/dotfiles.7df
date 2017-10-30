@@ -940,7 +940,7 @@ ShellCheck (https://www.shellcheck.net/):
 \f[C]lint\-xinit\f[]
 .RE
 .IP \[bu] 2
-Perl::Critic (https://perlcritic.com/):
+Perl::Critic (http://perlcritic.com/):
 .RS 2
 .IP \[bu] 2
 \f[C]lint\-urxvt\f[]

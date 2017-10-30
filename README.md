@@ -594,7 +594,7 @@ available to run them:
     * `lint-ksh`
     * `lint-sh`
     * `lint-xinit`
-* [Perl::Critic](https://perlcritic.com/):
+* [Perl::Critic](http://perlcritic.com/):
     * `lint-urxvt`
 * [Vint](https://github.com/Kuniwak/vint):
     * `lint-vim`
