@@ -6,10 +6,12 @@ set nojoinspaces
 if has('eval')
   function! s:StripTrailingWhitespace()
     let l:li = 1
-    for l:line in getline(1,'$')
+    let l:ll = line('$')
+    while l:li <= l:ll
+      let l:line = getline(l:li)
       call setline(l:li, substitute(l:line, '\m\C\s\+$', '', 'g'))
       let l:li = l:li + 1
-    endfor
+    endwhile
   endfunction
   nnoremap <silent> <leader>x :<C-U>call <SID>StripTrailingWhitespace()<CR>
 endif
