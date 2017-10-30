@@ -1,6 +1,6 @@
 " If we can, add j to the format options to get rid of comment leaders when
 " joining lines
-if v:version > 703 || v:version == 703 && has('patch541')
+if v:version > 703 || v:version ==# 703 && has('patch541')
   set formatoptions+=j
 endif
 

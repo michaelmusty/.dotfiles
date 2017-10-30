@@ -26,8 +26,8 @@ if v:version >= 701
 
   " The 'sahara' colorscheme only works for dark backgrounds with 256 colors
   if has('syntax')
-        \ && &background == 'dark'
-        \ && (has('gui_running') || &t_Co == 256)
+        \ && &background ==# 'dark'
+        \ && (has('gui_running') || &t_Co ==# 256)
     silent! colorscheme sahara
   endif
 endif
