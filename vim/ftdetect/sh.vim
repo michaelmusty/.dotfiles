@@ -20,13 +20,4 @@ augroup dfsh
       \ let b:is_posix = 1 |
       \ setfiletype sh
 
-  " If we determined something is b:is_kornshell, tack on b:is_ksh as well so
-  " we can still tease out what is actually a kornshell script after sh.vim is
-  " done changing our options for us; it conflates POSIX with Korn shell.
-  autocmd BufNewFile,BufRead
-      \ *
-      \ if exists('b:is_kornshell') |
-      \   let b:is_ksh = 1 |
-      \ endif
-
 augroup END

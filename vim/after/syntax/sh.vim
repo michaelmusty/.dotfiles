@@ -1,8 +1,9 @@
 " If g:is_posix is set, g:is_kornshell is probably set too, a strange decision
 " by sh.vim. No matter; we can tease out whether this is actually a Korn shell
-" script using our own b:is_ksh flag set at the end of ~/.vim/ftdetect/sh.vim,
-" and if it isn't, we'll throw away the highlighting groups for ksh.
-if exists('g:is_posix') && exists('g:is_kornshell') && !exists('b:is_ksh')
+" script using our own b:is_kornshell_proper flag set at the end of
+" ~/.vim/ftdetect/sh.vim, and if it isn't, we'll throw away the highlighting
+" groups for ksh.
+if exists('g:is_kornshell') && !exists('b:is_ksh')
   syntax clear kshSpecialVariables
   syntax clear kshStatement
 endif
