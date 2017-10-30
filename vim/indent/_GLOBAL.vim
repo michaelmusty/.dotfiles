@@ -5,9 +5,8 @@ setlocal autoindent<
 setlocal expandtab<
 
 " Unfortunately, older versions of Vim (6.2 is known) accept neither the
-" `option<` nor `option=` syntax for resetting these numeric values.
-if v:version >= 700
-  setlocal shiftwidth<
-  setlocal softtabstop<
-  setlocal tabstop<
-endif
+" `option<` nor `option=` syntax for resetting these numeric values, so we do
+" it this clunkier way.
+execute 'setlocal shiftwidth='.&g:shiftwidth
+execute 'setlocal softtabstop='.&g:softtabstop
+execute 'setlocal tabstop='.&g:tabstop
