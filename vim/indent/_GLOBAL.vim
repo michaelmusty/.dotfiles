@@ -3,6 +3,6 @@
 " by a prior filetype (e.g. VimL).
 setlocal autoindent<
 setlocal expandtab<
-setlocal shiftwidth<
-setlocal softtabstop<
-setlocal tabstop<
+setlocal shiftwidth=
+setlocal softtabstop=
+setlocal tabstop=
