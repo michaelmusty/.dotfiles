@@ -11,6 +11,9 @@ if has('eval')
     " Iterating line number
     let l:li = 1
 
+    " Line number of last line that had non-whitespace characters on it
+    let l:lw = 0
+
     " Line number of the file's last line
     let l:ll = line('$')
 
@@ -24,9 +27,32 @@ if has('eval')
       " whitespace
       call setline(l:li, substitute(l:line, '\m\C\s\+$', '', 'g'))
 
+      " If this line has any non-whitespace characters on it, update l:lw with
+      " its index
+      if l:line =~# '\m\C\S'
+        let l:lw = l:li
+      endif
+
       " Increment the line counter for the next iteration
       let l:li = l:li + 1
     endwhile
+
+    " If the last non-whitespace line was before the last line proper, we can
+    " delete all lines after it
+    if l:lw < l:ll
+
+      " Get the current line and column so we can return to it
+      " (Yes I know about winsaveview() and winrestview(); I want this to work
+      " even on very old versions of Vim if possible)
+      let l:lc = line('.')
+      let l:cc = col('.')
+
+      " Delete the lines, which will move the cursor
+      execute l:lw + 1.',$ delete'
+
+      " Return the cursor to the saved position
+      call cursor(l:lc, l:cc)
+    endif
   endfunction
 
   " Map \x to the function just defined
