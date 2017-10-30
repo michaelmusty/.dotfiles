@@ -1,3 +1,6 @@
+" Don't join lines with two spaces at the end of sentences; I don't two-space,
+" despite the noble Steve Losh's exhortations
+set nojoinspaces
 
 " Keep my cursor in place when I join lines
 if has('eval')
