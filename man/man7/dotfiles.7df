@@ -921,10 +921,36 @@ with \f[C]make\ check\-bash\f[], \f[C]make\ check\-sh\f[], or
 \f[C]bin\f[] and \f[C]games\f[].
 There's no proper test suite for the actual functionality (yet).
 .PP
-If you have ShellCheck (https://www.shellcheck.net/) and/or
-Perl::Critic (http://perlcritic.com/), there's a \f[C]lint\f[] target
-for the shell script files and Perl files respectively.
-The files don't need to pass that check to be installed.
+There are also optional \f[C]lint\f[] targets, if you have the
+appropriate tools available to run them:
+.IP \[bu] 2
+ShellCheck (https://www.shellcheck.net/):
+.RS 2
+.IP \[bu] 2
+\f[C]lint\-bash\f[]
+.IP \[bu] 2
+\f[C]lint\-bin\f[]
+.IP \[bu] 2
+\f[C]lint\-games\f[]
+.IP \[bu] 2
+\f[C]lint\-ksh\f[]
+.IP \[bu] 2
+\f[C]lint\-sh\f[]
+.IP \[bu] 2
+\f[C]lint\-xinit\f[]
+.RE
+.IP \[bu] 2
+Perl::Critic (https://perlcritic.com/):
+.RS 2
+.IP \[bu] 2
+\f[C]lint\-urxvt\f[]
+.RE
+.IP \[bu] 2
+Vint (https://github.com/Kuniwak/vint):
+.RS 2
+.IP \[bu] 2
+\f[C]lint\-vim\f[]
+.RE
 .SS Known issues
 .PP
 See ISSUES.markdown.

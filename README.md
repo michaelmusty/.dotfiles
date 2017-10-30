@@ -584,10 +584,20 @@ You can check that both sets of shell scripts are syntactically correct with
 the scripts in `bin` and `games`. There's no proper test suite for the actual
 functionality (yet).
 
-If you have [ShellCheck](https://www.shellcheck.net/) and/or
-[Perl::Critic](http://perlcritic.com/), there's a `lint` target for the shell
-script files and Perl files respectively. The files don't need to pass that
-check to be installed.
+There are also optional `lint` targets, if you have the appropriate tools
+available to run them:
+
+* [ShellCheck](https://www.shellcheck.net/):
+    * `lint-bash`
+    * `lint-bin`
+    * `lint-games`
+    * `lint-ksh`
+    * `lint-sh`
+    * `lint-xinit`
+* [Perl::Critic](https://perlcritic.com/):
+    * `lint-urxvt`
+* [Vint](https://github.com/Kuniwak/vint):
+    * `lint-vim`
 
 Known issues
 ------------
