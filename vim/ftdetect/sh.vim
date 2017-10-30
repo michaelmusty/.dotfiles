@@ -6,19 +6,19 @@ augroup dfsh
   autocmd BufNewFile,BufRead
       \ **/.dotfiles/bash/**,bash-fc-*
       \ let b:is_bash = 1 |
-      \ setlocal filetype=sh
+      \ setfiletype sh
 
   " Names/paths of things that are Korn shell script
   autocmd BufNewFile,BufRead
       \ **/.dotfiles/ksh/**,.kshrc,*.ksh
       \ let b:is_kornshell = 1 |
-      \ setlocal filetype=sh
+      \ setfiletype sh
 
   " Names/paths of things that are POSIX shell script
   autocmd BufNewFile,BufRead
       \ **/.dotfiles/sh/**,.shinit,.shrc,.xinitrc,/etc/default/*
       \ let b:is_posix = 1 |
-      \ setlocal filetype=sh
+      \ setfiletype sh
 
   " If we determined something is b:is_kornshell, tack on b:is_ksh as well so
   " we can still tease out what is actually a kornshell script after sh.vim is

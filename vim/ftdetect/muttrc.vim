@@ -3,5 +3,5 @@ augroup dfmuttrc
   autocmd!
   autocmd BufNewFile,BufRead
       \ **/.dotfiles/mutt/muttrc.d/*.rc,**/.muttrc.d/*.rc
-      \ setlocal filetype=muttrc
+      \ setfiletype muttrc
 augroup END
