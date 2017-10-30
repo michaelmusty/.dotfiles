@@ -1,5 +1,6 @@
 " Add automatic commands to choose shell flavours based on filename pattern
 augroup dfsh
+  autocmd!
 
   " Names/paths of things that are Bash shell script
   autocmd BufNewFile,BufRead
