@@ -14,12 +14,17 @@ set display=lastline
 nnoremap j gj
 nnoremap k gk
 
-" Break lines at word boundaries if possible and not simply at the last
-" character that will fit on the screen, preceding the next line with three
-" periods to make it obvious that it's a continuation of the previous line
+" Line break settings and mappings
 if has('linebreak')
+
+  " Break lines at word boundaries if possible
   set linebreak
+
+  " Precede continued lines with '...'
   set showbreak=...
+
+  " If we have the option, indent wrapped lines as much as the first line;
+  " keep
   let s:breakindent = v:version > 704
         \ || v:version ==# 704 && has('patch338')
   if s:breakindent
@@ -29,13 +34,19 @@ if has('linebreak')
   " Bind \b to turn off linebreak and toggle the showbreak characters on and
   " off for convenience of copypasting multiple lines from terminal emulators.
   if has('eval')
+
+    " Define function
     function! s:ToggleBreak()
+
+      " If linebreak is on, turn it off
       if &l:linebreak
         setlocal nolinebreak
         setlocal showbreak=
         if s:breakindent
           setlocal nobreakindent
         endif
+
+      " If it's off, turn it on
       else
         setlocal linebreak
         setlocal showbreak=...
@@ -43,7 +54,11 @@ if has('linebreak')
           setlocal breakindent
         endif
       endif
+
     endfunction
+
+    " Map \b to defined function
     nnoremap <silent> <leader>b :<C-U>call <SID>ToggleBreak()<CR>
+
   endif
 endif
