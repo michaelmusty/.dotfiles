@@ -22,9 +22,9 @@ endif
 if has('eval')
   function! s:ToggleFormatFlag(flag)
     if &l:formatoptions =~# a:flag
-      silent! exec 'setlocal formatoptions-=' . a:flag
+      silent! execute 'setlocal formatoptions-=' . a:flag
     else
-      silent! exec 'setlocal formatoptions+=' . a:flag
+      silent! execute 'setlocal formatoptions+=' . a:flag
     endif
     setlocal formatoptions?
   endfunction
