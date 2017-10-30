@@ -3,11 +3,11 @@ if has('extra_search')
 
   " Searching as I enter my pattern, \i toggles this
   set incsearch
-  nnoremap <leader>i :setlocal incsearch!<CR>
+  nnoremap <leader>i :setlocal incsearch! incsearch?<CR>
 
   " Highlight search results, \h toggles this
   set hlsearch
-  nnoremap <leader>h :setlocal hlsearch!<CR>
+  nnoremap <leader>h :setlocal hlsearch! hlsearch?<CR>
 
   " Pressing ^L will clear highlighting until the next search-related
   " operation; quite good because the highlighting gets distracting after
@@ -19,8 +19,8 @@ if has('extra_search')
   if has('autocmd')
     augroup dotfiles_highlight
       autocmd!
-      silent! autocmd InsertEnter * setlocal nohlsearch
-      silent! autocmd InsertLeave * setlocal hlsearch
+      silent! autocmd InsertEnter * setlocal nohlsearch nohlsearch?
+      silent! autocmd InsertLeave * setlocal hlsearch hlsearch?
     augroup END
   endif
 endif
