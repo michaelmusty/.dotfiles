@@ -1,7 +1,6 @@
-" Use UTF-8 by default wherever possible, including in this file
+" Use UTF-8 by default wherever possible
 if has('multi_byte')
   set encoding=utf-8
-  scriptencoding utf-8
 endif
 
 " Load configuration files from ~/.vim/config or its analogue, before Pathogen
