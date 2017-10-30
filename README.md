@@ -336,13 +336,13 @@ The majority of the Vim configuration is just setting options, with a few
 mappings. I try not to deviate too much from the Vim defaults behaviour in
 terms of interactive behavior and keybindings.
 
-The configuration is broken into subfiles in `.vim/config/*.vim`, included by
+The configuration is broken into subfiles in `~/.vim/config/*.vim`, included by
 `~/.vimrc` using
 [`:runtime`](http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime). It's
 extensively commented, mostly because I was reading through it one day and
 realised I'd forgotten what half of it did.
 
-Plugins are in submodules in `.vim/bundle`, loaded using Tim Pope's
+Plugins are in submodules in `~/.vim/bundle`, loaded using Tim Pope's
 [pathogen.vim](https://github.com/tpope/vim-pathogen).
 
 Scripts
