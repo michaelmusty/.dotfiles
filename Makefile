@@ -556,7 +556,7 @@ check-login-shell:
 check-sh:
 	sh check/sh.sh
 
-check-urxvt:
+check-urxvt: urxvt/ext/select
 	sh check/urxvt.sh
 
 check-xinit:

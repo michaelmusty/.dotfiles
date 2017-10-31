@@ -1,4 +1,5 @@
-for perl in urxvt/ext/*.pl ; do
-    perl -c "$perl" || exit
+set -- urxvt/ext/*.pl
+for perl ; do
+    perl -c "${perl%.pl}" || exit
 done
-printf 'All Perl scripts in urxvt/ext parsed successfully.\n'
+printf 'URxvt Perl extensions parsed successfully.\n'
