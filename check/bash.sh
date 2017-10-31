@@ -1,5 +1,11 @@
-for bash in bash/* bash/bashrc.d/* ; do
-    [ -f "$bash" ] || continue
-    bash -n "$bash" || exit
+set \
+    bash/bash_completion \
+    bash/bash_completion.d/*.bash \
+    bash/bash_logout \
+    bash/bash_profile \
+    bash/bashrc \
+    bash/bashrc.d/*.bash
+for bash ; do
+    bash -n -- "$bash" || exit
 done
-printf 'All bash(1) scripts parsed successfully.\n'
+printf 'GNU Bash dotfiles parsed successfully.\n'

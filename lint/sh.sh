@@ -1,6 +1,8 @@
-find sh \
-    keychain/profile.d keychain/shrc.d \
-    ksh/shrc.d \
-    mpd/profile.d \
-    plenv/profile.d plenv/shrc.d \
-    -type f -print -exec shellcheck -e SC1090 -s sh -- {} +
+set \
+    sh/profile \
+    sh/profile.d/*.sh \
+    sh/shinit \
+    sh/shrc \
+    sh/shrc.d/*.sh
+shellcheck -e SC1090 -s sh -- "$@" || exit
+printf 'POSIX shell dotfiles linted successfully.\n'

@@ -1,4 +1,5 @@
+# POSIX sh
 for game in games/*.sh ; do
-    sh -n "$game" || exit
+    sh -n -- "${game%.sh}" || exit
 done
-printf 'All shell scripts in games parsed successfully.\n'
+printf 'POSIX sh games parsed successfully.\n'
