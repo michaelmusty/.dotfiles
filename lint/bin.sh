@@ -1,7 +1,7 @@
 # POSIX sh
 set --
 for bin in bin/*.sh ; do
-    set "$@" "${bin%.sh}"
+    set -- "$@" "${bin%.sh}"
 done
 shellcheck -e SC1090 -- "$@" || exit
 printf 'POSIX sh binscripts linted successfully.\n'
@@ -10,7 +10,7 @@ printf 'POSIX sh binscripts linted successfully.\n'
 if command -v bash >/dev/null 2>&1 ; then
     set --
     for bin in bin/*.bash ; do
-        set "$@" "${bin%.bash}"
+        set -- "$@" "${bin%.bash}"
     done
     shellcheck -e SC1090 -- "$@" || exit
     printf 'GNU Bash binscripts linted successfully.\n'
