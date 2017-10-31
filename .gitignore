@@ -21,6 +21,9 @@ bin/csmw
 bin/d2u
 bin/dam
 bin/ddup
+bin/dfv
+bin/dfv.sh
+bin/dfv.m4
 bin/dmp
 bin/dub
 bin/edda
