@@ -1,0 +1,12 @@
+.TH DFV 1df "November 2017" "Manual page for dfv"
+.SH NAME
+.B dfv
+\- print dotfiles distribution version information
+.SH SYNOPSIS
+.B dfv
+.SH DESCRIPTION
+.B dfv
+prints some version information about the dotfiles distribution installed,
+including some details about the date the tool itself was built.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

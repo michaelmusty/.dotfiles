@@ -98,6 +98,7 @@ BINS = bin/ap \
 	bin/dam \
 	bin/d2u \
 	bin/ddup \
+	bin/dfv \
 	bin/dmp \
 	bin/dub \
 	bin/edda \
@@ -207,6 +208,7 @@ BINS = bin/ap \
 	bin/xrq
 
 BINS_M4 = bin/chn.m4 \
+	bin/dfv.m4 \
 	bin/edda.m4 \
 	bin/oii.m4 \
 	bin/pst.m4 \
@@ -216,6 +218,7 @@ BINS_M4 = bin/chn.m4 \
 	bin/urlc.m4
 
 BINS_SH = bin/chn.sh \
+	bin/dfv.sh \
 	bin/edda.sh \
 	bin/oii.sh \
 	bin/pst.sh \
@@ -283,6 +286,7 @@ clean distclean:
 	m4 < $< > $@
 
 bin/chn.sh: bin/chn.m4 include/mktd.m4
+bin/dfv.sh: bin/dfv.m4 include/mktd.m4
 bin/edda.sh: bin/edda.m4 include/mktd.m4
 bin/oii.sh: bin/oii.m4 include/mktd.m4
 bin/pst.sh: bin/pst.m4 include/mktd.m4
