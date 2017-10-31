@@ -1,1 +1,2 @@
-find urxvt/ext -type f ! -name '*.pl' -print -exec perlcritic --brutal -- {} \;
+perlcritic --brutal -- \
+    urxvt/ext/*.pl

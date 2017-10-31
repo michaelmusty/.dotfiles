@@ -1,5 +1,8 @@
-for v in vim/* ; do
-    [ "$v" != vim/bundle ] || continue
-    printf '%s\n' "$v"
-    vint -s -- "$v"
-done
+vint -s -- \
+    vim/after/ \
+    vim/config/ \
+    vim/ftdetect/ \
+    vim/ftplugin/ \
+    vim/indent/ \
+    vim/gvimrc \
+    vim/vimrc
