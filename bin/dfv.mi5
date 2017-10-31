@@ -1,7 +1,7 @@
 # Print dotfiles version information
 cat <<'EOF'
 <%
-    include(VERSION)
+    include(`VERSION')
     syscmd(`printf "Built on %s by %s@%s\n" "$(date)" "$(id -nu)" "$(uname -n)"')
 %>
 The next 1<<10 years are ours!
