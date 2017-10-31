@@ -22,7 +22,7 @@ fi
 ## The actual openssl(1ssl) and subcommand call
 set -- "$@" openssl s_client
 ## No insecure SSL methods
-set -- "$@" -no_ssl2 -no_ssl3
+set -- "$@" -no_ssl3
 ## Don't dump nonsense to terminal, and don't renegotiate on R or quit on Q
 set -- "$@" -quiet
 ## But do cut the connection if I issue ^D, even though I just set -quiet
