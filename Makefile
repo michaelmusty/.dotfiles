@@ -538,7 +538,7 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS_SH)
+check-bin: $(BINS)
 	sh check/bin.sh
 
 check-games:

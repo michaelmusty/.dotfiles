@@ -1,1 +1,5 @@
-find bin -type f -name '*.sh' -print -exec shellcheck -e SC1090 -s sh -- {} +
+set --
+for sh in bin/*.sh ; do
+    set "$@" "${sh%.sh}"
+done
+shellcheck -e SC1090 -- "$@"
