@@ -1,1 +1,5 @@
-find X -type f \( -name xinitrc -o -name '*.sh' \) -print -exec shellcheck -e SC1090 -s sh -- {} +
+set \
+    X/xinitrc \
+    X/xinitrc.d/*.sh
+shellcheck -e SC1090 -s sh -- "$@"
+printf 'Xinit startup scripts linted successfully.\n'

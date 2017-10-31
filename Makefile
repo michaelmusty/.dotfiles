@@ -538,10 +538,10 @@ check: check-bin \
 check-bash:
 	sh check/bash.sh
 
-check-bin: $(BINS_SH)
+check-bin: $(BINS)
 	sh check/bin.sh
 
-check-games:
+check-games: $(GAMES)
 	sh check/games.sh
 
 check-man:
@@ -556,7 +556,7 @@ check-login-shell:
 check-sh:
 	sh check/sh.sh
 
-check-urxvt:
+check-urxvt: urxvt/ext/select
 	sh check/urxvt.sh
 
 check-xinit:

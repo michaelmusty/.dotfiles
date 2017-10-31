@@ -1,5 +1,9 @@
-for zsh in zsh/* zsh/zshrc.d/* ; do
-    [ -f "$zsh" ] || continue
-    zsh -n "$zsh" || exit
+set \
+    zsh/zprofile \
+    zsh/zshrc.d/*.zsh \
+    zsh/zshrc
+for zsh ; do
+    zsh -n -- "$zsh" || exit
 done
-printf 'All zsh(1) scripts parsed successfully.\n'
+sh -n zsh/profile.d/zsh.sh || exit
+printf 'Z shell dotfiles parsed successfully.\n'

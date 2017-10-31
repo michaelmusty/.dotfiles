@@ -1,11 +1,10 @@
-for sh in \
-    sh/* sh/profile.d/* sh/shrc.d/* \
-    keychain/profile.d/* keychain/shrc.d/* \
-    ksh/shrc.d/* \
-    mpd/profile.d/* \
-    plenv/profile.d/* plenv/shrc.d/* \
-; do
-    [ -f "$sh" ] || continue
-    sh -n "$sh" || exit
+set \
+    sh/profile \
+    sh/profile.d/*.sh \
+    sh/shinit \
+    sh/shrc \
+    sh/shrc.d/*.sh
+for sh ; do
+    sh -n -- "$sh" || exit
 done
-printf 'All sh(1) scripts parsed successfully.\n'
+printf 'POSIX shell dotfiles parsed successfully.\n'
