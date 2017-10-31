@@ -1,4 +1,4 @@
-# POSIX sh
+# POSIX shell
 set --
 for game in games/*.sh ; do
     set -- "$@" "${game%.sh}"

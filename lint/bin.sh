@@ -1,4 +1,4 @@
-# POSIX sh
+# POSIX shell
 set --
 for bin in bin/*.sh ; do
     set -- "$@" "${bin%.sh}"
