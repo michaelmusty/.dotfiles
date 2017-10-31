@@ -1,8 +1,8 @@
-# POSIX sh
+# POSIX shell
 for bin in bin/*.sh ; do
     sh -n -- "${bin%.sh}" || exit
 done
-printf 'POSIX sh binscripts parsed successfully.\n'
+printf 'POSIX shell binscripts parsed successfully.\n'
 
 # GNU Bash
 if command -v bash >/dev/null 2>&1 ; then
