@@ -21,3 +21,6 @@ Ideas
     calls that via `eval`.
 *   The BigFileMeasures() function in .vim/config/bigfile.vim should maybe be a
     self-contained plugin rather than a config subfile.
+*   Ideally, the .awk and/or .sed scripts in the bin and games dirs should be
+    syntax-checked or linted. I could at least add some patient application of
+    appropriate `gawk --lint` calls for each of the .awk scripts.

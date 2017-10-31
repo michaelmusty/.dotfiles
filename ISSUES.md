@@ -22,3 +22,5 @@ Known issues
     `completion-ignore-case` setting
 *   Document `install-conf` target once I'm sure it's not a dumb idea
 *   Need to decide whether I care about XDG, and implement it if I do
+*   Need to decide whether I'm testing the shell snippets for MPD, Keychain
+    etc, and if so how.
