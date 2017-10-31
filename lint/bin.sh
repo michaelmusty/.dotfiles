@@ -4,7 +4,7 @@ for bin in bin/*.sh ; do
     set -- "$@" "${bin%.sh}"
 done
 shellcheck -e SC1090 -- "$@" || exit
-printf 'POSIX sh binscripts linted successfully.\n'
+printf 'POSIX shell binscripts linted successfully.\n'
 
 # GNU Bash
 if command -v bash >/dev/null 2>&1 ; then
