@@ -541,7 +541,7 @@ check-bash:
 check-bin: $(BINS)
 	sh check/bin.sh
 
-check-games:
+check-games: $(GAMES)
 	sh check/games.sh
 
 check-man:
