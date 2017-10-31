@@ -1,3 +1,1 @@
-shellcheck -e SC1090 -s sh -- \
-    X/xinitrc \
-    X/xinitrc.d/*.sh
+find X -type f \( -name xinitrc -o -name '*.sh' \) -print -exec shellcheck -e SC1090 -s sh -- {} +
