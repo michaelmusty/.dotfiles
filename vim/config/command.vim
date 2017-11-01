@@ -17,6 +17,9 @@ if has('cmdline_info')
   set showmode
 endif
 
+" Don't write the output of :make to the terminal
+set shellpipe=>
+
 " Always use forward slashes, I very seldom need to use Vim on Windows for
 " more than scratch space anyway
 set shellslash
