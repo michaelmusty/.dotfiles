@@ -1,4 +1,11 @@
-" When opening a large file, take some measures to keep things loading quickly
+"
+" bigfile.vim: When opening a large file, take some measures to keep things
+" loading quickly.
+"
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" Copyright: 2017
+" License: Same as Vim itself
+"
 if has('eval') && has('autocmd')
 
   " Threshold is 10 MiB
