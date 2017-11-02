@@ -9,14 +9,14 @@
 if has('eval') && has('autocmd')
 
   " Default threshold is 10 MiB
-  if !exists('g:big_file_size')
-    let g:big_file_size = 10 * 1024 * 1024
+  if !exists('g:bigfile_size')
+    let g:bigfile_size = 10 * 1024 * 1024
   endif
 
   " Declare function for turning off slow options
   function! s:BigFileMeasures()
     let l:file = expand('<afile>')
-    if getfsize(l:file) > g:big_file_size
+    if getfsize(l:file) > g:bigfile_size
       setlocal nobackup
       setlocal nowritebackup
       setlocal noswapfile
@@ -30,7 +30,7 @@ if has('eval') && has('autocmd')
   endfunction
 
   " Define autocmd for calling to check filesize
-  augroup dotfiles_big_file_measures
+  augroup bigfile_options_bufreadpre
     autocmd!
     autocmd BufReadPre * call s:BigFileMeasures()
   augroup end
