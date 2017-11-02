@@ -17,12 +17,11 @@ if has('cmdline_info')
   set showmode
 endif
 
-" Don't write the output of :make to the terminal
-set shellpipe=>
-
 " Always use forward slashes, I very seldom need to use Vim on Windows for
 " more than scratch space anyway
-set shellslash
+if exists('+shellslash')
+  set shellslash
+endif
 
 " Tolerate typos like :Wq, :Q, or :Qa and do what I mean, including any
 " arguments or modifiers; I fat-finger these commands a lot because I type

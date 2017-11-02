@@ -22,6 +22,3 @@ set timeoutlen=1000
 " correctly; I don't use Escape as a meta key anyway
 set ttimeout
 set ttimeoutlen=50
-
-" Don't write the output of :make to the terminal
-set shellpipe=>

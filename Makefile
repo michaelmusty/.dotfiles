@@ -474,9 +474,11 @@ install-urxvt: urxvt/ext/select
 install-vim: install-vim-after \
 	install-vim-bundle \
 	install-vim-config \
+	install-vim-doc \
 	install-vim-ftdetect \
 	install-vim-ftplugin \
-	install-vim-indent
+	install-vim-indent \
+	install-vim-plugin
 
 install-vim-after:
 	find vim/after -name .git -prune -o \
@@ -493,6 +495,10 @@ install-vim-config:
 	cp -p -- vim/vimrc $(HOME)/.vimrc
 	cp -p -- vim/config/*.vim $(HOME)/.vim/config
 
+install-vim-doc:
+	mkdir -p -- $(HOME)/.vim/doc
+	cp -p -- vim/doc/*.txt $(HOME)/.vim/doc
+
 install-vim-ftdetect:
 	mkdir -p -- $(HOME)/.vim/ftdetect
 	cp -p -- vim/ftdetect/*.vim $(HOME)/.vim/ftdetect
@@ -504,6 +510,10 @@ install-vim-ftplugin:
 install-vim-indent:
 	mkdir -p -- $(HOME)/.vim/indent
 	cp -p -- vim/indent/*.vim $(HOME)/.vim/indent
+
+install-vim-plugin:
+	mkdir -p -- $(HOME)/.vim/plugin
+	cp -p -- vim/plugin/*.vim $(HOME)/.vim/plugin
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
