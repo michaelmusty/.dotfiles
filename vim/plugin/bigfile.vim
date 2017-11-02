@@ -13,6 +13,11 @@ if has('eval') && has('autocmd')
     let g:bigfile_size = 10 * 1024 * 1024
   endif
 
+  " Cut 'synmaxcol' down to this or smaller for big files
+  if !exists('g:bigfile_size_synmaxcol')
+    let g:bigfile_size_synmaxcol = 256
+  endif
+
   " Declare function for turning off slow options
   function! s:BigFileOptions(name, size)
 
@@ -30,8 +35,8 @@ if has('eval') && has('autocmd')
     endif
 
     " Limit the number of columns of syntax highlighting
-    if exists('&synmaxcol')
-      setlocal synmaxcol=256
+    if exists('&synmaxcol') && &synmaxcol > g:bigfile_size_synmaxcol
+      execute 'setlocal synmaxcol=' . g:bigfile_size_synmaxcol
     endif
 
   endfunction
