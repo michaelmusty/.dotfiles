@@ -13,6 +13,11 @@ if has('eval') && has('autocmd')
     let g:bigfile_size = 10 * 1024 * 1024
   endif
 
+  " Default to leaving syntax highlighting off
+  if !exists('g:bigfile_syntax')
+    let g:bigfile_syntax = 0
+  endif
+
   " Cut 'synmaxcol' down to this or smaller for big files
   if !exists('g:bigfile_size_synmaxcol')
     let g:bigfile_size_synmaxcol = 256
@@ -37,6 +42,11 @@ if has('eval') && has('autocmd')
     " Limit the number of columns of syntax highlighting
     if exists('&synmaxcol') && &synmaxcol > g:bigfile_size_synmaxcol
       execute 'setlocal synmaxcol=' . g:bigfile_size_synmaxcol
+    endif
+
+    " Disable syntax highlighting if configured to do so
+    if !g:bigfile_syntax
+      setlocal syntax=OFF
     endif
 
   endfunction
