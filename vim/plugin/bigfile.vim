@@ -14,24 +14,32 @@ if has('eval') && has('autocmd')
   endif
 
   " Declare function for turning off slow options
-  function! s:BigFileMeasures()
-    let l:file = expand('<afile>')
-    if getfsize(l:file) > g:bigfile_size
-      setlocal nobackup
-      setlocal nowritebackup
-      setlocal noswapfile
-      if has('persistent_undo')
-        setlocal noundofile
-      endif
-      if exists('&synmaxcol')
-        setlocal synmaxcol=256
-      endif
+  function! s:BigFileOptions(name, size)
+
+    " Don't do anything if the file is under the threshold
+    if getfsize(a:name) <= a:size
+      return
     endif
+
+    " Turn off backups, swap files, and undo files
+    setlocal nobackup
+    setlocal nowritebackup
+    setlocal noswapfile
+    if has('persistent_undo')
+      setlocal noundofile
+    endif
+
+    " Limit the number of columns of syntax highlighting
+    if exists('&synmaxcol')
+      setlocal synmaxcol=256
+    endif
+
   endfunction
 
   " Define autocmd for calling to check filesize
   augroup bigfile_options_bufreadpre
     autocmd!
-    autocmd BufReadPre * call s:BigFileMeasures()
+    autocmd BufReadPre * call s:BigFileOptions(expand('<afile>'), g:bigfile_size)
   augroup end
+
 endif
