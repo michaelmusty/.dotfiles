@@ -8,8 +8,10 @@
 "
 if has('eval') && has('autocmd')
 
-  " Threshold is 10 MiB
-  let g:big_file_size = 10 * 1024 * 1024
+  " Default threshold is 10 MiB
+  if !exists('g:big_file_size')
+    let g:big_file_size = 10 * 1024 * 1024
+  endif
 
   " Declare function for turning off slow options
   function! s:BigFileMeasures()
