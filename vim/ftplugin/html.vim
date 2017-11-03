@@ -2,6 +2,10 @@
 nnoremap <buffer> <silent> <LocalLeader>c
       \ :write !tidy -errors -quiet<CR>
 
+" Filter buffer through `tidy`
+nnoremap <buffer> <silent> <LocalLeader>t
+      \ :%!tidy -quiet<CR>
+
 " Make a bare URL into a link to itself
 function! s:UrlLink()
 
