@@ -1,11 +1,16 @@
-" Don't show the preamble banner
-let g:netrw_banner = 0
+" netrw plugin configuration
+if has('eval')
 
-" Perform file transfers silently
-let g:netrw_silent = 1
+  " Don't show the preamble banner
+  let g:netrw_banner = 0
 
-" Use a tree-style file listing
-let g:netrw_liststyle = 3
+  " Perform file transfers silently
+  let g:netrw_silent = 1
 
-" Don't list the current directory shortcut, and don't show tags files
-let g:netrw_list_hide = '^\.$,^tags$'
+  " Use a tree-style file listing
+  let g:netrw_liststyle = 3
+
+  " Don't list the current directory shortcut, and don't show tags files
+  let g:netrw_list_hide = '^\.$,^tags$'
+
+endif
