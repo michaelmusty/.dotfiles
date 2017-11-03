@@ -1,3 +1,3 @@
 " Use different keys for global and local leaders
-let mapleader = '\'
-let maplocalleader = '_'
+let g:mapleader = '\'
+let g:maplocalleader = '_'
