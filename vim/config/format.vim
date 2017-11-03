@@ -38,8 +38,8 @@ if has('eval')
   endfunction
 
   " Map leader-letters to corresponding format option flags
-  nnoremap <silent> <leader>a :<C-U>call <SID>ToggleFormatFlag('a')<CR>
-  nnoremap <silent> <leader>c :<C-U>call <SID>ToggleFormatFlag('c')<CR>
-  nnoremap <silent> <leader>t :<C-U>call <SID>ToggleFormatFlag('t')<CR>
+  nnoremap <silent> <Leader>a :<C-U>call <SID>ToggleFormatFlag('a')<CR>
+  nnoremap <silent> <Leader>c :<C-U>call <SID>ToggleFormatFlag('c')<CR>
+  nnoremap <silent> <Leader>t :<C-U>call <SID>ToggleFormatFlag('t')<CR>
 
 endif

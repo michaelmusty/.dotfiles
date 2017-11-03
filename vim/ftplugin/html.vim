@@ -1,11 +1,25 @@
-" Run tidy -eq -utf8 on file for the current buffer
-nnoremap <leader>v :exe "!tidy -eq -utf8 " . shellescape(expand("%"))<CR>
+" Run `tidy -errors -quiet` over buffer
+nnoremap <buffer> <silent> <LocalLeader>c
+      \ :write !tidy -errors -quiet<CR>
+
+" Filter buffer through `tidy`
+nnoremap <buffer> <silent> <LocalLeader>t
+      \ :%!tidy -quiet<CR>
 
 " Make a bare URL into a link to itself
 function! s:UrlLink()
+
+  " Yank this whole whitespace-separated word
   normal! yiW
-  execute "normal! i<a href=\"\<C-R>0\">\<Esc>"
+  " Open a link tag
+  normal! i<a href="">
+  " Paste the URL into the quotes
+  normal! hP
+  " Move to the end of the link text URL
   normal! E
-  execute "normal! a</a>\<Esc>"
+  " Close the link tag
+  normal! a</a>
+
 endfunction
-nnoremap <silent> <leader>r :<C-U>call <SID>UrlLink()<CR>
+nnoremap <buffer> <silent> <LocalLeader>r
+      \ :<C-U>call <SID>UrlLink()<CR>
