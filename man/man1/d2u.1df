@@ -6,7 +6,7 @@
 .B d2u FILE1 [FILE2 ...]
 .SH DESCRIPTION
 Applies ed(1) to change DOS \\r\\n (CRLF) line endings to UNIX \\n line
-endings. Files already in UNIX format should be unchanged.
+endings.
 .SH SEE ALSO
 ed(1), u2d(1df), sd2u(1df), su2d(1df)
 .SH AUTHOR
