@@ -1,8 +1,10 @@
 " Run tidy -eq -utf8 on file for the current buffer
-function s:HTMLTidy()
-  execute '!tidy -eq -utf8 ' . shellescape(expand('%'))
-endfunction
-nnoremap <LocalLeader>v :exe :<C-U>call <SID>HTMLTidy()<CR>
+if exists('*shellescape')
+  function s:HTMLTidy()
+    execute '!tidy -eq -utf8 ' . shellescape(expand('%'))
+  endfunction
+  nnoremap <LocalLeader>v :exe :<C-U>call <SID>HTMLTidy()<CR>
+endif
 
 " Make a bare URL into a link to itself
 function! s:UrlLink()
