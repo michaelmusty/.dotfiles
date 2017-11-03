@@ -8,9 +8,7 @@ nnoremap <LocalLeader>v :exe :<C-U>call <SID>HTMLTidy()<CR>
 function! s:UrlLink()
 
   " Yank this whole whitespace-separated word
-  normal! W
-  normal! B
-  normal! yE
+  normal! yiW
   " Open a link tag
   normal! i<a href="">
   " Paste the URL into the quotes
