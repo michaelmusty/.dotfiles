@@ -23,42 +23,12 @@ if has('linebreak')
   " Precede continued lines with '...'
   set showbreak=...
 
-  " If we have the option, indent wrapped lines as much as the first line;
-  " keep the value as a script variable for the toggle function.
-  let s:breakindent = v:version > 704
-        \ || v:version ==# 704 && has('patch338')
-  if s:breakindent
+  " If we have the option, indent wrapped lines as much as the first line
+  if has('&breakindent')
     set breakindent
   endif
 
-  " Bind \b to turn off linebreak and toggle the showbreak characters on and
-  " off for convenience of copypasting multiple lines from terminal emulators.
-  if has('eval')
+  " \b toggles copy-pasteable linebreak settings
+  nmap <leader>b <Plug>CopyLinebreak
 
-    " Define function
-    function! s:ToggleBreak()
-
-      " If linebreak is on, turn it off
-      if &l:linebreak
-        setlocal nolinebreak linebreak?
-        setlocal showbreak=
-        if s:breakindent
-          setlocal nobreakindent
-        endif
-
-      " If it's off, turn it on
-      else
-        setlocal linebreak linebreak?
-        setlocal showbreak=...
-        if s:breakindent
-          setlocal breakindent
-        endif
-      endif
-
-    endfunction
-
-    " Map \b to defined function
-    nnoremap <silent> <leader>b :<C-U>call <SID>ToggleBreak()<CR>
-
-  endif
 endif
