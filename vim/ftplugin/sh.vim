@@ -24,3 +24,25 @@ endif
 if exists('b:is_bash') && executable('han')
   setlocal keywordprg=han
 endif
+
+" Map checker based on shell family
+if exists('b:is_bash') && b:is_bash
+  let b:check = 'bash -n'
+elseif exists('b:is_ksh') && b:is_ksh
+  let b:check = 'ksh -n'
+else
+  let b:check = 'sh -n'
+endif
+nnoremap <buffer> <silent> <LocalLeader>c
+      \ :<C-U>execute ':write !' . b:check<CR>
+
+" Map linter based on shell family
+if exists('b:is_bash') && b:is_bash
+  let b:lint = 'shellcheck -s bash -'
+elseif exists('b:is_ksh') && b:is_ksh
+  let b:lint = 'shellcheck -s ksh -'
+else
+  let b:lint = 'shellcheck -s sh -'
+endif
+nnoremap <buffer> <silent> <LocalLeader>l
+      \ :<C-U>execute ':write !' . b:lint<CR>
