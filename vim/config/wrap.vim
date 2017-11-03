@@ -1,6 +1,6 @@
 " Don't wrap by default, but use \w to toggle it on or off quickly
 set nowrap
-nnoremap <leader>w :setlocal wrap! wrap?<CR>
+nnoremap <Leader>w :setlocal wrap! wrap?<CR>
 
 " When wrapping text, if a line is so long that not all of it can be shown on
 " the screen, show as much as possible anyway; by default Vim fills the left
@@ -58,7 +58,7 @@ if has('linebreak')
     endfunction
 
     " Map \b to defined function
-    nnoremap <silent> <leader>b :<C-U>call <SID>ToggleBreak()<CR>
+    nnoremap <silent> <Leader>b :<C-U>call <SID>ToggleBreak()<CR>
 
   endif
 endif
