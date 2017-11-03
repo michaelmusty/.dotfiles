@@ -1,5 +1,5 @@
-" Run tidy -eq -utf8 on file for the current buffer
-nnoremap <LocalLeader>v :write !tidy -eq -utf8<CR>
+" Run `tidy -errors -quiet` for the current buffer
+nnoremap <LocalLeader>c :write !tidy -errors -quiet -utf8<CR>
 
 " Make a bare URL into a link to itself
 function! s:UrlLink()
