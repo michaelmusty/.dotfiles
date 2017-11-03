@@ -93,6 +93,7 @@ Configuration is included for:
     the rxvt terminal emulator with Unicode support
 *   [Subversion](https://subversion.apache.org/) -- Apache Subversion, a
     version control system
+*   [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 *   [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU
     Screen
 *   [Vim](http://www.vim.org/) -- Vi IMproved, a text editor

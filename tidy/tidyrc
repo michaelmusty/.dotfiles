@@ -1,0 +1,20 @@
+# UTF-8 everywhere by default
+char-encoding: utf8
+input-encoding: utf8
+output-encoding: utf8
+
+# Seems reasonable
+drop-empty-paras: yes
+
+# Indent to four spaces
+indent: yes
+indent-spaces: 4
+
+# Shut up please
+quiet: yes
+
+# Don't mess with my <meta>
+tidy-mark: no
+
+# Don't wrap
+wrap: 0
