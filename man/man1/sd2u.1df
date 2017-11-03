@@ -13,7 +13,7 @@ program |
 .B sd2u
 .SH DESCRIPTION
 Applies awk(1) to change DOS \\r\\n (CRLF) line endings to UNIX \\n line
-endings. Lines already in UNIX format should be unchanged.
+endings.
 .SH SEE ALSO
 awk(1), su2d(1df), d2u(1df), u2d(1df)
 .SH AUTHOR
