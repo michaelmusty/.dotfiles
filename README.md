@@ -342,8 +342,12 @@ The configuration is broken into subfiles in `~/.vim/config/*.vim`, included by
 extensively commented, mostly because I was reading through it one day and
 realised I'd forgotten what half of it did.
 
-Plugins are in submodules in `~/.vim/bundle`, loaded using Tim Pope's
-[pathogen.vim](https://github.com/tpope/vim-pathogen).
+I define a few custom per-filetype rules for stuff I often edit in
+`~/.vim/ftplugin`, including some local mappings for checking, linting, and
+tidying.
+
+Third-party plugins are in submodules in `~/.vim/bundle`, loaded using Tim
+Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
 
 Scripts
 -------

@@ -1,6 +1,11 @@
-" Run perl -c on file for the current buffer
-nnoremap <LocalLeader>pc :exe "!perl -c " . shellescape(expand("%"))<CR>
-" Run perlcritic on the file for the current buffer
-nnoremap <LocalLeader>pl :exe "!perlcritic " . shellescape(expand("%"))<CR>
-" Run the current buffer through perltidy
-nnoremap <LocalLeader>pt :%!perltidy<CR>
+" Run `perl -c` over buffer
+nnoremap <buffer> <silent> <LocalLeader>c
+      \ :write !perl -c<CR>
+
+" Run `perlcritic` over buffer
+nnoremap <buffer> <silent> <LocalLeader>l
+      \ :write !perlcritic<CR>
+
+" Filter buffer through `perltidy`
+nnoremap <buffer> <silent> <LocalLeader>t
+      \ :%!perltidy<CR>
