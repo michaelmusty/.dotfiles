@@ -3,11 +3,11 @@ if has('extra_search')
 
   " Searching as I enter my pattern, \i toggles this
   set incsearch
-  nnoremap <leader>i :setlocal incsearch! incsearch?<CR>
+  nnoremap <Leader>i :setlocal incsearch! incsearch?<CR>
 
   " Highlight search results, \h toggles this
   set hlsearch
-  nnoremap <leader>h :setlocal hlsearch! hlsearch?<CR>
+  nnoremap <Leader>h :setlocal hlsearch! hlsearch?<CR>
 
   " Pressing ^L will clear highlighting until the next search-related
   " operation; quite good because the highlighting gets distracting after

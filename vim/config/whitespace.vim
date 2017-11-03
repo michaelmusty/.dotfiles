@@ -52,6 +52,6 @@ if has('eval')
   endfunction
 
   " Map \x to the function just defined
-  nnoremap <silent> <leader>x :<C-U>call <SID>StripTrailingWhitespace()<CR>
+  nnoremap <silent> <Leader>x :<C-U>call <SID>StripTrailingWhitespace()<CR>
 
 endif
