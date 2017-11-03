@@ -1,3 +1,3 @@
-# Convert DOS line endings to UNIX ones
-{ sub(/\r$/, "") }
-{ print }
+# Convert stream DOS line endings to UNIX ones
+BEGIN { RS = "\r\n" }
+1
