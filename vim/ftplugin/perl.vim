@@ -1,6 +1,6 @@
-" Run perl -c on file for the current buffer
+" Run `perl -c` over buffer
 nnoremap <LocalLeader>pc :write !perl -c<CR>
-" Run perlcritic on the file for the current buffer
+" Run `perlcritic` over buffer
 nnoremap <LocalLeader>pl :write !perlcritic<CR>
-" Run the current buffer through perltidy
+" Filter buffer through `perltidy`
 nnoremap <LocalLeader>pt :%!perltidy<CR>

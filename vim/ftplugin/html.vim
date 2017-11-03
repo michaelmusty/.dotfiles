@@ -1,4 +1,4 @@
-" Run `tidy -errors -quiet` for the current buffer
+" Run `tidy -errors -quiet` over buffer
 nnoremap <LocalLeader>c :write !tidy -errors -quiet -utf8<CR>
 
 " Make a bare URL into a link to itself
