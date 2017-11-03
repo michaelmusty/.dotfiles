@@ -16,8 +16,7 @@ for fn ; do
     # $r within it to get a literal carriage return; the escape characters
     # prescribed for ed(1) by POSIX are very limited
     ed -s -- "$fn" <<EOF || ex=1
-g/[^$r]\$/ s/\$/$r/
-g/^\$/ s/\$/$r/
+,s/\$/$r/
 w
 EOF
 done
