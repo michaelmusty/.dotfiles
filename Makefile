@@ -34,6 +34,7 @@
 	install-sh \
 	install-subversion \
 	install-terminfo \
+	install-tidy \
 	install-tmux \
 	install-urxvt \
 	install-vim \
@@ -462,6 +463,10 @@ install-subversion:
 install-terminfo:
 	find terminfo -type f -name '*.info' \
 		-exec tic -- {} \;
+
+install-tidy: install-sh
+	cp -p -- tidy/profile.d/* $(HOME)/.profile.d
+	cp -p -- tidy/tidyrc $(HOME)/.tidyrc
 
 install-tmux: tmux/tmux.conf install-terminfo
 	cp -p -- tmux/tmux.conf $(HOME)/.tmux.conf
