@@ -5,8 +5,8 @@ if v:version > 703 || v:version ==# 703 && has('patch541')
 endif
 
 "
-" Quick way to toggle flags in 'formatoptions' that I often want to change;
-" specifically:
+" Use option_flags.vim plugin to bind quick toggle actions for some
+" 'formatoptions' flags:
 "
 " a - Automatically format paragraphs, reapplying the wrap on every text
 "     insertion or deletion; sometimes I want this and sometimes I
@@ -16,30 +16,11 @@ endif
 "     to set for me)
 " t - Automatically wrap text at 'textwidth' (as above)
 "
-" So I just have to type e.g. \a to toggle the auto-format flag on and off;
-" very handy
-"
 if has('eval')
-
-  " Declare function
-  function! s:ToggleFormatFlag(flag)
-
-    " Decide on whether we're adding or removing the flag
-    if &l:formatoptions =~# a:flag
-      let l:command = 'setlocal formatoptions-=' . a:flag
-    else
-      let l:command = 'setlocal formatoptions+=' . a:flag
-    endif
-
-    " Execute the command we determined and show the result
-    silent! execute l:command
-    setlocal formatoptions?
-
-  endfunction
-
-  " Map leader-letters to corresponding format option flags
-  nnoremap <silent> <leader>a :<C-U>call <SID>ToggleFormatFlag('a')<CR>
-  nnoremap <silent> <leader>c :<C-U>call <SID>ToggleFormatFlag('c')<CR>
-  nnoremap <silent> <leader>t :<C-U>call <SID>ToggleFormatFlag('t')<CR>
-
+  nnoremap <silent> <leader>a
+        \ :<C-U>call option_flags#toggle_local('formatoptions', 'a')<CR>
+  nnoremap <silent> <leader>c
+        \ :<C-U>call option_flags#toggle_local('formatoptions', 'c')<CR>
+  nnoremap <silent> <leader>t
+        \ :<C-U>call option_flags#toggle_local('formatoptions', 't')<CR>
 endif
