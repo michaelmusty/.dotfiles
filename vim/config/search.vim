@@ -19,8 +19,8 @@ if has('extra_search')
   if has('autocmd')
     augroup dotfiles_highlight
       autocmd!
-      silent! autocmd InsertEnter * setlocal nohlsearch nohlsearch?
-      silent! autocmd InsertLeave * setlocal hlsearch hlsearch?
+      silent! autocmd InsertEnter * setlocal nohlsearch
+      silent! autocmd InsertLeave * setlocal hlsearch
     augroup END
   endif
 endif
