@@ -1,5 +1,5 @@
 " Run `tidy -errors -quiet` over buffer
-nnoremap <LocalLeader>c :write !tidy -errors -quiet -utf8<CR>
+nnoremap <buffer> <silent> <LocalLeader>c :write !tidy -errors -quiet<CR>
 
 " Make a bare URL into a link to itself
 function! s:UrlLink()
@@ -16,4 +16,4 @@ function! s:UrlLink()
   normal! a</a>
 
 endfunction
-nnoremap <silent> <LocalLeader>r :<C-U>call <SID>UrlLink()<CR>
+nnoremap <buffer> <silent> <LocalLeader>r :<C-U>call <SID>UrlLink()<CR>
