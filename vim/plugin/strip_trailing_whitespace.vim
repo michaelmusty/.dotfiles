@@ -1,4 +1,9 @@
+"
 " User-defined key mapping to strip trailing whitespace in the whole document
+"
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" License: Same as Vim itself
+"
 if has('eval')
 
   " Define function for stripping whitespace

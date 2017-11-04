@@ -3,6 +3,8 @@
 " showbreak characters and breakindent mode on and off, for convenience of
 " copying multiple lines from terminal emulators.
 "
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" License: Same as Vim itself
 "
 if has('eval')
 

@@ -1,5 +1,11 @@
-" Invert Vim's built-in logic for choosing dark or light backgrounds; we'll
-" default to choosing a dark background unless we find some reason *not* to.
+"
+" detect_background.vim: Invert Vim's built-in logic for choosing dark or
+" light backgrounds; we'll default to choosing a dark background unless we
+" find some reason *not* to.
+"
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" License: Same as Vim itself
+"
 function! detect_background#DetectBackground()
 
   " Split up the value of $COLORFGBG (if any) by semicolons

@@ -3,7 +3,6 @@
 " loading quickly.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
-" Copyright: 2017
 " License: Same as Vim itself
 "
 if has('eval') && has('autocmd')
