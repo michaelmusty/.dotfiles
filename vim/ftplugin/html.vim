@@ -1,10 +1,12 @@
 " Run `tidy -errors -quiet` over buffer
-nnoremap <buffer> <silent> <LocalLeader>c
-      \ :write !tidy -errors -quiet<CR>
+nnoremap <buffer> <silent>
+      \ <LocalLeader>c
+      \ :<C-U>write !tidy -errors -quiet<CR>
 
 " Filter buffer through `tidy`
-nnoremap <buffer> <silent> <LocalLeader>t
-      \ :%!tidy -quiet<CR>
+nnoremap <buffer> <silent>
+      \ <LocalLeader>t
+      \ :<C-U>%!tidy -quiet<CR>
 
 " Make a bare URL into a link to itself
 function! s:UrlLink()
@@ -21,5 +23,8 @@ function! s:UrlLink()
   normal! a</a>
 
 endfunction
-nnoremap <buffer> <silent> <LocalLeader>r
+
+" Mapping for the function above
+nnoremap <buffer> <silent>
+      \ <LocalLeader>r
       \ :<C-U>call <SID>UrlLink()<CR>

@@ -31,6 +31,7 @@ if has('eval')
   endfunction
 
   " Provide mapping proxy to the function just defined
-  noremap <Plug>CopyLinebreak
+  noremap <silent> <unique>
+        \ <Plug>CopyLinebreak
         \ :<C-U>call <SID>CopyLinebreak()<CR>
 endif
