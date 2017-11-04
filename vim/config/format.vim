@@ -13,7 +13,7 @@ endif
 "     to set for me)
 " t - Automatically wrap text at 'textwidth' (as above)
 "
-" Only in Vim >= 7.1 (I think):
+" Only in Vim >= 7.0 (I think):
 "
 " a - Automatically format paragraphs, reapplying the wrap on every text
 "     insertion or deletion; sometimes I want this and sometimes I
@@ -31,14 +31,14 @@ if has('eval') && has('user_commands')
         \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
 
   " 'a' is newer
-  if v:version >= 701
+  if v:version >= 700
     nnoremap <silent>
           \ <Leader>a
           \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
   else
     nnoremap <silent>
           \ <Leader>a
-          \ :<C-U>echomsg 'No "formatoptions" "a" flag in Vim < 7.1'<CR>
+          \ :<C-U>echomsg 'No "formatoptions" "a" flag in Vim < 7.0'<CR>
   endif
 
 endif
