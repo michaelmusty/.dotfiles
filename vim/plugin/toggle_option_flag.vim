@@ -30,7 +30,7 @@ if has('eval') && has('user_commands')
     " Use eval() to assign -= or += to l:op for the option toggle
     " (I couldn't get {curly braces} indirection to work)
     let l:op = ''
-    execute 'let l:op = &'.a:option.' =~# a:flag ? "-=" : "+="'
+    execute 'let l:op = &' . a:option . ' =~# a:flag ? "-=" : "+="'
 
     " Use eval() to perform the option toggle and then print the value
     execute l:set . ' ' . a:option . l:op . a:flag . ' ' . a:option . '?'
