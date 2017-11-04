@@ -343,9 +343,19 @@ The configuration is broken into subfiles in `~/.vim/config/*.vim`, included by
 extensively commented, mostly because I was reading through it one day and
 realised I'd forgotten what half of it did.
 
-I define a few custom per-filetype rules for stuff I often edit in
+If the logic for doing something involves more than a few lines or any
+structures like functions, I like to implement it as a plugin in
+`~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
+those in `~/.vim/doc`.
+
+I also define a few custom per-filetype rules for stuff I often edit in
 `~/.vim/ftplugin`, including some local mappings for checking, linting, and
 tidying.
+
+Any/all of the general or filetype plugins may eventually be spun off into
+their own repositories in the future, but for the moment they live here.
+Contact me if you find one of them useful and you'd like to see it in its own
+distribution.
 
 Third-party plugins are in submodules in `~/.vim/bundle`, loaded using Tim
 Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
