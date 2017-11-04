@@ -4,9 +4,6 @@
 [submodule "vim/bundle/commentary"]
     path = vim/bundle/commentary
     url = https://sanctum.geek.nz/clone/vim-commentary.git
-[submodule "vim/bundle/html5"]
-    path = vim/bundle/html5
-    url = https://sanctum.geek.nz/clone/html5.vim.git
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
     url = https://sanctum.geek.nz/code/juvenile.git
