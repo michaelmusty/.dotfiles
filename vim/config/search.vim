@@ -22,7 +22,7 @@ if has('extra_search')
 
   " Clear search highlighting as soon as I enter insert mode, and restore it
   " once I leave it
-  if has('autocmd')
+  if has('autocmd') && v:version >= 701
     augroup dotfiles_highlight
       autocmd!
       autocmd InsertEnter
