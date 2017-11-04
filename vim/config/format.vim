@@ -1,3 +1,8 @@
+" Figure out if we have the 'a' flag for 'formatoptions', to reapply
+" 'textwidth' wrapping to the current paragraph on every insertion or
+" deletion; keep in a script variable
+let s:formatoptions_has_a = v:version > 700
+
 " Figure out if we have the 'j' flag for 'formatoptions', to automatically
 " delete comment leaders when joining lines; keep it in a script variable
 let s:formatoptions_has_j = v:version > 703
@@ -33,8 +38,8 @@ if has('eval') && has('user_commands')
         \ <Leader>t
         \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
 
-  " 'a' is newer
-  if v:version >= 700
+  " 'a' needs testing
+  if s:formatoptions_has_a
     nnoremap <silent>
           \ <Leader>a
           \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
