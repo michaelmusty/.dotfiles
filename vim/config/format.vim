@@ -5,7 +5,7 @@ if v:version > 703 || v:version ==# 703 && has('patch541')
 endif
 
 "
-" Use flag_toggle.vim plugin to bind quick toggle actions for some
+" Use toggle_option_flag.vim plugin to bind quick toggle actions for some
 " 'formatoptions' flags:
 "
 " a - Automatically format paragraphs, reapplying the wrap on every text
@@ -16,11 +16,11 @@ endif
 "     to set for me)
 " t - Automatically wrap text at 'textwidth' (as above)
 "
-if has('eval') && v:version >= 701
-  silent! nnoremap <silent> <leader>a
-        \ :<C-U>call flag_toggle#ToggleLocal('formatoptions', 'a')<CR>
-  silent! nnoremap <silent> <leader>c
-        \ :<C-U>call flag_toggle#ToggleLocal('formatoptions', 'c')<CR>
-  silent! nnoremap <silent> <leader>t
-        \ :<C-U>call flag_toggle#ToggleLocal('formatoptions', 't')<CR>
+if has('eval') && has('user_commands')
+  nnoremap <silent> <leader>a
+        \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+  nnoremap <silent> <leader>c
+        \ :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
+  nnoremap <silent> <leader>t
+        \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
 endif
