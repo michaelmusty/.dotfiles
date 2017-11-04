@@ -6,16 +6,27 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
+if exists('g:loaded_detect_background')
+      \ || &compatible
+  finish
+endif
+let g:loaded_detect_background = 1
+
+" Declare autoload function for 'background' set
 function! detect_background#DetectBackground()
 
   " Split up the value of $COLORFGBG (if any) by semicolons
   let l:colorfgbg = split($COLORFGBG, ';')
 
   " Get the background color value, or an empty string if none
-  let l:bg = len(l:colorfgbg) ? l:colorfgbg[-1] : ''
+  let l:bg = len(l:colorfgbg)
+        \ ? l:colorfgbg[-1]
+        \ : ''
 
   " Choose the background setting based on this value
-  if l:bg ==# 'default' || l:bg ==# '7' || l:bg ==# '15'
+  if l:bg ==# 'default'
+        \ || l:bg ==# '7'
+        \ || l:bg ==# '15'
       set background=light
   else
       set background=dark

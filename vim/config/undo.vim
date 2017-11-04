@@ -24,7 +24,7 @@ if !strlen($SUDO_USER) && has('unix') && has('persistent_undo')
   if has('autocmd')
     augroup dotfiles_undo_skip
       autocmd!
-      silent! autocmd BufWritePre
+      autocmd BufWritePre
             \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
             \ setlocal noundofile
     augroup END

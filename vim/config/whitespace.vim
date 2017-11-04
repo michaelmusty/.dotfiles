@@ -1,2 +1,2 @@
 " \x strips trailing whitespace via a custom plugin
-nmap <leader>x <Plug>StripTrailingWhitespace
+nmap <Leader>x <Plug>StripTrailingWhitespace

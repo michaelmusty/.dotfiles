@@ -4,9 +4,6 @@
 [submodule "vim/bundle/commentary"]
     path = vim/bundle/commentary
     url = https://sanctum.geek.nz/clone/vim-commentary.git
-[submodule "vim/bundle/html5"]
-    path = vim/bundle/html5
-    url = https://sanctum.geek.nz/clone/html5.vim.git
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
     url = https://sanctum.geek.nz/code/juvenile.git
@@ -25,9 +22,6 @@
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
-[submodule "vim/bundle/targets"]
-    path = vim/bundle/targets
-    url = https://sanctum.geek.nz/clone/targets.vim.git
 [submodule "vim/bundle/unimpaired"]
     path = vim/bundle/unimpaired
     url = https://sanctum.geek.nz/clone/vim-unimpaired.git

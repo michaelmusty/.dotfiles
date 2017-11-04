@@ -27,22 +27,24 @@ endif
 
 " Map checker based on shell family
 if exists('b:is_bash') && b:is_bash
-  let b:check = 'bash -n'
+  let b:check = 'write !bash -n'
 elseif exists('b:is_ksh') && b:is_ksh
-  let b:check = 'ksh -n'
+  let b:check = 'write !ksh -n'
 else
-  let b:check = 'sh -n'
+  let b:check = 'write !sh -n'
 endif
-nnoremap <buffer> <silent> <LocalLeader>c
-      \ :<C-U>execute ':write !' . b:check<CR>
+nnoremap <buffer> <silent>
+      \ <LocalLeader>c
+      \ :<C-U>execute b:check<CR>
 
 " Map linter based on shell family
 if exists('b:is_bash') && b:is_bash
-  let b:lint = 'shellcheck -s bash -'
+  let b:lint = 'write shellcheck -s bash -'
 elseif exists('b:is_ksh') && b:is_ksh
-  let b:lint = 'shellcheck -s ksh -'
+  let b:lint = 'write !shellcheck -s ksh -'
 else
-  let b:lint = 'shellcheck -s sh -'
+  let b:lint = 'write !shellcheck -s sh -'
 endif
-nnoremap <buffer> <silent> <LocalLeader>l
-      \ :<C-U>execute ':write !' . b:lint<CR>
+nnoremap <buffer> <silent>
+      \ <LocalLeader>l
+      \ :<C-U>execute b:lint<CR>
