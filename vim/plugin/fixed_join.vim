@@ -24,6 +24,7 @@ if has('eval')
   endfunction
 
   " Create mapping proxy to the function just defined
-  noremap <Plug>FixedJoin
+  noremap <silent> <unique>
+        \ <Plug>FixedJoin
         \ :<C-U>call <SID>FixedJoin()<CR>
 endif

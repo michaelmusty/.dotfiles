@@ -12,10 +12,14 @@ function! detect_background#DetectBackground()
   let l:colorfgbg = split($COLORFGBG, ';')
 
   " Get the background color value, or an empty string if none
-  let l:bg = len(l:colorfgbg) ? l:colorfgbg[-1] : ''
+  let l:bg = len(l:colorfgbg)
+        \ ? l:colorfgbg[-1]
+        \ : ''
 
   " Choose the background setting based on this value
-  if l:bg ==# 'default' || l:bg ==# '7' || l:bg ==# '15'
+  if l:bg ==# 'default'
+        \ || l:bg ==# '7'
+        \ || l:bg ==# '15'
       set background=light
   else
       set background=dark

@@ -1,6 +1,7 @@
 " If we can, add j to the format options to get rid of comment leaders when
 " joining lines
-if v:version > 703 || v:version ==# 703 && has('patch541')
+if v:version > 703
+      \ || v:version ==# 703 && has('patch541')
   set formatoptions+=j
 endif
 
@@ -17,10 +18,13 @@ endif
 " t - Automatically wrap text at 'textwidth' (as above)
 "
 if has('eval') && has('user_commands')
-  nnoremap <silent> <leader>a
+  nnoremap <silent>
+        \ <Leader>a
         \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
-  nnoremap <silent> <leader>c
+  nnoremap <silent>
+        \ <Leader>c
         \ :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
-  nnoremap <silent> <leader>t
+  nnoremap <silent>
+        \ <Leader>t
         \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
 endif

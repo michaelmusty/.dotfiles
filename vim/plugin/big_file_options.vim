@@ -1,6 +1,6 @@
 "
-" big_file.vim: When opening a large file, take some measures to keep things
-" loading quickly.
+" big_file_options.vim: When opening a large file, take some measures to keep
+" things loading quickly.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
@@ -23,10 +23,10 @@ if has('eval') && has('autocmd')
   endif
 
   " Declare function for turning off slow options
-  function! s:BigFileOptions(name, size)
+  function! s:BigFileOptions()
 
     " Don't do anything if the file is under the threshold
-    if getfsize(a:name) <= a:size
+    if getfsize(expand('<afile>')) <= g:big_file_size
       return
     endif
 
@@ -39,7 +39,8 @@ if has('eval') && has('autocmd')
     endif
 
     " Limit the number of columns of syntax highlighting
-    if exists('&synmaxcol') && &synmaxcol > g:big_file_synmaxcol
+    if exists('&synmaxcol')
+          \ && &synmaxcol > g:big_file_synmaxcol
       execute 'setlocal synmaxcol=' . g:big_file_synmaxcol
     endif
 
@@ -53,7 +54,9 @@ if has('eval') && has('autocmd')
   " Define autocmd for calling to check filesize
   augroup big_file_options_bufreadpre
     autocmd!
-    autocmd BufReadPre * call s:BigFileOptions(expand('<afile>'), g:big_file_size)
+    autocmd BufReadPre
+          \ *
+          \ call s:BigFileOptions()
   augroup end
 
 endif

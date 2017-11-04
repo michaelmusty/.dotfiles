@@ -4,7 +4,7 @@
 if has('viminfo') && has('autocmd')
   augroup dotfiles_viminfo_skip
     autocmd!
-    silent! autocmd BufNewFile,BufReadPre
+    autocmd BufNewFile,BufReadPre
           \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
           \ setlocal viminfo=
   augroup END

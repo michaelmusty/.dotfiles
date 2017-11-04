@@ -1,6 +1,8 @@
 " Don't wrap by default, but use \w to toggle it on or off quickly
 set nowrap
-nnoremap <Leader>w :setlocal wrap! wrap?<CR>
+nnoremap <silent>
+      \ <Leader>w
+      \ :<C-U>setlocal wrap! wrap?<CR>
 
 " When wrapping text, if a line is so long that not all of it can be shown on
 " the screen, show as much as possible anyway; by default Vim fills the left
@@ -29,6 +31,6 @@ if has('linebreak')
   endif
 
   " \b toggles copy-pasteable linebreak settings
-  nmap <leader>b <Plug>CopyLinebreak
+  nmap <Leader>b <Plug>CopyLinebreak
 
 endif

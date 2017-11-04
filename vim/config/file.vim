@@ -27,5 +27,9 @@ set nomodeline
 " I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
 " write of the current buffer, but doesn't quit, and ZA forces a write of all
 " buffers but doesn't quit
-nnoremap ZW :w!<CR>
-nnoremap ZA :wa!<CR>
+nnoremap <silent>
+      \ ZW
+      \ :<C-U>write!<CR>
+nnoremap <silent>
+      \ ZA
+      \ :<C-U>wall!<CR>

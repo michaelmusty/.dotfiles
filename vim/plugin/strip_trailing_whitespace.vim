@@ -36,6 +36,7 @@ if has('eval')
 
       " Increment the line counter for the next iteration
       let l:li = l:li + 1
+
     endwhile
 
     " If the last non-whitespace line was before the last line proper, we can
@@ -54,9 +55,11 @@ if has('eval')
       " Return the cursor to the saved position
       call cursor(l:lc, l:cc)
     endif
+
   endfunction
 
   " Create mapping proxy to the function just defined
-  noremap <Plug>StripTrailingWhitespace
+  noremap <silent> <unique>
+        \ <Plug>StripTrailingWhitespace
         \ :<C-U>call <SID>StripTrailingWhitespace()<CR>
 endif

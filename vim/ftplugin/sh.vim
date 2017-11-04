@@ -33,7 +33,8 @@ elseif exists('b:is_ksh') && b:is_ksh
 else
   let b:check = 'sh -n'
 endif
-nnoremap <buffer> <silent> <LocalLeader>c
+nnoremap <buffer> <silent>
+      \ <LocalLeader>c
       \ :<C-U>execute ':write !' . b:check<CR>
 
 " Map linter based on shell family
@@ -44,5 +45,6 @@ elseif exists('b:is_ksh') && b:is_ksh
 else
   let b:lint = 'shellcheck -s sh -'
 endif
-nnoremap <buffer> <silent> <LocalLeader>l
+nnoremap <buffer> <silent>
+      \ <LocalLeader>l
       \ :<C-U>execute ':write !' . b:lint<CR>
