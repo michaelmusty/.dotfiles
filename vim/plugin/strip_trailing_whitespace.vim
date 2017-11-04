@@ -50,7 +50,7 @@ if has('eval')
       let l:cc = col('.')
 
       " Delete the lines, which will move the cursor
-      execute l:lw + 1.',$ delete'
+      execute l:lw + 1 . ',$ delete'
 
       " Return the cursor to the saved position
       call cursor(l:lc, l:cc)
