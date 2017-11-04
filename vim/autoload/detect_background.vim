@@ -6,6 +6,13 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
+if exists('g:loaded_detect_background')
+      \ || &compatible
+  finish
+endif
+let g:loaded_detect_background = 1
+
+" Declare autoload function for 'background' set
 function! detect_background#DetectBackground()
 
   " Split up the value of $COLORFGBG (if any) by semicolons
