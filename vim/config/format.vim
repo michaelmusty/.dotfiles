@@ -9,22 +9,36 @@ endif
 " Use toggle_option_flag.vim plugin to bind quick toggle actions for some
 " 'formatoptions' flags:
 "
-" a - Automatically format paragraphs, reapplying the wrap on every text
-"     insertion or deletion; sometimes I want this and sometimes I
-"     don't, it particularly varies when typing prose in Markdown that
-"     includes headings and code
 " c - Automatically wrap comments at 'textwidth' (which I allow the filetypes
 "     to set for me)
 " t - Automatically wrap text at 'textwidth' (as above)
 "
+" Only in Vim >= 7.1 (I think):
+"
+" a - Automatically format paragraphs, reapplying the wrap on every text
+"     insertion or deletion; sometimes I want this and sometimes I
+"     don't, it particularly varies when typing prose in Markdown that
+"     includes headings and code
+"
 if has('eval') && has('user_commands')
-  nnoremap <silent>
-        \ <Leader>a
-        \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+
+  " 'c' and 't' have both been around since at least 6.1
   nnoremap <silent>
         \ <Leader>c
         \ :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
   nnoremap <silent>
         \ <Leader>t
         \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
+
+  " 'a' is newer
+  if v:version >= 701
+    nnoremap <silent>
+          \ <Leader>a
+          \ :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+  else
+    nnoremap <silent>
+          \ <Leader>a
+          \ :<C-U>echomsg 'No "formatoptions" "a" flag in Vim < 7.1'<CR>
+  endif
+
 endif
