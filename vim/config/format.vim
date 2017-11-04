@@ -1,7 +1,10 @@
-" If we can, add j to the format options to get rid of comment leaders when
-" joining lines
-if v:version > 703
+" Figure out if we have the 'j' flag for 'formatoptions', to automatically
+" delete comment leaders when joining lines; keep it in a script variable
+let s:formatoptions_has_j = v:version > 703
       \ || v:version ==# 703 && has('patch541')
+
+" If we do have 'j', default to setting it
+if s:formatoptions_has_j
   set formatoptions+=j
 endif
 
