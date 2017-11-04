@@ -46,7 +46,7 @@ if has('eval') && has('user_commands')
   else
     nnoremap <silent>
           \ <Leader>a
-          \ :<C-U>echomsg 'No formatoptions a-flag'<CR>
+          \ :<C-U>echoerr 'No formatoptions a-flag'<CR>
   endif
 
 endif
