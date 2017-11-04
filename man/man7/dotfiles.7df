@@ -142,6 +142,8 @@ Fork of the rxvt terminal emulator with Unicode support
 Subversion (https://subversion.apache.org/) \[en] Apache Subversion, a
 version control system
 .IP \[bu] 2
+tidy (http://www.html-tidy.org/) \[en] HTML/XHTML linter and tidier
+.IP \[bu] 2
 tmux (https://tmux.github.io/) \[en] Terminal multiplexer similar to GNU
 Screen
 .IP \[bu] 2
@@ -475,13 +477,29 @@ I try not to deviate too much from the Vim defaults behaviour in terms
 of interactive behavior and keybindings.
 .PP
 The configuration is broken into subfiles in
-\f[C]\&.vim/config/*.vim\f[], included by \f[C]~/.vimrc\f[] using
+\f[C]~/.vim/config/*.vim\f[], included by \f[C]~/.vimrc\f[] using
 \f[C]:runtime\f[] (http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime).
 It's extensively commented, mostly because I was reading through it one
 day and realised I'd forgotten what half of it did.
+.SS Plugins
 .PP
-Plugins are in submodules in \f[C]\&.vim/bundle\f[], loaded using Tim
-Pope's pathogen.vim (https://github.com/tpope/vim-pathogen).
+If the logic for doing something involves more than a few lines or any
+structures like functions, I like to implement it as a plugin in
+\f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[].
+There's documentation for each of those in \f[C]~/.vim/doc\f[].
+.PP
+I also define a few custom per\-filetype rules for stuff I often edit in
+\f[C]~/.vim/ftplugin\f[], including some local mappings for checking,
+linting, and tidying.
+.PP
+Any/all of the general or filetype plugins may eventually be spun off
+into their own repositories in the future, but for the moment they live
+here.
+Contact me if you find one of them useful and you'd like to see it in
+its own distribution.
+.PP
+Third\-party plugins are in submodules in \f[C]~/.vim/bundle\f[], loaded
+using Tim Pope's pathogen.vim (https://github.com/tpope/vim-pathogen).
 .SS Scripts
 .PP
 Where practical, I make short scripts into POSIX (but not Bourne)
