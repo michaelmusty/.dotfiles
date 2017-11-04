@@ -1,0 +1,11 @@
+*fixed_join.txt*  Mapping to join lines in normal mode without moving cursor
+
+Author:  Tom Ryder <tom@sanctum.geek.nz>
+License: Same terms as Vim itself (see |license|)
+
+This plugin provides a mapping target <Plug>FixedJoin to create a binding for a
+user to join lines in normal mode without the cursor jumping around.
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves.

@@ -1,4 +1,4 @@
-*bigfile.txt*  Disable slow options for big files to speed things up
+*big_file.txt*  Disable slow options for big files to speed things up
 
 Author:  Tom Ryder <tom@sanctum.geek.nz>
 License: Same terms as Vim itself (see |license|)

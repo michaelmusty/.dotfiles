@@ -39,6 +39,7 @@
 	install-urxvt \
 	install-vim \
 	install-vim-after \
+	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-config \
 	install-vim-ftdetect \
@@ -477,6 +478,7 @@ install-urxvt: urxvt/ext/select
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
 install-vim: install-vim-after \
+	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-config \
 	install-vim-doc \
@@ -489,6 +491,10 @@ install-vim-after:
 	find vim/after -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
+
+install-vim-autoload:
+	mkdir -p -- $(HOME)/.vim/autoload
+	cp -p -- vim/autoload/*.vim $(HOME)/.vim/autoload
 
 install-vim-bundle: install-vim-config
 	find vim/bundle -name .git -prune -o \
