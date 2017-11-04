@@ -30,8 +30,8 @@ endif
 " Declare function for turning off slow options
 function! s:BigFileOptions()
 
-  " Don't do anything if the file is under the threshold
-  if getfsize(expand('<afile>')) <= g:big_file_size
+  " Don't do anything if the buffer size is under the threshold
+  if line2byte(line('$') + 1) <= g:big_file_size
     return
   endif
 
@@ -57,9 +57,9 @@ function! s:BigFileOptions()
 endfunction
 
 " Define autocmd for calling to check filesize
-augroup big_file_options_bufreadpre
+augroup big_file_options_bufreadpost
   autocmd!
-  autocmd BufReadPre
+  autocmd BufReadPost
         \ *
         \ call s:BigFileOptions()
 augroup end
