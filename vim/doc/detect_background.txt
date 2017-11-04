@@ -1,0 +1,14 @@
+*detect_background.txt*  Figure out 'background' with a bias towards "dark"
+
+Author:  Tom Ryder <tom@sanctum.geek.nz>
+License: Same terms as Vim itself (see |license|)
+
+This plugin inspects the $COLORFGBG environment variable to determine whether
+the user is using a terminal with a light background. It reverses Vim's
+built-in attempts to do this, which have the opposite default.
+
+It does not inspect the value of the $TERM variable or |'term'| at all.
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves.
