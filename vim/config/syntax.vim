@@ -7,7 +7,7 @@ if has('syntax')
 
   " If we can, detect a light background, but default to a dark one
   if has('eval') && v:version >= 701
-    call detect_background#DetectBackground()
+    silent! call detect_background#DetectBackground()
   else
     set background=dark
   endif
