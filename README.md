@@ -343,6 +343,8 @@ The configuration is broken into subfiles in `~/.vim/config/*.vim`, included by
 extensively commented, mostly because I was reading through it one day and
 realised I'd forgotten what half of it did.
 
+#### Plugins
+
 If the logic for doing something involves more than a few lines or any
 structures like functions, I like to implement it as a plugin in
 `~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
