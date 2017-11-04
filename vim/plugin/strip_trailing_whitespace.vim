@@ -1,5 +1,4 @@
 " User-defined key mapping to strip trailing whitespace in the whole document
-" Suggested mapping: <leader>\x
 if has('eval')
 
   " Define function for stripping whitespace
@@ -53,7 +52,6 @@ if has('eval')
   endfunction
 
   " Create mapping proxy to the function just defined
-  " Suggested mapping: <leader>x
   noremap <Plug>StripTrailingWhitespace
         \ :<C-U>call <SID>StripTrailingWhitespace()<CR>
 endif

@@ -1,6 +1,5 @@
 " User-defined key mapping to keep cursor in place when joining lines in
 " normal mode
-" Suggesting mapping: normal J
 if has('eval')
 
   " Declare function
@@ -20,7 +19,6 @@ if has('eval')
   endfunction
 
   " Create mapping proxy to the function just defined
-  " Suggesting mapping: normal J
   noremap <Plug>FixedJoin
         \ :<C-U>call <SID>FixedJoin()<CR>
 endif

@@ -3,7 +3,6 @@
 " showbreak characters and breakindent mode on and off, for convenience of
 " copying multiple lines from terminal emulators.
 "
-" Suggested mapping: <leader>b
 "
 if has('eval')
 
@@ -30,7 +29,6 @@ if has('eval')
   endfunction
 
   " Provide mapping proxy to the function just defined
-  " Suggested mapping: <leader>b
   noremap <Plug>CopyLinebreak
         \ :<C-U>call <SID>CopyLinebreak()<CR>
 endif
