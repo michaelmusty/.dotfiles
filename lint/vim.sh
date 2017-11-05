@@ -1,5 +1,6 @@
 set -- \
     vim/after \
+    vim/autoload \
     vim/config \
     vim/ftdetect \
     vim/ftplugin \

@@ -13,7 +13,7 @@ endif
 let g:loaded_detect_background = 1
 
 " Declare autoload function for 'background' set
-function! detect_background#DetectBackground()
+function! detect_background#DetectBackground() abort
 
   " Split up the value of $COLORFGBG (if any) by semicolons
   let l:colorfgbg = split($COLORFGBG, ';')
