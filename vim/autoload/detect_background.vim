@@ -3,6 +3,9 @@
 " light backgrounds; we'll default to choosing a dark background unless we
 " find some reason *not* to.
 "
+" Return the string to which we think the option should be set, to allow the
+" caller to use it as they see fit.
+"
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
@@ -25,11 +28,11 @@ function! detect_background#DetectBackground() abort
 
   " Choose the background setting based on this value
   if l:bg ==# 'default'
-        \ || l:bg ==# '7'
-        \ || l:bg ==# '15'
-      set background=light
+        \ || l:bg == 7
+        \ || l:bg == 15
+      return 'light'
   else
-      set background=dark
+      return 'dark'
   endif
 
 endfunction

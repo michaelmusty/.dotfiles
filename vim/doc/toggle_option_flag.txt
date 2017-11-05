@@ -1,14 +1,15 @@
-*toggle_option_flag.txt*  Commands to toggle single-character option flags
+*toggle_option_flag.txt*  Commands to toggle option flags
 
 Author:  Tom Ryder <tom@sanctum.geek.nz>
 License: Same terms as Vim itself (see |license|)
 
 This plugin provides commands :ToggleOptionFlag and :ToggleOptionFlagLocal to
 toggle the values of options like |'formatoptions'| or |'complete'| that have
-values comprised of single-character flags. The author originally designed it
-for toggling flags in |'formatoptions'| quickly.
+values comprised of single-character or comma-separated flags. The author
+originally designed it for toggling flags in |'formatoptions'| quickly.
 
     :ToggleOptionFlag formatoptions a
+    :ToggleOptionFlag switchbuf useopen
     :ToggleOptionFlagLocal shortmess I
 
 This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
