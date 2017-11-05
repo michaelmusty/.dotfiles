@@ -49,7 +49,7 @@ function! s:Toggle(option, flag, local)
   let l:operation = l:current =~# '\V\C' . l:flag_pattern ? '-=' : '+='
 
   " Build the command strings to set and then show the value
-  let l:cmd_set = l:set . ' ' . a:option . l:operation . a:flag
+  let l:cmd_set = l:set . ' ' . a:option . l:operation . escape(a:flag, '\ ')
   let l:cmd_show = l:set . ' ' . a:option . '?'
 
   " Run the set and show command strings
