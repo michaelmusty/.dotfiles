@@ -8,7 +8,7 @@ if has('syntax')
   " If we can, detect a light background, but default to a dark one. This is
   " only because it's more likely the author of this configuration will be
   " using one.
-  if has('eval') && v:version >= 701
+  if v:version >= 701
     silent! let &background = detect_background#DetectBackground()
   else
     set background=dark
