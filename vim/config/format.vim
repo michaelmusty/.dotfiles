@@ -5,7 +5,7 @@ if has('eval')
   " Figure out if we have the 'j' flag for 'formatoptions', to automatically
   " delete comment leaders when joining lines; keep it in a script variable
   let s:formatoptions_has_j = v:version > 703
-        \ || v:version ==# 703 && has('patch541')
+        \ || v:version == 703 && has('patch541')
 
   " If we do have 'j', default to setting it
   if s:formatoptions_has_j
@@ -38,7 +38,7 @@ if has('eval')
   " 'textwidth' wrapping to the current paragraph on every insertion or
   " deletion; keep in a script variable
   let s:formatoptions_has_a = v:version > 610
-        \ || v:version ==# 610 && has('patch142')
+        \ || v:version == 610 && has('patch142')
 
   " 'a' needs testing
   if s:formatoptions_has_a

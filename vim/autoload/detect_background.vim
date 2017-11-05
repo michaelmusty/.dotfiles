@@ -28,8 +28,8 @@ function! detect_background#DetectBackground() abort
 
   " Choose the background setting based on this value
   if l:bg ==# 'default'
-        \ || l:bg ==# '7'
-        \ || l:bg ==# '15'
+        \ || l:bg == 7
+        \ || l:bg == 15
       return 'light'
   else
       return 'dark'
