@@ -1,8 +1,6 @@
 "
-" toggle_option_flag.vim: Provide commands to toggle flags in single-char
-" grouped options like 'formatoptions', 'shortmess', 'complete' etc.
-"
-" This will fail hilariously if you try to set e.g. 'switchbuf' with it!
+" toggle_option_flag.vim: Provide commands to toggle flags in grouped options
+" like 'formatoptions', 'shortmess', 'complete', 'switchbuf', etc.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
@@ -23,21 +21,32 @@ function! s:Toggle(option, flag, local)
     return
   endif
 
-  " Weird flags, too; should be a single inoffensive char
-  if a:flag !~# '\m^[\a.]$'
-    echoerr 'Illegal flag'
-    return
-  endif
-
   " Choose which set command to use
   let l:set = a:local
         \ ? 'setlocal'
         \ : 'set'
 
-  " :execute to assign -= or += to l:op for the option toggle
+  " Make a flag pattern to allow us to search for the literal string with no
+  " regular expression devilry at all
+  let l:flag_pattern = escape(a:flag, '\')
+
+  " Horrible :execute to get the option's current current into a variable
   " (I couldn't get {curly braces} indirection to work)
-  let l:operation = ''
-  execute 'let l:operation = &' . a:option . ' =~# a:flag ? "-=" : "+="'
+  let l:current = ''
+  execute 'let l:current = &' . a:option
+
+  " If the flag we're toggling is longer than one character, this must by
+  " necessity be a delimited option. I think all of those in VimL are
+  " comma-separated. Extend the pattern and current setting so that they'll
+  " still match at the start and end.
+  if len(a:flag) > 1
+    let l:flag_pattern = ',' . l:flag_pattern . ','
+    let l:current = ',' . l:current . ','
+  endif
+
+  " Assign -= or += as the operation to run based on whether the flag already
+  " appears in the option value or not
+  let l:operation = l:current =~# '\V\C' . l:flag_pattern ? '-=' : '+='
 
   " Build the command strings to set and then show the value
   let l:cmd_set = l:set . ' ' . a:option . l:operation . a:flag
