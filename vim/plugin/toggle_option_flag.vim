@@ -17,7 +17,7 @@ let g:loaded_toggle_option_flag = 1
 " Internal function to do the toggling
 function! s:Toggle(option, flag, local)
 
-  " Check for weird options, we don't want to eval() anything funny
+  " Check for weird options, we don't want to :execute anything funny
   if a:option =~# '[^a-z]'
     echoerr 'Illegal option name'
     return
@@ -34,12 +34,12 @@ function! s:Toggle(option, flag, local)
         \ ? 'setlocal'
         \ : 'set'
 
-  " eval() to assign -= or += to l:op for the option toggle
+  " :execute to assign -= or += to l:op for the option toggle
   " (I couldn't get {curly braces} indirection to work)
   let l:op = ''
   execute 'let l:op = &' . a:option . ' =~# a:flag ? "-=" : "+="'
 
-  " eval() to perform the option toggle and then print the value
+  " :execute to perform the option toggle and then print the value
   execute l:set . ' ' . a:option . l:op . a:flag
   execute l:set . ' ' . a:option . '?'
 

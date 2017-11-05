@@ -5,7 +5,7 @@ nnoremap <silent>
       \ :<C-U>&&<CR>
 
 " Same again for visual mode; we use vnoremap rather than xnoremap to stay
-" compatible with old Vims without doing eval() dances
+" compatible with old Vims without doing :execute dances
 vnoremap <silent>
       \ &
       \ :<C-U>&&<CR>
