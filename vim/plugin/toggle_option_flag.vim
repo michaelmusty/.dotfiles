@@ -46,9 +46,9 @@ function! s:Toggle(option, flag, local)
 endfunction
 
 " User commands wrapping around calls to the above function
-command! -nargs=+
+command! -nargs=+ -complete=option
       \ ToggleOptionFlag
       \ call <SID>Toggle(<f-args>, 0)
-command! -nargs=+
+command! -nargs=+ -complete=option
       \ ToggleOptionFlagLocal
       \ call <SID>Toggle(<f-args>, 1)
