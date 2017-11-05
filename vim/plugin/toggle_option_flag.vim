@@ -39,9 +39,13 @@ function! s:Toggle(option, flag, local)
   let l:op = ''
   execute 'let l:op = &' . a:option . ' =~# a:flag ? "-=" : "+="'
 
-  " :execute to perform the option toggle and then print the value
-  execute l:set . ' ' . a:option . l:op . a:flag
-  execute l:set . ' ' . a:option . '?'
+  " Build the command strings to set and then show the value
+  let l:cmd_set = l:set . ' ' . a:option . l:op . a:flag
+  let l:cmd_show = l:set . ' ' . a:option . '?'
+
+  " Run the set and show command strings
+  execute l:cmd_set
+  execute l:cmd_show
 
 endfunction
 
