@@ -26,7 +26,7 @@ function! s:Toggle(option, flag, local)
         \ ? 'setlocal'
         \ : 'set'
 
-  " Horrible :execute to get the option's current current into a variable
+  " Horrible :execute to get the option's current setting into a variable
   " (I couldn't get {curly braces} indirection to work)
   let l:current = ''
   execute 'let l:current = &' . a:option
