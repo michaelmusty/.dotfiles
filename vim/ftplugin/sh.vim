@@ -39,7 +39,7 @@ nnoremap <buffer> <silent>
 
 " Map linter based on shell family
 if exists('b:is_bash') && b:is_bash
-  let b:lint = 'write shellcheck -s bash -'
+  let b:lint = 'write !shellcheck -s bash -'
 elseif exists('b:is_ksh') && b:is_ksh
   let b:lint = 'write !shellcheck -s ksh -'
 else
