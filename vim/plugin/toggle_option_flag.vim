@@ -18,13 +18,13 @@ let g:loaded_toggle_option_flag = 1
 function! s:Toggle(option, flag, local)
 
   " Check for weird options, we don't want to :execute anything funny
-  if a:option =~# '\m[^a-z]'
+  if a:option =~# '\m\L'
     echoerr 'Illegal option name'
     return
   endif
 
   " Weird flags, too; should be a single inoffensive char
-  if a:flag !~# '\m^[a-z0-9.]$'
+  if a:flag !~# '\m^[\a.]$'
     echoerr 'Illegal flag'
     return
   endif
