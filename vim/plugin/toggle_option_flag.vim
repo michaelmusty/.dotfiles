@@ -26,27 +26,28 @@ function! s:Toggle(option, flag, local)
         \ ? 'setlocal'
         \ : 'set'
 
-  " Make a flag pattern to allow us to search for the literal string with no
-  " regular expression devilry at all
-  let l:flag_pattern = escape(a:flag, '\')
-
-  " Horrible :execute to get the option's current current into a variable
+  " Horrible :execute to get the option's current setting into a variable
   " (I couldn't get {curly braces} indirection to work)
   let l:current = ''
   execute 'let l:current = &' . a:option
 
   " If the flag we're toggling is longer than one character, this must by
   " necessity be a delimited option. I think all of those in VimL are
-  " comma-separated. Extend the pattern and current setting so that they'll
-  " still match at the start and end.
+  " comma-separated. Extend the flag and current setting so that they'll still
+  " match at the start and end. Otherwise, use them as-is.
   if strlen(a:flag) > 1
-    let l:flag_pattern = ',' . l:flag_pattern . ','
-    let l:current = ',' . l:current . ','
+    let l:search_flag = ',' . a:flag . ','
+    let l:search_current = ',' . l:current . ','
+  else
+    let l:search_flag = a:flag
+    let l:search_current = l:current
   endif
 
   " Assign -= or += as the operation to run based on whether the flag already
   " appears in the option value or not
-  let l:operation = l:current =~# '\V\C' . l:flag_pattern ? '-=' : '+='
+  let l:operation = stridx(l:search_current, l:search_flag) > -1
+        \ ? '-='
+        \ : '+='
 
   " Build the command strings to set and then show the value
   let l:cmd_set = l:set . ' ' . a:option . l:operation . escape(a:flag, '\ ')
