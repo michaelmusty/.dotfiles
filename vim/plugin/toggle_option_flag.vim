@@ -39,7 +39,7 @@ function! s:Toggle(option, flag, local)
   " necessity be a delimited option. I think all of those in VimL are
   " comma-separated. Extend the pattern and current setting so that they'll
   " still match at the start and end.
-  if len(a:flag) > 1
+  if strlen(a:flag) > 1
     let l:flag_pattern = ',' . l:flag_pattern . ','
     let l:current = ',' . l:current . ','
   endif
