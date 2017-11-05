@@ -30,11 +30,11 @@ function! s:StripTrailingWhitespace()
 
     " Replace the line with a subsitution of its text stripping extraneous
     " whitespace
-    call setline(l:li, substitute(l:line, '\m\C\s\+$', '', 'g'))
+    call setline(l:li, substitute(l:line, '\s\+$', '', 'g'))
 
     " If this line has any non-whitespace characters on it, update l:lw with
     " its index
-    if l:line =~# '\m\C\S'
+    if l:line =~# '\S'
       let l:lw = l:li
     endif
 
