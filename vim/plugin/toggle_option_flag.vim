@@ -36,11 +36,11 @@ function! s:Toggle(option, flag, local)
 
   " :execute to assign -= or += to l:op for the option toggle
   " (I couldn't get {curly braces} indirection to work)
-  let l:op = ''
-  execute 'let l:op = &' . a:option . ' =~# a:flag ? "-=" : "+="'
+  let l:operation = ''
+  execute 'let l:operation = &' . a:option . ' =~# a:flag ? "-=" : "+="'
 
   " Build the command strings to set and then show the value
-  let l:cmd_set = l:set . ' ' . a:option . l:op . a:flag
+  let l:cmd_set = l:set . ' ' . a:option . l:operation . a:flag
   let l:cmd_show = l:set . ' ' . a:option . '?'
 
   " Run the set and show command strings
