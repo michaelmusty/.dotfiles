@@ -14,30 +14,30 @@ endif
 let g:loaded_command_typos = 1
 
 " Define commands
-command! -bang -complete=file -nargs=?
+command -bang -complete=file -nargs=?
       \ E
       \ edit<bang> <args>
-command! -bang -complete=file -nargs=?
+command -bang -complete=file -nargs=?
       \ W
       \ write<bang> <args>
-command! -bang -complete=file -nargs=?
+command -bang -complete=file -nargs=?
       \ WQ
       \ wq<bang> <args>
-command! -bang -complete=file -nargs=?
+command -bang -complete=file -nargs=?
       \ Wq
       \ wq<bang> <args>
-command! -bang
+command -bang
       \ Q
       \ quit<bang>
-command! -bang
+command -bang
       \ Qa
       \ qall<bang>
-command! -bang
+command -bang
       \ QA
       \ qall<bang>
-command! -bang
+command -bang
       \ Wa
       \ wall<bang>
-command! -bang
+command -bang
       \ WA
       \ wa<bang>

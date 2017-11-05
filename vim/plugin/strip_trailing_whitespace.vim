@@ -34,7 +34,7 @@ function! s:StripTrailingWhitespace()
 
     " If this line has any non-whitespace characters on it, update l:lw with
     " its index
-    if l:line =~# '\m\C\S'
+    if l:line =~# '\m\S'
       let l:lw = l:li
     endif
 
