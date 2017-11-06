@@ -37,9 +37,11 @@ complete -A command \
     complete \
     compopt \
     coproc \
+    do \
     exec \
     if \
     hash \
+    then \
     time \
     type \
     until \
