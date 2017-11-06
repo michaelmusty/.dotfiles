@@ -14,6 +14,12 @@ Mappings:
     <Plug>CopyLinebreakDisable
     <Plug>CopyLinebreakToggle
 
+Commands:
+
+    :CopyLinebreakEnable
+    :CopyLinebreakDisable
+    :CopyLinebreakToggle
+
 This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
 off into a separate distribution as it solidifies and this documentation
 improves.

@@ -1,6 +1,7 @@
 "
 " copy_linebreak.vim: Bind user-defined key sequences to toggle a group of
-" options that make text wrapped with 'wrap' copy-paste friendly.
+" options that make text wrapped with 'wrap' copy-paste friendly. Also creates
+" user commands if it can.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
@@ -50,4 +51,16 @@ noremap <silent> <unique>
 noremap <silent> <unique>
       \ <Plug>CopyLinebreakToggle
       \ :<C-U>call <SID>CopyLinebreakToggle()<CR>
+
+" Provide user commands if we can
+if has('user_commands')
+  command -nargs=0
+        \ CopyLinebreakEnable
+        \ call <SID>CopyLinebreakEnable
+  command -nargs=0
+        \ CopyLinebreakDisable
+        \ call <SID>CopyLinebreakDisable
+  command -nargs=0
+        \ CopyLinebreakToggle
+        \ call <SID>CopyLinebreakToggle
 endif
