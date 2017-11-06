@@ -3,6 +3,11 @@ if has('autocmd')
   filetype plugin indent on
 endif
 
+" Bind \p to show filetype
+nnoremap <silent>
+      \ <Leader>p
+      \ :<C-U>set filetype?<CR>
+
 " Use all ancestors of current directory for :find
 if has('file_in_path')
   set path=**
