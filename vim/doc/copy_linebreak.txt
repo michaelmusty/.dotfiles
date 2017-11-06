@@ -3,10 +3,16 @@
 Author:  Tom Ryder <tom@sanctum.geek.nz>
 License: Same terms as Vim itself (see |license|)
 
-This plugin provides a mapping target <Plug>CopyLinebreak to create a binding
-for a user to quickly toggle |'linebreak'|-related settings when |'wrap'| is
-enabled, to switch between human-readable output and a format friendly for
-copy-pasting with terminal emulators or screen/tmux.
+This plugin provides mapping targets for a user to set, unset, or toggle
+|'linebreak'|-related settings when |'wrap'| is enabled, to switch between
+human-readable output and a format friendly for copy-pasting with terminal
+emulators or screen/tmux.
+
+Mappings:
+
+    <Plug>CopyLinebreakEnable
+    <Plug>CopyLinebreakDisable
+    <Plug>CopyLinebreakToggle
 
 This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
 off into a separate distribution as it solidifies and this documentation
