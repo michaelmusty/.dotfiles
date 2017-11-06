@@ -48,3 +48,10 @@ endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
       \ :<C-U>execute b:lint<CR>
+
+" Undo
+if !exists('b:undo_ftplugin')
+  let b:undo_ftplugin = ''
+endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|setlocal keywordprg<'
