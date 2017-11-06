@@ -2,6 +2,11 @@
 " leaders when joining lines
 silent! set formatoptions+=j
 
+" Show the current formatoptions at a glance
+noremap <silent>
+      \ <Leader>f
+      \ :<C-U>setlocal formatoptions?<CR>
+
 " Use toggle_option_flag.vim plugin to bind quick toggle actions for some
 " 'formatoptions' flags
 if has('user_commands')
