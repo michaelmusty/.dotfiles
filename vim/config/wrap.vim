@@ -31,6 +31,6 @@ if has('linebreak')
   endif
 
   " \b toggles copy-pasteable linebreak settings
-  nmap <Leader>b <Plug>CopyLinebreak
+  nmap <Leader>b <Plug>CopyLinebreakToggle
 
 endif
