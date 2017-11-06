@@ -1,7 +1,7 @@
 "
-" Bind a user-defined key sequence to turn off linebreak and toggle the
-" showbreak characters and breakindent mode on and off, for convenience of
-" copying multiple lines from terminal emulators.
+" copy_linebreak.vim: Bind a user-defined key sequence to turn off linebreak
+" and toggle the showbreak characters and breakindent mode on and off, for
+" convenience of copying multiple lines from terminal emulators.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself

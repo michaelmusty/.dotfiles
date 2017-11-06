@@ -1,6 +1,6 @@
 "
-" User-defined key mapping to keep cursor in place when joining lines in
-" normal mode
+" fixed_join.vim: User-defined key mapping to keep cursor in place when
+" joining lines in normal mode.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself

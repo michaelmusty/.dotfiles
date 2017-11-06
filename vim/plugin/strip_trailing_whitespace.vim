@@ -1,5 +1,6 @@
 "
-" User-defined key mapping to strip trailing whitespace in the whole document
+" strip_trailing_whitespace.vim: User-defined key mapping to strip trailing
+" whitespace in the whole document.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
