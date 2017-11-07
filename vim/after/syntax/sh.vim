@@ -1,10 +1,12 @@
-" If g:is_posix is set, g:is_kornshell is probably set too, a strange decision
-" by sh.vim. No matter; we can tease out whether this is actually a Korn shell
-" script using our own b:is_ksh flag set at the end of ~/.vim/ftdetect/sh.vim,
-" and if it isn't, we'll throw away the highlighting groups for ksh.
-if exists('g:is_kornshell') && !exists('b:is_ksh')
-  syntax clear kshSpecialVariables
-  syntax clear kshStatement
+" If we know we have another shell type, clear away the others completely, now
+" that core syntax/sh.vim is done prodding /bin/sh to determine the system
+" shell type (which I don't care about).
+if exists('b:is_bash')
+  unlet! b:is_sh b:is_posix b:is_kornshell
+elseif exists('b:is_kornshell')
+  unlet! b:is_sh b:is_posix
+elseif exists('b:is_posix')
+  unlet! b:is_sh
 endif
 
 " Some corrections for highlighting if we have any of POSIX, Bash, or Ksh
