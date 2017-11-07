@@ -46,4 +46,4 @@ nnoremap <buffer> <silent>
 
 " Clear away these extra changes
 let b:undo_user_ftplugin
-      \ = 'setlocal keywordprg<'
+      \ = 'setlocal keywordprg< | unlet! b:check b:lint'
