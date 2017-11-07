@@ -18,7 +18,7 @@ endif
 " Use han(1df) as a man(1) wrapper for Bash files if available
 if exists('b:is_bash') && executable('han')
   setlocal keywordprg=han
-  let b:undo_user_indent
+  let b:undo_user_ftplugin
         \ = 'setlocal keywordprg<'
 endif
 
