@@ -48,10 +48,10 @@ installed.
 *   `install-vim`
 
 The `install-login-shell` looks at your `SHELL` environment variable and tries
-to figure out which shell’s configuration files to install, falling back on
+to figure out which shell's configuration files to install, falling back on
 `install-sh`.
 
-The remaining dotfiles can be installed with the other `install-*` targets. Try
+The remaining files can be installed with the other `install-*` targets. Try
 `awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
 Tools
@@ -85,7 +85,7 @@ Configuration is included for:
     client
 *   [Perl::Critic](http://perlcritic.com/) -- static source code analysis
     engine for Perl
-*   [Perl::Tidy](http://perltidy.sourceforge.net/) -- Perl indenter and
+*   [Perl::Tidy](http://perltidy.sourceforge.net/) -- Perl source code
     reformatter
 *   [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) -- GNU
     library for user input used by Bash, MySQL, and others
@@ -167,8 +167,9 @@ based on context to include these elements in this order:
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
 do about what you'd expect.
 
-If you start up Bash, Ksh, or Zsh and it detects that it's not normally your
-`$SHELL`, the prompt will display an appropriate prefix.
+If you start up Bash, Korn shell, or Z shell, and it detects that it's normally
+your `$SHELL` is one of the other two, the prompt will display an appropriate
+prefix.
 
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
@@ -270,10 +271,11 @@ These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
 `ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
 prompt if detected.
 
-#### Zsh
+#### Z shell
 
-These are experimental; I do not like Zsh much at the moment. The files started
-as a joke (`exec bash`). `zsh` shells default to having a prompt coloured cyan.
+These are experimental; I do not like Z shell much at the moment. The files
+started as a joke (`exec bash`). `zsh` shells default to having a prompt
+colored cyan.
 
 ### GnuPG
 
@@ -289,7 +291,7 @@ My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
 [maildrop](https://www.courier-mta.org/maildrop/), and
-[MSMTP](http://msmtp.sourceforge.net/); the configurations for these are not
+[msmtp](http://msmtp.sourceforge.net/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
 available for them. The GnuPG and S/MIME interfacing is done with
@@ -322,7 +324,7 @@ make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
 ### tmux
 
 These are just generally vi-friendly settings, not much out of the ordinary.
-Note that the configuration presently uses a hard-coded 256-color colorscheme,
+Note that the configuration presently uses a hard-coded 256-color color scheme,
 and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
@@ -334,14 +336,14 @@ combination to detach.
 ### Vim
 
 The majority of the Vim configuration is just setting options, with a few
-mappings. I try not to deviate too much from the Vim defaults behaviour in
-terms of interactive behavior and keybindings.
+mappings. I try not to deviate too much from the Vim defaults behavior in terms
+of interactive behavior and keybindings.
 
-The configuration is broken into subfiles in `~/.vim/config/*.vim`, included by
-`~/.vimrc` using
+The configuration is broken into smaller files in `~/.vim/config/*.vim`,
+included by `~/.vimrc` using
 [`:runtime`](http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime). It's
 extensively commented, mostly because I was reading through it one day and
-realised I'd forgotten what half of it did.
+realized I'd forgotten what half of it did.
 
 #### Plugins
 
@@ -350,14 +352,13 @@ structures like functions, I like to implement it as a plugin in
 `~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
 those in `~/.vim/doc`.
 
-I also define a few custom per-filetype rules for stuff I often edit in
+I also define a few rules specific to file types I often edit in
 `~/.vim/ftplugin`, including some local mappings for checking, linting, and
 tidying.
 
-Any/all of the general or filetype plugins may eventually be spun off into
-their own repositories in the future, but for the moment they live here.
-Contact me if you find one of them useful and you'd like to see it in its own
-distribution.
+Any/all of the plugins may eventually be spun off into their own repositories
+in the future, but for the moment they live here. Contact me if you find one of
+them useful and you'd like to see it in its own distribution.
 
 Third-party plugins are in submodules in `~/.vim/bundle`, loaded using Tim
 Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
@@ -417,12 +418,12 @@ Installed by the `install-bin` target:
     *   `supp(1df)` converts lowercase to uppercase.
     *   `tl(1df)` tags input lines with a prefix or suffix, basically a
         `sed(1)` shortcut.
-    *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag stdout and
-        stderr lines, and color them if you want.
+    *   `tlcs(1df)` executes a command and uses `tl(1df)` to tag standard
+        output and standard error lines, and color them if you want.
     *   `unf(1df)` joins lines with leading spaces to the previous line.
         Intended for unfolding HTTP headers, but it should work for most RFC
         822 formats.
-*   Six simple aggregators for numbers:
+*   Six simple aggregate scripts for numbers:
     *   `max(1df)` prints the maximum.
     *   `mean(1df)` prints the mean.
     *   `med(1df)` prints the median.
@@ -457,9 +458,9 @@ Installed by the `install-bin` target:
     *   `pvi(1df)` runs `pvi(1df)` with `$VISUAL` or `vi(1)`.
 *   `ap(1df)` reads arguments for a given command from the standard input,
     prompting if appropriate.
-*   `apf(1df)` prepends arguments to a command with ones read from a file,
+*   `apf(1df)` inserts arguments to a command with ones read from a file,
     intended as a framework for shell wrappers or functions.
-*   `ax(1df)` evaluates an awk expression given on the command line; this is
+*   `ax(1df)` evaluates an AWK expression given on the command line; this is
     intended as a quick way to test how Awk would interpret a given expression.
 *   `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 *   `bel(1df)` prints a terminal bell character.
@@ -492,28 +493,27 @@ Installed by the `install-bin` target:
     `find(1)` conditions.
 *   `fnl(1df)` runs a command and saves its output and error into temporary
     files, printing their paths and line counts.
-*   `fnp(1df)` prints the given files to stdout, each with a plaintext heading
-    with the filename in it.
+*   `fnp(1df)` prints the given files to standard output, each with a plain
+    text heading with the filename in it.
 *   `gms(1df)` runs a set of `getmailrc` files; does much the same thing as the
     script `getmails` in the `getmail` suite, but runs the requests in parallel
     and does up to three silent retries using `try(1df)`.
 *   `grec(1df)` is a more logically-named `grep -c`.
 *   `gred(1df)` is a more logically-named `grep -v`.
 *   `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
-*   `han(1df)` provides a `keywordprg` for Vim's Bash script filetype that will
-    look for `help` topics. You could use it from the shell too.
+*   `han(1df)` provides a `keywordprg` for Vim's Bash script file type that
+    will look for `help` topics. You could use it from the shell too.
 *   `igex(1df)` wraps around a command to allow you to ignore error conditions
     that don't actually worry you, exiting with 0 anyway.
-*   `ix(1df)` posts its input to the ix.io pastebin.
+*   `ix(1df)` posts its input to the `ix.io` pastebin.
 *   `jfp(1df)` prints its input, excluding any shebang on the first line only.
 *   `loc(1df)` is a quick-search wrapped around `find(1)`.
 *   `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of
     success,
     it exits with success or failure. Good for quick tests.
 *   `mex(1df)` makes given filenames in `$PATH` executable.
-*   `mi5(1df)` pre-processes a crude but less painful macro expansion file
-    format into `m4` input.
-*   `mftl(1df)` finds usable-looking targets in Makefiles.
+*   `mi5(1df)` is a crude preprocessor for `m4`.
+*   `mftl(1df)` finds usable-looking targets in makefiles.
 *   `mkcp(1df)` creates a directory and copies preceding arguments into it.
 *   `mkmv(1df)` creates a directory and moves preceding arguments into it.
 *   `motd(1df)` shows the system MOTD.
@@ -571,8 +571,8 @@ There's some silly stuff in `install-games`:
 *   `aaf(6df)` gets a random [ASCII Art Farts](http://www.asciiartfarts.com/)
     comic.
 *   `acq(6df)` allows you to interrogate AC, the interplanetary computer.
-*   `aesth(6df)` converts English letters to their fullwidth CJK analogues, for
-    ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
+*   `aesth(6df)` converts English letters to their full width CJK analogues,
+    for ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
 *   `squ(6df)` makes a reduced Latin square out of each line of input.
 *   `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
@@ -582,7 +582,7 @@ There's some silly stuff in `install-games`:
 *   `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 *   `rot13(6df)` rotates the Latin letters in its input.
 *   `xyzzy(6df)` teleports to a marked location on the filesystem.
-*   `zs(6df)` prepends "z" case-appropriately to every occurrence of "s" in the
+*   `zs(6df)` prefixes "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.
 
 Manuals
