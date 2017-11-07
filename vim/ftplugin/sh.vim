@@ -18,8 +18,6 @@ endif
 " Use han(1df) as a man(1) wrapper for Bash files if available
 if exists('b:is_bash') && executable('han')
   setlocal keywordprg=han
-  let b:undo_user_ftplugin
-        \ = 'setlocal keywordprg<'
 endif
 
 " Map checker based on shell family
@@ -45,3 +43,7 @@ endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
       \ :<C-U>execute b:lint<CR>
+
+" Clear away these extra changes
+let b:undo_user_ftplugin
+      \ = 'setlocal keywordprg<'
