@@ -9,19 +9,14 @@ elseif exists('b:is_posix')
   unlet! b:is_sh
 endif
 
-" Some corrections for highlighting if we have any of POSIX, Bash, or Ksh
-if exists('g:is_posix') || exists('b:is_bash') || exists('b:is_ksh')
+" The syntax highlighter seems to flag '/baz' in '"${foo:-"$bar"/baz}"' as an
+" error, which it isn't, at least in POSIX sh, Bash, and Ksh.
+syntax clear shDerefWordError
 
-  " The syntax highlighter seems to flag '/baz' in '"${foo:-"$bar"/baz}"' as an
-  " error, and I'm pretty sure it's not, at least in POSIX sh, Bash, and Ksh.
-  syntax clear shDerefWordError
-
-  " The syntax highlighter doesn't match parens for subshells for 'if' tests
-  " correctly if they're on separate lines. This happens enough that it's
-  " probably not worth keeping the error.
-  syntax clear shParenError
-
-endif
+" The syntax highlighter doesn't match parens for subshells for 'if' tests
+" correctly if they're on separate lines. This happens enough that it's
+" probably not worth keeping the error.
+syntax clear shParenError
 
 " Some corrections for highlighting specific to the Bash mode
 if exists('b:is_bash')
