@@ -22,28 +22,28 @@ endif
 
 " Map checker based on shell family
 if exists('b:is_bash')
-  let b:check = 'write !bash -n'
+  let b:sh_check = 'write !bash -n'
 elseif exists('b:is_kornshell')
-  let b:check = 'write !ksh -n'
+  let b:sh_check = 'write !ksh -n'
 else
-  let b:check = 'write !sh -n'
+  let b:sh_check = 'write !sh -n'
 endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>c
-      \ :<C-U>execute b:check<CR>
+      \ :<C-U>execute b:sh_check<CR>
 
 " Map linter based on shell family
 if exists('b:is_bash')
-  let b:lint = 'write !shellcheck -s bash -'
+  let b:sh_lint = 'write !shellcheck -s bash -'
 elseif exists('b:is_kornshell')
-  let b:lint = 'write !shellcheck -s ksh -'
+  let b:sh_lint = 'write !shellcheck -s ksh -'
 else
-  let b:lint = 'write !shellcheck -s sh -'
+  let b:sh_lint = 'write !shellcheck -s sh -'
 endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
-      \ :<C-U>execute b:lint<CR>
+      \ :<C-U>execute b:sh_lint<CR>
 
 " Clear away these extra changes
 let b:undo_user_ftplugin
-      \ = 'setlocal keywordprg< | unlet! b:check b:lint'
+      \ = 'setlocal keywordprg< | unlet! b:sh_check b:sh_lint'
