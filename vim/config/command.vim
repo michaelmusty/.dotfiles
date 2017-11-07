@@ -25,3 +25,12 @@ set shellpipe=>
 if exists('+shellslash')
   set shellslash
 endif
+
+" \d inserts the current local date from date(1)
+nnoremap <silent>
+      \ <Leader>d
+      \ :<C-U>read !date<CR>
+" \D inserts the current UTC date from date(1)
+nnoremap <silent>
+      \ <Leader>D
+      \ :<C-U>read !date -u<CR>

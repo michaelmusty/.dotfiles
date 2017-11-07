@@ -7,6 +7,9 @@ This plugin is the author's approach to stripping trailing whitespace from an
 entire buffer, including empty lines at the end, without making command noise
 and without moving the cursor from its current position.
 
+If also provides a :StripTrailingWhitespace command if you have +user_commands,
+but this is not required.
+
 This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
 off into a separate distribution as it solidifies and this documentation
 improves.

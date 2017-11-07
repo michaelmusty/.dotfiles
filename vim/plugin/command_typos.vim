@@ -1,7 +1,8 @@
 "
-" Tolerate typos like :Wq, :Q, or :Qa and do what I mean, including any
-" arguments or modifiers; I fat-finger these commands a lot because I type
-" them so rapidly, and they don't correspond to any other commands I use
+" command_typos.vim: Tolerate typos like :Wq, :Q, or :Qa and do what I mean,
+" including any arguments or modifiers; I fat-finger these commands a lot
+" because I type them so rapidly, and they don't correspond to any other
+" commands I use
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself

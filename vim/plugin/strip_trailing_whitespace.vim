@@ -1,5 +1,6 @@
 "
-" User-defined key mapping to strip trailing whitespace in the whole document
+" strip_trailing_whitespace.vim: User-defined key mapping and optional command
+" to strip trailing whitespace in the whole document.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
@@ -66,3 +67,10 @@ endfunction
 noremap <silent> <unique>
       \ <Plug>StripTrailingWhitespace
       \ :<C-U>call <SID>StripTrailingWhitespace()<CR>
+
+" Define a user command too, if we can
+if has('user_commands')
+  command -nargs=0
+        \ StripTrailingWhiteSpace
+        \ call <SID>StripTrailingWhitespace()
+endif
