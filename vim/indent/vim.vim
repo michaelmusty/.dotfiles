@@ -3,9 +3,9 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal tabstop=2
 
-" Undo
-if !exists('b:undo_indent')
-  let b:undo_indent = ''
+" Ancient Vim can't use the '<' suffix syntax for resetting local integer
+" options
+if v:version > 700
+  let b:undo_user_indent
+        \ = 'setlocal shiftwidth< softtabstop< tabstop<'
 endif
-let b:undo_indent = b:undo_indent
-      \ . '|setlocal shiftwidth< softtabstop< tabstop<'

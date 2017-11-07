@@ -1,0 +1,27 @@
+*user_ftplugin.txt*  "Undo" for local ftplugin files
+
+Author:  Tom Ryder <tom@sanctum.geek.nz>
+License: Same terms as Vim itself (see |license|)
+
+This plugin adds an |autocmd| hook to |FileType| to run before the one that the
+core ftplugin.vim sets, to allow setting a b:undo_user_ftplugin variable with
+code to |:execute| when the filetype is next changed, in much the same way that
+the core files in Vim >= 7.0x support a b:|undo_ftplugin| variable.
+
+This will only work if it's loaded *before* ftplugin.vim so that the autocmd
+hooks run in the right order. There are a couple of ways to do this:
+
+1.  Create your own ~/.vim/ftplugin.vim with the following contents:
+
+        silent! runtime plugin/user_ftplugin.vim
+
+    This will then be sourced before the core ftplugin.vim runs. This is the
+    suggested method.
+
+2.  Run the same line in your ~/.vimrc before your `filetype ftplugin on` line.
+
+See also: user_indent.vim.
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves.

@@ -23,6 +23,8 @@ endif
 " Use han(1df) as a man(1) wrapper for Bash files if available
 if exists('b:is_bash') && executable('han')
   setlocal keywordprg=han
+  let b:undo_user_indent
+        \ = 'setlocal keywordprg<'
 endif
 
 " Map checker based on shell family
@@ -48,10 +50,3 @@ endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
       \ :<C-U>execute b:lint<CR>
-
-" Undo
-if !exists('b:undo_ftplugin')
-  let b:undo_ftplugin = ''
-endif
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal keywordprg<'
