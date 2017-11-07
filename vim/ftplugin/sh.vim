@@ -21,9 +21,9 @@ if exists('b:is_bash') && executable('han')
 endif
 
 " Map checker based on shell family
-if exists('b:is_bash') && b:is_bash
+if exists('b:is_bash')
   let b:check = 'write !bash -n'
-elseif exists('b:is_kornshell') && b:is_kornshell
+elseif exists('b:is_kornshell')
   let b:check = 'write !ksh -n'
 else
   let b:check = 'write !sh -n'
@@ -33,9 +33,9 @@ nnoremap <buffer> <silent>
       \ :<C-U>execute b:check<CR>
 
 " Map linter based on shell family
-if exists('b:is_bash') && b:is_bash
+if exists('b:is_bash')
   let b:lint = 'write !shellcheck -s bash -'
-elseif exists('b:is_kornshell') && b:is_kornshell
+elseif exists('b:is_kornshell')
   let b:lint = 'write !shellcheck -s ksh -'
 else
   let b:lint = 'write !shellcheck -s sh -'
