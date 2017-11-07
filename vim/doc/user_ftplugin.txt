@@ -8,7 +8,7 @@ core ftplugin.vim sets, to allow setting a b:undo_user_ftplugin variable with
 code to |:execute| when the filetype is next changed, in much the same way that
 the core files in Vim >= 7.0x support a b:|undo_ftplugin| variable.
 
-This will only work if it's loaded *before* ftplugin.vim so that the autocmd
+This will only work if it's loaded before ftplugin.vim so that the autocmd
 hooks run in the right order. There are a couple of ways to do this:
 
 1.  Create your own ~/.vim/ftplugin.vim with the following contents:
