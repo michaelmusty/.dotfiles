@@ -1,6 +1,6 @@
 "
-" fixed_join.vim: User-defined key mapping to keep cursor in place when
-" joining lines in normal mode.
+" fixed_join.vim: User-defined key mapping and optional command to keep cursor
+" in place when joining lines in normal mode.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
@@ -31,3 +31,10 @@ endfunction
 noremap <silent> <unique>
       \ <Plug>FixedJoin
       \ :<C-U>call <SID>FixedJoin()<CR>
+
+" Create a command as well in case it's useful
+if has('user_commands')
+  command -nargs=0
+        \ FixedJoin
+        \ call <SID>FixedJoin()
+endif

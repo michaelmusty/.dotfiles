@@ -516,10 +516,12 @@ install-vim-ftdetect:
 
 install-vim-ftplugin:
 	mkdir -p -- $(HOME)/.vim/ftplugin
+	cp -p -- vim/ftplugin.vim $(HOME)/.vim/ftplugin.vim
 	cp -p -- vim/ftplugin/*.vim $(HOME)/.vim/ftplugin
 
 install-vim-indent:
 	mkdir -p -- $(HOME)/.vim/indent
+	cp -p -- vim/indent.vim $(HOME)/.vim/indent.vim
 	cp -p -- vim/indent/*.vim $(HOME)/.vim/indent
 
 install-vim-plugin:
