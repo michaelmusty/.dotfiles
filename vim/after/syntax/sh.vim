@@ -23,13 +23,16 @@ if exists('b:is_posix')
 
   " Highlight some commands that are both defined by POSIX and builtin
   " commands in dash, as a rough but useable proxy for 'shell builtins'. This
-  " list was wrested from `man 1 dash`.
+  " list was mostly wrested from `man 1 dash`. Also include control structure
+  " keywords like `break`, `continue`, and `return`.
   syntax clear shStatement
   syntax keyword shStatement
         \ alias
         \ bg
+        \ break
         \ cd
         \ command
+        \ continue
         \ echo
         \ eval
         \ exec
@@ -43,6 +46,7 @@ if exists('b:is_posix')
         \ pwd
         \ read
         \ readonly
+        \ return
         \ set
         \ shift
         \ test
