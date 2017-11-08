@@ -26,6 +26,8 @@ if exists('b:is_posix')
   " list was mostly wrested from `man 1 dash`. Also include control structure
   " keywords like `break`, `continue`, and `return`.
   syntax clear shStatement
+  syntax cluster shCommandSubList add=shStatement
+  syntax cluster shCaseList add=shStatement
   syntax keyword shStatement
         \ alias
         \ bg
@@ -66,6 +68,7 @@ if exists('b:is_posix')
   " (and plain Bourne). These are selected by searching the POSIX manpages. I
   " added NLSPATH too, which wasn't in the original.
   syntax clear shShellVariables
+  syntax cluster shCommandSubList add=shShellVariables
   syntax keyword shShellVariables
         \ CDPATH
         \ ENV
