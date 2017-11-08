@@ -1,52 +1,53 @@
-" Default to POSIX shell, as I never write Bourne, and if I write Bash or Ksh
-" it'll be denoted with either a shebang or an appropriate extension.
-let g:is_posix = 1
-
 "
-" Setting g:is_posix above also prompts Vim's core syntax/sh.vim script to
-" set g:is_kornshell and thereby b:is_kornshell to the same value as g:is_posix.
+" If we have a #!/bin/sh shebang and filetype.vim determined we were neither
+" POSIX nor Bash nor Korn shell, we'll guess POSIX, just because it's far more
+" likely that's what I want to write than plain Bourne shell.
 "
-" That's very confusing, so before it happens we'll copy b:is_kornshell's
-" value as determined by filetype.vim and ~/.vim/ftdetect/sh.vim into a custom
-" variable b:is_ksh, before its meaning gets confused.
+" You're supposed to be able to do this by setting g:is_posix, but if that's
+" set, the syntax file ends up setting g:is_kornshell for you too, for reasons
+" I don't really understand. This method works though, and is cleaner than
+" the other workaround I had been trying.
 "
-" b:is_ksh as a name is more inline with b:is_bash and b:is_sh, anyway, so
-" we'll just treat b:is_kornshell like it's both misnamed and broken.
-"
-" We can then switch on our custom variable in ~/.vim/after/syntax/sh.vim to
-" apply settings that actually *are* unique to Korn shell and its derivatives.
-"
-if exists('b:is_kornshell')
-  let b:is_ksh = b:is_kornshell
+if exists('b:is_sh')
+  unlet b:is_sh
+  if !exists('b:is_bash') && !exists('b:is_kornshell')
+    let b:is_posix = 1
+  endif
 endif
 
 " Use han(1df) as a man(1) wrapper for Bash files if available
-if exists('b:is_bash') && executable('han')
+if exists('b:is_bash')
+      \ && executable('han')
   setlocal keywordprg=han
-  let b:undo_user_indent
-        \ = 'setlocal keywordprg<'
 endif
 
 " Map checker based on shell family
-if exists('b:is_bash') && b:is_bash
-  let b:check = 'write !bash -n'
-elseif exists('b:is_ksh') && b:is_ksh
-  let b:check = 'write !ksh -n'
+if exists('b:is_bash')
+  let b:sh_check = 'write !bash -n'
+elseif exists('b:is_kornshell')
+  let b:sh_check = 'write !ksh -n'
 else
-  let b:check = 'write !sh -n'
+  let b:sh_check = 'write !sh -n'
 endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>c
-      \ :<C-U>execute b:check<CR>
+      \ :<C-U>execute b:sh_check<CR>
 
 " Map linter based on shell family
-if exists('b:is_bash') && b:is_bash
-  let b:lint = 'write !shellcheck -s bash -'
-elseif exists('b:is_ksh') && b:is_ksh
-  let b:lint = 'write !shellcheck -s ksh -'
+if exists('b:is_bash')
+  let b:sh_lint = 'write !shellcheck -s bash -'
+elseif exists('b:is_kornshell')
+  let b:sh_lint = 'write !shellcheck -s ksh -'
 else
-  let b:lint = 'write !shellcheck -s sh -'
+  let b:sh_lint = 'write !shellcheck -s sh -'
 endif
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
-      \ :<C-U>execute b:lint<CR>
+      \ :<C-U>execute b:sh_lint<CR>
+
+" Unload this filetype plugin
+let b:undo_user_ftplugin = ''
+      \ . '|setlocal keywordprg<'
+      \ . '|unlet! b:sh_check b:sh_lint'
+      \ . '|silent! unmap <LocalLeader>c'
+      \ . '|silent! unmap <LocalLeader>l'

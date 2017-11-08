@@ -1,23 +1,104 @@
-" If g:is_posix is set, g:is_kornshell is probably set too, a strange decision
-" by sh.vim. No matter; we can tease out whether this is actually a Korn shell
-" script using our own b:is_ksh flag set at the end of ~/.vim/ftdetect/sh.vim,
-" and if it isn't, we'll throw away the highlighting groups for ksh.
-if exists('g:is_kornshell') && !exists('b:is_ksh')
-  syntax clear kshSpecialVariables
-  syntax clear kshStatement
+" If we know we have another shell type, clear away the others completely, now
+" that core syntax/sh.vim is done prodding /bin/sh to determine the system
+" shell type (which I don't care about).
+if exists('b:is_bash')
+  unlet! b:is_sh b:is_posix b:is_kornshell
+elseif exists('b:is_kornshell')
+  unlet! b:is_sh b:is_posix
+elseif exists('b:is_posix')
+  unlet! b:is_sh
 endif
 
-" Some corrections for highlighting if we have any of POSIX, Bash, or Ksh
-if exists('g:is_posix') || exists('b:is_bash') || exists('b:is_ksh')
+" The syntax highlighter seems to flag '/baz' in '"${foo:-"$bar"/baz}"' as an
+" error, which it isn't, at least in POSIX sh, Bash, and Ksh.
+syntax clear shDerefWordError
 
-  " The syntax highlighter seems to flag '/baz' in '"${foo:-"$bar"/baz}"' as an
-  " error, and I'm pretty sure it's not, at least in POSIX sh, Bash, and Ksh.
-  syntax clear shDerefWordError
+" The syntax highlighter doesn't match parens for subshells for 'if' tests
+" correctly if they're on separate lines. This happens enough that it's
+" probably not worth keeping the error.
+syntax clear shParenError
 
-  " The syntax highlighter doesn't match parens for subshells for 'if' tests
-  " correctly if they're on separate lines. This happens enough that it's
-  " probably not worth keeping the error.
-  syntax clear shParenError
+" Highlighting corrections specific to POSIX mode
+if exists('b:is_posix')
+
+  " Highlight some commands that are both defined by POSIX and builtin
+  " commands in dash, as a rough but useable proxy for 'shell builtins'. This
+  " list was mostly wrested from `man 1 dash`. Also include control structure
+  " keywords like `break`, `continue`, and `return`.
+  syntax clear shStatement
+  syntax cluster shCommandSubList add=shStatement
+  syntax cluster shCaseList add=shStatement
+  syntax keyword shStatement
+        \ alias
+        \ bg
+        \ break
+        \ cd
+        \ command
+        \ continue
+        \ echo
+        \ eval
+        \ exec
+        \ exit
+        \ export
+        \ fc
+        \ fg
+        \ getopts
+        \ hash
+        \ kill
+        \ printf
+        \ pwd
+        \ read
+        \ readonly
+        \ return
+        \ set
+        \ shift
+        \ test
+        \ times
+        \ trap
+        \ true
+        \ type
+        \ ulimit
+        \ umask
+        \ unalias
+        \ unset
+        \ wait
+
+  " Core syntax/sh.vim puts IFS and other variables that affect shell function
+  " in another color, but a subset of them actually apply to POSIX shell too
+  " (and plain Bourne). These are selected by searching the POSIX manpages. I
+  " added NLSPATH too, which wasn't in the original.
+  syntax clear shShellVariables
+  syntax cluster shCommandSubList add=shShellVariables
+  syntax keyword shShellVariables
+        \ CDPATH
+        \ ENV
+        \ FCEDIT
+        \ HISTFILE
+        \ HISTSIZE
+        \ HISTTIMEFORMAT
+        \ HOME
+        \ IFS
+        \ LANG
+        \ LC_ALL
+        \ LC_COLLATE
+        \ LC_CTYPE
+        \ LC_MESSAGES
+        \ LC_NUMERIC
+        \ LINENO
+        \ MAIL
+        \ MAILCHECK
+        \ MAILPATH
+        \ NLSPATH
+        \ OLDPWD
+        \ OPTARG
+        \ OPTERR
+        \ OPTIND
+        \ PATH
+        \ PS1
+        \ PS2
+        \ PS3
+        \ PS4
+        \ PWD
 
 endif
 
