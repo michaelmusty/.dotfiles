@@ -16,89 +16,90 @@ fi
 
 # Aliases
 complete -A alias \
-    unalias
+    'unalias'
 
 # Bash builtins
 complete -A builtin \
-    builtin
+    'builtin'
 complete -A enabled \
-    disable
+    'disable'
 complete -A disabled \
-    enable
+    'enable'
 
 # Bash options
 complete -A setopt \
-    set
+    'set'
 
 # Commands
 complete -A command \
-    alias \
-    command \
-    complete \
-    compopt \
-    coproc \
-    do \
-    exec \
-    if \
-    hash \
-    then \
-    time \
-    type \
-    until \
-    while
+    'alias' \
+    'command' \
+    'complete' \
+    'compopt' \
+    'coproc' \
+    'do' \
+    'exec' \
+    'if' \
+    'hash' \
+    'then' \
+    'time' \
+    'type' \
+    'until' \
+    'while'
 
 # Directories
 complete -A directory \
-    cd \
-    pushd \
-    mkdir \
-    rmdir
+    'cd' \
+    'pushd' \
+    'mkdir' \
+    'rmdir'
 
 # Functions and variables
 complete -A function \
-    function
+    'function'
 complete -A function -A variable \
-    declare \
-    export \
-    local \
-    readonly \
-    typeset \
-    unset
+    'declare' \
+    'export' \
+    'local' \
+    'readonly' \
+    'typeset' \
+    'unset'
 complete -A variable \
-    for \
-    getopts \
-    let \
-    read \
-    select
+    'for' \
+    'getopts' \
+    'let' \
+    'read' \
+    'select'
 
 # Help topics
-complete -A helptopic help
+complete -A helptopic \
+    'help'
 
 # Jobspecs
 complete -P '%' -A job \
-    disown \
-    fg \
-    jobs
+    'disown' \
+    'fg' \
+    'jobs'
 complete -P '%' -A stopped \
-    bg
+    'bg'
 
 # Readline bindings
 complete -A binding \
-    bind
+    'bind'
 
 # Shell options
 complete -A shopt \
-    shopt
+    'shopt'
 
 # Signal names
 complete -A signal \
-    trap
+    'trap'
 
 # The `mapfile` builtin in Bash >= 4.0
 if ((BASH_VERSINFO[0] >= 4)) ; then
     complete -A arrayvar \
-        mapfile \
-        readarray
+        'mapfile' \
+        'readarray'
 fi
 
 # If we have dynamic completion loading (Bash>=4.0), use it
