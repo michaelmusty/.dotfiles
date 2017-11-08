@@ -15,6 +15,6 @@ nnoremap <buffer> <silent>
 
 " Unload this filetype plugin
 let l:undo_user_ftplugin
-      \ = 'silent! unmap <LocalLeader>c'
-      \ . '|silent! unmap <LocalLeader>l'
-      \ . '|silent! unmap <LocalLeader>t'
+      \ = 'silent! nunmap <LocalLeader>c'
+      \ . '|silent! nunmap <LocalLeader>l'
+      \ . '|silent! nunmap <LocalLeader>t'
