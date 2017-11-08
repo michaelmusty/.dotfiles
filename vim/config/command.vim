@@ -34,3 +34,13 @@ nnoremap <silent>
 nnoremap <silent>
       \ <Leader>D
       \ :<C-U>read !date -u<CR>
+
+" \m fires up mutt with either the whole buffer or the text
+function s:Mutt()
+  let l:tf = tempname()
+  execute 'write '.fnameescape(l:tf)
+  execute '!mutt -i '.shellescape(l:tf)
+endfunction
+nnoremap <silent>
+      \ <Leader>m
+      \ :<C-U>call <SID>Mutt()<CR>
