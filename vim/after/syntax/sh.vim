@@ -42,6 +42,7 @@ if exists('b:is_posix')
         \ fg
         \ getopts
         \ hash
+        \ kill
         \ printf
         \ pwd
         \ read
