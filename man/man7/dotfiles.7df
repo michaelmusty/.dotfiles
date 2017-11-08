@@ -72,8 +72,8 @@ The \f[C]install\-login\-shell\f[] looks at your \f[C]SHELL\f[]
 environment variable and tries to figure out which shell's configuration
 files to install, falling back on \f[C]install\-sh\f[].
 .PP
-The remaining dotfiles can be installed with the other
-\f[C]install\-*\f[] targets.
+The remaining files can be installed with the other \f[C]install\-*\f[]
+targets.
 Try \f[C]awk\ \-f\ bin/mftl.awk\ Makefile\f[] in the project's root
 directory to see a list.
 .SS Tools
@@ -130,7 +130,7 @@ PostgreSQL client
 Perl::Critic (http://perlcritic.com/) \[en] static source code analysis
 engine for Perl
 .IP \[bu] 2
-Perl::Tidy (http://perltidy.sourceforge.net/) \[en] Perl indenter and
+Perl::Tidy (http://perltidy.sourceforge.net/) \[en] Perl source code
 reformatter
 .IP \[bu] 2
 Readline (https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html)
@@ -240,8 +240,9 @@ The exit status of the last command, if non\-zero.
 You can set \f[C]PROMPT_COLOR\f[], \f[C]PROMPT_PREFIX\f[], and
 \f[C]PROMPT_SUFFIX\f[] too, which all do about what you'd expect.
 .PP
-If you start up Bash, Ksh, or Zsh and it detects that it's not normally
-your \f[C]$SHELL\f[], the prompt will display an appropriate prefix.
+If you start up Bash, Korn shell, or Z shell, and it detects that it's
+normally your \f[C]$SHELL\f[] is one of the other two, the prompt will
+display an appropriate prefix.
 .PP
 This is all managed within the \f[C]prompt\f[] function.
 There's some mildly hacky logic on \f[C]tput\f[] codes included such
@@ -403,11 +404,11 @@ Otherwise, they're all loaded on startup.
 These are experimental; they are mostly used to tinker with MirBSD
 \f[C]mksh\f[], AT&T \f[C]ksh93\f[], and OpenBSD \f[C]pdksh\f[].
 All shells in this family default to a yellow prompt if detected.
-.SS Zsh
+.SS Z shell
 .PP
-These are experimental; I do not like Zsh much at the moment.
+These are experimental; I do not like Z shell much at the moment.
 The files started as a joke (\f[C]exec\ bash\f[]).
-\f[C]zsh\f[] shells default to having a prompt coloured cyan.
+\f[C]zsh\f[] shells default to having a prompt colored cyan.
 .SS GnuPG
 .PP
 The configuration for GnuPG is intended to follow RiseUp's OpenPGP best
@@ -422,7 +423,7 @@ My mail is kept in individual Maildirs under \f[C]~/Mail\f[], with
 \f[C]inbox\f[] being where most unfiltered mail is sent.
 I use Getmail (http://pyropus.ca/software/getmail/),
 maildrop (https://www.courier-mta.org/maildrop/), and
-MSMTP (http://msmtp.sourceforge.net/); the configurations for these are
+msmtp (http://msmtp.sourceforge.net/); the configurations for these are
 not included here.
 I sign whenever I have some indication that the recipient might be using
 a PGP implementation, and I encrypt whenever I have a public key
@@ -461,7 +462,7 @@ The Lohit Kannada font bit is purely to make ಠ_ಠ work correctly.
 These are just generally vi\-friendly settings, not much out of the
 ordinary.
 Note that the configuration presently uses a hard\-coded 256\-color
-colorscheme, and uses non\-login shells, with an attempt to control the
+color scheme, and uses non\-login shells, with an attempt to control the
 environment to stop shells thinking they have access to an X display.
 .PP
 The shell scripts in \f[C]bin\f[] include \f[C]tm(1df)\f[], a shortcut
@@ -473,14 +474,14 @@ binds the same key combination to detach.
 .PP
 The majority of the Vim configuration is just setting options, with a
 few mappings.
-I try not to deviate too much from the Vim defaults behaviour in terms
-of interactive behavior and keybindings.
+I try not to deviate too much from the Vim defaults behavior in terms of
+interactive behavior and keybindings.
 .PP
-The configuration is broken into subfiles in
+The configuration is broken into smaller files in
 \f[C]~/.vim/config/*.vim\f[], included by \f[C]~/.vimrc\f[] using
 \f[C]:runtime\f[] (http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime).
 It's extensively commented, mostly because I was reading through it one
-day and realised I'd forgotten what half of it did.
+day and realized I'd forgotten what half of it did.
 .SS Plugins
 .PP
 If the logic for doing something involves more than a few lines or any
@@ -488,13 +489,12 @@ structures like functions, I like to implement it as a plugin in
 \f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[].
 There's documentation for each of those in \f[C]~/.vim/doc\f[].
 .PP
-I also define a few custom per\-filetype rules for stuff I often edit in
+I also define a few rules specific to file types I often edit in
 \f[C]~/.vim/ftplugin\f[], including some local mappings for checking,
 linting, and tidying.
 .PP
-Any/all of the general or filetype plugins may eventually be spun off
-into their own repositories in the future, but for the moment they live
-here.
+Any/all of the plugins may eventually be spun off into their own
+repositories in the future, but for the moment they live here.
 Contact me if you find one of them useful and you'd like to see it in
 its own distribution.
 .PP
@@ -604,14 +604,14 @@ Seven stream formatting scripts:
 \f[C]sed(1)\f[] shortcut.
 .IP \[bu] 2
 \f[C]tlcs(1df)\f[] executes a command and uses \f[C]tl(1df)\f[] to tag
-stdout and stderr lines, and color them if you want.
+standard output and standard error lines, and color them if you want.
 .IP \[bu] 2
 \f[C]unf(1df)\f[] joins lines with leading spaces to the previous line.
 Intended for unfolding HTTP headers, but it should work for most RFC 822
 formats.
 .RE
 .IP \[bu] 2
-Six simple aggregators for numbers:
+Six simple aggregate scripts for numbers:
 .RS 2
 .IP \[bu] 2
 \f[C]max(1df)\f[] prints the maximum.
@@ -691,10 +691,10 @@ along a pipeline.
 \f[C]ap(1df)\f[] reads arguments for a given command from the standard
 input, prompting if appropriate.
 .IP \[bu] 2
-\f[C]apf(1df)\f[] prepends arguments to a command with ones read from a
+\f[C]apf(1df)\f[] inserts arguments to a command with ones read from a
 file, intended as a framework for shell wrappers or functions.
 .IP \[bu] 2
-\f[C]ax(1df)\f[] evaluates an awk expression given on the command line;
+\f[C]ax(1df)\f[] evaluates an AWK expression given on the command line;
 this is intended as a quick way to test how Awk would interpret a given
 expression.
 .IP \[bu] 2
@@ -754,8 +754,8 @@ given \f[C]find(1)\f[] conditions.
 \f[C]fnl(1df)\f[] runs a command and saves its output and error into
 temporary files, printing their paths and line counts.
 .IP \[bu] 2
-\f[C]fnp(1df)\f[] prints the given files to stdout, each with a
-plaintext heading with the filename in it.
+\f[C]fnp(1df)\f[] prints the given files to standard output, each with a
+plain text heading with the filename in it.
 .IP \[bu] 2
 \f[C]gms(1df)\f[] runs a set of \f[C]getmailrc\f[] files; does much the
 same thing as the script \f[C]getmails\f[] in the \f[C]getmail\f[]
@@ -770,13 +770,13 @@ retries using \f[C]try(1df)\f[].
 \f[C]grep(1)\f[].
 .IP \[bu] 2
 \f[C]han(1df)\f[] provides a \f[C]keywordprg\f[] for Vim's Bash script
-filetype that will look for \f[C]help\f[] topics.
+file type that will look for \f[C]help\f[] topics.
 You could use it from the shell too.
 .IP \[bu] 2
 \f[C]igex(1df)\f[] wraps around a command to allow you to ignore error
 conditions that don't actually worry you, exiting with 0 anyway.
 .IP \[bu] 2
-\f[C]ix(1df)\f[] posts its input to the ix.io pastebin.
+\f[C]ix(1df)\f[] posts its input to the \f[C]ix.io\f[] pastebin.
 .IP \[bu] 2
 \f[C]jfp(1df)\f[] prints its input, excluding any shebang on the first
 line only.
@@ -789,10 +789,9 @@ Good for quick tests.
 .IP \[bu] 2
 \f[C]mex(1df)\f[] makes given filenames in \f[C]$PATH\f[] executable.
 .IP \[bu] 2
-\f[C]mi5(1df)\f[] pre\-processes a crude but less painful macro
-expansion file format into \f[C]m4\f[] input.
+\f[C]mi5(1df)\f[] is a crude preprocessor for \f[C]m4\f[].
 .IP \[bu] 2
-\f[C]mftl(1df)\f[] finds usable\-looking targets in Makefiles.
+\f[C]mftl(1df)\f[] finds usable\-looking targets in makefiles.
 .IP \[bu] 2
 \f[C]mkcp(1df)\f[] creates a directory and copies preceding arguments
 into it.
@@ -899,7 +898,7 @@ Farts (http://www.asciiartfarts.com/) comic.
 \f[C]acq(6df)\f[] allows you to interrogate AC, the interplanetary
 computer.
 .IP \[bu] 2
-\f[C]aesth(6df)\f[] converts English letters to their fullwidth CJK
+\f[C]aesth(6df)\f[] converts English letters to their full width CJK
 analogues, for ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
 .IP \[bu] 2
 \f[C]squ(6df)\f[] makes a reduced Latin square out of each line of
@@ -922,7 +921,7 @@ algorithm.
 .IP \[bu] 2
 \f[C]xyzzy(6df)\f[] teleports to a marked location on the filesystem.
 .IP \[bu] 2
-\f[C]zs(6df)\f[] prepends \[lq]z\[rq] case\-appropriately to every
+\f[C]zs(6df)\f[] prefixes \[lq]z\[rq] case\-appropriately to every
 occurrence of \[lq]s\[rq] in the text on its standard input.
 .SS Manuals
 .PP
