@@ -46,8 +46,8 @@ nnoremap <buffer> <silent>
       \ :<C-U>execute b:sh_lint<CR>
 
 " Unload this filetype plugin
-let b:undo_user_ftplugin = ''
-      \ . '|setlocal keywordprg<'
+let b:undo_user_ftplugin
+      \ = 'setlocal keywordprg<'
       \ . '|unlet! b:sh_check b:sh_lint'
-      \ . '|silent! unmap <LocalLeader>c'
-      \ . '|silent! unmap <LocalLeader>l'
+      \ . '|silent! nunmap <LocalLeader>c'
+      \ . '|silent! nunmap <LocalLeader>l'
