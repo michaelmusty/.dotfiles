@@ -100,6 +100,20 @@ if exists('b:is_posix')
         \ PS4
         \ PWD
 
+  " Core syntax/sh.vim thinks 'until' is a POSIX control structure keyword,
+  " but it isn't. Reset shRepeat and rebuild it with just 'while'. I only
+  " sort-of understand what this does, but it works.
+  syntax clear shRepeat
+  syntax region shRepeat
+        \ matchgroup=shLoop
+        \ start="\<while\_s" end="\<do\>"me=e-2
+        \ contains=@shLoopList
+
+  " Run some clustering that core syntax/sh.vim thinks doesn't apply to POSIX;
+  " this fixes while loops so they can be within other blocks.
+  syntax cluster shCaseList add=shRepeat
+  syntax cluster shFunctionList add=shRepeat
+
 endif
 
 " Some corrections for highlighting specific to the Bash mode
