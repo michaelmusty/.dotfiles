@@ -14,7 +14,7 @@ nnoremap <buffer> <silent>
       \ :<C-U>%!perltidy<CR>
 
 " Unload this filetype plugin
-let l:undo_user_ftplugin = ''
-      \ . '|silent! unmap <LocalLeader>c'
+let l:undo_user_ftplugin
+      \ = 'silent! unmap <LocalLeader>c'
       \ . '|silent! unmap <LocalLeader>l'
       \ . '|silent! unmap <LocalLeader>t'
