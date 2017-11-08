@@ -4,3 +4,7 @@
 nnoremap <buffer> <silent>
       \ <LocalLeader>l
       \ :<C-U>write !vint -s /dev/stdin<CR>
+
+" Unload this filetype plugin
+let b:undo_user_ftplugin
+      \ = 'silent! nunmap <LocalLeader>l'

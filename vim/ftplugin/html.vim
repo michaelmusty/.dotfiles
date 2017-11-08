@@ -28,3 +28,9 @@ endfunction
 nnoremap <buffer> <silent>
       \ <LocalLeader>r
       \ :<C-U>call <SID>UrlLink()<CR>
+
+" Unload this filetype plugin
+let b:undo_user_ftplugin
+      \ = 'silent! nunmap <LocalLeader>c'
+      \ . '|silent! nunmap <LocalLeader>t'
+      \ . '|silent! nunmap <LocalLeader>r'
