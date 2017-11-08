@@ -18,6 +18,11 @@ syntax clear shDerefWordError
 " probably not worth keeping the error.
 syntax clear shParenError
 
+" The syntax highlighter flags this code with an error on the final square
+" bracket: `case $foo in [![:ascii:]]) ;; esac`, but that's all legal. I'm not
+" yet sure how to fix it, so will just turn the error group for now.
+syntax clear shTestError
+
 " Highlighting corrections specific to POSIX mode
 if exists('b:is_posix')
 
