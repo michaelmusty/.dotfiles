@@ -11,9 +11,6 @@ set shiftwidth=4
 " Insert four spaces when Tab is pressed
 set softtabstop=4
 
-" How many spaces to show for a literal tab when 'list' is unset
-set tabstop=4
-
 " Indent intelligently to 'shiftwidth' at the starts of lines with Tab, but
 " use 'tabstop' everywhere else
 set smarttab
