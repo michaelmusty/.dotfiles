@@ -8,6 +8,11 @@ nnoremap <silent>
       \ <Leader>p
       \ :<C-U>set filetype?<CR>
 
+" Use UTF-8 by default wherever possible
+if has('multi_byte')
+  set encoding=utf-8
+endif
+
 " Use all ancestors of current directory for :find
 if has('file_in_path')
   set path=**

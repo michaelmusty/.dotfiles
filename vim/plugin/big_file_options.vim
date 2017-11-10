@@ -44,7 +44,7 @@ function! s:BigFileOptions()
   endif
 
   " Limit the number of columns of syntax highlighting
-  if exists('&synmaxcol')
+  if exists('+synmaxcol')
         \ && &synmaxcol > g:big_file_synmaxcol
     execute 'setlocal synmaxcol=' . g:big_file_synmaxcol
   endif

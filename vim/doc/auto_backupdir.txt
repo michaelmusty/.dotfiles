@@ -1,0 +1,12 @@
+*auto_backupdir.txt*  Automatically create 'backupdir' in 'realtimepath'
+
+Author:  Tom Ryder <tom@sanctum.geek.nz>
+License: Same terms as Vim itself (see |license|)
+
+This plugin attempts to create a directory "backup" in the directory named by
+the first element of 'realtimepath', and enables 'backup' with that as the
+'backupdir' if it succeeds or if the directory already exists.
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves.
