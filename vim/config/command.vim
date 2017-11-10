@@ -20,12 +20,6 @@ endif
 " Don't write the output of :make to the terminal
 set shellpipe=>
 
-" Always use forward slashes, I very seldom need to use Vim on Windows for
-" more than scratch space anyway
-if exists('+shellslash')
-  set shellslash
-endif
-
 " \d inserts the current local date from date(1)
 nnoremap <silent>
       \ <Leader>d
