@@ -4,6 +4,8 @@ set shortmess=
 set shortmess+=f
 " [Incomplete last line] -> [eol]
 set shortmess+=i
+" I donated to Uganda, thanks Bram
+set shortmess+=I
 " 999 lines, 888 characters -> 999L, 888C
 set shortmess+=l
 " [Modified] -> [+]
@@ -16,16 +18,14 @@ set shortmess+=o
 set shortmess+=O
 " [readonly] -> [RO]
 set shortmess+=r
-" written -> [w], appended -> [a]
-set shortmess+=w
-" [dos format] -> [dos]
-set shortmess+=x
 " Truncate file message at start if too long
 set shortmess+=t
 " Truncate other message in midle if too long
 set shortmess+=T
-" I donated to Uganda, thanks Bram
-set shortmess+=I
+" written -> [w], appended -> [a]
+set shortmess+=w
+" [dos format] -> [dos]
+set shortmess+=x
 
 " Don't show whitespace characters or end-of-line characters visually by
 " default, but make \l toggle between them
