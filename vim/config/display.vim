@@ -10,6 +10,10 @@ set shortmess+=l
 set shortmess+=m
 " [New File] -> [New]
 set shortmess+=n
+" Don't stack file writing messages
+set shortmess+=o
+" Don't stack file reading messages
+set shortmess+=O
 " [readonly] -> [RO]
 set shortmess+=r
 " written -> [w], appended -> [a]
