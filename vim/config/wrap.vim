@@ -30,7 +30,7 @@ if has('linebreak')
   set showbreak=...
 
   " If we have the option, indent wrapped lines as much as the first line
-  if has('&breakindent')
+  if exists('+breakindent')
     set breakindent
   endif
 

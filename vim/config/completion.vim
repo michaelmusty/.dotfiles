@@ -21,7 +21,7 @@ if has('wildmenu')
   endif
 
   " Complete files without case sensitivity, if the option is available
-  if exists('&wildignorecase')
+  if exists('+wildignorecase')
     set wildignorecase
   endif
 
