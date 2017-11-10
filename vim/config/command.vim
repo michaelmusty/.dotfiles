@@ -35,15 +35,9 @@ nnoremap <silent>
       \ <Leader>D
       \ :<C-U>read !date -u<CR>
 
+" \m in visual/select mode starts a mail message with the selected lines
+vmap <Leader>m <Plug>MailMuttSelected
 " \m in normal mode starts a mail message with the current line
-nmap <silent>
-      \ <Leader>m
-      \ :<C-U>.MailMutt<CR>
+nmap <Leader>m <Plug>MailMuttLine
 " \M in normal mode starts a mail message with the whole buffer
-nmap <silent>
-      \ <Leader>M
-      \ :<C-U>%MailMutt<CR>
-" \m in visual mode starts a mail message with the selected lines
-vmap <silent>
-      \ <Leader>m
-      \ :MailMutt<CR>
+nmap <Leader>M <Plug>MailMuttBuffer

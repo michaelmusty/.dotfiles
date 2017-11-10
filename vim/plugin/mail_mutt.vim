@@ -39,3 +39,18 @@ endfunction
 command -nargs=0 -range=%
       \ MailMutt 
       \ call <SID>MailMutt(<line1>, <line2>)
+
+" Mapping to mail current line in normal mode
+nnoremap <silent> <unique>
+      \ <Plug>MailMuttLine
+      \ :<C-U>.MailMutt<CR>
+
+" Mapping to mail whole buffer in normal mode
+nnoremap <silent> <unique>
+      \ <Plug>MailMuttBuffer
+      \ :<C-U>%MailMutt<CR>
+
+" Mapping to mail selected lines in visual/select mode
+vnoremap <silent> <unique>
+      \ <Plug>MailMuttSelected
+      \ :MailMutt<CR>
