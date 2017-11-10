@@ -1,5 +1,26 @@
-" Don't show the Vim startup message, I have registered Vim and donated to
-" Uganda
+" Set up short message settings
+set shortmess=
+" (file 3 of 5) -> (3 of 5)
+set shortmess+=f
+" [Incomplete last line] -> [eol]
+set shortmess+=i
+" 999 lines, 888 characters -> 999L, 888C
+set shortmess+=l
+" [Modified] -> [+]
+set shortmess+=m
+" [New File] -> [New]
+set shortmess+=n
+" [readonly] -> [RO]
+set shortmess+=r
+" written -> [w], appended -> [a]
+set shortmess+=w
+" [dos format] -> [dos]
+set shortmess+=x
+" Truncate file message at start if too long
+set shortmess+=t
+" Truncate other message in midle if too long
+set shortmess+=T
+" I donated to Uganda, thanks Bram
 set shortmess+=I
 
 " Don't show whitespace characters or end-of-line characters visually by
