@@ -24,4 +24,5 @@ if has('windows')
   if has('folding')
     let &fillchars = 'diff: ,fold: ,vert: '
   endif
+
 endif

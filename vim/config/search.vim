@@ -33,4 +33,5 @@ if has('extra_search')
             \ setlocal hlsearch
     augroup END
   endif
+
 endif

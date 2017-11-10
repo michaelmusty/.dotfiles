@@ -17,4 +17,5 @@ if has('spell')
   nnoremap <silent>
         \ <Leader>z
         \ :<C-U>setlocal spelllang=en_nz spelllang?<CR>
+
 endif

@@ -24,4 +24,5 @@ if has('wildmenu')
   if exists('&wildignorecase')
     set wildignorecase
   endif
+
 endif

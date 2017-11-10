@@ -4,6 +4,9 @@ set history=2000
 " Always tell me the number of lines changed by a command
 set report=0
 
+" Don't write the output of :make to the terminal
+set shellpipe=>
+
 " Command-line based features
 if has('cmdline_info')
 
@@ -15,10 +18,8 @@ if has('cmdline_info')
 
   " Show the mode we're using if not normal mode (e.g. --INSERT--)
   set showmode
-endif
 
-" Don't write the output of :make to the terminal
-set shellpipe=>
+endif
 
 " \d inserts the current local date from date(1)
 nnoremap <silent>

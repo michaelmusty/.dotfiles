@@ -7,6 +7,8 @@ set undolevels=2000
 " 'undodir' and 'undofile' settings will be taken care of by the
 " auto_undodir.vim plugin if applicable/possible
 if has('persistent_undo')
+
+  " Turn off the option by default
   set noundofile
 
   " Don't keep undo files from temporary directories or shared memory in case
@@ -19,4 +21,5 @@ if has('persistent_undo')
             \ setlocal noundofile
     augroup END
   endif
+
 endif

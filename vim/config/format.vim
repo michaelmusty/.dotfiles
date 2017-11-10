@@ -34,4 +34,5 @@ if has('user_commands')
   nnoremap <silent>
         \ <Leader>t
         \ :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
+
 endif
