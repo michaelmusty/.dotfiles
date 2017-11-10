@@ -16,7 +16,7 @@ if has('windows')
   endif
 
   " Only show the tab bar if there's more than one tab
-  if exists('&showtabline')
+  if exists('+showtabline')
     set showtabline=1
   endif
 
@@ -24,4 +24,5 @@ if has('windows')
   if has('folding')
     let &fillchars = 'diff: ,fold: ,vert: '
   endif
+
 endif

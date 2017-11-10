@@ -17,7 +17,7 @@ let g:loaded_copy_linebreak = 1
 function! s:CopyLinebreakEnable()
   setlocal nolinebreak linebreak?
   setlocal showbreak=
-  if exists('&breakindent')
+  if exists('+breakindent')
     setlocal nobreakindent
   endif
 endfunction
@@ -26,7 +26,7 @@ endfunction
 function! s:CopyLinebreakDisable()
   setlocal linebreak linebreak?
   setlocal showbreak<
-  if exists('&breakindent')
+  if exists('+breakindent')
     setlocal breakindent<
   endif
 endfunction

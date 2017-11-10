@@ -18,6 +18,11 @@ syntax clear shDerefWordError
 " probably not worth keeping the error.
 syntax clear shParenError
 
+" The syntax highlighter flags this code with an error on the final square
+" bracket: `case $foo in [![:ascii:]]) ;; esac`, but that's all legal. I'm not
+" yet sure how to fix it, so will just turn the error group for now.
+syntax clear shTestError
+
 " Highlighting corrections specific to POSIX mode
 if exists('b:is_posix')
 
@@ -99,6 +104,20 @@ if exists('b:is_posix')
         \ PS3
         \ PS4
         \ PWD
+
+  " Core syntax/sh.vim thinks 'until' is a POSIX control structure keyword,
+  " but it isn't. Reset shRepeat and rebuild it with just 'while'. I only
+  " sort-of understand what this does, but it works.
+  syntax clear shRepeat
+  syntax region shRepeat
+        \ matchgroup=shLoop
+        \ start="\<while\_s" end="\<do\>"me=e-2
+        \ contains=@shLoopList
+
+  " Run some clustering that core syntax/sh.vim thinks doesn't apply to POSIX;
+  " this fixes while loops so they can be within other blocks.
+  syntax cluster shCaseList add=shRepeat
+  syntax cluster shFunctionList add=shRepeat
 
 endif
 

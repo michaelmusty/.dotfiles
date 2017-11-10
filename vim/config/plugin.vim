@@ -1,3 +1,7 @@
+" Try to run the version of matchit.vim included in the distribution, if there
+" is one; extends % to match more than it does by default
+silent! runtime macros/matchit.vim
+
 " netrw plugin configuration
 if has('eval')
 

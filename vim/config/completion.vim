@@ -1,3 +1,7 @@
+" Don't try to complete strings from included files, just use the strings in
+" the open buffers; I'll open the file if I want to complete from it
+set complete-=i
+
 " Configuration for the command completion feature; rather than merely cycling
 " through possible completions with Tab, show them above the command line
 if has('wildmenu')
@@ -17,7 +21,8 @@ if has('wildmenu')
   endif
 
   " Complete files without case sensitivity, if the option is available
-  if exists('&wildignorecase')
+  if exists('+wildignorecase')
     set wildignorecase
   endif
+
 endif
