@@ -1,4 +1,4 @@
-.TH OII 1df "June 2017" "Manual page for oii"
+.TH OII 1df "November 2017" "Manual page for oii"
 .SH NAME
 .B oii
 \- run a command on input only if there's at least one byte of input
@@ -13,9 +13,5 @@ CMD [ARGS ...]
 Run the given program passing in stdin but only if at least one byte of input
 is actually received, rather like the -E switch to mail(1) behaves on
 bsd-mailx. If no input is received, exit silently with an error status.
-.SH CAVEATS
-It's slow, and doesn't work as a pipe. The entire input is written to disk and
-then tested for filesize before being re-emitted. There's almost certainly a
-more efficient way to do this while still remaining byte-safe.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
