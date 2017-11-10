@@ -35,12 +35,15 @@ nnoremap <silent>
       \ <Leader>D
       \ :<C-U>read !date -u<CR>
 
-" \m fires up mutt with either the whole buffer or the text
-function s:Mutt()
-  let l:tf = tempname()
-  execute 'write '.fnameescape(l:tf)
-  execute '!mutt -i '.shellescape(l:tf)
-endfunction
-nnoremap <silent>
+" \m in normal mode starts a mail message with the current line
+nmap <silent>
       \ <Leader>m
-      \ :<C-U>call <SID>Mutt()<CR>
+      \ :<C-U>.MailMutt<CR>
+" \M in normal mode starts a mail message with the whole buffer
+nmap <silent>
+      \ <Leader>M
+      \ :<C-U>%MailMutt<CR>
+" \m in visual mode starts a mail message with the selected lines
+vmap <silent>
+      \ <Leader>m
+      \ :MailMutt<CR>

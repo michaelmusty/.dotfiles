@@ -1,0 +1,13 @@
+*mail_mutt.txt*  Start a mutt(1) email message with a range of lines
+
+Author:  Tom Ryder <tom@sanctum.geek.nz>
+License: Same terms as Vim itself (see |license|)
+
+This plugin provides a :MailMutt command which accepts a range of lines
+defaulting to the entire buffer, writing these lines to a temporary file that
+is then provided to the -i option of the mutt(1) MUA as the initial content of
+a new message.
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves.
