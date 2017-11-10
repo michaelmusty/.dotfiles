@@ -11,9 +11,10 @@ fi
 include(`include/mktd.m4')
 %>
 
-# There is probably a way better way to do this than writing the whole file to
-# disk and then reading it off again, but until I think of something better,
-# this works and is byte-safe.
-cat - > "$td"/in
-[ -s "$td"/in ] || exit
-"$@" < "$td"/in
+# Read up to one byte and save it into temp file; discard stderr (stats)
+tf=$td/input
+dd bs=1 count=1 of="$tf" 2>/dev/null
+
+# If there's now a byte in the file, spit it and the rest of the input into the
+# requested command
+[ -s "$tf" ] && cat -- "$tf" - | "$@"
