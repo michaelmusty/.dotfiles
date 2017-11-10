@@ -4,6 +4,9 @@
 " b:undo_ftplugin in Vim >= 7.0. This allows you to undo your own ftplugin
 " files the same way you can the core ones.
 "
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" License: Same as Vim itself
+"
 if exists('g:loaded_user_ftplugin')
       \ || !has('autocmd')
       \ || &compatible
