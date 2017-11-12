@@ -9,11 +9,11 @@ let b:undo_ftplugin = b:undo_ftplugin
 
 " Choose linter based on shell family
 if exists('b:is_bash')
-  let b:sh_lint = 'write !shellcheck -s bash -'
+  let b:sh_lint = 'write !shellcheck -e SC1090 -s bash -'
 elseif exists('b:is_kornshell')
-  let b:sh_lint = 'write !shellcheck -s ksh -'
+  let b:sh_lint = 'write !shellcheck -e SC1090 -s ksh -'
 else
-  let b:sh_lint = 'write !shellcheck -s sh -'
+  let b:sh_lint = 'write !shellcheck -e SC1090 -s sh -'
 endif
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:sh_lint'
