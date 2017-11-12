@@ -1,17 +1,33 @@
-*fixed_join.txt*  Join lines in normal mode without moving cursor
+*fixed_join.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*fixed_join*
 
 This plugin provides a mapping target <Plug>FixedJoin to create a binding for a
-user to join lines in normal mode without the cursor jumping around. If the
+user to `:join` lines in normal mode without the cursor jumping around. If the
 user's configuration does not specify a mapping to this target by the time this
 plugin is loaded, it will attempt to map 'J' in normal mode to simply replace
 the default functionality.
 
-The plugin also provides a :FixedJoin command if you have +user_commands, but
+The plugin also provides a `:FixedJoin` command if you have |+user_commands|, but
 this is not required.
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+REQUIREMENTS					*fixed_join-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*fixed_join-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*fixed_join-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*fixed_join-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:

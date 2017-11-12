@@ -1,12 +1,28 @@
-*big_file_options.txt*  Disable slow options for big files for faster load
+*big_file_options.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*big_file_options*
 
 This plugin adds an |autocmd| hook to check the file size of an incoming
 buffer, and if it's over a certain threshold, disables certain options in order
 to make the file a bit easier to edit.
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+REQUIREMENTS					*big_file_options-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*big_file_options-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*big_file_options-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*big_file_options-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:

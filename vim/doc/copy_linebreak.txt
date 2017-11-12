@@ -1,7 +1,6 @@
-*copy_linebreak.txt*  Mapping to toggle copy-paste friendly linebreak options
+*copy_linebreak.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*copy_linebreak*
 
 This plugin provides mapping targets for a user to set, unset, or toggle
 |'linebreak'|-related settings when |'wrap'| is enabled, to switch between
@@ -9,17 +8,34 @@ human-readable output and a format friendly for copy-pasting with terminal
 emulators or screen/tmux.
 
 Mappings:
-
+>
     <Plug>CopyLinebreakEnable
     <Plug>CopyLinebreakDisable
     <Plug>CopyLinebreakToggle
-
+<
 Commands:
-
+>
     :CopyLinebreakEnable
     :CopyLinebreakDisable
     :CopyLinebreakToggle
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+REQUIREMENTS					*copy_linebreak-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*copy_linebreak-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*copy_linebreak-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*copy_linebreak-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:
