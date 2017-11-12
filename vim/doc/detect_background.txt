@@ -1,6 +1,7 @@
 *detect_background.txt*	For Vim version 7.0	Last change: 2017 November 12
 
 DESCRIPTION					*detect_background*
+						*detect_background#DetectBackground()*
 
 The |detect_background#DetectBackground()| function provided by this plugin
 inspects the $COLORFGBG environment variable to determine whether the user is
