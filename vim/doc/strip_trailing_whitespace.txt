@@ -2,16 +2,31 @@
 
 DESCRIPTION				*strip_trailing_whitespace*
 
-This plugin is the author's approach to stripping trailing whitespace from an
-entire buffer, including empty lines at the end, without making command noise
-and without moving the cursor from its current position.
-
-If also provides a :StripTrailingWhitespace command if you have +user_commands,
-but this is not required.
+This plugin provides a mapping target and an optional custom command with the
+author's approach to stripping trailing whitespace from an entire buffer,
+including removing empty or whitespace-only lines at the end of the buffer,
+without making command noise and without moving the cursor from its current
+position.
 
 REQUIREMENTS				*strip_trailing_whitespace-requirements*
 
 This plugin is only available if 'compatible' is not set.
+
+COMMANDS				*strip_trailing_whitespace-commands*
+
+					*:StripTrailingWhitespace*
+The plugin provides a single `:StripTrailingWhitespace` command if Vim has the
+|+user_commands| feature, but this is not required. It operates on the entire
+buffer, and accepts neither a range nor arguments.
+
+MAPPINGS				*strip_trailing_whitespace-mappings*
+
+					*<Plug>StripTrailingWhitespace*
+The single mapping target provided is |<Plug>StripTrailingWhitespace|,
+mappable in any mode. There is no default key mapping to the target; you
+should define this yourself in your |vimrc|. For example:
+>
+	:nmap <Leader>x <Plug>StripTrailingWhitespace>
 
 AUTHOR					*strip_trailing_whitespace-author*
 
