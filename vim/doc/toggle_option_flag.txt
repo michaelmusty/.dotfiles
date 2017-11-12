@@ -3,7 +3,7 @@
 DESCRIPTION					*toggle_option_flag*
 
 						*:ToggleOptionFlag* *:ToggleOptionFlagLocal*
-This plugin provides commands `:ToggleOptionFlag` and `:ToggleOptionFlagLocal`
+This plugin provides `:ToggleOptionFlag` and `:ToggleOptionFlagLocal` commands
 to toggle the values of options like |'formatoptions'| or |'complete'| that
 have values comprised of single-character or comma-separated flags. The author
 originally designed it for toggling flags in |'formatoptions'| quickly.
