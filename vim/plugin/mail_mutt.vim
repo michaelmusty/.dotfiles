@@ -27,7 +27,6 @@ function! s:MailMutt(start, end)
   let l:command = 'write ' . fnameescape(l:tf)
   execute l:range . l:command
 
-
   " Run mutt(1) with that file as its input
   execute '!mutt -i ' . shellescape(l:tf)
 

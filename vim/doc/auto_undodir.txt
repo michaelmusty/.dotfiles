@@ -1,14 +1,29 @@
-*auto_undodir.txt*  Automatically create 'undodir' in 'realtimepath'
+*auto_undodir.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*auto_undodir*
 
-This plugin attempts to create a directory "undo" in the directory named by the
-first element of 'realtimepath', and enables 'undofile' with that as the
+This plugin attempts to create a directory "undo" in the directory named by
+the first element of 'runtimepath', and enables 'undofile' with that as the
 'undodir' if it succeeds or if the directory already exists.
 
-It requires the +persistent_undo feature.
+REQUIREMENTS					*auto_undodir-requirements*
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+This plugin is only available if 'compatible' is not set. It also requires the
+|+persistent_undo| Vim feature.
+
+AUTHOR						*auto_undodir-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*auto_undodir-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*auto_undodir-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:

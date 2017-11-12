@@ -31,6 +31,12 @@ noremap <silent> <unique>
       \ <Plug>FixedJoin
       \ :<C-U>call <SID>FixedJoin()<CR>
 
+" If there's no mapping to it already, try to bind normal-mode J to it, to
+" simply replace the old functionality
+nmap <unique>
+      \ J
+      \ <Plug>FixedJoin
+
 " Create a command as well in case it's useful
 if has('user_commands')
   command -nargs=0
