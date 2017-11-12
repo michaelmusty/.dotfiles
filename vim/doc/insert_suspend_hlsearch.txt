@@ -1,0 +1,28 @@
+*insert_suspend_hlsearch.txt*	For Vim version 7.0	Last change: 2017 November 12
+
+DESCRIPTION					*insert_suspend_hlsearch*
+
+This plugin quietly disables 'hlsearch' search highlighting if enabled when an
+insert operation is started, and puts it back once done, to avoid the
+distracting effect the highlighting can cause while writing.
+
+REQUIREMENTS					*insert_suspend_hlsearch-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*insert_suspend_hlsearch-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*insert_suspend_hlsearch-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*insert_suspend_hlsearch-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
+off into a separate distribution as it solidifies and this documentation
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:
