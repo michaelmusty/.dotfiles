@@ -39,11 +39,13 @@
 	install-urxvt \
 	install-vim \
 	install-vim-after \
+	install-vim-after-ftdetect \
+	install-vim-after-indent \
+	install-vim-after-syntax \
 	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-config \
 	install-vim-ftdetect \
-	install-vim-ftplugin \
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
@@ -483,14 +485,27 @@ install-vim: install-vim-after \
 	install-vim-config \
 	install-vim-doc \
 	install-vim-ftdetect \
-	install-vim-ftplugin \
 	install-vim-indent \
 	install-vim-plugin
 
-install-vim-after:
-	find vim/after -name .git -prune -o \
-		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
-		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
+install-vim-after: install-vim-after-ftplugin \
+	install-vim-after-indent \
+	install-vim-after-syntax
+
+install-vim-after-ftplugin:
+	mkdir -p $(HOME)/.vim/after/ftplugin
+	for type in vim/after/ftplugin/* ; do \
+		mkdir -p -- $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
+		cp -p "$$type"/* $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
+		done
+
+install-vim-after-indent:
+	mkdir -p $(HOME)/.vim/after/indent
+	cp -p -- vim/after/indent/*.vim $(HOME)/.vim/after/indent
+
+install-vim-after-syntax:
+	mkdir -p $(HOME)/.vim/after/syntax
+	cp -p -- vim/after/syntax/*.vim $(HOME)/.vim/after/syntax
 
 install-vim-autoload:
 	mkdir -p -- $(HOME)/.vim/autoload
@@ -514,14 +529,8 @@ install-vim-ftdetect:
 	mkdir -p -- $(HOME)/.vim/ftdetect
 	cp -p -- vim/ftdetect/*.vim $(HOME)/.vim/ftdetect
 
-install-vim-ftplugin:
-	mkdir -p -- $(HOME)/.vim/ftplugin
-	cp -p -- vim/ftplugin.vim $(HOME)/.vim/ftplugin.vim
-	cp -p -- vim/ftplugin/*.vim $(HOME)/.vim/ftplugin
-
 install-vim-indent:
 	mkdir -p -- $(HOME)/.vim/indent
-	cp -p -- vim/indent.vim $(HOME)/.vim/indent.vim
 	cp -p -- vim/indent/*.vim $(HOME)/.vim/indent
 
 install-vim-plugin:

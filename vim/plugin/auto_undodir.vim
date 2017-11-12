@@ -5,9 +5,7 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_auto_undodir')
-      \ || !has('persistent_undo')
-      \ || &compatible
+if exists('g:loaded_auto_undodir') || &compatible || !has('persistent_undo')
   finish
 endif
 let g:loaded_auto_undodir = 1
