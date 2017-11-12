@@ -2,7 +2,7 @@
 
 DESCRIPTION					*command_typos*
 
-This plugin defines custom commands like `:W`, `:Qa`, and `:Wq` to match their
+This plugin defines custom commands like :W, :Qa, and :Wq to match their
 lowercase analogues, to forgive me when my pinky finger doesn't roll off the
 Shift key quite soon enough after pressing the colon key.
 
