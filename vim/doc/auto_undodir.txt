@@ -6,11 +6,10 @@ This plugin attempts to create a directory "undo" in the directory named by
 the first element of 'runtimepath', and enables 'undofile' with that as the
 'undodir' if it succeeds or if the directory already exists.
 
-It requires the |+persistent_undo| feature.
-
 REQUIREMENTS					*auto_undodir-requirements*
 
-This plugin is only available if 'compatible' is not set.
+This plugin is only available if 'compatible' is not set. It also requires the
+|+persistent_undo| Vim feature.
 
 AUTHOR						*auto_undodir-author*
 
