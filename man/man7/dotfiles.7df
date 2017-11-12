@@ -490,8 +490,12 @@ structures like functions, I like to implement it as a plugin in
 There's documentation for each of those in \f[C]~/.vim/doc\f[].
 .PP
 I also define a few rules specific to file types I often edit in
-\f[C]~/.vim/ftplugin\f[], including some local mappings for checking,
-linting, and tidying.
+\f[C]~/.vim/after/ftplugin\f[], including some local mappings for
+checking, linting, and tidying, and a few more in
+\f[C]~/.vim/after/indent\f[].
+There are also a few tweaks to core syntax files in
+\f[C]~/.vim/after/syntax\f[], especially for shell script
+(\f[C]sh.vim\f[]).
 .PP
 Any/all of the plugins may eventually be spun off into their own
 repositories in the future, but for the moment they live here.
