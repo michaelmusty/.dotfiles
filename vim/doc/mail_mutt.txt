@@ -30,22 +30,19 @@ Three <Plug> mapping targets are also provided for convenience. No attempt is
 made to map key sequences to these mappings within the plugin; you must do
 this explicitly in your |vimrc|.
 
-CURRENT LINE					*MailMuttLine*
-
+                                                *<Plug>MailMuttLine*
 Th <Plug>MailMuttLine mapping runs `:MailMutt` on the current line in normal
 mode. For example:
 >
 	:nmap <Leader>ml <Plug>MailMuttLine
 <
-WHOLE BUFFER					*MailMuttBuffer*
-
+						*<Plug>MailMuttBuffer*
 The <Plug>MailMuttBuffer mapping runs `:MailMutt` on the whole buffer in
 normal mode. For example:
 >
 	:nmap <Leader>mb <Plug>MailMuttBuffer
 <
-SELECTED LINES					*MailMuttSelected*
-
+						*<Plug>MailMuttSelected*
 The <Plug>MailMuttSelected mapping runs `:MailMutt` on the selected lines in
 visual or selection mode. For example:
 >
