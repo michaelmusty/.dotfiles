@@ -32,19 +32,19 @@ this explicitly in your |vimrc|.
 
                                                 *<Plug>MailMuttLine*
 Th <Plug>MailMuttLine mapping runs `:MailMutt` on the current line in normal
-mode. For example:
+mode. A binding example might be:
 >
 	:nmap <Leader>ml <Plug>MailMuttLine
 <
 						*<Plug>MailMuttBuffer*
 The <Plug>MailMuttBuffer mapping runs `:MailMutt` on the whole buffer in
-normal mode. For example:
+normal mode. A binding example might be:
 >
 	:nmap <Leader>mb <Plug>MailMuttBuffer
 <
 						*<Plug>MailMuttSelected*
 The <Plug>MailMuttSelected mapping runs `:MailMutt` on the selected lines in
-visual or selection mode. For example:
+visual or selection mode. A binding example might be:
 >
 	:vmap <Leader>ms <Plug>MailMuttSelected
 <
