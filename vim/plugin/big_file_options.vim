@@ -5,9 +5,7 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_big_file_options')
-      \ || !has('autocmd')
-      \ || &compatible
+if exists('g:loaded_big_file_options') || &compatible || !has('autocmd')
   finish
 endif
 let g:loaded_big_file_options = 1

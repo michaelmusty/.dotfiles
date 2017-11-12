@@ -5,8 +5,7 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_auto_swapdir')
-      \ || &compatible
+if exists('g:loaded_auto_swapdir') || &compatible
   finish
 endif
 let g:loaded_auto_swapdir = 1

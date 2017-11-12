@@ -5,8 +5,7 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_fixed_join')
-      \ || &compatible
+if exists('g:loaded_fixed_join') || &compatible
   finish
 endif
 let g:loaded_fixed_join = 1

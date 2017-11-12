@@ -3,7 +3,6 @@ set -- \
     vim/autoload \
     vim/config \
     vim/ftdetect \
-    vim/ftplugin \
     vim/gvimrc \
     vim/indent \
     vim/plugin \
