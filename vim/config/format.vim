@@ -7,7 +7,7 @@ set nrformats-=octal
 silent! set formatoptions+=j
 
 " Show the current formatoptions at a glance
-noremap <silent>
+nnoremap <silent>
       \ <Leader>f
       \ :<C-U>setlocal formatoptions?<CR>
 
