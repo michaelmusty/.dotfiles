@@ -9,7 +9,7 @@ if has('wildmenu')
   " Use the wild menu, both completing and showing all possible completions
   " with a single Tab press, just as I've configured Bash to do
   set wildmenu
-  set wildmode=longest:list
+  set wildmode=list:longest
 
   " Don't complete certain files that I'm not likely to want to manipulate
   " from within Vim:
