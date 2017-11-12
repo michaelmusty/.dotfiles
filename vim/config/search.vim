@@ -5,13 +5,13 @@ if has('extra_search')
   set incsearch
   nnoremap <silent>
         \ <Leader>i
-        \ :<C-U>setlocal incsearch! incsearch?<CR>
+        \ :<C-U>set incsearch! incsearch?<CR>
 
   " Highlight search results, \h toggles this
   set hlsearch
   nnoremap <silent>
         \ <Leader>h
-        \ :<C-U>setlocal hlsearch! hlsearch?<CR>
+        \ :<C-U>set hlsearch! hlsearch?<CR>
 
   " Pressing ^L will clear highlighting until the next search-related
   " operation; quite good because the highlighting gets distracting after
@@ -27,10 +27,10 @@ if has('extra_search')
       autocmd!
       autocmd InsertEnter
             \ *
-            \ setlocal nohlsearch
+            \ set nohlsearch
       autocmd InsertLeave
             \ *
-            \ setlocal hlsearch
+            \ set hlsearch
     augroup END
   endif
 
