@@ -20,18 +20,4 @@ if has('extra_search')
         \ <C-L>
         \ :<C-U>nohlsearch<CR><C-L>
 
-  " Clear search highlighting as soon as I enter insert mode, and restore it
-  " once I leave it
-  if has('autocmd') && v:version >= 701
-    augroup dotfiles_highlight
-      autocmd!
-      autocmd InsertEnter
-            \ *
-            \ set nohlsearch
-      autocmd InsertLeave
-            \ *
-            \ set hlsearch
-    augroup END
-  endif
-
 endif
