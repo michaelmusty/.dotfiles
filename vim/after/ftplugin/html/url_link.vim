@@ -4,8 +4,10 @@ if exists('b:did_ftplugin_html_url_link') || &compatible
   finish
 endif
 let b:did_ftplugin_html_url_link = 1
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|unlet b:did_ftplugin_html_url_link'
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|unlet b:did_ftplugin_html_url_link'
+endif
 
 " Make a bare URL into a link to itself
 if !exists('*s:UrlLink')
@@ -32,16 +34,20 @@ if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
   nnoremap <buffer> <silent> <unique>
         \ <Plug>HtmlUrlLink
         \ :<C-U>call <SID>HtmlUrlLink()<CR>
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
+  if exists('b:undo_ftplugin')
+    let b:undo_ftplugin = b:undo_ftplugin
+          \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
+  endif
 
   " If there isn't a key mapping already, use a default one
   if !hasmapto('<Plug>HtmlUrlLink')
     nmap <buffer> <unique>
           \ <LocalLeader>r
           \ <Plug>HtmlUrlLink
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <LocalLeader>r'
+    if exists('b:undo_ftplugin')
+      let b:undo_ftplugin = b:undo_ftplugin
+            \ . '|nunmap <buffer> <LocalLeader>r'
+    endif
   endif
 
 endif

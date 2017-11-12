@@ -4,8 +4,10 @@ if exists('b:did_ftplugin_sh_posix') || &compatible
   finish
 endif
 let b:did_ftplugin_sh_posix = 1
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|unlet b:did_ftplugin_sh_posix'
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|unlet b:did_ftplugin_sh_posix'
+endif
 
 "
 " If we have a #!/bin/sh shebang and filetype.vim determined we were neither
