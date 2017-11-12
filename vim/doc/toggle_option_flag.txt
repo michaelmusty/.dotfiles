@@ -16,7 +16,8 @@ EXAMPLES					*toggle_option_flag-examples*
 <
 REQUIREMENTS					*toggle_option_flag-requirements*
 
-This plugin is only available if 'compatible' is not set.
+This plugin is only available if 'compatible' is not set. It also requires the
+|+user_commands| Vim feature.
 
 AUTHOR						*toggle_option_flag-author*
 
