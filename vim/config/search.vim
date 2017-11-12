@@ -5,13 +5,13 @@ if has('extra_search')
   set incsearch
   nnoremap <silent>
         \ <Leader>i
-        \ :<C-U>setlocal incsearch! incsearch?<CR>
+        \ :<C-U>set incsearch! incsearch?<CR>
 
   " Highlight search results, \h toggles this
   set hlsearch
   nnoremap <silent>
         \ <Leader>h
-        \ :<C-U>setlocal hlsearch! hlsearch?<CR>
+        \ :<C-U>set hlsearch! hlsearch?<CR>
 
   " Pressing ^L will clear highlighting until the next search-related
   " operation; quite good because the highlighting gets distracting after
@@ -19,19 +19,5 @@ if has('extra_search')
   nnoremap <silent>
         \ <C-L>
         \ :<C-U>nohlsearch<CR><C-L>
-
-  " Clear search highlighting as soon as I enter insert mode, and restore it
-  " once I leave it
-  if has('autocmd') && v:version >= 701
-    augroup dotfiles_highlight
-      autocmd!
-      autocmd InsertEnter
-            \ *
-            \ setlocal nohlsearch
-      autocmd InsertLeave
-            \ *
-            \ setlocal hlsearch
-    augroup END
-  endif
 
 endif

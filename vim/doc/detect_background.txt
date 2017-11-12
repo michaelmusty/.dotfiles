@@ -1,14 +1,37 @@
-*detect_background.txt*  Figure out 'background' with a bias towards "dark"
+*detect_background.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*detect_background*
+						*detect_background#DetectBackground()*
 
-This plugin inspects the $COLORFGBG environment variable to determine whether
-the user is using a terminal with a light background. It reverses Vim's
-built-in attempts to do this, which have the opposite default.
+The |detect_background#DetectBackground()| function provided by this plugin
+inspects the $COLORFGBG environment variable to determine whether the user is
+using a terminal with a light background, and returns the word "dark" or
+"light" accordingly, for use in setting 'background'.
 
-It does not inspect the value of the $TERM variable or |'term'| at all.
+The function does roughly the reverse of Vim's built-in heuristics to set the
+'background' option, which default to a light background in the absence of
+hints otherwise.
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+Note that this plugin does not inspect the value of the $TERM environment
+variable or the |'term'| option at all, nor the |'t_RB'| option.
+
+REQUIREMENTS					*detect_background-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*detect_background-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*detect_background-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*detect_background-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:

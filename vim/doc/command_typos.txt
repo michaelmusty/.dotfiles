@@ -1,12 +1,28 @@
-*command_typos.txt*  Bind capital-letter versions of common commands
+*command_typos.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*command_typos*
 
 This plugin defines custom commands like :W, :Qa, and :Wq to match their
 lowercase analogues, to forgive me when my pinky finger doesn't roll off the
 Shift key quite soon enough after pressing the colon key.
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+REQUIREMENTS					*command_typos-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+AUTHOR						*command_typos-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*command_typos-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*command_typos-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:

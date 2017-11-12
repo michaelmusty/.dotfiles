@@ -5,7 +5,10 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_mail_mutt') || &compatible || !has('user_commands')
+if exists('g:loaded_mail_mutt') || &compatible
+  finish
+endif
+if !has('user_commands')
   finish
 endif
 let g:loaded_mail_mutt = 1
@@ -26,7 +29,6 @@ function! s:MailMutt(start, end)
   let l:range = a:start . ',' . a:end
   let l:command = 'write ' . fnameescape(l:tf)
   execute l:range . l:command
-
 
   " Run mutt(1) with that file as its input
   execute '!mutt -i ' . shellescape(l:tf)
