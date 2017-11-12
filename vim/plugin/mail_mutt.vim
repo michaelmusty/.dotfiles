@@ -5,7 +5,10 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_mail_mutt') || &compatible || !has('user_commands')
+if exists('g:loaded_mail_mutt') || &compatible
+  finish
+endif
+if !has('user_commands')
   finish
 endif
 let g:loaded_mail_mutt = 1

@@ -6,7 +6,10 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_copy_linebreak') || &compatible || !has('linebreak')
+if exists('g:loaded_copy_linebreak') || &compatible
+  finish
+endif
+if !has('linebreak')
   finish
 endif
 let g:loaded_copy_linebreak = 1

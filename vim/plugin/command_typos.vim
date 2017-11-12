@@ -7,7 +7,10 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_command_typos') || &compatible || !has('user_commands')
+if exists('g:loaded_command_typos') || &compatible
+  finish
+endif
+if !has('user_commands')
   finish
 endif
 let g:loaded_command_typos = 1
