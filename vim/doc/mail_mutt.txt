@@ -1,13 +1,69 @@
-*mail_mutt.txt*  Start a mutt(1) email message with a range of lines
+*mail_mutt.txt*	For Vim version 7.0	Last change: 2017 November 12
 
-Author:  Tom Ryder <tom@sanctum.geek.nz>
-License: Same terms as Vim itself (see |license|)
+DESCRIPTION					*mail_mutt*
 
-This plugin provides a :MailMutt command which accepts a range of lines
-defaulting to the entire buffer, writing these lines to a temporary file that
-is then provided to the -i option of the mutt(1) MUA as the initial content of
-a new message.
+This plugin allows you to quickly start writing an email message in Mutt with
+a range of lines from the current buffer as the initial mail content.
 
-This plugin lives in Tom Ryder's "dotfiles" suite, and will eventually be spun
+REQUIREMENTS					*mail_mutt-requirements*
+
+This plugin is only available if 'compatible' is not set.
+
+You will want to have the mutt(1) command from the Mutt distribution installed
+to use this plugin. Mutt is available from <http://www.mutt.org/>.
+
+COMMANDS					*mail_mutt-commands* *:MailMutt*
+
+This plugin provides a single command `:MailMutt` command which accepts a line
+range prefix defaulting to the entire buffer, writing these lines to a
+temporary file that is then provided to the -i option of the Mutt mail user
+agent, as the initial content of a new message.
+>
+	:MailMutt
+	:.MailMutt
+	:3,6MailMutt
+	:95,$MailMutt
+
+MAPPINGS					*mail_mutt-mappings*
+
+Three <Plug> mapping targets are also provided for convenience. No attempt is
+made to map key sequences to these mappings within the plugin; you must do
+this explicitly in your |vimrc|.
+
+CURRENT LINE					*MailMuttLine*
+
+Th <Plug>MailMuttLine mapping runs `:MailMutt` on the current line in normal
+mode. For example:
+>
+	:nmap <Leader>ml <Plug>MailMuttLine
+<
+WHOLE BUFFER					*MailMuttBuffer*
+
+The <Plug>MailMuttBuffer mapping runs `:MailMutt` on the whole buffer in
+normal mode. For example:
+>
+	:nmap <Leader>mb <Plug>MailMuttBuffer
+<
+SELECTED LINES					*MailMuttSelected*
+
+The <Plug>MailMuttSelected mapping runs `:MailMutt` on the selected lines in
+visual or selection mode. For example:
+>
+	:vmap <Leader>ms <Plug>MailMuttSelected
+<
+AUTHOR                                          *mail_mutt-author*
+
+Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
+
+LICENSE						*mail_mutt-license*
+
+Licensed for distribution under the same terms as Vim itself (see |license|).
+
+DISTRIBUTION					*mail_mutt-distribution*
+
+This plugin lives in Tom Ryder's "dotfiles" suite, and may eventually be spun
 off into a separate distribution as it solidifies and this documentation
-improves.
+improves. See <https://sanctum.geek.nz/cgit/dotfiles.git/about/> for more
+information.
+
+ vim:tw=78:ts=8:ft=help:norl:
