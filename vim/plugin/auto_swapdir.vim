@@ -18,7 +18,7 @@ else
   " This is imperfect in that it will break if you have a backslashed comma in
   " the first component of your &runtimepath, but if you're doing that, you
   " probably already have way bigger problems
-  let s:swapdir 
+  let s:swapdir
       \ = strpart(&runtimepath, 0, stridx(&runtimepath, ','))
       \ . '/swap'
 endif
@@ -32,12 +32,14 @@ if !isdirectory(expand(s:swapdir))
 
   " Failing that, use an OS-dependent command
   " (Fortunately, Unix and Windows are the only OS types in the world)
-  elseif has('unix')
-    silent! execute '!mkdir -m 0700 -p ' 
-          \ . shellescape(expand(s:swapdir))
-  elseif has('win32') || has('win64')
-    silent! execute '!mkdir ' 
-          \ . shellescape(expand(s:swapdir))
+  elseif has('*shellescape')
+    if has('unix')
+      silent! execute '!mkdir -m 0700 -p '
+            \ . shellescape(expand(s:swapdir))
+    elseif has('win32') || has('win64')
+      silent! execute '!mkdir '
+            \ . shellescape(expand(s:swapdir))
+    endif
   endif
 
 endif

@@ -20,7 +20,7 @@ if has('eval')
 
   " Vim servers? What is this, Emacs?
   let g:loaded_rrhelper = 'skipped'
-  
+
   " System dictionaries plus custom per-machine spell files are fine
   let g:loaded_spellfile_plugin = 'skipped'
 

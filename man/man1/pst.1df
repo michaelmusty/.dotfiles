@@ -4,12 +4,12 @@
 \- stop a pipe for manual viewing or intervention
 .SH SYNOPSIS
 prog1 |
-.B 
+.B
 pst
 | prog2
 .br
 prog1 |
-.B 
+.B
 pst ed
 | prog2
 .SH DESCRIPTION

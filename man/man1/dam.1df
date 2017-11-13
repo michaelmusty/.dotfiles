@@ -4,7 +4,7 @@
 \- read all input before emitting as output
 .SH SYNOPSIS
 prog1 |
-.B 
+.B
 dam
 | prog2
 .SH DESCRIPTION

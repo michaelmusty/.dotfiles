@@ -1,7 +1,7 @@
 # Flatten input into one single-space separated line with no unprintable chars
 
 # For each line of input ...
-{ 
+{
     # Replace groups of spaces and control characters with one space,
     # implicitly re-splitting the fields
     gsub(/[\a\b\f\n\r\t\v ]+/, " ")
