@@ -11,7 +11,7 @@ runs pp(1df) on the arguments to print the full path to each one, and also
 prepends the machine's hostname and a colon to each line.
 .SH CAVEATS
 Newlines in filenames will mess this up. This is for generating human-readable
-file lists, not for machines. 
+file lists, not for machines.
 .SH SEE ALSO
 pp(1df)
 .SH AUTHOR

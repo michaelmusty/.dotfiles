@@ -7,7 +7,7 @@
 STRING REPLACEMENT
 < file
 .br
-program | 
+program |
 .B trs
 STRING REPLACEMENT
 .SH DESCRIPTION

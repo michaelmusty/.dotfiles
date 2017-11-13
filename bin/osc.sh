@@ -1,5 +1,5 @@
 # Sane and safe OpenSSL s_client(1ssl) connection
-self=osc 
+self=osc
 
 # Check we have openssl(1); we need to fail early lest we go setting up FIFOs
 # needlessly
@@ -67,7 +67,7 @@ for sig in EXIT HUP INT TERM ; do
     # shellcheck disable=SC2064
     trap "cleanup $sig" "$sig"
 done
- 
+
 # Create a temporary directory and a FIFO in it
 td=$(mktd "$self") || exit
 mkfifo -- "$td"/verify-filter || exit
