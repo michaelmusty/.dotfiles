@@ -13,7 +13,7 @@ for sn ; do
     # Strip trailing slash if any and then query string
     sn=${sn%/}
     dn=${sn%%\?*}
-    
+
     # Ignore this file if its name wouldn't change
     [ "$sn" != "$dn" ] || continue
 

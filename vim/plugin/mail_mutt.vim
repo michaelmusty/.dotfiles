@@ -37,7 +37,7 @@ endfunction
 
 " Create a command to wrap around that function
 command -nargs=0 -range=%
-      \ MailMutt 
+      \ MailMutt
       \ call <SID>MailMutt(<line1>, <line2>)
 
 " Mapping to mail current line in normal mode

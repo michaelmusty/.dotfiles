@@ -1,6 +1,6 @@
 # Search for alphanumeric words in a file
 BEGIN {
-    
+
     # Name self
     self = "gwp"
 

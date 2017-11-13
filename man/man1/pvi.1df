@@ -4,7 +4,7 @@
 \- stop a pipe for $EDITOR intervention
 .SH SYNOPSIS
 prog1 |
-.B 
+.B
 pvi
 | prog2
 .SH DESCRIPTION

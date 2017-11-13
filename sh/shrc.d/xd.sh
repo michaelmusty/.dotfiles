@@ -18,7 +18,7 @@ xd() {
 
     # Try to change into the marked directory
     cd -- "$1" || return
-    
+
     # If that worked, we can swap the mark, and we're done
     PMD=$2
 }
