@@ -32,12 +32,14 @@ if !isdirectory(expand(s:backupdir))
 
   " Failing that, use an OS-dependent command
   " (Fortunately, Unix and Windows are the only OS types in the world)
-  elseif has('unix')
-    silent! execute '!mkdir -m 0700 -p ' 
-          \ . shellescape(expand(s:backupdir))
-  elseif has('win32') || has('win64')
-    silent! execute '!mkdir ' 
-          \ . shellescape(expand(s:backupdir))
+  elseif has('*shellescape')
+    if has('unix')
+      silent! execute '!mkdir -m 0700 -p '
+            \ . shellescape(expand(s:backupdir))
+    elseif has('win32') || has('win64')
+      silent! execute '!mkdir '
+            \ . shellescape(expand(s:backupdir))
+    endif
   endif
 
 endif
