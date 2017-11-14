@@ -10,8 +10,8 @@ if exists('b:undo_ftplugin')
 endif
 
 " Make a bare URL into a link to itself
-if !exists('*s:UrlLink')
-  function! s:UrlLink()
+if !exists('*s:HtmlUrlLink')
+  function! s:HtmlUrlLink()
 
     " Yank this whole whitespace-separated word
     normal! yiW
