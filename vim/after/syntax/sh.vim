@@ -119,6 +119,21 @@ if exists('b:is_posix')
   syntax cluster shCaseList add=shRepeat
   syntax cluster shFunctionList add=shRepeat
 
+  " ${foo%bar}, ${foo%%bar}, ${foo#bar}, and ${foo##bar} are all valid forms
+  " of parameter expansion in POSIX, but sh.vim makes them conditional on
+  " Bash or Korn shell. We reinstate them (slightly adapted) here.
+  syn match shDerefOp contained
+        \ '##\|#\|%%\|%'
+        \ nextgroup=@shDerefPatternList
+  syn match shDerefPattern contained
+        \ '[^{}]\+'
+        \ contains=shDeref,shDerefSimple,shDerefPattern,shDerefString,shCommandSub,shDerefEscape
+        \ nextgroup=shDerefPattern
+  syn region shDerefPattern contained
+        \ start='{' end='}'
+        \ contains=shDeref,shDerefSimple,shDerefString,shCommandSub
+        \ nextgroup=shDerefPattern
+
 endif
 
 " Some corrections for highlighting specific to the Bash mode
