@@ -111,7 +111,7 @@ if exists('b:is_posix')
   syntax clear shRepeat
   syntax region shRepeat
         \ matchgroup=shLoop
-        \ start="\<while\_s" end="\<do\>"me=e-2
+        \ start='\<while\_s' end='\<do\>'me=e-2
         \ contains=@shLoopList
 
   " Run some clustering that core syntax/sh.vim thinks doesn't apply to POSIX;
