@@ -489,6 +489,12 @@ structures like functions, I like to implement it as a plugin in
 \f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[].
 There's documentation for each of those in \f[C]~/.vim/doc\f[].
 .PP
+Any/all of those plugins may eventually be spun off into their own
+repositories in the future, but for the moment they live here.
+You can create distribution packages for them with
+\f[C]make\ dist\-vim\-plugin\f[]; they will be created in
+\f[C]vim/dist\f[].
+.PP
 I also define a few rules specific to file types I often edit in
 \f[C]~/.vim/after/ftplugin\f[], including some local mappings for
 checking, linting, and tidying, and a few more in
@@ -496,11 +502,6 @@ checking, linting, and tidying, and a few more in
 There are also a few tweaks to core syntax files in
 \f[C]~/.vim/after/syntax\f[], especially for shell script
 (\f[C]sh.vim\f[]).
-.PP
-Any/all of the plugins may eventually be spun off into their own
-repositories in the future, but for the moment they live here.
-Contact me if you find one of them useful and you'd like to see it in
-its own distribution.
 .PP
 Third\-party plugins are in submodules in \f[C]~/.vim/bundle\f[], loaded
 using Tim Pope's pathogen.vim (https://github.com/tpope/vim-pathogen).
