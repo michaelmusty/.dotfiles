@@ -13,5 +13,5 @@ if v:version >= 704 || v:version == 704 && has('patch191')
   CompilerSet makeprg=vint\ %:S
 else
   CompilerSet makeprg=vint\ %
-fi
+endif
 CompilerSet errorformat=%f:%l:%c:\ %m
