@@ -9,13 +9,27 @@ if exists('b:undo_ftplugin')
         \ . '|unlet b:did_ftplugin_perl_lint'
 endif
 
+" Build function for linter
+if !exists('*s:PerlLint')
+  function s:PerlLint()
+    let l:save_makeprg = &l:makeprg
+    let l:save_errorformat = &l:errorformat
+    let &l:makeprg = 'perlcritic --quiet --verbose 1 %:S'
+    let &l:errorformat = '%f:%l:%c:%m'
+    lmake!
+    let &l:makeprg = l:save_makeprg
+    let &l:errorformat = l:save_errorformat
+    lwindow
+  endfunction
+endif
+
 " Set up a mapping for the linter, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_perl_maps')
 
   " Define a mapping target
   nnoremap <buffer> <silent> <unique>
         \ <Plug>PerlLint
-        \ :<C-U>write !perlcritic<CR>
+        \ :<C-U>call <SID>PerlLint()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
           \ . '|nunmap <buffer> <Plug>PerlLint'
