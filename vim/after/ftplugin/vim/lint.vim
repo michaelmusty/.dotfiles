@@ -15,10 +15,10 @@ if !exists('*s:VimLint')
     let l:save_makeprg = &l:makeprg
     let l:save_errorformat = &l:errorformat
     compiler vint
-    lmake!
+    make!
     let &l:makeprg = l:save_makeprg
     let &l:errorformat = l:save_errorformat
-    lwindow
+    cwindow
   endfunction
 endif
 

@@ -31,10 +31,10 @@ if !exists('*s:ShLint')
     let l:save_errorformat = &l:errorformat
     let &l:makeprg = b:sh_lint_makeprg
     let &l:errorformat = b:sh_lint_errorformat
-    lmake!
+    make!
     let &l:makeprg = l:save_makeprg
     let &l:errorformat = l:save_errorformat
-    lwindow
+    cwindow
   endfunction
 endif
 

@@ -17,10 +17,10 @@ if !exists('*s:HtmlLint')
     let l:save_makeprg = &l:makeprg
     let l:save_errorformat = &l:errorformat
     compiler tidy
-    lmake!
+    make!
     let &l:makeprg = l:save_makeprg
     let &l:errorformat = l:save_errorformat
-    lwindow
+    cwindow
   endfunction
 endif
 
