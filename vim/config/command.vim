@@ -4,9 +4,6 @@ set history=2000
 " Always tell me the number of lines changed by a command
 set report=0
 
-" Don't write the output of :make to the terminal
-set shellpipe=>
-
 " Command-line based features
 if has('cmdline_info')
 

@@ -352,15 +352,16 @@ structures like functions, I like to implement it as a plugin in
 `~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
 those in `~/.vim/doc`.
 
+Any/all of those plugins may eventually be spun off into their own repositories
+in the future, but for the moment they live here. You can create distribution
+packages for them with `make dist-vim-plugin`; they will be created in
+`vim/dist`.
+
 I also define a few rules specific to file types I often edit in
 `~/.vim/after/ftplugin`, including some local mappings for checking, linting,
 and tidying, and a few more in `~/.vim/after/indent`. There are also a few
 tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
 script (`sh.vim`).
-
-Any/all of the plugins may eventually be spun off into their own repositories
-in the future, but for the moment they live here. Contact me if you find one of
-them useful and you'd like to see it in its own distribution.
 
 Third-party plugins are in submodules in `~/.vim/bundle`, loaded using Tim
 Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).

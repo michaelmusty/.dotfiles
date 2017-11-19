@@ -111,13 +111,28 @@ if exists('b:is_posix')
   syntax clear shRepeat
   syntax region shRepeat
         \ matchgroup=shLoop
-        \ start="\<while\_s" end="\<do\>"me=e-2
+        \ start='\<while\_s' end='\<do\>'me=e-2
         \ contains=@shLoopList
 
   " Run some clustering that core syntax/sh.vim thinks doesn't apply to POSIX;
   " this fixes while loops so they can be within other blocks.
   syntax cluster shCaseList add=shRepeat
   syntax cluster shFunctionList add=shRepeat
+
+  " ${foo%bar}, ${foo%%bar}, ${foo#bar}, and ${foo##bar} are all valid forms
+  " of parameter expansion in POSIX, but sh.vim makes them conditional on
+  " Bash or Korn shell. We reinstate them (slightly adapted) here.
+  syntax match shDerefOp contained
+        \ '##\|#\|%%\|%'
+        \ nextgroup=@shDerefPatternList
+  syntax match shDerefPattern contained
+        \ '[^{}]\+'
+        \ contains=shDeref,shDerefSimple,shDerefPattern,shDerefString,shCommandSub,shDerefEscape
+        \ nextgroup=shDerefPattern
+  syntax region shDerefPattern contained
+        \ start='{' end='}'
+        \ contains=shDeref,shDerefSimple,shDerefString,shCommandSub
+        \ nextgroup=shDerefPattern
 
 endif
 

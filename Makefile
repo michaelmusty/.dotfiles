@@ -44,6 +44,7 @@
 	install-vim-after-syntax \
 	install-vim-autoload \
 	install-vim-bundle \
+	install-vim-compiler \
 	install-vim-config \
 	install-vim-ftdetect \
 	install-vim-gui \
@@ -71,7 +72,19 @@
 	lint-sh \
 	lint-urxvt \
 	lint-vim \
-	lint-xinit
+	lint-xinit \
+	dist-vim-plugin \
+	dist-vim-plugin-auto-backupdir \
+	dist-vim-plugin-auto-swapdir \
+	dist-vim-plugin-auto-undodir \
+	dist-vim-plugin-big-file-options \
+	dist-vim-plugin-command-typos \
+	dist-vim-plugin-copy-linebreak \
+	dist-vim-plugin-fixed-join \
+	dist-vim-plugin-insert-suspend-hlsearch \
+	dist-vim-plugin-mail-mutt \
+	dist-vim-plugin-strip-trailing-whitespace \
+	dist-vim-plugin-toggle-option-flag
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
@@ -261,7 +274,8 @@ clean distclean:
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		man/man8/dotfiles.7df \
-		urxvt/ext/select
+		urxvt/ext/select \
+		vim/dist/*
 
 .awk:
 	sh bin/shb.sh awk -f < $< > $@
@@ -482,6 +496,7 @@ install-urxvt: urxvt/ext/select
 install-vim: install-vim-after \
 	install-vim-autoload \
 	install-vim-bundle \
+	install-vim-compiler \
 	install-vim-config \
 	install-vim-doc \
 	install-vim-ftdetect \
@@ -515,6 +530,10 @@ install-vim-bundle: install-vim-config
 	find vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
+
+install-vim-compiler:
+	mkdir -p -- $(HOME)/.vim/compiler
+	cp -p -- vim/compiler/*.vim $(HOME)/.vim/compiler
 
 install-vim-config:
 	mkdir -p -- $(HOME)/.vim/config
@@ -633,3 +652,77 @@ lint-vim:
 
 lint-xinit: check-xinit
 	sh lint/xinit.sh
+
+dist-vim-plugin: dist-vim-plugin-auto-backupdir \
+	dist-vim-plugin-auto-swapdir \
+	dist-vim-plugin-auto-undodir \
+	dist-vim-plugin-big-file-options \
+	dist-vim-plugin-command-typos \
+	dist-vim-plugin-copy-linebreak \
+	dist-vim-plugin-detect-background \
+	dist-vim-plugin-fixed-join \
+	dist-vim-plugin-insert-suspend-hlsearch \
+	dist-vim-plugin-mail-mutt \
+	dist-vim-plugin-strip-trailing-whitespace \
+	dist-vim-plugin-toggle-option-flag
+
+dist-vim-plugin-auto-backupdir: \
+	vim/plugin/auto_backupdir.vim \
+	vim/doc/auto_backupdir.txt \
+	VERSION
+	sh dist/vim-plugin.sh auto_backupdir
+dist-vim-plugin-auto-swapdir: \
+	vim/plugin/auto_swapdir.vim \
+	vim/doc/auto_swapdir.txt \
+	VERSION
+	sh dist/vim-plugin.sh auto_swapdir
+dist-vim-plugin-auto-undodir: \
+	vim/plugin/auto_undodir.vim \
+	vim/doc/auto_undodir.txt \
+	VERSION
+	sh dist/vim-plugin.sh auto_undodir
+dist-vim-plugin-big-file-options: \
+	vim/plugin/big_file_options.vim \
+	vim/doc/big_file_options.txt \
+	VERSION
+	sh dist/vim-plugin.sh big_file_options
+dist-vim-plugin-command-typos: \
+	vim/plugin/command_typos.vim \
+	vim/doc/command_typos.txt \
+	VERSION
+	sh dist/vim-plugin.sh command_typos
+dist-vim-plugin-copy-linebreak: \
+	vim/plugin/copy_linebreak.vim \
+	vim/doc/copy_linebreak.txt \
+	VERSION
+	sh dist/vim-plugin.sh copy_linebreak
+dist-vim-plugin-detect-background: \
+	vim/autoload/detect_background.vim \
+	vim/doc/detect_background.txt \
+	VERSION
+	sh dist/vim-plugin.sh detect_background
+dist-vim-plugin-fixed-join: \
+	vim/plugin/fixed_join.vim \
+	vim/doc/fixed_join.txt \
+	VERSION
+	sh dist/vim-plugin.sh fixed_join
+dist-vim-plugin-insert-suspend-hlsearch: \
+	vim/plugin/insert_suspend_hlsearch.vim \
+	vim/doc/insert_suspend_hlsearch.txt \
+	VERSION
+	sh dist/vim-plugin.sh insert_suspend_hlsearch
+dist-vim-plugin-mail-mutt: \
+	vim/plugin/mail_mutt.vim \
+	vim/doc/mail_mutt.txt \
+	VERSION
+	sh dist/vim-plugin.sh mail_mutt
+dist-vim-plugin-strip-trailing-whitespace: \
+	vim/plugin/strip_trailing_whitespace.vim \
+	vim/doc/strip_trailing_whitespace.txt \
+	VERSION
+	sh dist/vim-plugin.sh strip_trailing_whitespace
+dist-vim-plugin-toggle-option-flag: \
+	vim/plugin/toggle_option_flag.vim \
+	vim/doc/toggle_option_flag.txt \
+	VERSION
+	sh dist/vim-plugin.sh toggle_option_flag

@@ -11,15 +11,31 @@ endif
 
 " Choose linter based on shell family
 if exists('b:is_bash')
-  let b:sh_lint = 'write !shellcheck -e SC1090 -s bash -'
+  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s bash %:S'
 elseif exists('b:is_kornshell')
-  let b:sh_lint = 'write !shellcheck -e SC1090 -s ksh -'
+  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s ksh %:S'
 else
-  let b:sh_lint = 'write !shellcheck -e SC1090 -s sh -'
+  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s sh %:S'
 endif
+let b:sh_lint_errorformat = '%f:%l:%c: %m [SC%n]'
 if exists('b:undo_ftplugin')
   let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:sh_lint'
+        \ . '|unlet b:sh_lint_makeprg'
+        \ . '|unlet b:sh_lint_errorformat'
+endif
+
+" Build function for checker
+if !exists('*s:ShLint')
+  function s:ShLint()
+    let l:save_makeprg = &l:makeprg
+    let l:save_errorformat = &l:errorformat
+    let &l:makeprg = b:sh_lint_makeprg
+    let &l:errorformat = b:sh_lint_errorformat
+    make!
+    let &l:makeprg = l:save_makeprg
+    let &l:errorformat = l:save_errorformat
+    cwindow
+  endfunction
 endif
 
 " Set up a mapping for the linter, if we're allowed
@@ -28,7 +44,7 @@ if !exists('g:no_plugin_maps') && !exists('g:no_sh_maps')
   " Define a mapping target
   nnoremap <buffer> <silent> <unique>
         \ <Plug>ShLint
-        \ :<C-U>execute b:sh_lint<CR>
+        \ :<C-U>call <SID>ShLint()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
           \ . '|nunmap <buffer> <Plug>ShLint'
