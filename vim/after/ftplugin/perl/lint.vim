@@ -14,8 +14,7 @@ if !exists('*s:PerlLint')
   function s:PerlLint()
     let l:save_makeprg = &l:makeprg
     let l:save_errorformat = &l:errorformat
-    let &l:makeprg = 'perlcritic --quiet --verbose 1 %:S'
-    let &l:errorformat = '%f:%l:%c:%m'
+    compiler perlcritic
     lmake!
     let &l:makeprg = l:save_makeprg
     let &l:errorformat = l:save_errorformat
