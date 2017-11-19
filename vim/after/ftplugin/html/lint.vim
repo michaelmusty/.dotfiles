@@ -16,6 +16,7 @@ if !exists('*s:HtmlLint')
   function s:HtmlLint()
     let l:save_makeprg = &l:makeprg
     let l:save_errorformat = &l:errorformat
+    unlet! g:current_compiler
     compiler tidy
     make!
     let &l:makeprg = l:save_makeprg

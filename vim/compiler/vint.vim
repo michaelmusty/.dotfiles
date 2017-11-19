@@ -1,4 +1,4 @@
-if exists('current_compiler')
+if exists('g:current_compiler')
   finish
 endif
 let g:current_compiler = 'vimlint'

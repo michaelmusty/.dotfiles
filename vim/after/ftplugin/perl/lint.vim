@@ -14,6 +14,7 @@ if !exists('*s:PerlLint')
   function s:PerlLint()
     let l:save_makeprg = &l:makeprg
     let l:save_errorformat = &l:errorformat
+    unlet! g:current_compiler
     compiler perlcritic
     make!
     let &l:makeprg = l:save_makeprg
