@@ -11,13 +11,26 @@ if exists('b:undo_ftplugin')
         \ . '|unlet b:did_ftplugin_html_lint'
 endif
 
+" Build function for linter
+if !exists('*s:HtmlLint')
+  function s:HtmlLint()
+    let l:save_makeprg = &l:makeprg
+    let l:save_errorformat = &l:errorformat
+    compiler tidy
+    lmake!
+    let &l:makeprg = l:save_makeprg
+    let &l:errorformat = l:save_errorformat
+    lwindow
+  endfunction
+endif
+
 " Set up a mapping for the linter, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
 
   " Define a mapping target
   nnoremap <buffer> <silent> <unique>
         \ <Plug>HtmlLint
-        \ :<C-U>write !tidy -errors -quiet<CR>
+        \ :<C-U>call <SID>HtmlLint()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
           \ . '|nunmap <buffer> <Plug>HtmlLint'
