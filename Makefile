@@ -44,6 +44,7 @@
 	install-vim-after-syntax \
 	install-vim-autoload \
 	install-vim-bundle \
+	install-vim-compiler \
 	install-vim-config \
 	install-vim-ftdetect \
 	install-vim-gui \
@@ -495,6 +496,7 @@ install-urxvt: urxvt/ext/select
 install-vim: install-vim-after \
 	install-vim-autoload \
 	install-vim-bundle \
+	install-vim-compiler \
 	install-vim-config \
 	install-vim-doc \
 	install-vim-ftdetect \
@@ -528,6 +530,10 @@ install-vim-bundle: install-vim-config
 	find vim/bundle -name .git -prune -o \
 		-type d -exec sh -c 'mkdir -p -- $(HOME)/."$$1"' _ {} \; -o \
 		-type f -exec sh -c 'cp -p -- "$$1" $(HOME)/."$$1"' _ {} \;
+
+install-vim-compiler:
+	mkdir -p -- $(HOME)/.vim/compiler
+	cp -p -- vim/compiler/*.vim $(HOME)/.vim/compiler
 
 install-vim-config:
 	mkdir -p -- $(HOME)/.vim/config
