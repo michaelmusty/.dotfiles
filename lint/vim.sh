@@ -1,6 +1,7 @@
 set -- \
     vim/after \
     vim/autoload \
+    vim/compiler \
     vim/config \
     vim/ftdetect \
     vim/gvimrc \
