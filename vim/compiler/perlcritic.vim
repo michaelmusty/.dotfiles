@@ -13,5 +13,5 @@ if v:version >= 704 || v:version == 704 && has('patch191')
   CompilerSet makeprg=perlcritic\ --verbose\ 1\ %:S
 else
   CompilerSet makeprg=perlcritic\ --verbose\ 1\ %
-fi
+endif
 CompilerSet errorformat=%f:%l:%c:%m
