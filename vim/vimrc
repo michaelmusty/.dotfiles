@@ -1,3 +1,6 @@
+" Don't try to be vi-compatible, even if invoked as ex or with -u specified
+set nocompatible
+
 " Use different keys for global and local leaders
 if has('eval')
   let g:mapleader = '\'
