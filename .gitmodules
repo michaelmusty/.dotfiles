@@ -6,7 +6,7 @@
     url = https://sanctum.geek.nz/clone/vim-commentary.git
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
-    url = https://sanctum.geek.nz/code/juvenile.git
+    url = https://sanctum.geek.nz/code/vim-juvenile.git
 [submodule "vim/bundle/lion"]
     path = vim/bundle/lion
     url = https://sanctum.geek.nz/clone/vim-lion.git
@@ -18,7 +18,7 @@
     url = https://sanctum.geek.nz/clone/vim-repeat.git
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
-    url = https://sanctum.geek.nz/code/sahara.git
+    url = https://sanctum.geek.nz/code/vim-sahara.git
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
