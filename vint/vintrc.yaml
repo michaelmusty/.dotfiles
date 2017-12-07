@@ -1,0 +1,10 @@
+# Show me all my problems, including matters of style
+cmdargs:
+    severity: style_problem
+
+# Allow "set nocompatible", because it does need to be included for using ex if
+# I don't want so much of my config to break because of 'cpoptions' (especially
+# splitting long lines)
+policies:
+    ProhibitSetNoCompatible:
+        enabled: false
