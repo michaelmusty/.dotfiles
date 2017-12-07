@@ -10,7 +10,7 @@ d=${nd#*d}
 [ "${nd%d*}" != "" ] && n=${nd%d*}
 [ "${1#*+}" = "$1" ] || a=${1#*+}
 
-# Check number of roles and addendum make sense
+# Check number of rolls and addendum make sense
 [ "$((n > 0 && a >= 0))" -eq 1 ] || exit 2
 
 # Check this is a real die you can actually roll
