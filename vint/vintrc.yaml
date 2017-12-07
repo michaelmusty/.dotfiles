@@ -1,2 +1,6 @@
 cmdargs:
     severity: style_problem
+
+policies:
+    ProhibitSetNoCompatible:
+        enabled: false
