@@ -50,6 +50,7 @@
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
+	install-vint \
 	install-wget \
 	install-x \
 	install-zsh \
@@ -561,6 +562,9 @@ install-vim-gui: install-vim \
 
 install-vim-gui-config:
 	cp -p -- vim/gvimrc $(HOME)/.gvimrc
+
+install-vint:
+	cp -p -- vint/vintrc.yaml $(HOME)/.vintrc.yaml
 
 install-wget:
 	cp -p -- wget/wgetrc $(HOME)/.wgetrc
