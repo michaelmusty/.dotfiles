@@ -26,7 +26,7 @@
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
-	install-newsbeuter \
+	install-newsboat \
 	install-perlcritic \
 	install-perltidy \
 	install-psql \
@@ -434,9 +434,9 @@ install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
-install-newsbeuter:
-	mkdir -p -- $(HOME)/.config/newsbeuter $(HOME)/.local/share/newsbeuter
-	cp -p -- newsbeuter/config $(HOME)/.config/newsbeuter
+install-newsboat:
+	mkdir -p -- $(HOME)/.config/newsboat $(HOME)/.local/share/newsboat
+	cp -p -- newsboat/config $(HOME)/.config/newsboat
 
 install-mysql:
 	cp -p -- mysql/my.cnf $(HOME)/.my.cnf
