@@ -121,8 +121,7 @@ Command\-line MySQL client
 .IP \[bu] 2
 Ncmpcpp (https://rybczak.net/ncmpcpp/) \[en] ncurses music player client
 .IP \[bu] 2
-Newsbeuter (https://www.newsbeuter.org/) \[en] Terminal RSS/Atom feed
-reader
+Newsboat (https://newsboat.org/) \[en] Terminal RSS/Atom feed reader
 .IP \[bu] 2
 \f[C]psql(1)\f[] (https://linux.die.net/man/1/psql) \[en] Command\-line
 PostgreSQL client

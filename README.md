@@ -80,7 +80,7 @@ Configuration is included for:
 * [Mutt](http://www.mutt.org/) -- Terminal mail user agent
 * [`mysql(1)`](https://linux.die.net/man/1/mysql) -- Command-line MySQL client
 * [Ncmpcpp](https://rybczak.net/ncmpcpp/) -- ncurses music player client
-* [Newsbeuter](https://www.newsbeuter.org/) -- Terminal RSS/Atom feed reader
+* [Newsboat](https://newsboat.org/) -- Terminal RSS/Atom feed reader
 * [`psql(1)`](https://linux.die.net/man/1/psql) -- Command-line PostgreSQL
   client
 * [Perl::Critic](http://perlcritic.com/) -- static source code analysis engine
