@@ -13,8 +13,8 @@ default-recipient-self
 # Show complete dates and use proper column separation for --with-colon listing mode
 fixed-list-mode
 
-# Use 16-character key IDs as the default 8-character key IDs can be forged
-keyid-format 0xlong
+# Use only fingerprints as key IDs
+keyid-format none
 
 # Use a pool of servers which support HKPS (encrypted key retrieval)
 keyserver <% KEYSERVER %>
