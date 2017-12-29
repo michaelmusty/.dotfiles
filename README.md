@@ -205,7 +205,6 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
 * `ed()` tries to get verbose error messages, a prompt, and a Readline
   environment for `ed(1)`.
 * `gdb()` silences startup messages from `gdb(1)`.
-* `gpg()` quietens `gpg(1)` down for most commands.
 * `grep()` tries to apply color and other options good for interactive use if
   available.
 * `hgrep()` allows searching `$HISTFILE`.
