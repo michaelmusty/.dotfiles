@@ -1,5 +1,5 @@
-pub   4096R/0xC14286EA77BB8872 2013-03-12 [expires: 2018-01-02]
-      Key fingerprint = FA09 C06E 1B67 0CD0 B2F5  DE60 C142 86EA 77BB 8872
-uid                 [ultimate] Thomas Ryder (tyrmored, tejr) <tom@sanctum.geek.nz>
-sub   4096R/0x96C2CD91E67AC61D 2013-03-12 [expires: 2018-01-02]
-sub   4096R/0xB5AF5F8925926609 2013-03-12 [expires: 2018-01-02]
+pub   rsa4096 2013-03-12 [SC] [expires: 2018-12-17]
+      FA09C06E1B670CD0B2F5DE60C14286EA77BB8872
+uid           [ultimate] Thomas Ryder (tyrmored, tejr) <tom@sanctum.geek.nz>
+sub   rsa4096 2013-03-12 [E] [expires: 2018-12-17]
+sub   rsa4096 2013-03-12 [S] [expires: 2018-12-17]
