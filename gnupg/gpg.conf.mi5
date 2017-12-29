@@ -1,11 +1,6 @@
 # Retrieve certs automatically if possible
 auto-key-locate cert pka
 
-# Prevent boilerplate about needing key decryption, which is handled by the
-# agent; the gpg function in my Bash scripts overrides this for certain
-# commands where it interferes
-batch
-
 # Use SHA512 as the hash when making key signatures
 cert-digest-algo SHA512
 
