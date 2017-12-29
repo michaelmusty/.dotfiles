@@ -323,10 +323,12 @@ git/gitconfig: git/gitconfig.m4
 		git/gitconfig.m4 > $@
 
 KEYSERVER = hkps://hkps.pool.sks-keyservers.net
+KEYID_FORMAT = none
 
 gnupg/gpg.conf: gnupg/gpg.conf.m4
 	m4 \
 		-D KEYSERVER=$(KEYSERVER) \
+		-D KEYID_FORMAT=$(KEYID_FORMAT) \
 		gnupg/gpg.conf.m4 > $@
 
 MAILDIR = $(HOME)/Mail
