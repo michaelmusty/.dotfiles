@@ -305,8 +305,6 @@ Readline environment for \f[C]ed(1)\f[].
 .IP \[bu] 2
 \f[C]gdb()\f[] silences startup messages from \f[C]gdb(1)\f[].
 .IP \[bu] 2
-\f[C]gpg()\f[] quietens \f[C]gpg(1)\f[] down for most commands.
-.IP \[bu] 2
 \f[C]grep()\f[] tries to apply color and other options good for
 interactive use if available.
 .IP \[bu] 2
