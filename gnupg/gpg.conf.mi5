@@ -14,7 +14,7 @@ default-recipient-self
 fixed-list-mode
 
 # Use only fingerprints as key IDs
-keyid-format none
+keyid-format <% KEYID_FORMAT %>
 
 # Use a pool of servers which support HKPS (encrypted key retrieval)
 keyserver <% KEYSERVER %>
