@@ -27,7 +27,7 @@ mappable in any mode. There is no default key mapping to the target; you
 should define this yourself in your |vimrc|. For example:
 >
 	:nmap <Leader>x <Plug>StripTrailingWhitespace>
-
+<
 AUTHOR					*strip_trailing_whitespace-author*
 
 Written and maintained by Tom Ryder <tom@sanctum.geek.nz>.
