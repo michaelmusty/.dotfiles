@@ -26,11 +26,11 @@ There are no default key mappings to any of these targers; you should define
 them yourself in your |vimrc|. For example:
 >
 	:nmap <Leader>b <Plug>CopyLinebreakToggle
-
+<
 COMMANDS					*copy_linebreak-commands*
 
 If the |+user_commands| feature is available, commands provided are:
->
+
 `:CopyLinebreakEnable`:				*:CopyLinebreakEnable*
     Enable copy-paste friendly line break options.
 `:CopyLinebreakDisable`:			*:CopyLinebreakDisable*
