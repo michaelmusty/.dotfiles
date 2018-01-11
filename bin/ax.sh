@@ -3,8 +3,8 @@
 # Count arguments
 case $# in
 
-    # If one argument, we assume format is %s
-    1) form=%s expr=$1 ;;
+    # If one argument, we assume format is %s\n
+    1) form='%s\n' expr=$1 ;;
 
     # If two arguments, first is format, second expression
     2) form=$1 expr=$2 ;;

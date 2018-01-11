@@ -5,7 +5,7 @@
 .SH SYNOPSIS
 .B ax '2.0+3.0'
 .br
-.B ax %.2f 'sin(2)'
+.B ax '%.2f\n' 'sin(2)'
 .SH DESCRIPTION
 .B ax
 evaluates an expression given on the command line with awk(1) and prints its
