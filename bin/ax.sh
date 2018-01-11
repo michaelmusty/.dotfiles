@@ -16,12 +16,7 @@ case $# in
         ;;
 esac
 
-# Form program
-prog=$(printf '
-    BEGIN {
-        printf "%s\\n", %s
-    }
-' "$form" "$expr")
-
-# Run program
-awk "$prog"
+# Important note: there's little stopping the user from putting a fully-fledged
+# Awk program into the expression; don't use this anywhere that code injection
+# could wreck your life. See manual page ax(1df).
+awk -v form="$form" 'BEGIN{printf form,('"$expr"');exit}'
