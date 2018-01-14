@@ -20,7 +20,7 @@ printf '%s\n' "$SSH_CONNECTION" "${SSH_TTY:-unknown}" |
     sh=$(dig -x "$si" +short 2>/dev/null | sed 's/\.$//;1q')
 
     # Print the results in a human-readable format
-    printf "%s:%u -> %s:%u (%s)\n" \
+    printf '%s:%u -> %s:%u (%s)\n' \
         "${ch:-"$ci"}" "$cp" \
         "${sh:-"$si"}" "$sp" \
         "$tty"

@@ -23,7 +23,7 @@ agent, as the initial content of a new message.
 	:.MailMutt
 	:3,6MailMutt
 	:95,$MailMutt
-
+<
 MAPPINGS					*mail_mutt-mappings*
 
 Three <Plug> mapping targets are also provided for convenience. No attempt is

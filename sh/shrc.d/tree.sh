@@ -12,6 +12,7 @@ tree() {
             case $opt in
                 n) n=1 ;;
                 C) C=1 ;;
+                *) ;;
             esac
         done
         [ -z "$C" ] || exit 0
