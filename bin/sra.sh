@@ -3,5 +3,6 @@
 exec 3<&0
 sls | while read -r hostname ; do
     printf 'sra: %s\n' "$hostname"
-    ssh -qt -- "$hostname" "$@" <&3 # shellcheck disable=SC2029
+    # shellcheck disable=SC2029
+    ssh -qt -- "$hostname" "$@" <&3
 done
