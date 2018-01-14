@@ -1,5 +1,4 @@
 # Record a timestamped message to a logfile, defaulting to ~/.clog
-self=clog
 
 # Build the cat(1) command we'll run, wrapping it in rlwrap(1) if available and
 # applicable.
