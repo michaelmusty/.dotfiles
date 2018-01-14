@@ -1,7 +1,7 @@
 # Ideally, we'd use plain old ed(1), but many Linux distributions don't install
 # it by default
 if command -v ed >/dev/null 2>&1 ; then
-    EDITOR=ed
+    EDITOR='ed'
 
 # Failing that, if the system's implementation of ex(1) looks like Vim and we
 # have exm(1df) in our $PATH, use the latter to work around Vim's ex mode
@@ -15,11 +15,11 @@ elif (
         (*)   exit 1 ;;
     esac
 ) >/dev/null 2>&1 ; then
-    EDITOR=exm
+    EDITOR='exm'
 
 # Otherwise, we can just call ex(1) directly
 else
-    EDITOR=ex
+    EDITOR='ex'
 fi
 
 export EDITOR
