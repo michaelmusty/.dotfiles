@@ -3,18 +3,28 @@
 .B clog
 \- record timestamped logs in a file
 .SH SYNOPSIS
+$
 .B clog
 .br
-getting real tired of all this overengineering
+Getting real tired of all this overengineering.
 .br
 ^D
+.br
+$
+.B clog
+file1 file2
+.br
+$
+command |
+.B clog
 .SH DESCRIPTION
 .B clog
-receives a message on stdin, timestamps it with a leading date(1), and writes
-it to the file with path in environment variable CLOG, defaulting to ~/.clog,
-terminating each entry with two hyphens.
+receives a message on stdin or from the file arguments, timestamps it with a
+leading date(1), and writes it to the file with path in environment variable
+CLOG, defaulting to ~/.clog, terminating each entry with two hyphens.
 .P
-If rlwrap(1) is found, it will be used for the line editing. If not, just the
+If there are no files to read and standard input is coming from a terminal, and
+rlwrap(1) is found, it will be used for the line editing. If not, just the
 terminal's cooked mode will be used.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>
