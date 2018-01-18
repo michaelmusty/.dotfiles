@@ -37,12 +37,12 @@ if !isdirectory(expand(s:undodir))
   " (Fortunately, Unix and Windows are the only OS types in the world)
   elseif has('*shellescape')
     if has('unix')
-      silent! execute '!mkdir -m 0700 -p '
-            \ . shellescape(expand(s:undodir))
+      let l:mkdir = '!mkdir -m 0700 -p '
     elseif has('win32') || has('win64')
-      silent! execute '!mkdir '
-            \ . shellescape(expand(s:undodir))
+      let l:mkdir = '!mkdir '
     endif
+    silent! execute l:mkdir
+          \ . shellescape(expand(s:undodir))
   endif
 
 endif
