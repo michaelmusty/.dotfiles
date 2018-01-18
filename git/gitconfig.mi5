@@ -40,6 +40,7 @@
 
 [merge]
     ff = false
+    log = true
 
 [pager]
     diff = cat
