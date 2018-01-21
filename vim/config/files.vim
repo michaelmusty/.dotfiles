@@ -18,10 +18,6 @@ if has('file_in_path')
   set path=**
 endif
 
-" Try Mac line-endings if UNIX or DOS don't make sense; this has never
-" happened to me but who knows, it might one day
-set fileformats+=mac
-
 " If the Vim buffer for a file doesn't have any changes and Vim detects the
 " file has been altered, quietly update it
 set autoread
