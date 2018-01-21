@@ -1,3 +1,9 @@
+" Support line continuation for this file
+if &compatible
+  let s:cpoptions_save = &cpoptions
+  set cpoptions-=C
+endif
+
 " If we know we have another shell type, clear away the others completely, now
 " that core syntax/sh.vim is done prodding /bin/sh to determine the system
 " shell type (which I don't care about).
@@ -209,4 +215,10 @@ if exists('b:is_bash')
         \ until
         \ variables
         \ wait
+endif
+
+" Restore 'cpoptions' setting if we touched it
+if exists('s:cpoptions_save')
+  let &cpoptions = s:cpoptions_save
+  unlet s:cpoptions_save
 endif

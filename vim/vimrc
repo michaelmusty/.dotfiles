@@ -1,5 +1,10 @@
-" Don't try to be vi-compatible, even if invoked as ex or with -u specified
-set nocompatible
+" If we're in compatible mode, ensure that the 'C' option that disallows line
+" continuations is stripped out, as they're heavily used in this
+" configuration for readability; we'll put it back later
+if &compatible
+  let s:cpoptions_save = &cpoptions
+  set cpoptions-=C
+endif
 
 " Use different keys for global and local leaders
 if has('eval')
@@ -28,4 +33,11 @@ if v:version >= 701
         \ && (has('gui_running') || &t_Co == 256)
     silent! colorscheme sahara
   endif
+endif
+
+" If we're in compatible mode, put 'cpoptions' back the way we found it at the
+" start of this configuration, even though it's the current year
+if exists('s:cpoptions_save')
+  let &cpoptions = s:cpoptions_save
+  unlet s:cpoptions_save
 endif
