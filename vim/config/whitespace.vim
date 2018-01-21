@@ -1,5 +1,4 @@
-" Adopt the indent of the last line on new lines; interestingly, plugins that
-" do clever things with indenting will often assume this is set
+" Adopt the indent of the last line on new lines
 set autoindent
 
 " Use spaces instead of tabs

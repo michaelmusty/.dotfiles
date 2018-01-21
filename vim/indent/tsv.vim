@@ -7,5 +7,4 @@ let b:did_indent = 1
 " Manual indenting and literal tabs for TSVs
 setlocal noautoindent
 setlocal noexpandtab
-let b:undo_indent
-      \ = 'setlocal autoindent< expandtab<'
+let b:undo_indent = 'setlocal autoindent< expandtab<'
