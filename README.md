@@ -361,8 +361,8 @@ and tidying, and a few more in `~/.vim/after/indent`. There are also a few
 tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
 script (`sh.vim`).
 
-Third-party plugins are in submodules in `~/.vim/bundle`, loaded using Tim
-Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
+Third-party plugins are in submodules in `~/.vim/bundle`. They are installed
+into `~/.vim` as normal.
 
 Scripts
 -------
