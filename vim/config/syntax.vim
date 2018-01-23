@@ -14,4 +14,9 @@ if has('syntax') && !has('g:syntax_on')
     set background=dark
   endif
 
+  " The 'sahara' colorscheme only works for dark backgrounds with 256 colors
+  if &background ==# 'dark' && (has('gui_running') || &t_Co == 256)
+    silent! colorscheme sahara
+  endif
+
 endif

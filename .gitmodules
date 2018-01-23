@@ -10,9 +10,6 @@
 [submodule "vim/bundle/lion"]
     path = vim/bundle/lion
     url = https://sanctum.geek.nz/clone/vim-lion.git
-[submodule "vim/bundle/pathogen"]
-    path = vim/bundle/pathogen
-    url = https://sanctum.geek.nz/clone/vim-pathogen.git
 [submodule "vim/bundle/repeat"]
     path = vim/bundle/repeat
     url = https://sanctum.geek.nz/clone/vim-repeat.git
