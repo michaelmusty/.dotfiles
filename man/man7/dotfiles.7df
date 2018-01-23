@@ -500,8 +500,8 @@ There are also a few tweaks to core syntax files in
 \f[C]~/.vim/after/syntax\f[], especially for shell script
 (\f[C]sh.vim\f[]).
 .PP
-Third\-party plugins are in submodules in \f[C]~/.vim/bundle\f[], loaded
-using Tim Pope's pathogen.vim (https://github.com/tpope/vim-pathogen).
+Third\-party plugins are in submodules in \f[C]~/.vim/bundle\f[].
+They are installed into \f[C]~/.vim\f[] as normal.
 .SS Scripts
 .PP
 Where practical, I make short scripts into POSIX (but not Bourne)

@@ -12,28 +12,8 @@ if has('eval')
   let g:maplocalleader = '_'
 endif
 
-" Load configuration files from ~/.vim/config or its analogue, before Pathogen
-" loads all its directories into 'runtimepath'
+" Source all .vim files from ~/.vim/config
 runtime! config/*.vim
-
-" If our version isn't ancient and Pathogen is available, call it to load all
-" the plugins in .vim/bundle; these are saved as submodules
-if v:version >= 701
-
-  " Bootstrap Pathogen
-  runtime bundle/pathogen/autoload/pathogen.vim
-
-  " Run Pathogen to broaden 'realtimepath' for plugin code and help tags
-  silent! call pathogen#infect()
-  silent! call pathogen#helptags()
-
-  " The 'sahara' colorscheme only works for dark backgrounds with 256 colors
-  if has('syntax')
-        \ && &background ==# 'dark'
-        \ && (has('gui_running') || &t_Co == 256)
-    silent! colorscheme sahara
-  endif
-endif
 
 " If we're in compatible mode, put 'cpoptions' back the way we found it at the
 " start of this configuration, even though it's the current year
