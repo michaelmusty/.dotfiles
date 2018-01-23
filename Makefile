@@ -530,10 +530,10 @@ install-vim-autoload:
 	cp -p -- vim/autoload/*.vim $(HOME)/.vim/autoload
 
 install-vim-bundle: install-vim-config
-	find vim/bundle -name .git -prune -o \
+	find vim/bundle/*/* \
 		-type d -exec sh -c \
-		'mkdir -p -- $(HOME)/.vim/"$${1#vim/bundle/*/}"' _ {} \; \
-		-o \
+		'mkdir -p -- $(HOME)/.vim/"$${1#vim/bundle/*/}"' _ {} \;
+	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(HOME)/.vim/"$${1#vim/bundle/*/}"' _ {} \;
 
