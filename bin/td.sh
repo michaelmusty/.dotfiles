@@ -15,7 +15,7 @@ if ! command -v isgr >/dev/null 2>&1 ; then
     printf >&2 'isgr: command not found\n'
     exit 1
 fi
-isgr || git init || exit
+isgr || git init --quiet || exit
 
 # If the to-do file doesn't exist yet, create it
 [ -e "$file" ] || touch -- "$file" || exit
@@ -27,5 +27,5 @@ isgr || git init || exit
 git add -- "$file"
 
 # If there are changes to commit, commit them
-git diff-index --quiet HEAD ||
+git diff-index --quiet HEAD 2>/dev/null ||
 git commit --message 'Changed by td(1df)' --quiet
