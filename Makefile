@@ -516,7 +516,7 @@ install-vim-after-ftplugin:
 	mkdir -p $(HOME)/.vim/after/ftplugin
 	for type in vim/after/ftplugin/* ; do \
 		mkdir -p -- $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
-		cp -p "$$type"/* $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
+		cp -p -- "$$type"/* $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
 		done
 
 install-vim-after-indent:
