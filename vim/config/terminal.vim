@@ -7,7 +7,9 @@ set pastetoggle=<F10>
 
 " Don't bother about checking whether Escape is being used as a means to enter
 " a Meta-key combination, just register Escape immediately
-set noesckeys
+if exists('+esckeys')
+  set noesckeys
+endif
 
 " Don't bother drawing the screen while executing macros or other automated or
 " scripted processes, just draw the screen as it is when the operation
