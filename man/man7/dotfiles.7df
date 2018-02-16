@@ -147,6 +147,10 @@ tmux (https://tmux.github.io/) \[en] Terminal multiplexer similar to GNU
 Screen
 .IP \[bu] 2
 Vim (http://www.vim.org/) \[en] Vi IMproved, a text editor
+.RS 2
+.IP \[bu] 2
+Neovim (https://neovim.io/) \[en] An \[lq]emphatic fork\[rq] of Vim
+.RE
 .IP \[bu] 2
 X11 (https://www.x.org/wiki/) \[en] Windowing system with network
 transparency for Unix
@@ -502,6 +506,24 @@ There are also a few tweaks to core syntax files in
 .PP
 Third\-party plugins are in submodules in \f[C]~/.vim/bundle\f[].
 They are installed into \f[C]~/.vim\f[] as normal.
+.SS Neovim
+.PP
+I test my configuration every now and then with the Neovim
+fork (https://neovim.io/).
+To install the configuration where Neovim will use it, do this:
+.IP
+.nf
+\f[C]
+$\ nvd=${XDG_CONFIG_HOME:\-"$HOME"/.config}/nvim
+$\ make\ install\-vim\ VIMRC=$nvd/init.vim\ VIMDIR=$nvd
+\f[]
+.fi
+.PP
+Neovim's godless
+arrogance (https://twitter.com/tpope/status/437019518444240896)
+notwithstanding, I do rather like it overall, but I'm not presently
+using it as my daily driver and so it might balk at recent addenda to my
+configuration.
 .SS Scripts
 .PP
 Where practical, I make short scripts into POSIX (but not Bourne)
