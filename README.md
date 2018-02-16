@@ -96,6 +96,7 @@ Configuration is included for:
 * [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
 * [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
+    * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
 * [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
   for Unix
 
@@ -363,6 +364,20 @@ script (`sh.vim`).
 
 Third-party plugins are in submodules in `~/.vim/bundle`. They are installed
 into `~/.vim` as normal.
+
+#### Neovim
+
+I test my configuration every now and then with the [Neovim
+fork](https://neovim.io/). To install the configuration where Neovim will use
+it, do this:
+
+    $ nvd=${XDG_CONFIG_HOME:-"$HOME"/.config}/nvim
+    $ make install-vim VIMRC=$nvd/init.vim VIMDIR=$nvd
+
+Neovim's [godless
+arrogance](https://twitter.com/tpope/status/437019518444240896)
+notwithstanding, I do rather like it overall, but I'm not presently using it as
+my daily driver and so it might balk at recent addenda to my configuration.
 
 Scripts
 -------

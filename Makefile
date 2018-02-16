@@ -497,6 +497,10 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
+# Change these at invocation to install for NeoVim; see README.md
+VIMDIR = $(HOME)/.vim
+VIMRC = $(HOME)/.vimrc
+
 install-vim: install-vim-after \
 	install-vim-autoload \
 	install-vim-bundle \
@@ -513,60 +517,60 @@ install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-syntax
 
 install-vim-after-ftplugin:
-	mkdir -p $(HOME)/.vim/after/ftplugin
+	mkdir -p $(VIMDIR)/after/ftplugin
 	for type in vim/after/ftplugin/* ; do \
-		mkdir -p -- $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
-		cp -p -- "$$type"/* $(HOME)/.vim/after/ftplugin/"$${type##*/}" ; \
+		mkdir -p -- $(VIMDIR)/after/ftplugin/"$${type##*/}" ; \
+		cp -p -- "$$type"/* $(VIMDIR)/after/ftplugin/"$${type##*/}" ; \
 		done
 
 install-vim-after-indent:
-	mkdir -p $(HOME)/.vim/after/indent
-	cp -p -- vim/after/indent/*.vim $(HOME)/.vim/after/indent
+	mkdir -p $(VIMDIR)/after/indent
+	cp -p -- vim/after/indent/*.vim $(VIMDIR)/after/indent
 
 install-vim-after-syntax:
-	mkdir -p $(HOME)/.vim/after/syntax
-	cp -p -- vim/after/syntax/*.vim $(HOME)/.vim/after/syntax
+	mkdir -p $(VIMDIR)/after/syntax
+	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
 
 install-vim-autoload:
-	mkdir -p -- $(HOME)/.vim/autoload
-	cp -p -- vim/autoload/*.vim $(HOME)/.vim/autoload
+	mkdir -p -- $(VIMDIR)/autoload
+	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
 		-type d -exec sh -c \
-		'mkdir -p -- $(HOME)/.vim/"$${1#vim/bundle/*/}"' _ {} \;
+		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
-		'cp -p -- "$$1" $(HOME)/.vim/"$${1#vim/bundle/*/}"' _ {} \;
+		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 
 install-vim-compiler:
-	mkdir -p -- $(HOME)/.vim/compiler
-	cp -p -- vim/compiler/*.vim $(HOME)/.vim/compiler
+	mkdir -p -- $(VIMDIR)/compiler
+	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
 install-vim-config:
-	mkdir -p -- $(HOME)/.vim/config
-	cp -p -- vim/vimrc $(HOME)/.vimrc
-	cp -p -- vim/config/*.vim $(HOME)/.vim/config
+	mkdir -p -- $(VIMDIR)/config
+	cp -p -- vim/vimrc $(VIMRC)
+	cp -p -- vim/config/*.vim $(VIMDIR)/config
 
 install-vim-doc:
-	mkdir -p -- $(HOME)/.vim/doc
-	cp -p -- vim/doc/*.txt $(HOME)/.vim/doc
+	mkdir -p -- $(VIMDIR)/doc
+	cp -p -- vim/doc/*.txt $(VIMDIR)/doc
 
 install-vim-ftdetect:
-	mkdir -p -- $(HOME)/.vim/ftdetect
-	cp -p -- vim/ftdetect/*.vim $(HOME)/.vim/ftdetect
+	mkdir -p -- $(VIMDIR)/ftdetect
+	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
 
 install-vim-ftplugin:
-	mkdir -p -- $(HOME)/.vim/ftplugin
-	cp -p -- vim/ftplugin/*.vim $(HOME)/.vim/ftplugin
+	mkdir -p -- $(VIMDIR)/ftplugin
+	cp -p -- vim/ftplugin/*.vim $(VIMDIR)/ftplugin
 
 install-vim-indent:
-	mkdir -p -- $(HOME)/.vim/indent
-	cp -p -- vim/indent/*.vim $(HOME)/.vim/indent
+	mkdir -p -- $(VIMDIR)/indent
+	cp -p -- vim/indent/*.vim $(VIMDIR)/indent
 
 install-vim-plugin:
-	mkdir -p -- $(HOME)/.vim/plugin
-	cp -p -- vim/plugin/*.vim $(HOME)/.vim/plugin
+	mkdir -p -- $(VIMDIR)/plugin
+	cp -p -- vim/plugin/*.vim $(VIMDIR)/plugin
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
