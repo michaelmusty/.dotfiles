@@ -372,7 +372,7 @@ fork](https://neovim.io/). To install the configuration where Neovim will use
 it, do this:
 
     $ nvd=${XDG_CONFIG_HOME:-"$HOME"/.config}/nvim
-    $ make install-vim VIMRC=$nvd/init.vim VIMDIR=$nvd
+    $ make install-vim VIMRC="$nvd"/init.vim VIMDIR="$nvd"
 
 Neovim's [godless
 arrogance](https://twitter.com/tpope/status/437019518444240896)
