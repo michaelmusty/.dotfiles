@@ -1,5 +1,5 @@
 # Don't let anyone write(1) to my terminal
-command -p mesg n
+command -p mesg n 2>/dev/null
 
 # Turn off flow control and control character echo
 command -p stty -ixon -ctlecho 2>/dev/null
