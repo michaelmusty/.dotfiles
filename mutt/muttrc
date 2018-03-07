@@ -35,7 +35,7 @@ bind editor <Tab> complete-query
 bind editor ^T    complete
 
 # Files
-set delete = yes
+set delete = ask-yes
 set move   = no
 
 # Flags
