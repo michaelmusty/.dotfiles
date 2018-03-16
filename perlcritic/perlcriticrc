@@ -17,7 +17,8 @@ add_exceptions = inet4 inet6 ipv4 ipv6
 # This one causes more trouble than it's worth, too
 [-Documentation::RequirePODUseEncodingUTF8]
 
-# Soften this policy a bit; tolerate all the single-digit integers as literals,
-# and also three powers of 10 (for percentages, milliseconds etc)
+# Soften this rather harsh policy a fair bit; tolerate negative one, all the
+# single-digit integers as literals, three powers of 10 (for percentages,
+# milliseconds etc), and 1900 (for localtime)
 [ValuesAndExpressions::ProhibitMagicNumbers]
-allowed_values = 0..9 10 100 1000
+allowed_values = -1 0..9 10 100 1000 1900
