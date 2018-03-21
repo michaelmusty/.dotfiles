@@ -515,7 +515,7 @@ To install the configuration where Neovim will use it, do this:
 .nf
 \f[C]
 $\ nvd=${XDG_CONFIG_HOME:\-"$HOME"/.config}/nvim
-$\ make\ install\-vim\ VIMRC=$nvd/init.vim\ VIMDIR=$nvd
+$\ make\ install\-vim\ VIMRC="$nvd"/init.vim\ VIMDIR="$nvd"
 \f[]
 .fi
 .PP
