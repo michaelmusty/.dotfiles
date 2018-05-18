@@ -32,10 +32,10 @@ set shortmess+=x
 set nolist
 nnoremap <silent>
       \ <Leader>l
-      \ :<C-U>setlocal list! list?<CR>
+      \ :<C-U>set list! list?<CR>
 
 " Don't show line numbers by default, but \n toggles them
 set nonumber
 nnoremap <silent>
       \ <Leader>n
-      \ :<C-U>setlocal number! number?<CR>
+      \ :<C-U>set number! number?<CR>
