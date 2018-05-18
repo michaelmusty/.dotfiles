@@ -2,7 +2,7 @@
 set nowrap
 nnoremap <silent>
       \ <Leader>w
-      \ :<C-U>setlocal wrap! wrap?<CR>
+      \ :<C-U>set wrap! wrap?<CR>
 
 " When wrapping text, if a line is so long that not all of it can be shown on
 " the screen, show as much as possible anyway; by default Vim fills the left
