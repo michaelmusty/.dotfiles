@@ -11,6 +11,9 @@
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
     url = https://sanctum.geek.nz/code/vim-sahara.git
+[submodule "vim/bundle/toggle_option_flags"]
+    path = vim/bundle/toggle_option_flags
+    url = https://sanctum.geek.nz/code/vim-toggle-option-flags.git
 
 # Others' Vim plugins
 [submodule "vim/bundle/abolish"]

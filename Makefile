@@ -83,8 +83,7 @@
 	dist-vim-plugin-command-typos \
 	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-mail-mutt \
-	dist-vim-plugin-strip-trailing-whitespace \
-	dist-vim-plugin-toggle-option-flag
+	dist-vim-plugin-strip-trailing-whitespace
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
@@ -678,8 +677,7 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-detect-background \
 	dist-vim-plugin-mail-mutt \
-	dist-vim-plugin-strip-trailing-whitespace \
-	dist-vim-plugin-toggle-option-flag
+	dist-vim-plugin-strip-trailing-whitespace
 
 dist-vim-plugin-auto-backupdir: \
 	vim/plugin/auto_backupdir.vim \
@@ -726,8 +724,3 @@ dist-vim-plugin-strip-trailing-whitespace: \
 	vim/doc/strip_trailing_whitespace.txt \
 	VERSION
 	sh dist/vim-plugin.sh strip_trailing_whitespace
-dist-vim-plugin-toggle-option-flag: \
-	vim/plugin/toggle_option_flag.vim \
-	vim/doc/toggle_option_flag.txt \
-	VERSION
-	sh dist/vim-plugin.sh toggle_option_flag
