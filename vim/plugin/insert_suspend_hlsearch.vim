@@ -14,9 +14,10 @@ if !has('autocmd') || !has('extra_search') || v:version < 700
 endif
 let g:loaded_insert_suspend_hlsearch = 1
 
-" When entering insert mode, copy the current value of the 'hlsearch' option
-" into a script variable; if it's enabled, suspend it
-function s:InsertEnter()
+" Save the current value of the 'hlsearch' option in a script variable, and
+" disable it if enabled. Note that :nohlsearch does not work for this; see
+" :help autocmd-searchpat.
+function s:HlsearchSuspend()
   let s:hlsearch = &hlsearch
   if s:hlsearch
     set nohlsearch
@@ -24,9 +25,9 @@ function s:InsertEnter()
   return
 endfunction
 
-" When leaving insert mode, if 'hlsearch' was enabled when this operation
-" started, restore it
-function s:InsertLeave()
+" Restore the value of 'hlsearch' from the last time s:HlsearchSuspend was
+" called.
+function s:HlsearchRestore()
   if s:hlsearch
     set hlsearch
   endif
@@ -34,13 +35,13 @@ function s:InsertLeave()
 endfunction
 
 " Clear search highlighting as soon as I enter insert mode, and restore it
-" once I leave it
+" once left
 augroup insert_suspend_hlsearch
   autocmd!
   autocmd InsertEnter
         \ *
-        \ call <SID>InsertEnter()
+        \ call <SID>HlsearchSuspend()
   autocmd InsertLeave
         \ *
-        \ call <SID>InsertLeave()
+        \ call <SID>HlsearchRestore()
 augroup END
