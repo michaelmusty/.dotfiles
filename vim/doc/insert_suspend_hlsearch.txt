@@ -1,4 +1,4 @@
-*insert_suspend_hlsearch.txt*	For Vim version 7.0	Last change: 2017 November 12
+*insert_suspend_hlsearch.txt*	For Vim version 7.0	Last change: 2018 May 30
 
 DESCRIPTION					*insert_suspend_hlsearch*
 
@@ -8,7 +8,8 @@ distracting effect the highlighting can cause while writing.
 
 REQUIREMENTS					*insert_suspend_hlsearch-requirements*
 
-This plugin is only available if 'compatible' is not set.
+This plugin is only available if 'compatible' is not set. It also requires the
+|+autocmd| and |+extra_search| features.
 
 AUTHOR						*insert_suspend_hlsearch-author*
 
