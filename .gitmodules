@@ -8,6 +8,9 @@
 [submodule "vim/bundle/insert_suspend_hlsearch"]
     path = vim/bundle/insert_suspend_hlsearch
     url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git
+[submodule "vim/bundle/mail_mutt"]
+    path = vim/bundle/mail_mutt
+    url = https://sanctum.geek.nz/code/vim-mail-mutt.git
 [submodule "vim/bundle/toggle_option_flags"]
     path = vim/bundle/toggle_option_flags
     url = https://sanctum.geek.nz/code/vim-toggle-option-flags.git
