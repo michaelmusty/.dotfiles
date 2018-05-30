@@ -80,7 +80,6 @@
 	dist-vim-plugin-auto-undodir \
 	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
-	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace
 
@@ -668,7 +667,6 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-undodir \
 	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
-	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace
 
@@ -697,11 +695,6 @@ dist-vim-plugin-command-typos: \
 	vim/doc/command_typos.txt \
 	VERSION
 	sh dist/vim-plugin.sh command_typos
-dist-vim-plugin-copy-linebreak: \
-	vim/plugin/copy_linebreak.vim \
-	vim/doc/copy_linebreak.txt \
-	VERSION
-	sh dist/vim-plugin.sh copy_linebreak
 dist-vim-plugin-mail-mutt: \
 	vim/plugin/mail_mutt.vim \
 	vim/doc/mail_mutt.txt \

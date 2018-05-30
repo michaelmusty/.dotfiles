@@ -1,4 +1,7 @@
 # My Vim plugins
+[submodule "vim/bundle/copy_linebreak"]
+    path = vim/bundle/copy_linebreak
+    url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
 [submodule "vim/bundle/fixed_join"]
     path = vim/bundle/fixed_join
     url = https://sanctum.geek.nz/code/vim-fixed-join.git
