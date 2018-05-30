@@ -9,7 +9,7 @@
 if exists('g:loaded_insert_suspend_hlsearch') || &compatible
   finish
 endif
-if !has('autocmd') || v:version < 700
+if !has('autocmd') || !has('extra_search') || v:version < 700
   finish
 endif
 let g:loaded_insert_suspend_hlsearch = 1
