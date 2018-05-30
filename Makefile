@@ -82,7 +82,6 @@
 	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
 	dist-vim-plugin-copy-linebreak \
-	dist-vim-plugin-fixed-join \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace \
 	dist-vim-plugin-toggle-option-flag
@@ -678,7 +677,6 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-command-typos \
 	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-detect-background \
-	dist-vim-plugin-fixed-join \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace \
 	dist-vim-plugin-toggle-option-flag
@@ -718,11 +716,6 @@ dist-vim-plugin-detect-background: \
 	vim/doc/detect_background.txt \
 	VERSION
 	sh dist/vim-plugin.sh detect_background
-dist-vim-plugin-fixed-join: \
-	vim/plugin/fixed_join.vim \
-	vim/doc/fixed_join.txt \
-	VERSION
-	sh dist/vim-plugin.sh fixed_join
 dist-vim-plugin-mail-mutt: \
 	vim/plugin/mail_mutt.vim \
 	vim/doc/mail_mutt.txt \
