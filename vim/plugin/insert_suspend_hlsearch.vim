@@ -9,7 +9,6 @@
 if exists('g:loaded_insert_suspend_hlsearch') || &compatible
   finish
 endif
-" InsertEnter isn't an autocmd event until 7.0
 if !has('autocmd') || v:version < 700
   finish
 endif
