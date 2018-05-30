@@ -83,7 +83,6 @@
 	dist-vim-plugin-command-typos \
 	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-fixed-join \
-	dist-vim-plugin-insert-suspend-hlsearch \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace \
 	dist-vim-plugin-toggle-option-flag
@@ -680,7 +679,6 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-copy-linebreak \
 	dist-vim-plugin-detect-background \
 	dist-vim-plugin-fixed-join \
-	dist-vim-plugin-insert-suspend-hlsearch \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace \
 	dist-vim-plugin-toggle-option-flag
@@ -725,11 +723,6 @@ dist-vim-plugin-fixed-join: \
 	vim/doc/fixed_join.txt \
 	VERSION
 	sh dist/vim-plugin.sh fixed_join
-dist-vim-plugin-insert-suspend-hlsearch: \
-	vim/plugin/insert_suspend_hlsearch.vim \
-	vim/doc/insert_suspend_hlsearch.txt \
-	VERSION
-	sh dist/vim-plugin.sh insert_suspend_hlsearch
 dist-vim-plugin-mail-mutt: \
 	vim/plugin/mail_mutt.vim \
 	vim/doc/mail_mutt.txt \

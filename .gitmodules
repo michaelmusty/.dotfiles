@@ -4,6 +4,9 @@
 [submodule "vim/bundle/commentary"]
     path = vim/bundle/commentary
     url = https://sanctum.geek.nz/clone/vim-commentary.git
+[submodule "vim/bundle/insert_suspend_hlsearch"]
+    path = vim/bundle/insert_suspend_hlsearch
+    url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
     url = https://sanctum.geek.nz/code/vim-juvenile.git
