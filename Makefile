@@ -42,7 +42,6 @@
 	install-vim-after-ftdetect \
 	install-vim-after-indent \
 	install-vim-after-syntax \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -499,7 +498,6 @@ VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
 install-vim: install-vim-after \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -527,10 +525,6 @@ install-vim-after-indent:
 install-vim-after-syntax:
 	mkdir -p $(VIMDIR)/after/syntax
 	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
-
-install-vim-autoload:
-	mkdir -p -- $(VIMDIR)/autoload
-	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
@@ -675,7 +669,6 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
 	dist-vim-plugin-copy-linebreak \
-	dist-vim-plugin-detect-background \
 	dist-vim-plugin-mail-mutt \
 	dist-vim-plugin-strip-trailing-whitespace
 
@@ -709,11 +702,6 @@ dist-vim-plugin-copy-linebreak: \
 	vim/doc/copy_linebreak.txt \
 	VERSION
 	sh dist/vim-plugin.sh copy_linebreak
-dist-vim-plugin-detect-background: \
-	vim/autoload/detect_background.vim \
-	vim/doc/detect_background.txt \
-	VERSION
-	sh dist/vim-plugin.sh detect_background
 dist-vim-plugin-mail-mutt: \
 	vim/plugin/mail_mutt.vim \
 	vim/doc/mail_mutt.txt \
