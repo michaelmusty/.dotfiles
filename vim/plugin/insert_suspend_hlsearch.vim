@@ -19,7 +19,6 @@ let g:loaded_insert_suspend_hlsearch = 1
 " into a script variable; if it's enabled, suspend it
 function s:InsertEnter()
   let s:hlsearch = &hlsearch
-  echo &hlsearch
   if s:hlsearch
     set nohlsearch
   endif
