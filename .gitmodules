@@ -1,21 +1,24 @@
-[submodule "vim/bundle/abolish"]
-    path = vim/bundle/abolish
-    url = https://sanctum.geek.nz/clone/vim-abolish.git
-[submodule "vim/bundle/commentary"]
-    path = vim/bundle/commentary
-    url = https://sanctum.geek.nz/clone/vim-commentary.git
+# My Vim plugins
 [submodule "vim/bundle/insert_suspend_hlsearch"]
     path = vim/bundle/insert_suspend_hlsearch
     url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
     url = https://sanctum.geek.nz/code/vim-juvenile.git
-[submodule "vim/bundle/repeat"]
-    path = vim/bundle/repeat
-    url = https://sanctum.geek.nz/clone/vim-repeat.git
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
     url = https://sanctum.geek.nz/code/vim-sahara.git
+
+# Others' Vim plugins
+[submodule "vim/bundle/abolish"]
+    path = vim/bundle/abolish
+    url = https://sanctum.geek.nz/clone/vim-abolish.git
+[submodule "vim/bundle/commentary"]
+    path = vim/bundle/commentary
+    url = https://sanctum.geek.nz/clone/vim-commentary.git
+[submodule "vim/bundle/repeat"]
+    path = vim/bundle/repeat
+    url = https://sanctum.geek.nz/clone/vim-repeat.git
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
