@@ -351,19 +351,21 @@ structures like functions, I like to implement it as a plugin in
 `~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
 those in `~/.vim/doc`.
 
-Any/all of those plugins may eventually be spun off into their own repositories
-in the future, but for the moment they live here. You can create distribution
-packages for them with `make dist-vim-plugin`; they will be created in
-`vim/dist`.
+They eventually get either discarded or spun off into their own repositories,
+added to this repository as submodules intead, and uploaded to
+[vim.org](https://www.vim.org/account/profile.php?user_id=73687).
+
+You can create distribution packages for whatever's still in here with `make
+dist-vim-plugin`; they will be created in `vim/dist`.
+
+All plugins and colorschemes with their own repositories are installed as
+submodules in `~/.vim/bundle`. They are installed into `~/.vim` as normal.
 
 I also define a few rules specific to file types I often edit in
 `~/.vim/after/ftplugin`, including some local mappings for checking, linting,
 and tidying, and a few more in `~/.vim/after/indent`. There are also a few
 tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
 script (`sh.vim`).
-
-Third-party plugins are in submodules in `~/.vim/bundle`. They are installed
-into `~/.vim` as normal.
 
 #### Neovim
 
