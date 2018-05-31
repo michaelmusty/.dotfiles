@@ -352,7 +352,7 @@ structures like functions, I like to implement it as a plugin in
 those in `~/.vim/doc`.
 
 They eventually get either discarded or spun off into their own repositories,
-added to this repository as submodules intead, and uploaded to
+added to this repository as submodules instead, and uploaded to
 [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
 You can create distribution packages for whatever's still in here with `make
