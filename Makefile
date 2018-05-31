@@ -42,7 +42,6 @@
 	install-vim-after-ftdetect \
 	install-vim-after-indent \
 	install-vim-after-syntax \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -78,12 +77,7 @@
 	dist-vim-plugin \
 	dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-swapdir \
-	dist-vim-plugin-auto-undodir \
-	dist-vim-plugin-big-file-options \
-	dist-vim-plugin-command-typos \
-	dist-vim-plugin-copy-linebreak \
-	dist-vim-plugin-mail-mutt \
-	dist-vim-plugin-strip-trailing-whitespace
+	dist-vim-plugin-auto-undodir
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
@@ -499,7 +493,6 @@ VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
 install-vim: install-vim-after \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -527,10 +520,6 @@ install-vim-after-indent:
 install-vim-after-syntax:
 	mkdir -p $(VIMDIR)/after/syntax
 	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
-
-install-vim-autoload:
-	mkdir -p -- $(VIMDIR)/autoload
-	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
@@ -671,13 +660,7 @@ lint-xinit: check-xinit
 
 dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-swapdir \
-	dist-vim-plugin-auto-undodir \
-	dist-vim-plugin-big-file-options \
-	dist-vim-plugin-command-typos \
-	dist-vim-plugin-copy-linebreak \
-	dist-vim-plugin-detect-background \
-	dist-vim-plugin-mail-mutt \
-	dist-vim-plugin-strip-trailing-whitespace
+	dist-vim-plugin-auto-undodir
 
 dist-vim-plugin-auto-backupdir: \
 	vim/plugin/auto_backupdir.vim \
@@ -694,33 +677,3 @@ dist-vim-plugin-auto-undodir: \
 	vim/doc/auto_undodir.txt \
 	VERSION
 	sh dist/vim-plugin.sh auto_undodir
-dist-vim-plugin-big-file-options: \
-	vim/plugin/big_file_options.vim \
-	vim/doc/big_file_options.txt \
-	VERSION
-	sh dist/vim-plugin.sh big_file_options
-dist-vim-plugin-command-typos: \
-	vim/plugin/command_typos.vim \
-	vim/doc/command_typos.txt \
-	VERSION
-	sh dist/vim-plugin.sh command_typos
-dist-vim-plugin-copy-linebreak: \
-	vim/plugin/copy_linebreak.vim \
-	vim/doc/copy_linebreak.txt \
-	VERSION
-	sh dist/vim-plugin.sh copy_linebreak
-dist-vim-plugin-detect-background: \
-	vim/autoload/detect_background.vim \
-	vim/doc/detect_background.txt \
-	VERSION
-	sh dist/vim-plugin.sh detect_background
-dist-vim-plugin-mail-mutt: \
-	vim/plugin/mail_mutt.vim \
-	vim/doc/mail_mutt.txt \
-	VERSION
-	sh dist/vim-plugin.sh mail_mutt
-dist-vim-plugin-strip-trailing-whitespace: \
-	vim/plugin/strip_trailing_whitespace.vim \
-	vim/doc/strip_trailing_whitespace.txt \
-	VERSION
-	sh dist/vim-plugin.sh strip_trailing_whitespace
