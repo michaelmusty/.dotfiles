@@ -80,7 +80,6 @@
 	dist-vim-plugin-auto-undodir \
 	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
-	dist-vim-plugin-strip-trailing-whitespace
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
@@ -665,8 +664,7 @@ dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-swapdir \
 	dist-vim-plugin-auto-undodir \
 	dist-vim-plugin-big-file-options \
-	dist-vim-plugin-command-typos \
-	dist-vim-plugin-strip-trailing-whitespace
+	dist-vim-plugin-command-typos
 
 dist-vim-plugin-auto-backupdir: \
 	vim/plugin/auto_backupdir.vim \
@@ -693,8 +691,3 @@ dist-vim-plugin-command-typos: \
 	vim/doc/command_typos.txt \
 	VERSION
 	sh dist/vim-plugin.sh command_typos
-dist-vim-plugin-strip-trailing-whitespace: \
-	vim/plugin/strip_trailing_whitespace.vim \
-	vim/doc/strip_trailing_whitespace.txt \
-	VERSION
-	sh dist/vim-plugin.sh strip_trailing_whitespace
