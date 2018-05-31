@@ -487,21 +487,19 @@ day and realized I'd forgotten what half of it did.
 .PP
 If the logic for doing something involves more than a few lines or any
 structures like functions, I like to implement it as a plugin in
-\f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[].
-There's documentation for each of those in \f[C]~/.vim/doc\f[].
+\f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[], with
+documentation for each in \f[C]~/.vim/doc\f[].
 .PP
 They eventually get either discarded or spun off into their own
 repositories, added to this repository as submodules instead, and
 uploaded to
 vim.org (https://www.vim.org/account/profile.php?user_id=73687).
 .PP
-You can create distribution packages for whatever's still in here with
-\f[C]make\ dist\-vim\-plugin\f[]; they will be created in
-\f[C]vim/dist\f[].
-.PP
-All plugins and colorschemes with their own repositories are installed
-as submodules in \f[C]~/.vim/bundle\f[].
-They are installed into \f[C]~/.vim\f[] as normal.
+In the current version, there are no local plugins; everything's got its
+own repository.
+All plugins and colorschemes are available as submodules in
+\f[C]~/.vim/bundle\f[].
+They are installed into \f[C]~/.vim\f[].
 .PP
 I also define a few rules specific to file types I often edit in
 \f[C]~/.vim/after/ftplugin\f[], including some local mappings for
@@ -510,6 +508,8 @@ checking, linting, and tidying, and a few more in
 There are also a few tweaks to core syntax files in
 \f[C]~/.vim/after/syntax\f[], especially for shell script
 (\f[C]sh.vim\f[]).
+Some/all of these filetype plugins are also due to be separately
+distributed and installed via submodules instead.
 .SS Neovim
 .PP
 I test my configuration every now and then with the Neovim
