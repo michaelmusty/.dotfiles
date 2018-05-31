@@ -4,7 +4,7 @@
 set nobackup
 set nowritebackup
 
-" If backps are enabled, use a more explicit and familiar backup suffix
+" If backups are enabled, use a more explicit and familiar backup suffix
 set backupext=.bak
 
 " Don't back up files in anything named */shm/; they might be password
