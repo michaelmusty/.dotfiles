@@ -73,11 +73,7 @@
 	lint-sh \
 	lint-urxvt \
 	lint-vim \
-	lint-xinit \
-	dist-vim-plugin \
-	dist-vim-plugin-auto-backupdir \
-	dist-vim-plugin-auto-swapdir \
-	dist-vim-plugin-auto-undodir
+	lint-xinit
 
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
@@ -496,11 +492,9 @@ install-vim: install-vim-after \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
-	install-vim-doc \
 	install-vim-ftdetect \
 	install-vim-ftplugin \
-	install-vim-indent \
-	install-vim-plugin
+	install-vim-indent
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
@@ -538,10 +532,6 @@ install-vim-config:
 	cp -p -- vim/vimrc $(VIMRC)
 	cp -p -- vim/config/*.vim $(VIMDIR)/config
 
-install-vim-doc:
-	mkdir -p -- $(VIMDIR)/doc
-	cp -p -- vim/doc/*.txt $(VIMDIR)/doc
-
 install-vim-ftdetect:
 	mkdir -p -- $(VIMDIR)/ftdetect
 	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
@@ -553,10 +543,6 @@ install-vim-ftplugin:
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
 	cp -p -- vim/indent/*.vim $(VIMDIR)/indent
-
-install-vim-plugin:
-	mkdir -p -- $(VIMDIR)/plugin
-	cp -p -- vim/plugin/*.vim $(VIMDIR)/plugin
 
 install-vim-gui: install-vim \
 	install-vim-gui-config
@@ -657,23 +643,3 @@ lint-vim:
 
 lint-xinit: check-xinit
 	sh lint/xinit.sh
-
-dist-vim-plugin: dist-vim-plugin-auto-backupdir \
-	dist-vim-plugin-auto-swapdir \
-	dist-vim-plugin-auto-undodir
-
-dist-vim-plugin-auto-backupdir: \
-	vim/plugin/auto_backupdir.vim \
-	vim/doc/auto_backupdir.txt \
-	VERSION
-	sh dist/vim-plugin.sh auto_backupdir
-dist-vim-plugin-auto-swapdir: \
-	vim/plugin/auto_swapdir.vim \
-	vim/doc/auto_swapdir.txt \
-	VERSION
-	sh dist/vim-plugin.sh auto_swapdir
-dist-vim-plugin-auto-undodir: \
-	vim/plugin/auto_undodir.vim \
-	vim/doc/auto_undodir.txt \
-	VERSION
-	sh dist/vim-plugin.sh auto_undodir
