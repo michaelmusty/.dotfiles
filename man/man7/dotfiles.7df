@@ -491,7 +491,7 @@ structures like functions, I like to implement it as a plugin in
 There's documentation for each of those in \f[C]~/.vim/doc\f[].
 .PP
 They eventually get either discarded or spun off into their own
-repositories, added to this repository as submodules intead, and
+repositories, added to this repository as submodules instead, and
 uploaded to
 vim.org (https://www.vim.org/account/profile.php?user_id=73687).
 .PP
