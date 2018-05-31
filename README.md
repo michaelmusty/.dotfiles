@@ -348,24 +348,23 @@ realized I'd forgotten what half of it did.
 
 If the logic for doing something involves more than a few lines or any
 structures like functions, I like to implement it as a plugin in
-`~/.vim/plugin` and/or `~/.vim/autoload`. There's documentation for each of
-those in `~/.vim/doc`.
+`~/.vim/plugin` and/or `~/.vim/autoload`, with documentation for each in
+`~/.vim/doc`.
 
 They eventually get either discarded or spun off into their own repositories,
 added to this repository as submodules instead, and uploaded to
 [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
-You can create distribution packages for whatever's still in here with `make
-dist-vim-plugin`; they will be created in `vim/dist`.
-
-All plugins and colorschemes with their own repositories are installed as
-submodules in `~/.vim/bundle`. They are installed into `~/.vim` as normal.
+In the current version, there are no local plugins; everything's got its own
+repository. All plugins and colorschemes are available as submodules in
+`~/.vim/bundle`. They are installed into `~/.vim`.
 
 I also define a few rules specific to file types I often edit in
 `~/.vim/after/ftplugin`, including some local mappings for checking, linting,
 and tidying, and a few more in `~/.vim/after/indent`. There are also a few
 tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
-script (`sh.vim`).
+script (`sh.vim`). Some/all of these filetype plugins are also due to be
+separately distributed and installed via submodules instead.
 
 #### Neovim
 

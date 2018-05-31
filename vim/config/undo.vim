@@ -5,7 +5,7 @@ inoremap <C-c> <C-c>u
 set undolevels=2000
 
 " 'undodir' and 'undofile' settings will be taken care of by the
-" auto_undodir.vim plugin if applicable/possible
+" auto_cache_dirs.vim plugin if applicable/possible
 if has('persistent_undo')
 
   " Turn off the option by default
