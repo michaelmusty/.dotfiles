@@ -78,7 +78,6 @@
 	dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-swapdir \
 	dist-vim-plugin-auto-undodir \
-	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos \
 
 .SUFFIXES:
@@ -663,7 +662,6 @@ lint-xinit: check-xinit
 dist-vim-plugin: dist-vim-plugin-auto-backupdir \
 	dist-vim-plugin-auto-swapdir \
 	dist-vim-plugin-auto-undodir \
-	dist-vim-plugin-big-file-options \
 	dist-vim-plugin-command-typos
 
 dist-vim-plugin-auto-backupdir: \
@@ -681,11 +679,6 @@ dist-vim-plugin-auto-undodir: \
 	vim/doc/auto_undodir.txt \
 	VERSION
 	sh dist/vim-plugin.sh auto_undodir
-dist-vim-plugin-big-file-options: \
-	vim/plugin/big_file_options.vim \
-	vim/doc/big_file_options.txt \
-	VERSION
-	sh dist/vim-plugin.sh big_file_options
 dist-vim-plugin-command-typos: \
 	vim/plugin/command_typos.vim \
 	vim/doc/command_typos.txt \

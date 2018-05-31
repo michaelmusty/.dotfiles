@@ -1,4 +1,7 @@
 # My Vim plugins
+[submodule "vim/bundle/big_file_options"]
+    path = vim/bundle/big_file_options
+    url = https://sanctum.geek.nz/code/vim-big-file-options.git
 [submodule "vim/bundle/copy_linebreak"]
     path = vim/bundle/copy_linebreak
     url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
