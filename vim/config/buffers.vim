@@ -8,7 +8,7 @@ endif
 " Cycle back and forth through buffers.
 nnoremap <silent>
       \ [b
-      \ :<C-U>bp<CR>
+      \ :<C-U>bprevious<CR>
 nnoremap <silent>
       \ ]b
-      \ :<C-U>bn<CR>
+      \ :<C-U>bnext<CR>
