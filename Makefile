@@ -39,7 +39,7 @@
 	install-urxvt \
 	install-vim \
 	install-vim-after \
-	install-vim-after-ftdetect \
+	install-vim-after-ftplugin \
 	install-vim-after-indent \
 	install-vim-after-plugin \
 	install-vim-after-syntax \
