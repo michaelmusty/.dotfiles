@@ -41,6 +41,7 @@
 	install-vim-after \
 	install-vim-after-ftdetect \
 	install-vim-after-indent \
+	install-vim-after-plugin \
 	install-vim-after-syntax \
 	install-vim-bundle \
 	install-vim-compiler \
@@ -50,6 +51,7 @@
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
+	install-vim-plugin \
 	install-vint \
 	install-wget \
 	install-x \
@@ -498,6 +500,7 @@ install-vim: install-vim-after \
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
+	install-vim-after-plugin \
 	install-vim-after-syntax
 
 install-vim-after-ftplugin:
@@ -510,6 +513,10 @@ install-vim-after-ftplugin:
 install-vim-after-indent:
 	mkdir -p $(VIMDIR)/after/indent
 	cp -p -- vim/after/indent/*.vim $(VIMDIR)/after/indent
+
+install-vim-after-plugin:
+	mkdir -p $(VIMDIR)/after/plugin
+	cp -p -- vim/after/plugin/*.vim $(VIMDIR)/after/plugin
 
 install-vim-after-syntax:
 	mkdir -p $(VIMDIR)/after/syntax
@@ -550,6 +557,10 @@ install-vim-gui: install-vim \
 
 install-vim-gui-config:
 	cp -p -- vim/gvimrc $(HOME)/.gvimrc
+
+install-vim-plugin:
+	mkdir -p -- $(VIMDIR)/plugin
+	cp -p -- vim/plugin/*.vim $(VIMDIR)/plugin
 
 install-vint:
 	cp -p -- vint/vintrc.yaml $(HOME)/.vintrc.yaml
