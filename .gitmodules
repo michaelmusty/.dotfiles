@@ -17,6 +17,9 @@
 [submodule "vim/bundle/mail_mutt"]
     path = vim/bundle/mail_mutt
     url = https://sanctum.geek.nz/code/vim-mail-mutt.git
+[submodule "vim/bundle/put_blank_lines"]
+    path = vim/bundle/put_blank_lines
+    url = https://sanctum.geek.nz/code/vim-put-blank-lines.git
 [submodule "vim/bundle/strip_trailing_whitespace"]
     path = vim/bundle/strip_trailing_whitespace
     url = https://sanctum.geek.nz/code/vim-strip-trailing-whitespace.git
@@ -48,6 +51,3 @@
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
-[submodule "vim/bundle/unimpaired"]
-    path = vim/bundle/unimpaired
-    url = https://sanctum.geek.nz/clone/vim-unimpaired.git
