@@ -21,3 +21,7 @@ set nojoinspaces
 
 " \x strips trailing whitespace via a custom plugin
 nmap <Leader>x <Plug>StripTrailingWhitespace
+
+" Insert blank lines above and below via a custom plugin
+nmap [<Space> <Plug>PutBlankLinesAbove
+nmap ]<Space> <Plug>PutBlankLinesBelow
