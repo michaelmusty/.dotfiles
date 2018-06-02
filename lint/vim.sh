@@ -13,6 +13,7 @@ set -- \
     vim/bundle/uncap_ex \
     vim/compiler \
     vim/config \
+    vim/filetype.vim \
     vim/ftdetect \
     vim/gvimrc \
     vim/indent \

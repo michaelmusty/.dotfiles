@@ -542,6 +542,7 @@ install-vim-config:
 
 install-vim-ftdetect:
 	mkdir -p -- $(VIMDIR)/ftdetect
+	cp -p -- vim/filetype.vim $(VIMDIR)
 	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
 
 install-vim-ftplugin:
