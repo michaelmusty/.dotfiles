@@ -42,13 +42,13 @@ autocmd BufNewFile,BufRead
 autocmd BufNewFile,BufRead
       \ *
       \   if !exists('b:is_bash') && !exists('b:is_kornshell')
-      \ |   if getline(1) =~ '^#!.*bash$'
+      \ |   if getline(1) =~# '\m^#!.*\<bash\>'
       \ |     let b:is_bash = 1
       \ |     setfiletype sh
-      \ |   elseif getline(1) =~ '^#!.*ksh$'
+      \ |   elseif getline(1) =~# '\m^#!.*\<ksh\>'
       \ |     let b:is_ksh = 1
       \ |     setfiletype sh
-      \ |   elseif getline(1) =~ '^#!.*sh$'
+      \ |   elseif getline(1) =~# '\m^#!.*\<sh\>'
       \ |     let b:is_posix = 1
       \ |     setfiletype sh
       \ |   endif

@@ -4,6 +4,6 @@ autocmd BufNewFile,BufRead
       \ setfiletype python
 autocmd BufNewFile,BufRead
       \ *
-      \ if getline(1) =~ '^#!.*python[23]\?$'
+      \ if getline(1) =~# '\m^#!.*\<python[23]\?\>'
       \ |   setfiletype python
       \ | endif

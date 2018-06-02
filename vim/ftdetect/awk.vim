@@ -4,6 +4,6 @@ autocmd BufNewFile,BufRead
       \ setfiletype awk
 autocmd BufNewFile,BufRead
       \ *
-      \   if getline(1) =~ '^#!.*awk$'
+      \   if getline(1) =~# '\m^#!.*\<[gm]\?awk\>'
       \ |   setfiletype awk
       \ | endif

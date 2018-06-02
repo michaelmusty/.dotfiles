@@ -4,6 +4,6 @@ autocmd BufNewFile,BufRead
       \ setfiletype perl
 autocmd BufNewFile,BufRead
       \ *
-      \   if getline(1) =~ '^#!.*perl$'
+      \   if getline(1) =~# '\m^#!.*\<perl\>'
       \ |   setfiletype perl
       \ | endif

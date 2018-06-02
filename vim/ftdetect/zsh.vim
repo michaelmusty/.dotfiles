@@ -4,6 +4,6 @@ autocmd BufNewFile,BufRead
       \ setfiletype zsh
 autocmd BufNewFile,BufRead
       \ *
-      \   if getline(1) =~ '^#!.*zsh$'
+      \   if getline(1) =~# '^#!.*\<zsh\>'
       \ |   setfiletype zsh
       \ | endif
