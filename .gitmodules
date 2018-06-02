@@ -39,12 +39,6 @@
     url = https://sanctum.geek.nz/code/vim-sahara.git
 
 # Others' Vim plugins
-[submodule "vim/bundle/abolish"]
-    path = vim/bundle/abolish
-    url = https://sanctum.geek.nz/clone/vim-abolish.git
-[submodule "vim/bundle/commentary"]
-    path = vim/bundle/commentary
-    url = https://sanctum.geek.nz/clone/vim-commentary.git
 [submodule "vim/bundle/repeat"]
     path = vim/bundle/repeat
     url = https://sanctum.geek.nz/clone/vim-repeat.git
