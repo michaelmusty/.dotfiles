@@ -7,6 +7,7 @@ set -- \
     vim/bundle/insert_suspend_hlsearch \
     vim/bundle/juvenile \
     vim/bundle/mail_mutt \
+    vim/bundle/put_blank_lines \
     vim/bundle/sahara \
     vim/bundle/strip_trailing_whitespace \
     vim/bundle/toggle_option_flags \
@@ -17,6 +18,7 @@ set -- \
     vim/ftdetect \
     vim/gvimrc \
     vim/indent \
+    vim/plugin \
     vim/vimrc
 vint -s -- "$@" || exit
 printf 'Vim configuration linted successfully.\n'
