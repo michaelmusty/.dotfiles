@@ -1,19 +1,55 @@
-" Add automatic commands to choose shell flavours based on filename pattern
+" Shell script files; these are hard to detect accurately
 
-" Names/paths of things that are Bash shell script
+" Bash filename patterns
 autocmd BufNewFile,BufRead
-      \ **/.dotfiles/bash/**,bash-fc-*
+      \ *.bash,
+      \.bash_aliases,
+      \.bash_logout,
+      \.bash_profile,
+      \.bashrc,
+      \bash-fc-*,
+      \bash_profile,
+      \bashrc
       \ let b:is_bash = 1
       \ | setfiletype sh
 
-" Names/paths of things that are Korn shell script
+" Korn shell filename patterns
 autocmd BufNewFile,BufRead
-      \ **/.dotfiles/ksh/**,.kshrc,*.ksh
+      \ *.ksh,
+      \.kshrc,
+      \kshrc
       \ let b:is_kornshell = 1
       \ | setfiletype sh
 
-" Names/paths of things that are POSIX shell script
+" POSIX/Bourne shell filename patterns
 autocmd BufNewFile,BufRead
-      \ **/.dotfiles/sh/**,.shinit,.shrc,.xinitrc,/etc/default/*
+      \ *.sh,
+      \.profile,
+      \.shinit,
+      \.shrc,
+      \.xinitrc,
+      \/etc/default/*,
+      \configure,
+      \profile,
+      \shinit,
+      \shrc,
+      \xinitrc
       \ let b:is_posix = 1
       \ | setfiletype sh
+
+" If this file has a shebang, and we haven't already decided it's Bash or
+" Korn shell, use the shebang to decide
+autocmd BufNewFile,BufRead
+      \ *
+      \   if !exists('b:is_bash') && !exists('b:is_kornshell')
+      \ |   if getline(1) =~# '\m^#!.*\<bash\>'
+      \ |     let b:is_bash = 1
+      \ |     setfiletype sh
+      \ |   elseif getline(1) =~# '\m^#!.*\<ksh\>'
+      \ |     let b:is_ksh = 1
+      \ |     setfiletype sh
+      \ |   elseif getline(1) =~# '\m^#!.*\<sh\>'
+      \ |     let b:is_posix = 1
+      \ |     setfiletype sh
+      \ |   endif
+      \ | endif

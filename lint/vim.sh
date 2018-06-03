@@ -1,21 +1,20 @@
-set -- \
-    vim/after \
-    vim/bundle/auto_cache_dirs \
-    vim/bundle/big_file_options \
-    vim/bundle/copy_linebreak \
-    vim/bundle/fixed_join \
-    vim/bundle/insert_suspend_hlsearch \
-    vim/bundle/juvenile \
-    vim/bundle/mail_mutt \
-    vim/bundle/sahara \
-    vim/bundle/strip_trailing_whitespace \
-    vim/bundle/toggle_option_flags \
-    vim/bundle/uncap_ex \
-    vim/compiler \
-    vim/config \
-    vim/ftdetect \
-    vim/gvimrc \
-    vim/indent \
-    vim/vimrc
+# Build an argument list of checks to make
+set --
+for vim in vim/* vim/bundle/* ; do
+    [ -e "$vim" ] || continue
+    case $vim in
+
+        # Skip third-party plugins
+        vim/bundle) ;;
+        vim/bundle/repeat) ;;
+        vim/bundle/surround) ;;
+
+        # Check everything else
+        *) set -- "$@" "$vim" ;;
+
+    esac
+done
+
+# Run check
 vint -s -- "$@" || exit
 printf 'Vim configuration linted successfully.\n'

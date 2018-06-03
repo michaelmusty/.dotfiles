@@ -1,4 +1,4 @@
-" Add automatic commands to detect TSV files
+" Tab-separated (TSV) files
 autocmd BufNewFile,BufRead
       \ *.tsv
       \ setfiletype tsv
