@@ -1,6 +1,10 @@
 " Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
+" Also do nothing if 'compatible' enabled, or if the 'spell' feature isn't
+" available
 if exists('b:did_ftplugin_text_spell') || &compatible
+  finish
+endif
+if !has('spell')
   finish
 endif
 let b:did_ftplugin_text_spell = 1
@@ -10,10 +14,8 @@ if exists('b:undo_ftplugin')
 endif
 
 " Spellcheck documents by default
-if has('syntax')
-  setlocal spell
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|setlocal spell<'
-  endif
+setlocal spell
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|setlocal spell<'
 endif
