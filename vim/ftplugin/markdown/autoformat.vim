@@ -63,17 +63,13 @@ augroup END
 
 " Suspend auto-format when pasting anything with a linebreak
 if !exists('*s:Put')
-  function! s:Put(above) abort
+  function! s:Put(key) abort
     let l:suspended = 0
     if &formatoptions =~# '\ma' && getreg() =~# '\m\n'
       setlocal formatoptions-=a
       let l:suspended = 1
     endif
-    if a:above
-      execute 'normal! "'.v:register.v:count1.'P'
-    else
-      execute 'normal! "'.v:register.v:count1.'p'
-    endif
+    execute 'normal! "'.v:register.v:count1.a:key
     if l:suspended
       setlocal formatoptions+=a
     endif
@@ -81,10 +77,10 @@ if !exists('*s:Put')
 endif
 nnoremap <buffer> <silent>
       \ p
-      \ :<C-u>call <SID>Put(0)<CR>
+      \ :<C-u>call <SID>Put('p')<CR>
 nnoremap <buffer> <silent>
       \ P
-      \ :<C-u>call <SID>Put(1)<CR>
+      \ :<C-u>call <SID>Put('P')<CR>
 
 " Undo all the above
 if exists('b:undo_ftplugin')
