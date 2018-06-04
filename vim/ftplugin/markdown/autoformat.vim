@@ -28,7 +28,7 @@ if !exists('*s:Load')
       if strlen(l:line) > l:width
             \ && stridx(l:line, ' ') > -1
             \ && l:line !~# '\m^    '
-        let l:count = l:count + 1
+        let l:count += 1
       endif
     endfor
     if l:count * 100 / l:total < 5
