@@ -1,6 +1,6 @@
 "
 " Replace Vim's stock PHP filetype plugin, reimplementing only the part I
-" actually need (the matchit.vim keyword pairs).
+" actually need: the matchit.vim keyword pairs.
 "
 " This is mostly because the stock file pulls in HTML's filetype plugins too,
 " without providing a variable check to stop it. That causes absurd problems
