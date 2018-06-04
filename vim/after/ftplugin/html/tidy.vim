@@ -4,7 +4,7 @@
 if exists('b:did_ftplugin_html_tidy') || &compatible
   finish
 endif
-if &filetype == 'markdown'
+if &filetype ==# 'markdown'
   finish
 endif
 let b:did_ftplugin_html_tidy = 1
