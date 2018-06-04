@@ -13,6 +13,10 @@ if exists('b:undo_ftplugin')
         \ . '|unlet b:did_ftplugin_markdown_autoformat'
 endif
 
+" Turn on autoformatting if the buffer has no code-block lines with spaces
+" that is longer than 'textwidth'
+call ftplugin#markdown#autoformat#Load()
+
 " Suspend auto-formatting when in a code block (four-space indent)
 autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
       \ <buffer>
