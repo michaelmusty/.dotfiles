@@ -18,7 +18,7 @@ endif
 "   * Longer than 'textwidth'
 "   * Contains at least one space (not an unsplittable line)
 "   * Not a code block (indented with at least four spaces)
-if !has('*s:Load')
+if !exists('*s:Load')
   function! s:Load() abort
     let l:width = &textwidth ? &textwidth : 79
     let l:count = 0
@@ -41,7 +41,7 @@ endif
 call s:Load()
 
 " Suspend auto-formatting when in a code block (four-space indent)
-if !has('*s:Line')
+if !exists('*s:Line')
   function! s:Line() abort
     if getline('.') =~# '\m^    '
       if &formatoptions =~# '\ma'
@@ -62,7 +62,7 @@ augroup ftplugin_markdown_autoformat
 augroup END
 
 " Suspend auto-format when pasting anything with a linebreak
-if !has('*s:Put')
+if !exists('*s:Put')
   function! s:Put(above) abort
     let l:suspended = 0
     if &formatoptions =~# '\ma' && getreg() =~# '\m\n'
