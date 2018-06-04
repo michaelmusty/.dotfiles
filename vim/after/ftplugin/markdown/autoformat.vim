@@ -101,6 +101,6 @@ if exists('b:undo_ftplugin')
   let b:undo_ftplugin = b:undo_ftplugin
         \ . '|setlocal formatoptions<'
         \ . '|augroup ftplugin_markdown_autoformat'
-        \ . '|autocmd!'
+        \ . '|autocmd! * <buffer>'
         \ . '|augroup END'
 endif
