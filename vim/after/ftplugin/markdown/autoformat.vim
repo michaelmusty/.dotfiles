@@ -65,14 +65,14 @@ augroup END
 if !has('*s:Put')
   function! s:Put(above) abort
     let l:suspended = 0
-    if &formatoptions =~# '\ma' && @" =~# '\m\n'
+    if &formatoptions =~# '\ma' && getreg() =~# '\m\n'
       setlocal formatoptions-=a
       let l:suspended = 1
     endif
     if a:above
-      normal! P
+      execute 'normal! "'.v:register.v:count1.'P'
     else
-      normal! p
+      execute 'normal! "'.v:register.v:count1.'p'
     endif
     if l:suspended
       setlocal formatoptions+=a
