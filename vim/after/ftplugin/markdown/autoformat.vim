@@ -17,10 +17,16 @@ endif
 " that is longer than 'textwidth'
 call ftplugin#markdown#autoformat#Load()
 
-" Suspend auto-formatting when in a code block (four-space indent)
-autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
-      \ <buffer>
-      \ call ftplugin#markdown#autoformat#Line()
+" Group autocommands
+augroup ftplugin_markdown_autoformat
+  autocmd!
+
+  " Suspend auto-formatting when in a code block (four-space indent)
+  autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
+        \ <buffer>
+        \ call ftplugin#markdown#autoformat#Line()
+
+augroup END
 
 " Suspend auto-format when pasting anything with a linebreak
 nnoremap <buffer> <silent>
@@ -34,4 +40,7 @@ nnoremap <buffer> <silent>
 if exists('b:undo_ftplugin')
   let b:undo_ftplugin = b:undo_ftplugin
         \ . '|setlocal formatoptions<'
+        \ . '|augroup ftplugin_markdown_autoformat'
+        \ . '|autocmd!'
+        \ . '|augroup END'
 endif
