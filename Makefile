@@ -43,7 +43,6 @@
 	install-vim-after-indent \
 	install-vim-after-plugin \
 	install-vim-after-syntax \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -492,7 +491,6 @@ VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
 install-vim: install-vim-after \
-	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -523,14 +521,6 @@ install-vim-after-plugin:
 install-vim-after-syntax:
 	mkdir -p $(VIMDIR)/after/syntax
 	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
-
-install-vim-autoload:
-	find vim/autoload \
-		-type d -exec sh -c \
-		'mkdir -- $(VIMDIR)/"$${1#vim/}"' _ {} \; \
-		-o \
-		-type f -exec sh -c \
-		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/}"' _ {} \;
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
