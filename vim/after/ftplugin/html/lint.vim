@@ -1,6 +1,10 @@
 " Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
+" Also do nothing if 'compatible' enabled, or if the current filetype is
+" actually markdown
 if exists('b:did_ftplugin_html_lint') || &compatible
+  finish
+endif
+if &filetype == 'markdown'
   finish
 endif
 let b:did_ftplugin_html_lint = 1
