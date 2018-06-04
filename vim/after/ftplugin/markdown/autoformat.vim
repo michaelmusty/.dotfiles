@@ -38,8 +38,9 @@ if !has('*s:Load')
     endif
   endfunction
 endif
+call s:Load()
 
-" Suspend auto-format when pasting anything with a linebreak
+" Suspend auto-formatting when in a code block (four-space indent)
 if !has('*s:Line')
   function! s:Line() abort
     if getline('.') =~# '\m^    '
@@ -53,8 +54,14 @@ if !has('*s:Line')
     endif
   endfunction
 endif
+augroup ftplugin_markdown_autoformat
+  autocmd!
+  autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
+        \ <buffer>
+        \ call s:Line()
+augroup END
 
-" Suspend auto-formatting when in a code block (four-space indent)
+" Suspend auto-format when pasting anything with a linebreak
 if !has('*s:Put')
   function! s:Put(above) abort
     let l:suspended = 0
@@ -72,23 +79,6 @@ if !has('*s:Put')
     endif
   endfunction
 endif
-
-" Turn on autoformatting if the buffer has no code-block lines with spaces
-" that is longer than 'textwidth'
-call s:Load()
-
-" Group autocommands
-augroup ftplugin_markdown_autoformat
-  autocmd!
-
-  " Suspend auto-formatting when in a code block (four-space indent)
-  autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
-        \ <buffer>
-        \ call s:Line()
-
-augroup END
-
-" Suspend auto-format when pasting anything with a linebreak
 nnoremap <buffer> <silent>
       \ p
       \ :<C-u>call <SID>Put(0)<CR>
