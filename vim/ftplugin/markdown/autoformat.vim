@@ -38,7 +38,9 @@ if !exists('*s:Load')
     endif
   endfunction
 endif
-call s:Load()
+if !exists('g:markdown_autoformat_load') || g:markdown_autoformat_load
+  call s:Load()
+endif
 
 " Suspend auto-formatting when in a code block (four-space indent)
 if !exists('*s:Line')
@@ -54,12 +56,14 @@ if !exists('*s:Line')
     endif
   endfunction
 endif
-augroup ftplugin_markdown_autoformat
-  autocmd!
-  autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
-        \ <buffer>
-        \ call s:Line()
-augroup END
+if !exists('g:markdown_autoformat_line') || g:markdown_autoformat_line
+  augroup ftplugin_markdown_autoformat
+    autocmd!
+    autocmd BufWinEnter,CursorMoved,CursorMovedI,WinEnter
+          \ <buffer>
+          \ call s:Line()
+  augroup END
+endif
 
 " Suspend auto-format when pasting anything with a linebreak
 if !exists('*s:Put')
@@ -75,12 +79,14 @@ if !exists('*s:Put')
     endif
   endfunction
 endif
-nnoremap <buffer> <silent>
-      \ p
-      \ :<C-u>call <SID>Put('p')<CR>
-nnoremap <buffer> <silent>
-      \ P
-      \ :<C-u>call <SID>Put('P')<CR>
+if !exists('g:markdown_autoformat_put') || g:markdown_autoformat_put
+  nnoremap <buffer> <silent>
+        \ p
+        \ :<C-u>call <SID>Put('p')<CR>
+  nnoremap <buffer> <silent>
+        \ P
+        \ :<C-u>call <SID>Put('P')<CR>
+endif
 
 " Undo all the above
 if exists('b:undo_ftplugin')
