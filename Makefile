@@ -47,7 +47,7 @@
 	install-vim-compiler \
 	install-vim-config \
 	install-vim-ftdetect \
-	install-vim-fplugin \
+	install-vim-ftplugin \
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
@@ -546,8 +546,8 @@ install-vim-ftdetect:
 	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
 
 install-vim-ftplugin:
-	mkdir -p -- $(VIMDIR)/indent
-	cp -p -- vim/indent/*.vim $(VIMDIR)/indent
+	mkdir -p -- $(VIMDIR)/ftplugin
+	cp -p -- vim/ftplugin/*.vim $(VIMDIR)/ftplugin
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
