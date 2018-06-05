@@ -1,6 +1,14 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled, or if no autocmd feature, or if Vim
-" is too old to support the needed autocmd events
+"
+" markdown/autoformat.vim: Refine control over the 'formatoptions' flag 'a'
+" for automatic formatting when editing Markdown documents:
+"
+" - Turn it on automatically on load if the buffer looks wrapped
+" - Suspend it if editing a line in a code block (indented by four spaces)
+" - Suspend it if pasting something with a linebreak
+"
+" Author: Tom Ryder <tom@sanctum.geek.nz>
+" License: Same as Vim itself
+"
 if exists('b:did_ftplugin_markdown_autoformat') || &compatible
   finish
 endif
@@ -15,9 +23,11 @@ endif
 
 " Turn on autoformatting if less than 5% of the buffer's lines meet all three
 " of these conditions:
-"   * Longer than 'textwidth'
-"   * Contains at least one space (not an unsplittable line)
-"   * Not a code block (indented with at least four spaces)
+"
+" - Longer than 'textwidth'
+" - Contains at least one space (not an unsplittable line)
+" - Not a code block (indented with at least four spaces)
+"
 if !exists('*s:Load')
   function! s:Load() abort
     let l:width = &textwidth ? &textwidth : 79
