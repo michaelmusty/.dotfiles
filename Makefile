@@ -525,8 +525,8 @@ install-vim-after-syntax:
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
 		-type d -exec sh -c \
-		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	find vim/bundle/*/*/* \
+		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \; \
+		-o \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	vim -eT dumb -c 'helptags $(VIMDIR)/doc' -c quit
@@ -546,13 +546,8 @@ install-vim-ftdetect:
 	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
 
 install-vim-ftplugin:
-	mkdir -p $(VIMDIR)/ftplugin
-	find vim/ftplugin \
-		-type d -exec sh -c \
-		'mkdir -p -- $(VIMDIR)/"$${1#vim/}"' _ {} \; \
-		-o \
-		-type f -exec sh -c \
-		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/}"' _ {} \;
+	mkdir -p -- $(VIMDIR)/indent
+	cp -p -- vim/indent/*.vim $(VIMDIR)/indent
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent

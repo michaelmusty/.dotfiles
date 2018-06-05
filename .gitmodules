@@ -17,6 +17,9 @@
 [submodule "vim/bundle/mail_mutt"]
     path = vim/bundle/mail_mutt
     url = https://sanctum.geek.nz/code/vim-mail-mutt.git
+[submodule "vim/bundle/markdown_autoformat"]
+    path = vim/bundle/markdown_autoformat
+    url = https://sanctum.geek.nz/code/vim-markdown-autoformat.git
 [submodule "vim/bundle/put_blank_lines"]
     path = vim/bundle/put_blank_lines
     url = https://sanctum.geek.nz/code/vim-put-blank-lines.git
