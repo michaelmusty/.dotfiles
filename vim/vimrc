@@ -4,12 +4,6 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" If we're in compatible mode, ensure that the 'C' option that disallows line
-" continuations is stripped out, as they're heavily used in this configuration
-" for readability; we'll put it back later. Yes, this is necessary, for
-" example if this file is :sourced while &compatible, or if Vim is invoked
-" under its other name--we are out there, we ex(1)ist!
-
 " Use UTF-8 by default wherever possible
 if has('multi_byte')
   set encoding=utf-8
