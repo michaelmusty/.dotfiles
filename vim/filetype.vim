@@ -4,7 +4,7 @@ if exists('g:did_load_filetypes')
 endif
 let g:did_load_filetypes = 1
 
-" Use only the rules in ftdetect
+" Use our own filetype detection rules
 augroup filetypedetect
   autocmd!
 
@@ -12,11 +12,6 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.awk
         \ setfiletype awk
-  autocmd BufNewFile,BufRead
-        \ *
-        \   if getline(1) =~# '\m^#!.*\<[gm]\?awk\>'
-        \ |   setfiletype awk
-        \ | endif
   " C files
   autocmd BufNewFile,BufRead
         \ *.c,*.h
@@ -97,32 +92,14 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.pl,*.pm,*.t,Makefile.PL
         \ setfiletype perl
-  autocmd BufNewFile,BufRead
-        \ *
-        \   if getline(1) =~# '\m^#!.*\<perl\>'
-        \ |   setfiletype perl
-        \ | endif
   " Perl 6 files
   autocmd BufNewFile,BufRead
         \ *.p6,*.pl6,*.pm6
         \ setfiletype perl6
-  autocmd BufNewFile,BufRead
-        \ *
-        \   if getline(1) =~# '\m^#!.\<perl6\>'
-        \ |   setfiletype perl6
-        \ | endif
   " PHP files
   autocmd BufNewFile,BufRead
         \ *.php
         \ setfiletype php
-  autocmd BufNewFile,BufRead
-        \ *
-        \   if getline(1) =~# '\m^#!.\<php\>'
-        \ |   setfiletype php
-        \ | endif
-        \ | if getline(1) =~? '\m^<?php\>'
-        \ |   setfiletype php
-        \ | endif
   " Perl 5 POD files
   autocmd BufNewFile,BufRead
         \ *.pod
@@ -135,11 +112,6 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.py
         \ setfiletype python
-  autocmd BufNewFile,BufRead
-        \ *
-        \ if getline(1) =~# '\m^#!.*\<python[23]\?\>'
-        \ |   setfiletype python
-        \ | endif
   " Readline configuration file
   autocmd BufNewFile,BufRead
         \ .inputrc,inputrc
@@ -148,7 +120,7 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.rem,*.remind,.reminders
         \ setfiletype remind
-  " Bash filename patterns
+  " Bash shell
   autocmd BufNewFile,BufRead
         \ *.bash,
         \.bash_aliases,
@@ -160,14 +132,14 @@ augroup filetypedetect
         \bashrc
         \ let b:is_bash = 1
         \ | setfiletype sh
-  " Korn shell filename patterns
+  " Korn shell
   autocmd BufNewFile,BufRead
         \ *.ksh,
         \.kshrc,
         \kshrc
         \ let b:is_kornshell = 1
         \ | setfiletype sh
-  " POSIX/Bourne shell filename patterns
+  " POSIX/Bourne shell
   autocmd BufNewFile,BufRead
         \ *.sh,
         \.profile,
@@ -182,22 +154,10 @@ augroup filetypedetect
         \xinitrc
         \ let b:is_posix = 1
         \ | setfiletype sh
-  " If this file has a shebang, and we haven't already decided it's Bash or
-  " Korn shell, use the shebang to decide
+  " sed files
   autocmd BufNewFile,BufRead
-        \ *
-        \   if !exists('b:is_bash') && !exists('b:is_kornshell')
-        \ |   if getline(1) =~# '\m^#!.*\<bash\>'
-        \ |     let b:is_bash = 1
-        \ |     setfiletype sh
-        \ |   elseif getline(1) =~# '\m^#!.*\<ksh\>'
-        \ |     let b:is_ksh = 1
-        \ |     setfiletype sh
-        \ |   elseif getline(1) =~# '\m^#!.*\<sh\>'
-        \ |     let b:is_posix = 1
-        \ |     setfiletype sh
-        \ |   endif
-        \ | endif
+        \ *.sed
+        \ setfiletype sed
   " tmux configuration files
   autocmd BufNewFile,BufRead
         \ .tmux.conf,tmux.conf
@@ -242,12 +202,17 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.zsh,.zprofile,zprofile,.zshrc,zshrc
         \ setfiletype zsh
-  autocmd BufNewFile,BufRead
+
+  " Load any extra rules in ftdetect directories
+  runtime! ftdetect/*.vim
+
+  " If we still don't have a filetype, run the scripts.vim file that will
+  " examine actual file contents--but only the first one; don't load the
+  " system one at all
+  autocmd BufNewFile,BufRead,StdinReadPost
         \ *
-        \   if getline(1) =~# '^#!.*\<zsh\>'
-        \ |   setfiletype zsh
+        \   if !did_filetype()
+        \ |    runtime scripts.vim
         \ | endif
 
-  runtime! ftdetect/*.vim
 augroup END
-
