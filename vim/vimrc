@@ -265,19 +265,6 @@ vnoremap <silent> & :<C-U>&&<CR>
 " this with a 'directory' setting
 set noswapfile
 
-" Don't keep swap files from temporary directories or shared memory in case
-" they're secrets
-if has('autocmd')
-  augroup dotfiles_swap_skip
-    autocmd!
-    autocmd BufNewFile,BufReadPre /tmp/*    setlocal noswapfile
-    autocmd BufNewFile,BufReadPre $TMPDIR/* setlocal noswapfile
-    autocmd BufNewFile,BufReadPre $TMP/*    setlocal noswapfile
-    autocmd BufNewFile,BufReadPre $TEMP/*   setlocal noswapfile
-    autocmd BufNewFile,BufReadPre */shm/*   setlocal noswapfile
-  augroup END
-endif
-
 " Options dependent on the syntax feature
 if has('syntax') && !has('g:syntax_on')
 
@@ -339,37 +326,7 @@ set undolevels=2000
 " 'undodir' and 'undofile' settings will be taken care of by the
 " auto_cache_dirs.vim plugin if applicable/possible
 if has('persistent_undo')
-
-  " Turn off the option by default
   set noundofile
-
-  " Don't keep undo files from temporary directories or shared memory in case
-  " they're secrets
-  if has('autocmd')
-    augroup dotfiles_undo_skip
-      autocmd!
-      autocmd BufWritePre /tmp/*    setlocal noundofile
-      autocmd BufWritePre $TMPDIR/* setlocal noundofile
-      autocmd BufWritePre $TMP/*    setlocal noundofile
-      autocmd BufWritePre $TEMP/*   setlocal noundofile
-      autocmd BufWritePre */shm/*   setlocal noundofile
-    augroup END
-  endif
-
-endif
-
-" Don't keep .viminfo information for files in temporary directories or shared
-" memory filesystems; this is because they're used as scratch spaces for tools
-" like sudoedit(8) and pass(1) and hence could present a security problem
-if has('viminfo') && has('autocmd')
-  augroup dotfiles_viminfo_skip
-    autocmd!
-    autocmd BufNewFile,BufReadPre /tmp/*    setlocal viminfo=
-    autocmd BufNewFile,BufReadPre $TMPDIR/* setlocal viminfo=
-    autocmd BufNewFile,BufReadPre $TMP/*    setlocal viminfo=
-    autocmd BufNewFile,BufReadPre $TEMP/*   setlocal viminfo=
-    autocmd BufNewFile,BufReadPre */shm/*   setlocal viminfo=
-  augroup END
 endif
 
 " When in visual block mode, let me move the cursor anywhere in the buffer;
