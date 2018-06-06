@@ -442,12 +442,12 @@ set display=lastline
 " start and end of the line
 set listchars+=precedes:<,extends:>
 
-" When wrapping, j and k should move by screen row, and not to the same
-" column number in the previous logical line, which feels very clumsy and is
-" seldom particularly helpful; you can use n| to jump to the nth column in a
-" line anyway if you need to
+" Swap the j/gj and k/gk command pairs so that we move by screen row, not
+" buffer line, with j/k
 nnoremap j gj
 nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 " Line break settings and mappings
 if has('linebreak')
