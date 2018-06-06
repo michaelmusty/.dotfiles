@@ -175,7 +175,7 @@ augroup filetypedetect
         \ setfiletype tsv
   " VimL files
   autocmd BufNewFile,BufRead
-        \ *.vim,vimrc,*[._]vimrc,exrc,*[._]exrc
+        \ *.vim,vimrc,*[._]vimrc,gvimrc,*[._]gvimrc,exrc,*[._]exrc
         \ setfiletype vim
   " .viminfo files
   autocmd BufNewFile,BufRead
