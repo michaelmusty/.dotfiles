@@ -26,9 +26,11 @@ setlocal formatoptions+=tcqln
 setlocal formatoptions-=ro
 
 " Set list format patterns
-let &l:formatlistpat = '^\s*\d\+\.\s\+\'
-      \ .'\|^[-*+]\s\+\'
-      \ .'\|^\[^\ze[^\]]\+\]:'
+if exists('+option-name')
+  let &l:formatlistpat = '^\s*\d\+\.\s\+\'
+        \ .'\|^[-*+]\s\+\'
+        \ .'\|^\[^\ze[^\]]\+\]:'
+endif
 
 " Define how to undo this plugin's settings
 let b:undo_ftplugin = 'setlocal comments<'
