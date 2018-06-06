@@ -3,6 +3,9 @@ if exists('g:did_load_filetypes')
   finish
 endif
 let g:did_load_filetypes = 1
+if !has('autocmd') || &compatible
+  finish
+endif
 
 " Use our own filetype detection rules
 augroup filetypedetect
