@@ -23,6 +23,9 @@
 [submodule "vim/bundle/put_blank_lines"]
     path = vim/bundle/put_blank_lines
     url = https://sanctum.geek.nz/code/vim-put-blank-lines.git
+[submodule "vim/bundle/redact_pass"]
+    path = vim/bundle/redact_pass
+    url = https://sanctum.geek.nz/code/vim-redact-pass.git
 [submodule "vim/bundle/strip_trailing_whitespace"]
     path = vim/bundle/strip_trailing_whitespace
     url = https://sanctum.geek.nz/code/vim-strip-trailing-whitespace.git

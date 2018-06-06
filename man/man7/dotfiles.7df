@@ -477,12 +477,17 @@ The majority of the Vim configuration is just setting options, with a
 few mappings.
 I try not to deviate too much from the Vim defaults behavior in terms of
 interactive behavior and keybindings.
-.PP
-The configuration is broken into smaller files in
-\f[C]~/.vim/config/*.vim\f[], included by \f[C]~/.vimrc\f[] using
-\f[C]:runtime\f[] (http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime).
 It's extensively commented, mostly because I was reading through it one
 day and realized I'd forgotten what half of it did.
+System\-specific configuration files go in \f[C]~/.vim/config\f[].
+.SS Filetypes
+.PP
+I define my own \f[C]filetype.vim\f[] and \f[C]scripts.vim\f[], so that
+filetype detection works in a way I like, and loads quickly.
+They are very unlikely to suit you as they are, but you might be able to
+extend them with your favourite filetypes.
+If you delete both of them from \f[C]~/.vim\f[], you'll get the stock
+filetype detection back.
 .SS Plugins
 .PP
 If the logic for doing something involves more than a few lines or any
@@ -501,6 +506,14 @@ All plugins and colorschemes are available as submodules in
 \f[C]~/.vim/bundle\f[].
 They are installed into \f[C]~/.vim\f[].
 .PP
+I still use two third\-party plugins: Tim Pope's
+repeat.vim (https://www.vim.org/scripts/script.php?script_id=2136) and
+surround.vim (https://www.vim.org/scripts/script.php?script_id=1697).
+In my opinion, these plugins are so fundamental and useful that they
+should have been implemented in or bundled with Vim itself many years
+ago.
+.SS Filetype plugins
+.PP
 I also define a few rules specific to file types I often edit in
 \f[C]~/.vim/after/ftplugin\f[], including some local mappings for
 checking, linting, and tidying, and a few more in
@@ -508,8 +521,8 @@ checking, linting, and tidying, and a few more in
 There are also a few tweaks to core syntax files in
 \f[C]~/.vim/after/syntax\f[], especially for shell script
 (\f[C]sh.vim\f[]).
-Some/all of these filetype plugins are also due to be separately
-distributed and installed via submodules instead.
+Some of these filetype plugins are also due to be separately distributed
+and installed via submodules instead.
 .SS Neovim
 .PP
 I test my configuration every now and then with the Neovim

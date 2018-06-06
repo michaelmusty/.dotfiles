@@ -336,13 +336,17 @@ combination to detach.
 
 The majority of the Vim configuration is just setting options, with a few
 mappings. I try not to deviate too much from the Vim defaults behavior in terms
-of interactive behavior and keybindings.
+of interactive behavior and keybindings. It's extensively commented, mostly
+because I was reading through it one day and realized I'd forgotten what half
+of it did. System-specific configuration files go in `~/.vim/config`.
 
-The configuration is broken into smaller files in `~/.vim/config/*.vim`,
-included by `~/.vimrc` using
-[`:runtime`](http://vimdoc.sourceforge.net/htmldoc/repeat.html#:runtime). It's
-extensively commented, mostly because I was reading through it one day and
-realized I'd forgotten what half of it did.
+#### Filetypes
+
+I define my own `filetype.vim` and `scripts.vim`, so that filetype detection
+works in a way I like, and loads quickly. They are very unlikely to suit you as
+they are, but you might be able to extend them with your favourite filetypes.
+If you delete both of them from `~/.vim`, you'll get the stock filetype
+detection back.
 
 #### Plugins
 
@@ -359,12 +363,20 @@ In the current version, there are no local plugins; everything's got its own
 repository. All plugins and colorschemes are available as submodules in
 `~/.vim/bundle`. They are installed into `~/.vim`.
 
+I still use two third-party plugins: Tim Pope's
+[repeat.vim](https://www.vim.org/scripts/script.php?script_id=2136) and
+[surround.vim](https://www.vim.org/scripts/script.php?script_id=1697). In my
+opinion, these plugins are so fundamental and useful that they should have been
+implemented in or bundled with Vim itself many years ago.
+
+#### Filetype plugins
+
 I also define a few rules specific to file types I often edit in
 `~/.vim/after/ftplugin`, including some local mappings for checking, linting,
 and tidying, and a few more in `~/.vim/after/indent`. There are also a few
 tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
-script (`sh.vim`). Some/all of these filetype plugins are also due to be
-separately distributed and installed via submodules instead.
+script (`sh.vim`). Some of these filetype plugins are also due to be separately
+distributed and installed via submodules instead.
 
 #### Neovim
 

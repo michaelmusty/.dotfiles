@@ -46,7 +46,7 @@
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
-	install-vim-ftdetect \
+	install-vim-filetype \
 	install-vim-ftplugin \
 	install-vim-gui \
 	install-vim-gui-config \
@@ -494,7 +494,7 @@ install-vim: install-vim-after \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
-	install-vim-ftdetect \
+	install-vim-filetype \
 	install-vim-ftplugin \
 	install-vim-indent
 
@@ -538,12 +538,10 @@ install-vim-compiler:
 install-vim-config:
 	mkdir -p -- $(VIMDIR)/config
 	cp -p -- vim/vimrc $(VIMRC)
-	cp -p -- vim/config/*.vim $(VIMDIR)/config
 
-install-vim-ftdetect:
-	mkdir -p -- $(VIMDIR)/ftdetect
+install-vim-filetype:
 	cp -p -- vim/filetype.vim $(VIMDIR)
-	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
+	cp -p -- vim/scripts.vim $(VIMDIR)
 
 install-vim-ftplugin:
 	mkdir -p -- $(VIMDIR)/ftplugin
