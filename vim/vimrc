@@ -82,7 +82,6 @@ endif
 
 " \d inserts the current local date from date(1)
 nnoremap <silent> <Leader>d :<C-U>read !date<CR>
-
 " \D inserts the current UTC date from date(1)
 nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
 
@@ -519,13 +518,10 @@ if has('user_commands')
 
   " \a: Reformat paragraphs to 'textwidth' on all insert or delete operations
   nnoremap <silent> <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
-
   " \c: Reformat comments to 'textwidth'
   nnoremap <silent> <Leader>c :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
-
   " \j: Delete comment leaders when joining lines
   nnoremap <silent> <Leader>j :<C-U>ToggleOptionFlagLocal formatoptions j<CR>
-
   " \t: Reformat non-comment text to 'textwidth'
   nnoremap <silent> <Leader>t :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
 
