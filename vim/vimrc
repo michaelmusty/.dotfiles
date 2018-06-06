@@ -27,6 +27,24 @@ if has('autocmd')
   filetype plugin indent on
 endif
 
+" Options dependent on the syntax feature
+if has('syntax') && !has('g:syntax_on')
+
+  " Use syntax highlighting with 100 lines of context
+  silent! syntax enable
+  silent! syntax sync minlines=100
+
+  " Opinionated; if the author is using color at all, it will probably be with
+  " a dark background
+  set background=dark
+
+  " The 'sahara' colorscheme only works in the GUI or with 256 colors
+  if has('gui_running') || &t_Co >= 256
+    silent! colorscheme sahara
+  endif
+
+endif
+
 " Let me backspace over pretty much anything
 set backspace=
 " Allow backspacing over autoindent
@@ -264,24 +282,6 @@ vnoremap <silent> & :<C-U>&&<CR>
 " understand; the auto_cache_dirs.vim plugin will take care of re-enabling
 " this with a 'directory' setting
 set noswapfile
-
-" Options dependent on the syntax feature
-if has('syntax') && !has('g:syntax_on')
-
-  " Use syntax highlighting with 100 lines of context
-  silent! syntax enable
-  silent! syntax sync minlines=100
-
-  " Opinionated; if the author is using color at all, it will probably be with
-  " a dark background
-  set background=dark
-
-  " The 'sahara' colorscheme only works in the GUI or with 256 colors
-  if has('gui_running') || &t_Co >= 256
-    silent! colorscheme sahara
-  endif
-
-endif
 
 " Start paste mode with F10 to prevent console Vim from confusing a swathe of
 " pre-formatted pasted text with actual keyboard input, and thereby attempting
