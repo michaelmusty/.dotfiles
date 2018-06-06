@@ -60,10 +60,6 @@ set nowritebackup
 " If backups are enabled, use a more explicit and familiar backup suffix
 set backupext=.bak
 
-" Don't back up files in anything named */shm/; they might be password
-" files
-set backupskip+=*/shm/*
-
 " Allow jumping between windows and tabs to find an open instance of a given
 " buffer with :sbuffer.
 set switchbuf=useopen
