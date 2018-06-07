@@ -363,9 +363,11 @@ nnoremap <silent> <Leader>w :<C-U>set wrap! wrap?<CR>
 " column with @ symbols instead, which I don't find very helpful
 set display=lastline
 
-" Clearly show when the start or end of the row does not correspond to the
-" start and end of the line
-set listchars+=precedes:<,extends:>
+" Define list characters
+set listchars+=extends:>   " Unwrapped text to screen right
+set listchars+=precedes:<  " Unwrapped text to screen left
+set listchars+=tab:>-      " Tab characters, preserve width
+set listchars+=trail:_     " Trailing spaces
 
 " Swap the j/gj and k/gk command pairs so that we move by screen row, not
 " buffer line, with j/k
