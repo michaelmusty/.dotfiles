@@ -1,0 +1,12 @@
+# Open up Mutt to a new message starting with input
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Direct all input (stdin and files) into a tempfile
+tf=$td/out
+cat -- "${@:--}" > "$tf" || exit
+
+# Run Mutt on the tempfile, showing it the TTY for its input
+mutt -i "$tf" < /dev/tty

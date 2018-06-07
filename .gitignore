@@ -61,6 +61,9 @@ bin/med
 bin/mex
 bin/mftl
 bin/mi5
+bin/mim
+bin/mim.sh
+bin/mim.m4
 bin/min
 bin/mkcp
 bin/mkmv
