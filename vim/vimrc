@@ -363,9 +363,11 @@ nnoremap <silent> <Leader>w :<C-U>set wrap! wrap?<CR>
 " column with @ symbols instead, which I don't find very helpful
 set display=lastline
 
-" Clearly show when the start or end of the row does not correspond to the
-" start and end of the line
-set listchars+=precedes:<,extends:>
+" Define list characters
+set listchars+=extends:>   " Unwrapped text to screen right
+set listchars+=precedes:<  " Unwrapped text to screen left
+set listchars+=tab:>-      " Tab characters, preserve width
+set listchars+=trail:_     " Trailing spaces
 
 " Swap the j/gj and k/gk command pairs so that we move by screen row, not
 " buffer line, with j/k
@@ -427,13 +429,6 @@ nmap ]<Space> <Plug>PutBlankLinesBelow
 
 " \b toggles copy-pasteable linebreak settings
 nmap <Leader>b <Plug>CopyLinebreakToggle
-
-" \m in visual/select mode starts a mail message with the selected lines
-vmap <Leader>m <Plug>MailMuttSelected
-" \m in normal mode starts a mail message with the current line
-nmap <Leader>m <Plug>MailMuttLine
-" \M in normal mode starts a mail message with the whole buffer
-nmap <Leader>M <Plug>MailMuttBuffer
 
 " \x strips trailing whitespace via a custom plugin
 nmap <Leader>x <Plug>StripTrailingWhitespace

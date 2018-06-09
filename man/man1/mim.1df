@@ -1,0 +1,20 @@
+.TH MIM 1df "June 2018" "Manual page for mim"
+.SH NAME
+.B mim
+\- start a new Mutt message with the input
+.SH SYNOPSIS
+.B mim
+file1 [file2 ...]
+.br
+curl http://example.net/ |
+.B mim
+.SH DESCRIPTION
+.B mim
+takes all its input and puts it into a temporary file for mutt(1) to read with
+its -i option, redirecting the terminal input appropriately. This allows you to
+concatenate or pipe input straight into a new Mutt message.
+.P
+The author wrote it so that he could use ! and :! commands in Vim with it, to
+email sections of buffers to people conveniently.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

@@ -538,6 +538,7 @@ Installed by the `install-bin` target:
   it exits with success or failure. Good for quick tests.
 * `mex(1df)` makes given filenames in `$PATH` executable.
 * `mi5(1df)` is a crude preprocessor for `m4`.
+* `mim(1df)` starts an interactive Mutt message with its input.
 * `mftl(1df)` finds usable-looking targets in makefiles.
 * `mkcp(1df)` creates a directory and copies preceding arguments into it.
 * `mkmv(1df)` creates a directory and moves preceding arguments into it.
