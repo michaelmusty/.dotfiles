@@ -203,7 +203,7 @@ set scrolloff=0
 set sidescrolloff=16
 
 " Rebind <Space> in normal mode as a lazy scroll
-nnoremap <Space> <C-f>
+nnoremap <Space> <C-F>
 
 " Some special settings for searching, if available
 if has('extra_search')
@@ -287,7 +287,7 @@ set ttimeout
 set ttimeoutlen=50
 
 " Rebind Ctrl-C in insert mode to undo the current insert operation
-inoremap <C-c> <C-c>u
+inoremap <C-C> <C-C>u
 
 " Keep screeds of undo history
 set undolevels=2000
