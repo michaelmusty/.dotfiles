@@ -1,4 +1,5 @@
 # Open up Mutt to a new message starting with input
+self=mim
 
 <%
 include(`include/mktd.m4')
