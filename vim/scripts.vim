@@ -27,7 +27,7 @@ elseif s:line =~# '\m\<php\>'
   setfiletype php
 
 " Python
-elseif s:line =~# '\m\<python[23]\>'
+elseif s:line =~# '\m\<python[23]\?\>'
   setfiletype python
 
 " sed
