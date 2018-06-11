@@ -30,6 +30,10 @@ elseif s:line =~# '\m\<php\>'
 elseif s:line =~# '\m\<python[23]\?\>'
   setfiletype python
 
+" Ruby
+elseif s:line =~# '\m\<ruby[23]\?\>'
+  setfiletype ruby
+
 " sed
 elseif s:line =~# '\m\<sed\>'
   setfiletype sed
