@@ -15,7 +15,7 @@ if s:line =~# '\m\<[gm]\?awk\>'
   setfiletype awk
 
 " Perl 5
-elseif s:line =~# '\m\<perl\>'
+elseif s:line =~# '\m\<perl5\?\>'
   setfiletype perl
 
 " Perl 6
