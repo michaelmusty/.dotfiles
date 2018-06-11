@@ -185,6 +185,10 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ .viminfo
         \ setfiletype viminfo
+  " .wgetrc files
+  autocmd BufNewFile,BufRead
+        \ .wgetrc,wgetrc
+        \ setfiletype wget
   " Add automatic commands to find Xresources subfiles
   autocmd BufNewFile,BufRead
         \ .Xresources,*/.Xresources.d/*
