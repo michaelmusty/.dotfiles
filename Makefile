@@ -475,7 +475,7 @@ install-subversion:
 	cp -p -- subversion/config $(HOME)/.subversion
 
 install-terminfo:
-	find terminfo -type f -name '*.info' \
+	find terminfo -type f -name '*.ti' \
 		-exec tic -- {} \;
 
 install-tidy: install-sh
