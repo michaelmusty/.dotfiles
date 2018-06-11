@@ -11,175 +11,386 @@ endif
 augroup filetypedetect
   autocmd!
 
+  " Check whether fnameescape() exists to do some basic surgery on the
+  " filename being matched
+  if exists('*fnameescape')
+
+    " Chop tildes
+    autocmd BufNewFile,BufRead
+          \ ?*~
+          \ execute 'doautocmd filetypedetect BufRead '
+          \ . fnameescape(substitute(expand('<afile>'), '\~$', '', ''))
+
+    " Chop some generic extensions
+    autocmd BufNewFile,BufRead
+          \ ?*.bak
+          \,?*.in
+          \,?*.new
+          \,?*.old
+          \,?*.orig
+          \ execute 'doautocmd filetypedetect BufRead '
+          \ . fnameescape(expand('<afile>:r'))
+
+    " Chop some Debian working extensions
+    autocmd BufNewFile,BufRead
+          \ ?*.dpkg-bak
+          \,?*.dpkg-dist
+          \,?*.dpkg-new
+          \,?*.dpkg-old
+          \ execute 'doautocmd filetypedetect BufRead '
+          \ . fnameescape(expand('<afile>:r'))
+  endif
+
+  " Stuff Tom cares about enough and edits often enough to type based on
+  " filename patterns follows.
+
+  " Apache config
+  autocmd BufNewFile,BufRead
+        \ .htaccess
+        \,*/apache*/?*.conf
+        \ setfiletype apache
   " AWK files
   autocmd BufNewFile,BufRead
-        \ *.awk
+        \ ?*.awk
         \ setfiletype awk
+  " BIND zone file
+  autocmd BufNewFile,BufRead
+        \ */bind/db.?*
+        \,*/namedb/db.?*
+        \,named.root
+        \ setfiletype bindzone
   " C files
   autocmd BufNewFile,BufRead
-        \ *.c,*.h
+        \ ?*.c
+        \,?*.h
         \ setfiletype c
   " C++ files
   autocmd BufNewFile,BufRead
-        \ *.c++,*.cpp,*.cxx,*.hh
+        \ ?*.cpp
+        \,?*.cxx
+        \,?*.c++
+        \,?*.hh
         \ setfiletype cpp
   " crontab(5) files
   autocmd BufNewFile,BufRead
-        \ crontab,*/cron.*/*
+        \ crontab
+        \,crontab.*
+        \,cron.d/*
         \ setfiletype crontab
   " CSS files
   autocmd BufNewFile,BufRead
-        \ *.css
+        \ ?*.css
         \ setfiletype css
   " CSV files
   autocmd BufNewFile,BufRead
-        \ *.csv
+        \ ?*.csv
         \ setfiletype csv
   " Diff and patch files
   autocmd BufNewFile,BufRead
-        \ *.diff,*.patch,*.rej
+        \ ?*.diff
+        \,?*.patch
+        \,?*.rej
         \ setfiletype diff
+  " GTK settings files
+  autocmd BufNewFile,BufRead
+        \ .gktrc*,
+        \,gktrc*
+        \ setfiletype gtkrc
+  " INI files
+  autocmd BufNewFile,BufRead
+        \ ?*.ini
+        \ setfiletype dosini
+  " DOT graphs
+  autocmd BufNewFile,BufRead
+        \ ?*.dot
+        \ setfiletype dot
+  " Forth
+  autocmd BufNewFile,BufRead
+        \ ?*.fs,?*.ft
+        \ setfiletype forth
+  " fstab(5) files
+  autocmd BufNewFile,BufRead
+        \ fstab
+        \ setfiletype fstab
+  " GDB init files
+  autocmd BufNewFile,BufRead
+        \ .gdbinit
+        \ setfiletype gdb
   " Git commit messages
   autocmd BufNewFile,BufRead
-        \ COMMIT_EDITMSG,MERGE_MSG,TAG_EDITMSG
+        \ COMMIT_EDITMSG
+        \,MERGE_MSG
+        \,TAG_EDITMSG
         \ setfiletype gitcommit
   " Git config files
   autocmd BufNewFile,BufRead
-        \ *.git*/config,.gitconfig,.gitmodules
+        \ *.git/config
+        \,.gitconfig
+        \,.gitmodules
+        \,gitconfig
         \ setfiletype gitconfig
   " GnuPG configuration files
   autocmd BufNewFile,BufRead
-        \ *gnupg/options,*gnupg/gpg.conf
+        \ *gnupg/options
+        \,*gnupg/gpg.conf
         \ setfiletype gpg
+  " UNIX group file
+  autocmd BufNewFile,BufRead
+        \ /etc/group
+        \,/etc/group-
+        \,/etc/group.edit
+        \,/etc/gshadow
+        \,/etc/gshadow-
+        \,/etc/gshadow.edit
+        \ setfiletype group
+  " Vim help files
+  autocmd BufNewFile,BufRead
+        \ ~/.vim/doc/?*.txt
+        \,$VIMRUNTIME/doc/?*.txt
+        \ setfiletype help
   " HTML files
   autocmd BufNewFile,BufRead
-        \ *.html,*.htm
+        \ ?*.html
+        \,?*.htm
         \ setfiletype html
+  " inittab(5) files
+  autocmd BufNewFile,BufRead
+        \ inittab
+        \ setfiletype inittab
   " Java files
   autocmd BufNewFile,BufRead
-        \ *.java,*.jav
+        \ ?*.java
+        \,?*.jav
         \ setfiletype java
   " JSON files
   autocmd BufNewFile,BufRead
-        \ *.js
+        \ ?*.js
         \ setfiletype javascript
   " JSON files
   autocmd BufNewFile,BufRead
-        \ *.json
+        \ ?*.json
         \ setfiletype json
   " Lex files
   autocmd BufNewFile,BufRead
-        \ *.l,*.lex
+        \ ?*.l
+        \,?*.lex
         \ setfiletype lex
   " Lua files
   autocmd BufNewFile,BufRead
-        \ *.lua
+        \ ?*.lua
         \ setfiletype lua
   " m4 files
   autocmd BufNewFile,BufRead
-        \ *.m4
+        \ ?*.m4
         \ setfiletype m4
   " Mail messages
   autocmd BufNewFile,BufRead
-        \ *.msg,mutt-*-*-*
+        \ ?*.msg
+        \,mutt-[0-9]\+-[0-9]\+-[0-9]\+
         \ setfiletype mail
+  " Mail messages
+  autocmd BufNewFile,BufRead
+        \ aliases
+        \ setfiletype mailaliases
   " Makefiles
   autocmd BufNewFile,BufRead
-        \ Makefile,makefile
+        \ Makefile
+        \,makefile
         \ setfiletype make
   " Markdown files
   autocmd BufNewFile,BufRead
-        \ *.markdown,*.md
+        \ ?*.markdown
+        \,?*.md
         \ setfiletype markdown
   " Add automatic commands to detect .muttrc files
   autocmd BufNewFile,BufRead
-        \ Muttrc,.muttrc,*muttrc.d/*.rc
+        \ Muttrc
+        \,*/muttrc.d/*.rc
+        \,.muttrc
+        \,/etc/Muttrc.d/*
         \ setfiletype muttrc
+  " BIND configuration file
+  autocmd BufNewFile,BufRead
+        \ named.conf
+        \,rndc.conf
+        \,rndc.key
+        \ setfiletype named
+  " Nano configuration file
+  autocmd BufNewFile,BufRead
+        \ *.nanorc
+        \,*/etc/nanorc
+        \ setfiletype nanorc
+  " netrc file
+  autocmd BufNewFile,BufRead
+        \ .netrc
+        \,netrc
+        \ setfiletype netrc
+  " roff files
+  autocmd BufNewFile,BufRead
+        \ ?*.roff
+        \,?*.[1-9]
+        \,*/man[1-9]*/?*.[1-9]*
+        \ setfiletype nroff
+  " UNIX pass file
+  autocmd BufNewFile,BufRead
+        \ /etc/passwd
+        \,/etc/passwd-
+        \,/etc/passwd.edit
+        \,/etc/shadow
+        \,/etc/shadow-
+        \,/etc/shadow.edit
+        \ setfiletype passwd
   " Perl 5 files
   autocmd BufNewFile,BufRead
-        \ *.pl,*.pm,*.t,Makefile.PL
+        \ ?*.pl
+        \,?*.pm
+        \,*/t/?*.t
+        \,*/xt/?*.t
+        \,Makefile.PL
         \ setfiletype perl
   " Perl 6 files
   autocmd BufNewFile,BufRead
-        \ *.p6,*.pl6,*.pm6
+        \ ?*.p6
+        \,?*.pl6
+        \,?*.pm6
         \ setfiletype perl6
   " PHP files
   autocmd BufNewFile,BufRead
-        \ *.php
+        \ ?*.php
         \ setfiletype php
   " Perl 5 POD files
   autocmd BufNewFile,BufRead
-        \ *.pod
+        \ ?*.pod
         \ setfiletype pod
   " Perl 6 POD files
   autocmd BufNewFile,BufRead
-        \ *.pod6
+        \ ?*.pod6
         \ setfiletype pod6
   " Python files
   autocmd BufNewFile,BufRead
-        \ *.py
+        \ ?*.py
         \ setfiletype python
   " Readline configuration file
   autocmd BufNewFile,BufRead
-        \ .inputrc,inputrc
+        \ .inputrc
+        \,inputrc
         \ setfiletype readline
   " Remind files
   autocmd BufNewFile,BufRead
-        \ *.rem,*.remind,.reminders
+        \ .reminders
+        \,?*.rem
+        \,?*.remind
         \ setfiletype remind
+  " robots.txt files
+  autocmd BufNewFile,BufRead
+        \ robots.txt
+        \ setfiletype robots
   " Bash shell
   autocmd BufNewFile,BufRead
-        \ *.bash,
-        \.bash_aliases,
-        \.bash_logout,
-        \.bash_profile,
-        \.bashrc,
-        \bash-fc-*,
-        \bash_profile,
-        \bashrc
-        \ let b:is_bash = 1
+        \ ?*.bash
+        \,.bash_aliases
+        \,.bash_logout
+        \,.bash_profile
+        \,.bashrc
+        \,bash-fc.?*
+        \,bash_profile
+        \,bashrc
+        \   let b:is_bash = 1
         \ | setfiletype sh
   " Korn shell
   autocmd BufNewFile,BufRead
-        \ *.ksh,
-        \.kshrc,
-        \kshrc
-        \ let b:is_kornshell = 1
+        \ ?*.ksh
+        \,.kshrc
+        \,kshrc
+        \   let b:is_kornshell = 1
         \ | setfiletype sh
   " POSIX/Bourne shell
   autocmd BufNewFile,BufRead
-        \ *.sh,
-        \.profile,
-        \.shinit,
-        \.shrc,
-        \.xinitrc,
-        \/etc/default/*,
-        \configure,
-        \profile,
-        \shinit,
-        \shrc,
-        \xinitrc
-        \ let b:is_posix = 1
+        \ ?*.sh
+        \,$ENV
+        \,.profile
+        \,.shinit
+        \,.shrc
+        \,.xinitrc
+        \,/etc/default/*
+        \,configure
+        \,profile
+        \,shinit
+        \,shrc
+        \,xinitrc
+        \   let b:is_posix = 1
         \ | setfiletype sh
   " sed files
   autocmd BufNewFile,BufRead
-        \ *.sed
+        \ ?*.sed
         \ setfiletype sed
+  " Services files
+  autocmd BufNewFile,BufRead
+        \ /etc/services
+        \ setfiletype services
+  " OpenSSH configuration
+  autocmd BufNewFile,BufRead
+        \ ssh_config,*/.ssh/config
+        \ setfiletype sshconfig
+  " OpenSSH server configuration
+  autocmd BufNewFile,BufRead
+        \ sshd_config
+        \ setfiletype sudoers
+  " sudoers(5)
+  autocmd BufNewFile,BufRead
+        \ sudoers
+        \,sudoers.tmp
+        \ setfiletype sshdconfig
   " tmux configuration files
   autocmd BufNewFile,BufRead
-        \ .tmux.conf,tmux.conf
+        \ .tmux.conf
+        \,tmux.conf
         \ setfiletype tmux
-  " roff files
+  " Ruby
   autocmd BufNewFile,BufRead
-        \ *.[1-9],*.[1-9]df
-        \ setfiletype nroff
+        \ ?*.rb
+        \ setfiletype ruby
+  " SQL
+  autocmd BufNewFile,BufRead
+        \ ?*.sql
+        \ setfiletype sql
+  " Subversion commit
+  autocmd BufNewFile,BufRead
+        \ svn-commit*.tmp
+        \ setfiletype svn
+  " Systemd unit files
+  autocmd BufNewFile,BufRead
+        \ */systemd/*.*
+        \ setfiletype systemd
+  " TCL
+  autocmd BufNewFile,BufRead
+        \ ?*.tcl
+        \ setfiletype tcl
+  " Terminfo
+  autocmd BufNewFile,BufRead
+        \ ?*.ti
+        \ setf terminfo
+  " Tidy config
+  autocmd BufNewFile,BufRead
+        \ .tidyrc
+        \,tidyrc
+        \ setfiletype tidy
   " Tab-separated (TSV) files
   autocmd BufNewFile,BufRead
-        \ *.tsv
+        \ ?*.tsv
         \ setfiletype tsv
   " VimL files
   autocmd BufNewFile,BufRead
-        \ *.vim,vimrc,*[._]vimrc,gvimrc,*[._]gvimrc,exrc,*[._]exrc
+        \ ?*.vim
+        \,*.exrc
+        \,*.gvimrc
+        \,*.vimrc
+        \,_exrc
+        \,_gvimrc
+        \,_vimrc
+        \,exrc
+        \,gvimrc
+        \,vimrc
         \ setfiletype vim
   " .viminfo files
   autocmd BufNewFile,BufRead
@@ -187,43 +398,82 @@ augroup filetypedetect
         \ setfiletype viminfo
   " .wgetrc files
   autocmd BufNewFile,BufRead
-        \ .wgetrc,wgetrc
+        \ .wgetrc
+        \,wgetrc
         \ setfiletype wget
   " Add automatic commands to find Xresources subfiles
   autocmd BufNewFile,BufRead
-        \ .Xresources,*/.Xresources.d/*
+        \ .Xresources
+        \,*/.Xresources.d/*
         \ setfiletype xdefaults
   " XHTML files
   autocmd BufNewFile,BufRead
-        \ *.xhtml,*.xht
+        \ ?*.xhtml
+        \,?*.xht
         \ setfiletype xhtml
   " XML files
   autocmd BufNewFile,BufRead
-        \ *.xml
+        \ ?*.xml
         \ setfiletype xml
+  " Perl XS
+  autocmd BufNewFile,BufRead
+        \ ?*.xs
+        \ setfiletype xs
   " Yacc files
   autocmd BufNewFile,BufRead
-        \ *.y,*.yy
+        \ ?*.y
+        \,?*.yy
         \ setfiletype yacc
   " YAML files
   autocmd BufNewFile,BufRead
-        \ *.yaml
+        \ ?*.yaml
         \ setfiletype yaml
   " Z shell files
   autocmd BufNewFile,BufRead
-        \ *.zsh,.zprofile,zprofile,.zshrc,zshrc
+        \ ?*.zsh
+        \,.zprofile
+        \,.zshrc
+        \,zprofile
+        \,zshrc
         \ setfiletype zsh
+
+  " Generic text and config files, if no type assigned yet
+  autocmd BufNewFile,BufRead
+        \ ?*.text
+        \,?*.txt
+        \,INSTALL
+        \,README
+        \,/etc/issue
+        \,/etc/motd
+        \ setfiletype text
+  autocmd BufNewFile,BufRead
+        \ ?*.cfg
+        \,?*.conf
+        \,?*.config
+        \,/etc/*
+        \ setfiletype config
 
   " Load any extra rules in ftdetect directories
   runtime! ftdetect/*.vim
 
-  " If we still don't have a filetype, run the scripts.vim file that will
+  " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
+  " been found; strip temporary extension and re-run
+  if exists('*fnameescape')
+    autocmd BufNewFile,BufRead
+          \ /var/tmp/?*.????????
+          \   if !did_filetype()
+          \ |   execute 'doautocmd filetypedetect BufRead '
+          \           . fnameescape(expand('<afile>:r'))
+          \ | endif
+  endif
+
+  " If we *still* don't have a filetype, run the scripts.vim file that will
   " examine actual file contents--but only the first one; don't load the
   " system one at all
   autocmd BufNewFile,BufRead,StdinReadPost
         \ *
         \   if !did_filetype()
-        \ |    runtime scripts.vim
+        \ |   runtime scripts.vim
         \ | endif
 
 augroup END
