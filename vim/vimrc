@@ -85,10 +85,13 @@ if has('cmdline_info')
 
 endif
 
-" \d inserts the current local date from date(1)
-nnoremap <silent> <Leader>d :<C-U>read !date<CR>
-" \D inserts the current UTC date from date(1)
-nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
+" Current date and time insertion commands, requiring POSIX date(1)
+if has('unix')
+  " \d: Local
+  nnoremap <silent> <Leader>d :<C-U>read !date<CR>
+  " \D: UTC
+  nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
+endif
 
 " Don't try to complete strings from included files, just use the strings in
 " the open buffers; I'll open the file if I want to complete from it
