@@ -23,6 +23,10 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ *.c++,*.cpp,*.cxx,*.hh
         \ setfiletype cpp
+  " crontab(5) files
+  autocmd BufNewFile,BufRead
+        \ crontab,*/cron.*/*
+        \ setfiletype crontab
   " CSS files
   autocmd BufNewFile,BufRead
         \ *.css
