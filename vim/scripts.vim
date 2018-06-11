@@ -49,4 +49,8 @@ elseif s:line =~# '\m\<sh\>'
   let b:is_posix = 1
   setfiletype sh
 
+" TCL
+elseif s:line =~# '\m\<\(tcl\|wish\)\>'
+  setfiletype tcl
+
 endif
