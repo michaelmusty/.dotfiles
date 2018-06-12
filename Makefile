@@ -475,7 +475,7 @@ install-subversion:
 	cp -p -- subversion/config $(HOME)/.subversion
 
 install-terminfo:
-	find terminfo -type f -name '*.info' \
+	find terminfo -type f -name '*.ti' \
 		-exec tic -- {} \;
 
 install-tidy: install-sh
@@ -533,7 +533,8 @@ install-vim-bundle: install-vim-config
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	vim -eT dumb -c 'helptags $(VIMDIR)/doc' -c quit
+	cmd=$$(printf 'set t_cm=\r|') ; \
+	    vim -eT dumb --cmd "$${cmd%|}" -c 'helptags $(VIMDIR)/doc' -c quit
 
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler

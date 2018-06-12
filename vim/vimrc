@@ -85,10 +85,13 @@ if has('cmdline_info')
 
 endif
 
-" \d inserts the current local date from date(1)
-nnoremap <silent> <Leader>d :<C-U>read !date<CR>
-" \D inserts the current UTC date from date(1)
-nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
+" Current date and time insertion commands, requiring POSIX date(1)
+if has('unix')
+  " \d: Local
+  nnoremap <silent> <Leader>d :<C-U>read !date<CR>
+  " \D: UTC
+  nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
+endif
 
 " Don't try to complete strings from included files, just use the strings in
 " the open buffers; I'll open the file if I want to complete from it
@@ -182,8 +185,10 @@ nnoremap <silent> ZA :<C-U>wall!<CR>
 set nrformats-=octal
 
 " Try to set the 'j' flag for 'formatoptions', to automatically delete comment
-" leaders when joining lines
-silent! set formatoptions+=j
+" leaders when joining lines, if supported
+if v:version >= 704 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
 
 " \f shows the current formatoptions at a glance
 nnoremap <silent> <Leader>f :<C-U>setlocal formatoptions?<CR>
