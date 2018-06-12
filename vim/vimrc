@@ -185,8 +185,10 @@ nnoremap <silent> ZA :<C-U>wall!<CR>
 set nrformats-=octal
 
 " Try to set the 'j' flag for 'formatoptions', to automatically delete comment
-" leaders when joining lines
-silent! set formatoptions+=j
+" leaders when joining lines, if supported
+if v:version >= 704 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
 
 " \f shows the current formatoptions at a glance
 nnoremap <silent> <Leader>f :<C-U>setlocal formatoptions?<CR>
