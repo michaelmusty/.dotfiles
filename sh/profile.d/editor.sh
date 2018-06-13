@@ -9,7 +9,7 @@ if command -v ed >/dev/null 2>&1 ; then
 elif (
     command -v ex >/dev/null 2>&1 || exit 1
     command -v exm >/dev/null 2>&1 || exit 1
-    ver=$(ex --version 2>/dev/null | awk 'NR==1{print $1;exit}')
+    ver=$(ex --version 2>/dev/null | awk '{print $1;exit}')
     case $ver in
         (VIM) exit 0 ;;
         (*)   exit 1 ;;
