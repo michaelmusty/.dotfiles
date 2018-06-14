@@ -300,10 +300,14 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ ?*.bash
         \,.bash_aliases
+        \,.bash_completion
         \,.bash_logout
         \,.bash_profile
         \,.bashrc
         \,bash-fc.?*
+        \,bash_aliases
+        \,bash_completion
+        \,bash_logout
         \,bash_profile
         \,bashrc
         \   let b:is_bash = 1
