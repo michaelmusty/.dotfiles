@@ -420,6 +420,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ .Xresources
         \,*/.Xresources.d/*
+        \,Xresources
+        \,*/Xresources.d/*
         \ setfiletype xdefaults
   " XHTML files
   autocmd BufNewFile,BufRead
