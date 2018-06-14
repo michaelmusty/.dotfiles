@@ -93,6 +93,10 @@ if has('unix')
   nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
 endif
 
+" Start with blank comment strings rather than the old default; let the
+" filetype handle it
+set comments=
+
 " Don't try to complete strings from included files, just use the strings in
 " the open buffers; I'll open the file if I want to complete from it
 set complete-=i
