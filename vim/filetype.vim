@@ -7,39 +7,50 @@ if !has('autocmd') || &compatible
   finish
 endif
 
+" Run the 'filetypedetect' group on a file with its extension stripped off
+function! s:StripRepeat()
+
+  " Check we have the fnameescape() function
+  if !exists('*fnameescape')
+    return
+  endif
+
+  " Expand the match result
+  let l:fn = expand('<afile>')
+
+  " Strip leading and trailing #hashes#
+  if l:fn =~# '\m^#\+.*#\+$'
+    let l:fn = substitute(l:fn, '\m^#\+\(.\+\)#\+$', '\1', '')
+
+  " Strip trailing tilde~
+  elseif l:fn =~# '\m\~$'
+    let l:fn = substitute(l:fn, '\~$', '', '')
+
+  " Strip generic .extension
+  else
+    let l:fn = expand('<afile>:r')
+  endif
+
+  " Re-run the group if there's anything left
+  if strlen(l:fn)
+    execute 'doautocmd filetypedetect BufRead ' . fnameescape(l:fn)
+  endif
+
+endfunction
+
 " Use our own filetype detection rules
 augroup filetypedetect
   autocmd!
 
-  " Check whether fnameescape() exists to do some basic surgery on the
-  " filename being matched
-  if exists('*fnameescape')
-
-    " Chop tildes
-    autocmd BufNewFile,BufRead
-          \ ?*~
-          \ execute 'doautocmd filetypedetect BufRead '
-          \ . fnameescape(substitute(expand('<afile>'), '\~$', '', ''))
-
-    " Chop some generic extensions
-    autocmd BufNewFile,BufRead
-          \ ?*.bak
-          \,?*.in
-          \,?*.new
-          \,?*.old
-          \,?*.orig
-          \ execute 'doautocmd filetypedetect BufRead '
-          \ . fnameescape(expand('<afile>:r'))
-
-    " Chop some Debian working extensions
-    autocmd BufNewFile,BufRead
-          \ ?*.dpkg-bak
-          \,?*.dpkg-dist
-          \,?*.dpkg-new
-          \,?*.dpkg-old
-          \ execute 'doautocmd filetypedetect BufRead '
-          \ . fnameescape(expand('<afile>:r'))
-  endif
+  " Unwrap hashes, tildes, generic extensions, and Debian packaging working
+  " extensions (if we can do so safely), and repeat the filetype detection to
+  " see if there's a match beneath them
+  autocmd BufNewFile,BufRead
+        \ #?*#
+        \,?*~
+        \,?*.{bak,example,in,new,old,orig,sample,test}
+        \,?*.dpkg-{bak,dist,new,old}
+        \ call s:StripRepeat()
 
   " Stuff Tom cares about enough and edits often enough to type based on
   " filename patterns follows.
@@ -458,14 +469,11 @@ augroup filetypedetect
 
   " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
   " been found; strip temporary extension and re-run
-  if exists('*fnameescape')
-    autocmd BufNewFile,BufRead
-          \ /var/tmp/?*.????????
-          \   if !did_filetype()
-          \ |   execute 'doautocmd filetypedetect BufRead '
-          \           . fnameescape(expand('<afile>:r'))
-          \ | endif
-  endif
+  autocmd BufNewFile,BufRead
+        \ /var/tmp/?*.????????
+        \   if !did_filetype()
+        \ |   call s:StripRepeat()
+        \ | endif
 
   " If we *still* don't have a filetype, run the scripts.vim file that will
   " examine actual file contents--but only the first one; don't load the

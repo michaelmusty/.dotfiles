@@ -132,7 +132,7 @@ endif
 " Set up short message settings
 set shortmess=
 set shortmess+=f  " (file 3 of 5) -> (3 of 5)
-set shortmess+=i  " [Incomplete last line] -> [eol]
+set shortmess+=i  " [Incomplete last line] -> [noeol]
 set shortmess+=I  " I donated to Uganda, thanks Bram
 set shortmess+=l  " 999 lines, 888 characters -> 999L, 888C
 set shortmess+=m  " [Modified] -> [+]
