@@ -523,6 +523,15 @@ There are also a few tweaks to core syntax files in
 (\f[C]sh.vim\f[]).
 Some of these filetype plugins are also due to be separately distributed
 and installed via submodules instead.
+.SS Compilers
+.PP
+I define a few of my own \f[C]:compiler\f[] scripts for
+\f[C]~/.vim/compiler\f[], for use for checking and linting of
+appropriate filetypes.
+Because checking (does it work?) and linting (is it well\-written?) are
+separate processes for me, I bind them separately with local leader
+maps; for example, \f[C]_c\f[] runs a \f[C]perl\ \-c\f[] syntax check of
+Perl scripts, and \f[C]_l\f[] runs a Perl::Critic check.
 .SS Neovim
 .PP
 I test my configuration every now and then with the Neovim
@@ -831,6 +840,8 @@ Good for quick tests.
 \f[C]mex(1df)\f[] makes given filenames in \f[C]$PATH\f[] executable.
 .IP \[bu] 2
 \f[C]mi5(1df)\f[] is a crude preprocessor for \f[C]m4\f[].
+.IP \[bu] 2
+\f[C]mim(1df)\f[] starts an interactive Mutt message with its input.
 .IP \[bu] 2
 \f[C]mftl(1df)\f[] finds usable\-looking targets in makefiles.
 .IP \[bu] 2
