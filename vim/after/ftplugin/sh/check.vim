@@ -38,27 +38,27 @@ if !exists('*s:ShCheck')
   endfunction
 endif
 
-" Set up a mapping for the checker, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_sh_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>ShCheck
+      \ :<C-U>call <SID>ShCheck()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>ShCheck'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>ShCheck')
+  nmap <buffer> <unique>
+        \ <LocalLeader>c
         \ <Plug>ShCheck
-        \ :<C-U>call <SID>ShCheck()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>ShCheck'
+          \ . '|nunmap <buffer> <LocalLeader>c'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>ShCheck')
-    nmap <buffer> <unique>
-          \ <LocalLeader>c
-          \ <Plug>ShCheck
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>c'
-    endif
-  endif
-
 endif

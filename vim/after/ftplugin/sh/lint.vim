@@ -36,27 +36,27 @@ function! s:ShLint()
   cwindow
 endfunction
 
-" Set up a mapping for the linter, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_sh_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>ShLint
+      \ :<C-U>call <SID>ShLint()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>ShLint'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>ShLint')
+  nmap <buffer> <unique>
+        \ <LocalLeader>l
         \ <Plug>ShLint
-        \ :<C-U>call <SID>ShLint()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>ShLint'
+          \ . '|nunmap <buffer> <LocalLeader>l'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>ShLint')
-    nmap <buffer> <unique>
-          \ <LocalLeader>l
-          \ <Plug>ShLint
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>l'
-    endif
-  endif
-
 endif

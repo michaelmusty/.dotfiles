@@ -29,27 +29,27 @@ function! s:HtmlUrlLink()
 
 endfunction
 
-" Set up a mapping for the function, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>HtmlUrlLink
+      \ :<C-U>call <SID>HtmlUrlLink()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>HtmlUrlLink')
+  nmap <buffer> <unique>
+        \ <LocalLeader>r
         \ <Plug>HtmlUrlLink
-        \ :<C-U>call <SID>HtmlUrlLink()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
+          \ . '|nunmap <buffer> <LocalLeader>r'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>HtmlUrlLink')
-    nmap <buffer> <unique>
-          \ <LocalLeader>r
-          \ <Plug>HtmlUrlLink
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>r'
-    endif
-  endif
-
 endif

@@ -29,27 +29,27 @@ function! s:PhpCheck()
   cwindow
 endfunction
 
-" Set up a mapping for the checker, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_php_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_php_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>PhpCheck
+      \ :<C-U>call <SID>PhpCheck()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>PhpCheck'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>PhpCheck')
+  nmap <buffer> <unique>
+        \ <LocalLeader>c
         \ <Plug>PhpCheck
-        \ :<C-U>call <SID>PhpCheck()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>PhpCheck'
+          \ . '|nunmap <buffer> <LocalLeader>c'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>PhpCheck')
-    nmap <buffer> <unique>
-          \ <LocalLeader>c
-          \ <Plug>PhpCheck
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>c'
-    endif
-  endif
-
 endif

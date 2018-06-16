@@ -13,27 +13,27 @@ if exists('b:undo_ftplugin')
         \ . '|unlet b:did_ftplugin_html_tidy'
 endif
 
-" Set up a mapping for the tidier, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>HtmlTidy
+      \ :<C-U>%!tidy -quiet<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>HtmlTidy'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>HtmlTidy')
+  nmap <buffer> <unique>
+        \ <LocalLeader>t
         \ <Plug>HtmlTidy
-        \ :<C-U>%!tidy -quiet<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>HtmlTidy'
+          \ . '|nunmap <buffer> <LocalLeader>t'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>HtmlTidy')
-    nmap <buffer> <unique>
-          \ <LocalLeader>t
-          \ <Plug>HtmlTidy
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>t'
-    endif
-  endif
-
 endif

@@ -27,27 +27,27 @@ function! s:HtmlLint()
   cwindow
 endfunction
 
-" Set up a mapping for the linter, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>HtmlLint
+      \ :<C-U>call <SID>HtmlLint()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>HtmlLint'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>HtmlLint')
+  nmap <buffer> <unique>
+        \ <LocalLeader>l
         \ <Plug>HtmlLint
-        \ :<C-U>call <SID>HtmlLint()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>HtmlLint'
+          \ . '|nunmap <buffer> <LocalLeader>l'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>HtmlLint')
-    nmap <buffer> <unique>
-          \ <LocalLeader>l
-          \ <Plug>HtmlLint
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>l'
-    endif
-  endif
-
 endif

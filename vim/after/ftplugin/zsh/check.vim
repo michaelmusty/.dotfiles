@@ -22,26 +22,26 @@ function! s:ZshCheck()
 endfunction
 
 " Set up a mapping for the checker, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_zsh_maps')
+if exists('g:no_plugin_maps') || exists('g:no_zsh_maps')
+  finish
+endif
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>ZshCheck
+      \ :<C-U>call <SID>ZshCheck()<CR>
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <Plug>ZshCheck'
+endif
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>ZshCheck')
+  nmap <buffer> <unique>
+        \ <LocalLeader>c
         \ <Plug>ZshCheck
-        \ :<C-U>call <SID>ZshCheck()<CR>
   if exists('b:undo_ftplugin')
     let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>ZshCheck'
+          \ . '|nunmap <buffer> <LocalLeader>c'
   endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>ZshCheck')
-    nmap <buffer> <unique>
-          \ <LocalLeader>c
-          \ <Plug>ZshCheck
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>c'
-    endif
-  endif
-
 endif
