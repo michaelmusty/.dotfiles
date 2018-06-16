@@ -378,6 +378,14 @@ tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
 script (`sh.vim`). Some of these filetype plugins are also due to be separately
 distributed and installed via submodules instead.
 
+#### Compilers
+
+I define a few of my own `:compiler` scripts for `~/.vim/compiler`, for use for
+checking and linting of appropriate filetypes. Because checking (does it work?)
+and linting (is it well-written?) are separate processes for me, I bind them
+separately with local leader maps; for example, `_c` runs a `perl -c` syntax
+check of Perl scripts, and `_l` runs a Perl::Critic check.
+
 #### Neovim
 
 I test my configuration every now and then with the [Neovim

@@ -1,57 +1,58 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled, or if the current filetype is
-" actually markdown
-if exists('b:did_ftplugin_html_url_link') || &compatible
+" html/url_link.vim: Make a URL into a link
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
-if &filetype ==# 'markdown'
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_html_url_link')
   finish
 endif
+
+" Don't load if the primary filetype isn't HTML
+if &filetype !=# 'html'
+  finish
+endif
+
+" Flag as loaded
 let b:did_ftplugin_html_url_link = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_html_url_link'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_html_url_link'
 
 " Make a bare URL into a link to itself
-if !exists('*s:HtmlUrlLink')
-  function! s:HtmlUrlLink()
+function! s:HtmlUrlLink()
 
-    " Yank this whole whitespace-separated word
-    normal! yiW
-    " Open a link tag
-    normal! i<a href="">
-    " Paste the URL into the quotes
-    normal! hP
-    " Move to the end of the link text URL
-    normal! E
-    " Close the link tag
-    normal! a</a>
+  " Yank this whole whitespace-separated word
+  normal! yiW
+  " Open a link tag
+  normal! i<a href="">
+  " Paste the URL into the quotes
+  normal! hP
+  " Move to the end of the link text URL
+  normal! E
+  " Close the link tag
+  normal! a</a>
 
-  endfunction
+endfunction
+
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
 endif
 
-" Set up a mapping for the function, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>HtmlUrlLink
+      \ :<C-U>call <SID>HtmlUrlLink()<CR>
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>HtmlUrlLink')
+  nmap <buffer> <unique>
+        \ <LocalLeader>r
         \ <Plug>HtmlUrlLink
-        \ :<C-U>call <SID>HtmlUrlLink()<CR>
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
-  endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>HtmlUrlLink')
-    nmap <buffer> <unique>
-          \ <LocalLeader>r
-          \ <Plug>HtmlUrlLink
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>r'
-    endif
-  endif
-
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>r'
 endif

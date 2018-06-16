@@ -1,64 +1,50 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
-if exists('b:did_ftplugin_sh_lint') || &compatible
+" sh/lint.vim: Use appropriate shell binary to lint scripts for errors
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_sh_lint')
+  finish
+endif
+
+" Flag as loaded
 let b:did_ftplugin_sh_lint = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_sh_lint'
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_sh_lint'
+
+" Build function for linter
+function! s:ShLint()
+  if exists('b:current_compiler')
+    let l:save_compiler = b:current_compiler
+  endif
+  compiler shellcheck
+  lmake!
+  lwindow
+  if exists('l:save_compiler')
+    execute 'compiler ' . l:save_compiler
+  endif
+endfunction
+
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
+  finish
 endif
 
-" Choose linter based on shell family
-if exists('b:is_bash')
-  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s bash %:S'
-elseif exists('b:is_kornshell')
-  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s ksh %:S'
-else
-  let b:sh_lint_makeprg = 'shellcheck -e SC1090 -f gcc -s sh %:S'
-endif
-let b:sh_lint_errorformat = '%f:%l:%c: %m [SC%n]'
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:sh_lint_makeprg'
-        \ . '|unlet b:sh_lint_errorformat'
-endif
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>ShLint
+      \ :<C-U>call <SID>ShLint()<CR>
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>ShLint'
 
-" Build function for checker
-if !exists('*s:ShLint')
-  function s:ShLint()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    let &l:makeprg = b:sh_lint_makeprg
-    let &l:errorformat = b:sh_lint_errorformat
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
-
-" Set up a mapping for the linter, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_sh_maps')
-
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>ShLint')
+  nmap <buffer> <unique>
+        \ <LocalLeader>l
         \ <Plug>ShLint
-        \ :<C-U>call <SID>ShLint()<CR>
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>ShLint'
-  endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>ShLint')
-    nmap <buffer> <unique>
-          \ <LocalLeader>l
-          \ <Plug>ShLint
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>l'
-    endif
-  endif
-
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>l'
 endif

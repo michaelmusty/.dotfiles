@@ -1,13 +1,17 @@
-" Override filetypes.vim
+" Override system filetype.vim
 if exists('g:did_load_filetypes')
   finish
 endif
 let g:did_load_filetypes = 1
+
+" If we don't have +autocmd or are 'compatible', do nothing, and don't try
+" again later
 if !has('autocmd') || &compatible
   finish
 endif
 
-" Run the 'filetypedetect' group on a file with its extension stripped off
+" Helper function to run the 'filetypedetect' group on a file with its
+" extension stripped off
 function! s:StripRepeat()
 
   " Check we have the fnameescape() function
@@ -300,10 +304,14 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ ?*.bash
         \,.bash_aliases
+        \,.bash_completion
         \,.bash_logout
         \,.bash_profile
         \,.bashrc
         \,bash-fc.?*
+        \,bash_aliases
+        \,bash_completion
+        \,bash_logout
         \,bash_profile
         \,bashrc
         \   let b:is_bash = 1
@@ -416,6 +424,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ .Xresources
         \,*/.Xresources.d/*
+        \,Xresources
+        \,*/Xresources.d/*
         \ setfiletype xdefaults
   " XHTML files
   autocmd BufNewFile,BufRead

@@ -1,49 +1,50 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
-if exists('b:did_ftplugin_vim_lint') || &compatible
+" vim/lint.vim: Use Vint to lint VimL scripts
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_vim_lint')
+  finish
+endif
+
+" Flag as loaded
 let b:did_ftplugin_vim_lint = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_vim_lint'
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_vim_lint'
+
+" Build function for linter
+function! s:VimLint()
+  if exists('b:current_compiler')
+    let l:save_compiler = b:current_compiler
+  endif
+  compiler vint
+  lmake!
+  lwindow
+  if exists('l:save_compiler')
+    execute 'compiler ' . l:save_compiler
+  endif
+endfunction
+
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
+  finish
 endif
 
-" Build function for checker
-if !exists('*s:VimLint')
-  function s:VimLint()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    unlet! g:current_compiler
-    compiler vint
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>VimLint
+      \ :<C-U>call <SID>VimLint()<CR>
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>VimLint'
 
-" Set up a mapping for the linter, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_vim_maps')
-
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>VimLint')
+  nmap <buffer> <unique>
+        \ <LocalLeader>l
         \ <Plug>VimLint
-        \ :<C-U>call <SID>VimLint()<CR>
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>VimLint'
-  endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>VimLint')
-    nmap <buffer> <unique>
-          \ <LocalLeader>l
-          \ <Plug>VimLint
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>l'
-    endif
-  endif
-
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>l'
 endif

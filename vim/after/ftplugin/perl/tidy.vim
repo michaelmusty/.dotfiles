@@ -1,35 +1,44 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
-if exists('b:did_ftplugin_perl_tidy') || &compatible
+" perl/tidy.vim: Use Perl::Tidy to format and filter scripts
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
-let b:did_ftplugin_perl_tidy = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_perl_tidy'
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_perl_tidy')
+  finish
 endif
 
-" Set up a mapping for the tidier, if we're allowed
-if !exists('g:no_plugin_maps') && !exists('g:no_perl_maps')
+" Flag as loaded
+let b:did_ftplugin_perl_tidy = 1
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_perl_tidy'
 
-  " Define a mapping target
-  nnoremap <buffer> <silent> <unique>
+" Plugin function
+function s:PerlTidy()
+  let l:view = winsaveview()
+  %!perltidy
+  call winrestview(l:view)
+endfunction
+
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
+  finish
+endif
+
+" Define a mapping target
+nnoremap <buffer> <silent> <unique>
+      \ <Plug>PerlTidy
+      \ :<C-U>call <SID>PerlTidy()<CR>
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>PerlTidy'
+
+" If there isn't a key mapping already, use a default one
+if !hasmapto('<Plug>PerlTidy')
+  nmap <buffer> <unique>
+        \ <LocalLeader>t
         \ <Plug>PerlTidy
-        \ :<C-U>%!perltidy<CR>
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <Plug>PerlTidy'
-  endif
-
-  " If there isn't a key mapping already, use a default one
-  if !hasmapto('<Plug>PerlTidy')
-    nmap <buffer> <unique>
-          \ <LocalLeader>t
-          \ <Plug>PerlTidy
-    if exists('b:undo_ftplugin')
-      let b:undo_ftplugin = b:undo_ftplugin
-            \ . '|nunmap <buffer> <LocalLeader>t'
-    endif
-  endif
-
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>t'
 endif
