@@ -10,26 +10,24 @@ if exists('b:undo_ftplugin')
 endif
 
 " Build function for checker
-if !exists('*s:PhpCheck')
-  function s:PhpCheck()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    unlet! g:current_compiler
-    compiler php
+function! s:PhpCheck()
+  let l:save_makeprg = &l:makeprg
+  let l:save_errorformat = &l:errorformat
+  unlet! g:current_compiler
+  compiler php
 
-    " 7.4.191 is the earliest version with the :S file name modifier, which we
-    " really should use if we can
-    if v:version >= 704 || v:version == 704 && has('patch191')
-      make! %:S
-    else
-      make! %
-    endif
+  " 7.4.191 is the earliest version with the :S file name modifier, which we
+  " really should use if we can
+  if v:version >= 704 || v:version == 704 && has('patch191')
+    make! %:S
+  else
+    make! %
+  endif
 
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+  let &l:makeprg = l:save_makeprg
+  let &l:errorformat = l:save_errorformat
+  cwindow
+endfunction
 
 " Set up a mapping for the checker, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_php_maps')

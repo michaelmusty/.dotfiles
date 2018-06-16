@@ -10,18 +10,16 @@ if exists('b:undo_ftplugin')
 endif
 
 " Build function for checker
-if !exists('*s:PerlCheck')
-  function s:PerlCheck()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    unlet! g:current_compiler
-    compiler perl
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+function! s:PerlCheck()
+  let l:save_makeprg = &l:makeprg
+  let l:save_errorformat = &l:errorformat
+  unlet! g:current_compiler
+  compiler perl
+  make!
+  let &l:makeprg = l:save_makeprg
+  let &l:errorformat = l:save_errorformat
+  cwindow
+endfunction
 
 " Set up a mapping for the checker, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_perl_maps')

@@ -14,22 +14,20 @@ if exists('b:undo_ftplugin')
 endif
 
 " Make a bare URL into a link to itself
-if !exists('*s:HtmlUrlLink')
-  function! s:HtmlUrlLink()
+function! s:HtmlUrlLink()
 
-    " Yank this whole whitespace-separated word
-    normal! yiW
-    " Open a link tag
-    normal! i<a href="">
-    " Paste the URL into the quotes
-    normal! hP
-    " Move to the end of the link text URL
-    normal! E
-    " Close the link tag
-    normal! a</a>
+  " Yank this whole whitespace-separated word
+  normal! yiW
+  " Open a link tag
+  normal! i<a href="">
+  " Paste the URL into the quotes
+  normal! hP
+  " Move to the end of the link text URL
+  normal! E
+  " Close the link tag
+  normal! a</a>
 
-  endfunction
-endif
+endfunction
 
 " Set up a mapping for the function, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')

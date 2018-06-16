@@ -10,18 +10,16 @@ if exists('b:undo_ftplugin')
 endif
 
 " Build function for checker
-if !exists('*s:VimLint')
-  function s:VimLint()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    unlet! g:current_compiler
-    compiler vint
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+function! s:VimLint()
+  let l:save_makeprg = &l:makeprg
+  let l:save_errorformat = &l:errorformat
+  unlet! g:current_compiler
+  compiler vint
+  make!
+  let &l:makeprg = l:save_makeprg
+  let &l:errorformat = l:save_errorformat
+  cwindow
+endfunction
 
 " Set up a mapping for the linter, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_vim_maps')

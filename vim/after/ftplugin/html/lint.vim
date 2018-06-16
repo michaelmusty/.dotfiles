@@ -16,18 +16,16 @@ if exists('b:undo_ftplugin')
 endif
 
 " Build function for linter
-if !exists('*s:HtmlLint')
-  function s:HtmlLint()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    unlet! g:current_compiler
-    compiler tidy
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+function! s:HtmlLint()
+  let l:save_makeprg = &l:makeprg
+  let l:save_errorformat = &l:errorformat
+  unlet! g:current_compiler
+  compiler tidy
+  make!
+  let &l:makeprg = l:save_makeprg
+  let &l:errorformat = l:save_errorformat
+  cwindow
+endfunction
 
 " Set up a mapping for the linter, if we're allowed
 if !exists('g:no_plugin_maps') && !exists('g:no_html_maps')
