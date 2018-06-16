@@ -10,33 +10,20 @@ if exists('b:did_ftplugin_perl_lint')
   finish
 endif
 
+" Don't load if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
+endif
+
 " Flag as loaded
 let b:did_ftplugin_perl_lint = 1
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:did_ftplugin_perl_lint'
 
-" Build function for linter
-function! s:PerlLint()
-  if exists('b:current_compiler')
-    let l:save_compiler = b:current_compiler
-  endif
-  compiler perlcritic
-  lmake!
-  lwindow
-  if exists('l:save_compiler')
-    execute 'compiler ' . l:save_compiler
-  endif
-endfunction
-
-" Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
-  finish
-endif
-
 " Define a mapping target
 nnoremap <buffer> <silent> <unique>
       \ <Plug>PerlLint
-      \ :<C-U>call <SID>PerlLint()<CR>
+      \ :<C-U>call compiler#Make('perlcritic')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>PerlLint'
 
