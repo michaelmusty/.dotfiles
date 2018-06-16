@@ -1,21 +1,21 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled, or if the 'spell' feature isn't
-" available
-if exists('b:did_ftplugin_text_spell') || &compatible
+" text/spell.vim: Turn on spell checking for text files
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
-if !has('spell')
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_text_spell')
   finish
 endif
+
+" Flag as loaded
 let b:did_ftplugin_text_spell = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_text_spell'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_text_spell'
 
 " Spellcheck documents by default
 setlocal spell
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|setlocal spell<'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|setlocal spell<'

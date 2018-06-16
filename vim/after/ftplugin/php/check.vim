@@ -1,32 +1,40 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
-if exists('b:did_ftplugin_php_check') || &compatible
+" php/check.vim: Use PHP binary to check scripts for errors
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
-let b:did_ftplugin_php_check = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_php_check'
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_php_check')
+  finish
 endif
+
+" Flag as loaded
+let b:did_ftplugin_php_check = 1
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_php_check'
 
 " Build function for checker
 function! s:PhpCheck()
-  let l:save_makeprg = &l:makeprg
-  let l:save_errorformat = &l:errorformat
-  unlet! g:current_compiler
+  if exists('b:current_compiler')
+    let l:save_compiler = b:current_compiler
+  endif
   compiler php
 
-  " 7.4.191 is the earliest version with the :S file name modifier, which we
-  " really should use if we can
+  " The PHP compiler is unusual: it gets us to provide the filename argument
+  " ourselves. 7.4.191 is the earliest version with the :S file name modifier,
+  " which we really should use if we can
   if v:version >= 704 || v:version == 704 && has('patch191')
-    make! %:S
+    lmake! %:S
   else
-    make! %
+    lmake! %
   endif
+  lwindow
 
-  let &l:makeprg = l:save_makeprg
-  let &l:errorformat = l:save_errorformat
-  cwindow
+  if exists('l:save_compiler')
+    execute 'compiler ' . l:save_compiler
+  endif
 endfunction
 
 " Stop here if the user doesn't want ftplugin mappings
@@ -38,18 +46,14 @@ endif
 nnoremap <buffer> <silent> <unique>
       \ <Plug>PhpCheck
       \ :<C-U>call <SID>PhpCheck()<CR>
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <Plug>PhpCheck'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>PhpCheck'
 
 " If there isn't a key mapping already, use a default one
 if !hasmapto('<Plug>PhpCheck')
   nmap <buffer> <unique>
         \ <LocalLeader>c
         \ <Plug>PhpCheck
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <LocalLeader>c'
-  endif
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>c'
 endif

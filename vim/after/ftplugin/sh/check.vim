@@ -1,42 +1,38 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled
-if exists('b:did_ftplugin_sh_check') || &compatible
+" sh/check.vim: Use appropriate shell binary to check scripts for errors
+
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
   finish
 endif
-let b:did_ftplugin_sh_check = 1
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_sh_check'
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_sh_check')
+  finish
 endif
 
-" Choose checker based on shell family
-if exists('b:is_bash')
-  let b:sh_check_makeprg = 'bash -n %:S'
-elseif exists('b:is_kornshell')
-  let b:sh_check_makeprg = 'ksh -n %:S'
-else
-  let b:sh_check_makeprg = 'sh -n %:S'
-endif
-let b:sh_check_errorformat = '%f: %l: %m'
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:sh_check_makeprg'
-        \ . '|unlet b:sh_check_errorformat'
-endif
+" Flag as loaded
+let b:did_ftplugin_sh_check = 1
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_sh_check'
 
 " Build function for checker
-if !exists('*s:ShCheck')
-  function s:ShCheck()
-    let l:save_makeprg = &l:makeprg
-    let l:save_errorformat = &l:errorformat
-    let &l:makeprg = b:sh_check_makeprg
-    let &l:errorformat = b:sh_check_errorformat
-    make!
-    let &l:makeprg = l:save_makeprg
-    let &l:errorformat = l:save_errorformat
-    cwindow
-  endfunction
-endif
+function! s:ShCheck()
+  if exists('b:current_compiler')
+    let l:save_compiler = b:current_compiler
+  endif
+  if exists('b:is_bash')
+    compiler bash
+  elseif exists('b:is_kornshell')
+    compiler ksh
+  else
+    compiler sh
+  endif
+  lmake!
+  lwindow
+  if exists('l:save_compiler')
+    execute 'compiler ' . l:save_compiler
+  endif
+endfunction
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
@@ -47,18 +43,14 @@ endif
 nnoremap <buffer> <silent> <unique>
       \ <Plug>ShCheck
       \ :<C-U>call <SID>ShCheck()<CR>
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <Plug>ShCheck'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>ShCheck'
 
 " If there isn't a key mapping already, use a default one
 if !hasmapto('<Plug>ShCheck')
   nmap <buffer> <unique>
         \ <LocalLeader>c
         \ <Plug>ShCheck
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <LocalLeader>c'
-  endif
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>c'
 endif

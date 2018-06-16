@@ -1,30 +1,36 @@
-" Only do this when not done yet for this buffer
-" Also do nothing if 'compatible' enabled, or if the current filetype is
-" actually markdown
-if exists('b:did_ftplugin_html_lint') || &compatible
-  finish
-endif
-if &filetype ==# 'markdown'
-  finish
-endif
-let b:did_ftplugin_html_lint = 1
+" html/lint.vim: Use tidy(1) to lint HTML documents for errors
 
-" Initialise undo variable if not already done
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|unlet b:did_ftplugin_html_lint'
+" Don't load if running compatible or too old
+if &compatible || v:version < 700
+  finish
 endif
+
+" Don't load if already loaded
+if exists('b:did_ftplugin_html_lint')
+  finish
+endif
+
+" Don't load if the primary filetype isn't HTML
+if &filetype !=# 'html'
+  finish
+endif
+
+" Flag as loaded
+let b:did_ftplugin_html_lint = 1
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:did_ftplugin_html_lint'
 
 " Build function for linter
 function! s:HtmlLint()
-  let l:save_makeprg = &l:makeprg
-  let l:save_errorformat = &l:errorformat
-  unlet! g:current_compiler
+  if exists('b:current_compiler')
+    let l:save_compiler = b:current_compiler
+  endif
   compiler tidy
-  make!
-  let &l:makeprg = l:save_makeprg
-  let &l:errorformat = l:save_errorformat
-  cwindow
+  lmake!
+  lwindow
+  if exists('l:save_compiler')
+    execute 'compiler ' . l:save_compiler
+  endif
 endfunction
 
 " Stop here if the user doesn't want ftplugin mappings
@@ -36,18 +42,14 @@ endif
 nnoremap <buffer> <silent> <unique>
       \ <Plug>HtmlLint
       \ :<C-U>call <SID>HtmlLint()<CR>
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <Plug>HtmlLint'
-endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> <Plug>HtmlLint'
 
 " If there isn't a key mapping already, use a default one
 if !hasmapto('<Plug>HtmlLint')
   nmap <buffer> <unique>
         \ <LocalLeader>l
         \ <Plug>HtmlLint
-  if exists('b:undo_ftplugin')
-    let b:undo_ftplugin = b:undo_ftplugin
-          \ . '|nunmap <buffer> <LocalLeader>l'
-  endif
+  let b:undo_ftplugin = b:undo_ftplugin
+        \ . '|nunmap <buffer> <LocalLeader>l'
 endif
