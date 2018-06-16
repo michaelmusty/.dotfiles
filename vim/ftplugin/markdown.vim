@@ -6,16 +6,10 @@
 " without providing a variable check to stop it. That causes absurd problems
 " with defining HTML checkers/linters in the rest of my files.
 "
-if exists('b:did_ftplugin')
+if exists('b:did_ftplugin') || &compatible
   finish
 endif
 let b:did_ftplugin = 1
-
-" Support line continuation for this file
-if &compatible
-  let s:cpoptions_save = &cpoptions
-  set cpoptions-=C
-endif
 
 " Set comment/quote patterns
 setlocal comments=fb:*,fb:-,fb:+,n:>
@@ -37,9 +31,3 @@ let b:undo_ftplugin = 'setlocal comments<'
       \ . '|setlocal commentstring<'
       \ . '|setlocal formatoptions<'
       \ . '|setlocal formatlistpat<'
-
-" Restore 'cpoptions' setting if we touched it
-if exists('s:cpoptions_save')
-  let &cpoptions = s:cpoptions_save
-  unlet s:cpoptions_save
-endif
