@@ -2,6 +2,6 @@
 " restore it after doing so
 function! filter#Stable(command) abort
   let l:view = winsaveview()
-  execute '%' . a:command
+  execute '%!' . a:command
   call winrestview(l:view)
 endfunction
