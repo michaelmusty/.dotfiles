@@ -458,7 +458,7 @@ augroup filetypedetect
         \,zshrc
         \ setfiletype zsh
 
-  " Generic text and config files, if no type assigned yet
+  " Generic text, config, and log files, if no type assigned yet
   autocmd BufNewFile,BufRead
         \ ?*.text
         \,?*.txt
@@ -473,6 +473,10 @@ augroup filetypedetect
         \,?*.config
         \,/etc/*
         \ setfiletype config
+  autocmd BufNewFile,BufRead
+        \ */log/*
+        \,*.log
+        \ setf messages
 
   " Load any extra rules in ftdetect directories
   runtime! ftdetect/*.vim
