@@ -495,6 +495,7 @@ VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
 install-vim: install-vim-after \
+	install-vim-autoload \
 	install-vim-bundle \
 	install-vim-compiler \
 	install-vim-config \
@@ -525,6 +526,10 @@ install-vim-after-plugin:
 install-vim-after-syntax:
 	mkdir -p $(VIMDIR)/after/syntax
 	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
+
+install-vim-autoload:
+	mkdir -p -- $(VIMDIR)/autoload
+	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
