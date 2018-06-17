@@ -10,27 +10,20 @@ if exists('b:did_ftplugin_perl_tidy')
   finish
 endif
 
+" Don't load if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
+  finish
+endif
+
 " Flag as loaded
 let b:did_ftplugin_perl_tidy = 1
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:did_ftplugin_perl_tidy'
 
-" Plugin function
-function s:PerlTidy()
-  let l:view = winsaveview()
-  %!perltidy
-  call winrestview(l:view)
-endfunction
-
-" Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
-  finish
-endif
-
 " Define a mapping target
 nnoremap <buffer> <silent> <unique>
       \ <Plug>PerlTidy
-      \ :<C-U>call <SID>PerlTidy()<CR>
+      \ :<C-U>call filter#Stable('perltidy')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>PerlTidy'
 

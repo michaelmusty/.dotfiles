@@ -15,27 +15,20 @@ if &filetype !=# 'html'
   finish
 endif
 
+" Don't load if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+  finish
+endif
+
 " Flag as loaded
 let b:did_ftplugin_html_tidy = 1
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:did_ftplugin_html_tidy'
 
-" Plugin function
-function s:HtmlTidy()
-  let l:view = winsaveview()
-  %!tidy -quiet
-  call winrestview(l:view)
-endfunction
-
-" Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_html_maps')
-  finish
-endif
-
 " Define a mapping target
 nnoremap <buffer> <silent> <unique>
       \ <Plug>HtmlTidy
-      \ :<C-U>call <SID>HtmlTidy()<CR>
+      \ :<C-U>call filter#Stable('tidy -quiet')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>HtmlTidy'
 
