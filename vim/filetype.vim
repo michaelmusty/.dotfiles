@@ -246,7 +246,7 @@ augroup filetypedetect
         \,?*.[1-9]
         \,*/man[1-9]*/?*.[1-9]*
         \ setfiletype nroff
-  " UNIX pass file
+  " UNIX password and shadow files
   autocmd BufNewFile,BufRead
         \ /etc/passwd
         \,/etc/passwd-
