@@ -24,9 +24,8 @@ endif
 " Options dependent on the syntax feature
 if has('syntax') && !has('g:syntax_on')
 
-  " Use syntax highlighting with 150 lines of context
-  silent! syntax enable
-  silent! syntax sync minlines=150
+  " Use syntax highlighting
+  syntax enable
 
   " Opinionated; if the author is using color at all, it will probably be with
   " a dark background
