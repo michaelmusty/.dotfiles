@@ -20,7 +20,7 @@ endif
 " Bind \p to show filetype at a glance
 if has('autocmd')
   filetype plugin indent on
-  nnoremap <silent> <Leader>p :<C-U>set filetype?<CR>
+  nnoremap <Leader>p :<C-U>set filetype?<CR>
 endif
 
 " Options dependent on the syntax feature
