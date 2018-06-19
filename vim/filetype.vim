@@ -458,6 +458,9 @@ augroup filetypedetect
         \,zshrc
         \ setfiletype zsh
 
+  " Load any extra rules in ftdetect directories
+  runtime! ftdetect/*.vim
+
   " Generic text, config, and log files, if no type assigned yet
   autocmd BufNewFile,BufRead
         \ ?*.text
@@ -477,9 +480,6 @@ augroup filetypedetect
         \ */log/*
         \,*.log
         \ setf messages
-
-  " Load any extra rules in ftdetect directories
-  runtime! ftdetect/*.vim
 
   " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
   " been found; strip temporary extension and re-run
