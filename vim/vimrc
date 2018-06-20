@@ -56,6 +56,9 @@ set comments=
 " column with @ symbols instead, which I don't find very helpful
 set display=lastline
 
+" Don't wait to see if Escape in insert mode precedes a key for an Alt binding
+set noesckeys
+
 " Try to set the 'j' flag for 'formatoptions', to automatically delete comment
 " leaders when joining lines, if supported
 if v:version >= 704 || v:version == 703 && has('patch541')
