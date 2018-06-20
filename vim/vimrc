@@ -48,13 +48,6 @@ set backspace+=indent  " Spaces from 'audoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
-" Allow jumping between windows and tabs to find an open instance of a given
-" buffer with :sbuffer.
-set switchbuf=useopen
-if v:version >= 701
-  set switchbuf+=usetab
-endif
-
 " Cycle back and forth through buffers.
 nnoremap [b :<C-U>bprevious<CR>
 nnoremap ]b :<C-U>bnext<CR>
