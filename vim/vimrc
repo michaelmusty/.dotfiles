@@ -55,12 +55,9 @@ nnoremap ]b :<C-U>bnext<CR>
 " Always tell me the number of lines changed by a command
 set report=0
 
-" Command-line based features
+" Show my current position in the status bar, default format is fine
 if has('cmdline_info')
-
-  " Show my current position in the status bar
   set ruler
-
 endif
 
 " Current date and time insertion commands, requiring POSIX date(1)
