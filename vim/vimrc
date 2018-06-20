@@ -225,10 +225,6 @@ endif
 " completes
 set lazyredraw
 
-" Improve redrawing smoothness by assuming that my terminal is reasonably
-" fast
-set ttyfast
-
 " Never use any kind of bell, visual or not
 set visualbell t_vb=
 
