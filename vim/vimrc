@@ -245,7 +245,7 @@ set nojoinspaces
 " Configuration for window features
 if has('windows')
 
-  " Don't resize windows we're not splitting (Tmux-like; think Mondrian)
+  " Don't resize windows we're not splitting (tmux-like; think Mondrian)
   set noequalalways
 
   " New split windows appear below or to the right of the existing window,
