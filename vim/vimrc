@@ -231,22 +231,12 @@ if has('virtualedit')
   set virtualedit+=block
 endif
 
-" Adopt the indent of the last line on new lines
-set autoindent
-
-" Use spaces instead of tabs
-set expandtab
-
-" Indent with four spaces when an indent operation is used
-set shiftwidth=4
-
-" Insert four spaces when Tab is pressed
-set softtabstop=4
-
-" When indenting lines with < or >, round the indent to a multiple of
-" 'shiftwidth', so even if the line is indented by one space it will indent
-" up to 4 and down to 0, for example
-set shiftround
+" The all-important default indent settings; filetypes to tweak
+set autoindent     " Use indent of previous line on new lines
+set expandtab      " Use spaces instead of tabs
+set shiftround     " Round indenting to multiples of 4
+set shiftwidth=4   " Indent with four spaces
+set softtabstop=4  " Insert four spaces for a Tab press
 
 " Don't join lines with two spaces at the end of sentences; I don't two-space,
 " despite the noble Steve Losh's exhortations
