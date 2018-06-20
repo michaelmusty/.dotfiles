@@ -154,19 +154,13 @@ endif
 " \f shows the current formatoptions at a glance
 nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 
-" Match all forms of brackets in pairs (including angle brackets)
+" Add angle brackets to pairs of characters to match
 set matchpairs+=<:>
 
 " Change and delete with C and D both cut off the remainder of the line from
 " the cursor, but Y yanks the whole line, which is inconsistent (and can be
 " done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
-
-" Allow the cursor to get to the top or bottom of the screen before scrolling
-" vertically, but set a reasonably wide gutter for scrolling horizontally; no
-" particular reason, just suits me better
-set scrolloff=0
-set sidescrolloff=16
 
 " Rebind <Space> in normal mode as a lazy scroll
 nnoremap <Space> <C-F>
