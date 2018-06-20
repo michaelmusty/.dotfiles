@@ -388,19 +388,10 @@ nmap <Leader>b <Plug>CopyLinebreakToggle
 " \x strips trailing whitespace via a custom plugin
 nmap <Leader>x <Plug>StripTrailingWhitespace
 
-" Use toggle_option_flag.vim plugin to bind quick toggle actions for some
-" 'formatoptions' flags
+" \a toggles 'f' flag in 'formatoptions' to reformat paragraphs to 'textwidth'
+" on all insert or delete operations
 if has('user_commands')
-
-  " \a: Reformat paragraphs to 'textwidth' on all insert or delete operations
   nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
-  " \c: Reformat comments to 'textwidth'
-  nnoremap <Leader>c :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
-  " \j: Delete comment leaders when joining lines
-  nnoremap <Leader>j :<C-U>ToggleOptionFlagLocal formatoptions j<CR>
-  " \t: Reformat non-comment text to 'textwidth'
-  nnoremap <Leader>t :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
-
 endif
 
 " Add the packaged version of matchit.vim included in the distribution, if
