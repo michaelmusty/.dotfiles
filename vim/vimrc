@@ -48,9 +48,6 @@ set backspace+=indent  " Spaces from 'audoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
-" If a plugin enables backups, use a more explicit and familiar backup suffix
-set backupext=.bak
-
 " Allow jumping between windows and tabs to find an open instance of a given
 " buffer with :sbuffer.
 set switchbuf=useopen
