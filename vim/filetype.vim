@@ -246,7 +246,7 @@ augroup filetypedetect
         \,?*.[1-9]
         \,*/man[1-9]*/?*.[1-9]*
         \ setfiletype nroff
-  " UNIX pass file
+  " UNIX password and shadow files
   autocmd BufNewFile,BufRead
         \ /etc/passwd
         \,/etc/passwd-
@@ -458,7 +458,10 @@ augroup filetypedetect
         \,zshrc
         \ setfiletype zsh
 
-  " Generic text and config files, if no type assigned yet
+  " Load any extra rules in ftdetect directories
+  runtime! ftdetect/*.vim
+
+  " Generic text, config, and log files, if no type assigned yet
   autocmd BufNewFile,BufRead
         \ ?*.text
         \,?*.txt
@@ -473,9 +476,10 @@ augroup filetypedetect
         \,?*.config
         \,/etc/*
         \ setfiletype config
-
-  " Load any extra rules in ftdetect directories
-  runtime! ftdetect/*.vim
+  autocmd BufNewFile,BufRead
+        \ */log/*
+        \,*.log
+        \ setf messages
 
   " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
   " been found; strip temporary extension and re-run

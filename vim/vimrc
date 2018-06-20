@@ -10,13 +10,7 @@ if has('multi_byte')
   scriptencoding utf-8
 endif
 
-" Use different keys for global and local leaders
-if has('eval')
-  let g:mapleader = '\'
-  let g:maplocalleader = '_'
-endif
-
-" Load filetype settings, including filetype plugins and indent settings
+" Load filetype-specific plugins, indent settings, and syntax highlighting
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -24,20 +18,28 @@ endif
 " Options dependent on the syntax feature
 if has('syntax') && !has('g:syntax_on')
 
-  " Use syntax highlighting with 150 lines of context
-  silent! syntax enable
-  silent! syntax sync minlines=150
+  " Use syntax highlighting
+  syntax enable
 
-  " Opinionated; if the author is using color at all, it will probably be with
-  " a dark background
-  set background=dark
-
-  " The 'sahara' colorscheme only works in the GUI or with 256 colors
+  " Use the 'sahara' colorscheme if using the GUI or if we have 256 colors
   if has('gui_running') || &t_Co >= 256
     silent! colorscheme sahara
   endif
 
+  " If we couldn't use 'sahara', just flag a dark background (the author is
+  " almost certainly using one), and we'll use the default colorscheme
+  if !exists('g:colors_name')
+    set background=dark
+  endif
+
 endif
+
+" The all-important default indent settings; filetypes to tweak
+set autoindent     " Use indent of previous line on new lines
+set expandtab      " Use spaces instead of tabs
+set shiftround     " Round indenting to multiples of 4
+set shiftwidth=4   " Indent with four spaces
+set softtabstop=4  " Insert four spaces for a Tab press
 
 " Let me backspace over pretty much anything
 set backspace=
@@ -45,93 +47,52 @@ set backspace+=indent  " Spaces from 'audoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
-" Default to no backup files at all, in a way that even ancient/tiny Vims will
-" understand; the auto_cache_dirs.vim plugin will take care of re-enabling
-" this with a 'backupdir' setting
-set nobackup
-set nowritebackup
-
-" If backups are enabled, use a more explicit and familiar backup suffix
-set backupext=.bak
-
-" Allow jumping between windows and tabs to find an open instance of a given
-" buffer with :sbuffer.
-set switchbuf=useopen
-if v:version >= 701
-  set switchbuf+=usetab
-endif
-
-" Cycle back and forth through buffers.
-nnoremap <silent> [b :<C-U>bprevious<CR>
-nnoremap <silent> ]b :<C-U>bnext<CR>
-
-" Keep plenty of command and search history, because disk space is cheap
-set history=2000
-
-" Always tell me the number of lines changed by a command
-set report=0
-
-" Command-line based features
-if has('cmdline_info')
-
-  " Show my current position in the status bar
-  set ruler
-
-  " Show the keystrokes being entered in the screen
-  set showcmd
-
-  " Show the mode we're using if not normal mode (e.g. --INSERT--)
-  set showmode
-
-endif
-
-" Current date and time insertion commands, requiring POSIX date(1)
-if has('unix')
-  " \d: Local
-  nnoremap <silent> <Leader>d :<C-U>read !date<CR>
-  " \D: UTC
-  nnoremap <silent> <Leader>D :<C-U>read !date -u<CR>
-endif
-
 " Start with blank comment strings rather than the old default; let the
 " filetype handle it
 set comments=
 
-" Don't try to complete strings from included files, just use the strings in
-" the open buffers; I'll open the file if I want to complete from it
-set complete-=i
+" When wrapping text, if a line is so long that not all of it can be shown on
+" the screen, show as much as possible anyway; by default Vim fills the left
+" column with @ symbols instead, which I don't find very helpful
+set display=lastline
 
-" Configuration for the command completion feature; rather than merely cycling
-" through possible completions with Tab, show them above the command line
-if has('wildmenu')
+" Don't wait to see if Escape in insert mode precedes a key for an Alt binding
+set noesckeys
 
-  " Use the wild menu, both completing and showing all possible completions
-  " with a single Tab press, just as I've configured Bash to do
-  set wildmenu
-  set wildmode=list:longest
-
-  " Don't complete certain files that I'm not likely to want to manipulate
-  " from within Vim:
-  if has('wildignore')
-    set wildignore+=*.a,*.o
-    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-    set wildignore+=.DS_Store,.git,.hg,.svn
-    set wildignore+=*~,*.swp,*.tmp
-  endif
-
-  " Complete files without case sensitivity, if the option is available
-  if exists('+wildignorecase')
-    set wildignorecase
-  endif
-
+" Try to set the 'j' flag for 'formatoptions', to automatically delete comment
+" leaders when joining lines, if supported
+if v:version >= 704 || v:version == 703 && has('patch541')
+  set formatoptions+=j
 endif
 
-" A few very important custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
-endif
+" Don't join lines with two spaces at the end of sentences; I don't two-space,
+" despite the noble Steve Losh's exhortations
+set nojoinspaces
+
+" Define list characters
+set listchars+=extends:>   " Unwrapped text to screen right
+set listchars+=precedes:<  " Unwrapped text to screen left
+set listchars+=tab:>-      " Tab characters, preserve width
+set listchars+=trail:_     " Trailing spaces
+
+" Add angle brackets to pairs of characters to match
+set matchpairs+=<:>
+
+" Don't use modelines at all, they're apparently potential security problems
+" and I've never used them anyway
+set nomodeline
+
+" Don't assume a number with a leading zero is octal; it's far more likely a
+" zero-padded decimal, so increment and decrement with ^A and ^X on that basis
+set nrformats-=octal
+
+" Always tell me the number of lines changed by a command
+set report=0
+
+" Don't bother drawing the screen while executing macros or other automated or
+" scripted processes, just draw the screen as it is when the operation
+" completes
+set lazyredraw
 
 " Set up short message settings
 set shortmess=
@@ -149,241 +110,32 @@ set shortmess+=T  " Truncate other message in midle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Don't show whitespace characters or end-of-line characters visually by
-" default, but make \l toggle between them
-set nolist
-nnoremap <silent> <Leader>l :<C-U>set list! list?<CR>
-
-" Don't show line numbers by default, but \n toggles them
-set nonumber
-nnoremap <silent> <Leader>n :<C-U>set number! number?<CR>
-
-" Bind \p to show filetype
-nnoremap <silent> <Leader>p :<C-U>set filetype?<CR>
-
-" Use all ancestors of current directory for :find
-if has('file_in_path')
-  set path=**
-endif
-
-" If the Vim buffer for a file doesn't have any changes and Vim detects the
-" file has been altered, quietly update it
-set autoread
-
-" Save a file automatically if I change buffers or perform operations with the
-" argument list; this is particularly helpful for me as I don't use 'hidden'
-set autowrite
-
-" Don't use modelines at all, they're apparently potential security problems
-" and I've never used them anyway
-set nomodeline
-
-" I really like ZZ and ZQ, so I wrote a couple more mappings; ZW forces a
-" write of the current buffer, but doesn't quit, and ZA forces a write of all
-" buffers but doesn't quit
-nnoremap <silent> ZW :<C-U>write!<CR>
-nnoremap <silent> ZA :<C-U>wall!<CR>
-
-" Don't assume a number with a leading zero is octal; it's far more likely a
-" zero-padded decimal, so increment and decrement with ^A and ^X on that basis
-set nrformats-=octal
-
-" Try to set the 'j' flag for 'formatoptions', to automatically delete comment
-" leaders when joining lines, if supported
-if v:version >= 704 || v:version == 703 && has('patch541')
-  set formatoptions+=j
-endif
-
-" \f shows the current formatoptions at a glance
-nnoremap <silent> <Leader>f :<C-U>setlocal formatoptions?<CR>
-
-" Match all forms of brackets in pairs (including angle brackets)
-set matchpairs+=<:>
-
-" Change and delete with C and D both cut off the remainder of the line from
-" the cursor, but Y yanks the whole line, which is inconsistent (and can be
-" done with yy anyway); this fixes it so it only yanks the rest of the line
-nnoremap Y y$
-
-" Allow the cursor to get to the top or bottom of the screen before scrolling
-" vertically, but set a reasonably wide gutter for scrolling horizontally; no
-" particular reason, just suits me better
-set scrolloff=0
-set sidescrolloff=16
-
-" Rebind <Space> in normal mode as a lazy scroll
-nnoremap <Space> <C-F>
-
-" Some special settings for searching, if available
-if has('extra_search')
-
-  " Searching as I enter my pattern, \i toggles this
-  set incsearch
-  nnoremap <silent> <Leader>i :<C-U>set incsearch! incsearch?<CR>
-
-  " Highlight search results, \h toggles this
-  set hlsearch
-  nnoremap <silent> <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
-
-  " Pressing ^L will clear highlighting until the next search-related
-  " operation; quite good because the highlighting gets distracting after
-  " you've found what you wanted
-  nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-
-endif
-
-" Configure spell checking features, if available
-if has('spell')
-
-  " Don't check spelling by default, but bind \s to toggle this
-  set nospell
-  nnoremap <silent> <Leader>s :<C-U>setlocal spell! spell?<CR>
-
-  " Use New Zealand English for spelling by default (it's almost identical
-  " to British English), but bind \u to switch to US English and \z to
-  " switch back
-  set spelllang=en_nz
-  nnoremap <silent> <Leader>u :<C-U>setlocal spelllang=en_us spelllang?<CR>
-  nnoremap <silent> <Leader>z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
-
-endif
-
-" Preserve the flags for a pattern when repeating a substitution with &; I
-" don't really understand why this isn't a default, but there it is
-nnoremap <silent> & :<C-U>&&<CR>
-
-" Same again for visual mode; we use vnoremap rather than xnoremap to stay
-" compatible with old Vims without doing :execute dances
-vnoremap <silent> & :<C-U>&&<CR>
-
 " Default to no swap files at all, in a way that even ancient/tiny Vims will
 " understand; the auto_cache_dirs.vim plugin will take care of re-enabling
 " this with a 'directory' setting
 set noswapfile
 
-" Start paste mode with F10 to prevent console Vim from confusing a swathe of
-" pre-formatted pasted text with actual keyboard input, and thereby attempting
-" to indent it inappropriately. If unimpaired.vim is available, it's generally
-" nicer to use yo or yO.
-set nopaste
-set pastetoggle=<F10>
-
-" Don't bother about checking whether Escape is being used as a means to enter
-" a Meta-key combination, just register Escape immediately
-if exists('+esckeys')
-  set noesckeys
-endif
-
-" Don't bother drawing the screen while executing macros or other automated or
-" scripted processes, just draw the screen as it is when the operation
-" completes
-set lazyredraw
-
-" Improve redrawing smoothness by assuming that my terminal is reasonably
-" fast
-set ttyfast
-
 " Never use any kind of bell, visual or not
 set visualbell t_vb=
 
-" Require less than one second between keys for mappings to work correctly
-set timeout
-set timeoutlen=1000
-
-" Require less than a twentieth of a second between keys for key codes to work
-" correctly; I don't use Escape as a meta key anyway
-set ttimeout
-set ttimeoutlen=50
-
-" Rebind Ctrl-C in insert mode to undo the current insert operation
-inoremap <C-C> <C-C>u
-
-" Keep screeds of undo history
-set undolevels=2000
-
-" 'undodir' and 'undofile' settings will be taken care of by the
-" auto_cache_dirs.vim plugin if applicable/possible
-if has('persistent_undo')
-  set noundofile
-endif
-
-" When in visual block mode, let me move the cursor anywhere in the buffer;
-" don't restrict me only to regions with text
-if has('virtualedit')
-  set virtualedit+=block
-endif
-
-" Adopt the indent of the last line on new lines
-set autoindent
-
-" Use spaces instead of tabs
-set expandtab
-
-" Indent with four spaces when an indent operation is used
-set shiftwidth=4
-
-" Insert four spaces when Tab is pressed
-set softtabstop=4
-
-" When indenting lines with < or >, round the indent to a multiple of
-" 'shiftwidth', so even if the line is indented by one space it will indent
-" up to 4 and down to 0, for example
-set shiftround
-
-" Don't join lines with two spaces at the end of sentences; I don't two-space,
-" despite the noble Steve Losh's exhortations
-set nojoinspaces
-
-" Configuration for window features
-if has('windows')
-
-  " Show the status in a distinct bar above the command line only if there's
-  " more than one window on the screen or in the current tab
-  set laststatus=1
-
-  " Don't resize windows we're not splitting (Tmux-like; think Mondrian)
-  set noequalalways
-
-  " New split windows appear below or to the right of the existing window,
-  " not above or to the left per the default
-  set splitbelow
-  if has('vertsplit')
-    set splitright
-  endif
-
-  " Only show the tab bar if there's more than one tab
-  if exists('+showtabline')
-    set showtabline=1
-  endif
-
-  " Get rid of visually noisy folding characters
-  if has('folding')
-    let &fillchars = 'diff: ,fold: ,vert: '
-  endif
-
-endif
-
-" Don't wrap by default, but use \w to toggle it on or off quickly
+" Don't wrap by default, but use \w to toggle it on or off
 set nowrap
-nnoremap <silent> <Leader>w :<C-U>set wrap! wrap?<CR>
 
-" When wrapping text, if a line is so long that not all of it can be shown on
-" the screen, show as much as possible anyway; by default Vim fills the left
-" column with @ symbols instead, which I don't find very helpful
-set display=lastline
+" Show my current position in the status bar, default format is fine
+if has('cmdline_info')
+  set ruler
+endif
 
-" Define list characters
-set listchars+=extends:>   " Unwrapped text to screen right
-set listchars+=precedes:<  " Unwrapped text to screen left
-set listchars+=tab:>-      " Tab characters, preserve width
-set listchars+=trail:_     " Trailing spaces
+" Highlight settings for search, if available
+if has('extra_search')
+  set incsearch  " Show matches as I type
+  set hlsearch   " Highlight completed searches
+endif
 
-" Swap the j/gj and k/gk command pairs so that we move by screen row, not
-" buffer line, with j/k
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+" Use all ancestors of current directory for :find
+if has('file_in_path')
+  set path+=**
+endif
 
 " Line break settings and mappings
 if has('linebreak')
@@ -401,9 +153,167 @@ if has('linebreak')
 
 endif
 
+" Use NZ english by default
+if has('spell')
+  set spelllang=en_nz
+endif
+
+" When in visual block mode, let me move the cursor anywhere in the buffer;
+" don't restrict me only to regions with text
+if has('virtualedit')
+  set virtualedit+=block
+endif
+
+" Configuration for the command completion feature; rather than merely cycling
+" through possible completions with Tab, show them above the command line
+if has('wildmenu')
+
+  " Use the wild menu, both completing and showing all possible completions
+  " with a single Tab press, just as I've configured Bash to do
+  set wildmenu
+  set wildmode=list:longest
+
+  " Complete files without case sensitivity, if the option is available
+  if exists('+wildignorecase')
+    set wildignorecase
+  endif
+
+endif
+
+" Configuration for window features
+if has('windows')
+
+  " Don't resize windows we're not splitting (tmux-like; think Mondrian)
+  set noequalalways
+
+  " New split windows appear below or to the right of the existing window,
+  " not above or to the left per the default
+  set splitbelow
+  if has('vertsplit')
+    set splitright
+  endif
+
+  " Get rid of visually noisy folding characters
+  if has('folding')
+    let &fillchars = 'diff: ,fold: ,vert: '
+  endif
+
+endif
+
+" Rebind Ctrl-C in insert mode to undo the current insert operation
+inoremap <C-C> <C-C>u
+
+" Rebind <Space> in normal mode as a lazy scroll
+nnoremap <Space> <C-F>
+
+" Preserve the flags for a pattern when repeating a substitution with &
+nnoremap <silent> & :<C-U>&&<CR>
+vnoremap <silent> & :<C-U>&&<CR>
+
+" Pressing ^L will clear highlighting until the next search-related operation
+nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+
+" Cycle through things with unimpaired.vim-style bindings:
+" Buffers
+nnoremap [b :<C-U>bprevious<CR>
+nnoremap ]b :<C-U>bnext<CR>
+" Quicklist items (more often :helpgrep results)
+nnoremap [c :<C-U>cprevious<CR>
+nnoremap ]c :<C-U>cnext<CR>
+" Location list items
+nnoremap [l :<C-U>lprevious<CR>
+nnoremap ]l :<C-U>lnext<CR>
+
+" Insert blank lines above and below via my custom unimpaired.vim rip
+nmap [<Space> <Plug>PutBlankLinesAbove
+nmap ]<Space> <Plug>PutBlankLinesBelow
+
+" Swap the j/gj and k/gk command pairs so that we move by screen row, not
+" buffer line, with j/k
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Change and delete with C and D both cut off the remainder of the line from
+" the cursor, but Y yanks the whole line, which is inconsistent (and can be
+" done with yy anyway); this fixes it so it only yanks the rest of the line
+nnoremap Y y$
+
+" ZW does an unconditional write for this buffer
+nnoremap ZW :<C-U>write!<CR>
+" ZA does an unconditional write for all buffers
+nnoremap ZA :<C-U>wall!<CR>
+
+" Use different keys for global and local leaders
+if 1
+  let g:mapleader = '\'
+  let g:maplocalleader = '_'
+endif
+
+" Leader mappings below; we use a literal backslash rather than <Leader> for
+" the mappings here, because I want many of these even to work on tiny
+" stripped-down Vims like Debian's. The settings above are for plugins.
+
+" \a toggles 'formatoptions' 'a' flag using a plugin
+nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+" \b toggles copy-pasteable linebreak settings
+nmap \b <Plug>CopyLinebreakToggle
+" Current date and time insertion commands, requiring POSIX date(1)
+if has('unix')
+  " \d: Local date
+  nnoremap \d :<C-U>read !date<CR>
+  " \D: UTC
+  nnoremap \D :<C-U>read !date -u<CR>
+endif
+" \f shows the current 'formatoptions' at a glance
+nnoremap \f :<C-U>set formatoptions?<CR>
+" \h toggles highlighting search results
+nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
+" \i toggles showing matches as I enter my pattern
+nnoremap \i :<C-U>set incsearch! incsearch?<CR>
+" \j jumps to buffers (jetpack)
+nnoremap \j :<C-U>ls<CR>:buffer<Space>
+" \l toggles showing tab, end-of-line, and trailing whitespace
+nnoremap \l :<C-U>set list! list?<CR>
+" \n toggles line numbers
+nnoremap \n :<C-U>set number! number?<CR>
+" \o and \O open 'pasted insert' lines
+nmap \o <Plug>PasteOpenBelow
+nmap \O <Plug>PasteOpenAbove
+" \p toggles paste mode
+nnoremap \p :<C-U>set paste! paste?<CR>
+" \r reloads .vimrc
+nnoremap \r :<C-U>source $MYVIMRC<CR>
+" \s toggles spell checking
+nnoremap \s :<C-U>setlocal spell! spell?<CR>
+" \t shows current filetype
+nnoremap \t :<C-U>set filetype?<CR>
+" \u sets US English spelling
+nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
+" \w toggles wrapping
+nnoremap \w :<C-U>set wrap! wrap?<CR>
+" \x strips trailing whitespace via a custom plugin
+nmap \x <Plug>StripTrailingWhitespace
+" \z sets NZ English spelling
+nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
+
+" Add the packaged version of matchit.vim included in the distribution, if
+" possible; plugin/macros.vim loads this for older Vims
+if has('packages')
+  packadd! matchit
+endif
+
+" A few very important custom digraphs
+if has('digraphs')
+  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
+  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
+  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
+endif
+
 " Disable most core plugin stuff that I don't use; after/plugin/dist.vim
 " clears these variables later
-if has('eval')
+if 1
 
   " 2html.vim is often useful, so keep that
   " matchparen.vim I use constantly
@@ -430,37 +340,6 @@ if has('eval')
   let g:loaded_tarPlugin = 1
   let g:loaded_zipPlugin = 1
 
-endif
-
-" Insert blank lines above and below via my custom unimpaired.vim rip
-nmap [<Space> <Plug>PutBlankLinesAbove
-nmap ]<Space> <Plug>PutBlankLinesBelow
-
-" \b toggles copy-pasteable linebreak settings
-nmap <Leader>b <Plug>CopyLinebreakToggle
-
-" \x strips trailing whitespace via a custom plugin
-nmap <Leader>x <Plug>StripTrailingWhitespace
-
-" Use toggle_option_flag.vim plugin to bind quick toggle actions for some
-" 'formatoptions' flags
-if has('user_commands')
-
-  " \a: Reformat paragraphs to 'textwidth' on all insert or delete operations
-  nnoremap <silent> <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
-  " \c: Reformat comments to 'textwidth'
-  nnoremap <silent> <Leader>c :<C-U>ToggleOptionFlagLocal formatoptions c<CR>
-  " \j: Delete comment leaders when joining lines
-  nnoremap <silent> <Leader>j :<C-U>ToggleOptionFlagLocal formatoptions j<CR>
-  " \t: Reformat non-comment text to 'textwidth'
-  nnoremap <silent> <Leader>t :<C-U>ToggleOptionFlagLocal formatoptions t<CR>
-
-endif
-
-" Add the packaged version of matchit.vim included in the distribution, if
-" possible; plugin/macros.vim loads this for older Vims
-if has('packages')
-  silent! packadd! matchit
 endif
 
 " Source all .vim files from ~/.vim/config, which may override any of the
