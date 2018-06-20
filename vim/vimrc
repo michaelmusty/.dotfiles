@@ -277,6 +277,8 @@ nnoremap \l :<C-U>set list! list?<CR>
 nnoremap \n :<C-U>set number! number?<CR>
 " \p toggles paste mode
 nnoremap \p :<C-U>set paste! paste?<CR>
+" \r reloads .vimrc
+nnoremap \r :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
 nnoremap \s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
