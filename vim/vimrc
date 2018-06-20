@@ -11,7 +11,7 @@ if has('multi_byte')
 endif
 
 " Use different keys for global and local leaders
-if has('eval')
+if 1
   let g:mapleader = '\'
   let g:maplocalleader = '_'
 endif
@@ -321,7 +321,7 @@ endif
 
 " Disable most core plugin stuff that I don't use; after/plugin/dist.vim
 " clears these variables later
-if has('eval')
+if 1
 
   " 2html.vim is often useful, so keep that
   " matchparen.vim I use constantly
