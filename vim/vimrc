@@ -228,15 +228,6 @@ set lazyredraw
 " Never use any kind of bell, visual or not
 set visualbell t_vb=
 
-" Require less than one second between keys for mappings to work correctly
-set timeout
-set timeoutlen=1000
-
-" Require less than a twentieth of a second between keys for key codes to work
-" correctly; I don't use Escape as a meta key anyway
-set ttimeout
-set ttimeoutlen=50
-
 " Rebind Ctrl-C in insert mode to undo the current insert operation
 inoremap <C-C> <C-C>u
 
