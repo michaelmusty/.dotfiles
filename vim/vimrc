@@ -131,14 +131,6 @@ if has('file_in_path')
   set path+=**
 endif
 
-" If the Vim buffer for a file doesn't have any changes and Vim detects the
-" file has been altered, quietly update it
-set autoread
-
-" Save a file automatically if I change buffers or perform operations with the
-" argument list; this is particularly helpful for me as I don't use 'hidden'
-set autowrite
-
 " Don't use modelines at all, they're apparently potential security problems
 " and I've never used them anyway
 set nomodeline
