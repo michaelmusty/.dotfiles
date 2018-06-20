@@ -257,41 +257,45 @@ if 1
   let g:maplocalleader = '_'
 endif
 
+" Leader mappings below; we use a literal backslash rather than <Leader> for
+" the mappings here, because I want many of these even to work on tiny
+" stripped-down Vims like Debian's. The settings above are for plugins.
+
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap <Leader>b <Plug>CopyLinebreakToggle
+nmap \b <Plug>CopyLinebreakToggle
 " Current date and time insertion commands, requiring POSIX date(1)
 if has('unix')
   " \d: Local date
-  nnoremap <Leader>d :<C-U>read !date<CR>
+  nnoremap \d :<C-U>read !date<CR>
   " \D: UTC
-  nnoremap <Leader>D :<C-U>read !date -u<CR>
+  nnoremap \D :<C-U>read !date -u<CR>
 endif
 " \f shows the current 'formatoptions' at a glance
-nnoremap <Leader>f :<C-U>set formatoptions?<CR>
+nnoremap \f :<C-U>set formatoptions?<CR>
 " \h toggles highlighting search results
-nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
+nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
 " \i toggles showing matches as I enter my pattern
-nnoremap <Leader>i :<C-U>set incsearch! incsearch?<CR>
+nnoremap \i :<C-U>set incsearch! incsearch?<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
-nnoremap <Leader>l :<C-U>set list! list?<CR>
+nnoremap \l :<C-U>set list! list?<CR>
 " \n toggles line numbers
-nnoremap <Leader>n :<C-U>set number! number?<CR>
+nnoremap \n :<C-U>set number! number?<CR>
 " \p toggles paste mode
-set pastetoggle=<Leader>p
+nnoremap \p :<C-U>set paste! paste?<CR>
 " \s toggles spell checking
-nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
+nnoremap \s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
-nnoremap <Leader>t :<C-U>set filetype?<CR>
+nnoremap \t :<C-U>set filetype?<CR>
 " \u sets US English spelling
-nnoremap <Leader>u :<C-U>setlocal spelllang=en_us spelllang?<CR>
+nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
 " \w toggles wrapping
-nnoremap <Leader>w :<C-U>set wrap! wrap?<CR>
+nnoremap \w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap <Leader>x <Plug>StripTrailingWhitespace
+nmap \x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling
-nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
+nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
 " Add the packaged version of matchit.vim included in the distribution, if
 " possible; plugin/macros.vim loads this for older Vims
