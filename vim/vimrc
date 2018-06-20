@@ -120,13 +120,10 @@ set shortmess+=T  " Truncate other message in midle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Don't show whitespace characters or end-of-line characters visually by
-" default, but make \l toggle between them
-set nolist
+" \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Leader>l :<C-U>set list! list?<CR>
 
-" Don't show line numbers by default, but \n toggles them
-set nonumber
+" \n toggles line numbers
 nnoremap <Leader>n :<C-U>set number! number?<CR>
 
 " Use all ancestors of current directory for :find
@@ -203,8 +200,7 @@ endif
 " Configure spell checking features, if available
 if has('spell')
 
-  " Don't check spelling by default, but bind \s to toggle this
-  set nospell
+  " \s toggles spell checking
   nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
 
   " Use New Zealand English for spelling by default (it's almost identical
@@ -331,7 +327,7 @@ if has('windows')
 
 endif
 
-" Don't wrap by default, but use \w to toggle it on or off quickly
+" Don't wrap by default, but use \w to toggle it on or off
 set nowrap
 nnoremap <Leader>w :<C-U>set wrap! wrap?<CR>
 
