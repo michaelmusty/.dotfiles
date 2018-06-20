@@ -110,9 +110,7 @@ set shortmess+=T  " Truncate other message in midle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Default to no swap files at all, in a way that even ancient/tiny Vims will
-" understand; the auto_cache_dirs.vim plugin will take care of re-enabling
-" this with a 'directory' setting
+" Default to no swap files at all, let auto_cache_dirs.vim set it
 set noswapfile
 
 " Never use any kind of bell, visual or not
