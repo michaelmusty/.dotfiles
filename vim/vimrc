@@ -153,7 +153,8 @@ if has('linebreak')
 
 endif
 
-" Use NZ english by default
+" Use New Zealand English by default; binding later in this file allow
+" masquerading as a Yankee
 if has('spell')
   set spelllang=en_nz
 endif
