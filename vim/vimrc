@@ -170,36 +170,6 @@ if has('wildmenu')
   set wildmenu
   set wildmode=list:longest
 
-  " Don't complete certain files that I'm not likely to want to manipulate
-  " from within Vim
-  if has('wildignore')
-
-    " Archives
-    set wildignore+=*.7z,*.bz2,*.gz,*.rar,*.tar,*.xz,*.zip
-    set wildignore+=*.7Z,*.BZ2,*.GZ,*.RAR,*.TAR,*.XZ,*.ZIP
-    " Binary
-    set wildignore+=*.bin,*.iso
-    set wildignore+=*.BIN,*.ISO
-    " Documents
-    set wildignore+=*.djvu,*.pdf,*.xls,*.xlsx
-    set wildignore+=*.DJVU,*.PDF,*.XLS,*.XLSX
-    " Images
-    set wildignore+=*.bmp,*.gif,*.ico,*.jpeg,*.jpg,*.png,*.xcf
-    set wildignore+=*.BMP,*.GIF,*.ICO,*.JPEG,*.JPG,*.PNG,*.XCF
-    " Mac OS X junk
-    set wildignore+=.DS_Store
-    " Media
-    set wildignore+=*.gifv,*.mid,*.m4a,*.mp3,*.mp4,*.ogg,*.opus,*.ogv,*.webm
-    set wildignore+=*.GIFV,*.MID,*.M4A,*.MP3,*.MP4,*.OGG,*.OPUS,*.OGV,*.WEBM
-    " Object formats
-    set wildignore+=*.a,*.o
-    " Version control
-    set wildignore+=.git,.hg,.svn,
-    " Vim metadata
-    set wildignore+=*~,*.swp
-
-  endif
-
   " Complete files without case sensitivity, if the option is available
   if exists('+wildignorecase')
     set wildignorecase
