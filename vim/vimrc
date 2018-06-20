@@ -126,8 +126,8 @@ endif
 
 " Highlight settings for search, if available
 if has('extra_search')
-  set incsearch  " Show matches as I type
   set hlsearch   " Highlight completed searches
+  set incsearch  " Show matches as I type
 endif
 
 " Use all ancestors of current directory for :find
@@ -239,10 +239,10 @@ nnoremap gk k
 " done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
 
-" ZW does an unconditional write for this buffer
-nnoremap ZW :<C-U>write!<CR>
 " ZA does an unconditional write for all buffers
 nnoremap ZA :<C-U>wall!<CR>
+" ZW does an unconditional write for this buffer
+nnoremap ZW :<C-U>write!<CR>
 
 " Use different keys for global and local leaders
 if 1
