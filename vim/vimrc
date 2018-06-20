@@ -61,7 +61,7 @@ set noesckeys
 
 " Try to set the 'j' flag for 'formatoptions', to automatically delete comment
 " leaders when joining lines, if supported
-if v:version >= 704 || v:version == 703 && has('patch541')
+if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
