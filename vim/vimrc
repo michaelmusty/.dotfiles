@@ -61,9 +61,6 @@ if has('cmdline_info')
   " Show my current position in the status bar
   set ruler
 
-  " Show the mode we're using if not normal mode (e.g. --INSERT--)
-  set showmode
-
 endif
 
 " Current date and time insertion commands, requiring POSIX date(1)
