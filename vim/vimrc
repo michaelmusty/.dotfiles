@@ -128,7 +128,7 @@ nnoremap <Leader>n :<C-U>set number! number?<CR>
 
 " Use all ancestors of current directory for :find
 if has('file_in_path')
-  set path=**
+  set path+=**
 endif
 
 " If the Vim buffer for a file doesn't have any changes and Vim detects the
