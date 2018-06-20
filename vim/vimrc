@@ -69,6 +69,11 @@ endif
 " despite the noble Steve Losh's exhortations
 set nojoinspaces
 
+" Don't bother drawing the screen while executing macros or other automated or
+" scripted processes, just draw the screen as it is when the operation
+" completes
+set lazyredraw
+
 " Define list characters
 set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
@@ -88,11 +93,6 @@ set nrformats-=octal
 
 " Always tell me the number of lines changed by a command
 set report=0
-
-" Don't bother drawing the screen while executing macros or other automated or
-" scripted processes, just draw the screen as it is when the operation
-" completes
-set lazyredraw
 
 " Set up short message settings
 set shortmess=
