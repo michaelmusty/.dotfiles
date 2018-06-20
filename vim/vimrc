@@ -51,10 +51,13 @@ set backspace+=start   " The start of current insertion
 " filetype handle it
 set comments=
 
-" When wrapping text, if a line is so long that not all of it can be shown on
-" the screen, show as much as possible anyway; by default Vim fills the left
-" column with @ symbols instead, which I don't find very helpful
-set display=lastline
+" Show only one line of @ symbols for a truncated last line if possible, and
+" show none at all if not
+if v:version > 704 || v:version == 704 && has('patch2109')
+  set display=truncate
+else
+  set display=lastline
+endif
 
 " Don't wait to see if Escape in insert mode precedes a key for an Alt binding
 set noesckeys
