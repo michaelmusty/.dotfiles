@@ -52,9 +52,6 @@ set backspace+=start   " The start of current insertion
 nnoremap [b :<C-U>bprevious<CR>
 nnoremap ]b :<C-U>bnext<CR>
 
-" Keep plenty of command and search history, because disk space is cheap
-set history=2000
-
 " Always tell me the number of lines changed by a command
 set report=0
 
