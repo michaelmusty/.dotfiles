@@ -245,10 +245,6 @@ set nojoinspaces
 " Configuration for window features
 if has('windows')
 
-  " Show the status in a distinct bar above the command line only if there's
-  " more than one window on the screen or in the current tab
-  set laststatus=1
-
   " Don't resize windows we're not splitting (Tmux-like; think Mondrian)
   set noequalalways
 
