@@ -36,7 +36,7 @@ if has('syntax') && !has('g:syntax_on')
 
   " If we couldn't use 'sahara', just flag a dark background (the author is
   " almost certainly using one), and we'll use the default colorscheme
-  if !exists('g:colors_name') || g:colors_name !=# 'sahara'
+  if !exists('g:colors_name')
     set background=dark
   endif
 
