@@ -29,13 +29,15 @@ if has('syntax') && !has('g:syntax_on')
   " Use syntax highlighting
   syntax enable
 
-  " Opinionated; if the author is using color at all, it will probably be with
-  " a dark background
-  set background=dark
-
-  " The 'sahara' colorscheme only works in the GUI or with 256 colors
+  " Use the 'sahara' colorscheme if using the GUI or if we have 256 colors
   if has('gui_running') || &t_Co >= 256
     silent! colorscheme sahara
+  endif
+
+  " If we couldn't use 'sahara', just flag a dark background (the author is
+  " almost certainly using one), and we'll use the default colorscheme
+  if !exists('g:colors_name') || g:colors_name != 'sahara'
+    set background=dark
   endif
 
 endif
