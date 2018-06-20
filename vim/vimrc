@@ -248,6 +248,13 @@ nnoremap ZA :<C-U>wall!<CR>
 " ZW does an unconditional write for this buffer
 nnoremap ZW :<C-U>write!<CR>
 
+" A few very important custom digraphs
+if has('digraphs')
+  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
+  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
+  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
+endif
+
 " Use different keys for global and local leaders
 if 1
   let g:mapleader = '\'
@@ -305,13 +312,6 @@ nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 " possible; plugin/macros.vim loads this for older Vims
 if has('packages')
   packadd! matchit
-endif
-
-" A few very important custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
 endif
 
 " Disable most core plugin stuff that I don't use; after/plugin/dist.vim
