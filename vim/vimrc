@@ -4,12 +4,6 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" Use UTF-8 by default wherever possible
-if has('multi_byte')
-  set encoding=utf-8
-  scriptencoding utf-8
-endif
-
 " Load filetype-specific plugins, indent settings, and syntax highlighting
 if has('autocmd')
   filetype plugin indent on
