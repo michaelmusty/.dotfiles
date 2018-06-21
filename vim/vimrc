@@ -4,12 +4,6 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" Use UTF-8 by default wherever possible
-if has('multi_byte')
-  set encoding=utf-8
-  scriptencoding utf-8
-endif
-
 " Load filetype-specific plugins, indent settings, and syntax highlighting
 if has('autocmd')
   filetype plugin indent on
@@ -43,31 +37,46 @@ set softtabstop=4  " Insert four spaces for a Tab press
 
 " Let me backspace over pretty much anything
 set backspace=
-set backspace+=indent  " Spaces from 'audoindent'
+set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
+
+" Never use any kind of bell, visual or not
+if exists('+belloff')
+  set belloff=all
+else
+  set visualbell t_vb=
+endif
 
 " Start with blank comment strings rather than the old default; let the
 " filetype handle it
 set comments=
 
-" When wrapping text, if a line is so long that not all of it can be shown on
-" the screen, show as much as possible anyway; by default Vim fills the left
-" column with @ symbols instead, which I don't find very helpful
-set display=lastline
+" Show only one line of @ symbols for a truncated last line if possible, and
+" show none at all if not
+if v:version > 704 || v:version == 704 && has('patch2109')
+  set display=truncate
+else
+  set display=lastline
+endif
 
 " Don't wait to see if Escape in insert mode precedes a key for an Alt binding
 set noesckeys
 
 " Try to set the 'j' flag for 'formatoptions', to automatically delete comment
 " leaders when joining lines, if supported
-if v:version >= 704 || v:version == 703 && has('patch541')
+if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
 " Don't join lines with two spaces at the end of sentences; I don't two-space,
 " despite the noble Steve Losh's exhortations
 set nojoinspaces
+
+" Don't bother drawing the screen while executing macros or other automated or
+" scripted processes, just draw the screen as it is when the operation
+" completes
+set lazyredraw
 
 " Define list characters
 set listchars+=extends:>   " Unwrapped text to screen right
@@ -89,11 +98,6 @@ set nrformats-=octal
 " Always tell me the number of lines changed by a command
 set report=0
 
-" Don't bother drawing the screen while executing macros or other automated or
-" scripted processes, just draw the screen as it is when the operation
-" completes
-set lazyredraw
-
 " Set up short message settings
 set shortmess=
 set shortmess+=f  " (file 3 of 5) -> (3 of 5)
@@ -106,17 +110,12 @@ set shortmess+=o  " Don't stack file writing messages
 set shortmess+=O  " Don't stack file reading messages
 set shortmess+=r  " [readonly] -> [RO]
 set shortmess+=t  " Truncate file message at start if too long
-set shortmess+=T  " Truncate other message in midle if too long
+set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Default to no swap files at all, in a way that even ancient/tiny Vims will
-" understand; the auto_cache_dirs.vim plugin will take care of re-enabling
-" this with a 'directory' setting
+" Default to no swap files at all, let auto_cache_dirs.vim set it
 set noswapfile
-
-" Never use any kind of bell, visual or not
-set visualbell t_vb=
 
 " Don't wrap by default, but use \w to toggle it on or off
 set nowrap
@@ -128,13 +127,20 @@ endif
 
 " Highlight settings for search, if available
 if has('extra_search')
+  set hlsearch   " Highlight completed searches...
+  nohlsearch     " ...but clear it on startup or after re-sourcing
   set incsearch  " Show matches as I type
-  set hlsearch   " Highlight completed searches
 endif
 
 " Use all ancestors of current directory for :find
 if has('file_in_path')
   set path+=**
+endif
+
+" Don't load menus at all in GUI mode; needs to be set here, before gVim
+" actually starts up
+if has('gui_running')
+  set guioptions+=M
 endif
 
 " Line break settings and mappings
@@ -153,7 +159,8 @@ if has('linebreak')
 
 endif
 
-" Use NZ english by default
+" Use New Zealand English by default; binding later in this file allow
+" masquerading as a Yankee
 if has('spell')
   set spelllang=en_nz
 endif
@@ -240,10 +247,17 @@ nnoremap gk k
 " done with yy anyway); this fixes it so it only yanks the rest of the line
 nnoremap Y y$
 
-" ZW does an unconditional write for this buffer
-nnoremap ZW :<C-U>write!<CR>
 " ZA does an unconditional write for all buffers
 nnoremap ZA :<C-U>wall!<CR>
+" ZW does an unconditional write for this buffer
+nnoremap ZW :<C-U>write!<CR>
+
+" A few very important custom digraphs
+if has('digraphs')
+  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
+  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
+  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
+endif
 
 " Use different keys for global and local leaders
 if 1
@@ -259,6 +273,9 @@ endif
 nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap \b <Plug>CopyLinebreakToggle
+" \c toggles 'cursorcolumn', \C toggles 'cursorline'
+nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
+nnoremap \C :<C-U>set cursorline! cursorline?<CR>
 " Current date and time insertion commands, requiring POSIX date(1)
 if has('unix')
   " \d: Local date
@@ -304,41 +321,27 @@ if has('packages')
   packadd! matchit
 endif
 
-" A few very important custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
-endif
-
 " Disable most core plugin stuff that I don't use; after/plugin/dist.vim
 " clears these variables later
 if 1
 
-  " 2html.vim is often useful, so keep that
-  " matchparen.vim I use constantly
-
-  " I handle versioning plugins manually, and have never used .vba
+  " I use tohtml.vim often
+  " I like matchparen.vim
+  " I manage plugins myself with Git and a Makefile
   let g:loaded_getscriptPlugin = 1
   let g:loaded_vimballPlugin = 1
-
-  " This is what grep, sed, Awk, and Perl are for
-  let g:loaded_logiPat = 1
-
-  " ^Z, my dudes
-  let g:loaded_netrwPlugin = 1
-
-  " Vim servers? What is this, Emacs?
-  let g:loaded_rrhelper = 1
-
-  " System dictionaries plus custom per-machine spell files are fine
-  let g:loaded_spellfile_plugin = 1
-
-  " If I want to read a file or a file archived within it I'll decompress or
-  " unarchive it myself; a text editor should not do this
+  " Vim is the wrong tool for reading archives or compressed text
   let g:loaded_gzip = 1
   let g:loaded_tarPlugin = 1
   let g:loaded_zipPlugin = 1
+  " I prefer filtering text with Unix tools
+  let g:loaded_logiPat = 1
+  " The shell, tab completion, and 'wildmenu' are good enough
+  let g:loaded_netrwPlugin = 1
+  " I don't use Vim servers
+  let g:loaded_rrhelper = 1
+  " System dictionaries plus custom per-machine spell files are fine
+  let g:loaded_spellfile_plugin = 1
 
 endif
 

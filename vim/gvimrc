@@ -1,21 +1,17 @@
-" My choice of font changes depending on which operating system I'm using;
-" these are both workable monospace fonts, but Ubuntu Mono doesn't render very
-" nicely on Windows a lot of the time
+" Ubuntu Mono on Unix, Consolas on Windows
 if has('unix')
-  silent! let &guifont = 'Ubuntu Mono 12'
-else
-  silent! let &guifont = 'Consolas:h11'
+  set guifont=Ubuntu\ Mono\ 12
+elseif has('win32') || has('win64')
+  set guifont=Consolas:h11,Courier\ New:h11
 endif
 
-" Reset guioptions
+" Reset GUI options
 set guioptions=
-" Use the system GUI clipboard
-set guioptions+=a
-" Use console dialogs instead of popup windows
-set guioptions+=c
-" Use the gVim icon
-set guioptions+=i
+set guioptions+=a  " Use the system GUI clipboard
+set guioptions+=c  " Use console dialogs, not popup windows
+set guioptions+=M  " Don't load menu.vim (also set in .vimrc)
 
-" When the GUI starts, t_vb is reset to its default value, so it's necessary
-" to repeat this line from my .vimrc file that turns off visual bells
-set visualbell t_vb=
+" Stamp 'visualbell' back down again, if 'belloff' not available
+if !exists('+belloff')
+  set visualbell t_vb=
+endif

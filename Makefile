@@ -538,8 +538,7 @@ install-vim-bundle: install-vim-config
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	cmd=$$(printf 'set t_cm=\r|') ; \
-	    vim -eT dumb --cmd "$${cmd%|}" -c 'helptags $(VIMDIR)/doc' -c quit
+	vim --cmd 'helptags $(VIMDIR)/doc' --cmd quit
 
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
