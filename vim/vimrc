@@ -43,7 +43,7 @@ set softtabstop=4  " Insert four spaces for a Tab press
 
 " Let me backspace over pretty much anything
 set backspace=
-set backspace+=indent  " Spaces from 'audoindent'
+set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
@@ -116,7 +116,7 @@ set shortmess+=o  " Don't stack file writing messages
 set shortmess+=O  " Don't stack file reading messages
 set shortmess+=r  " [readonly] -> [RO]
 set shortmess+=t  " Truncate file message at start if too long
-set shortmess+=T  " Truncate other message in midle if too long
+set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
