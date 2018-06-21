@@ -266,7 +266,7 @@ if 1
 endif
 
 " Leader mappings below; we use a literal backslash rather than <Leader> for
-" the mappings here, because I want many of these even to work on tiny
+" the mappings here, because I want many of these to work even on tiny
 " stripped-down Vims like Debian's. The settings above are for plugins.
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
