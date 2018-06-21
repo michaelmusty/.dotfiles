@@ -47,6 +47,13 @@ set backspace+=indent  " Spaces from 'audoindent'
 set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
+" Never use any kind of bell, visual or not
+if exists('+belloff')
+  set belloff=all
+else
+  set visualbell t_vb=
+endif
+
 " Start with blank comment strings rather than the old default; let the
 " filetype handle it
 set comments=
@@ -115,9 +122,6 @@ set shortmess+=x  " [dos format] -> [dos]
 
 " Default to no swap files at all, let auto_cache_dirs.vim set it
 set noswapfile
-
-" Never use any kind of bell, visual or not
-set visualbell t_vb=
 
 " Don't wrap by default, but use \w to toggle it on or off
 set nowrap
