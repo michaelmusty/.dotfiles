@@ -273,6 +273,9 @@ endif
 nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap \b <Plug>CopyLinebreakToggle
+" \c toggles 'cursorcolumn', \C toggles 'cursorline'
+nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
+nnoremap \C :<C-U>set cursorline! cursorline?<CR>
 " Current date and time insertion commands, requiring POSIX date(1)
 if has('unix')
   " \d: Local date
