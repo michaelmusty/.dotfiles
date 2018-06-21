@@ -143,6 +143,12 @@ if has('file_in_path')
   set path+=**
 endif
 
+" Don't load menus at all in GUI mode; needs to be set here, before gVim
+" actually starts up
+if has('gui_running')
+  set guioptions+=M
+endif
+
 " Line break settings and mappings
 if has('linebreak')
 
