@@ -33,7 +33,14 @@ set autoindent     " Use indent of previous line on new lines
 set expandtab      " Use spaces instead of tabs
 set shiftround     " Round indenting to multiples of 'shiftwidth'
 set shiftwidth=4   " Indent with four spaces
-set softtabstop=4  " Insert four spaces for a Tab press
+
+" Spaces to insert on Tab key press; if supported, use negative value to
+" mirror 'shiftwidth'
+if v:version > 703 || v:version == 703 && has('patch693')
+  set softtabstop=-1
+else
+  set softtabstop=4
+endif
 
 " Let me backspace over pretty much anything
 set backspace=
