@@ -76,7 +76,7 @@ set nojoinspaces
 " Don't redraw the screen during batch execution
 set lazyredraw
 
-" Define list characters
+" Define extra 'list' display characters
 set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=tab:>-      " Tab characters, preserve width
@@ -213,12 +213,12 @@ nnoremap ZW :<C-U>write!<CR>
 
 " Custom digraphs
 if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
+  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
+  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
+  digraph 8: 9731  " SNOWMAN U+2603
 endif
 
-" Use different keys for global and local leaders for plugins
+" Use different keys for global and local leaders
 if 1
   let g:mapleader = '\'
   let g:maplocalleader = '_'
