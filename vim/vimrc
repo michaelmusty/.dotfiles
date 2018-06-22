@@ -113,9 +113,6 @@ set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Default to no swap files at all, let auto_cache_dirs.vim set it
-set noswapfile
-
 " Don't wrap by default, but use \w to toggle it on or off
 set nowrap
 
