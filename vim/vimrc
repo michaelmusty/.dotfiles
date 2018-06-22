@@ -175,17 +175,26 @@ if has('windows')
 
 endif
 
-" Rebind normal <Space> to scroll down a page
+" Rebind normal, visual <Space> to scroll down a page
 nnoremap <Space> <C-F>
+if v:version >= 700
+  xnoremap <Space> <C-F>
+endif
 
-" Rebind normal & to preserve substitution flags
+" Rebind normal, visual & to preserve substitution flags
 nnoremap <silent> & :<C-U>&&<CR>
+if v:version >= 700
+  xnoremap <silent> & :&&<CR>
+endif
 
 " Stack insert Ctrl-C to undo the escaped insert operation
 inoremap <C-C> <C-C>u
 
-" Stack normal Ctrl-L to clear search highlighting before redraw
+" Stack normal, visual Ctrl-L to clear search highlight before redraw
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+if v:version >= 700
+  xnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+endif
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
