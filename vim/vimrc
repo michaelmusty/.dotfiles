@@ -94,21 +94,11 @@ set nrformats-=octal
 " Always tell me the number of lines changed by a command
 set report=0
 
-" Abbreviate some of the regularly displayed messages
-set shortmess=
-set shortmess+=f  " (file 3 of 5) -> (3 of 5)
-set shortmess+=i  " [Incomplete last line] -> [noeol]
+" Abbreviate some more regularly displayed messages
 set shortmess+=I  " Don't show startup splash screen
-set shortmess+=l  " 999 lines, 888 characters -> 999L, 888C
 set shortmess+=m  " [Modified] -> [+]
-set shortmess+=n  " [New File] -> [New]
-set shortmess+=o  " Don't stack file writing messages
-set shortmess+=O  " Don't stack file reading messages
 set shortmess+=r  " [readonly] -> [RO]
-set shortmess+=t  " Truncate file message at start if too long
-set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
-set shortmess+=x  " [dos format] -> [dos]
 
 " Show my current position in the status bar
 if has('cmdline_info')
