@@ -152,12 +152,6 @@ if has('linebreak')
 
 endif
 
-" Use New Zealand English by default; binding later in this file allow
-" masquerading as a Yankee
-if has('spell')
-  set spelllang=en_nz
-endif
-
 " When in visual block mode, let me move the cursor anywhere in the buffer;
 " don't restrict me only to regions with text
 if has('virtualedit')
