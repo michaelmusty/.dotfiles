@@ -218,8 +218,8 @@ if 1
   let g:maplocalleader = '_'
 endif
 
-" Leader mappings below; use a literal backslash rather than <Leader> so that
-" the non-plugin mappings work on vim-tiny
+" Normal mode leader mappings below; use a literal backslash rather than
+" <Leader> so that the non-plugin mappings work on vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
