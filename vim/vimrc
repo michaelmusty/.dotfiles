@@ -213,12 +213,6 @@ nnoremap ]l :<C-U>lnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Swap buffer line vs screen row motions
-nnoremap j gj
-nnoremap gj j
-nnoremap k gk
-nnoremap gk k
-
 " Remap normal Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
 
