@@ -157,12 +157,6 @@ if has('windows')
   if has('vertsplit')
     set splitright
   endif
-
-  " Get rid of visually noisy folding characters
-  if has('folding')
-    let &fillchars = 'diff: ,fold: ,vert: '
-  endif
-
 endif
 
 " Rebind normal, visual <Space> to scroll down a page
