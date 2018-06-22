@@ -183,9 +183,6 @@ endif
 " Configuration for window features
 if has('windows')
 
-  " Don't resize windows we're not splitting (tmux-like; think Mondrian)
-  set noequalalways
-
   " Split windows to the right and bottom
   set splitbelow
   if has('vertsplit')
