@@ -222,7 +222,6 @@ nnoremap <Space> <C-F>
 
 " Preserve the flags for a pattern when repeating a substitution with &
 nnoremap <silent> & :<C-U>&&<CR>
-vnoremap <silent> & :<C-U>&&<CR>
 
 " Pressing ^L will clear highlighting until the next search-related operation
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
