@@ -208,6 +208,9 @@ nnoremap <silent> & :<C-U>&&<CR>
 " Stack normal Ctrl-L to clear search highlighting before redraw
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 
+" Cycle through argument list
+nnoremap [a :<C-U>previous<CR>
+nnoremap ]a :<C-U>next<CR>
 " Cycle through buffers
 nnoremap [b :<C-U>bprevious<CR>
 nnoremap ]b :<C-U>bnext<CR>
