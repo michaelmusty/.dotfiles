@@ -113,9 +113,6 @@ set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Don't wrap by default, but use \w to toggle it on or off
-set nowrap
-
 " Show my current position in the status bar, default format is fine
 if has('cmdline_info')
   set ruler
