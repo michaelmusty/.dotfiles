@@ -4,7 +4,7 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" Load filetype-specific plugins, indent settings, and syntax highlighting
+" Load filetype settings and plugins
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -20,8 +20,7 @@ if has('syntax') && !has('g:syntax_on')
     silent! colorscheme sahara
   endif
 
-  " If we couldn't use 'sahara', just flag a dark background (the author is
-  " almost certainly using one), and we'll use the default colorscheme
+  " If not sahara, then default with dark background
   if !exists('g:colors_name')
     set background=dark
   endif
@@ -34,12 +33,11 @@ set expandtab     " Use spaces instead of tabs
 set shiftround    " Round indenting to multiples of 'shiftwidth'
 set shiftwidth=4  " Indent with four spaces
 
-" Spaces to insert on Tab key press; use negative value to mirror 'shiftwidth'
-" if supported
+" Spaces to insert on Tab key insert
 if v:version > 703 || v:version == 703 && has('patch693')
-  set softtabstop=-1
+  set softtabstop=-1  " Refer to 'shifwidth' if supported
 else
-  set softtabstop=4
+  set softtabstop=4   " Otherwise just four spaces
 endif
 
 " Let me backspace over pretty much anything
@@ -62,7 +60,7 @@ set comments=
 if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
 else
-  set display=lastline  " Just let it run off the screen
+  set display=lastline  " Just let it run off the screen if not
 endif
 
 " Don't wait for a key after Escape in insert mode
@@ -91,7 +89,7 @@ set matchpairs+=<:>
 " Don't allow setting options via buffer content
 set nomodeline
 
-" Increment/decrement numbers with a leading zero as decimal, not octal
+" Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
 " Always tell me the number of lines changed by a command
@@ -113,71 +111,59 @@ set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
 set shortmess+=x  " [dos format] -> [dos]
 
-" Show my current position in the status bar, default format is fine
+" Show my current position in the status bar
 if has('cmdline_info')
   set ruler
 endif
 
-" Highlight settings for search, if available
+" Highlight settings for search
 if has('extra_search')
   set hlsearch   " Highlight completed searches...
   nohlsearch     " ...but clear it on startup or after re-sourcing
   set incsearch  " Show matches as I type
 endif
 
-" Use all ancestors of current directory for :find
+" Use whole tree from current directory for :find
 if has('file_in_path')
   set path+=**
 endif
 
-" Don't load menus at all in GUI mode; needs to be set here, before gVim
-" actually starts up
+" Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
 endif
 
-" Line break settings and mappings
+" Line break behaviour settings for 'wrap'
 if has('linebreak')
+  set linebreak      " Break lines at word boundaries
+  set showbreak=...  " Prefix wrapped rows with three dots
 
-  " Break lines at word boundaries if possible
-  set linebreak
-
-  " Precede continued lines with '...'
-  set showbreak=...
-
-  " If we have the option, indent wrapped lines as much as the first line
+  " Indent wrapped lines, if supported
   if exists('+breakindent')
     set breakindent
   endif
 
 endif
 
-" When in visual block mode, let me move the cursor anywhere in the buffer;
-" don't restrict me only to regions with text
+" Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
 endif
 
-" Configuration for the command completion feature; rather than merely cycling
-" through possible completions with Tab, show them above the command line
+" Nicer completion for command mode
 if has('wildmenu')
+  set wildmenu               " Use wildmenu
+  set wildmode=list:longest  " Tab press completes and lists
 
-  " Use the wild menu, both completing and showing all possible completions
-  " with a single Tab press, just as I've configured Bash to do
-  set wildmenu
-  set wildmode=list:longest
-
-  " Complete files without case sensitivity, if the option is available
+  " Complete files without case sensitivity, if supported
   if exists('+wildignorecase')
     set wildignorecase
   endif
 
 endif
 
-" Configuration for window features
+" New windows go below or to the right of a split
 if has('windows')
-
-  " Split windows to the right and bottom
   set splitbelow
   if has('vertsplit')
     set splitright
@@ -221,19 +207,19 @@ nmap ]<Space> <Plug>PutBlankLinesBelow
 
 " Swap buffer line vs screen row motions
 nnoremap j gj
-nnoremap k gk
 nnoremap gj j
+nnoremap k gk
 nnoremap gk k
 
 " Remap Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
 
-" ZA does an unconditional write for all buffers
+" ZA unconditionally writes all buffers
 nnoremap ZA :<C-U>wall!<CR>
-" ZW does an unconditional write for this buffer
+" ZW unconditionally writes current buffer
 nnoremap ZW :<C-U>write!<CR>
 
-" A few very important custom digraphs
+" Custom digraphs
 if has('digraphs')
   digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
   digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
@@ -295,18 +281,14 @@ nmap \x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
-" Add the packaged version of matchit.vim included in the distribution, if
-" supported; plugin/macros.vim loads this for older Vims
+" Add packaged matchit.vim, if supported
 if has('packages')
   packadd! matchit
 endif
 
-" Disable most core plugin stuff that I don't use; after/plugin/dist.vim
-" clears these variables later
+" Disable core plugins I don't use
 if 1
 
-  " I use tohtml.vim often
-  " I like matchparen.vim
   " I manage plugins myself with Git and a Makefile
   let g:loaded_getscriptPlugin = 1
   let g:loaded_vimballPlugin = 1
@@ -325,5 +307,5 @@ if 1
 
 endif
 
-" Source all .vim files from ~/.vim/config
+" Source any .vim files from ~/.vim/config
 runtime! config/*.vim
