@@ -41,7 +41,6 @@ else
 endif
 
 " Let me backspace over pretty much anything
-set backspace=
 set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
