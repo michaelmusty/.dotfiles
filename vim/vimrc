@@ -29,10 +29,10 @@ if has('syntax') && !has('g:syntax_on')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent     " Use indent of previous line on new lines
-set expandtab      " Use spaces instead of tabs
-set shiftround     " Round indenting to multiples of 'shiftwidth'
-set shiftwidth=4   " Indent with four spaces
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Use spaces instead of tabs
+set shiftround    " Round indenting to multiples of 'shiftwidth'
+set shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key press; if supported, use negative value to
 " mirror 'shiftwidth'
