@@ -200,7 +200,7 @@ nnoremap ]c :<C-U>cnext<CR>
 nnoremap [l :<C-U>lprevious<CR>
 nnoremap ]l :<C-U>lnext<CR>
 
-" Insert blank lines above and below current line
+" Insert blank lines around current line
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
@@ -210,7 +210,7 @@ nnoremap gj j
 nnoremap k gk
 nnoremap gk k
 
-" Remap Y to yank to end of line (consistent with C, D)
+" Remap normal Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
 
 " ZA unconditionally writes all buffers
@@ -287,7 +287,6 @@ endif
 
 " Disable core plugins I don't use
 if 1
-
   " I manage plugins myself with Git and a Makefile
   let g:loaded_getscriptPlugin = 1
   let g:loaded_vimballPlugin = 1
@@ -303,7 +302,6 @@ if 1
   let g:loaded_rrhelper = 1
   " I don't need extra spelling files
   let g:loaded_spellfile_plugin = 1
-
 endif
 
 " Source any .vim files from ~/.vim/config
