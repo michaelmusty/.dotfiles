@@ -175,14 +175,14 @@ if has('windows')
 
 endif
 
-" Rebind insert Ctrl-C to undo the current insert operation
-inoremap <C-C> <C-C>u
-
 " Rebind normal <Space> to scroll down a page
 nnoremap <Space> <C-F>
 
 " Rebind normal & to preserve substitution flags
 nnoremap <silent> & :<C-U>&&<CR>
+
+" Stack insert Ctrl-C to undo the escaped insert operation
+inoremap <C-C> <C-C>u
 
 " Stack normal Ctrl-L to clear search highlighting before redraw
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
@@ -193,7 +193,7 @@ nnoremap ]a :<C-U>next<CR>
 " Cycle through buffers
 nnoremap [b :<C-U>bprevious<CR>
 nnoremap ]b :<C-U>bnext<CR>
-" Cycle through quicklist items (more often :helpgrep results)
+" Cycle through quicklist/:helpgrep items
 nnoremap [c :<C-U>cprevious<CR>
 nnoremap ]c :<C-U>cnext<CR>
 " Cycle through location list items
