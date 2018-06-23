@@ -192,6 +192,9 @@ nnoremap ]c :<C-U>cnext<CR>
 " Cycle through location list items
 nnoremap [l :<C-U>lprevious<CR>
 nnoremap ]l :<C-U>lnext<CR>
+" Cycle through tabs
+nnoremap [t :<C-U>tabprevious<CR>
+nnoremap ]t :<C-U>tabnext<CR>
 
 " Insert blank lines around current line
 nmap [<Space> <Plug>PutBlankLinesAbove
