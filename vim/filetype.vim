@@ -144,6 +144,10 @@ augroup filetypedetect
         \,.gitmodules
         \,gitconfig
         \ setfiletype gitconfig
+  " Git rebase manifests
+  autocmd BufNewFile,BufRead
+        \ git-rebase-todo
+        \ setfiletype gitrebase
   " GnuPG configuration files
   autocmd BufNewFile,BufRead
         \ *gnupg/options
