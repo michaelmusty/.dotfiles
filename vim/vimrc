@@ -240,6 +240,8 @@ if has('unix')
 endif
 " \f shows the current 'formatoptions' at a glance
 nnoremap \f :<C-U>set formatoptions?<CR>
+" \g changes directory to the current file's location
+nnoremap \g :<C-U>cd %:h<CR>
 " \h toggles highlighting search results
 nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
 " \i toggles showing matches as I enter my pattern
