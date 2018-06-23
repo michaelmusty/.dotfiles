@@ -21,8 +21,8 @@ setlocal formatoptions-=ro
 
 " Set list format patterns
 if exists('+formatlistpat')
-  let &l:formatlistpat = '^\s*\d\+\.\s\+\'
-        \ .'\|^[-*+]\s\+\'
+  let &l:formatlistpat = '^\s*\d\+\.\s\+'
+        \ .'\|^[-*+]\s\+'
         \ .'\|^\[^\ze[^\]]\+\]:'
 endif
 
