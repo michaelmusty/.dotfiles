@@ -3,4 +3,3 @@ set autoindent
 set report=0
 set shiftwidth=4
 set showmode
-set tabstop=4

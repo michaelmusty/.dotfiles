@@ -4,7 +4,7 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" Load filetype-specific plugins, indent settings, and syntax highlighting
+" Load filetype settings and plugins
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -15,13 +15,12 @@ if has('syntax') && !has('g:syntax_on')
   " Use syntax highlighting
   syntax enable
 
-  " Use the 'sahara' colorscheme if using the GUI or if we have 256 colors
+  " Use my colorscheme if using the GUI or if we have 256 colors
   if has('gui_running') || &t_Co >= 256
     silent! colorscheme sahara
   endif
 
-  " If we couldn't use 'sahara', just flag a dark background (the author is
-  " almost certainly using one), and we'll use the default colorscheme
+  " If not sahara, then default with dark background
   if !exists('g:colors_name')
     set background=dark
   endif
@@ -29,16 +28,21 @@ if has('syntax') && !has('g:syntax_on')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent     " Use indent of previous line on new lines
-set expandtab      " Use spaces instead of tabs
-set shiftround     " Round indenting to multiples of 4
-set shiftwidth=4   " Indent with four spaces
-set softtabstop=4  " Insert four spaces for a Tab press
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Use spaces instead of tabs
+set shiftround    " Round indenting to multiples of 'shiftwidth'
+set shiftwidth=4  " Indent with four spaces
+
+" Spaces to insert on Tab key insert
+if v:version > 703 || v:version == 703 && has('patch693')
+  set softtabstop=-1  " Refer to 'shifwidth' if supported
+else
+  set softtabstop=4   " Otherwise just four spaces
+endif
 
 " Let me backspace over pretty much anything
-set backspace=
-set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=eol     " Line breaks
+set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
 " Never use any kind of bell, visual or not
@@ -48,215 +52,164 @@ else
   set visualbell t_vb=
 endif
 
-" Start with blank comment strings rather than the old default; let the
-" filetype handle it
+" Clear default comment string, let the filetype handle it
 set comments=
 
-" Show only one line of @ symbols for a truncated last line if possible, and
-" show none at all if not
+" How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
-  set display=truncate
+  set display=truncate  " Show '@@@' on the last line, if supported
 else
-  set display=lastline
+  set display=lastline  " Just let it run off the screen if not
 endif
 
-" Don't wait to see if Escape in insert mode precedes a key for an Alt binding
+" Don't wait for a key after Escape in insert mode
 set noesckeys
 
-" Try to set the 'j' flag for 'formatoptions', to automatically delete comment
-" leaders when joining lines, if supported
+" Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
-" Don't join lines with two spaces at the end of sentences; I don't two-space,
-" despite the noble Steve Losh's exhortations
+" Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
-" Don't bother drawing the screen while executing macros or other automated or
-" scripted processes, just draw the screen as it is when the operation
-" completes
+" Don't redraw the screen during batch execution
 set lazyredraw
 
-" Define list characters
+" Define extra 'list' display characters
 set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=tab:>-      " Tab characters, preserve width
 set listchars+=trail:_     " Trailing spaces
 
-" Add angle brackets to pairs of characters to match
+" Add angle brackets to pairs of matched characters
 set matchpairs+=<:>
 
-" Don't use modelines at all, they're apparently potential security problems
-" and I've never used them anyway
+" Don't allow setting options via buffer content
 set nomodeline
 
-" Don't assume a number with a leading zero is octal; it's far more likely a
-" zero-padded decimal, so increment and decrement with ^A and ^X on that basis
+" Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
 " Always tell me the number of lines changed by a command
 set report=0
 
-" Set up short message settings
-set shortmess=
-set shortmess+=f  " (file 3 of 5) -> (3 of 5)
-set shortmess+=i  " [Incomplete last line] -> [noeol]
-set shortmess+=I  " I donated to Uganda, thanks Bram
-set shortmess+=l  " 999 lines, 888 characters -> 999L, 888C
+" Abbreviate some more regularly displayed messages
+set shortmess+=I  " Don't show startup splash screen
 set shortmess+=m  " [Modified] -> [+]
-set shortmess+=n  " [New File] -> [New]
-set shortmess+=o  " Don't stack file writing messages
-set shortmess+=O  " Don't stack file reading messages
 set shortmess+=r  " [readonly] -> [RO]
-set shortmess+=t  " Truncate file message at start if too long
-set shortmess+=T  " Truncate other message in middle if too long
 set shortmess+=w  " written -> [w], appended -> [a]
-set shortmess+=x  " [dos format] -> [dos]
 
-" Default to no swap files at all, let auto_cache_dirs.vim set it
-set noswapfile
-
-" Don't wrap by default, but use \w to toggle it on or off
-set nowrap
-
-" Show my current position in the status bar, default format is fine
+" Show my current position in the status bar
 if has('cmdline_info')
   set ruler
 endif
 
-" Highlight settings for search, if available
+" Highlight settings for search
 if has('extra_search')
   set hlsearch   " Highlight completed searches...
   nohlsearch     " ...but clear it on startup or after re-sourcing
   set incsearch  " Show matches as I type
 endif
 
-" Use all ancestors of current directory for :find
+" Use whole tree from current directory for :find
 if has('file_in_path')
   set path+=**
 endif
 
-" Don't load menus at all in GUI mode; needs to be set here, before gVim
-" actually starts up
+" Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
 endif
 
-" Line break settings and mappings
+" Line break behaviour settings for 'wrap'
 if has('linebreak')
+  set linebreak      " Break lines at word boundaries
+  set showbreak=...  " Prefix wrapped rows with three dots
 
-  " Break lines at word boundaries if possible
-  set linebreak
-
-  " Precede continued lines with '...'
-  set showbreak=...
-
-  " If we have the option, indent wrapped lines as much as the first line
+  " Indent wrapped lines, if supported
   if exists('+breakindent')
     set breakindent
   endif
 
 endif
 
-" Use New Zealand English by default; binding later in this file allow
-" masquerading as a Yankee
-if has('spell')
-  set spelllang=en_nz
-endif
-
-" When in visual block mode, let me move the cursor anywhere in the buffer;
-" don't restrict me only to regions with text
+" Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
 endif
 
-" Configuration for the command completion feature; rather than merely cycling
-" through possible completions with Tab, show them above the command line
+" Nicer completion for command mode
 if has('wildmenu')
+  set wildmenu               " Use wildmenu
+  set wildmode=list:longest  " Tab press completes and lists
 
-  " Use the wild menu, both completing and showing all possible completions
-  " with a single Tab press, just as I've configured Bash to do
-  set wildmenu
-  set wildmode=list:longest
-
-  " Complete files without case sensitivity, if the option is available
+  " Complete files without case sensitivity, if supported
   if exists('+wildignorecase')
     set wildignorecase
   endif
 
 endif
 
-" Configuration for window features
+" New windows go below or to the right of a split
 if has('windows')
-
-  " Don't resize windows we're not splitting (tmux-like; think Mondrian)
-  set noequalalways
-
-  " New split windows appear below or to the right of the existing window,
-  " not above or to the left per the default
   set splitbelow
   if has('vertsplit')
     set splitright
   endif
-
-  " Get rid of visually noisy folding characters
-  if has('folding')
-    let &fillchars = 'diff: ,fold: ,vert: '
-  endif
-
 endif
 
-" Rebind Ctrl-C in insert mode to undo the current insert operation
+" Rebind normal, visual <Space> to scroll down a page
+nnoremap <Space> <C-F>
+if v:version >= 700
+  xnoremap <Space> <C-F>
+endif
+
+" Rebind normal, visual & to preserve substitution flags
+nnoremap <silent> & :<C-U>&&<CR>
+if v:version >= 700
+  xnoremap <silent> & :&&<CR>
+endif
+
+" Stack insert Ctrl-C to undo the escaped insert operation
 inoremap <C-C> <C-C>u
 
-" Rebind <Space> in normal mode as a lazy scroll
-nnoremap <Space> <C-F>
-
-" Preserve the flags for a pattern when repeating a substitution with &
-nnoremap <silent> & :<C-U>&&<CR>
-vnoremap <silent> & :<C-U>&&<CR>
-
-" Pressing ^L will clear highlighting until the next search-related operation
+" Stack normal, visual Ctrl-L to clear search highlight before redraw
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+if v:version >= 700
+  xnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+endif
 
-" Cycle through things with unimpaired.vim-style bindings:
-" Buffers
+" Cycle through argument list
+nnoremap [a :<C-U>previous<CR>
+nnoremap ]a :<C-U>next<CR>
+" Cycle through buffers
 nnoremap [b :<C-U>bprevious<CR>
 nnoremap ]b :<C-U>bnext<CR>
-" Quicklist items (more often :helpgrep results)
+" Cycle through quicklist/:helpgrep items
 nnoremap [c :<C-U>cprevious<CR>
 nnoremap ]c :<C-U>cnext<CR>
-" Location list items
+" Cycle through location list items
 nnoremap [l :<C-U>lprevious<CR>
 nnoremap ]l :<C-U>lnext<CR>
 
-" Insert blank lines above and below via my custom unimpaired.vim rip
+" Insert blank lines around current line
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Swap the j/gj and k/gk command pairs so that we move by screen row, not
-" buffer line, with j/k
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-" Change and delete with C and D both cut off the remainder of the line from
-" the cursor, but Y yanks the whole line, which is inconsistent (and can be
-" done with yy anyway); this fixes it so it only yanks the rest of the line
+" Remap normal Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
 
-" ZA does an unconditional write for all buffers
+" ZA unconditionally writes all buffers
 nnoremap ZA :<C-U>wall!<CR>
-" ZW does an unconditional write for this buffer
+" ZW unconditionally writes current buffer
 nnoremap ZW :<C-U>write!<CR>
 
-" A few very important custom digraphs
+" Custom digraphs
 if has('digraphs')
-  digraph ./ 8230  " Ellipsis (HORIZONTAL ELLIPSIS U+2026)
-  digraph %% 8984  " Mac command key (PLACE OF INTEREST SIGN U+2318)
-  digraph 8: 9731  " Snowman (SNOWMAN U+2603)
+  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
+  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
+  digraph 8: 9731  " SNOWMAN U+2603
 endif
 
 " Use different keys for global and local leaders
@@ -265,9 +218,8 @@ if 1
   let g:maplocalleader = '_'
 endif
 
-" Leader mappings below; we use a literal backslash rather than <Leader> for
-" the mappings here, because I want many of these to work even on tiny
-" stripped-down Vims like Debian's. The settings above are for plugins.
+" Normal mode leader mappings below; use a literal backslash rather than
+" <Leader> so that the non-plugin mappings work on vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
@@ -278,9 +230,9 @@ nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
 nnoremap \C :<C-U>set cursorline! cursorline?<CR>
 " Current date and time insertion commands, requiring POSIX date(1)
 if has('unix')
-  " \d: Local date
+  " \d inserts the local date
   nnoremap \d :<C-U>read !date<CR>
-  " \D: UTC
+  " \D inserts the UTC date
   nnoremap \D :<C-U>read !date -u<CR>
 endif
 " \f shows the current 'formatoptions' at a glance
@@ -306,27 +258,22 @@ nnoremap \r :<C-U>source $MYVIMRC<CR>
 nnoremap \s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
 nnoremap \t :<C-U>set filetype?<CR>
-" \u sets US English spelling
+" \u sets US English spelling (compare \z)
 nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
 " \w toggles wrapping
 nnoremap \w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap \x <Plug>StripTrailingWhitespace
-" \z sets NZ English spelling
+" \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
-" Add the packaged version of matchit.vim included in the distribution, if
-" possible; plugin/macros.vim loads this for older Vims
+" Add packaged matchit.vim, if supported
 if has('packages')
   packadd! matchit
 endif
 
-" Disable most core plugin stuff that I don't use; after/plugin/dist.vim
-" clears these variables later
+" Disable core plugins I don't use
 if 1
-
-  " I use tohtml.vim often
-  " I like matchparen.vim
   " I manage plugins myself with Git and a Makefile
   let g:loaded_getscriptPlugin = 1
   let g:loaded_vimballPlugin = 1
@@ -340,11 +287,9 @@ if 1
   let g:loaded_netrwPlugin = 1
   " I don't use Vim servers
   let g:loaded_rrhelper = 1
-  " System dictionaries plus custom per-machine spell files are fine
+  " I don't need extra spelling files
   let g:loaded_spellfile_plugin = 1
-
 endif
 
-" Source all .vim files from ~/.vim/config, which may override any of the
-" above
+" Source any .vim files from ~/.vim/config
 runtime! config/*.vim
