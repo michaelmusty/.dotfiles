@@ -144,6 +144,10 @@ augroup filetypedetect
         \,.gitmodules
         \,gitconfig
         \ setfiletype gitconfig
+  " Git rebase manifests
+  autocmd BufNewFile,BufRead
+        \ git-rebase-todo
+        \ setfiletype gitrebase
   " GnuPG configuration files
   autocmd BufNewFile,BufRead
         \ *gnupg/options
@@ -246,6 +250,12 @@ augroup filetypedetect
         \,?*.[1-9]
         \,*/man[1-9]*/?*.[1-9]*
         \ setfiletype nroff
+  " pass(1) password files
+  autocmd BufNewFile,BufRead
+        \ /dev/shm/pass.?*/?*.txt
+        \,$TMPDIR/pass.?*/?*.txt
+        \,/tmp/pass.?*/?*.txt
+        \ setfiletype password
   " UNIX password and shadow files
   autocmd BufNewFile,BufRead
         \ /etc/passwd

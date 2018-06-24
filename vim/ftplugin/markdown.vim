@@ -20,9 +20,9 @@ setlocal formatoptions+=tcqln
 setlocal formatoptions-=ro
 
 " Set list format patterns
-if exists('+option-name')
-  let &l:formatlistpat = '^\s*\d\+\.\s\+\'
-        \ .'\|^[-*+]\s\+\'
+if exists('+formatlistpat')
+  let &l:formatlistpat = '^\s*\d\+\.\s\+'
+        \ .'\|^[-*+]\s\+'
         \ .'\|^\[^\ze[^\]]\+\]:'
 endif
 

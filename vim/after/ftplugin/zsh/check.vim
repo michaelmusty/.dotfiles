@@ -26,12 +26,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make('zsh')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>ZshCheck'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>ZshCheck')
-  nmap <buffer> <unique>
-        \ <LocalLeader>c
-        \ <Plug>ZshCheck
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>c'
-endif

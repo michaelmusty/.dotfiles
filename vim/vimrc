@@ -192,6 +192,9 @@ nnoremap ]c :<C-U>cnext<CR>
 " Cycle through location list items
 nnoremap [l :<C-U>lprevious<CR>
 nnoremap ]l :<C-U>lnext<CR>
+" Cycle through tabs
+nnoremap [t :<C-U>tabprevious<CR>
+nnoremap ]t :<C-U>tabnext<CR>
 
 " Insert blank lines around current line
 nmap [<Space> <Plug>PutBlankLinesAbove
@@ -210,12 +213,6 @@ if has('digraphs')
   digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
   digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
   digraph 8: 9731  " SNOWMAN U+2603
-endif
-
-" Use different keys for global and local leaders
-if 1
-  let g:mapleader = '\'
-  let g:maplocalleader = '_'
 endif
 
 " Normal mode leader mappings below; use a literal backslash rather than
@@ -237,6 +234,8 @@ if has('unix')
 endif
 " \f shows the current 'formatoptions' at a glance
 nnoremap \f :<C-U>set formatoptions?<CR>
+" \g changes directory to the current file's location
+nnoremap \g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
 nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
 " \i toggles showing matches as I enter my pattern
@@ -266,6 +265,47 @@ nnoremap \w :<C-U>set wrap! wrap?<CR>
 nmap \x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
+
+" Use underscore for a local leader, for any plugins that use the variable
+if 1
+  let g:maplocalleader = '_'
+endif
+
+" Filetype-specific mappings below; use a literal underscore rather than
+" <LocalLeader> to keep the commands short
+if has('autocmd') && v:version >= 700
+  augroup vimrc_filetype_mappings
+      autocmd!
+
+      " Diff: prune sections
+      autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
+      autocmd FileType diff xmap <buffer> _p <Plug>DiffPrune
+
+      " HTML: lint, URL-to-link, tidy
+      autocmd FileType html nmap <buffer> _l <Plug>HtmlLint
+      autocmd FileType html nmap <buffer> _r <Plug>HtmlUrlLink
+      autocmd FileType html nmap <buffer> _t <Plug>HtmlTidy
+
+      " Perl: check, lint, and tidy
+      autocmd FileType perl nmap <buffer> _c <Plug>PerlCheck
+      autocmd FileType perl nmap <buffer> _l <Plug>PerlLint
+      autocmd FileType perl nmap <buffer> _t <Plug>PerlTidy
+
+      " PHP: check
+      autocmd FileType php nmap <buffer> _c <Plug>PhpCheck
+
+      " Shell: check and lint
+      autocmd FileType sh nmap <buffer> _c <Plug>ShCheck
+      autocmd FileType sh nmap <buffer> _l <Plug>ShLint
+
+      " VimL: lint
+      autocmd FileType vim nmap <buffer> _l <Plug>VimLint
+
+      " Zsh: check
+      autocmd FileType zsh nmap <buffer> _c <Plug>ZshCheck
+
+  augroup END
+endif
 
 " Add packaged matchit.vim, if supported
 if has('packages')

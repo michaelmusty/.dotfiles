@@ -26,12 +26,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call filter#Stable('perltidy')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>PerlTidy'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>PerlTidy')
-  nmap <buffer> <unique>
-        \ <LocalLeader>t
-        \ <Plug>PerlTidy
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>t'
-endif

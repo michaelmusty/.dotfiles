@@ -26,12 +26,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make('perl')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>PerlCheck'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>PerlCheck')
-  nmap <buffer> <unique>
-        \ <LocalLeader>c
-        \ <Plug>PerlCheck
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>c'
-endif
