@@ -272,7 +272,7 @@ nmap \x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
-" Key bindings for diff mode
+" Filetype-specific bindings
 if has('autocmd') && v:version >= 700
   augroup vimrc
       autocmd!
