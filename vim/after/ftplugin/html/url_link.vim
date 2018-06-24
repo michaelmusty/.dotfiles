@@ -47,12 +47,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call <SID>HtmlUrlLink()<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>HtmlUrlLink'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>HtmlUrlLink')
-  nmap <buffer> <unique>
-        \ <LocalLeader>r
-        \ <Plug>HtmlUrlLink
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>r'
-endif

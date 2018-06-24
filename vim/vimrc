@@ -281,8 +281,9 @@ if has('autocmd') && v:version >= 700
       autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
       autocmd FileType diff xmap <buffer> _p <Plug>DiffPrune
 
-      " HTML: lint and tidy
+      " HTML: lint, URL-to-link, tidy
       autocmd FileType html nmap <buffer> _l <Plug>HtmlLint
+      autocmd FileType html nmap <buffer> _r <Plug>HtmlUrlLink
       autocmd FileType html nmap <buffer> _t <Plug>HtmlTidy
 
       " Perl: check, lint, and tidy
