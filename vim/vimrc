@@ -272,6 +272,17 @@ nmap \x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
+" Key bindings for diff mode
+if has('autocmd') && v:version >= 700
+  augroup vimrc
+      autocmd!
+      autocmd FileType diff
+            \ nmap <buffer> <LocalLeader>p <Plug>DiffPrune
+      autocmd FileType diff
+            \ xmap <buffer> <LocalLeader>p <Plug>DiffPrune
+  augroup END
+endif
+
 " Add packaged matchit.vim, if supported
 if has('packages')
   packadd! matchit
