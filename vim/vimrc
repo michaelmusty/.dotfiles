@@ -274,7 +274,7 @@ endif
 " Filetype-specific mappings below; use a literal underscore rather than
 " <LocalLeader> to keep the commands short
 if has('autocmd') && v:version >= 700
-  augroup vimrc
+  augroup vimrc_filetype_mappings
       autocmd!
 
       " Diff: prune sections
