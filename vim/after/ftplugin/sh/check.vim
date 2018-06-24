@@ -35,12 +35,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make(b:sh_check_compiler)<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>ShCheck'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>ShCheck')
-  nmap <buffer> <unique>
-        \ <LocalLeader>c
-        \ <Plug>ShCheck
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>c'
-endif

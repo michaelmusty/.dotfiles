@@ -31,12 +31,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make('tidy')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>HtmlLint'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>HtmlLint')
-  nmap <buffer> <unique>
-        \ <LocalLeader>l
-        \ <Plug>HtmlLint
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>l'
-endif

@@ -26,12 +26,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make('vint')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>VimLint'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>VimLint')
-  nmap <buffer> <unique>
-        \ <LocalLeader>l
-        \ <Plug>VimLint
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>l'
-endif

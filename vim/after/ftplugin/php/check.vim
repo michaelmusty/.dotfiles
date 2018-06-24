@@ -26,12 +26,3 @@ nnoremap <buffer> <silent> <unique>
       \ :<C-U>call compiler#Make('php')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <Plug>PhpCheck'
-
-" If there isn't a key mapping already, use a default one
-if !hasmapto('<Plug>PhpCheck')
-  nmap <buffer> <unique>
-        \ <LocalLeader>c
-        \ <Plug>PhpCheck
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|nunmap <buffer> <LocalLeader>c'
-endif
