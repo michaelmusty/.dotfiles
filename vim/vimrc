@@ -277,6 +277,9 @@ if has('autocmd') && v:version >= 700
   augroup vimrc_filetype_mappings
       autocmd!
 
+      " Clear away existing local mappings
+      autocmd FileType * mapclear <buffer>
+
       " Diff: prune sections
       autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
       autocmd FileType diff xmap <buffer> _p <Plug>DiffPrune
