@@ -219,12 +219,12 @@ if has('digraphs')
 endif
 
 " Normal mode leader mappings below; use a literal backslash rather than
-" <Leader> so that the non-plugin mappings work on vim-tiny
+" <Leader> on the non-plugin maps so that they work on vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap \b <Plug>CopyLinebreakToggle
+nmap <Leader>b <Plug>CopyLinebreakToggle
 " \c toggles 'cursorcolumn', \C toggles 'cursorline'
 nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
 nnoremap \C :<C-U>set cursorline! cursorline?<CR>
@@ -250,8 +250,8 @@ nnoremap \l :<C-U>set list! list?<CR>
 " \n toggles line numbers
 nnoremap \n :<C-U>set number! number?<CR>
 " \o and \O open 'pasted insert' lines
-nmap \o <Plug>PasteOpenBelow
-nmap \O <Plug>PasteOpenAbove
+nmap <Leader>o <Plug>PasteOpenBelow
+nmap <Leader>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap \p :<C-U>set paste! paste?<CR>
 " \r reloads .vimrc
@@ -265,7 +265,7 @@ nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
 " \w toggles wrapping
 nnoremap \w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap \x <Plug>StripTrailingWhitespace
+nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
