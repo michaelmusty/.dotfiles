@@ -474,7 +474,7 @@ binds the same key combination to detach.
 .SS Vim
 .PP
 The majority of the Vim configuration is just setting options, with a
-few mappings.
+fair few mappings and remappings, both global and buffer\-local.
 I try not to deviate too much from the Vim defaults behavior in terms of
 interactive behavior and keybindings.
 It's extensively commented, mostly because I was reading through it one
@@ -515,8 +515,8 @@ ago.
 .SS Filetype plugins
 .PP
 I also define a few rules specific to file types I often edit in
-\f[C]~/.vim/after/ftplugin\f[], including some local mappings for
-checking, linting, and tidying, and a few more in
+\f[C]~/.vim/after/ftplugin\f[], including some buffer\-local mapping
+targets for checking, linting, and tidying, and a few more in
 \f[C]~/.vim/after/indent\f[].
 There are also a few tweaks to core syntax files in
 \f[C]~/.vim/after/syntax\f[], especially for shell script
