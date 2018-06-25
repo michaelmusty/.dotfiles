@@ -219,12 +219,12 @@ if has('digraphs')
 endif
 
 " Normal mode leader mappings below; use a literal backslash rather than
-" <Leader> so that the non-plugin mappings work on vim-tiny
+" <Leader> on the non-plugin maps so that they work on vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap \a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap \b <Plug>CopyLinebreakToggle
+nmap <Leader>b <Plug>CopyLinebreakToggle
 " \c toggles 'cursorcolumn', \C toggles 'cursorline'
 nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
 nnoremap \C :<C-U>set cursorline! cursorline?<CR>
@@ -250,8 +250,8 @@ nnoremap \l :<C-U>set list! list?<CR>
 " \n toggles line numbers
 nnoremap \n :<C-U>set number! number?<CR>
 " \o and \O open 'pasted insert' lines
-nmap \o <Plug>PasteOpenBelow
-nmap \O <Plug>PasteOpenAbove
+nmap <Leader>o <Plug>PasteOpenBelow
+nmap <Leader>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap \p :<C-U>set paste! paste?<CR>
 " \r reloads .vimrc
@@ -265,7 +265,7 @@ nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
 " \w toggles wrapping
 nnoremap \w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap \x <Plug>StripTrailingWhitespace
+nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
@@ -274,41 +274,40 @@ if 1
   let g:maplocalleader = '_'
 endif
 
-" Filetype-specific mappings below; use a literal underscore rather than
-" <LocalLeader> to keep the commands short
+" Filetype-specific mappings
 if has('autocmd') && v:version >= 700
   augroup vimrc_filetype_mappings
-      autocmd!
+    autocmd!
 
-      " Clear existing local leader maps
-      autocmd FileType * call vimrc#ClearLocalLeaderMaps()
+    " Clear existing local leader maps
+    autocmd FileType * silent! call clear_local_maps#Clear()
 
-      " Diff: prune sections
-      autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
-      autocmd FileType diff xmap <buffer> _p <Plug>DiffPrune
+    " Diff: prune sections
+    autocmd FileType diff nmap <buffer> <LocalLeader>p <Plug>DiffPrune
+    autocmd FileType diff xmap <buffer> <LocalLeader>p <Plug>DiffPrune
 
-      " HTML: lint, URL-to-link, tidy
-      autocmd FileType html nmap <buffer> _l <Plug>HtmlLint
-      autocmd FileType html nmap <buffer> _r <Plug>HtmlUrlLink
-      autocmd FileType html nmap <buffer> _t <Plug>HtmlTidy
+    " HTML: lint, URL-to-link, tidy
+    autocmd FileType html nmap <buffer> <LocalLeader>l <Plug>HtmlLint
+    autocmd FileType html nmap <buffer> <LocalLeader>r <Plug>HtmlUrlLink
+    autocmd FileType html nmap <buffer> <LocalLeader>t <Plug>HtmlTidy
 
-      " Perl: check, lint, and tidy
-      autocmd FileType perl nmap <buffer> _c <Plug>PerlCheck
-      autocmd FileType perl nmap <buffer> _l <Plug>PerlLint
-      autocmd FileType perl nmap <buffer> _t <Plug>PerlTidy
+    " Perl: check, lint, and tidy
+    autocmd FileType perl nmap <buffer> <LocalLeader>c <Plug>PerlCheck
+    autocmd FileType perl nmap <buffer> <LocalLeader>l <Plug>PerlLint
+    autocmd FileType perl nmap <buffer> <LocalLeader>t <Plug>PerlTidy
 
-      " PHP: check
-      autocmd FileType php nmap <buffer> _c <Plug>PhpCheck
+    " PHP: check
+    autocmd FileType php nmap <buffer> <LocalLeader>c <Plug>PhpCheck
 
-      " Shell: check and lint
-      autocmd FileType sh nmap <buffer> _c <Plug>ShCheck
-      autocmd FileType sh nmap <buffer> _l <Plug>ShLint
+    " Shell: check and lint
+    autocmd FileType sh nmap <buffer> <LocalLeader>c <Plug>ShCheck
+    autocmd FileType sh nmap <buffer> <LocalLeader>l <Plug>ShLint
 
-      " VimL: lint
-      autocmd FileType vim nmap <buffer> _l <Plug>VimLint
+    " VimL: lint
+    autocmd FileType vim nmap <buffer> <LocalLeader>l <Plug>VimLint
 
-      " Zsh: check
-      autocmd FileType zsh nmap <buffer> _c <Plug>ZshCheck
+    " Zsh: check
+    autocmd FileType zsh nmap <buffer> <LocalLeader>c <Plug>ZshCheck
 
   augroup END
 endif
