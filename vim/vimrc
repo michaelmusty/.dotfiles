@@ -4,9 +4,11 @@
 " own without the accompanying plugins to which it refers near the end of this
 " file, but you'll get errors for some of the leader maps, for example.
 
-" Load filetype settings and plugins
+" Load filetype settings, plugins, and maps
 if has('autocmd')
+  let g:maplocalleader = '_'
   filetype plugin indent on
+  runtime filemap.vim
 endif
 
 " Options dependent on the syntax feature
@@ -200,9 +202,10 @@ nnoremap ]t :<C-U>tabnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Remap normal J to stay in place while joining lines; fall back to default
-nnoremap <Plug>FixedJoin J
-nmap J <Plug>FixedJoin
+" Remap normal J to stay in place while joining lines
+if &loadplugins
+  nmap J <Plug>FixedJoin
+endif
 
 " Remap normal Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
@@ -270,56 +273,15 @@ nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
-" Use underscore for a local leader, for any plugins that use the variable
-if 1
-  let g:maplocalleader = '_'
-endif
+" Settings for plugins
+if &loadplugins
 
-" Filetype-specific mappings
-if has('autocmd') && v:version >= 700
-  augroup vimrc_filetype_mappings
-    autocmd!
+  " Add packaged matchit.vim, if supported
+  if has('packages')
+    packadd! matchit
+  endif
 
-    " Clear existing local leader maps
-    autocmd FileType * silent! call clear_local_maps#Clear()
-
-    " Diff: prune sections
-    autocmd FileType diff nmap <buffer> <LocalLeader>p <Plug>DiffPrune
-    autocmd FileType diff xmap <buffer> <LocalLeader>p <Plug>DiffPrune
-
-    " HTML: lint, URL-to-link, tidy
-    autocmd FileType html nmap <buffer> <LocalLeader>l <Plug>HtmlLint
-    autocmd FileType html nmap <buffer> <LocalLeader>r <Plug>HtmlUrlLink
-    autocmd FileType html nmap <buffer> <LocalLeader>t <Plug>HtmlTidy
-
-    " Perl: check, lint, and tidy
-    autocmd FileType perl nmap <buffer> <LocalLeader>c <Plug>PerlCheck
-    autocmd FileType perl nmap <buffer> <LocalLeader>l <Plug>PerlLint
-    autocmd FileType perl nmap <buffer> <LocalLeader>t <Plug>PerlTidy
-
-    " PHP: check
-    autocmd FileType php nmap <buffer> <LocalLeader>c <Plug>PhpCheck
-
-    " Shell: check and lint
-    autocmd FileType sh nmap <buffer> <LocalLeader>c <Plug>ShCheck
-    autocmd FileType sh nmap <buffer> <LocalLeader>l <Plug>ShLint
-
-    " VimL: lint
-    autocmd FileType vim nmap <buffer> <LocalLeader>l <Plug>VimLint
-
-    " Zsh: check
-    autocmd FileType zsh nmap <buffer> <LocalLeader>c <Plug>ZshCheck
-
-  augroup END
-endif
-
-" Add packaged matchit.vim, if supported
-if has('packages')
-  packadd! matchit
-endif
-
-" Disable core plugins I don't use
-if 1
+  " Skip loading some plugins:
   " I manage plugins myself with Git and a Makefile
   let g:loaded_getscriptPlugin = 1
   let g:loaded_vimballPlugin = 1
@@ -335,6 +297,7 @@ if 1
   let g:loaded_rrhelper = 1
   " I don't need extra spelling files
   let g:loaded_spellfile_plugin = 1
+
 endif
 
 " Source any .vim files from ~/.vim/config
