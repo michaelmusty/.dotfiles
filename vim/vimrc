@@ -274,41 +274,40 @@ if 1
   let g:maplocalleader = '_'
 endif
 
-" Filetype-specific mappings below; use a literal underscore rather than
-" <LocalLeader> to keep the commands short
+" Filetype-specific mappings
 if has('autocmd') && v:version >= 700
   augroup vimrc_filetype_mappings
-      autocmd!
+    autocmd!
 
-      " Clear existing local leader maps
-      autocmd FileType * call vimrc#ClearLocalLeaderMaps()
+    " Clear existing local leader maps
+    autocmd FileType * call vimrc#ClearLocalLeaderMaps()
 
-      " Diff: prune sections
-      autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
-      autocmd FileType diff xmap <buffer> _p <Plug>DiffPrune
+    " Diff: prune sections
+    autocmd FileType diff nmap <buffer> <LocalLeader>p <Plug>DiffPrune
+    autocmd FileType diff xmap <buffer> <LocalLeader>p <Plug>DiffPrune
 
-      " HTML: lint, URL-to-link, tidy
-      autocmd FileType html nmap <buffer> _l <Plug>HtmlLint
-      autocmd FileType html nmap <buffer> _r <Plug>HtmlUrlLink
-      autocmd FileType html nmap <buffer> _t <Plug>HtmlTidy
+    " HTML: lint, URL-to-link, tidy
+    autocmd FileType html nmap <buffer> <LocalLeader>l <Plug>HtmlLint
+    autocmd FileType html nmap <buffer> <LocalLeader>r <Plug>HtmlUrlLink
+    autocmd FileType html nmap <buffer> <LocalLeader>t <Plug>HtmlTidy
 
-      " Perl: check, lint, and tidy
-      autocmd FileType perl nmap <buffer> _c <Plug>PerlCheck
-      autocmd FileType perl nmap <buffer> _l <Plug>PerlLint
-      autocmd FileType perl nmap <buffer> _t <Plug>PerlTidy
+    " Perl: check, lint, and tidy
+    autocmd FileType perl nmap <buffer> <LocalLeader>c <Plug>PerlCheck
+    autocmd FileType perl nmap <buffer> <LocalLeader>l <Plug>PerlLint
+    autocmd FileType perl nmap <buffer> <LocalLeader>t <Plug>PerlTidy
 
-      " PHP: check
-      autocmd FileType php nmap <buffer> _c <Plug>PhpCheck
+    " PHP: check
+    autocmd FileType php nmap <buffer> <LocalLeader>c <Plug>PhpCheck
 
-      " Shell: check and lint
-      autocmd FileType sh nmap <buffer> _c <Plug>ShCheck
-      autocmd FileType sh nmap <buffer> _l <Plug>ShLint
+    " Shell: check and lint
+    autocmd FileType sh nmap <buffer> <LocalLeader>c <Plug>ShCheck
+    autocmd FileType sh nmap <buffer> <LocalLeader>l <Plug>ShLint
 
-      " VimL: lint
-      autocmd FileType vim nmap <buffer> _l <Plug>VimLint
+    " VimL: lint
+    autocmd FileType vim nmap <buffer> <LocalLeader>l <Plug>VimLint
 
-      " Zsh: check
-      autocmd FileType zsh nmap <buffer> _c <Plug>ZshCheck
+    " Zsh: check
+    autocmd FileType zsh nmap <buffer> <LocalLeader>c <Plug>ZshCheck
 
   augroup END
 endif
