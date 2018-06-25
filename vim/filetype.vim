@@ -488,8 +488,8 @@ augroup filetypedetect
         \ setfiletype config
   autocmd BufNewFile,BufRead
         \ */log/*
-        \,*.log
-        \ setf messages
+        \,?*.log
+        \ setfiletype messages
 
   " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
   " been found; strip temporary extension and re-run
