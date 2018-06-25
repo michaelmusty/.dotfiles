@@ -334,11 +334,12 @@ combination to detach.
 
 ### Vim
 
-The majority of the Vim configuration is just setting options, with a few
-mappings. I try not to deviate too much from the Vim defaults behavior in terms
-of interactive behavior and keybindings. It's extensively commented, mostly
-because I was reading through it one day and realized I'd forgotten what half
-of it did. System-specific configuration files go in `~/.vim/config`.
+The majority of the Vim configuration is just setting options, with a fair few
+mappings and remappings, both global and buffer-local. I try not to deviate too
+much from the Vim defaults behavior in terms of interactive behavior and
+keybindings. It's extensively commented, mostly because I was reading through
+it one day and realized I'd forgotten what half of it did. System-specific
+configuration files go in `~/.vim/config`.
 
 #### Filetypes
 
@@ -372,11 +373,11 @@ implemented in or bundled with Vim itself many years ago.
 #### Filetype plugins
 
 I also define a few rules specific to file types I often edit in
-`~/.vim/after/ftplugin`, including some local mappings for checking, linting,
-and tidying, and a few more in `~/.vim/after/indent`. There are also a few
-tweaks to core syntax files in `~/.vim/after/syntax`, especially for shell
-script (`sh.vim`). Some of these filetype plugins are also due to be separately
-distributed and installed via submodules instead.
+`~/.vim/after/ftplugin`, including some buffer-local mapping targets for
+checking, linting, and tidying, and a few more in `~/.vim/after/indent`. There
+are also a few tweaks to core syntax files in `~/.vim/after/syntax`, especially
+for shell script (`sh.vim`). Some of these filetype plugins are also due to be
+separately distributed and installed via submodules instead.
 
 #### Compilers
 
