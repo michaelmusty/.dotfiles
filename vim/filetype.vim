@@ -324,15 +324,15 @@ augroup filetypedetect
         \,bash_logout
         \,bash_profile
         \,bashrc
-        \   let b:is_bash = 1
-        \ | setfiletype sh
+        \ let b:is_bash = 1
+        \|setfiletype sh
   " Korn shell
   autocmd BufNewFile,BufRead
         \ ?*.ksh
         \,.kshrc
         \,kshrc
-        \   let b:is_kornshell = 1
-        \ | setfiletype sh
+        \ let b:is_kornshell = 1
+        \|setfiletype sh
   " POSIX/Bourne shell
   autocmd BufNewFile,BufRead
         \ ?*.sh
@@ -347,8 +347,8 @@ augroup filetypedetect
         \,shinit
         \,shrc
         \,xinitrc
-        \   let b:is_posix = 1
-        \ | setfiletype sh
+        \ let b:is_posix = 1
+        \|setfiletype sh
   " sed files
   autocmd BufNewFile,BufRead
         \ ?*.sed
@@ -495,17 +495,17 @@ augroup filetypedetect
   " been found; strip temporary extension and re-run
   autocmd BufNewFile,BufRead
         \ /var/tmp/?*.????????
-        \   if !did_filetype()
-        \ |   call s:StripRepeat()
-        \ | endif
+        \ if !did_filetype()
+        \|  call s:StripRepeat()
+        \|endif
 
   " If we *still* don't have a filetype, run the scripts.vim file that will
   " examine actual file contents--but only the first one; don't load the
   " system one at all
   autocmd BufNewFile,BufRead,StdinReadPost
         \ *
-        \   if !did_filetype()
-        \ |   runtime scripts.vim
-        \ | endif
+        \ if !did_filetype()
+        \|  runtime scripts.vim
+        \|endif
 
 augroup END
