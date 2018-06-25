@@ -200,6 +200,9 @@ nnoremap ]t :<C-U>tabnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
+" Remap normal J to hold the cursor still while joining lines
+nmap J <Plug>FixedJoin
+
 " Remap normal Y to yank to end of line (consistent with C, D)
 nnoremap Y y$
 
@@ -277,8 +280,8 @@ if has('autocmd') && v:version >= 700
   augroup vimrc_filetype_mappings
       autocmd!
 
-      " Clear away existing local mappings
-      autocmd FileType * mapclear <buffer>
+      " Clear existing local leader maps
+      autocmd FileType * call vimrc#ClearLocalLeaderMaps()
 
       " Diff: prune sections
       autocmd FileType diff nmap <buffer> _p <Plug>DiffPrune
