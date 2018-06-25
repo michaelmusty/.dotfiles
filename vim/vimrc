@@ -200,7 +200,8 @@ nnoremap ]t :<C-U>tabnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Remap normal J to hold the cursor still while joining lines
+" Remap normal J to stay in place while joining lines; fall back to default
+nnoremap <Plug>FixedJoin J
 nmap J <Plug>FixedJoin
 
 " Remap normal Y to yank to end of line (consistent with C, D)
