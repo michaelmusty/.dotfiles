@@ -1,8 +1,8 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This file is not truly self-contained; it should run without errors on its
-" own without the accompanying plugins to which it refers near the end of this
-" file, but you'll get errors for some of the leader maps, for example.
+" This file is not truly self-contained. It should run without errors on its
+" own without the accompanying plugins to which it refers near its end, but
+" you'll get errors for some of the leader maps.
 
 " Load filetype settings, plugins, and maps
 if has('autocmd')
