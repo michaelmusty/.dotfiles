@@ -1,8 +1,8 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This file is not truly self-contained; it should run without errors on its
-" own without the accompanying plugins to which it refers near the end of this
-" file, but you'll get errors for some of the leader maps, for example.
+" This file is not truly self-contained. It should run without errors on its
+" own without the accompanying plugins to which it refers near its end, but
+" you'll get errors for some of the leader maps.
 
 " Load filetype settings, plugins, and maps
 if has('autocmd')
@@ -65,7 +65,9 @@ else
 endif
 
 " Don't wait for a key after Escape in insert mode
-set noesckeys
+if exists('+esckeys')  " Not in Neovim
+  set noesckeys
+endif
 
 " Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -75,6 +77,11 @@ endif
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
+" Don't show a statusline if there's only one window
+if has('nvim')  " Neovim changed the default to 2
+  set laststatus=1
+endif
+
 " Don't redraw the screen during batch execution
 set lazyredraw
 
@@ -83,6 +90,9 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=tab:>-      " Tab characters, preserve width
 set listchars+=trail:_     " Trailing spaces
+if v:version >= 700
+  set listchars+=nbsp:+    " Non-breaking spaces
+endif
 
 " Add angle brackets to pairs of matched characters
 set matchpairs+=<:>
@@ -215,13 +225,6 @@ nnoremap ZA :<C-U>wall!<CR>
 " ZW unconditionally writes current buffer
 nnoremap ZW :<C-U>write!<CR>
 
-" Custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
-  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
-  digraph 8: 9731  " SNOWMAN U+2603
-endif
-
 " Normal mode leader mappings below; use a literal backslash rather than
 " <Leader> on the non-plugin maps so that they work on vim-tiny
 
@@ -273,11 +276,18 @@ nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 
+" Custom digraphs
+if has('digraphs')
+  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
+  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
+  digraph 8: 9731  " SNOWMAN U+2603
+endif
+
 " Settings for plugins
 if &loadplugins
 
   " Add packaged matchit.vim, if supported
-  if has('packages')
+  if has('packages') && !has('nvim')
     packadd! matchit
   endif
 
