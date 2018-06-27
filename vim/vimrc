@@ -64,8 +64,8 @@ else
   set display=lastline  " Just let it run off the screen if not
 endif
 
-" Don't wait for a key after Escape in insert mode (not in Neovim)
-if exists('+esckeys')
+" Don't wait for a key after Escape in insert mode
+if exists('+esckeys')  " Not in Neovim
   set noesckeys
 endif
 
