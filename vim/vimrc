@@ -64,8 +64,10 @@ else
   set display=lastline  " Just let it run off the screen if not
 endif
 
-" Don't wait for a key after Escape in insert mode
-set noesckeys
+" Don't wait for a key after Escape in insert mode (not in Neovim)
+if exists('+esckeys')
+  set noesckeys
+endif
 
 " Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
