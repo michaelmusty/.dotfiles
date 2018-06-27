@@ -77,6 +77,11 @@ endif
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
+" Don't show a statusline if there's only one window
+if has('nvim')  " Neovim changed the default to 2
+  set laststatus=1
+endif
+
 " Don't redraw the screen during batch execution
 set lazyredraw
 
