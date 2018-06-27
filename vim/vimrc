@@ -279,7 +279,7 @@ nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 if &loadplugins
 
   " Add packaged matchit.vim, if supported
-  if has('packages')
+  if has('packages') && !has('nvim')
     packadd! matchit
   endif
 
