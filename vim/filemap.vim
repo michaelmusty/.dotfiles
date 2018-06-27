@@ -25,6 +25,10 @@ augroup filetypemap
         \|nmap <buffer> <LocalLeader>r <Plug>HtmlUrlLink
         \|nmap <buffer> <LocalLeader>t <Plug>HtmlTidy
 
+  " Makefile: make target
+  autocmd FileType make
+        \ nmap <buffer> <LocalLeader>m <Plug>MakeTarget
+
   " Perl: check, lint, and tidy
   autocmd FileType perl
         \ nmap <buffer> <LocalLeader>c <Plug>PerlCheck

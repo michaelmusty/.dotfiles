@@ -20,6 +20,9 @@
 [submodule "vim/bundle/insert_suspend_hlsearch"]
     path = vim/bundle/insert_suspend_hlsearch
     url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git
+[submodule "vim/bundle/make_target"]
+    path = vim/bundle/make_target
+    url = https://sanctum.geek.nz/code/vim-make-target.git
 [submodule "vim/bundle/markdown_autoformat"]
     path = vim/bundle/markdown_autoformat
     url = https://sanctum.geek.nz/code/vim-markdown-autoformat.git
