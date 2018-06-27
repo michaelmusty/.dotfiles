@@ -90,6 +90,9 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=tab:>-      " Tab characters, preserve width
 set listchars+=trail:_     " Trailing spaces
+if v:version >= 700
+  set listchars+=nbsp:+    " Non-breaking spaces
+endif
 
 " Add angle brackets to pairs of matched characters
 set matchpairs+=<:>
