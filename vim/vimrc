@@ -64,8 +64,10 @@ else
   set display=lastline  " Just let it run off the screen if not
 endif
 
-" Don't wait for a key after Escape in insert mode
-set noesckeys
+" Don't wait for a key after Escape in insert mode (not in Neovim)
+if exists('+esckeys')
+  set noesckeys
+endif
 
 " Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -74,6 +76,11 @@ endif
 
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
+
+" Don't show a statusline if there's only one window
+if has('nvim')  " Neovim changed the default to 2
+  set laststatus=1
+endif
 
 " Don't redraw the screen during batch execution
 set lazyredraw
@@ -277,7 +284,7 @@ nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
 if &loadplugins
 
   " Add packaged matchit.vim, if supported
-  if has('packages')
+  if has('packages') && !has('nvim')
     packadd! matchit
   endif
 
