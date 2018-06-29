@@ -548,7 +548,7 @@ install-vim-config:
 	cp -p -- vim/vimrc $(VIMRC)
 
 install-vim-filetype:
-	cp -p -- vim/filemap.vim vim/filetype.vim vim/scripts.vim $(VIMDIR)
+	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
 
 install-vim-ftplugin:
 	mkdir -p -- $(VIMDIR)/ftplugin

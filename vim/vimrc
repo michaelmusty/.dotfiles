@@ -8,7 +8,6 @@
 if has('autocmd')
   let g:maplocalleader = '_'
   filetype plugin indent on
-  runtime filemap.vim
 endif
 
 " Options dependent on the syntax feature
