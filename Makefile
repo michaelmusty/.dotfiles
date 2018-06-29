@@ -47,7 +47,6 @@
 	install-vim-compiler \
 	install-vim-config \
 	install-vim-filetype \
-	install-vim-ftplugin \
 	install-vim-gui \
 	install-vim-gui-config \
 	install-vim-indent \
@@ -500,7 +499,6 @@ install-vim: install-vim-after \
 	install-vim-compiler \
 	install-vim-config \
 	install-vim-filetype \
-	install-vim-ftplugin \
 	install-vim-indent
 
 install-vim-after: install-vim-after-ftplugin \
@@ -546,10 +544,6 @@ install-vim-config:
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
-
-install-vim-ftplugin:
-	mkdir -p -- $(VIMDIR)/ftplugin
-	cp -p -- vim/ftplugin/*.vim $(VIMDIR)/ftplugin
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
