@@ -134,11 +134,6 @@ if has('file_in_path')
   set path=.,,**
 endif
 
-" Clear default 'commentstring' value, let the filetype handle it
-if has('folding')
-  set commentstring=
-endif
-
 " Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
