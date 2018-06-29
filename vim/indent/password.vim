@@ -4,7 +4,7 @@ if exists('b:did_indent')
 endif
 let b:did_indent = 1
 
-" Manual indenting and literal tabs
+" Manual indenting and literal tabs for passwords
 setlocal noautoindent
 setlocal noexpandtab
 setlocal softtabstop=0
