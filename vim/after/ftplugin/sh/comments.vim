@@ -1,4 +1,4 @@
-" sh/comments.vim: Set 'comments' for shell script
+" sh/comments.vim: Set 'comments' and supporting 'formatoptions' for shell script
 
 " Don't load if running compatible or too old
 if &compatible || v:version < 700
@@ -15,7 +15,8 @@ let b:did_ftplugin_sh_comments = 1
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:did_ftplugin_sh_comments'
 
-" Use trailing whitespace to denote continued paragraph
+" Set comment formats
 setlocal comments=:#
+setlocal formatoptions+=or
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments<'
+      \ . '|setlocal comments< formatoptions<'
