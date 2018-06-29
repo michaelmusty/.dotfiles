@@ -8,7 +8,6 @@
 if has('autocmd')
   let g:maplocalleader = '_'
   filetype plugin indent on
-  runtime filemap.vim
 endif
 
 " Options dependent on the syntax feature
@@ -54,9 +53,6 @@ else
   set visualbell t_vb=
 endif
 
-" Clear default comment string, let the filetype handle it
-set comments=
-
 " How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
@@ -73,6 +69,9 @@ endif
 if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
+
+" Don't assume I'm editing C; let the filetype set this
+set include=
 
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
@@ -117,6 +116,11 @@ if has('cmdline_info')
   set ruler
 endif
 
+" Clear default 'comment' value, let the filetype handle it
+if has('comments')
+  set comments=
+endif
+
 " Highlight settings for search
 if has('extra_search')
   set hlsearch   " Highlight completed searches...
@@ -124,9 +128,9 @@ if has('extra_search')
   set incsearch  " Show matches as I type
 endif
 
-" Use whole tree from current directory for :find
+" More sensible language-agnostic setting for gf/:find
 if has('file_in_path')
-  set path+=**
+  set path=.,,**
 endif
 
 " Don't load GUI menus; set here before GUI starts

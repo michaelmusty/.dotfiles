@@ -142,6 +142,7 @@ EOF
 
 # Load any existing scripts in zshkeep
 for zshkeep in "${ZSHKEEP:-"$HOME"/.zshkeep.d}"/*.zsh(N) ; do
-    [[ -e $zshkeep ]] && source "$zshkeep"
+    [[ -e $zshkeep ]] || continue
+    source "$zshkeep"
 done
 unset -v zshkeep

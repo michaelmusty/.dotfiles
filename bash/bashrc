@@ -42,7 +42,7 @@ HISTTIMEFORMAT='%F %T  '
 # Use a more compact format for the `time` builtin's output
 TIMEFORMAT='real:%lR user:%lU sys:%lS'
 
-# Correct small errors in directory names given to the `cd` buildtin
+# Correct small errors in directory names given to the `cd` builtin
 shopt -s cdspell
 # Check that hashed commands still exist before running them
 shopt -s checkhash
@@ -95,6 +95,7 @@ fi
 
 # Load Bash-specific startup files
 for sh in "$HOME"/.bashrc.d/*.bash ; do
-    [[ -e $sh ]] && source "$sh"
+    [[ -e $sh ]] || continue
+    source "$sh"
 done
 unset -v sh

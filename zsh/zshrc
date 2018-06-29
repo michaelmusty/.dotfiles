@@ -17,6 +17,7 @@ SAVEHIST=$((1 << 12))
 
 # Load Zsh-specific startup files
 for sh in "$HOME"/.zshrc.d/*.zsh ; do
-    [[ -e $sh ]] && source "$sh"
+    [[ -e $sh ]] || continue
+    source "$sh"
 done
 unset -v sh
