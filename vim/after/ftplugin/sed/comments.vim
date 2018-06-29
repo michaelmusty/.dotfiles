@@ -18,4 +18,4 @@ let b:undo_ftplugin = b:undo_ftplugin
 " Use trailing whitespace to denote continued paragraph
 setlocal comments=:#
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments< formatoptions<'
+      \ . '|setlocal comments<'
