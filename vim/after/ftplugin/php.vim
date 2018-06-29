@@ -13,8 +13,7 @@ let b:undo_ftplugin = b:undo_ftplugin
 setlocal comments=s1:/*,m:*,ex:*/,://,:#
 setlocal formatoptions+=or
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments<'
-      \ . '|setlocal formatoptions<'
+      \ . '|setlocal comments< formatoptions<'
 
 " Define keywords for matchit.vim
 if exists('g:loaded_matchit')

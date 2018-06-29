@@ -13,7 +13,7 @@ let b:undo_ftplugin = b:undo_ftplugin
 setlocal comments=:#
 setlocal formatoptions+=or
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments<'
+      \ . '|setlocal comments< formatoptions<'
 
 " If subtype is Bash, set 'keywordprg' to han(1df)
 if exists('b:is_bash')

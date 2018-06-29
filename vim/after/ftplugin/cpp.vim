@@ -10,5 +10,4 @@ let b:undo_ftplugin = b:undo_ftplugin
 setlocal include=^\\s*#\\s*include
 setlocal path+=/usr/include
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal include<'
-      \ . '|setlocal path<'
+      \ . '|setlocal include< path<'
