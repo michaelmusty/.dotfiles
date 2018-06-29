@@ -10,6 +10,11 @@ if exists('b:did_ftplugin_perl_maps')
   finish
 endif
 
+" Don't load if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
+  finish
+endif
+
 " Flag as loaded
 let b:did_ftplugin_perl_maps = 1
 let b:undo_ftplugin = b:undo_ftplugin
