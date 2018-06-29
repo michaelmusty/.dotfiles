@@ -143,6 +143,7 @@ EOF
 
 # Load any existing scripts in bashkeep
 for bashkeep in "${BASHKEEP:-"$HOME"/.bashkeep.d}"/*.bash ; do
-    [[ -e $bashkeep ]] && source "$bashkeep"
+    [[ -e $bashkeep ]] || continue
+    source "$bashkeep"
 done
 unset -v bashkeep

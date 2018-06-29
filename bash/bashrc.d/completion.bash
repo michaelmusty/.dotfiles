@@ -118,7 +118,8 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
 # If not, load all of the completions up now
 else
     for sh in "$HOME"/.bash_completion.d/*.bash ; do
-        [[ -e $sh ]] && source "$sh"
+        [[ -e $sh ]] || continue
+        source "$sh"
     done
     unset -v sh
 fi
