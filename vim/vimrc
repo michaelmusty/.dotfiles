@@ -54,8 +54,9 @@ else
   set visualbell t_vb=
 endif
 
-" Clear default comment string, let the filetype handle it
+" Clear default comment settings, let the filetype handle it
 set comments=
+set commentstring=
 
 " How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
