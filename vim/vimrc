@@ -145,12 +145,6 @@ if has('linebreak')
 
 endif
 
-" Don't set window icons or titles in terminals or the GUI
-if has('title')
-  set noicon
-  set notitle
-endif
-
 " Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
