@@ -5,6 +5,9 @@
 [submodule "vim/bundle/big_file_options"]
     path = vim/bundle/big_file_options
     url = https://sanctum.geek.nz/code/vim-big-file-options.git
+[submodule "vim/bundle/cmdwin_ctrlc"]
+    path = vim/bundle/cmdwin_ctrlc
+    url = https://sanctum.geek.nz/code/vim-cmdwin-ctrlc.git
 [submodule "vim/bundle/copy_linebreak"]
     path = vim/bundle/copy_linebreak
     url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
@@ -14,6 +17,9 @@
 [submodule "vim/bundle/insert_suspend_hlsearch"]
     path = vim/bundle/insert_suspend_hlsearch
     url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git
+[submodule "vim/bundle/insert_timeout"]
+    path = vim/bundle/insert_timeout
+    url = https://sanctum.geek.nz/code/vim-insert-timeout.git
 [submodule "vim/bundle/paste_open"]
     path = vim/bundle/paste_open
     url = https://sanctum.geek.nz/code/vim-paste-open.git
