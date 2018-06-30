@@ -193,6 +193,12 @@ if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
 
+" Stack ^ to make it support counts by abusing $
+nnoremap ^ $^
+if v:version >= 700
+  xnoremap ^ $^
+endif
+
 " Stack insert Ctrl-C to undo the escaped insert operation
 inoremap <C-C> <C-C>u
 
