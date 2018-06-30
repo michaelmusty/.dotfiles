@@ -542,8 +542,7 @@ install-vim-compiler:
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
 install-vim-config:
-	cp -p -- vim/vimrc $(VIMDIR)/vimrc
-	cp -p -- vim/stub.vimrc $(VIMRC)
+	cp -p -- vim/vimrc $(VIMRC)
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
@@ -556,7 +555,7 @@ install-vim-gui: install-vim \
 	install-vim-gui-config
 
 install-vim-gui-config:
-	cp -p -- vim/gvimrc $(VIMDIR)/gvimrc
+	cp -p -- vim/gvimrc $(HOME)/.gvimrc
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
