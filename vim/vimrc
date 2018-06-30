@@ -116,7 +116,7 @@ if has('cmdline_info')
   set ruler
 endif
 
-" Clear default 'comment' value, let the filetype handle it
+" Clear default 'comments' value, let the filetype handle it
 if has('comments')
   set comments=
 endif
