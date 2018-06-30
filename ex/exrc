@@ -3,6 +3,3 @@ set autoindent
 set report=0
 set shiftwidth=4
 set showmode
-
-" Make gg go to the top of the file
-map gg 1G
