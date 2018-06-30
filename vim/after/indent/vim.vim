@@ -1,6 +1,8 @@
 " Observe VimL conventions for two-space indents
 setlocal shiftwidth=2
-let b:undo_indent = b:undo_indent . '|setlocal shiftwidth<'
+if exists('b:undo_indent')
+  let b:undo_indent = b:undo_indent . '|setlocal shiftwidth<'
+endif
 
 " If we need to set 'softtabstop' too, do it
 if &softtabstop == -1
