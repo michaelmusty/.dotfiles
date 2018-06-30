@@ -255,7 +255,7 @@ nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
 " \i toggles showing matches as I enter my pattern
 nnoremap \i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
-nnoremap \j :<C-U>ls<CR>:buffer<Space>
+nnoremap \j :<C-U>buffers<CR>:buffer<Space>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap \l :<C-U>set list! list?<CR>
 " \n toggles line numbers
