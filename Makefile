@@ -501,7 +501,8 @@ install-vim: install-vim-after \
 	install-vim-config \
 	install-vim-filetype \
 	install-vim-ftplugin \
-	install-vim-indent
+	install-vim-indent \
+	install-vim-plugin
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
