@@ -137,12 +137,9 @@ endif
 if has('linebreak')
   set linebreak      " Break lines at word boundaries
   set showbreak=...  " Prefix wrapped rows with three dots
-
-  " Indent wrapped lines, if supported
   if exists('+breakindent')
-    set breakindent
+    set breakindent  " Indent wrapped lines, if supported
   endif
-
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -154,12 +151,9 @@ endif
 if has('wildmenu')
   set wildmenu               " Use wildmenu
   set wildmode=list:longest  " Tab press completes and lists
-
-  " Complete files without case sensitivity, if supported
   if exists('+wildignorecase')
-    set wildignorecase
+    set wildignorecase       " Case insensitive, if supported
   endif
-
 endif
 
 " New windows go below or to the right of a split
