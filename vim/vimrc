@@ -264,13 +264,6 @@ nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
-" Custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
-  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
-  digraph 8: 9731  " SNOWMAN U+2603
-endif
-
 " Settings for plugins
 if &loadplugins
 
