@@ -257,7 +257,7 @@ nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
 " \v shows all global variables
 nnoremap <Bslash>v :<C-U>let g: v:<CR>
 " \V shows all local variables
-nnoremap <Bslash>v :<C-U>let b: t: w:<CR>
+nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
