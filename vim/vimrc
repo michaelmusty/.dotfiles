@@ -36,7 +36,7 @@ set shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key insert
 if v:version > 703 || v:version == 703 && has('patch693')
-  set softtabstop=-1  " Refer to 'shifwidth' if supported
+  set softtabstop=-1  " Refer to 'shiftwidth' if supported
 else
   set softtabstop=4   " Otherwise just four spaces
 endif
