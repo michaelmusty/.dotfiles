@@ -168,7 +168,9 @@ endif
 noremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 
 " Stack insert Ctrl-C to undo the escaped insert operation
-inoremap <C-C> <C-C>u
+" Default to not-quite-correct vim-tiny-compatible map if no plugin
+inoremap <Plug>InsertCancel <C-C>u
+imap <C-C> <Plug>InsertCancel
 
 " Remap normal J to stay in place while joining lines
 if &loadplugins
