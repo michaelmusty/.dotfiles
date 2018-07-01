@@ -240,8 +240,9 @@ nnoremap <Bslash>m :<C-U>map<CR>
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>set number! number?<CR>
-" \o and \O open 'pasted insert' lines
+" \o opens a line below in paste mode
 nmap <Leader>o <Plug>PasteOpenBelow
+" \o opens a line above in paste mode
 nmap <Leader>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
