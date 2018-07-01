@@ -169,14 +169,6 @@ if &loadplugins
   nmap J <Plug>FixedJoin
 endif
 
-" Remap normal Y to yank to end of line (consistent with C, D)
-nnoremap Y y$
-
-" ZA unconditionally writes all buffers
-nnoremap ZA :<C-U>wall!<CR>
-" ZW unconditionally writes current buffer
-nnoremap ZW :<C-U>write!<CR>
-
 " Remap normal/visual <Space> to scroll down a page
 nnoremap <Space> <C-F>
 if v:version >= 700
