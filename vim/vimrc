@@ -171,7 +171,7 @@ if v:version >= 700
 endif
 
 " Remap normal/visual & to preserve substitution flags
-nnoremap <silent> & :<C-U>&&<CR>
+nnoremap <silent> & :&&<CR>
 if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
