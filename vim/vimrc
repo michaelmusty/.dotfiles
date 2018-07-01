@@ -189,11 +189,8 @@ if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
 
-" Stack normal/visual Ctrl-L to clear search highlight before redraw
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-if v:version >= 700
-  xnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
-endif
+" Stack normal/visual/select Ctrl-L to clear search highlight
+noremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 
 " Stack insert Ctrl-C to undo the escaped insert operation
 inoremap <C-C> <C-C>u
