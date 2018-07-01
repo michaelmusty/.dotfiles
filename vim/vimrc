@@ -164,6 +164,12 @@ if has('windows')
   endif
 endif
 
+" Stack normal/visual/select Ctrl-L to clear search highlight
+noremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+
+" Stack insert Ctrl-C to undo the escaped insert operation
+inoremap <C-C> <C-C>u
+
 " Remap normal J to stay in place while joining lines
 if &loadplugins
   nmap J <Plug>FixedJoin
@@ -180,12 +186,6 @@ nnoremap <silent> & :&&<CR>
 if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
-
-" Stack normal/visual/select Ctrl-L to clear search highlight
-noremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-
-" Stack insert Ctrl-C to undo the escaped insert operation
-inoremap <C-C> <C-C>u
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
