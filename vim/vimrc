@@ -164,6 +164,19 @@ if has('windows')
   endif
 endif
 
+" Remap normal J to stay in place while joining lines
+if &loadplugins
+  nmap J <Plug>FixedJoin
+endif
+
+" Remap normal Y to yank to end of line (consistent with C, D)
+nnoremap Y y$
+
+" ZA unconditionally writes all buffers
+nnoremap ZA :<C-U>wall!<CR>
+" ZW unconditionally writes current buffer
+nnoremap ZW :<C-U>write!<CR>
+
 " Remap normal/visual <Space> to scroll down a page
 nnoremap <Space> <C-F>
 if v:version >= 700
@@ -176,14 +189,14 @@ if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
 
-" Stack insert Ctrl-C to undo the escaped insert operation
-inoremap <C-C> <C-C>u
-
 " Stack normal/visual Ctrl-L to clear search highlight before redraw
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 if v:version >= 700
   xnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 endif
+
+" Stack insert Ctrl-C to undo the escaped insert operation
+inoremap <C-C> <C-C>u
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
@@ -204,19 +217,6 @@ nnoremap ]t :<C-U>tabnext<CR>
 " Insert blank lines around current line
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
-
-" Remap normal J to stay in place while joining lines
-if &loadplugins
-  nmap J <Plug>FixedJoin
-endif
-
-" Remap normal Y to yank to end of line (consistent with C, D)
-nnoremap Y y$
-
-" ZA unconditionally writes all buffers
-nnoremap ZA :<C-U>wall!<CR>
-" ZW unconditionally writes current buffer
-nnoremap ZW :<C-U>write!<CR>
 
 " Normal mode leader mappings below; use <Bslash> rather than <Leader> on the
 " non-plugin maps so that they work on vim-tiny
