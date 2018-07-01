@@ -234,6 +234,10 @@ nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>set list! list?<CR>
+" \m shows all maps
+nnoremap <Bslash>m :<C-U>map<CR>
+" \M shows buffer-local maps
+nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>set number! number?<CR>
 " \o and \O open 'pasted insert' lines
@@ -249,6 +253,10 @@ nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 nnoremap <Bslash>t :<C-U>set filetype?<CR>
 " \u sets US English spelling (compare \z)
 nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us spelllang?<CR>
+" \v shows all global variables
+nnoremap <Bslash>v :<C-U>let g: v:<CR>
+" \V shows all local variables
+nnoremap <Bslash>v :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
