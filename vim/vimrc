@@ -252,7 +252,7 @@ nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
 nnoremap <Bslash>t :<C-U>set filetype?<CR>
 " \u sets US English spelling (compare \z)
-nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us spelllang?<CR>
+nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
 " \v shows all global variables
 nnoremap <Bslash>v :<C-U>let g: v:<CR>
 " \V shows all local variables
@@ -262,7 +262,7 @@ nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
-nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
+nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
 " Custom digraphs
 if has('digraphs')
