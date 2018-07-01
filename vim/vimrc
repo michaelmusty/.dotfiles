@@ -264,32 +264,5 @@ nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
-" Settings for plugins
-if &loadplugins
-
-  " Add packaged matchit.vim, if supported
-  if has('packages') && !has('nvim')
-    packadd! matchit
-  endif
-
-  " Skip loading some plugins:
-  " I manage plugins myself with Git and a Makefile
-  let g:loaded_getscriptPlugin = 1
-  let g:loaded_vimballPlugin = 1
-  " Vim is the wrong tool for reading archives or compressed text
-  let g:loaded_gzip = 1
-  let g:loaded_tarPlugin = 1
-  let g:loaded_zipPlugin = 1
-  " I prefer filtering text with Unix tools
-  let g:loaded_logiPat = 1
-  " The shell, tab completion, and 'wildmenu' are good enough
-  let g:loaded_netrwPlugin = 1
-  " I don't use Vim servers
-  let g:loaded_rrhelper = 1
-  " I don't need extra spelling files
-  let g:loaded_spellfile_plugin = 1
-
-endif
-
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
