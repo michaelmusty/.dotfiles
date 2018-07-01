@@ -164,13 +164,13 @@ if has('windows')
   endif
 endif
 
-" Rebind normal/visual <Space> to scroll down a page
+" Remap normal/visual <Space> to scroll down a page
 nnoremap <Space> <C-F>
 if v:version >= 700
   xnoremap <Space> <C-F>
 endif
 
-" Rebind normal/visual & to preserve substitution flags
+" Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :<C-U>&&<CR>
 if v:version >= 700
   xnoremap <silent> & :&&<CR>
