@@ -214,9 +214,10 @@ nmap ]<Space> <Plug>PutBlankLinesBelow
 nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Leader>b <Plug>CopyLinebreakToggle
-" \c toggles 'cursorcolumn', \C toggles 'cursorline'
-nnoremap <Bslash>c :<C-U>set cursorcolumn! cursorcolumn?<CR>
-nnoremap <Bslash>C :<C-U>set cursorline! cursorline?<CR>
+" \c toggles 'cursorline'
+nnoremap <Bslash>c :<C-U>set cursorline! cursorline?<CR>
+" \C toggles 'cursorcolumn'
+nnoremap <Bslash>C :<C-U>set cursorcolumn! cursorcolumn?<CR>
 " \d inserts the local date (POSIX date)
 nnoremap <Bslash>d :<C-U>read !date<CR>
 " \D inserts the UTC date (POSIX date)
