@@ -14,6 +14,9 @@
 [submodule "vim/bundle/fixed_join"]
     path = vim/bundle/fixed_join
     url = https://sanctum.geek.nz/code/vim-fixed-join.git
+[submodule "vim/bundle/insert_cancel"]
+    path = vim/bundle/insert_cancel
+    url = https://sanctum.geek.nz/code/vim-insert-cancel.git
 [submodule "vim/bundle/insert_suspend_hlsearch"]
     path = vim/bundle/insert_suspend_hlsearch
     url = https://sanctum.geek.nz/code/vim-insert-suspend-hlsearch.git

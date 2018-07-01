@@ -1,5 +1,8 @@
 " Extra configuration for 'html' filetypes
-if &compatible || v:version < 700 || exists('b:did_ftplugin_after')
+if exists('b:did_ftplugin_after') || &compatible
+  finish
+endif
+if v:version < 700
   finish
 endif
 if &filetype !=# 'html'
@@ -8,6 +11,18 @@ endif
 let b:did_ftplugin_after = 1
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:did_ftplugin_after'
+
+" Set up hooks for timestamp updating
+augroup html_timestamp
+  autocmd!
+  autocmd BufWritePre *.html
+        \ if exists('b:html_timestamp_check')
+        \|  call html#TimestampUpdate()
+        \|endif
+augroup END
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|augroup html_timestamp|autocmd!|augroup END'
+      \ . '|augroup! html_timestamp'
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_html_maps')

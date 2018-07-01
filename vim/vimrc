@@ -36,7 +36,7 @@ set shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key insert
 if v:version > 703 || v:version == 703 && has('patch693')
-  set softtabstop=-1  " Refer to 'shifwidth' if supported
+  set softtabstop=-1  " Refer to 'shiftwidth' if supported
 else
   set softtabstop=4   " Otherwise just four spaces
 endif
@@ -111,11 +111,6 @@ set shortmess+=m  " [Modified] -> [+]
 set shortmess+=r  " [readonly] -> [RO]
 set shortmess+=w  " written -> [w], appended -> [a]
 
-" Show my current position in the status bar
-if has('cmdline_info')
-  set ruler
-endif
-
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
   set comments=
@@ -142,12 +137,9 @@ endif
 if has('linebreak')
   set linebreak      " Break lines at word boundaries
   set showbreak=...  " Prefix wrapped rows with three dots
-
-  " Indent wrapped lines, if supported
   if exists('+breakindent')
-    set breakindent
+    set breakindent  " Indent wrapped lines, if supported
   endif
-
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -159,12 +151,9 @@ endif
 if has('wildmenu')
   set wildmenu               " Use wildmenu
   set wildmode=list:longest  " Tab press completes and lists
-
-  " Complete files without case sensitivity, if supported
   if exists('+wildignorecase')
-    set wildignorecase
+    set wildignorecase       " Case insensitive, if supported
   endif
-
 endif
 
 " New windows go below or to the right of a split
@@ -175,25 +164,29 @@ if has('windows')
   endif
 endif
 
-" Rebind normal, visual <Space> to scroll down a page
+" Stack normal/visual/select Ctrl-L to clear search highlight
+noremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+
+" Stack insert Ctrl-C to undo the escaped insert operation
+" Default to not-quite-correct vim-tiny-compatible map if no plugin
+inoremap <Plug>InsertCancel <C-C>u
+imap <C-C> <Plug>InsertCancel
+
+" Remap normal J to stay in place while joining lines
+" Default to not-quite-correct vim-tiny-compatible map if no plugin
+nnoremap <Plug>FixedJoin mzJ`z
+nmap J <Plug>FixedJoin
+
+" Remap normal/visual <Space> to scroll down a page
 nnoremap <Space> <C-F>
 if v:version >= 700
   xnoremap <Space> <C-F>
 endif
 
-" Rebind normal, visual & to preserve substitution flags
-nnoremap <silent> & :<C-U>&&<CR>
+" Remap normal/visual & to preserve substitution flags
+nnoremap <silent> & :&&<CR>
 if v:version >= 700
   xnoremap <silent> & :&&<CR>
-endif
-
-" Stack insert Ctrl-C to undo the escaped insert operation
-inoremap <C-C> <C-C>u
-
-" Stack normal, visual Ctrl-L to clear search highlight before redraw
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-if v:version >= 700
-  xnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 endif
 
 " Cycle through argument list
@@ -216,103 +209,63 @@ nnoremap ]t :<C-U>tabnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Remap normal J to stay in place while joining lines
-if &loadplugins
-  nmap J <Plug>FixedJoin
-endif
-
-" Remap normal Y to yank to end of line (consistent with C, D)
-nnoremap Y y$
-
-" ZA unconditionally writes all buffers
-nnoremap ZA :<C-U>wall!<CR>
-" ZW unconditionally writes current buffer
-nnoremap ZW :<C-U>write!<CR>
-
-" Normal mode leader mappings below; use a literal backslash rather than
-" <Leader> on the non-plugin maps so that they work on vim-tiny
+" Normal mode leader mappings below; use <Bslash> rather than <Leader> on the
+" non-plugin maps so that they work on vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Leader>b <Plug>CopyLinebreakToggle
-" \c toggles 'cursorcolumn', \C toggles 'cursorline'
-nnoremap \c :<C-U>set cursorcolumn! cursorcolumn?<CR>
-nnoremap \C :<C-U>set cursorline! cursorline?<CR>
-" Current date and time insertion commands, requiring POSIX date(1)
-if has('unix')
-  " \d inserts the local date
-  nnoremap \d :<C-U>read !date<CR>
-  " \D inserts the UTC date
-  nnoremap \D :<C-U>read !date -u<CR>
-endif
+" \c toggles 'cursorline'
+nnoremap <Bslash>c :<C-U>set cursorline! cursorline?<CR>
+" \C toggles 'cursorcolumn'
+nnoremap <Bslash>C :<C-U>set cursorcolumn! cursorcolumn?<CR>
+" \d inserts the local date (POSIX date)
+nnoremap <Bslash>d :read !date<CR>
+" \D inserts the UTC date (POSIX date)
+nnoremap <Bslash>D :read !date -u<CR>
 " \f shows the current 'formatoptions' at a glance
-nnoremap \f :<C-U>set formatoptions?<CR>
+nnoremap <Bslash>f :<C-U>set formatoptions?<CR>
 " \g changes directory to the current file's location
-nnoremap \g :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
-nnoremap \h :<C-U>set hlsearch! hlsearch?<CR>
+nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
 " \i toggles showing matches as I enter my pattern
-nnoremap \i :<C-U>set incsearch! incsearch?<CR>
+nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
-nnoremap \j :<C-U>buffers<CR>:buffer<Space>
+nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
 " \l toggles showing tab, end-of-line, and trailing whitespace
-nnoremap \l :<C-U>set list! list?<CR>
+nnoremap <Bslash>l :<C-U>set list! list?<CR>
+" \m shows all maps
+nnoremap <Bslash>m :<C-U>map<CR>
+" \M shows buffer-local maps
+nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
-nnoremap \n :<C-U>set number! number?<CR>
-" \o and \O open 'pasted insert' lines
+nnoremap <Bslash>n :<C-U>set number! number?<CR>
+" \o opens a line below in paste mode
 nmap <Leader>o <Plug>PasteOpenBelow
+" \o opens a line above in paste mode
 nmap <Leader>O <Plug>PasteOpenAbove
 " \p toggles paste mode
-nnoremap \p :<C-U>set paste! paste?<CR>
+nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 " \r reloads .vimrc
-nnoremap \r :<C-U>source $MYVIMRC<CR>
+nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
-nnoremap \s :<C-U>setlocal spell! spell?<CR>
+nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
-nnoremap \t :<C-U>set filetype?<CR>
+nnoremap <Bslash>t :<C-U>set filetype?<CR>
 " \u sets US English spelling (compare \z)
-nnoremap \u :<C-U>setlocal spelllang=en_us spelllang?<CR>
+nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
+" \v shows all global variables
+nnoremap <Bslash>v :<C-U>let g: v:<CR>
+" \V shows all local variables
+nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
-nnoremap \w :<C-U>set wrap! wrap?<CR>
+nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Leader>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
-nnoremap \z :<C-U>setlocal spelllang=en_nz spelllang?<CR>
-
-" Custom digraphs
-if has('digraphs')
-  digraph ./ 8230  " HORIZONTAL ELLIPSIS U+2026
-  digraph %% 8984  " PLACE OF INTEREST SIGN U+2318 (Mac command key)
-  digraph 8: 9731  " SNOWMAN U+2603
-endif
-
-" Settings for plugins
-if &loadplugins
-
-  " Add packaged matchit.vim, if supported
-  if has('packages') && !has('nvim')
-    packadd! matchit
-  endif
-
-  " Skip loading some plugins:
-  " I manage plugins myself with Git and a Makefile
-  let g:loaded_getscriptPlugin = 1
-  let g:loaded_vimballPlugin = 1
-  " Vim is the wrong tool for reading archives or compressed text
-  let g:loaded_gzip = 1
-  let g:loaded_tarPlugin = 1
-  let g:loaded_zipPlugin = 1
-  " I prefer filtering text with Unix tools
-  let g:loaded_logiPat = 1
-  " The shell, tab completion, and 'wildmenu' are good enough
-  let g:loaded_netrwPlugin = 1
-  " I don't use Vim servers
-  let g:loaded_rrhelper = 1
-  " I don't need extra spelling files
-  let g:loaded_spellfile_plugin = 1
-
-endif
+nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim

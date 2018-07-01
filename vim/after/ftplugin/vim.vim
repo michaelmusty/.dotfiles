@@ -1,5 +1,8 @@
 " Extra configuration for 'vim' filetypes
-if &compatible || v:version < 700 || exists('b:did_ftplugin_after')
+if exists('b:did_ftplugin_after') || &compatible
+  finish
+endif
+if v:version < 700
   finish
 endif
 if &filetype !=# 'vim'
@@ -20,18 +23,16 @@ nnoremap <buffer> <LocalLeader>l
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>l'
 
-" Add undo commands to fix clearing buffer-local vim maps that the core
-" ftplugin leaves in place
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|nunmap <buffer> [['
-      \ . '|vunmap <buffer> [['
-      \ . '|nunmap <buffer> ]]'
-      \ . '|vunmap <buffer> ]]'
-      \ . '|nunmap <buffer> []'
-      \ . '|vunmap <buffer> []'
-      \ . '|nunmap <buffer> ]['
-      \ . '|vunmap <buffer> ]['
-      \ . '|nunmap <buffer> ]"'
-      \ . '|vunmap <buffer> ]"'
-      \ . '|nunmap <buffer> ["'
-      \ . '|vunmap <buffer> ["'
+" Just get rid of the core ftplugin's square-bracket maps; I don't use them
+silent! nunmap <buffer> [[
+silent! vunmap <buffer> [[
+silent! nunmap <buffer> ]]
+silent! vunmap <buffer> ]]
+silent! nunmap <buffer> []
+silent! vunmap <buffer> []
+silent! nunmap <buffer> ][
+silent! vunmap <buffer> ][
+silent! nunmap <buffer> ]"
+silent! vunmap <buffer> ]"
+silent! nunmap <buffer> ["
+silent! vunmap <buffer> ["

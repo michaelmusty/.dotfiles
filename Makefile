@@ -501,7 +501,8 @@ install-vim: install-vim-after \
 	install-vim-config \
 	install-vim-filetype \
 	install-vim-ftplugin \
-	install-vim-indent
+	install-vim-indent \
+	install-vim-plugin
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
@@ -525,7 +526,7 @@ install-vim-after-syntax:
 	cp -p -- vim/after/syntax/*.vim $(VIMDIR)/after/syntax
 
 install-vim-autoload:
-	mkdir -p -- $(VIMDIR)/autoload
+	mkdir -p $(VIMDIR)/autoload
 	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
@@ -542,8 +543,7 @@ install-vim-compiler:
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
 install-vim-config:
-	cp -p -- vim/vimrc $(VIMDIR)/vimrc
-	cp -p -- vim/stub.vimrc $(VIMRC)
+	cp -p -- vim/vimrc $(VIMRC)
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
@@ -556,7 +556,7 @@ install-vim-gui: install-vim \
 	install-vim-gui-config
 
 install-vim-gui-config:
-	cp -p -- vim/gvimrc $(VIMDIR)/gvimrc
+	cp -p -- vim/gvimrc $(HOME)/.gvimrc
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
