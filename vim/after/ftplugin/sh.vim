@@ -1,5 +1,8 @@
 " Extra configuration for 'sh' filetypes
-if &compatible || v:version < 700 || exists('b:did_ftplugin_after')
+if exists('b:did_ftplugin_after') || &compatible
+  finish
+endif
+if v:version < 700
   finish
 endif
 if &filetype !=# 'sh'
