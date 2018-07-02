@@ -430,6 +430,11 @@ install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
+install-neovim:
+	make install-vim \
+	    VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
+	    VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
+
 install-newsboat:
 	mkdir -p -- $(HOME)/.config/newsboat $(HOME)/.local/share/newsboat
 	cp -p -- newsboat/config $(HOME)/.config/newsboat
@@ -544,6 +549,7 @@ install-vim-compiler:
 
 install-vim-config:
 	cp -p -- vim/vimrc $(VIMRC)
+	cp -p -- vim/config/*.vim $(VIMDIR)/config
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)

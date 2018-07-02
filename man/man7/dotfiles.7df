@@ -536,20 +536,14 @@ Perl scripts, and \f[C]_l\f[] runs a Perl::Critic check.
 .PP
 I test my configuration every now and then with the Neovim
 fork (https://neovim.io/).
-To install the configuration where Neovim will use it, do this:
-.IP
-.nf
-\f[C]
-$\ nvd=${XDG_CONFIG_HOME:\-"$HOME"/.config}/nvim
-$\ make\ install\-vim\ VIMRC="$nvd"/init.vim\ VIMDIR="$nvd"
-\f[]
-.fi
+There's an \f[C]install\-neovim\f[] target to run \f[C]install\-vim\f[]
+with the appropriate paths changed.
 .PP
-Neovim's godless
+Its godless
 arrogance (https://twitter.com/tpope/status/437019518444240896)
-notwithstanding, I do rather like it overall, but I'm not presently
-using it as my daily driver and so it might balk at recent addenda to my
-configuration.
+notwithstanding, I do rather like Neovim overall, but I'm not presently
+using it as my daily driver, and so it might balk at recent addenda to
+my configuration.
 .SS Scripts
 .PP
 Where practical, I make short scripts into POSIX (but not Bourne)
@@ -951,7 +945,7 @@ Farts (http://www.asciiartfarts.com/) comic.
 computer.
 .IP \[bu] 2
 \f[C]aesth(6df)\f[] converts English letters to their full width CJK
-analogues, for ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
+analogues, for ａｅｓｔｈｅｔｉｃ purposes.
 .IP \[bu] 2
 \f[C]squ(6df)\f[] makes a reduced Latin square out of each line of
 input.
