@@ -549,6 +549,7 @@ install-vim-compiler:
 
 install-vim-config:
 	cp -p -- vim/vimrc $(VIMRC)
+	cp -p -- vim/config/*.vim $(VIMDIR)/config
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
