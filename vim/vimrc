@@ -225,6 +225,8 @@ nnoremap <Bslash>C :<C-U>set cursorcolumn! cursorcolumn?<CR>
 nnoremap <Bslash>d :read !date<CR>
 " \D inserts the UTC date (POSIX date)
 nnoremap <Bslash>D :read !date -u<CR>
+" \e forces a buffer to be editable
+nnoremap <Bslash>e :set modifiable noreadonly<CR>
 " \f shows the current 'formatoptions' at a glance
 nnoremap <Bslash>f :<C-U>set formatoptions?<CR>
 " \g changes directory to the current file's location
