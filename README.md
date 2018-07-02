@@ -390,16 +390,13 @@ check of Perl scripts, and `_l` runs a Perl::Critic check.
 #### Neovim
 
 I test my configuration every now and then with the [Neovim
-fork](https://neovim.io/). To install the configuration where Neovim will use
-it, do this:
+fork](https://neovim.io/). There's an `install-neovim` target to run
+`install-vim` with the appropriate paths changed.
 
-    $ nvd=${XDG_CONFIG_HOME:-"$HOME"/.config}/nvim
-    $ make install-vim VIMRC="$nvd"/init.vim VIMDIR="$nvd"
-
-Neovim's [godless
-arrogance](https://twitter.com/tpope/status/437019518444240896)
-notwithstanding, I do rather like it overall, but I'm not presently using it as
-my daily driver and so it might balk at recent addenda to my configuration.
+Its [godless arrogance](https://twitter.com/tpope/status/437019518444240896)
+notwithstanding, I do rather like Neovim overall, but I'm not presently using
+it as my daily driver, and so it might balk at recent addenda to my
+configuration.
 
 Scripts
 -------
