@@ -605,7 +605,7 @@ There's some silly stuff in `install-games`:
     comic.
 * `acq(6df)` allows you to interrogate AC, the interplanetary computer.
 * `aesth(6df)` converts English letters to their full width CJK analogues,
-    for ＡＥＳＴＨＥＴＩＣ　ＰＵＲＰＯＳＥＳ.
+    for ａｅｓｔｈｅｔｉｃ purposes.
 * `squ(6df)` makes a reduced Latin square out of each line of input.
 * `kvlt(6df)` translates input to emulate a style of typing unique to black
     metal communities on the internet.
