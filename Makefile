@@ -550,7 +550,10 @@ install-vim-compiler:
 install-vim-config:
 	mkdir -p -- $(VIMDIR)/config
 	cp -p -- vim/vimrc $(VIMRC)
-	cp -p -- vim/config/*.vim $(VIMDIR)/config
+	test -e /etc/debian_version \
+	    && cp -p -- vim/config/debian.vim $(VIMDIR)/config
+	test -e /etc/centos-release \
+	    && cp -p -- vim/config/centos.vim $(VIMDIR)/config
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
