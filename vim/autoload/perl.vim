@@ -16,9 +16,10 @@ function! perl#BumpVersion(major) abort
   let [l:lvalue, l:major, l:minor, l:rest]
         \ = matchlist(getline(l:li), g:perl#verpat)[1:4]
   if a:major
-    let l:major = perl#Incf(l:major)
+    let l:major = perl#Setf(l:major, l:major + 1)
+    let l:minor = perl#Setf(l:minor, 0)
   else
-    let l:minor = perl#Incf(l:minor)
+    let l:minor = perl#Setf(l:minor, l:minor + 1)
   endif
   let l:version = l:major.'.'.l:minor
   call setline(l:li, l:lvalue.l:version.l:rest)
@@ -39,7 +40,6 @@ function! perl#BumpVersionMajor() abort
 endfunction
 
 " Helper function to format a number without decreasing its digit count
-function! perl#Incf(num) abort
-  let l:inc = a:num + 1
-  return repeat('0', strlen(a:num) - strlen(l:inc)).l:inc
+function! perl#Setf(old, new) abort
+  return repeat('0', strlen(a:old) - strlen(a:new)).a:new
 endfunction
