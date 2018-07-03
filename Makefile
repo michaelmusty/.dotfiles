@@ -432,8 +432,8 @@ install-ncmcpp: install-mpd
 
 install-neovim:
 	make install-vim \
-	    VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
-	    VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
+		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
+		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
 
 install-newsboat:
 	mkdir -p -- $(HOME)/.config/newsboat $(HOME)/.local/share/newsboat
@@ -536,7 +536,7 @@ install-vim-autoload:
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
-		-type d -exec sh -c \
+	-type d -exec sh -c \
 		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
@@ -548,14 +548,12 @@ install-vim-compiler:
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
 install-vim-config:
-	mkdir -p -- $(VIMDIR)/config
 	cp -p -- vim/vimrc $(VIMRC)
 	if [ -e /etc/debian_version ] ; then \
-	    cp -p -- vim/config/debian.vim $(VIMDIR)/config ; \
-	    fi
-	if [ -e /etc/centos-release ] ; then \
-	    cp -p -- vim/config/centos.vim $(VIMDIR)/config ; \
-	    fi
+		cp -p -- vim/system/debian.vim $(VIMDIR)/system.vim ; \
+	elif [ -e /etc/centos-release ] ; then \
+		cp -p -- vim/system/centos.vim $(VIMDIR)/system.vim ; \
+	fi
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
