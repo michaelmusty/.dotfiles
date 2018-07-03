@@ -145,8 +145,10 @@ BINS = bin/ap \
 	bin/mim \
 	bin/min \
 	bin/mkcp \
+	bin/mked \
 	bin/mkmv \
 	bin/mktd \
+	bin/mkvi \
 	bin/mode \
 	bin/motd \
 	bin/murl \

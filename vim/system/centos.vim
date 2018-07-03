@@ -9,7 +9,10 @@ if has('cmdline_info')
   set ruler&
 endif
 if has('cscope')
-  set csprg& cst& csto& csverb&
+  set cscopeprg&
+  set cscopetag&
+  set cscopetagorder&
+  set cscopeverbose&
   silent! cs kill
 endif
 if has('gui')

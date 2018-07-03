@@ -1,0 +1,16 @@
+.TH MKVI 1df "July 2018" "Manual page for mked"
+.SH NAME
+.B mked
+\- create paths to all argument files before invoking $EDITOR
+.SH SYNOPSIS
+.B mked
+file0 dir1/file1 dir2/subdir/file2
+.SH DESCRIPTION
+.B mked
+iterates through its arguments and creates the full paths to each of them
+before running $EDITOR with the same arguments. If the directory creation
+fails, the script stops before invoking the editor.
+.SH SEE ALSO
+mked(1)
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

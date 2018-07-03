@@ -489,6 +489,9 @@ Installed by the `install-bin` target:
       pipeline.
     * `ped(1df)` runs `pst(1df)` with `$EDITOR` or `ed(1)`.
     * `pvi(1df)` runs `pvi(1df)` with `$VISUAL` or `vi(1)`.
+* Two editor wrapper tools:
+    * `mked(1df)` creates paths to all its arguments before invoking `$EDITOR`.
+    * `mkvi(1df)` creates paths to all its arguments before invoking `$VISUAL`.
 * `ap(1df)` reads arguments for a given command from the standard input,
   prompting if appropriate.
 * `apf(1df)` inserts arguments to a command with ones read from a file,
