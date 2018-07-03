@@ -432,8 +432,8 @@ install-ncmcpp: install-mpd
 
 install-neovim:
 	make install-vim \
-	    VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
-	    VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
+		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
+		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
 
 install-newsboat:
 	mkdir -p -- $(HOME)/.config/newsboat $(HOME)/.local/share/newsboat
@@ -536,7 +536,7 @@ install-vim-autoload:
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
-		-type d -exec sh -c \
+	-type d -exec sh -c \
 		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
