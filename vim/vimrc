@@ -213,13 +213,12 @@ nnoremap ]t :<C-U>tabnext<CR>
 nmap [<Space> <Plug>PutBlankLinesAbove
 nmap ]<Space> <Plug>PutBlankLinesBelow
 
-" Normal mode leader mappings below; use <Bslash> rather than <Leader> on the
-" non-plugin maps so that they work on vim-tiny
+" Normal leader maps; use <Bslash> not <Leader> for vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Leader>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap <Leader>b <Plug>CopyLinebreakToggle
+nmap <Bslash>b <Plug>CopyLinebreakToggle
 " \c toggles 'cursorline'
 nnoremap <Bslash>c :<C-U>set cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
@@ -249,9 +248,9 @@ nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>set number! number?<CR>
 " \o opens a line below in paste mode
-nmap <Leader>o <Plug>PasteOpenBelow
+nmap <Bslash>o <Plug>PasteOpenBelow
 " \o opens a line above in paste mode
-nmap <Leader>O <Plug>PasteOpenAbove
+nmap <Bslash>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 " \r reloads .vimrc
@@ -269,7 +268,7 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap <Leader>x <Plug>StripTrailingWhitespace
+nmap <Bslash>x <Plug>StripTrailingWhitespace
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
