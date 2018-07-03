@@ -4,6 +4,9 @@
 " own without the accompanying plugins to which it refers near its end, but
 " you'll get errors for some of the leader maps.
 
+" Undo anything the operating system's vimrc may have broken
+runtime system.vim
+
 " Load filetype settings, plugins, and maps
 if has('autocmd')
   let g:maplocalleader = '_'
