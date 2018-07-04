@@ -30,10 +30,10 @@ let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>t'
 
 " Bump version numbers
-nnoremap <buffer> <LocalLeader>v
-      \ :<C-U>call perl#BumpVersionMinor()<CR>
-nnoremap <buffer> <LocalLeader>V
-      \ :<C-U>call perl#BumpVersionMajor()<CR>
+nmap <buffer> <LocalLeader>v
+      \ <Plug>PerlVersionBumpMinor
+nmap <buffer> <LocalLeader>V
+      \ <Plug>PerlVersionBumpMajor
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>v'
       \ . '|nunmap <buffer> <LocalLeader>V'
