@@ -5,7 +5,7 @@ if exists('b:undo_indent')
 endif
 
 " If we need to set 'softtabstop' too, do it
-if &softtabstop == -1
+if &softtabstop != -1
   setlocal softtabstop=2
   if exists('b:undo_indent')
     let b:undo_indent = b:undo_indent . '|setlocal softtabstop<'
