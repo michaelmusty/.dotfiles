@@ -357,12 +357,8 @@ structures like functions, I like to implement it as a plugin in
 `~/.vim/doc`.
 
 They eventually get either discarded or spun off into their own repositories,
-added to this repository as submodules instead, and uploaded to
-[vim.org](https://www.vim.org/account/profile.php?user_id=73687).
-
-In the current version, there are no local plugins; everything's got its own
-repository. All plugins and colorschemes are available as submodules in
-`~/.vim/bundle`. They are installed into `~/.vim`.
+added to this repository as submodules under `vim/bundle` instead, and uploaded
+to [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
 I still use two third-party plugins: Tim Pope's
 [repeat.vim](https://www.vim.org/scripts/script.php?script_id=2136) and
