@@ -106,11 +106,6 @@ augroup filetypedetect
         \,?*.patch
         \,?*.rej
         \ setfiletype diff
-  " GTK settings files
-  autocmd BufNewFile,BufRead
-        \ .gktrc*,
-        \,gktrc*
-        \ setfiletype gtkrc
   " INI files
   autocmd BufNewFile,BufRead
         \ ?*.ini
@@ -162,6 +157,11 @@ augroup filetypedetect
         \,/etc/gshadow-
         \,/etc/gshadow.edit
         \ setfiletype group
+  " GTK settings files
+  autocmd BufNewFile,BufRead
+        \ .gktrc*,
+        \,gktrc*
+        \ setfiletype gtkrc
   " Vim help files
   autocmd BufNewFile,BufRead
         \ ~/.vim/doc/?*.txt
@@ -250,12 +250,6 @@ augroup filetypedetect
         \,?*.[1-9]
         \,*/man[1-9]*/?*.[1-9]*
         \ setfiletype nroff
-  " pass(1) password files
-  autocmd BufNewFile,BufRead
-        \ /dev/shm/pass.?*/?*.txt
-        \,$TMPDIR/pass.?*/?*.txt
-        \,/tmp/pass.?*/?*.txt
-        \ setfiletype password
   " UNIX password and shadow files
   autocmd BufNewFile,BufRead
         \ /etc/passwd
@@ -265,6 +259,12 @@ augroup filetypedetect
         \,/etc/shadow-
         \,/etc/shadow.edit
         \ setfiletype passwd
+  " pass(1) password files
+  autocmd BufNewFile,BufRead
+        \ /dev/shm/pass.?*/?*.txt
+        \,$TMPDIR/pass.?*/?*.txt
+        \,/tmp/pass.?*/?*.txt
+        \ setfiletype password
   " Perl 5 files
   autocmd BufNewFile,BufRead
         \ ?*.pl
@@ -310,6 +310,18 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ robots.txt
         \ setfiletype robots
+  " Ruby
+  autocmd BufNewFile,BufRead
+        \ ?*.rb
+        \ setfiletype ruby
+  " sed files
+  autocmd BufNewFile,BufRead
+        \ ?*.sed
+        \ setfiletype sed
+  " Services files
+  autocmd BufNewFile,BufRead
+        \ /etc/services
+        \ setfiletype services
   " Bash shell
   autocmd BufNewFile,BufRead
         \ ?*.bash
@@ -349,40 +361,23 @@ augroup filetypedetect
         \,xinitrc
         \ let b:is_posix = 1
         \|setfiletype sh
-  " sed files
+  " SQL
   autocmd BufNewFile,BufRead
-        \ ?*.sed
-        \ setfiletype sed
-  " Services files
-  autocmd BufNewFile,BufRead
-        \ /etc/services
-        \ setfiletype services
+        \ ?*.sql
+        \ setfiletype sql
   " OpenSSH configuration
   autocmd BufNewFile,BufRead
         \ ssh_config,*/.ssh/config
         \ setfiletype sshconfig
-  " OpenSSH server configuration
-  autocmd BufNewFile,BufRead
-        \ sshd_config
-        \ setfiletype sudoers
   " sudoers(5)
   autocmd BufNewFile,BufRead
         \ sudoers
         \,sudoers.tmp
         \ setfiletype sshdconfig
-  " tmux configuration files
+  " OpenSSH server configuration
   autocmd BufNewFile,BufRead
-        \ .tmux.conf
-        \,tmux.conf
-        \ setfiletype tmux
-  " Ruby
-  autocmd BufNewFile,BufRead
-        \ ?*.rb
-        \ setfiletype ruby
-  " SQL
-  autocmd BufNewFile,BufRead
-        \ ?*.sql
-        \ setfiletype sql
+        \ sshd_config
+        \ setfiletype sudoers
   " Subversion commit
   autocmd BufNewFile,BufRead
         \ svn-commit*.tmp
@@ -404,6 +399,11 @@ augroup filetypedetect
         \ .tidyrc
         \,tidyrc
         \ setfiletype tidy
+  " tmux configuration files
+  autocmd BufNewFile,BufRead
+        \ .tmux.conf
+        \,tmux.conf
+        \ setfiletype tmux
   " Tab-separated (TSV) files
   autocmd BufNewFile,BufRead
         \ ?*.tsv

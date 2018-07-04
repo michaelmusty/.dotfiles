@@ -18,19 +18,22 @@ if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
 endif
 
 " Set mappings
-nmap <buffer> <LocalLeader>c :<C-U>call compiler#Make('perl')<CR>
-nmap <buffer> <LocalLeader>l :<C-U>call compiler#Make('perlcritic')<CR>
-nmap <buffer> <LocalLeader>t :<C-U>call filter#Stable('perltidy')<CR>
+nnoremap <buffer> <LocalLeader>c
+      \ :<C-U>call compiler#Make('perl')<CR>
+nnoremap <buffer> <LocalLeader>l
+      \ :<C-U>call compiler#Make('perlcritic')<CR>
+nnoremap <buffer> <LocalLeader>t
+      \ :<C-U>call filter#Stable('perltidy')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'
       \ . '|nunmap <buffer> <LocalLeader>t'
 
 " Bump version numbers
-nnoremap <buffer> <LocalLeader>v
-      \ :<C-U>call perl#BumpVersionMinor()<CR>
-nnoremap <buffer> <LocalLeader>V
-      \ :<C-U>call perl#BumpVersionMajor()<CR>
+nmap <buffer> <LocalLeader>v
+      \ <Plug>PerlVersionBumpMinor
+nmap <buffer> <LocalLeader>V
+      \ <Plug>PerlVersionBumpMajor
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>v'
       \ . '|nunmap <buffer> <LocalLeader>V'

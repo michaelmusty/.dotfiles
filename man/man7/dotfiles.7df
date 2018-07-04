@@ -732,6 +732,16 @@ along a pipeline.
 \f[C]vi(1)\f[].
 .RE
 .IP \[bu] 2
+Two editor wrapper tools:
+.RS 2
+.IP \[bu] 2
+\f[C]mked(1df)\f[] creates paths to all its arguments before invoking
+\f[C]$EDITOR\f[].
+.IP \[bu] 2
+\f[C]mkvi(1df)\f[] creates paths to all its arguments before invoking
+\f[C]$VISUAL\f[].
+.RE
+.IP \[bu] 2
 \f[C]ap(1df)\f[] reads arguments for a given command from the standard
 input, prompting if appropriate.
 .IP \[bu] 2

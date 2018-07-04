@@ -52,6 +52,9 @@
 [submodule "vim/bundle/markdown_autoformat"]
     path = vim/bundle/markdown_autoformat
     url = https://sanctum.geek.nz/code/vim-markdown-autoformat.git
+[submodule "vim/bundle/perl_version_bump"]
+    path = vim/bundle/perl_version_bump
+    url = https://sanctum.geek.nz/code/vim-perl-version-bump.git
 
 # My Vim colorschemes
 [submodule "vim/bundle/juvenile"]
