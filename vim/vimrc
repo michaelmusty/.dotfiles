@@ -238,6 +238,8 @@ nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
 nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
 nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
+" \k shows my marks
+nnoremap <Bslash>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>set list! list?<CR>
 " \m shows all maps
@@ -252,6 +254,8 @@ nmap <Bslash>o <Plug>PasteOpenBelow
 nmap <Bslash>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
+" \q formats the current paragraph
+nnoremap <Bslash>q gqap
 " \r reloads .vimrc
 nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
@@ -268,6 +272,8 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x <Plug>StripTrailingWhitespace
+" \y shows all registers
+nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
