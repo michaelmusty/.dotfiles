@@ -13,16 +13,15 @@ let b:did_indent = 1
 " Define indent function
 function! GetPerlIndent()
 
-  " Get properties of current line
-  let l:cn = v:lnum
-  let l:cl = getline(l:cn)
-  let l:ci = indent(l:cn)
-
-  " Get properties of previous non-blank line
+  " Just return 0 if we have no previous line to work from
   let l:pn = prevnonblank(v:lnum - 1)
   if !l:pn
     return 0
   endif
+
+  " Get line properties
+  let l:cl = getline(v:lnum)
+  let l:ci = indent(l:cn)
   let l:pl = getline(l:pn)
   let l:pi = indent(l:pn)
 
