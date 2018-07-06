@@ -34,27 +34,15 @@ function! GetPerlIndent()
   if l:pl =~# '^\s*#'
     return l:pi
 
-  " After opening brace
-  elseif l:pl =~# '[{([]\s*$'
-
-    " Closing brace
-    if l:cl =~# '^\s*[])}]'
-      return l:pi
-
-    " Block content
-    else
-      return l:pi + l:sw
-    endif
-
   " Entering closing brace
   elseif l:cl =~# '^\s*[])}]'
+    return l:pi >= l:sw
+          \ ? l:pi - l:sw - l:pi % l:sw
+          \ : 0
 
-    " Reduce indent if possible
-    if l:pi >= l:sw
-      return l:pi - l:sw
-    else
-      return 0
-    endif
+  " After opening brace
+  elseif l:pl =~# '[{([]\s*$'
+    return l:pi + l:sw
 
   " After a semicolon, comma, or closing brace
   elseif l:pl =~# '[;,}]\s*$'
