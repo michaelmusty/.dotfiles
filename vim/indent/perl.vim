@@ -9,7 +9,7 @@ let b:did_indent = 1
 " Define indent function
 function! GetPerlIndent()
 
-  " Just return 0 if we have no previous line to work from
+  " Get previous line, bail if none
   let l:pn = prevnonblank(v:lnum - 1)
   if !l:pn
     return 0
@@ -26,7 +26,7 @@ function! GetPerlIndent()
         \ ? shiftwidth()
         \ : &shiftwidth
 
-  " Don't touch comments
+  " Just follow comment indent
   if l:pl =~# '^\s*#'
     return l:pi
 
@@ -42,7 +42,7 @@ function! GetPerlIndent()
       return l:pi + l:sw
     endif
 
-  " Closing brace
+  " Entering closing brace
   elseif l:cl =~# '^\s*[])}]'
 
     " Reduce indent if possible
@@ -56,7 +56,7 @@ function! GetPerlIndent()
   elseif l:pl =~# '[;,}]\s*$'
     return l:pi - (l:pi % l:sw)
 
-  " Continued line; add half shiftwidth
+  " Continued line; add half 'shiftwidth'
   elseif l:sw >= 2
     return l:pi + l:sw / 2
   endif
@@ -67,7 +67,7 @@ endfunction
 setlocal indentexpr=GetPerlIndent()
 setlocal indentkeys+=0},0),0]
 
-" Undo all of the above crap
+" How to undo all of that
 let b:undo_indent = '|setlocal indentexpr<'
       \ . '|setlocal indentkeys<'
       \ . '|delfunction GetPerlIndent'
