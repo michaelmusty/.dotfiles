@@ -99,7 +99,7 @@ function! GetPerlIndent()
 
   " Continued line; add half 'shiftwidth'
   elseif l:sw >= 2
-    return l:pi + l:sw / 2
+    return l:pi - l:pi % l:sw + l:sw / 2
   endif
 
 endfunction
