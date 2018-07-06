@@ -22,7 +22,9 @@ function! GetPerlIndent()
   let l:pi = indent(l:pn)
 
   " Get value of 'shiftwidth'
-  let l:sw = shiftwidth()
+  let l:sw = exists('*shiftwidth')
+        \ ? shiftwidth()
+        \ : &shiftwidth
 
   " Don't touch comments
   if l:pl =~# '^\s*#'
