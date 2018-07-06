@@ -58,7 +58,7 @@ function! GetPerlIndent()
 
   " After a semicolon, comma, or closing brace
   elseif l:pl =~# '[;,}]\s*$'
-    return l:pi - (l:pi % l:sw)
+    return l:pi - l:pi % l:sw
 
   " Continued line; add half 'shiftwidth'
   elseif l:sw >= 2
