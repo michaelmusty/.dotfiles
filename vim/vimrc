@@ -104,9 +104,6 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Always tell me the number of lines changed by a command
-set report=0
-
 " Abbreviate some more regularly displayed messages
 set shortmess+=I  " Don't show startup splash screen
 set shortmess+=m  " [Modified] -> [+]
