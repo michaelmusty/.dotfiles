@@ -24,7 +24,7 @@ let s:heredoc_open = '<<\~\?'
       \ . '\|'
       \ . '`' . s:heredoc_word . '`'
       \ . '\)'
-      \ . '.*\ . ';\s*$'
+      \ . '.*;\s*$'
 
 " Define indent function
 function! GetPerlIndent()
