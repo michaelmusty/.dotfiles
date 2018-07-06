@@ -6,6 +6,10 @@ if exists('b:did_indent') || &compatible
 endif
 let b:did_indent = 1
 
+" Indent settings
+setlocal indentexpr=GetPerlIndent()
+setlocal indentkeys=o,O,0},0),0]
+
 " Define indent function
 function! GetPerlIndent()
 
@@ -62,10 +66,6 @@ function! GetPerlIndent()
   endif
 
 endfunction
-
-" Indent settings
-setlocal indentexpr=GetPerlIndent()
-setlocal indentkeys+=0},0),0]
 
 " How to undo all of that
 let b:undo_indent = '|setlocal indentexpr<'
