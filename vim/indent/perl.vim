@@ -79,27 +79,31 @@ function! GetPerlIndent()
         \ ? shiftwidth()
         \ : &shiftwidth
 
+  " Base indent with any fractional indent removed
+  let l:pb = l:pi - l:pi % l:sw
+
   " Just follow comment indent
   if l:pl =~# '^\s*#'
     return l:pi
 
-  " Entering closing brace
+  " Move out with closing brace
   elseif l:cl =~# '^\s*[])}]'
-    return l:pi >= l:sw
-          \ ? l:pi - l:sw - l:pi % l:sw
-          \ : 0
+    return l:pb >= l:sw ? l:pb - l:sw : 0
 
-  " After opening brace
+  " Move in after opening brace
   elseif l:pl =~# '[{([]\s*$'
-    return l:pi + l:sw
+    return l:pb + l:sw
 
-  " After a semicolon, comma, or closing brace
-  elseif l:pl =~# '[;,}]\s*$'
-    return l:pi - l:pi % l:sw
+  " Preserve base indent after a semicolon or a hash element assignment
+  elseif l:pl =~# '[;,]\s*$'
+        \ || l:pl =~# '^\s=>.*,\s*$'
+        \ || l:pl =~# '^\s*sub\>.*{.*}\s+$'
+    return l:pb
 
-  " Continued line; add half 'shiftwidth'
-  elseif l:sw >= 2
-    return l:pi - l:pi % l:sw + l:sw / 2
+  " Line-continuation: indent half a 'shiftwidth'
+  else
+    return l:pb + l:sw / 2
+
   endif
 
 endfunction
