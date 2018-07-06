@@ -1,8 +1,4 @@
-" Vim indent file for Perl5, because the stock one is way too complicated. I
-" want something predictable rather than magical, and it's all going through
-" perltidy(1) in the end anyway.
-"
-" The biggest gap in this is getting heredocs wrong; use 'paste' for that.
+" Custom Vim indent file for Perl5; the stock one didn't suit me.
 
 " Only load this indent file when no other was loaded.
 if exists('b:did_indent') || &compatible
