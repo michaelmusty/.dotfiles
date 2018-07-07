@@ -35,31 +35,32 @@ function! GetPerlIndent(lnum)
     return 0
   endif
 
-  " Heredoc and POD detection; start at top of buffer
+  " Heredoc and POD detection; this is expensive, so limit it to 512 lines of
+  " context
+  let l:lim = 512
+  let l:hpn = line('$') > l:lim
+        \ ? line('$') - l:lim
+        \ : 0
   let l:pod = 0
-  let l:hpn = 0
   while l:hpn < a:lnum
     let l:hpl = getline(l:hpn)
 
     " If we're not in a heredoc and not in a comment ...
     if !exists('l:hpw') && l:hpl !~# '^\s*#'
 
-      " POD switching
-      if !l:pod && stridx(l:hpl, '=pod') == 0
+      " POD switching; match any section so that we can handle long PODs
+      if !l:pod && l:hpl =~# '^=\l\+\d\?\>'
         let l:pod = 1
       elseif l:pod && stridx(l:hpl, '=cut') == 0
         let l:pod = 0
+
+      " Heredoc switch on
       else
-
-        " Line opens with a heredoc
         let l:hpm = matchstr(l:hpl, s:heredoc_open)
-
-        " Store the heredoc word and make this our indent reference
         if strlen(l:hpm)
           let l:hpw = matchstr(l:hpm, s:heredoc_word)
           let l:pn = l:hpn
         endif
-
       endif
 
     " If we are in a heredoc and we found the token word, finish it
