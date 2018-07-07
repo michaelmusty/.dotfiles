@@ -35,40 +35,47 @@ function! GetPerlIndent(lnum)
     return 0
   endif
 
-  " Heredoc detection; start at top of buffer
-  let l:hn = 0
-  while l:hn < a:lnum
-    let l:hl = getline(l:hn)
+  " Heredoc and POD detection; start at top of buffer
+  let l:pod = 0
+  let l:hpn = 0
+  while l:hpn < a:lnum
+    let l:hpl = getline(l:hpn)
 
     " If we're not in a heredoc and not in a comment ...
-    if !exists('l:hw') && l:hl !~# '^\s*#'
+    if !exists('l:hpw') && l:hpl !~# '^\s*#'
 
-      " Line opens with a heredoc
-      let l:hm = matchstr(l:hl, s:heredoc_open)
+      " POD switching
+      if !l:pod && stridx(l:hpl, '=pod') == 0
+        let l:pod = 1
+      elseif l:pod && stridx(l:hpl, '=cut') == 0
+        let l:pod = 0
+      else
 
-      " Store the heredoc word and make this our indent reference
-      if strlen(l:hm)
-        let l:hw = matchstr(l:hm, s:heredoc_word)
-        let l:pn = l:hn
+        " Line opens with a heredoc
+        let l:hpm = matchstr(l:hpl, s:heredoc_open)
+
+        " Store the heredoc word and make this our indent reference
+        if strlen(l:hpm)
+          let l:hpw = matchstr(l:hpm, s:heredoc_word)
+          let l:pn = l:hpn
+        endif
+
       endif
 
     " If we are in a heredoc and we found the token word, finish it
-    elseif exists('l:hw') && l:hl =~# '^'.l:hw.'\>'
-      unlet l:hw
+    elseif exists('l:hpw') && l:hpl =~# '^'.l:hpw.'\>'
+      unlet l:hpw
     endif
 
     " Bump the loop index
-    let l:hn = l:hn + 1
+    let l:hpn = l:hpn + 1
 
   endwhile
 
   " If we ended up in a heredoc, return 0 for the indent.
-  if exists('l:hw')
+  if exists('l:hpw')
     return 0
   endif
-
-  " Get current line properties
-  let l:cl = getline(v:anum)
 
   " Get data of previous non-blank and non-heredoc line
   let l:pl = getline(l:pn)
@@ -78,6 +85,15 @@ function! GetPerlIndent(lnum)
   let l:sw = exists('*shiftwidth')
         \ ? shiftwidth()
         \ : &shiftwidth
+
+  " If we're in POD and the indent of the previous line was less than
+  " 'shiftwith', keep it there.
+  if l:pod && l:pi < l:sw
+    return l:pi
+  endif
+
+  " Get current line properties
+  let l:cl = getline(a:lnum)
 
   " Base indent with any fractional indent removed
   let l:pb = l:pi - l:pi % l:sw
