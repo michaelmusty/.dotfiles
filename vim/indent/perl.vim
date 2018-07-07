@@ -10,21 +10,16 @@ let b:did_indent = 1
 setlocal indentexpr=GetPerlIndent(v:lnum)
 setlocal indentkeys=o,O,0=,0=},0=),0=],0=&&,0=\|\|,0=//,0=?,0=:,<Space>
 
-" Build patterns for heredoc indenting; note that we detect indented heredocs
-" with tildes like <<~EOF, but we don't treat them any differently; note also
-" a semicolon is required
+" Build patterns for heredoc indenting. Note that we detect indented heredocs
+" with tildes like <<~EOF, but we don't treat them any differently. We don't
+" strictly match the quotes either, in an effort to keep this fast.
 let s:heredoc_word = '\I\i*'
 let s:heredoc_open = '<<\~\?'
       \ . '\('
       \ . '\\\?' . s:heredoc_word
       \ . '\|'
-      \ . "'" . s:heredoc_word . "'"
-      \ . '\|'
-      \ . '"' . s:heredoc_word . '"'
-      \ . '\|'
-      \ . '`' . s:heredoc_word . '`'
+      \ . "['`\"]" . s:heredoc_word . "['`\"]"
       \ . '\)'
-      \ . '.*;\s*$'
 
 " Define indent function
 function! GetPerlIndent(lnum)
@@ -35,36 +30,36 @@ function! GetPerlIndent(lnum)
     return 0
   endif
 
-  " Heredoc and POD detection; this is expensive, so limit it to 512 lines of
-  " context
-  let l:lim = 512
-  let l:hpn = line('$') > l:lim
-        \ ? line('$') - l:lim
-        \ : 0
+  " Heredoc and POD flags
+  let l:heredoc = 0
   let l:pod = 0
+
+  " Start loop back through up to 512 lines of context
+  let l:lim = 512
+  let l:hpn = a:lnum > l:lim ? a:lnum - l:lim : 0
   while l:hpn < a:lnum
     let l:hpl = getline(l:hpn)
 
     " If we're not in a heredoc and not in a comment ...
-    if !exists('l:hpw') && l:hpl !~# '^\s*#'
+    if !l:heredoc && l:hpl !~# '^\s*#'
 
       " POD switching; match any section so that we can handle long PODs
-      if !l:pod && l:hpl =~# '^=\l\+\d\?\>'
-        let l:pod = 1
-      elseif l:pod && stridx(l:hpl, '=cut') == 0
-        let l:pod = 0
+      if stridx(l:hpl, '=') == 0
+        let l:pod = stridx(l:hpl, '=cut') != 0
 
       " Heredoc switch on
       else
         let l:hpm = matchstr(l:hpl, s:heredoc_open)
         if strlen(l:hpm)
+          let l:heredoc = 1
           let l:hpw = matchstr(l:hpm, s:heredoc_word)
           let l:pn = l:hpn
         endif
       endif
 
     " If we are in a heredoc and we found the token word, finish it
-    elseif exists('l:hpw') && l:hpl =~# '^'.l:hpw.'\>'
+    elseif l:heredoc && l:hpl =~# '^'.l:hpw.'\>'
+      let l:heredoc = 0
       unlet l:hpw
     endif
 
@@ -73,8 +68,8 @@ function! GetPerlIndent(lnum)
 
   endwhile
 
-  " If we ended up in a heredoc, return 0 for the indent.
-  if exists('l:hpw')
+  " If we ended up in a heredoc, never indent.
+  if l:heredoc
     return 0
   endif
 
