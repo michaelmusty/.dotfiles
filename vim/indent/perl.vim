@@ -8,7 +8,7 @@ let b:did_indent = 1
 
 " Indent settings
 setlocal indentexpr=GetPerlIndent(v:lnum)
-setlocal indentkeys=o,O,0=,0=},0=),0=],&,<Bar>,<Space>
+setlocal indentkeys=o,O,0=,0=},0=),0=],0=&&,0=\|\|,0=//,0=?,0=:,<Space>
 
 " Build patterns for heredoc indenting; note that we detect indented heredocs
 " with tildes like <<~EOF, but we don't treat them any differently; note also
@@ -117,9 +117,9 @@ function! GetPerlIndent(lnum)
 
   " Line continuation hints
   elseif l:pl =~# '[^])},]\s*$'
-        \ || l:cl =~# '^\s*\(and\|or\)\>'
-        \ || l:cl =~# '^\s*\(&&\|||\)'
-        \ || l:cl =~# '^\s*='
+        \ || l:cl =~# '^\s*\(and\|or\|xor\)'
+        \ || l:cl =~# '^\s*\(&&\|||\|//\)'
+        \ || l:cl =~# '^\s*[?:=]'
     return l:pb + l:sw / 2
 
   " Default to indent of previous line
