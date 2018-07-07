@@ -14,6 +14,6 @@ let b:undo_ftplugin = b:undo_ftplugin
 
 " Make angle brackets behave like mail quotes
 setlocal comments+=n:>
-setlocal formatoptions+=cor
+setlocal formatoptions+=coqr
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|setlocal comments< formatoptions<'

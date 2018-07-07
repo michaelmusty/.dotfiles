@@ -14,7 +14,7 @@ if has('autocmd')
 endif
 
 " Options dependent on the syntax feature
-if has('syntax') && !has('g:syntax_on')
+if has('syntax') && !exists('g:syntax_on')
 
   " Use syntax highlighting
   syntax enable
@@ -34,7 +34,6 @@ endif
 " The all-important default indent settings; filetypes to tweak
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
-set shiftround    " Round indenting to multiples of 'shiftwidth'
 set shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key insert
@@ -104,9 +103,6 @@ set nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
-
-" Always tell me the number of lines changed by a command
-set report=0
 
 " Abbreviate some more regularly displayed messages
 set shortmess+=I  " Don't show startup splash screen
@@ -239,6 +235,8 @@ nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
 nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
 nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
+" \k shows my marks
+nnoremap <Bslash>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>set list! list?<CR>
 " \m shows all maps
@@ -253,6 +251,8 @@ nmap <Bslash>o <Plug>PasteOpenBelow
 nmap <Bslash>O <Plug>PasteOpenAbove
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
+" \q formats the current paragraph
+nnoremap <Bslash>q gqap
 " \r reloads .vimrc
 nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
@@ -269,6 +269,8 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x <Plug>StripTrailingWhitespace
+" \y shows all registers
+nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
