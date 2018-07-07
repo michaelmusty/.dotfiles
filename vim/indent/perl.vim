@@ -77,6 +77,11 @@ function! GetPerlIndent(lnum)
     return 0
   endif
 
+  " If we're in POD, just autoindent; simple and good enough.
+  if l:pod
+    return indent(a:lnum - 1)
+  endif
+
   " Get data of previous non-blank and non-heredoc line
   let l:pl = getline(l:pn)
   let l:pi = indent(l:pn)
@@ -84,13 +89,8 @@ function! GetPerlIndent(lnum)
   " Get value of 'shiftwidth'
   let l:sw = exists('*shiftwidth')
         \ ? shiftwidth()
-        \ : &shiftwidth
+        \ : &shiftwidth || &tabstop
 
-  " If we're in POD and the indent of the previous line was less than
-  " 'shiftwith', keep it there.
-  if l:pod && l:pi < l:sw
-    return l:pi
-  endif
 
   " Get current line properties
   let l:cl = getline(a:lnum)
