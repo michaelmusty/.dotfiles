@@ -87,10 +87,9 @@ function! GetPerlIndent(lnum)
   let l:pi = indent(l:pn)
 
   " Get value of 'shiftwidth'
-  let l:sw = exists('*shiftwidth')
-        \ ? shiftwidth()
-        \ : &shiftwidth || &tabstop
-
+  let l:sw = &shiftwidth
+        \ ? &shiftwidth
+        \ : &tabstop
 
   " Get current line properties
   let l:cl = getline(a:lnum)
