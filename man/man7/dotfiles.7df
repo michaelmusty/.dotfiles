@@ -496,15 +496,9 @@ structures like functions, I like to implement it as a plugin in
 documentation for each in \f[C]~/.vim/doc\f[].
 .PP
 They eventually get either discarded or spun off into their own
-repositories, added to this repository as submodules instead, and
-uploaded to
+repositories, added to this repository as submodules under
+\f[C]vim/bundle\f[] instead, and uploaded to
 vim.org (https://www.vim.org/account/profile.php?user_id=73687).
-.PP
-In the current version, there are no local plugins; everything's got its
-own repository.
-All plugins and colorschemes are available as submodules in
-\f[C]~/.vim/bundle\f[].
-They are installed into \f[C]~/.vim\f[].
 .PP
 I still use two third\-party plugins: Tim Pope's
 repeat.vim (https://www.vim.org/scripts/script.php?script_id=2136) and
