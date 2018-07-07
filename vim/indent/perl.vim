@@ -7,8 +7,8 @@ endif
 let b:did_indent = 1
 
 " Indent settings
-setlocal indentexpr=GetPerlIndent()
-setlocal indentkeys=o,O,0},0),0]
+setlocal indentexpr=GetPerlIndent(v:lnum)
+setlocal indentkeys=o,O,0=,0=},0=),0=],&,<Bar>,<Space>
 
 " Build patterns for heredoc indenting; note that we detect indented heredocs
 " with tildes like <<~EOF, but we don't treat them any differently; note also
@@ -94,15 +94,22 @@ function! GetPerlIndent()
   elseif l:pl =~# '[{([]\s*$'
     return l:pb + l:sw
 
-  " Preserve base indent after a semicolon or a hash element assignment
-  elseif l:pl =~# '[;,]\s*$'
-        \ || l:pl =~# '^\s=>.*,\s*$'
-        \ || l:pl =~# '^\s*sub\>.*{.*}\s+$'
+  " Never continue after a semicolon or a double-underscore
+  elseif l:pl =~# '\;\s*$'
+        \ || l:pl =~# '__DATA__'
+        \ || l:pl =~# '__END__'
     return l:pb
 
-  " Line-continuation: indent half a 'shiftwidth'
-  else
+  " Line continuation hints
+  elseif l:pl =~# '[^])},]\s*$'
+        \ || l:cl =~# '^\s*\(and\|or\)\>'
+        \ || l:cl =~# '^\s*\(&&\|||\)'
+        \ || l:cl =~# '^\s*='
     return l:pb + l:sw / 2
+
+  " Default to indent of previous line
+  else
+    return l:pb
 
   endif
 
