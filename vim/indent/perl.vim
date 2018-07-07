@@ -20,6 +20,7 @@ let s:heredoc_open = '<<\~\?'
       \ . '\|'
       \ . "['`\"]" . s:heredoc_word . "['`\"]"
       \ . '\)'
+      \ . '.*;\s*$'
 
 " Define indent function
 function! GetPerlIndent(lnum)
