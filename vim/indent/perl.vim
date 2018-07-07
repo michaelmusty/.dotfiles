@@ -83,36 +83,42 @@ function! GetPerlIndent(lnum)
   let l:pl = getline(l:pn)
   let l:pi = indent(l:pn)
 
-  " Get value of 'shiftwidth'
-  let l:sw = &shiftwidth ? &shiftwidth : &tabstop
+  " Just follow comment indent
+  if l:pl =~# '^\s*#'
+    return l:pi
+  endif
 
   " Get current line properties
   let l:cl = getline(a:lnum)
 
+  " Get value of 'shiftwidth'
+  let l:sw = &shiftwidth ? &shiftwidth : &tabstop
+
   " Base indent with any fractional indent removed
   let l:pb = l:pi - l:pi % l:sw
 
-  " Just follow comment indent
-  if l:pl =~# '^\s*#'
-    return l:pi
-
-  " Move out with closing brace
-  elseif l:cl =~# '^\s*[])}]'
-    return l:pb >= l:sw ? l:pb - l:sw : 0
-
-  " Move in after opening brace
-  elseif l:pl =~# '[{([]\s*$'
-    return l:pb + l:sw
+  " Handle open and closing brackets
+  let l:open = l:pl =~# '[{([]\s*$'
+  let l:shut = l:cl =~# '^\s*[])}]'
+  if l:open || l:shut
+    let l:in = l:pb
+    if l:open
+      let l:in = l:in + l:sw
+    endif
+    if l:shut
+      let l:in = l:in - l:sw
+    endif
+    return l:in > 0 ? l:in : 0
+  endif
 
   " Never continue after a semicolon or a double-underscore
-  elseif l:pl =~# '\;\s*$'
+  if l:pl =~# '\;\s*$'
         \ || l:pl =~# '__DATA__'
         \ || l:pl =~# '__END__'
     return l:pb
 
   " Line continuation hints
-  elseif l:pl =~# '[^])},]\s*$'
-        \ || l:cl =~# '^\s*\(and\|or\|xor\)'
+  elseif l:cl =~# '^\s*\(and\|or\|xor\)'
         \ || l:cl =~# '^\s*\(&&\|||\|//\)'
         \ || l:cl =~# '^\s*[?:=]'
     return l:pb + l:sw / 2
