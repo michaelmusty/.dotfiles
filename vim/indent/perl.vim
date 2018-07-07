@@ -27,17 +27,17 @@ let s:heredoc_open = '<<\~\?'
       \ . '.*;\s*$'
 
 " Define indent function
-function! GetPerlIndent()
+function! GetPerlIndent(lnum)
 
   " Get previous line, bail if none
-  let l:pn = prevnonblank(v:lnum - 1)
+  let l:pn = prevnonblank(a:lnum - 1)
   if !l:pn
     return 0
   endif
 
   " Heredoc detection; start at top of buffer
   let l:hn = 0
-  while l:hn < v:lnum
+  while l:hn < a:lnum
     let l:hl = getline(l:hn)
 
     " If we're not in a heredoc and not in a comment ...
@@ -68,7 +68,7 @@ function! GetPerlIndent()
   endif
 
   " Get current line properties
-  let l:cl = getline(v:lnum)
+  let l:cl = getline(v:anum)
 
   " Get data of previous non-blank and non-heredoc line
   let l:pl = getline(l:pn)
