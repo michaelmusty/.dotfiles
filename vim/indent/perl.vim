@@ -109,6 +109,6 @@ function! GetPerlIndent()
 endfunction
 
 " How to undo all of that
-let b:undo_indent = '|setlocal indentexpr<'
+let b:undo_indent = 'setlocal indentexpr<'
       \ . '|setlocal indentkeys<'
       \ . '|delfunction GetPerlIndent'
