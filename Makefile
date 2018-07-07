@@ -432,11 +432,6 @@ install-ncmcpp: install-mpd
 	mkdir -p -- $(HOME)/.ncmpcpp
 	cp -p -- ncmpcpp/config $(HOME)/.ncmpcpp
 
-install-neovim:
-	make install-vim \
-		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
-		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
-
 install-newsboat:
 	mkdir -p -- $(HOME)/.config/newsboat $(HOME)/.local/share/newsboat
 	cp -p -- newsboat/config $(HOME)/.config/newsboat
@@ -497,7 +492,6 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
-# Change these at invocation to install for NeoVim; see README.md
 VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
@@ -510,6 +504,11 @@ install-vim: install-vim-after \
 	install-vim-ftplugin \
 	install-vim-indent \
 	install-vim-plugin
+
+install-neovim:
+	make install-vim \
+		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
+		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
