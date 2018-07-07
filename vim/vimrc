@@ -177,10 +177,13 @@ imap <C-C> <Plug>InsertCancel
 nnoremap <Plug>FixedJoin mzJ`z
 nmap J <Plug>FixedJoin
 
-" Remap normal/visual <Space> to scroll down a page
+" Remap normal/visual <Space> to scroll down a page, and <Backspace> to scroll
+" back up
 nnoremap <Space> <C-F>
+nnoremap <Backspace> <C-B>
 if v:version >= 700
   xnoremap <Space> <C-F>
+  xnoremap <Backspace> <C-B>
 endif
 
 " Remap normal/visual & to preserve substitution flags
