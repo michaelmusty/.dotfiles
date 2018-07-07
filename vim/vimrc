@@ -277,5 +277,10 @@ nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
+" \DEL deletes the current buffer
+nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
+" \INS edits a new buffer
+nnoremap <Bslash><Insert> :<C-U>enew<CR>
+
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
