@@ -266,6 +266,8 @@ nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 nnoremap <Bslash>q gqap
 " \r reloads .vimrc
 nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
+" \R reloads filetype
+nnoremap <Bslash>R :<C-U>doautocmd filetypedetect BufRead<CR>
 " \s toggles spell checking
 nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
