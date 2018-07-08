@@ -248,6 +248,8 @@ nnoremap <Bslash>m :<C-U>map<CR>
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>set number! number?<CR>
+" \N toggles 'ruler'
+nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>PasteOpenBelow
 " \o opens a line above in paste mode
