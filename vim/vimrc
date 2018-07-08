@@ -303,7 +303,7 @@ runtime! config/*.vim
 " If we reloaded, reload filetype detection for the active buffer too, so that
 " any local settings for it are restored
 if exists('g:loaded_vimrc')
-  if &filetype != ''
+  if &filetype !=# ''
     doautocmd filetypedetect BufRead
   endif
   echomsg 'Reloaded vimrc: '.$MYVIMRC
