@@ -23,16 +23,17 @@ nnoremap <buffer> <LocalLeader>l
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>l'
 
-" Just get rid of the core ftplugin's square-bracket maps; I don't use them
-silent! nunmap <buffer> [[
-silent! vunmap <buffer> [[
-silent! nunmap <buffer> ]]
-silent! vunmap <buffer> ]]
-silent! nunmap <buffer> []
-silent! vunmap <buffer> []
-silent! nunmap <buffer> ][
-silent! vunmap <buffer> ][
-silent! nunmap <buffer> ]"
-silent! vunmap <buffer> ]"
-silent! nunmap <buffer> ["
-silent! vunmap <buffer> ["
+" Get rid of the core ftplugin's square-bracket maps on unload
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> [['
+      \ . '|vunmap <buffer> [['
+      \ . '|nunmap <buffer> ]]'
+      \ . '|vunmap <buffer> ]]'
+      \ . '|nunmap <buffer> []'
+      \ . '|vunmap <buffer> []'
+      \ . '|nunmap <buffer> ]['
+      \ . '|vunmap <buffer> ]['
+      \ . '|nunmap <buffer> ]"'
+      \ . '|vunmap <buffer> ]"'
+      \ . '|nunmap <buffer> ["'
+      \ . '|vunmap <buffer> ["'

@@ -28,3 +28,10 @@ nnoremap <buffer> <LocalLeader>c
       \ :<C-U>call compiler#Make('php')<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>c'
+
+" Get rid of the core ftplugin's square-bracket maps on unload
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|nunmap <buffer> [['
+      \ . '|ounmap <buffer> [['
+      \ . '|nunmap <buffer> ]]'
+      \ . '|ounmap <buffer> ]]'

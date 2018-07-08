@@ -9,7 +9,7 @@ runtime system.vim
 
 " Load filetype settings, plugins, and maps
 if has('autocmd')
-  let g:maplocalleader = ','
+  let g:maplocalleader = '\\'
   filetype plugin indent on
 endif
 
@@ -32,15 +32,15 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent    " Use indent of previous line on new lines
-set expandtab     " Use spaces instead of tabs
-set shiftwidth=4  " Indent with four spaces
+setglobal autoindent    " Use indent of previous line on new lines
+setglobal expandtab     " Use spaces instead of tabs
+setglobal shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key insert
 if v:version > 703 || v:version == 703 && has('patch693')
-  set softtabstop=-1  " Refer to 'shiftwidth' if supported
+  setglobal softtabstop=-1  " Refer to 'shiftwidth' if supported
 else
-  set softtabstop=4   " Otherwise just four spaces
+  setglobal softtabstop=4   " Otherwise just four spaces
 endif
 
 " Let me backspace over pretty much anything
@@ -69,11 +69,14 @@ endif
 
 " Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
-  set formatoptions+=j
+  setglobal formatoptions+=j
 endif
 
+" Keep more command and search history
+set history=500
+
 " Don't assume I'm editing C; let the filetype set this
-set include=
+setglobal include=
 
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
@@ -96,13 +99,13 @@ if v:version >= 700
 endif
 
 " Add angle brackets to pairs of matched characters
-set matchpairs+=<:>
+setglobal matchpairs+=<:>
 
 " Don't allow setting options via buffer content
-set nomodeline
+setglobal nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
-set nrformats-=octal
+setglobal nrformats-=octal
 
 " Abbreviate some more regularly displayed messages
 set shortmess+=I  " Don't show startup splash screen
@@ -112,7 +115,7 @@ set shortmess+=w  " written -> [w], appended -> [a]
 
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
-  set comments=
+  setglobal comments=
 endif
 
 " Highlight settings for search
@@ -124,7 +127,7 @@ endif
 
 " More sensible language-agnostic setting for gf/:find
 if has('file_in_path')
-  set path=.,,**
+  setglobal path=.,,**
 endif
 
 " Don't load GUI menus; set here before GUI starts
@@ -134,10 +137,10 @@ endif
 
 " Line break behaviour settings for 'wrap'
 if has('linebreak')
-  set linebreak      " Break lines at word boundaries
-  set showbreak=...  " Prefix wrapped rows with three dots
+  setglobal linebreak      " Break lines at word boundaries
+  set showbreak=...        " Prefix wrapped rows with three dots
   if exists('+breakindent')
-    set breakindent  " Indent wrapped lines, if supported
+    setglobal breakindent  " Indent wrapped lines, if supported
   endif
 endif
 
@@ -167,9 +170,9 @@ endif
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
-" Stack insert Ctrl-C to undo the escaped insert operation
+" Remap insert Ctrl-C to undo the escaped insert operation
 " Default to not-quite-correct vim-tiny-compatible map if no plugin
-inoremap <Plug>InsertCancel <C-C>u
+inoremap <Plug>InsertCancel <Esc>u
 imap <C-C> <Plug>InsertCancel
 
 " Remap normal J to stay in place while joining lines
@@ -181,6 +184,12 @@ nmap J <Plug>FixedJoin
 nnoremap <Space> <C-F>
 if v:version >= 700
   xnoremap <Space> <C-F>
+endif
+
+" Remap normal/visual <Backspace> to scroll up a page
+nnoremap <Backspace> <C-B>
+if v:version >= 700
+  xnoremap <Backspace> <C-B>
 endif
 
 " Remap normal/visual & to preserve substitution flags
@@ -216,17 +225,17 @@ nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Bslash>b <Plug>CopyLinebreakToggle
 " \c toggles 'cursorline'
-nnoremap <Bslash>c :<C-U>set cursorline! cursorline?<CR>
+nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
-nnoremap <Bslash>C :<C-U>set cursorcolumn! cursorcolumn?<CR>
+nnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
 " \d inserts the local date (POSIX date)
 nnoremap <Bslash>d :read !date<CR>
 " \D inserts the UTC date (POSIX date)
 nnoremap <Bslash>D :read !date -u<CR>
 " \e forces a buffer to be editable
-nnoremap <Bslash>e :set modifiable noreadonly<CR>
+nnoremap <Bslash>e :setlocal modifiable noreadonly<CR>
 " \f shows the current 'formatoptions' at a glance
-nnoremap <Bslash>f :<C-U>set formatoptions?<CR>
+nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
 " \g changes directory to the current file's location
 nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
@@ -238,13 +247,15 @@ nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
 " \k shows my marks
 nnoremap <Bslash>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
-nnoremap <Bslash>l :<C-U>set list! list?<CR>
+nnoremap <Bslash>l :<C-U>setlocal list! list?<CR>
 " \m shows all maps
 nnoremap <Bslash>m :<C-U>map<CR>
 " \M shows buffer-local maps
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
-nnoremap <Bslash>n :<C-U>set number! number?<CR>
+nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
+" \N toggles 'ruler'
+nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>PasteOpenBelow
 " \o opens a line above in paste mode
@@ -255,10 +266,14 @@ nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 nnoremap <Bslash>q gqap
 " \r reloads .vimrc
 nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
+" \R reloads filetype
+nnoremap <Bslash>R :<C-U>doautocmd filetypedetect BufRead<CR>
 " \s toggles spell checking
 nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
-nnoremap <Bslash>t :<C-U>set filetype?<CR>
+nnoremap <Bslash>t :<C-U>setlocal filetype?<CR>
+" \T clears filetype (follow with \R)
+nnoremap <Bslash>T :<C-U>setlocal filetype=NONE<CR>
 " \u sets US English spelling (compare \z)
 nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
 " \v shows all global variables
@@ -266,7 +281,7 @@ nnoremap <Bslash>v :<C-U>let g: v:<CR>
 " \V shows all local variables
 nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
-nnoremap <Bslash>w :<C-U>set wrap! wrap?<CR>
+nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x <Plug>StripTrailingWhitespace
 " \y shows all registers
@@ -274,5 +289,18 @@ nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
+" \DEL deletes the current buffer
+nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
+" \INS edits a new buffer
+nnoremap <Bslash><Insert> :<C-U>enew<CR>
+
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
+
+" Flag that we loaded, tell the user if we reload
+if 1
+  if exists('g:loaded_vimrc')
+    echomsg 'Reloaded vimrc: '.$MYVIMRC
+  endif
+  let g:loaded_vimrc = 1
+endif
