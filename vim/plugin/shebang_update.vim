@@ -1,5 +1,5 @@
 "
-" shabeng_update.vim: If the first line of a file was changed, re-run
+" shebang_update.vim: If the first line of a file was changed, re-run "
 " scripts.vim to do shebang detection to update the filetype.
 "
 " Author: Tom Ryder <tom@sanctum.geek.nz>
