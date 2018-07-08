@@ -6,6 +6,7 @@ endif
 " Use Vint as a syntax checker
 compiler vint
 let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:current_compiler'
       \ . '|setlocal errorformat<'
       \ . '|setlocal makeprg<'
 

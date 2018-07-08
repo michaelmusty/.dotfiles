@@ -7,6 +7,7 @@ endif
 compiler perl
 setlocal equalprg=perltidy
 let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:current_compiler'
       \ . '|setlocal equalprg<'
       \ . '|setlocal errorformat<'
       \ . '|setlocal makeprg<'

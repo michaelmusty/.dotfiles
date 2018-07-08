@@ -27,6 +27,7 @@ else
 endif
 execute 'compiler '.b:sh_check_compiler
 let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:current_compiler'
       \ . '|unlet b:sh_check_compiler'
       \ . '|setlocal errorformat<'
       \ . '|setlocal makeprg<'
