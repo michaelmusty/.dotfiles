@@ -72,6 +72,9 @@ if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
+" Keep more command and search history
+set history=500
+
 " Don't assume I'm editing C; let the filetype set this
 set include=
 
