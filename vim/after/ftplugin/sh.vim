@@ -1,22 +1,14 @@
-" Extra configuration for 'sh' filetypes
-if exists('b:did_ftplugin_after') || &compatible
+" Extra configuration for shell script
+if &filetype != 'sh' || &compatible || v:version < 700
   finish
 endif
-if v:version < 700
-  finish
-endif
-if &filetype !=# 'sh'
-  finish
-endif
-let b:did_ftplugin_after = 1
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|unlet b:did_ftplugin_after'
 
 " Set comment formats
 setlocal comments=:#
 setlocal formatoptions+=or
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments< formatoptions<'
+      \ . '|setlocal comments<'
+      \ . '|setlocal formatoptions<'
 
 " If subtype is Bash, set 'keywordprg' to han(1df)
 if exists('b:is_bash')
@@ -38,6 +30,8 @@ elseif exists('b:is_kornshell')
 else
   let b:sh_check_compiler = 'sh'
 endif
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|unlet b:sh_check_compiler'
 
 " Set mappings
 nnoremap <buffer> <LocalLeader>c
