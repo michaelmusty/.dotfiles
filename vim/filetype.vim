@@ -42,6 +42,13 @@ function! s:StripRepeat()
 
 endfunction
 
+" Check if the first line is a shebang
+function! s:CheckShebang()
+  if line('''[') == 1 && stridx(getline(1), '#!') == 0
+    doautocmd filetypedetect BufRead
+  endif
+endfunction
+
 " Use our own filetype detection rules
 augroup filetypedetect
   autocmd!
@@ -507,5 +514,11 @@ augroup filetypedetect
         \ if !did_filetype()
         \|  runtime scripts.vim
         \|endif
+
+  " If supported, on leaving insert mode, check whether the first line was "
+  " changed and is a shebang format, and if so, re-run filetype detection
+  if v:version > 700
+    autocmd InsertLeave * call s:CheckShebang()
+  endif
 
 augroup END
