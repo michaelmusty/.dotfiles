@@ -294,3 +294,11 @@ nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
+
+" Flag that we loaded, tell the user if we reload
+if 1
+  if exists('g:loaded_vimrc')
+    echomsg 'Reloaded vimrc: '.$MYVIMRC
+  endif
+  let g:loaded_vimrc = 1
+endif
