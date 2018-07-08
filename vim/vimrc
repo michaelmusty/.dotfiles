@@ -273,7 +273,7 @@ nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
 nnoremap <Bslash>t :<C-U>setlocal filetype?<CR>
 " \T clears filetype (follow with \R)
-nnoremap <Bslash>T :<C-U>setlocal filetype=NONE<CR>
+nnoremap <Bslash>T :<C-U>setlocal filetype=<CR>
 " \u sets US English spelling (compare \z)
 nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
 " \v shows all global variables
