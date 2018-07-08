@@ -180,16 +180,12 @@ imap <C-C> <Plug>InsertCancel
 nnoremap <Plug>FixedJoin mzJ`z
 nmap J <Plug>FixedJoin
 
-" Remap normal/visual <Space> to scroll down a page
+" Remap normal/visual space to scroll down a page, backspace up
 nnoremap <Space> <C-F>
+nnoremap <BS> <C-B>
 if v:version >= 700
   xnoremap <Space> <C-F>
-endif
-
-" Remap normal/visual <Backspace> to scroll up a page
-nnoremap <Backspace> <C-B>
-if v:version >= 700
-  xnoremap <Backspace> <C-B>
+  xnoremap <BS> <C-B>
 endif
 
 " Remap normal/visual & to preserve substitution flags
