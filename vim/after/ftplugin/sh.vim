@@ -17,11 +17,6 @@ if exists('b:is_bash')
         \ . '|setlocal keywordprg<'
 endif
 
-" Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
-  finish
-endif
-
 " Choose check compiler based on file subtype
 if exists('b:is_bash')
   let b:sh_check_compiler = 'bash'
@@ -30,14 +25,22 @@ elseif exists('b:is_kornshell')
 else
   let b:sh_check_compiler = 'sh'
 endif
+execute 'compiler '.b:sh_check_compiler
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|unlet b:sh_check_compiler'
+      \ . '|setlocal errorformat<'
+      \ . '|setlocal makeprg<'
 
-" Set mappings
-nnoremap <buffer> <LocalLeader>c
-      \ :<C-U>call compiler#Make(b:sh_check_compiler)<CR>
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
+  finish
+endif
+
+" Mappings to choose compiler
+nnoremap <buffer> <expr> <LocalLeader>c
+      \ ':<C-U>compiler '.b:sh_check_compiler.'<CR>'
 nnoremap <buffer> <LocalLeader>l
-      \ :<C-U>call compiler#Make('shellcheck')<CR>
+      \ :<C-U>compiler shellcheck<CR>
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'
