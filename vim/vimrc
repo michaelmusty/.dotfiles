@@ -32,15 +32,15 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-setglobal autoindent    " Use indent of previous line on new lines
-setglobal expandtab     " Use spaces instead of tabs
-setglobal shiftwidth=4  " Indent with four spaces
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Use spaces instead of tabs
+set shiftwidth=4  " Indent with four spaces
 
 " Spaces to insert on Tab key insert
 if v:version > 703 || v:version == 703 && has('patch693')
-  setglobal softtabstop=-1  " Refer to 'shiftwidth' if supported
+  set softtabstop=-1  " Refer to 'shiftwidth' if supported
 else
-  setglobal softtabstop=4   " Otherwise just four spaces
+  set softtabstop=4   " Otherwise just four spaces
 endif
 
 " Let me backspace over pretty much anything
@@ -69,14 +69,14 @@ endif
 
 " Delete comment leaders when joining lines, if supported
 if v:version > 703 || v:version == 703 && has('patch541')
-  setglobal formatoptions+=j
+  set formatoptions+=j
 endif
 
 " Keep more command and search history
 set history=500
 
 " Don't assume I'm editing C; let the filetype set this
-setglobal include=
+set include=
 
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
@@ -99,13 +99,13 @@ if v:version >= 700
 endif
 
 " Add angle brackets to pairs of matched characters
-setglobal matchpairs+=<:>
+set matchpairs+=<:>
 
 " Don't allow setting options via buffer content
-setglobal nomodeline
+set nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
-setglobal nrformats-=octal
+set nrformats-=octal
 
 " Abbreviate some more regularly displayed messages
 set shortmess+=I  " Don't show startup splash screen
@@ -115,7 +115,7 @@ set shortmess+=w  " written -> [w], appended -> [a]
 
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
-  setglobal comments=
+  set comments=
 endif
 
 " Highlight settings for search
@@ -127,7 +127,7 @@ endif
 
 " More sensible language-agnostic setting for gf/:find
 if has('file_in_path')
-  setglobal path=.,,**
+  set path=.,,**
 endif
 
 " Don't load GUI menus; set here before GUI starts
@@ -137,10 +137,10 @@ endif
 
 " Line break behaviour settings for 'wrap'
 if has('linebreak')
-  setglobal linebreak      " Break lines at word boundaries
-  set showbreak=...        " Prefix wrapped rows with three dots
+  set linebreak      " Break lines at word boundaries
+  set showbreak=...  " Prefix wrapped rows with three dots
   if exists('+breakindent')
-    setglobal breakindent  " Indent wrapped lines, if supported
+    set breakindent  " Indent wrapped lines, if supported
   endif
 endif
 
@@ -300,10 +300,14 @@ nnoremap <Bslash><Insert> :<C-U>enew<CR>
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
 
-" Flag that we loaded, tell the user if we reload
-if 1
-  if exists('g:loaded_vimrc')
-    echomsg 'Reloaded vimrc: '.$MYVIMRC
+" If we reloaded, reload filetype detection for the active buffer too, so that
+" any local settings for it are restored
+if exists('g:loaded_vimrc')
+  if &filetype != ''
+    doautocmd filetypedetect BufRead
   endif
+  echomsg 'Reloaded vimrc: '.$MYVIMRC
+endif
+if 1
   let g:loaded_vimrc = 1
 endif
