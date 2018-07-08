@@ -9,7 +9,7 @@ runtime system.vim
 
 " Load filetype settings, plugins, and maps
 if has('autocmd')
-  let g:maplocalleader = '\\'
+  let g:maplocalleader = ','
   filetype plugin indent on
 endif
 
