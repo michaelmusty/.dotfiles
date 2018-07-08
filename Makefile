@@ -492,6 +492,7 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
+VIM = vim
 VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
@@ -507,6 +508,7 @@ install-vim: install-vim-after \
 
 install-neovim:
 	make install-vim \
+		VIM=nvim \
 		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
 		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
 
@@ -542,7 +544,7 @@ install-vim-bundle: install-vim-config
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	vim -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
+	$(VIM) -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
 
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
