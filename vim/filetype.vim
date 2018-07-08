@@ -172,6 +172,8 @@ augroup filetypedetect
   " Vim help files
   autocmd BufNewFile,BufRead
         \ ~/.vim/doc/?*.txt
+        \,*/vim-*/doc/?*.txt
+        \,*/*.vim/doc/?*.txt
         \,$VIMRUNTIME/doc/?*.txt
         \ setfiletype help
   " HTML files

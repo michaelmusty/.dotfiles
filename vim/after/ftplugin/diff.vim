@@ -19,6 +19,7 @@ endif
 
 " Set mappings
 nmap <buffer> <LocalLeader>p <Plug>DiffPrune
+nmap <buffer> <LocalLeader>pp <Plug>(DiffPrune)l
 xmap <buffer> <LocalLeader>p <Plug>DiffPrune
 let b:undo_ftplugin = b:undo_ftplugin
       \ . '|nunmap <buffer> <LocalLeader>p'
