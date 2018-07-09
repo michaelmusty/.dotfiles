@@ -12,6 +12,11 @@ let b:undo_ftplugin = b:undo_ftplugin
       \ . '|setlocal errorformat<'
       \ . '|setlocal makeprg<'
 
+" Add angle brackets to pairs of matched characters for q<...>
+setlocal matchpairs+=<:>
+let b:undo_ftplugin = b:undo_ftplugin
+      \ . '|setlocal matchpairs<'
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
   finish
