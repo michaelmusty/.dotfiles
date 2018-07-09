@@ -509,9 +509,9 @@ augroup filetypedetect
         \|  call s:StripRepeat()
         \|endif
 
-  " If we *still* don't have a filetype, run the scripts.vim file that will
-  " examine actual file contents--but only the first one; don't load the
-  " system one at all
+  " If we still don't have a filetype, run the scripts.vim file that performs
+  " cleverer checks including looking at actual file contents--but only my
+  " custom one; don't load the system one at all.
   autocmd BufNewFile,BufRead,StdinReadPost
         \ *
         \ if !did_filetype()
