@@ -47,6 +47,7 @@
 	install-vim-compiler \
 	install-vim-config \
 	install-vim-filetype \
+	install-vim-ftdetect \
 	install-vim-ftplugin \
 	install-vim-gui \
 	install-vim-gui-config \
@@ -492,6 +493,7 @@ install-urxvt: urxvt/ext/select
 	find urxvt/ext -type f ! -name '*.pl' \
 		-exec cp -p -- {} $(HOME)/.urxvt/ext \;
 
+VIM = vim
 VIMDIR = $(HOME)/.vim
 VIMRC = $(HOME)/.vimrc
 
@@ -501,12 +503,14 @@ install-vim: install-vim-after \
 	install-vim-compiler \
 	install-vim-config \
 	install-vim-filetype \
+	install-vim-ftdetect \
 	install-vim-ftplugin \
 	install-vim-indent \
 	install-vim-plugin
 
 install-neovim:
 	make install-vim \
+		VIM=nvim \
 		VIMDIR=$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim \
 		VIMRC=$${XDF_CONFIG_HOME:="$$HOME"/.config}/init.vim
 
@@ -542,7 +546,7 @@ install-vim-bundle: install-vim-config
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	vim -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
+	$(VIM) -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
 
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
@@ -558,6 +562,10 @@ install-vim-config:
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
+
+install-vim-ftdetect:
+	mkdir -p -- $(VIMDIR)/ftdetect
+	cp -p -- vim/ftdetect/*.vim $(VIMDIR)/ftdetect
 
 install-vim-ftplugin:
 	mkdir -p -- $(VIMDIR)/ftplugin

@@ -42,6 +42,14 @@ function! s:StripRepeat()
 
 endfunction
 
+" Check whether the first line was changed and looks like a shebang, and if
+" so, re-run filetype detection
+function! s:CheckShebang()
+  if line('''[') == 1 && stridx(getline(1), '#!') == 0
+    doautocmd filetypedetect BufRead
+  endif
+endfunction
+
 " Use our own filetype detection rules
 augroup filetypedetect
   autocmd!
@@ -165,6 +173,8 @@ augroup filetypedetect
   " Vim help files
   autocmd BufNewFile,BufRead
         \ ~/.vim/doc/?*.txt
+        \,*/vim-*/doc/?*.txt
+        \,*/*.vim/doc/?*.txt
         \,$VIMRUNTIME/doc/?*.txt
         \ setfiletype help
   " HTML files
@@ -499,13 +509,20 @@ augroup filetypedetect
         \|  call s:StripRepeat()
         \|endif
 
-  " If we *still* don't have a filetype, run the scripts.vim file that will
-  " examine actual file contents--but only the first one; don't load the
-  " system one at all
+  " If we still don't have a filetype, run the scripts.vim file that performs
+  " cleverer checks including looking at actual file contents--but only my
+  " custom one; don't load the system one at all.
   autocmd BufNewFile,BufRead,StdinReadPost
         \ *
         \ if !did_filetype()
         \|  runtime scripts.vim
         \|endif
+
+  " If supported, on leaving insert mode, check whether the first line was
+  " changed and looks like a shebang format, and if so, re-run filetype
+  " detection
+  if v:version > 700
+    autocmd InsertLeave * call s:CheckShebang()
+  endif
 
 augroup END

@@ -1,24 +1,11 @@
-" Extra configuration for 'zsh' filetypes
-if exists('b:did_ftplugin_after') || &compatible
-  finish
-endif
-if v:version < 700
-  finish
-endif
-if &filetype !=# 'zsh'
-  finish
-endif
-let b:did_ftplugin_after = 1
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|unlet b:did_ftplugin_after'
-
-" Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_zsh_maps')
+" Extra configuration for Z shell scripts
+if &filetype != 'zsh' || &compatible || v:version < 700
   finish
 endif
 
-" Set mappings
-nnoremap <buffer> <LocalLeader>c
-      \ :<C-U>call compiler#Make('zsh')<CR>
+" Use Z shell itself as a syntax checker
+compiler zsh
 let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|nunmap <buffer> <LocalLeader>c'
+      \ . '|unlet b:current_compiler'
+      \ . '|setlocal errorformat<'
+      \ . '|setlocal makeprg<'
