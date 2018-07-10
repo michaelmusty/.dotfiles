@@ -9,7 +9,5 @@ if exists('g:no_plugin_maps') || exists('g:no_make_maps')
 endif
 
 " Set mappings
-if exists('b:undo_ftplugin')
-  nmap <buffer> <LocalLeader>m <Plug>MakeTarget
-  let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>m'
-endif
+nmap <buffer> <LocalLeader>m <Plug>MakeTarget
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>m'
