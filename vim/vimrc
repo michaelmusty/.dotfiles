@@ -141,6 +141,12 @@ if has('linebreak')
   endif
 endif
 
+" Don't store any options or mappings in sessions
+if has('mksession')
+  set sessionoptions-=localoptions
+  set sessionoptions-=options
+endif
+
 " Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
