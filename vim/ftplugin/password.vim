@@ -3,6 +3,6 @@ if exists('b:did_ftplugin')
   finish
 endif
 
-" No autoformatting for password files
+" No autoformatting
 setlocal formatoptions=
 let b:undo_ftplugin = 'setlocal formatoptions<'
