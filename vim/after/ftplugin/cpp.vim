@@ -1,11 +1,9 @@
 " Extra configuration for C++ files
-if &filetype != 'cpp' || &compatible || v:version < 700
+if &filetype !=# 'cpp' || v:version < 700
   finish
 endif
 
 " Set comment formats
 setlocal include=^\\s*#\\s*include
 setlocal path+=/usr/include
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal include<'
-      \ . '|setlocal path<'
+let b:undo_ftplugin .= '|setlocal include< path<'

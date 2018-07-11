@@ -1,5 +1,5 @@
 " Extra configuration for diffs
-if &filetype != 'diff' || &compatible || v:version < 700
+if &filetype !=# 'diff' || v:version < 700 || &compatible
   finish
 endif
 
@@ -12,7 +12,6 @@ endif
 nmap <buffer> <LocalLeader>p <Plug>(DiffPrune)
 xmap <buffer> <LocalLeader>p <Plug>(DiffPrune)
 nmap <buffer> <LocalLeader>pp <Plug>(DiffPrune)_
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|nunmap <buffer> <LocalLeader>p'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>p'
       \ . '|xunmap <buffer> <LocalLeader>p'
       \ . '|nunmap <buffer> <LocalLeader>pp'

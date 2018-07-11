@@ -98,9 +98,6 @@ if v:version >= 700
   set listchars+=nbsp:+    " Non-breaking spaces
 endif
 
-" Add angle brackets to pairs of matched characters
-set matchpairs+=<:>
-
 " Don't allow setting options via buffer content
 set nomodeline
 
@@ -142,6 +139,12 @@ if has('linebreak')
   if exists('+breakindent')
     set breakindent  " Indent wrapped lines, if supported
   endif
+endif
+
+" Don't store any options or mappings in sessions
+if has('mksession')
+  set sessionoptions-=localoptions
+  set sessionoptions-=options
 endif
 
 " Let me move beyond buffer text in visual block mode

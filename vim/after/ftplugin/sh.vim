@@ -1,20 +1,17 @@
 " Extra configuration for shell script
-if &filetype != 'sh' || &compatible || v:version < 700
+if &filetype !=# 'sh' || v:version < 700 || &compatible
   finish
 endif
 
 " Set comment formats
 setlocal comments=:#
 setlocal formatoptions+=or
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|setlocal comments<'
-      \ . '|setlocal formatoptions<'
+let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
 " If subtype is Bash, set 'keywordprg' to han(1df)
 if exists('b:is_bash')
   setlocal keywordprg=han
-  let b:undo_ftplugin = b:undo_ftplugin
-        \ . '|setlocal keywordprg<'
+  let b:undo_ftplugin .= '|setlocal keywordprg<'
 endif
 
 " Choose check compiler based on file subtype
@@ -26,11 +23,8 @@ else
   let b:sh_check_compiler = 'sh'
 endif
 execute 'compiler '.b:sh_check_compiler
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|unlet b:current_compiler'
-      \ . '|unlet b:sh_check_compiler'
-      \ . '|setlocal errorformat<'
-      \ . '|setlocal makeprg<'
+let b:undo_ftplugin .= '|unlet b:current_compiler b:sh_check_compiler'
+      \ . '|setlocal errorformat< makeprg<'
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
@@ -42,6 +36,5 @@ nnoremap <buffer> <expr> <LocalLeader>c
       \ ':<C-U>compiler '.b:sh_check_compiler.'<CR>'
 nnoremap <buffer> <LocalLeader>l
       \ :<C-U>compiler shellcheck<CR>
-let b:undo_ftplugin = b:undo_ftplugin
-      \ . '|nunmap <buffer> <LocalLeader>c'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'

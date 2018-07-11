@@ -1,6 +1,6 @@
 " If it's a new file in a bin, libexec, or scripts subdir that has a
 " Makefile.PL, it's almost definitely Perl.
-autocmd BufNewFile
+autocmd filetypedetect BufNewFile
       \ */bin/*
       \,*/libexec/*
       \,*/scripts/*

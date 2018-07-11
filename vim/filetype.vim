@@ -234,7 +234,7 @@ augroup filetypedetect
   " Add automatic commands to detect .muttrc files
   autocmd BufNewFile,BufRead
         \ Muttrc
-        \,*/muttrc.d/*.rc
+        \,*/.muttrc.d/*.rc
         \,.muttrc
         \,/etc/Muttrc.d/*
         \ setfiletype muttrc
