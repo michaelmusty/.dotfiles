@@ -287,15 +287,3 @@ nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
-
-" If we reloaded, reload filetype detection for the active buffer too, so that
-" any local settings for it are restored
-if exists('g:loaded_vimrc')
-  if &filetype !=# ''
-    doautocmd filetypedetect BufRead
-  endif
-  echomsg 'Reloaded vimrc: '.$MYVIMRC
-endif
-if 1
-  let g:loaded_vimrc = 1
-endif
