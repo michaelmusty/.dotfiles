@@ -168,13 +168,9 @@ vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 inoremap <Plug>(InsertCancel) <Esc>u
 imap <C-C> <Plug>(InsertCancel)
 
-" Remap normal/visual space to scroll down a page, backspace up
+" Remap normal space to scroll down a page, backspace up a page
 nnoremap <Space> <C-F>
 nnoremap <BS> <C-B>
-if v:version >= 700
-  xnoremap <Space> <C-F>
-  xnoremap <BS> <C-B>
-endif
 
 " Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :&&<CR>
