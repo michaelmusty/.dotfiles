@@ -217,7 +217,7 @@ nmap ]<Space> <Plug>PutBlankLinesBelow
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap <Bslash>b <Plug>CopyLinebreakToggle
+nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 " \c toggles 'cursorline'
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
