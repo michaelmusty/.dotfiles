@@ -14,15 +14,10 @@ if !has('autocmd') || v:version < 700 || v:version == 700 && !has('patch187')
 endif
 let g:loaded_reload_vimrc_filetype = 1
 
-function! s:Reload()
-  if &filetype !=# ''
-    doautocmd filetypedetect BufRead
-  endif
-  source $MYVIMRC
-  echomsg 'Reloaded vimrc: '.$MYVIMRC
-endfunction
-
-augroup reload
+" This SourceCmd intercepts :source for .vimrc
+augroup reload_vimrc_filetype
   autocmd SourceCmd $MYVIMRC
-        \ call s:Reload()
+        \ source <afile>
+        \|doautocmd filetypedetect BufRead
+        \|echomsg 'Reloaded vimrc: '.expand('<afile>')
 augroup END
