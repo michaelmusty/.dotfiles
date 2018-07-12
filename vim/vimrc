@@ -104,11 +104,8 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Abbreviate some more regularly displayed messages
-set shortmess+=I  " Don't show startup splash screen
-set shortmess+=m  " [Modified] -> [+]
-set shortmess+=r  " [readonly] -> [RO]
-set shortmess+=w  " written -> [w], appended -> [a]
+" Don't show startup splash screen (I donated)
+set shortmess+=I
 
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
