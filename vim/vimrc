@@ -209,8 +209,8 @@ nnoremap [t :<C-U>tabprevious<CR>
 nnoremap ]t :<C-U>tabnext<CR>
 
 " Insert blank lines around current line
-nmap [<Space> <Plug>PutBlankLinesAbove
-nmap ]<Space> <Plug>PutBlankLinesBelow
+nmap [<Space> <Plug>(PutBlankLinesAbove)
+nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
 " Normal leader maps; use <Bslash> not <Leader> for vim-tiny
 
