@@ -175,13 +175,8 @@ vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap insert Ctrl-C to undo the escaped insert operation
 " Default to not-quite-correct vim-tiny-compatible map if no plugin
-inoremap <Plug>InsertCancel <Esc>u
-imap <C-C> <Plug>InsertCancel
-
-" Remap normal J to stay in place while joining lines
-" Default to not-quite-correct vim-tiny-compatible map if no plugin
-nnoremap <Plug>FixedJoin mzJ`z
-nmap J <Plug>FixedJoin
+inoremap <Plug>(InsertCancel) <Esc>u
+imap <C-C> <Plug>(InsertCancel)
 
 " Remap normal/visual space to scroll down a page, backspace up
 nnoremap <Space> <C-F>
@@ -214,15 +209,15 @@ nnoremap [t :<C-U>tabprevious<CR>
 nnoremap ]t :<C-U>tabnext<CR>
 
 " Insert blank lines around current line
-nmap [<Space> <Plug>PutBlankLinesAbove
-nmap ]<Space> <Plug>PutBlankLinesBelow
+nmap [<Space> <Plug>(PutBlankLinesAbove)
+nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
 " Normal leader maps; use <Bslash> not <Leader> for vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
-nmap <Bslash>b <Plug>CopyLinebreakToggle
+nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 " \c toggles 'cursorline'
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
@@ -256,9 +251,9 @@ nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
 " \N toggles 'ruler'
 nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 " \o opens a line below in paste mode
-nmap <Bslash>o <Plug>PasteOpenBelow
+nmap <Bslash>o <Plug>(PasteOpenBelow)
 " \o opens a line above in paste mode
-nmap <Bslash>O <Plug>PasteOpenAbove
+nmap <Bslash>O <Plug>(PasteOpenAbove)
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 " \q formats the current paragraph
@@ -282,7 +277,7 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap <Bslash>x <Plug>StripTrailingWhitespace
+nmap <Bslash>x <Plug>(StripTrailingWhitespace)
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
