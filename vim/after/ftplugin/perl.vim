@@ -28,8 +28,8 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
 
 " Bump version numbers
 nmap <buffer> <LocalLeader>v
-      \ <Plug>PerlVersionBumpMinor
+      \ <Plug>(PerlVersionBumpMinor)
 nmap <buffer> <LocalLeader>V
-      \ <Plug>PerlVersionBumpMajor
+      \ <Plug>(PerlVersionBumpMajor)
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>v'
       \ . '|nunmap <buffer> <LocalLeader>V'
