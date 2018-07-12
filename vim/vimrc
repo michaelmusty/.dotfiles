@@ -48,13 +48,6 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
-" Never use any kind of bell, visual or not
-if exists('+belloff')
-  set belloff=all
-else
-  set visualbell t_vb=
-endif
-
 " How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
