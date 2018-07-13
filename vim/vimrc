@@ -107,8 +107,7 @@ endif
 
 " Highlight settings for search
 if has('extra_search')
-  set hlsearch   " Highlight completed searches...
-  nohlsearch     " ...but clear it on startup or after re-sourcing
+  set hlsearch   " Highlight completed searches
   set incsearch  " Show matches as I type
 endif
 
