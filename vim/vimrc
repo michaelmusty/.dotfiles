@@ -48,13 +48,6 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
-" Never use any kind of bell, visual or not
-if exists('+belloff')
-  set belloff=all
-else
-  set visualbell t_vb=
-endif
-
 " How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
@@ -104,11 +97,8 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Abbreviate some more regularly displayed messages
-set shortmess+=I  " Don't show startup splash screen
-set shortmess+=m  " [Modified] -> [+]
-set shortmess+=r  " [readonly] -> [RO]
-set shortmess+=w  " written -> [w], appended -> [a]
+" Don't show startup splash screen (I donated)
+set shortmess+=I
 
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
@@ -117,8 +107,7 @@ endif
 
 " Highlight settings for search
 if has('extra_search')
-  set hlsearch   " Highlight completed searches...
-  nohlsearch     " ...but clear it on startup or after re-sourcing
+  set hlsearch   " Highlight completed searches
   set incsearch  " Show matches as I type
 endif
 
@@ -178,13 +167,9 @@ vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 inoremap <Plug>(InsertCancel) <Esc>u
 imap <C-C> <Plug>(InsertCancel)
 
-" Remap normal/visual space to scroll down a page, backspace up
+" Remap normal space to scroll down a page, backspace up a page
 nnoremap <Space> <C-F>
 nnoremap <BS> <C-B>
-if v:version >= 700
-  xnoremap <Space> <C-F>
-  xnoremap <BS> <C-B>
-endif
 
 " Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :&&<CR>
@@ -297,15 +282,3 @@ nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
-
-" If we reloaded, reload filetype detection for the active buffer too, so that
-" any local settings for it are restored
-if exists('g:loaded_vimrc')
-  if &filetype !=# ''
-    doautocmd filetypedetect BufRead
-  endif
-  echomsg 'Reloaded vimrc: '.$MYVIMRC
-endif
-if 1
-  let g:loaded_vimrc = 1
-endif
