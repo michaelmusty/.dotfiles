@@ -9,7 +9,7 @@ setlocal formatoptions+=coqr
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
 " Choose the color column depending on non-comment line count
-if exists('+cursorcolumn')
+if has('autocmd') && exists('+cursorcolumn')
   augroup gitcommit
     autocmd CursorMoved,CursorMovedI <buffer>
             \ let &l:colorcolumn = gitcommit#CursorColumn()
