@@ -68,3 +68,6 @@
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
+[submodule "vim/bundle/digraph_search"]
+	path = vim/bundle/digraph_search
+	url = https://sanctum.geek.nz/code/vim-digraph-search.git

@@ -180,6 +180,9 @@ if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
 
+" Double CTRL-K in insert mode searches digraph names
+imap <C-K><C-K> <Plug>(DigraphSearch)
+
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
 nnoremap ]a :<C-U>next<CR>
