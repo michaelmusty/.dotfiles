@@ -100,6 +100,9 @@ set nrformats-=octal
 " Don't show startup splash screen (I donated)
 set shortmess+=I
 
+" Give me a bit longer to complete mappings
+set timeoutlen=3000
+
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
   set comments=
