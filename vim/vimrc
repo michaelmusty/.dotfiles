@@ -170,6 +170,9 @@ vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 inoremap <Plug>(InsertCancel) <Esc>u
 imap <C-C> <Plug>(InsertCancel)
 
+" Map double Ctrl-K in insert mode to search digraph names
+imap <C-K><C-K> <Plug>(DigraphSearch)
+
 " Remap normal space to scroll down a page, backspace up a page
 nnoremap <Space> <C-F>
 nnoremap <BS> <C-B>
@@ -179,9 +182,6 @@ nnoremap <silent> & :&&<CR>
 if v:version >= 700
   xnoremap <silent> & :&&<CR>
 endif
-
-" Double CTRL-K in insert mode searches digraph names
-imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
