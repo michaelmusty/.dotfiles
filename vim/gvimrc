@@ -13,8 +13,3 @@ set guioptions+=M  " Don't load menu.vim (also set in .vimrc)
 
 " Don't use the mouse
 set mouse=
-
-" Stamp 'visualbell' back down again, if 'belloff' not available
-if !exists('+belloff')
-  set visualbell t_vb=
-endif
