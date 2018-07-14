@@ -14,10 +14,12 @@ if has('autocmd')
 endif
 
 " Options dependent on the syntax feature
-if has('syntax') && !exists('g:syntax_on')
+if has('syntax')
 
   " Use syntax highlighting
-  syntax enable
+  if !exists('g:syntax_on')
+    syntax enable
+  endif
 
   " Use my colorscheme if using the GUI or if we have 256 colors
   if has('gui_running') || &t_Co >= 256
@@ -100,6 +102,9 @@ set nrformats-=octal
 " Don't show startup splash screen (I donated)
 set shortmess+=I
 
+" Give me a bit longer to complete mappings
+set timeoutlen=3000
+
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
   set comments=
@@ -166,6 +171,9 @@ vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 " Default to not-quite-correct vim-tiny-compatible map if no plugin
 inoremap <Plug>(InsertCancel) <Esc>u
 imap <C-C> <Plug>(InsertCancel)
+
+" Map double Ctrl-K in insert mode to search digraph names
+imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Remap normal space to scroll down a page, backspace up a page
 nnoremap <Space> <C-F>
