@@ -8,6 +8,16 @@ setlocal comments+=n:>
 setlocal formatoptions+=coqr
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
+" Choose the color column depending on non-comment line count
+if exists('+cursorcolumn')
+  augroup gitcommit
+    autocmd CursorMoved,CursorMovedI <buffer>
+            \ let &l:colorcolumn = gitcommit#CursorColumn()
+  augroup END
+  let b:undo_ftplugin .= '|autocmd! gitcommit'
+        \ . '|augroup! gitcommit'
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_gitcommit_maps')
   finish
