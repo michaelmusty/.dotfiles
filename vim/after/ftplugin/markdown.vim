@@ -20,3 +20,16 @@ if has('spell')
   endif
 
 endif
+
+" Stop here if the user doesn't want ftplugin mappings
+if exists('g:no_plugin_maps') || exists('g:no_markdown_maps')
+  finish
+endif
+
+" Mail quote mappings
+nnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
+nnoremap <buffer> <expr> <LocalLeader>qq quote#Quote().'_'
+xnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
+let b:undo_ftplugin .= '|nunmap <LocalLeader>q'
+      \ . '|nunmap <LocalLeader>qq'
+      \ . '|xunmap <LocalLeader>q'

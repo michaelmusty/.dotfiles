@@ -21,9 +21,9 @@ endif
 
 " The quote mapping in the stock plugin is a good idea, but I prefer it to
 " work as a motion rather than quoting to the end of the buffer
-nnoremap <buffer> <expr> <LocalLeader>q mail#Quote()
-nnoremap <buffer> <expr> <LocalLeader>qq mail#Quote().'_'
-xnoremap <buffer> <expr> <LocalLeader>q mail#Quote()
+nnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
+nnoremap <buffer> <expr> <LocalLeader>qq quote#Quote().'_'
+xnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
 let b:undo_ftplugin .= '|nunmap <LocalLeader>q'
       \ . '|nunmap <LocalLeader>qq'
       \ . '|xunmap <LocalLeader>q'

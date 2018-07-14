@@ -71,3 +71,6 @@
 [submodule "vim/bundle/digraph_search"]
 	path = vim/bundle/digraph_search
 	url = https://sanctum.geek.nz/code/vim-digraph-search.git
+[submodule "vim/bundle/vimrc_reload_filetype"]
+	path = vim/bundle/vimrc_reload_filetype
+	url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
