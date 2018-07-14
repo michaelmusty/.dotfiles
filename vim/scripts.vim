@@ -11,11 +11,11 @@ if stridx(s:line, '#!') != 0
 endif
 
 " AWK
-if s:line =~# '\m\<[gm]\?awk\>'
+if s:line =~# '\m\<[gm]\=awk\>'
   setfiletype awk
 
 " Perl 5
-elseif s:line =~# '\m\<perl5\?\>'
+elseif s:line =~# '\m\<perl5\=\>'
   setfiletype perl
 
 " Perl 6
@@ -27,11 +27,11 @@ elseif s:line =~# '\m\<php\>'
   setfiletype php
 
 " Python
-elseif s:line =~# '\m\<python[23]\?\>'
+elseif s:line =~# '\m\<python[23]\=\>'
   setfiletype python
 
 " Ruby
-elseif s:line =~# '\m\<ruby[23]\?\>'
+elseif s:line =~# '\m\<ruby[23]\=\>'
   setfiletype ruby
 
 " sed
@@ -44,7 +44,7 @@ elseif s:line =~# '\m\<bash\>'
   setfiletype sh
 
 " Korn shell
-elseif s:line =~# '\m\<\(m\|pd\)\?ksh\(93\)\?\>'
+elseif s:line =~# '\m\<\(m\|pd\)\=ksh\(93\)\=\>'
   let b:is_kornshell = 1
   setfiletype sh
 
