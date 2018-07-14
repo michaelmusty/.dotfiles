@@ -154,6 +154,7 @@ if has('wildmenu')
   if exists('+wildignorecase')
     set wildignorecase       " Case insensitive, if supported
   endif
+  " 'wildignore' is built in plugin/wildignore.vim
 endif
 
 " New windows go below or to the right of a split
