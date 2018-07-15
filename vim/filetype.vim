@@ -231,7 +231,7 @@ augroup filetypedetect
         \ ?*.markdown
         \,?*.md
         \ setfiletype markdown
-  " Add automatic commands to detect .muttrc files
+  " Mutt configuration files
   autocmd BufNewFile,BufRead
         \ Muttrc
         \,*/.muttrc.d/*.rc
