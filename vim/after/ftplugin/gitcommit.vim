@@ -27,6 +27,6 @@ endif
 nnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
 nnoremap <buffer> <expr> <LocalLeader>qq quote#Quote().'_'
 xnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
-let b:undo_ftplugin .= '|nunmap <LocalLeader>q'
-      \ . '|nunmap <LocalLeader>qq'
-      \ . '|xunmap <LocalLeader>q'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
+      \ . '|nunmap <buffer> <LocalLeader>qq'
+      \ . '|xunmap <buffer> <LocalLeader>q'
