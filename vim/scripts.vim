@@ -11,50 +11,50 @@ if stridx(s:line, '#!') != 0
 endif
 
 " AWK
-if s:line =~# '\m\<[gm]\?awk\>'
+if s:line =~# '\<[gm]\=awk\>'
   setfiletype awk
 
 " Perl 5
-elseif s:line =~# '\m\<perl5\?\>'
+elseif s:line =~# '\<perl5\=\>'
   setfiletype perl
 
 " Perl 6
-elseif s:line =~# '\m\<perl6\>'
+elseif s:line =~# '\<perl6\>'
   setfiletype perl6
 
 " PHP
-elseif s:line =~# '\m\<php\>'
+elseif s:line =~# '\<php\>'
   setfiletype php
 
 " Python
-elseif s:line =~# '\m\<python[23]\?\>'
+elseif s:line =~# '\<python[23]\=\>'
   setfiletype python
 
 " Ruby
-elseif s:line =~# '\m\<ruby[23]\?\>'
+elseif s:line =~# '\<ruby[23]\=\>'
   setfiletype ruby
 
 " sed
-elseif s:line =~# '\m\<sed\>'
+elseif s:line =~# '\<sed\>'
   setfiletype sed
 
 " Bash
-elseif s:line =~# '\m\<bash\>'
+elseif s:line =~# '\<bash\>'
   let b:is_bash = 1
   setfiletype sh
 
 " Korn shell
-elseif s:line =~# '\m\<\(m\|pd\)\?ksh\(93\)\?\>'
+elseif s:line =~# '\<\%(\ksh\|ksh93\|mksh\|pdksh\)\>'
   let b:is_kornshell = 1
   setfiletype sh
 
 " POSIX/Bourne shell
-elseif s:line =~# '\m\<sh\>'
+elseif s:line =~# '\<sh\>'
   let b:is_posix = 1
   setfiletype sh
 
 " TCL
-elseif s:line =~# '\m\<\(tcl\|wish\)\>'
+elseif s:line =~# '\<\%(tcl\|wish\)\>'
   setfiletype tcl
 
 endif
