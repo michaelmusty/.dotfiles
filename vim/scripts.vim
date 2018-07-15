@@ -44,7 +44,7 @@ elseif s:line =~# '\m\<bash\>'
   setfiletype sh
 
 " Korn shell
-elseif s:line =~# '\m\<\(m\|pd\)\=ksh\(93\)\=\>'
+elseif s:line =~# '\m\<\%(m\|pd\)\=ksh\%(93\)\=\>'
   let b:is_kornshell = 1
   setfiletype sh
 
@@ -54,7 +54,7 @@ elseif s:line =~# '\m\<sh\>'
   setfiletype sh
 
 " TCL
-elseif s:line =~# '\m\<\(tcl\|wish\)\>'
+elseif s:line =~# '\m\<\%(tcl\|wish\)\>'
   setfiletype tcl
 
 endif
