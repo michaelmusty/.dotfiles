@@ -23,11 +23,11 @@ function! s:StripRepeat()
   let l:fn = expand('<afile>')
 
   " Strip leading and trailing #hashes#
-  if l:fn =~# '\m^#\+.*#\+$'
-    let l:fn = substitute(l:fn, '\m^#\+\(.\+\)#\+$', '\1', '')
+  if l:fn =~# '^#\+.*#\+$'
+    let l:fn = substitute(l:fn, '^#\+\(.\+\)#\+$', '\1', '')
 
   " Strip trailing tilde~
-  elseif l:fn =~# '\m\~$'
+  elseif l:fn =~# '\~$'
     let l:fn = substitute(l:fn, '\~$', '', '')
 
   " Strip generic .extension
