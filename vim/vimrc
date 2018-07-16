@@ -170,8 +170,6 @@ nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap insert Ctrl-C to undo the escaped insert operation
-" Default to not-quite-correct vim-tiny-compatible map if no plugin
-inoremap <Plug>(InsertCancel) <Esc>u
 imap <C-C> <Plug>(InsertCancel)
 
 " Map double Ctrl-K in insert mode to search digraph names
