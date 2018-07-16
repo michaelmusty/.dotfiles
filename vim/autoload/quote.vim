@@ -28,3 +28,15 @@ function! quote#QuoteOpfunc(type) abort
   endfor
 
 endfunction
+
+" Tack on reformatting the edited text afterwards
+function! quote#QuoteReformat() abort
+  set operatorfunc=quote#QuoteReformatOpfunc
+  return 'g@'
+endfunction
+
+" Wrapper operator function to reformat quoted text afterwards
+function! quote#QuoteReformatOpfunc(type) abort
+  call quote#QuoteOpfunc(a:type)
+  normal! '[gq']
+endfunction

@@ -7,7 +7,7 @@ endif
 " the first entirely blank line, if something hasn't already moved us from the
 " start of the file
 if line('.') == 1 && col('.') == 1
-  call search('^$', 'c')
+  call search('\m^$', 'c')
 endif
 
 " Add a space to the end of wrapped lines for format-flowed mail
@@ -24,6 +24,12 @@ endif
 nnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
 nnoremap <buffer> <expr> <LocalLeader>qq quote#Quote().'_'
 xnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
+nnoremap <buffer> <expr> <LocalLeader>Q quote#QuoteReformat()
+nnoremap <buffer> <expr> <LocalLeader>QQ quote#QuoteReformat().'_'
+xnoremap <buffer> <expr> <LocalLeader>Q quote#QuoteReformat()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
       \ . '|nunmap <buffer> <LocalLeader>qq'
       \ . '|xunmap <buffer> <LocalLeader>q'
+      \ . '|nunmap <buffer> <LocalLeader>Q'
+      \ . '|nunmap <buffer> <LocalLeader>QQ'
+      \ . '|xunmap <buffer> <LocalLeader>Q'

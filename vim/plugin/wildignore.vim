@@ -1,6 +1,6 @@
-" Don't complete certain files that I'm not likely to want to manipulate
-" from within Vim; this is kind of expensive to reload, so I've made it a
-" plugin with a load guard
+" Don't complete certain files that I'm not likely to want to manipulate from
+" within Vim; this is kind of expensive to reload, so I've made it a plugin
+" with a load guard
 if v:version < 700 || !has('wildignore')
   finish
 endif
