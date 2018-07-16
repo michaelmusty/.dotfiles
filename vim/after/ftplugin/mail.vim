@@ -7,7 +7,7 @@ endif
 " the first entirely blank line, if something hasn't already moved us from the
 " start of the file
 if line('.') == 1 && col('.') == 1
-  call search('^$', 'c')
+  call search('\m^$', 'c')
 endif
 
 " Add a space to the end of wrapped lines for format-flowed mail
