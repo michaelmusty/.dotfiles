@@ -53,11 +53,11 @@ set backspace+=start   " The start of current insertion
 " Do keep backups
 set backup
 
-" Try to keep them all in one system-appropriate dir, with full path
+" Try to keep them all in one system-appropriate dir
 if has('unix')
-  set backupdir^=~/.vim/cache/backup//
+  set backupdir^=~/.vim/cache/backup
 elseif has('win32') || has('win64')
-  set backupdir^=~/vimfiles/cache/backup//
+  set backupdir^=~/vimfiles/cache/backup
 endif
 
 " Don't back up stuff in /dev/shm or /var/tmp
