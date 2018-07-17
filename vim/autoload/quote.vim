@@ -17,9 +17,16 @@ function! quote#QuoteOpfunc(type) abort
   " Iterate over each matched line
   for l:li in range(line('''['), line(''']'))
 
+    " Get current line text
+    let l:cur = getline(l:li)
+
+    " Don't quote the first or last lines if they're blank
+    if !strlen(l:cur) && (l:li == line('''[') || l:li == line(''']'))
+      continue
+    endif
+
     " Only add a space after the quote character if this line isn't already
     " quoted with the same character
-    let l:cur = getline(l:li)
     let l:new = stridx(l:cur, l:char) == 0
           \ ? l:char.l:cur
           \ : l:char.' '.l:cur
