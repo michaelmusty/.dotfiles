@@ -17,5 +17,5 @@ endif
 set t_Co& t_Sf& t_Sb&
 
 " Remove addons directories from 'runtimepath' if present
-silent! set runtimepath-=/var/lib/vim/addons
-silent! set runtimepath-=/var/lib/vim/addons/after
+set runtimepath-=/var/lib/vim/addons
+set runtimepath-=/var/lib/vim/addons/after
