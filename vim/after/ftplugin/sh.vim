@@ -26,6 +26,11 @@ execute 'compiler '.b:sh_check_compiler
 let b:undo_ftplugin .= '|unlet b:current_compiler b:sh_check_compiler'
       \ . '|setlocal errorformat< makeprg<'
 
+" Resort to g:is_posix for correct syntax on older runtime files
+if b:is_posix && (v:version < 800 || v:version == 800 && !has('patch257'))
+  let g:is_posix = 1
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
   finish
