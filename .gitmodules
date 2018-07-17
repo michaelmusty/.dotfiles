@@ -1,7 +1,4 @@
 # My Vim plugins
-[submodule "vim/bundle/auto_cache_dirs"]
-    path = vim/bundle/auto_cache_dirs
-    url = https://sanctum.geek.nz/code/vim-auto-cache-dirs.git
 [submodule "vim/bundle/big_file_options"]
     path = vim/bundle/big_file_options
     url = https://sanctum.geek.nz/code/vim-big-file-options.git

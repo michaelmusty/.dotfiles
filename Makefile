@@ -548,11 +548,17 @@ install-vim-bundle: install-vim-config
 		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	$(VIM) -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
 
+install-vim-cache:
+	mkdir -p -- \
+	    $(VIMDIR)/cache/backup \
+	    $(VIMDIR)/cache/swap \
+	    $(VIMDIR)/cache/undo
+
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
-install-vim-config:
+install-vim-config: install-vim-cache
 	cp -p -- vim/vimrc $(VIMRC)
 	if [ -e /etc/debian_version ] ; then \
 		cp -p -- vim/system/debian.vim $(VIMDIR)/system.vim ; \
