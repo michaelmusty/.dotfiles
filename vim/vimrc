@@ -50,6 +50,13 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
+" Try to keep swapfiles in one system-appropriate dir
+if has('unix')
+  set directory^=~/.vim/cache/undo
+elseif has('win32') || has('win64')
+  set directory^=~/vimfiles/cache/undo
+endif
+
 " How to deal with lines wrapping beyond the last screen row
 if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
@@ -105,6 +112,24 @@ set shortmess+=I
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
 
+" Backup settings
+if has('backup')
+
+  " Do keep backups
+  set backup
+
+  " Try to keep them all in one system-appropriate dir, with full path
+  if has('unix')
+    set backupdir^=~/.vim/cache/backup//
+  elseif has('win32') || has('win64')
+    set backupdir^=~/vimfiles/cache/backup//
+  endif
+
+  " Don't back up stuff in /dev/shm or /var/tmp
+  set backupskip+=/dev/shm,/var/tmp
+
+endif
+
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
   set comments=
@@ -140,6 +165,21 @@ endif
 if has('mksession')
   set sessionoptions-=localoptions
   set sessionoptions-=options
+endif
+
+" Persistent undo settings
+if has('persistent_undo')
+
+  " Do keep undo files
+  set undofile
+
+  " Try to keep them all in one system-appropriate dir
+  if has('unix')
+    set undodir^=~/.vim/cache/undo//
+  elseif has('win32') || has('win64')
+    set undodir^=~/vimfiles/cache/undo//
+  endif
+
 endif
 
 " Let me move beyond buffer text in visual block mode

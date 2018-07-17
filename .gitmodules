@@ -1,7 +1,4 @@
 # My Vim plugins
-[submodule "vim/bundle/auto_cache_dirs"]
-    path = vim/bundle/auto_cache_dirs
-    url = https://sanctum.geek.nz/code/vim-auto-cache-dirs.git
 [submodule "vim/bundle/big_file_options"]
     path = vim/bundle/big_file_options
     url = https://sanctum.geek.nz/code/vim-big-file-options.git
@@ -11,6 +8,9 @@
 [submodule "vim/bundle/copy_linebreak"]
     path = vim/bundle/copy_linebreak
     url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
+[submodule "vim/bundle/digraph_search"]
+    path = vim/bundle/digraph_search
+    url = https://sanctum.geek.nz/code/vim-digraph-search.git
 [submodule "vim/bundle/insert_cancel"]
     path = vim/bundle/insert_cancel
     url = https://sanctum.geek.nz/code/vim-insert-cancel.git
@@ -29,6 +29,9 @@
 [submodule "vim/bundle/redact_pass"]
     path = vim/bundle/redact_pass
     url = https://sanctum.geek.nz/code/vim-redact-pass.git
+[submodule "vim/bundle/shebang_create_exec"]
+    path = vim/bundle/shebang_create_exec
+    url = https://sanctum.geek.nz/code/vim-shebang-create-exec.git
 [submodule "vim/bundle/strip_trailing_whitespace"]
     path = vim/bundle/strip_trailing_whitespace
     url = https://sanctum.geek.nz/code/vim-strip-trailing-whitespace.git
@@ -38,6 +41,9 @@
 [submodule "vim/bundle/uncap_ex"]
     path = vim/bundle/uncap_ex
     url = https://sanctum.geek.nz/code/vim-uncap-ex.git
+[submodule "vim/bundle/vimrc_reload_filetype"]
+    path = vim/bundle/vimrc_reload_filetype
+    url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
 
 # My Vim filetype plugins
 [submodule "vim/bundle/diff_prune"]
@@ -68,9 +74,3 @@
 [submodule "vim/bundle/surround"]
     path = vim/bundle/surround
     url = https://sanctum.geek.nz/clone/vim-surround.git
-[submodule "vim/bundle/digraph_search"]
-	path = vim/bundle/digraph_search
-	url = https://sanctum.geek.nz/code/vim-digraph-search.git
-[submodule "vim/bundle/vimrc_reload_filetype"]
-	path = vim/bundle/vimrc_reload_filetype
-	url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
