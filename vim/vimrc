@@ -61,7 +61,9 @@ elseif has('win32') || has('win64')
 endif
 
 " Don't back up stuff in /dev/shm or /var/tmp
-set backupskip+=/dev/shm,/var/tmp
+if has('unix')
+  set backupskip+=/dev/shm,/var/tmp
+endif
 
 " Try to keep swapfiles in one system-appropriate dir
 if has('unix')
