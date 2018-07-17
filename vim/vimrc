@@ -50,11 +50,24 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
+" Do keep backups
+set backup
+
+" Try to keep them all in one system-appropriate dir, with full path
+if has('unix')
+  set backupdir^=~/.vim/cache/backup//
+elseif has('win32') || has('win64')
+  set backupdir^=~/vimfiles/cache/backup//
+endif
+
+" Don't back up stuff in /dev/shm or /var/tmp
+set backupskip+=/dev/shm,/var/tmp
+
 " Try to keep swapfiles in one system-appropriate dir
 if has('unix')
-  set directory^=~/.vim/cache/undo
+  set directory^=~/.vim/cache/swap//
 elseif has('win32') || has('win64')
-  set directory^=~/vimfiles/cache/undo
+  set directory^=~/vimfiles/cache/swap//
 endif
 
 " How to deal with lines wrapping beyond the last screen row
@@ -111,24 +124,6 @@ set shortmess+=I
 
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
-
-" Backup settings
-if has('backup')
-
-  " Do keep backups
-  set backup
-
-  " Try to keep them all in one system-appropriate dir, with full path
-  if has('unix')
-    set backupdir^=~/.vim/cache/backup//
-  elseif has('win32') || has('win64')
-    set backupdir^=~/vimfiles/cache/backup//
-  endif
-
-  " Don't back up stuff in /dev/shm or /var/tmp
-  set backupskip+=/dev/shm,/var/tmp
-
-endif
 
 " Clear default 'comments' value, let the filetype handle it
 if has('comments')
