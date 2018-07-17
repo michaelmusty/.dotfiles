@@ -65,9 +65,9 @@ set backupskip+=/dev/shm,/var/tmp
 
 " Try to keep swapfiles in one system-appropriate dir
 if has('unix')
-  set directory^=~/.vim/cache/undo
+  set directory^=~/.vim/cache/swap//
 elseif has('win32') || has('win64')
-  set directory^=~/vimfiles/cache/undo
+  set directory^=~/vimfiles/cache/swap//
 endif
 
 " How to deal with lines wrapping beyond the last screen row
