@@ -13,7 +13,7 @@ if has('cscope')
   set cscopetag&
   set cscopetagorder&
   set cscopeverbose&
-  silent! cs kill
+  silent! cscope kill
 endif
 if has('gui')
   set guicursor&

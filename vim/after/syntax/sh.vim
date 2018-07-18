@@ -1,7 +1,7 @@
-" Support line continuation for this file
-if &compatible
-  let s:cpoptions_save = &cpoptions
-  set cpoptions-=C
+" Don't try to make these corrections if running 'compatible' or if the
+" runtime files are too old
+if &compatible || v:version < 700
+  finish
 endif
 
 " If we know we have another shell type, clear away the others completely, now
@@ -215,10 +215,4 @@ if exists('b:is_bash')
         \ until
         \ variables
         \ wait
-endif
-
-" Restore 'cpoptions' setting if we touched it
-if exists('s:cpoptions_save')
-  let &cpoptions = s:cpoptions_save
-  unlet s:cpoptions_save
 endif

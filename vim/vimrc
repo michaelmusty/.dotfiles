@@ -53,15 +53,18 @@ set backspace+=start   " The start of current insertion
 " Do keep backups
 set backup
 
-" Try to keep them all in one system-appropriate dir, with full path
+" Try to keep backups in one system-appropriate dir
 if has('unix')
-  set backupdir^=~/.vim/cache/backup//
+  set backupdir^=~/.vim/cache/backup
 elseif has('win32') || has('win64')
-  set backupdir^=~/vimfiles/cache/backup//
+  set backupdir^=~/vimfiles/cache/backup
 endif
 
 " Don't back up stuff in /dev/shm or /var/tmp
-set backupskip+=/dev/shm/*,/var/tmp/*
+if has('unix')
+  set backupskip+=/dev/shm/*
+  set backupskip+=/var/tmp/*
+endif
 
 " Try to keep swapfiles in one system-appropriate dir
 if has('unix')
@@ -75,6 +78,11 @@ if v:version > 704 || v:version == 704 && has('patch2109')
   set display=truncate  " Show '@@@' on the last line, if supported
 else
   set display=lastline  " Just let it run off the screen if not
+endif
+
+" If $LANG isn't set and 'encoding' is the default, use UTF-8
+if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
+  set encoding=utf-8
 endif
 
 " Don't wait for a key after Escape in insert mode
@@ -137,9 +145,10 @@ if has('extra_search')
   set incsearch  " Show matches as I type
 endif
 
-" More sensible language-agnostic setting for gf/:find
+" Options for file search with gf/:find
 if has('file_in_path')
-  set path=.,,**
+  set path-=/usr/include  " Let the C/C++ filetypes set that
+  set path+=**            " Search current directory's whole tree
 endif
 
 " Don't load GUI menus; set here before GUI starts

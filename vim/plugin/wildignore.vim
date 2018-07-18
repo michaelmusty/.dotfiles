@@ -154,12 +154,15 @@ function! s:Wildignore() abort
         \,'*.swp'
         \ ]
 
-  " For any that had lowercase letters, add their uppercase analogues
-  for l:ignore in l:ignores
-    if l:ignore =~# '\l'
-      call add(l:ignores, toupper(l:ignore))
-    endif
-  endfor
+  " If on a system where case matters for filenames, for any that had
+  " lowercase letters, add their uppercase analogues
+  if has('fname_case')
+    for l:ignore in l:ignores
+      if l:ignore =~# '\l'
+        call add(l:ignores, toupper(l:ignore))
+      endif
+    endfor
+  endif
 
   " Return the completed setting
   return join(l:ignores, ',')
