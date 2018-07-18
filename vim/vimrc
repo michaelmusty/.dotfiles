@@ -62,7 +62,8 @@ endif
 
 " Don't back up stuff in /dev/shm or /var/tmp
 if has('unix')
-  set backupskip+=/dev/shm/*,/var/tmp/*
+  set backupskip+=/dev/shm/*
+  set backupskip+=/var/tmp/*
 endif
 
 " Try to keep swapfiles in one system-appropriate dir
