@@ -5,5 +5,10 @@ endif
 
 " Set comment formats
 setlocal include=^\\s*#\\s*include
-setlocal path+=/usr/include
-let b:undo_ftplugin .= '|setlocal include< path<'
+let b:undo_ftplugin .= '|setlocal include<'
+
+" Include headers on UNIX
+if has('unix')
+  setlocal path+=/usr/include
+  let b:undo_ftplugin .= '|setlocal path<'
+endif
