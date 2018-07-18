@@ -80,6 +80,11 @@ else
   set display=lastline  " Just let it run off the screen if not
 endif
 
+" If $LANG isn't set and 'encoding' is the default, use UTF-8
+if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
+  set encoding=utf-8
+endif
+
 " Don't wait for a key after Escape in insert mode
 if exists('+esckeys')  " Not in Neovim
   set noesckeys
