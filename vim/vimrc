@@ -140,9 +140,10 @@ if has('extra_search')
   set incsearch  " Show matches as I type
 endif
 
-" More sensible language-agnostic setting for gf/:find
+" Options for file search with gf/:find
 if has('file_in_path')
-  set path=.,,**
+  set path-=/usr/include  " Let the C/C++ filetypes set that
+  set path+=**            " Search current directory's whole tree
 endif
 
 " Don't load GUI menus; set here before GUI starts
