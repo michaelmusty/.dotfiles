@@ -317,8 +317,8 @@ nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 nnoremap <Bslash>= :<C-U>call vimrc#Anchor('1G=G')<CR>
 " \+ runs the whole buffer through gq, preserving position
 nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
-" \. runs the configured make program to location list
-nnoremap <Bslash>. :<C-U>lmake!<CR>
+" \. runs the configured make program into the location list
+nnoremap <Bslash>. :<C-U>lmake!<Bar>:lwindow<CR>
 
 " \DEL deletes the current buffer
 nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
