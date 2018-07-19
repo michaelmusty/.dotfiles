@@ -252,7 +252,7 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 " Normal leader maps; use <Bslash> not <Leader> for vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap <Bslash>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 " \c toggles 'cursorline'
