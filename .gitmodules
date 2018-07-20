@@ -35,9 +35,9 @@
 [submodule "vim/bundle/strip_trailing_whitespace"]
     path = vim/bundle/strip_trailing_whitespace
     url = https://sanctum.geek.nz/code/vim-strip-trailing-whitespace.git
-[submodule "vim/bundle/toggle_option_flags"]
-    path = vim/bundle/toggle_option_flags
-    url = https://sanctum.geek.nz/code/vim-toggle-option-flags.git
+[submodule "vim/bundle/toggle_flags"]
+    path = vim/bundle/toggle_flags
+    url = https://sanctum.geek.nz/code/vim-toggle-flags.git
 [submodule "vim/bundle/uncap_ex"]
     path = vim/bundle/uncap_ex
     url = https://sanctum.geek.nz/code/vim-uncap-ex.git

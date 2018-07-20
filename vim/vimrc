@@ -80,11 +80,6 @@ else
   set display=lastline  " Just let it run off the screen if not
 endif
 
-" If $LANG isn't set and 'encoding' is the default, use UTF-8
-if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
-  set encoding=utf-8
-endif
-
 " Don't wait for a key after Escape in insert mode
 if exists('+esckeys')  " Not in Neovim
   set noesckeys
@@ -171,6 +166,11 @@ if has('mksession')
   set sessionoptions-=options
 endif
 
+" If $LANG isn't set and 'encoding' is the default, use UTF-8
+if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
+  set encoding=utf-8
+endif
+
 " Persistent undo settings
 if has('persistent_undo')
 
@@ -252,7 +252,7 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 " Normal leader maps; use <Bslash> not <Leader> for vim-tiny
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Bslash>a :<C-U>ToggleOptionFlagLocal formatoptions a<CR>
+nnoremap <Bslash>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 " \c toggles 'cursorline'
@@ -264,7 +264,7 @@ nnoremap <Bslash>d :read !date<CR>
 " \D inserts the UTC date (POSIX date)
 nnoremap <Bslash>D :read !date -u<CR>
 " \e forces a buffer to be editable
-nnoremap <Bslash>e :setlocal modifiable noreadonly<CR>
+nnoremap <Bslash>e :<C-U>setlocal modifiable noreadonly<CR>
 " \f shows the current 'formatoptions' at a glance
 nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
 " \g changes directory to the current file's location
@@ -314,7 +314,10 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap <Bslash>x <Plug>(StripTrailingWhitespace)
+nmap <Bslash>x :<C-U>StripTrailingWhitespace<CR>
+if v:version >= 700
+  xmap <Bslash>x :StripTrailingWhitespace<CR>
+endif
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
