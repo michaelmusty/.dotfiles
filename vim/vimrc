@@ -178,7 +178,9 @@ nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap insert Ctrl-C to undo the escaped insert operation
-imap <C-C> <Plug>(InsertCancel)
+if &loadplugins
+  imap <C-C> <Plug>(InsertCancel)
+endif
 
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
