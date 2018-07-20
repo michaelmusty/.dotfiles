@@ -80,7 +80,7 @@ silent! set formatoptions+=j
 
 " If available, use GNU grep niceties for searching
 if system('grep --version') =~# '^grep (GNU grep)'
-  set grepprg=LC_ALL=C\ grep\ -HnRs\ --exclude='.git*'
+  set grepprg=grep\ -HnRs\ --exclude='.git*'
 endif
 
 " Keep more command and search history
