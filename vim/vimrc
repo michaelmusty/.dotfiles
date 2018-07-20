@@ -67,10 +67,9 @@ if has('win32') || has('win64')
   set directory^=~/vimfiles/cache/swap//
 endif
 
-" Default to UTF-8 unless $LANG can convince us otherwise
-silent! set encoding=utf-8
-if &encoding ==# 'utf-8' && exists('$LANG')
-  set encoding&
+" Use UTF-8 if we can and env LANG didn't tell us not to
+if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
+  set encoding=utf-8
 endif
 
 " Don't wait for a key after Escape in insert mode
