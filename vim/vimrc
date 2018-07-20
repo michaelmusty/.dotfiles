@@ -1,8 +1,8 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This file is not truly self-contained. It should run without errors on its
-" own without the accompanying plugins to which it refers near its end, but
-" you'll get errors for some of the leader maps.
+" This file is designed to load without unsuppressed errors on Vim 6.0 and up.
+" Anything older than that will probably break. There are also some odd bits
+" of logic to cope with loading as much config as possible on vim-tiny.
 
 " Undo anything the operating system's vimrc may have broken
 runtime system.vim
@@ -37,84 +37,88 @@ endif
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
-
-" Spaces to insert on Tab key insert
-if v:version > 703 || v:version == 703 && has('patch693')
-  set softtabstop=-1  " Refer to 'shiftwidth' if supported
-else
-  set softtabstop=4   " Otherwise just four spaces
-endif
+set softtabstop=4 " Insert four spaces with tab key
 
 " Let me backspace over pretty much anything
 set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
-" Do keep backups
-set backup
-
 " Try to keep backups in one system-appropriate dir
-if has('unix')
-  set backupdir^=~/.vim/cache/backup
-elseif has('win32') || has('win64')
+set backup
+set backupdir^=~/.vim/cache/backup
+if has('win32') || has('win64')
   set backupdir^=~/vimfiles/cache/backup
 endif
 
 " Don't back up stuff in /dev/shm or /var/tmp
-if has('unix')
-  set backupskip+=/dev/shm/*
-  set backupskip+=/var/tmp/*
-endif
+set backupskip+=/dev/shm/*
+set backupskip+=/var/tmp/*
+
+" Indent wrapped lines
+silent! set breakindent
+
+" Clear default 'comments' value, let the filetype handle it
+set comments=
 
 " Try to keep swapfiles in one system-appropriate dir
-if has('unix')
-  set directory^=~/.vim/cache/swap//
-elseif has('win32') || has('win64')
+set directory^=~/.vim/cache/swap//
+if has('win32') || has('win64')
   set directory^=~/vimfiles/cache/swap//
 endif
 
 " How to deal with lines wrapping beyond the last screen row
-if v:version > 704 || v:version == 704 && has('patch2109')
-  set display=truncate  " Show '@@@' on the last line, if supported
-else
-  set display=lastline  " Just let it run off the screen if not
+set display+=lastline          " Just let it run off the screen
+silent! set display+=truncate  " Show '@@@' on the last line
+
+" Default to UTF-8 unless $LANG can convince us otherwise
+silent! set encoding=utf-8
+if &encoding ==# 'utf-8' && exists('$LANG')
+  set encoding&
 endif
 
 " Don't wait for a key after Escape in insert mode
-if exists('+esckeys')  " Not in Neovim
-  set noesckeys
-endif
+silent! set noesckeys
 
 " Delete comment leaders when joining lines, if supported
-if v:version > 703 || v:version == 703 && has('patch541')
-  set formatoptions+=j
+silent! set formatoptions+=j
+
+" If available, use GNU grep niceties for searching
+if has('unix') && system('grep --version') =~# '^grep (GNU grep)'
+  set grepprg=LC_ALL=C\ grep\ -HnRs\ --exclude='.git*'
 endif
 
 " Keep more command and search history
 set history=500
 
+" Highlight completed searches; clear on reload
+set hlsearch
+silent! nohlsearch
+
 " Don't assume I'm editing C; let the filetype set this
 set include=
+
+" Show search matches as I type my pattern
+set incsearch
 
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
 " Don't show a statusline if there's only one window
-if has('nvim')  " Neovim changed the default to 2
-  set laststatus=1
-endif
+set laststatus=1
 
 " Don't redraw the screen during batch execution
 set lazyredraw
 
+" Break lines at word boundaries
+set linebreak            " Break lines at word boundaries
+
 " Define extra 'list' display characters
-set listchars+=extends:>   " Unwrapped text to screen right
-set listchars+=precedes:<  " Unwrapped text to screen left
-set listchars+=tab:>-      " Tab characters, preserve width
-set listchars+=trail:_     " Trailing spaces
-if v:version >= 700
-  set listchars+=nbsp:+    " Non-breaking spaces
-endif
+set listchars+=extends:>       " Unwrapped text to screen right
+set listchars+=precedes:<      " Unwrapped text to screen left
+set listchars+=tab:>-          " Tab characters, preserve width
+set listchars+=trail:_         " Trailing spaces
+silent! set listchars+=nbsp:+  " Non-breaking spaces
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -122,42 +126,31 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
+" Options for file search with gf/:find
+set path-=/usr/include  " Let the C/C++ filetypes set that
+set path+=**            " Search current directory's whole tree
+
 " Don't show startup splash screen (I donated)
 set shortmess+=I
+
+" Prefix wrapped rows with three dots
+set showbreak=...        " Prefix wrapped rows with three dots
+
+" New windows go below or to the right of a split
+set splitbelow
+set splitright
 
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
 
-" Clear default 'comments' value, let the filetype handle it
-if has('comments')
-  set comments=
-endif
-
-" Highlight settings for search
-if has('extra_search')
-  set hlsearch   " Highlight completed searches...
-  nohlsearch     " ...but clear it on startup or after re-sourcing
-  set incsearch  " Show matches as I type
-endif
-
-" Options for file search with gf/:find
-if has('file_in_path')
-  set path-=/usr/include  " Let the C/C++ filetypes set that
-  set path+=**            " Search current directory's whole tree
-endif
+" Wildmenu settings; see also plugin/wildignore.vim
+set wildmenu                " Use wildmenu
+set wildmode=list:longest   " Tab press completes and lists
+silent! set wildignorecase  " Case insensitive, if supported
 
 " Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
-endif
-
-" Line break behaviour settings for 'wrap'
-if has('linebreak')
-  set linebreak      " Break lines at word boundaries
-  set showbreak=...  " Prefix wrapped rows with three dots
-  if exists('+breakindent')
-    set breakindent  " Indent wrapped lines, if supported
-  endif
 endif
 
 " Don't store any options or mappings in sessions
@@ -166,52 +159,18 @@ if has('mksession')
   set sessionoptions-=options
 endif
 
-" If $LANG isn't set and 'encoding' is the default, use UTF-8
-if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
-  set encoding=utf-8
-endif
-
-" Persistent undo settings
+" Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
-
-  " Do keep undo files
   set undofile
-
-  " Try to keep them all in one system-appropriate dir
-  if has('unix')
-    set undodir^=~/.vim/cache/undo//
-  elseif has('win32') || has('win64')
+  set undodir^=~/.vim/cache/undo//
+  if has('win32') || has('win64')
     set undodir^=~/vimfiles/cache/undo//
   endif
-
-endif
-
-" If available, use GNU grep niceties for searching
-if has('unix') && system('grep --version') =~# '^grep (GNU grep)'
-  set grepprg=LC_ALL=C\ grep\ -HnRs\ --exclude='.git*'
 endif
 
 " Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
-endif
-
-" Nicer completion for command mode
-if has('wildmenu')
-  set wildmenu               " Use wildmenu
-  set wildmode=list:longest  " Tab press completes and lists
-  if exists('+wildignorecase')
-    set wildignorecase       " Case insensitive, if supported
-  endif
-  " 'wildignore' is built in plugin/wildignore.vim
-endif
-
-" New windows go below or to the right of a split
-if has('windows')
-  set splitbelow
-  if has('vertsplit')
-    set splitright
-  endif
 endif
 
 " Stack normal/visual/select Ctrl-L to clear search highlight
@@ -230,9 +189,7 @@ nnoremap <BS> <C-B>
 
 " Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :&&<CR>
-if v:version >= 700
-  xnoremap <silent> & :&&<CR>
-endif
+silent! xnoremap <silent> & :&&<CR>
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
@@ -320,9 +277,7 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x :<C-U>StripTrailingWhitespace<CR>
-if v:version >= 700
-  xmap <Bslash>x :StripTrailingWhitespace<CR>
-endif
+silent! xmap <Bslash>x :StripTrailingWhitespace<CR>
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
