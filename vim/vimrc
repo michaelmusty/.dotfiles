@@ -186,6 +186,11 @@ if has('persistent_undo')
 
 endif
 
+" If available, use GNU grep niceties for searching
+if has('unix') && system('grep --version') =~# '^grep (GNU grep)'
+  set grepprg=LC_ALL=C\ grep\ -HnRs\ --exclude='.git*'
+endif
+
 " Let me move beyond buffer text in visual block mode
 if has('virtualedit')
   set virtualedit+=block
