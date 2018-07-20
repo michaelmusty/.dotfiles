@@ -80,7 +80,7 @@ silent! set noesckeys
 silent! set formatoptions+=j
 
 " If available, use GNU grep niceties for searching
-if has('unix') && system('grep --version') =~# '^grep (GNU grep)'
+if system('grep --version') =~# '^grep (GNU grep)'
   set grepprg=LC_ALL=C\ grep\ -HnRs\ --exclude='.git*'
 endif
 
