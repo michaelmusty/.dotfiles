@@ -67,10 +67,6 @@ if has('win32') || has('win64')
   set directory^=~/vimfiles/cache/swap//
 endif
 
-" How to deal with lines wrapping beyond the last screen row
-set display+=lastline          " Just let it run off the screen
-silent! set display+=truncate  " Show '@@@' on the last line
-
 " Default to UTF-8 unless $LANG can convince us otherwise
 silent! set encoding=utf-8
 if &encoding ==# 'utf-8' && exists('$LANG')
