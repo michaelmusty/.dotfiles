@@ -111,7 +111,7 @@ set laststatus=1
 set lazyredraw
 
 " Break lines at word boundaries
-set linebreak            " Break lines at word boundaries
+set linebreak
 
 " Define extra 'list' display characters
 set listchars+=extends:>       " Unwrapped text to screen right
@@ -134,7 +134,7 @@ set path+=**            " Search current directory's whole tree
 set shortmess+=I
 
 " Prefix wrapped rows with three dots
-set showbreak=...        " Prefix wrapped rows with three dots
+set showbreak=...
 
 " New windows go below or to the right of a split
 set splitbelow
