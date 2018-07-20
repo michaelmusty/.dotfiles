@@ -3,7 +3,7 @@ if &filetype !=# 'c' || v:version < 700
   finish
 endif
 
-" Set comment formats
+" Set include pattern
 setlocal include=^\\s*#\\s*include
 let b:undo_ftplugin .= '|setlocal include<'
 
