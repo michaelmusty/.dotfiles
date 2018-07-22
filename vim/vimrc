@@ -277,7 +277,7 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
-nmap <Bslash>x :<C-U>StripTrailingWhitespace<CR>
+nmap <Bslash>x :StripTrailingWhitespace<CR>
 if exists(':xmap')
   xmap <Bslash>x :StripTrailingWhitespace<CR>
 endif
