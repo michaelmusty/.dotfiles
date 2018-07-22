@@ -3,12 +3,15 @@ if &filetype !=# 'c' || v:version < 700
   finish
 endif
 
+" Include macros in completion
+setlocal complete+=d
+
 " Set include pattern
 setlocal include=^\\s*#\\s*include
-let b:undo_ftplugin .= '|setlocal include<'
 
 " Include headers on UNIX
 if has('unix')
   setlocal path+=/usr/include
-  let b:undo_ftplugin .= '|setlocal path<'
 endif
+
+let b:undo_ftplugin .= '|setlocal complete< include< path<'
