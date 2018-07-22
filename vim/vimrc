@@ -139,6 +139,12 @@ set wildmenu                " Use wildmenu
 set wildmode=list:longest   " Tab press completes and lists
 silent! set wildignorecase  " Case insensitive, if supported
 
+" Fold based on indent, but only when I ask
+if has('folding')
+  set foldlevelstart=99
+  set foldmethod=indent
+endif
+
 " Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
