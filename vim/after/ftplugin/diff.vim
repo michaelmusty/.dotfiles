@@ -8,6 +8,12 @@ if exists('g:no_plugin_maps') || exists('g:no_diff_maps')
   finish
 endif
 
+" Modify curly braces to navigate by diff block
+nnoremap <buffer> { ?^@@<CR>
+nnoremap <buffer> } /^@@<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> {'
+      \ . '|nunmap <buffer> }'
+
 " Set mappings
 nmap <buffer> <LocalLeader>p <Plug>(DiffPrune)
 xmap <buffer> <LocalLeader>p <Plug>(DiffPrune)
