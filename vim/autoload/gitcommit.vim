@@ -1,18 +1,19 @@
 " Choose the color column depending on non-comment line count
 function! gitcommit#CursorColumn() abort
 
-  " Last line number
-  let l:ll = line('$')
-
   " If we can find a line after the first that isn't a comment, we're
   " composing the message
-  if l:ll > 1
-    for l:li in range(2, l:ll)
-      if getline(l:li) !~# '^\s*#'
-        return '+1'
-      endif
-    endfor
-  endif
+  for l:num in range(1, line('$'))
+    if l:num == 1
+      continue
+    endif
+    let l:line = getline(l:num)
+    if strpart(l:line, 0, 1) !=# '#'
+      return '+1'
+    elseif l:line =~# '^# -\{24} >8 -\{24}$'
+      break
+    endif
+  endfor
 
   " Otherwise, we're still composing our subject
   return '51'

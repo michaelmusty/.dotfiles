@@ -14,7 +14,7 @@
     ui = true
 
 [commit]
-    status = false
+    verbose = true
 
 [core]
     compression = 9
