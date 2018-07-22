@@ -46,12 +46,9 @@ set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir
 set backup
-set backupdir^=~/.vim/cache/backup
-if has('win32') || has('win64')
-  set backupdir^=~/vimfiles/cache/backup
-endif
+set backupdir^=~/.vim/cache/backup,~/vimfiles/cache/backup
 
-" Don't back up stuff in /dev/shm or /var/tmp
+" Add some paths not to back up
 set backupskip+=/dev/shm/*
 set backupskip+=/var/tmp/*
 
@@ -62,10 +59,7 @@ silent! set breakindent
 set comments=
 
 " Try to keep swapfiles in one system-appropriate dir
-set directory^=~/.vim/cache/swap//
-if has('win32') || has('win64')
-  set directory^=~/vimfiles/cache/swap//
-endif
+set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
 
 " Use UTF-8 if we can and env LANG didn't tell us not to
 if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
@@ -88,7 +82,9 @@ set history=500
 
 " Highlight completed searches; clear on reload
 set hlsearch
-silent! nohlsearch
+if 1
+  nohlsearch
+endif
 
 " Don't assume I'm editing C; let the filetype set this
 set include=
@@ -148,12 +144,6 @@ if has('gui_running')
   set guioptions+=M
 endif
 
-" Don't store any options or mappings in sessions
-if has('mksession')
-  set sessionoptions-=localoptions
-  set sessionoptions-=options
-endif
-
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
@@ -163,8 +153,14 @@ if has('persistent_undo')
   endif
 endif
 
+" Don't store any options or mappings in sessions
+if exists('+sessionoptions')
+  set sessionoptions-=localoptions
+  set sessionoptions-=options
+endif
+
 " Let me move beyond buffer text in visual block mode
-if has('virtualedit')
+if exists('+virtualedit')
   set virtualedit+=block
 endif
 
@@ -186,7 +182,9 @@ nnoremap <BS> <C-B>
 
 " Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :&&<CR>
-silent! xnoremap <silent> & :&&<CR>
+if exists(':xnoremap')
+  xnoremap <silent> & :&&<CR>
+endif
 
 " Cycle through argument list
 nnoremap [a :<C-U>previous<CR>
@@ -274,7 +272,9 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x :<C-U>StripTrailingWhitespace<CR>
-silent! xmap <Bslash>x :StripTrailingWhitespace<CR>
+if exists(':xmap')
+  xmap <Bslash>x :StripTrailingWhitespace<CR>
+endif
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
 " \z sets NZ English spelling (compare \u)
