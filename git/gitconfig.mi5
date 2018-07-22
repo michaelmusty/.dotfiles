@@ -50,6 +50,7 @@
 
 [push]
     default = current
+    followTags = true
 
 [sendemail]
     confirm = compose
