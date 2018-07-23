@@ -80,8 +80,8 @@ endif
 " Allow buffers to have changes without being displayed
 set hidden
 
-" Keep more command and search history
-set history=500
+" Keep much more command and search history
+set history=2000
 
 " Highlight completed searches; clear on reload
 set hlsearch
