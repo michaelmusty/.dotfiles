@@ -17,11 +17,10 @@ pretty nicely:
 If you have GNU unexpand(1) and can add `--first-only` to each of those calls,
 the results seem perfect.
 
-You can configure Vim to accommodate this by removing the settings in
-vim/config/indent.vim for:
+You can configure Vim to accommodate this by removing the settings in vim/vimrc
+for:
 
 * `expandtab`
-* `shiftround`
 * `shiftwidth`
 * `smarttab`
 * `softtabstop`
