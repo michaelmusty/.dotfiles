@@ -234,6 +234,8 @@ nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
 nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
 nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
+" \H shows command history
+nnoremap <Bslash>H :<C-U>history :<CR>
 " \i toggles showing matches as I enter my pattern
 nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
