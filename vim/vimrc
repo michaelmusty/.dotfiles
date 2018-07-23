@@ -137,6 +137,9 @@ set splitright
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
 
+" No terminal mouse, even if we could
+set ttymouse=
+
 " Wildmenu settings; see also plugin/wildignore.vim
 set wildmenu                " Use wildmenu
 set wildmode=list:longest   " Tab press completes and lists
@@ -156,10 +159,7 @@ endif
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
-  set undodir^=~/.vim/cache/undo//
-  if has('win32') || has('win64')
-    set undodir^=~/vimfiles/cache/undo//
-  endif
+  set undodir^=~/.vim/cache/undo//,~/vimfiles/cache/undo//
 endif
 
 " Don't store any options or mappings in sessions
@@ -196,20 +196,17 @@ if exists(':xnoremap')
 endif
 
 " Cycle through argument list
-nnoremap [a :<C-U>previous<CR>
-nnoremap ]a :<C-U>next<CR>
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
 " Cycle through buffers
-nnoremap [b :<C-U>bprevious<CR>
-nnoremap ]b :<C-U>bnext<CR>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
 " Cycle through quicklist/:helpgrep items
-nnoremap [c :<C-U>cprevious<CR>
-nnoremap ]c :<C-U>cnext<CR>
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
 " Cycle through location list items
-nnoremap [l :<C-U>lprevious<CR>
-nnoremap ]l :<C-U>lnext<CR>
-" Cycle through tabs
-nnoremap [t :<C-U>tabprevious<CR>
-nnoremap ]t :<C-U>tabnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
 
 " Insert blank lines around current line
 nmap [<Space> <Plug>(PutBlankLinesAbove)
@@ -294,12 +291,21 @@ nnoremap <Bslash>= :<C-U>call vimrc#Anchor('1G=G')<CR>
 " \+ runs the whole buffer through gq, preserving position
 nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
 " \. runs the configured make program into the location list
-nnoremap <Bslash>. :<C-U>lmake!<Bar>:lwindow<CR>
+nnoremap <Bslash>. :<C-U>lmake!<CR>
 
 " \DEL deletes the current buffer
 nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
+
+" Always pop open quickfix and location lists when changed
+if exists('##QuickfixCmdPost')
+  augroup vimrc_quickfix
+    autocmd!
+    autocmd QuickfixCmdPost [^l]* cwindow
+    autocmd QuickfixCmdPost l* lwindow
+  augroup END
+endif
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
