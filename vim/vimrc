@@ -137,6 +137,9 @@ set splitright
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
 
+" No terminal mouse, even if we could
+set ttymouse=
+
 " Wildmenu settings; see also plugin/wildignore.vim
 set wildmenu                " Use wildmenu
 set wildmode=list:longest   " Tab press completes and lists
