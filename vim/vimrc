@@ -34,10 +34,10 @@ if has('syntax')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent    " Use indent of previous line on new lines
-set expandtab     " Use spaces instead of tabs
-set shiftwidth=4  " Indent with four spaces
-set softtabstop=4 " Insert four spaces with tab key
+set autoindent     " Use indent of previous line on new lines
+set expandtab      " Use spaces instead of tabs
+set shiftwidth=4   " Indent with four spaces
+set softtabstop=4  " Insert four spaces with tab key
 
 " Let me backspace over pretty much anything
 set backspace+=eol     " Line breaks
