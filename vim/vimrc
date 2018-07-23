@@ -294,7 +294,7 @@ nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
 nnoremap <Bslash>. :<C-U>lmake!<CR>
 
 " \DEL deletes the current buffer
-nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
+nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
