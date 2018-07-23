@@ -298,5 +298,14 @@ nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
+" Always pop open quickfix and location lists when changed
+if exists('##QuickfixCmdPost')
+  augroup vimrc_quickfix
+    autocmd!
+    autocmd QuickfixCmdPost [^l]* cwindow
+    autocmd QuickfixCmdPost l* lwindow
+  augroup END
+endif
+
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
