@@ -159,10 +159,7 @@ endif
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
-  set undodir^=~/.vim/cache/undo//
-  if has('win32') || has('win64')
-    set undodir^=~/vimfiles/cache/undo//
-  endif
+  set undodir^=~/.vim/cache/undo//,~/vimfiles/cache/undo//
 endif
 
 " Don't store any options or mappings in sessions
