@@ -199,17 +199,17 @@ if exists(':xnoremap')
 endif
 
 " Cycle through argument list
-nnoremap [a :<C-U>previous<CR>
-nnoremap ]a :<C-U>next<CR>
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
 " Cycle through buffers
-nnoremap [b :<C-U>bprevious<CR>
-nnoremap ]b :<C-U>bnext<CR>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
 " Cycle through quicklist/:helpgrep items
-nnoremap [c :<C-U>cprevious<CR>
-nnoremap ]c :<C-U>cnext<CR>
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
 " Cycle through location list items
-nnoremap [l :<C-U>lprevious<CR>
-nnoremap ]l :<C-U>lnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
 " Cycle through tabs
 nnoremap [t :<C-U>tabprevious<CR>
 nnoremap ]t :<C-U>tabnext<CR>
