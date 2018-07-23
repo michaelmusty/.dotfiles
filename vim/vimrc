@@ -34,10 +34,10 @@ if has('syntax')
 endif
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent    " Use indent of previous line on new lines
-set expandtab     " Use spaces instead of tabs
-set shiftwidth=4  " Indent with four spaces
-set softtabstop=4 " Insert four spaces with tab key
+set autoindent     " Use indent of previous line on new lines
+set expandtab      " Use spaces instead of tabs
+set shiftwidth=4   " Indent with four spaces
+set softtabstop=4  " Insert four spaces with tab key
 
 " Let me backspace over pretty much anything
 set backspace+=eol     " Line breaks
@@ -234,6 +234,8 @@ nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
 nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
 nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
+" \H shows command history
+nnoremap <Bslash>H :<C-U>history :<CR>
 " \i toggles showing matches as I enter my pattern
 nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
 " \j jumps to buffers (jetpack)
@@ -294,7 +296,7 @@ nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
 nnoremap <Bslash>. :<C-U>lmake!<CR>
 
 " \DEL deletes the current buffer
-nnoremap <Bslash><Delete> :<C-U>bdelete<CR>
+nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
