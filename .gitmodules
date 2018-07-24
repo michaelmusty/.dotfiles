@@ -5,6 +5,9 @@
 [submodule "vim/bundle/cmdwin_ctrlc"]
     path = vim/bundle/cmdwin_ctrlc
     url = https://sanctum.geek.nz/code/vim-cmdwin-ctrlc.git
+[submodule "vim/bundle/colon_operator"]
+    path = vim/bundle/colon_operator
+    url = https://sanctum.geek.nz/code/vim-colon-operator.git
 [submodule "vim/bundle/copy_linebreak"]
     path = vim/bundle/copy_linebreak
     url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
