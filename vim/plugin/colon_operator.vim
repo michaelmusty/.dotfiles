@@ -13,12 +13,24 @@ if v:version < 700
 endif
 let g:loaded_colon_operator = 1
 
-" Operator function starts typing an ex command with the operated range
-" pre-specified
+" Operator prompts for a command if it doesn't have one from a prior run, and
+" then runs the command on the selected text
 function! ColonOperator(type) abort
-  call feedkeys(':''[,'']', 'n')
+  if !exists('s:command')
+    let s:command = input('g:', '', 'command')
+  endif
+  execute 'normal! :''[,'']'.s:command."\<CR>"
+endfunction
+
+" Clear command so that we get prompted to input it, set operator function,
+" and return <expr> motions to run it
+function! ColonMap() abort
+  unlet! s:command
+  set operatorfunc=ColonOperator
+  return 'g@'
 endfunction
 
 " Set up mapping
-nnoremap <Plug>(ColonOperator)
-      \ :<C-U>set operatorfunc=ColonOperator<CR>g@
+nnoremap <expr> <silent> <unique>
+      \ <Plug>(ColonOperator)
+      \ ColonMap()
