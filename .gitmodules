@@ -29,6 +29,9 @@
 [submodule "vim/bundle/put_blank_lines"]
     path = vim/bundle/put_blank_lines
     url = https://sanctum.geek.nz/code/vim-put-blank-lines.git
+[submodule "vim/bundle/quickfix_auto_open"]
+    path = vim/bundle/quickfix_auto_open
+    url = https://sanctum.geek.nz/code/vim-quickfix-auto-open.git
 [submodule "vim/bundle/redact_pass"]
     path = vim/bundle/redact_pass
     url = https://sanctum.geek.nz/code/vim-redact-pass.git
