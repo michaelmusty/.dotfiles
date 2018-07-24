@@ -195,6 +195,9 @@ if exists(':xnoremap')
   xnoremap <silent> & :&&<CR>
 endif
 
+" Map g: as a 'colon operator'
+nmap g: <Plug>(ColonOperator)
+
 " Cycle through argument list
 nnoremap [a :previous<CR>
 nnoremap ]a :next<CR>
