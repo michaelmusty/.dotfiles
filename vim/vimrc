@@ -80,8 +80,8 @@ endif
 " Allow buffers to have changes without being displayed
 set hidden
 
-" Keep more command and search history
-set history=500
+" Keep much more command and search history
+set history=2000
 
 " Highlight completed searches; clear on reload
 set hlsearch
@@ -195,6 +195,9 @@ if exists(':xnoremap')
   xnoremap <silent> & :&&<CR>
 endif
 
+" Map g: as a 'colon operator'
+nmap g: <Plug>(ColonOperator)
+
 " Cycle through argument list
 nnoremap [a :previous<CR>
 nnoremap ]a :next<CR>
@@ -299,15 +302,6 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
-
-" Always pop open quickfix and location lists when changed
-if exists('##QuickfixCmdPost')
-  augroup vimrc_quickfix
-    autocmd!
-    autocmd QuickfixCmdPost [^l]* cwindow
-    autocmd QuickfixCmdPost l* lwindow
-  augroup END
-endif
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
