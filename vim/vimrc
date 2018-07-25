@@ -138,7 +138,7 @@ set splitright
 set timeoutlen=3000
 
 " No terminal mouse, even if we could
-set ttymouse=
+silent! set ttymouse=
 
 " Wildmenu settings; see also plugin/wildignore.vim
 set wildmenu                " Use wildmenu
