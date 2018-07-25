@@ -98,9 +98,6 @@ set incsearch
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
-" Don't show a statusline if there's only one window
-set laststatus=1
-
 " Don't redraw the screen during batch execution
 set lazyredraw
 
@@ -123,9 +120,6 @@ set nrformats-=octal
 " Options for file search with gf/:find
 set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
-
-" Disable the ruler
-set noruler
 
 " Don't show startup splash screen (I donated)
 set shortmess+=I
@@ -299,6 +293,11 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
+
+" If we're running NeoVim, source some extra configuration
+if has('nvim')
+  runtime nvim.vim
+endif
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
