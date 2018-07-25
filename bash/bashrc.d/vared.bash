@@ -25,6 +25,6 @@ vared() {
     fi
     local name
     for name ; do
-        IFS= read -e -i "${!name}" -p "${prompt:-"$name"=}" -r -- "$name"
+        IFS= read -e -i "${!name}" -p "${prompt:-"$name"=}" -r -- "${name?}"
     done
 }
