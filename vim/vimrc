@@ -189,12 +189,6 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 nnoremap <Space> <C-F>
 nnoremap <BS> <C-B>
 
-" Remap normal/visual & to preserve substitution flags
-nnoremap <silent> & :&&<CR>
-if exists(':xnoremap')
-  xnoremap <silent> & :&&<CR>
-endif
-
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
 
