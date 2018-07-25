@@ -124,6 +124,9 @@ set nrformats-=octal
 set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
 
+" Disable the ruler
+set noruler
+
 " Don't show startup splash screen (I donated)
 set shortmess+=I
 
