@@ -182,9 +182,8 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Remap normal space to scroll down a page, backspace up a page
+" Remap normal space to scroll down a page
 nnoremap <Space> <C-F>
-nnoremap <BS> <C-B>
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
