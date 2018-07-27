@@ -186,7 +186,7 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 nnoremap <Space> <C-F>
 if v:version > 700
   nnoremap <expr> <Space> line('.') == line('$') ? ':<C-U>next<CR>' : '<C-F>'
-else
+endif
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
