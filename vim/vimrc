@@ -58,6 +58,9 @@ silent! set breakindent
 " Clear default 'comments' value, let the filetype handle it
 set comments=
 
+" Give me a prompt instead of just rejecting risky :write, :saveas
+set confirm
+
 " Try to keep swapfiles in one system-appropriate dir
 set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
 
