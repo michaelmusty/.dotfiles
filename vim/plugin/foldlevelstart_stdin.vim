@@ -15,7 +15,7 @@ let g:loaded_foldlevelstart_stdin = 1
 
 " Check if 'foldlevelstart' is non-negative, and set 'foldlevel' to its value
 " if it is
-function! s:SetFoldlevel()
+function! s:SetFoldlevel() abort
   if &foldlevelstart >= 0
     let &l:foldlevel = &foldlevelstart
   endif
