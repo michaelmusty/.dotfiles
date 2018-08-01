@@ -321,7 +321,7 @@ nnoremap <Bslash><Insert> :<C-U>enew<CR>
 " \@ executes line in normal mode
 nnoremap <Bslash>@ g^"zy$@z
 " \: executes line in command mode
-nnoremap <Bslash>: g^"z:<C-R>z<CR>
+nnoremap <Bslash>: g^"zy$:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Bslash>! g^"zy$:!<C-R>z<CR>
 
