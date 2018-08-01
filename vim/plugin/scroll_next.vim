@@ -28,5 +28,5 @@ endfunction
 
 " Mapping setup
 nnoremap <silent> <unique>
-      \ <Plug>(ScrollNext) 
+      \ <Plug>(ScrollNext)
       \ :<C-U>call <SID>ScrollNext()<CR>
