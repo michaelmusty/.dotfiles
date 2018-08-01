@@ -313,6 +313,9 @@ nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
 
+" \@ executes the current line with 'shell'
+nnoremap <Bslash>@ :!<C-R>=getline('.')<CR><CR>
+
 " If we're running NeoVim, source some extra configuration
 if has('nvim')
   runtime nvim.vim
