@@ -176,6 +176,12 @@ if exists('+virtualedit')
   set virtualedit+=block
 endif
 
+" Swap buffer line vs screen row motions
+nnoremap j gj
+nnoremap gj j
+nnoremap k gk
+nnoremap gk k
+
 " Stack normal/visual/select Ctrl-L to clear search highlight
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
