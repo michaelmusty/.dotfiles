@@ -311,6 +311,11 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash>< :<C-U>'[,']<<CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
 
+" \/ types :vimgrep for me ready to enter a search pattern
+nnoremap <Bslash>/ :<C-U>vimgrep /\c/ **<S-Left><S-Left><Right>
+" \? types :helpgrep for me ready to enter a search pattern
+nnoremap <Bslash>? :<C-U>helpgrep \c<S-Left>
+
 " \DEL deletes the current buffer
 nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
