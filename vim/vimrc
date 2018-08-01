@@ -58,10 +58,6 @@ silent! set breakindent
 " Clear default 'comments' value, let the filetype handle it
 set comments=
 
-" Add completion options
-set completeopt+=longest  " Insert longest common substring
-set completeopt+=menuone  " Show the menu even if only one match
-
 " Try to keep swapfiles in one system-appropriate dir
 set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
 
@@ -145,6 +141,12 @@ silent! set ttymouse=
 set wildmenu                " Use wildmenu
 set wildmode=list:longest   " Tab press completes and lists
 silent! set wildignorecase  " Case insensitive, if supported
+
+" Add completion options
+if exists('+completeopt')
+  set completeopt+=longest  " Insert longest common substring
+  set completeopt+=menuone  " Show the menu even if only one match
+endif
 
 " Fold based on indent, but only when I ask
 if has('folding')
