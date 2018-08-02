@@ -58,6 +58,9 @@ silent! set breakindent
 " Clear default 'comments' value, let the filetype handle it
 set comments=
 
+" Give me a prompt instead of just rejecting risky :write, :saveas
+set confirm
+
 " Try to keep swapfiles in one system-appropriate dir
 set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
 
@@ -142,6 +145,12 @@ set wildmenu                " Use wildmenu
 set wildmode=list:longest   " Tab press completes and lists
 silent! set wildignorecase  " Case insensitive, if supported
 
+" Add completion options
+if exists('+completeopt')
+  set completeopt+=longest  " Insert longest common substring
+  set completeopt+=menuone  " Show the menu even if only one match
+endif
+
 " Fold based on indent, but only when I ask
 if has('folding')
   set foldlevelstart=99
@@ -182,9 +191,18 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Remap normal space to scroll down a page, backspace up a page
+" Remap normal space to scroll down a page
 nnoremap <Space> <C-F>
-nnoremap <BS> <C-B>
+" If we have plugins, do a :next after hitting the last line
+if &loadplugins
+  nmap <Space> <Plug>(ScrollNext)
+endif
+
+" Remap normal/visual & to preserve substitution flags
+nnoremap <silent> & :&&<CR>
+if exists(':xnoremap')
+  xnoremap <silent> & :&&<CR>
+endif
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
@@ -289,10 +307,28 @@ nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
 " \. runs the configured make program into the location list
 nnoremap <Bslash>. :<C-U>lmake!<CR>
 
+" \< and \> adjusts indent of last edit; good for pasting
+nnoremap <Bslash>< :<C-U>'[,']<<CR>
+nnoremap <Bslash>> :<C-U>'[,']><CR>
+
+" \/ types :vimgrep for me ready to enter a search pattern
+nnoremap <Bslash>/ :<C-U>vimgrep /\c/ **<S-Left><S-Left><Right>
+" \? types :helpgrep for me ready to enter a search pattern
+nnoremap <Bslash>? :<C-U>helpgrep \c<S-Left>
+
 " \DEL deletes the current buffer
 nnoremap <Bslash><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Bslash><Insert> :<C-U>enew<CR>
+
+" Execution mappings; each of these clobbers register z
+
+" \@ executes line in normal mode
+nnoremap <Bslash>@ g^"zyg_@z
+" \: executes line in command mode
+nnoremap <Bslash>: g^"zyg_:<C-R>z<CR>
+" \! executes line with 'shell'
+nnoremap <Bslash>! g^"zyg_:!<C-R>z<CR>
 
 " If we're running NeoVim, source some extra configuration
 if has('nvim')
