@@ -78,7 +78,7 @@ if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
 endif
 
 " Add boilerplate intelligently
-nnoremap <buffer> <LocalLeader>b
+nnoremap <buffer> <silent> <LocalLeader>b
       \ :<C-U>call <SID>Boilerplate()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>b'
 
