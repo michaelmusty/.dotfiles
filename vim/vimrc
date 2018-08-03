@@ -266,7 +266,7 @@ nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
 nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>(PasteOpenBelow)
-" \o opens a line above in paste mode
+" \O opens a line above in paste mode
 nmap <Bslash>O <Plug>(PasteOpenAbove)
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
