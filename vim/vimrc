@@ -307,8 +307,8 @@ nnoremap <Bslash>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
 " \. runs the configured make program into the location list
 nnoremap <Bslash>. :<C-U>lmake!<CR>
 
-" \< and \> adjusts indent of last edit; good for pasting
-nnoremap <Bslash>< :<C-U>'[,']<<CR>
+" \< and \> adjust indent of last edit; good for pasting
+nnoremap <Bslash><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
 
 " \/ types :vimgrep for me ready to enter a search pattern
