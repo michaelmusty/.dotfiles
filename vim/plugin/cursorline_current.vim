@@ -56,23 +56,17 @@ endfunction
 
 " Set up hooks for toggling 'cursorline'
 augroup cursorline_current
-    autocmd!
+  autocmd!
 
-    " Turn off 'cursorline' for other windows on load
-    if exists('##VimEnter')
-      autocmd VimEnter * call s:Load()
-    endif
+  " Turn off 'cursorline' for other windows on load
+  autocmd VimEnter * call s:Load()
 
-    " Turn off 'cursorline' when leaving a window
-    if exists('##WinEnter') && exists('##WinLeave')
-      autocmd WinLeave * call s:Suspend()
-      autocmd WinEnter * call s:Restore()
-    endif
+  " Turn off 'cursorline' when leaving a window
+  autocmd WinLeave * call s:Suspend()
+  autocmd WinEnter * call s:Restore()
 
-    " Turn off 'cursorline' when in insert mode
-    if exists('##InsertEnter') && exists('##InsertLeave')
-      autocmd InsertEnter * call s:Suspend()
-      autocmd InsertLeave * call s:Restore()
-    endif
+  " Turn off 'cursorline' when in insert mode
+  autocmd InsertEnter * call s:Suspend()
+  autocmd InsertLeave * call s:Restore()
 
 augroup END
