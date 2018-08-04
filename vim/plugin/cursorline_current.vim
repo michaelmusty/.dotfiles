@@ -66,7 +66,10 @@ augroup cursorline_current
   autocmd WinEnter * call s:Restore()
 
   " Turn off 'cursorline' when in insert mode
-  autocmd InsertEnter * call s:Suspend()
-  autocmd InsertLeave * call s:Restore()
+  " Check g:cursorline_current_insert, in case the user doesn't want it
+  if get(g:, 'cursorline_current_insert', 1)
+    autocmd InsertEnter * call s:Suspend()
+    autocmd InsertLeave * call s:Restore()
+  endif
 
 augroup END
