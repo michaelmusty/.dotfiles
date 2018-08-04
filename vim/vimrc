@@ -61,6 +61,11 @@ set comments=
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
+" Only turn on 'cursorline' if my colorscheme loaded
+if exists('g:colors_name') && g:colors_name ==# 'sahara'
+  set cursorline
+endif
+
 " Try to keep swapfiles in one system-appropriate dir
 set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
 
