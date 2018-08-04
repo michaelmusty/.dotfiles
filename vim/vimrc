@@ -256,9 +256,9 @@ nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
 nnoremap <Bslash>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>setlocal list! list?<CR>
-" \m shows all maps
+" \m shows normal maps
 nnoremap <Bslash>m :<C-U>map<CR>
-" \M shows buffer-local maps
+" \M shows buffer-local normal maps
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
