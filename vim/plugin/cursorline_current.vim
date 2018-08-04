@@ -44,7 +44,8 @@ function! s:Load() abort
   " Iterate through all the windows and suspend all but the current one
   for l:wnum in range(1, winnr('$'))
     if l:wnum != l:wcur
-      execute l:wnum . 'windo call s:Suspend()'
+      execute l:wnum . 'wincmd w'
+      call s:Suspend()
     endif
   endfor
 
