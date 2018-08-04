@@ -11,6 +11,9 @@
 [submodule "vim/bundle/copy_linebreak"]
     path = vim/bundle/copy_linebreak
     url = https://sanctum.geek.nz/code/vim-copy-linebreak.git
+[submodule "vim/bundle/cursorline_current"]
+    path = vim/bundle/cursorline_current
+    url = https://sanctum.geek.nz/code/vim-cursorline-current.git
 [submodule "vim/bundle/digraph_search"]
     path = vim/bundle/digraph_search
     url = https://sanctum.geek.nz/code/vim-digraph-search.git
