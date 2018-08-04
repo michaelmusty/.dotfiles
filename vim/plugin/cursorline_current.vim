@@ -9,7 +9,7 @@
 if exists('g:loaded_cursorline_current') || &compatible
   finish
 endif
-if !has('autocmd') || !has('windows')
+if !has('autocmd') || !has('windows') || v:version < 700
   finish
 endif
 let g:loaded_cursorline_current = 1
