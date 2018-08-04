@@ -33,3 +33,16 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
       \ . '|nunmap <buffer> <LocalLeader>Q'
       \ . '|nunmap <buffer> <LocalLeader>QQ'
       \ . '|xunmap <buffer> <LocalLeader>Q'
+
+" Flag a message as unimportant
+function! s:FlagUnimportant()
+  call cursor(1, 1)
+  call search('^$')
+  -
+  call append(line('.'), 'X-Priority: 5')
+  call append(line('.'), 'Importance: Low')
+endfunction
+nnoremap <buffer>
+      \ <LocalLeader>l
+      \ <C-U>:call <SID>FlagUnimportant()<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
