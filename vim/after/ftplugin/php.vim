@@ -13,6 +13,10 @@ setlocal comments=s1:/*,m:*,ex:*/,://,:#
 setlocal formatoptions+=or
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
+" Use pman as 'keywordprg'
+setlocal keywordprg=pman
+let b:undo_ftplugin .= '|setlocal keywordprg<'
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_php_maps')
   finish

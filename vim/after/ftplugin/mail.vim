@@ -3,11 +3,26 @@ if &filetype !=# 'mail' || &compatible || v:version < 700
   finish
 endif
 
-" We will almost always want to start editing after the headers, so move to
-" the first entirely blank line, if something hasn't already moved us from the
-" start of the file
+" If something hasn't already moved the cursor, we'll move to an optimal point
+" to start writing
 if line('.') == 1 && col('.') == 1
-  call search('\m^$', 'c')
+
+  " Start by trying to move to the first quoted line; this may fail if there's
+  " no quote, which is fine
+  call search('\m^>', 'c')
+
+  " Check this line to see if it's a generic hello-name greeting that we can
+  " just strip out; delete the following line too, if it's blank
+  if getline('.') =~? '^>\s*\%(<hello\|hi\)\s\+\S\+\s*$'
+    delete
+    if getline('.') =~# '^>$'
+      delete
+    endif
+  endif
+
+  " Now move to the first quoted or unquoted blank line
+  call search('\m^>\=$', 'c')
+
 endif
 
 " Add a space to the end of wrapped lines for format-flowed mail
