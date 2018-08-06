@@ -113,11 +113,11 @@ set lazyredraw
 set linebreak
 
 " Define extra 'list' display characters
-set listchars^=extends:>       " Unwrapped text to screen right
-set listchars^=precedes:<      " Unwrapped text to screen left
-set listchars^=tab:>-          " Tab characters, preserve width
-set listchars^=trail:_         " Trailing spaces
-silent! set listchars^=nbsp:+  " Non-breaking spaces
+set listchars+=extends:>       " Unwrapped text to screen right
+set listchars+=precedes:<      " Unwrapped text to screen left
+set listchars+=tab:>-          " Tab characters, preserve width
+set listchars+=trail:_         " Trailing spaces
+silent! set listchars+=nbsp:+  " Non-breaking spaces
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -127,7 +127,7 @@ set nrformats-=octal
 
 " Options for file search with gf/:find
 set path-=/usr/include  " Let the C/C++ filetypes set that
-set path^=**            " Search current directory's whole tree
+set path+=**            " Search current directory's whole tree
 
 " Don't show startup splash screen (I donated)
 set shortmess+=I
