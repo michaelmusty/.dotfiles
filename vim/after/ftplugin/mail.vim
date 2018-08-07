@@ -61,3 +61,11 @@ nnoremap <buffer>
       \ <LocalLeader>l
       \ <C-U>:call <SID>FlagUnimportant()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+
+" Maps to move to the next blank line content-wise (i.e. quoted still counts)
+nnoremap <buffer> <silent> <LocalLeader>[
+      \ :<C-U>call search('\m^[ >]*$', 'bW')<CR>
+nnoremap <buffer> <silent> <LocalLeader>]
+      \ :<C-U>call search('\m^[ >]*$', 'W')<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
+      \ . '|nunmap <buffer> <LocalLeader>]'
