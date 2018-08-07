@@ -202,6 +202,9 @@ in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
     * `ud()` changes into an indexed ancestor of a directory.
     * `vr()` tries to change to the root directory of a source control
       repository.
+* Two editor wrapper functions:
+    * `e()` invokes `$EDITOR`, or `ed(1)` if not set.
+    * `v()` invokes `$VISUAL`, or `vi(1)` if not set.
 * `bc()` silences startup messages from GNU `bc(1)`.
 * `ed()` tries to get verbose error messages, a prompt, and a Readline
   environment for `ed(1)`.
