@@ -67,5 +67,11 @@ nnoremap <buffer> <silent> <LocalLeader>[
       \ :<C-U>call search('\m^[ >]*$', 'bW')<CR>
 nnoremap <buffer> <silent> <LocalLeader>]
       \ :<C-U>call search('\m^[ >]*$', 'W')<CR>
+onoremap <buffer> <silent> <LocalLeader>[
+      \ :<C-U>call search('\m^[ >]*$', 'bW')<CR>
+onoremap <buffer> <silent> <LocalLeader>]
+      \ :<C-U>call search('\m^[ >]*$', 'W')<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
       \ . '|nunmap <buffer> <LocalLeader>]'
+      \ . '|ounmap <buffer> <LocalLeader>['
+      \ . '|ounmap <buffer> <LocalLeader>]'
