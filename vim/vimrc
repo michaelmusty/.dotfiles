@@ -62,8 +62,10 @@ set comments=
 set confirm
 
 " Only turn on 'cursorline' if my colorscheme loaded
-if exists('g:colors_name') && g:colors_name ==# 'sahara'
-  set cursorline
+if exists('+cursorline')
+  if exists('g:colors_name') && g:colors_name ==# 'sahara'
+    set cursorline
+  endif
 endif
 
 " Try to keep swapfiles in one system-appropriate dir
