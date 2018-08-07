@@ -72,6 +72,10 @@ augroup filetypedetect
         \ .htaccess
         \,*/apache*/?*.conf
         \ setfiletype apache
+  " Assembly language files
+  autocmd BufNewFile,BufRead
+        \ ?*.s
+        \ setfiletype asm
   " AWK files
   autocmd BufNewFile,BufRead
         \ ?*.awk
