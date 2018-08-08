@@ -61,3 +61,59 @@ nnoremap <buffer>
       \ <LocalLeader>l
       \ <C-U>:call <SID>FlagUnimportant()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+
+" Move through quoted paragraphs like normal-mode `{` and `}`
+function! s:NewBlank(start, count, up) abort
+
+  " Flag for whether we've started a block
+  let l:block = 0
+
+  " Flag for the number of blocks passed
+  let l:blocks = 0
+
+  " Iterate through buffer lines
+  let l:num = a:start
+  while l:num > 0 && l:num <= line('$')
+
+    " If the line is blank
+    if getline(l:num) =~# '^[ >]*$'
+
+      " If we'd moved through a non-blank block already, reset that flag and
+      " bump up the block count
+      if l:block
+        let l:block = 0
+        let l:blocks += 1
+      endif
+
+      " If we've hit the number of blocks, end the loop
+      if l:blocks == a:count
+        break
+      endif
+
+    " If the line is not blank, flag that we're going through a block
+    else
+      let l:block = 1
+    endif
+
+    " Move the line number or up or down depending on direction
+    let l:num += a:up ? -1 : 1
+  endwhile
+
+  " Move to line (needs jumps and marks setting)
+  execute 'normal '.l:num.'G'
+
+endfunction
+
+" Maps using NewBlank() function above for quoted paragraph movement
+nnoremap <buffer> <silent> <LocalLeader>[
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
+nnoremap <buffer> <silent> <LocalLeader>]
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
+onoremap <buffer> <silent> <LocalLeader>[
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
+onoremap <buffer> <silent> <LocalLeader>]
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
+      \ . '|nunmap <buffer> <LocalLeader>]'
+      \ . '|ounmap <buffer> <LocalLeader>['
+      \ . '|ounmap <buffer> <LocalLeader>]'
