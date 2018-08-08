@@ -63,29 +63,34 @@ nnoremap <buffer>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
 
 " Maps to move to the next blank line content-wise (i.e. quoted still counts)
-function! s:NewBlank(num, up) abort
-  let l:num = a:num
-  let l:par = 0
+function! s:NewBlank(start, count, up) abort
+  let l:block = 0
+  let l:blocks = 0
+  let l:num = a:start
   while l:num > 0 && l:num <= line('$')
     if getline(l:num) =~# '^[ >]*$'
-      if l:par
+      if l:block
+        let l:block = 0
+        let l:blocks += 1
+      endif
+      if l:blocks == a:count
         break
       endif
     else
-      let l:par = 1
+      let l:block = 1
     endif
     let l:num += a:up ? -1 : 1
   endwhile
   execute l:num
 endfunction
 nnoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call <SID>NewBlank(line('.'), 1)<CR>
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
 nnoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call <SID>NewBlank(line('.'), 0)<CR>
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
 onoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call <SID>NewBlank(line('.'), 1)<CR>
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
 onoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call <SID>NewBlank(line('.'), 0)<CR>
+      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
       \ . '|nunmap <buffer> <LocalLeader>]'
       \ . '|ounmap <buffer> <LocalLeader>['
