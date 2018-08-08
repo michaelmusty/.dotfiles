@@ -100,7 +100,7 @@ function! s:NewBlank(start, count, up) abort
   endwhile
 
   " Move to line (needs jumps and marks setting)
-  execute l:num
+  execute 'normal '.l:num.'G'
 
 endfunction
 
