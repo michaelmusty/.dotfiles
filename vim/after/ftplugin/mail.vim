@@ -63,7 +63,12 @@ nnoremap <buffer>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
 
 " Move through quoted paragraphs like normal-mode `{` and `}`
-function! s:NewBlank(start, count, up) abort
+function! s:NewBlank(count, up, visual) abort
+
+  " Reselect visual selection
+  if a:visual
+    normal! gv
+  endif
 
   " Flag for whether we've started a block
   let l:block = 0
@@ -72,7 +77,7 @@ function! s:NewBlank(start, count, up) abort
   let l:blocks = 0
 
   " Iterate through buffer lines
-  let l:num = a:start
+  let l:num = line('.')
   while l:num > 0 && l:num <= line('$')
 
     " If the line is blank
@@ -109,14 +114,20 @@ endfunction
 
 " Maps using NewBlank() function above for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
+      \ :<C-U>call <SID>NewBlank(v:count1, 1, 0)<CR>
 nnoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
+      \ :<C-U>call <SID>NewBlank(v:count1, 0, 0)<CR>
 onoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 1)<CR>
+      \ :<C-U>call <SID>NewBlank(v:count1, 1, 0)<CR>
 onoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call <SID>NewBlank(line('.'), v:count1, 0)<CR>
+      \ :<C-U>call <SID>NewBlank(v:count1, 0, 0)<CR>
+xnoremap <buffer> <silent> <LocalLeader>[
+      \ :<C-U>call <SID>NewBlank(v:count1, 1, 1)<CR>
+xnoremap <buffer> <silent> <LocalLeader>]
+      \ :<C-U>call <SID>NewBlank(v:count1, 0, 1)<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
       \ . '|nunmap <buffer> <LocalLeader>]'
       \ . '|ounmap <buffer> <LocalLeader>['
       \ . '|ounmap <buffer> <LocalLeader>]'
+      \ . '|xunmap <buffer> <LocalLeader>['
+      \ . '|xunmap <buffer> <LocalLeader>]'
