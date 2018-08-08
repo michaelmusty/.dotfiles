@@ -78,7 +78,7 @@ function! s:NewBlank(count, up, visual) abort
 
   " Iterate through buffer lines
   let l:num = line('.')
-  while l:num > 0 && l:num <= line('$')
+  while a:up ? l:num > 1 : l:num < line('$')
 
     " If the line is blank
     if getline(l:num) =~# '^[ >]*$'
@@ -106,7 +106,7 @@ function! s:NewBlank(count, up, visual) abort
   endwhile
 
   " Move to line if nonzero and not equal to the current line
-  if l:num && l:num != line('.')
+  if l:num != line('.')
     execute 'normal '.l:num.'G'
   endif
 
