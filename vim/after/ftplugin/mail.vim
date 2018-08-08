@@ -97,6 +97,7 @@ function! s:NewBlank(start, count, up) abort
 
     " Move the line number or up or down depending on direction
     let l:num += a:up ? -1 : 1
+
   endwhile
 
   " Move to line if nonzero and not equal to the current line
