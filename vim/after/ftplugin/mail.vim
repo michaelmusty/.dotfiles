@@ -97,10 +97,13 @@ function! s:NewBlank(start, count, up) abort
 
     " Move the line number or up or down depending on direction
     let l:num += a:up ? -1 : 1
+
   endwhile
 
-  " Move to line (needs jumps and marks setting)
-  execute 'normal '.l:num.'G'
+  " Move to line if nonzero and not equal to the current line
+  if l:num && l:num != line('.')
+    execute 'normal '.l:num.'G'
+  endif
 
 endfunction
 
