@@ -66,7 +66,7 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
 function! s:NewBlank(num, up) abort
   let l:num = a:num
   let l:par = 0
-  while l:num <= line('$')
+  while l:num > 0 && l:num <= line('$')
     if getline(l:num) =~# '^[ >]*$'
       if l:par
         break
