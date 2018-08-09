@@ -318,6 +318,16 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
 
+" \{ and \} move to lines with non-space chars before current column
+nmap <Bslash>{ <Plug>(VerticalRegionUpNormal)
+nmap <Bslash>} <Plug>(VerticalRegionDownNormal)
+omap <Bslash>{ <Plug>(VerticalRegionUpOperator)
+omap <Bslash>} <Plug>(VerticalRegionDownOperator)
+if exists(':xmap')
+  xmap <Bslash>{ <Plug>(VerticalRegionUpVisual)
+  xmap <Bslash>} <Plug>(VerticalRegionDownVisual)
+endif
+
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Bslash>/ :<C-U>vimgrep /\c/ **<S-Left><S-Left><Right>
 " \? types :helpgrep for me ready to enter a search pattern
