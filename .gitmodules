@@ -50,6 +50,9 @@
 [submodule "vim/bundle/uncap_ex"]
     path = vim/bundle/uncap_ex
     url = https://sanctum.geek.nz/code/vim-uncap-ex.git
+[submodule "vim/bundle/vertical_region"]
+    path = vim/bundle/vertical_region
+    url = https://sanctum.geek.nz/code/vim-vertical-region.git
 [submodule "vim/bundle/vimrc_reload_filetype"]
     path = vim/bundle/vimrc_reload_filetype
     url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
