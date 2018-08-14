@@ -4,6 +4,13 @@ if &compatible || v:version < 700
   finish
 endif
 
+" Remove g:is_posix if we resorted to it in order to get correct POSIX sh
+" highlighting with older Vim runtime files
+if exists('g:is_posix')
+      \ && (v:version < 800 || v:version == 800 && !has('patch257'))
+  unlet g:is_posix
+endif
+
 " If we know we have another shell type, clear away the others completely, now
 " that core syntax/sh.vim is done prodding /bin/sh to determine the system
 " shell type (which I don't care about).
