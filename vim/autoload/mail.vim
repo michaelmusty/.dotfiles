@@ -1,5 +1,5 @@
 " Flag a message as unimportant
-function! mail#FlagUnimportant()
+function! mail#FlagUnimportant() abort
   call cursor(1, 1)
   call search('^$')
   -
