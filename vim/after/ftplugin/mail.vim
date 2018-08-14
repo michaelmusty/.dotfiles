@@ -13,7 +13,7 @@ if line('.') == 1 && col('.') == 1
 
   " Check this line to see if it's a generic hello-name greeting that we can
   " just strip out; delete the following line too, if it's blank
-  if getline('.') =~? '^>\s*\%(<hello\|hi\)\s\+\S\+\s*$'
+  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\s\+\S\+\s*$'
     delete
     if getline('.') =~# '^>$'
       delete
