@@ -34,26 +34,32 @@ if exists('g:no_plugin_maps') || exists('g:no_mail_maps')
   finish
 endif
 
-" The quote mapping in the stock plugin is a good idea, but I prefer it to
-" work as a motion rather than quoting to the end of the buffer
-nnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
-nnoremap <buffer> <expr> <LocalLeader>qq quote#Quote().'_'
-xnoremap <buffer> <expr> <LocalLeader>q quote#Quote()
-nnoremap <buffer> <expr> <LocalLeader>Q quote#QuoteReformat()
-nnoremap <buffer> <expr> <LocalLeader>QQ quote#QuoteReformat().'_'
-xnoremap <buffer> <expr> <LocalLeader>Q quote#QuoteReformat()
+" Flag a message as unimportant
+nnoremap <buffer> <LocalLeader>l
+      \ <C-U>:call mail#FlagUnimportant()<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+
+" Quote operator
+nnoremap <buffer> <expr> <LocalLeader>q
+      \ quote#Quote()
+nnoremap <buffer> <expr> <LocalLeader>qq
+      \ quote#Quote().'_'
+xnoremap <buffer> <expr> <LocalLeader>q
+      \ quote#Quote()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
       \ . '|nunmap <buffer> <LocalLeader>qq'
       \ . '|xunmap <buffer> <LocalLeader>q'
-      \ . '|nunmap <buffer> <LocalLeader>Q'
+
+" Quote operator with reformatting
+nnoremap <buffer> <expr> <LocalLeader>Q
+      \ quote#QuoteReformat()
+nnoremap <buffer> <expr> <LocalLeader>QQ
+      \ quote#QuoteReformat().'_'
+xnoremap <buffer> <expr> <LocalLeader>Q
+      \ quote#QuoteReformat()
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|nunmap <buffer> <LocalLeader>QQ'
       \ . '|xunmap <buffer> <LocalLeader>Q'
-
-" Flag a message as unimportant
-nnoremap <buffer>
-      \ <LocalLeader>l
-      \ <C-U>:call mail#FlagUnimportant()<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
 
 " Maps using NewBlank() function above for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[
