@@ -12,12 +12,12 @@ if line('.') == 1 && col('.') == 1
   call search('\m^>', 'c')
 
   " Check this line to see if it's a generic hello-name greeting that we can
-  " just strip out; delete the following line too, if it's blank
+  " just strip out; delete any following lines too, if they're blank
   if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\s\+\S\+\s*$'
     delete
-    if getline('.') =~# '^>$'
+    while getline('.') =~# '^>$'
       delete
-    endif
+    endwhile
   endif
 
   " Now move to the first quoted or unquoted blank line
