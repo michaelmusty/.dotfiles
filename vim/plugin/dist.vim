@@ -3,7 +3,6 @@
 let g:loaded_getscriptPlugin = 1
 let g:loaded_vimballPlugin = 1
 " Vim is the wrong tool for reading archives or compressed text
-let g:loaded_gzip = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
 " I prefer filtering text with Unix tools
