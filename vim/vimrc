@@ -53,8 +53,8 @@ if has('win32') || has('win64')
 endif
 
 " Add some paths not to back up
-set backupskip^=/dev/shm/*
-set backupskip^=/var/tmp/*
+set backupskip^=/dev/shm/*  " Shared memory RAM disk
+set backupskip^=/var/tmp/*  " Debian's $TMPDIR for sudoedit(8)
 
 " Indent wrapped lines
 silent! set breakindent
@@ -187,10 +187,10 @@ if has('persistent_undo')
   endif
 endif
 
-" Don't store any options or mappings in sessions
+" Make sessions usable
 if exists('+sessionoptions')
-  set sessionoptions-=localoptions
-  set sessionoptions-=options
+  set sessionoptions-=localoptions  " No buffer options or mappings
+  set sessionoptions-=options       " No global options or mappings
 endif
 
 " Let me move beyond buffer text in visual block mode
