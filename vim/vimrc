@@ -46,7 +46,11 @@ set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir
 set backup
-set backupdir^=~/.vim/cache/backup,~/vimfiles/cache/backup
+set backupdir^=~/.vim/cache/backup
+if has('win32') || has('win64')
+  set backupdir-=~/.vim/cache/backup
+  set backupdir^=~/vimfiles/cache/backup
+endif
 
 " Add some paths not to back up
 set backupskip^=/dev/shm/*
@@ -69,7 +73,11 @@ if exists('+cursorline')
 endif
 
 " Try to keep swapfiles in one system-appropriate dir
-set directory^=~/.vim/cache/swap//,~/vimfiles/cache/swap//
+set directory^=~/.vim/cache/swap//
+if has('win32') || has('win64')
+  set directory-=~/.vim/cache/swap//
+  set directory^=~/vimfiles/cache/swap//
+endif
 
 " Use UTF-8 if we can and env LANG didn't tell us not to
 if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
@@ -172,7 +180,11 @@ endif
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
-  set undodir^=~/.vim/cache/undo//,~/vimfiles/cache/undo//
+  set undodir^=~/.vim/cache/undo//
+  if has('win32') || has('win64')
+    set undodir-=~/.vim/cache/undo//
+    set undodir^=~/vimfiles/cache/undo//
+  endif
 endif
 
 " Don't store any options or mappings in sessions
