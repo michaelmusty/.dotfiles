@@ -17,6 +17,9 @@
 [submodule "vim/bundle/digraph_search"]
     path = vim/bundle/digraph_search
     url = https://sanctum.geek.nz/code/vim-digraph-search.git
+[submodule "vim/bundle/equalalways_resized"]
+    path = vim/bundle/equalalways_resized
+    url = https://sanctum.geek.nz/code/vim-equalalways-resized.git
 [submodule "vim/bundle/foldlevelstart_stdin"]
     path = vim/bundle/foldlevelstart_stdin
     url = https://sanctum.geek.nz/code/vim-foldlevelstart-stdin.git
