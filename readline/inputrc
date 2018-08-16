@@ -77,6 +77,9 @@ $if Bash
     # Alt-M (for muxer) to run tm(1df)
     "\em": "\C-utm\C-j\C-y"
 
+    # Alt-' for escaped single-quote: 'don'\''t fear the reaper'
+    "\e'": "'\\''"
+
     # Ctrl-Alt-B to move backward a shell-quoted word
     "\e\C-b": shell-backward-word
     # Ctrl-Alt-F to move forward a shell-quoted word
