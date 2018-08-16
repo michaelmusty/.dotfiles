@@ -4,9 +4,11 @@ if &filetype !=# 'vim' || v:version < 700 || &compatible
 endif
 
 " Use Vint as a syntax checker
-compiler vint
-let b:undo_ftplugin .= '|unlet b:current_compiler'
-      \ . '|setlocal errorformat< makeprg<'
+if bufname('%') !=# 'command-line'
+  compiler vint
+  let b:undo_ftplugin .= '|unlet b:current_compiler'
+        \ . '|setlocal errorformat< makeprg<'
+endif
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
@@ -19,7 +21,9 @@ nnoremap <buffer> <LocalLeader>K
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>K'
 
 " Get rid of the core ftplugin's square-bracket maps on unload
-let b:undo_ftplugin .= '|nunmap <buffer> [['
+" 8.1.273 updated the runtime files to include a fix for this
+if v:version < 801 || v:version == 801 && !has('patch273')
+  let b:undo_ftplugin .= '|nunmap <buffer> [['
       \ . '|vunmap <buffer> [['
       \ . '|nunmap <buffer> ]]'
       \ . '|vunmap <buffer> ]]'
@@ -31,3 +35,4 @@ let b:undo_ftplugin .= '|nunmap <buffer> [['
       \ . '|vunmap <buffer> ]"'
       \ . '|nunmap <buffer> ["'
       \ . '|vunmap <buffer> ["'
+endif

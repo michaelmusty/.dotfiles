@@ -3,6 +3,12 @@ if &filetype !=# 'help' || v:version < 700
   finish
 endif
 
+" This variable had the wrong name before Vim 7.1
+if v:version == 700 && exists('b:undo_plugin')
+  let b:undo_ftplugin = b:undo_plugin
+  unlet b:undo_plugin
+endif
+
 " If the buffer is modifiable and writable, we're writing documentation, not
 " reading it; don't conceal characters
 if has('conceal') && &modifiable && !&readonly
