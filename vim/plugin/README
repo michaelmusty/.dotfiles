@@ -1,0 +1,3 @@
+Most of my plugins are in submodules in vim/bundle. This directory, vim/plugin,
+is for new plugins as they're being developed and tested, or for stuff specific
+to my configuration that isn't worth packaging as its own distribution.
