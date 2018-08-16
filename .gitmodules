@@ -17,6 +17,9 @@
 [submodule "vim/bundle/digraph_search"]
     path = vim/bundle/digraph_search
     url = https://sanctum.geek.nz/code/vim-digraph-search.git
+[submodule "vim/bundle/foldlevelstart_stdin"]
+    path = vim/bundle/foldlevelstart_stdin
+    url = https://sanctum.geek.nz/code/vim-foldlevelstart-stdin.git
 [submodule "vim/bundle/insert_cancel"]
     path = vim/bundle/insert_cancel
     url = https://sanctum.geek.nz/code/vim-insert-cancel.git
