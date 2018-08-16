@@ -4,9 +4,11 @@ if &filetype !=# 'vim' || v:version < 700 || &compatible
 endif
 
 " Use Vint as a syntax checker
-compiler vint
-let b:undo_ftplugin .= '|unlet b:current_compiler'
-      \ . '|setlocal errorformat< makeprg<'
+if bufname('%') !=# 'command-line'
+  compiler vint
+  let b:undo_ftplugin .= '|unlet b:current_compiler'
+        \ . '|setlocal errorformat< makeprg<'
+endif
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
