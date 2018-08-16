@@ -66,6 +66,12 @@ silent! set breakindent
 " Clear default 'comments' value, let the filetype handle it
 set comments=
 
+" Add completion options
+if exists('+completeopt')
+  set completeopt+=longest  " Insert longest common substring
+  set completeopt+=menuone  " Show the menu even if only one match
+endif
+
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
@@ -91,12 +97,23 @@ endif
 " Don't wait for a key after Escape in insert mode
 silent! set noesckeys
 
+" Fold based on indent, but only when I ask
+if has('folding')
+  set foldlevelstart=99
+  set foldmethod=indent
+endif
+
 " Delete comment leaders when joining lines, if supported
 silent! set formatoptions+=j
 
 " If available, use GNU grep niceties for searching
 if system('grep --version') =~# '^grep (GNU grep)'
   set grepprg=grep\ -HnRs\ --exclude='.git*'
+endif
+
+" Don't load GUI menus; set here before GUI starts
+if has('gui_running')
+  set guioptions+=M
 endif
 
 " Allow buffers to have changes without being displayed
@@ -143,6 +160,12 @@ set nrformats-=octal
 set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
 
+" Make sessions usable
+if exists('+sessionoptions')
+  set sessionoptions-=localoptions  " No buffer options or mappings
+  set sessionoptions-=options       " No global options or mappings
+endif
+
 " Don't show startup splash screen (I donated)
 set shortmess+=I
 
@@ -159,28 +182,6 @@ set timeoutlen=3000
 " No terminal mouse, even if we could
 silent! set ttymouse=
 
-" Wildmenu settings; see also plugin/wildignore.vim
-set wildmenu                " Use wildmenu
-set wildmode=list:longest   " Tab press completes and lists
-silent! set wildignorecase  " Case insensitive, if supported
-
-" Add completion options
-if exists('+completeopt')
-  set completeopt+=longest  " Insert longest common substring
-  set completeopt+=menuone  " Show the menu even if only one match
-endif
-
-" Fold based on indent, but only when I ask
-if has('folding')
-  set foldlevelstart=99
-  set foldmethod=indent
-endif
-
-" Don't load GUI menus; set here before GUI starts
-if has('gui_running')
-  set guioptions+=M
-endif
-
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
@@ -191,11 +192,10 @@ if has('persistent_undo')
   endif
 endif
 
-" Make sessions usable
-if exists('+sessionoptions')
-  set sessionoptions-=localoptions  " No buffer options or mappings
-  set sessionoptions-=options       " No global options or mappings
-endif
+" Wildmenu settings; see also plugin/wildignore.vim
+set wildmenu                " Use wildmenu
+set wildmode=list:longest   " Tab press completes and lists
+silent! set wildignorecase  " Case insensitive, if supported
 
 " Let me move beyond buffer text in visual block mode
 if exists('+virtualedit')
