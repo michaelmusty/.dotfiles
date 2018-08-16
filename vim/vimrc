@@ -55,6 +55,10 @@ endif
 " Add some paths not to back up
 set backupskip^=/dev/shm/*  " Shared memory RAM disk
 set backupskip^=/var/tmp/*  " Debian's $TMPDIR for sudoedit(8)
+if !has('unix')
+  set backupskip-=/dev/shm/*
+  set backupskip-=/var/tmp/*
+endif
 
 " Indent wrapped lines
 silent! set breakindent
