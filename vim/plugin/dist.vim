@@ -7,6 +7,8 @@ let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
 " I prefer filtering text with Unix tools
 let g:loaded_logiPat = 1
+" The shell, tab completion, and 'wildmenu' are good enough
+let g:loaded_netrwPlugin = 1
 " I don't use Vim servers
 let g:loaded_rrhelper = 1
 " I don't need extra spelling files
