@@ -6,6 +6,13 @@ else
   setlocal softtabstop=2
 endif
 
+" Remove inapplicable defaults from 'indentkeys'
+setlocal indentkeys-=0#
+setlocal indentkeys-=0{
+setlocal indentkeys-=0}
+setlocal indentkeys-=0)
+setlocal indentkeys-=:
+
 " Commands to undo the above
 if exists('b:undo_indent')
   let b:undo_indent = b:undo_indent . '|setlocal shiftwidth<'
