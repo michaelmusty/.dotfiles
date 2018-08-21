@@ -38,8 +38,8 @@ _text_filenames() {
             *.AVI|*.GIFV|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
 
             # Lossy audio file formats
-            *.au|*.mp[34]|*.ogg|*.snd|*.wma) ;;
-            *.AU|*.MP[34]|*.OGG|*.SND|*.WMA) ;;
+            *.au|*.m4a|*.mp[34]|*.ogg|*.snd|*.wma) ;;
+            *.AU|*.M4A|*.MP[34]|*.OGG|*.SND|*.WMA) ;;
 
             # Lossless/source audio file formats
             *.aup|*.flac|*.mid|*.h2song|*.nwc|*.s3m|*.wav) ;;
