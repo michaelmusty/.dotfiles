@@ -1,3 +1,12 @@
+" Flag a message as important
+function! mail#FlagImportant() abort
+  call cursor(1, 1)
+  call search('^$')
+  -
+  call append(line('.'), 'X-Priority: 1')
+  call append(line('.'), 'Importance: High')
+endfunction
+
 " Flag a message as unimportant
 function! mail#FlagUnimportant() abort
   call cursor(1, 1)

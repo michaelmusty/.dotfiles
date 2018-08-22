@@ -34,7 +34,10 @@ if exists('g:no_plugin_maps') || exists('g:no_mail_maps')
   finish
 endif
 
-" Flag a message as unimportant
+" Flag messages as important/unimportant
+nnoremap <buffer> <LocalLeader>h
+      \ <C-U>:call mail#FlagImportant()<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>h'
 nnoremap <buffer> <LocalLeader>l
       \ <C-U>:call mail#FlagUnimportant()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
