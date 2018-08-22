@@ -265,6 +265,8 @@ nnoremap <Bslash>D :read !date -u<CR>
 nnoremap <Bslash>e :<C-U>setlocal modifiable noreadonly<CR>
 " \f shows the current 'formatoptions' at a glance
 nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
+" \F reloads filetype
+nnoremap <Bslash>F :<C-U>doautocmd filetypedetect BufRead<CR>
 " \g changes directory to the current file's location
 nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
 " \h toggles highlighting search results
@@ -295,10 +297,11 @@ nmap <Bslash>O <Plug>(PasteOpenAbove)
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 " \q formats the current paragraph
 nnoremap <Bslash>q gqap
-" \r reloads .vimrc
-nnoremap <Bslash>r :<C-U>source $MYVIMRC<CR>
-" \R reloads filetype
-nnoremap <Bslash>R :<C-U>doautocmd filetypedetect BufRead<CR>
+" \r acts as a replacement operator
+nmap <Bslash>r <Plug>(ReplaceOperator)
+xmap <Bslash>r <Plug>(ReplaceOperator)
+" \R reloads ~/.vimrc
+nnoremap <Bslash>R :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
 nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 " \t shows current filetype
