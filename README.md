@@ -167,9 +167,8 @@ based on context to include these elements in this order:
 You can set `PROMPT_COLOR`, `PROMPT_PREFIX`, and `PROMPT_SUFFIX` too, which all
 do about what you'd expect.
 
-If you start up Bash, Korn shell, or Z shell, and it detects that it's normally
-your `$SHELL` is one of the other two, the prompt will display an appropriate
-prefix.
+If you start up Bash, Korn shell, or Z shell, and it detects that it's not your
+login shell, the prompt will display an appropriate prefix.
 
 This is all managed within the `prompt` function. There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
