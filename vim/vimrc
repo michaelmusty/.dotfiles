@@ -297,6 +297,9 @@ nmap <Bslash>O <Plug>(PasteOpenAbove)
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 " \q formats the current paragraph
 nnoremap <Bslash>q gqap
+" \r acts as a replacement operator
+nmap <Bslash>r <Plug>(ReplaceOperator)
+xmap <Bslash>r <Plug>(ReplaceOperator)
 " \R reloads ~/.vimrc
 nnoremap <Bslash>R :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
