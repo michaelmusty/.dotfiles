@@ -251,8 +251,10 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Bslash>a :<C-U>ToggleFlagLocal formatoptions a<CR>
+
 " \b toggles copy-pasteable linebreak settings
 nmap <Bslash>b <Plug>(CopyLinebreakToggle)
+
 " \c toggles 'cursorline'
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
@@ -260,37 +262,50 @@ nnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 endif
+
 " \d inserts the local date (POSIX date)
 nnoremap <Bslash>d :read !date<CR>
 " \D inserts the UTC date (POSIX date)
 nnoremap <Bslash>D :read !date -u<CR>
+
 " \e forces a buffer to be editable
 nnoremap <Bslash>e :<C-U>setlocal modifiable noreadonly<CR>
+
 " \f shows the current 'formatoptions' at a glance
 nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
+
 " \F reloads filetype
 nnoremap <Bslash>F :<C-U>doautocmd filetypedetect BufRead<CR>
+
 " \g changes directory to the current file's location
 nnoremap <Bslash>g :<C-U>cd %:h<CR>:pwd<CR>
+
 " \h toggles highlighting search results
 nnoremap <Bslash>h :<C-U>set hlsearch! hlsearch?<CR>
+
 " \H shows command history
 nnoremap <Bslash>H :<C-U>history :<CR>
+
 " \i toggles showing matches as I enter my pattern
 nnoremap <Bslash>i :<C-U>set incsearch! incsearch?<CR>
+
 " \j jumps to buffers (jetpack)
 nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
+
 " \k shows my marks
 nnoremap <Bslash>k :<C-U>marks<CR>
+
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>setlocal list! list?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>l :<C-U>setlocal list! list?<CR>gv
 endif
+
 " \m shows normal maps
 nnoremap <Bslash>m :<C-U>map<CR>
 " \M shows buffer-local normal maps
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
+
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
 if exists(':xnoremap')
@@ -301,45 +316,58 @@ nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>gv
 endif
+
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>(PasteOpenBelow)
 " \O opens a line above in paste mode
 nmap <Bslash>O <Plug>(PasteOpenAbove)
+
 " \p toggles paste mode
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
+
 " \q formats the current paragraph
 nnoremap <Bslash>q gqap
+
 " \r acts as a replacement operator
 nmap <Bslash>r <Plug>(ReplaceOperator)
 if exists(':xmap')
   xmap <Bslash>r <Plug>(ReplaceOperator)
 endif
+
 " \R reloads ~/.vimrc
 nnoremap <Bslash>R :<C-U>source $MYVIMRC<CR>
+
 " \s toggles spell checking
 nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
+
 " \t shows current filetype
 nnoremap <Bslash>t :<C-U>setlocal filetype?<CR>
 " \T clears filetype (follow with \R)
 nnoremap <Bslash>T :<C-U>setlocal filetype=<CR>
+
 " \u sets US English spelling (compare \z)
 nnoremap <Bslash>u :<C-U>setlocal spelllang=en_us<CR>
+
 " \v shows all global variables
 nnoremap <Bslash>v :<C-U>let g: v:<CR>
 " \V shows all local variables
 nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
+
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>gv
 endif
+
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x :StripTrailingWhitespace<CR>
 if exists(':xmap')
   xmap <Bslash>x :StripTrailingWhitespace<CR>
 endif
+
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
+
 " \z sets NZ English spelling (compare \u)
 nnoremap <Bslash>z :<C-U>setlocal spelllang=en_nz<CR>
 
