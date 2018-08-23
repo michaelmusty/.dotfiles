@@ -257,6 +257,9 @@ nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'
 nnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
+if exists(':xnoremap')
+  xnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
+endif
 " \d inserts the local date (POSIX date)
 nnoremap <Bslash>d :read !date<CR>
 " \D inserts the UTC date (POSIX date)
@@ -281,14 +284,23 @@ nnoremap <Bslash>j :<C-U>buffers<CR>:buffer<Space>
 nnoremap <Bslash>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>setlocal list! list?<CR>
+if exists(':xnoremap')
+  xnoremap <Bslash>l :<C-U>setlocal list! list?<CR>gv
+endif
 " \m shows normal maps
 nnoremap <Bslash>m :<C-U>map<CR>
 " \M shows buffer-local normal maps
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 " \n toggles line numbers
 nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
+if exists(':xnoremap')
+  xnoremap <Bslash>n :<C-U>setlocal number! number?<CR>gv
+endif
 " \N toggles 'ruler'
 nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
+if exists(':xnoremap')
+  xnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>gv
+endif
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>(PasteOpenBelow)
 " \O opens a line above in paste mode
@@ -318,6 +330,9 @@ nnoremap <Bslash>v :<C-U>let g: v:<CR>
 nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
+if exists(':xnoremap')
+  xnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>gv
+endif
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x :StripTrailingWhitespace<CR>
 if exists(':xmap')
