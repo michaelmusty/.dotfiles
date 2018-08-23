@@ -274,7 +274,7 @@ nnoremap <Bslash>e :<C-U>setlocal modifiable noreadonly<CR>
 " \f shows the current 'formatoptions' at a glance
 nnoremap <Bslash>f :<C-U>setlocal formatoptions?<CR>
 
-" \F reloads filetype
+" \F reloads filetype plugins
 nnoremap <Bslash>F :<C-U>doautocmd filetypedetect BufRead<CR>
 
 " \g changes directory to the current file's location
@@ -306,12 +306,12 @@ nnoremap <Bslash>m :<C-U>map<CR>
 " \M shows buffer-local normal maps
 nnoremap <Bslash>M :<C-U>map <buffer><CR>
 
-" \n toggles line numbers
+" \n toggles line number display
 nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>n :<C-U>setlocal number! number?<CR>gv
 endif
-" \N toggles 'ruler'
+" \N toggles position display in bottom right
 nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>gv
@@ -342,7 +342,7 @@ nnoremap <Bslash>s :<C-U>setlocal spell! spell?<CR>
 
 " \t shows current filetype
 nnoremap <Bslash>t :<C-U>setlocal filetype?<CR>
-" \T clears filetype (follow with \R)
+" \T clears filetype
 nnoremap <Bslash>T :<C-U>setlocal filetype=<CR>
 
 " \u sets US English spelling (compare \z)
