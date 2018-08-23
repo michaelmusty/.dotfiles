@@ -299,7 +299,9 @@ nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
 nnoremap <Bslash>q gqap
 " \r acts as a replacement operator
 nmap <Bslash>r <Plug>(ReplaceOperator)
-xmap <Bslash>r <Plug>(ReplaceOperator)
+if exists(':xmap')
+  xmap <Bslash>r <Plug>(ReplaceOperator)
+endif
 " \R reloads ~/.vimrc
 nnoremap <Bslash>R :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking

@@ -5,7 +5,7 @@ ef=$HOME/.plenv/non-cpanm-modules
 [ -e "$ef" ] || ef=/dev/null
 
 # Check that exceptions file is sorted
-if ! sort -c -- "$ef" ; then
+if ! LC_COLLATE=C sort -c -- "$ef" ; then
     printf >&2 '%s not sorted\n' "$ef"
     exit 1
 fi
