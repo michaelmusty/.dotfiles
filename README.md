@@ -380,10 +380,10 @@ separately distributed and installed via submodules instead.
 #### Compilers
 
 I define a few of my own `:compiler` scripts for `~/.vim/compiler`, for use for
-checking and linting of appropriate filetypes. Because checking (does it work?)
-and linting (is it well-written?) are separate processes for me, I bind them
-separately with local leader maps; for example, `_c` runs a `perl -c` syntax
-check of Perl scripts, and `_l` runs a Perl::Critic check.
+checking and linting of appropriate filetypes. Because checking (does it
+compile?) and linting (is it correct and well-written?) are separate processes
+for me, I bind them separately with local leader maps; for example, for `perl`
+filetypes, `,c` switches `makprg` to `perl -c`, and `,l` to `perlcritic`.
 
 #### Neovim
 
