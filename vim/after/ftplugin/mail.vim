@@ -64,7 +64,7 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|nunmap <buffer> <LocalLeader>QQ'
       \ . '|xunmap <buffer> <LocalLeader>Q'
 
-" Maps using NewBlank() function above for quoted paragraph movement
+" Maps using autoloaded function for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[
       \ :<C-U>call mail#NewBlank(v:count1, 1, 0)<CR>
 nnoremap <buffer> <silent> <LocalLeader>]
