@@ -27,7 +27,7 @@ function! quote#QuoteOpfunc(type) abort
 
     " Only add a space after the quote character if this line isn't already
     " quoted with the same character
-    let l:new = stridx(l:cur, l:char) == 0
+    let l:new = l:cur[0] == l:char
           \ ? l:char.l:cur
           \ : l:char.' '.l:cur
     call setline(l:li, l:new)
