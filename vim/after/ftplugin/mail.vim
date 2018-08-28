@@ -83,3 +83,8 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
       \ . '|ounmap <buffer> <LocalLeader>]'
       \ . '|xunmap <buffer> <LocalLeader>['
       \ . '|xunmap <buffer> <LocalLeader>]'
+
+" Quick map to strip multiple blank lines in the entire buffer; this comes up
+" a lot when replying to stripped HTML mail
+nnoremap <buffer> <silent> <LocalLeader>x
+      \ :<C-U>call mail#ContractMultipleBlankLines()<CR>
