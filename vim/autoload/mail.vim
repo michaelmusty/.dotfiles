@@ -65,3 +65,23 @@ function! mail#NewBlank(count, up, visual) abort
   endif
 
 endfunction
+
+" Quick map to strip multiple blank lines in the entire buffer; this comes up
+" a lot when replying to stripped HTML mail. This should really be a command,
+" but I'll do that Later(TM).
+function! mail#ContractMultipleBlankLines() abort
+  let l:deletions = []
+  let l:blank = 0
+  for l:num in range(1, line('$'))
+    if strlen(getline(l:num)) > 0
+      let l:blank = 0
+    elseif l:blank
+      let l:deletions += [l:num]
+    else
+      let l:blank = 1
+    endif
+  endfor
+  for l:num in reverse(l:deletions)
+    execute l:num . 'delete'
+  endfor
+endfunction

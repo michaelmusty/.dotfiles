@@ -6,7 +6,7 @@
 let s:line = getline(1)
 
 " If it's not a shebang, we're done
-if stridx(s:line, '#!') != 0
+if s:line !~# '^#!'
   finish
 endif
 

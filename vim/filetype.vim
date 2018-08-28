@@ -45,7 +45,7 @@ endfunction
 " Check whether the first line was changed and looks like a shebang, and if
 " so, re-run filetype detection
 function! s:CheckShebang()
-  if line('''[') == 1 && stridx(getline(1), '#!') == 0
+  if line('''[') == 1 && getline(1) =~# '^#!'
     doautocmd filetypedetect BufRead
   endif
 endfunction
