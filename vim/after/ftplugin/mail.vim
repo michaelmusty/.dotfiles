@@ -29,6 +29,13 @@ endif
 setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
 
+" Define what constitutes a 'blank line' for the squeeze_repeat_blanks.vim
+" plugin, if loaded, to include leading quotes and spaces
+if exists('g:loaded_squeeze_repeat_blanks')
+  let b:squeeze_repeat_blanks_blank = '^[ >]*$'
+  let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_mail_maps')
   finish
@@ -83,8 +90,3 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
       \ . '|ounmap <buffer> <LocalLeader>]'
       \ . '|xunmap <buffer> <LocalLeader>['
       \ . '|xunmap <buffer> <LocalLeader>]'
-
-" Quick map to strip multiple blank lines in the entire buffer; this comes up
-" a lot when replying to stripped HTML mail
-nnoremap <buffer> <silent> <LocalLeader>x
-      \ :<C-U>call mail#ContractMultipleBlankLines()<CR>
