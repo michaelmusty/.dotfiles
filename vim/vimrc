@@ -365,6 +365,12 @@ if exists(':xmap')
   xmap <Bslash>x :StripTrailingWhitespace<CR>
 endif
 
+" \X squeezes repeated blank lines via a custom plugin
+nmap <Bslash>X :SqueezeRepeatBlanks<CR>
+if exists(':xmap')
+  xmap <Bslash>X :SqueezeRepeatBlanks<CR>
+endif
+
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
 
