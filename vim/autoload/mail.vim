@@ -73,7 +73,7 @@ function! mail#ContractMultipleBlankLines() abort
   let l:deletions = []
   let l:blank = 0
   for l:num in range(1, line('$'))
-    if strlen(getline(l:num)) > 0
+    if getline(l:num) !~# '^[> ]*$'
       let l:blank = 0
     elseif l:blank
       let l:deletions += [l:num]
