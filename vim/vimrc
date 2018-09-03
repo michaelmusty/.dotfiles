@@ -255,9 +255,9 @@ nnoremap <Bslash>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 " \b toggles copy-pasteable linebreak settings
 nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 
-" \c toggles 'cursorline'
+" \c toggles 'cursorline'; no visual mode map as it doesn't work
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
-" \C toggles 'cursorcolumn'
+" \C toggles 'cursorcolumn'; works in visual mode
 nnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
 if exists(':xnoremap')
   xnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
@@ -388,6 +388,9 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 " \< and \> adjust indent of last edit; good for pasting
 nnoremap <Bslash><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
+
+" \_ uses last changed or yanked text as an object
+onoremap <Bslash>_ :<C-U>normal! `[v`]<CR>
 
 " \{ and \} move to lines with non-space chars before current column
 nmap <Bslash>{ <Plug>(VerticalRegionUpNormal)
