@@ -95,6 +95,7 @@ if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
 endif
 
 " Don't wait for a key after Escape in insert mode
+" In vim-tiny but not NeoVim, so just suppress errors
 silent! set noesckeys
 
 " Fold based on indent, but only when I ask
@@ -137,6 +138,10 @@ set incsearch
 " Don't join lines with two spaces at the end of sentences
 set nojoinspaces
 
+" Don't show a statusline if there's only one window
+" This is the Vim default, but NeoVim changed it
+set laststatus=1
+
 " Don't redraw the screen during batch execution
 set lazyredraw
 
@@ -159,6 +164,10 @@ set nrformats-=octal
 " Options for file search with gf/:find
 set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
+
+" Disable command line display of file position
+" This is the Vim default, but NeoVim changed it
+set noruler
 
 " Make sessions usable
 if exists('+sessionoptions')
@@ -420,11 +429,6 @@ nnoremap <Bslash>@ ^"zyg_@z
 nnoremap <Bslash>: ^"zyg_:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Bslash>! ^"zyg_:!<C-R>z<CR>
-
-" If we're running NeoVim, source some extra configuration
-if has('nvim')
-  runtime nvim.vim
-endif
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
