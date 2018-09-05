@@ -2,7 +2,7 @@
 " I manage plugins myself with Git and a Makefile
 let g:loaded_getscriptPlugin = 1
 let g:loaded_vimballPlugin = 1
-" Vim is the wrong tool for reading archives or compressed text
+" Vim is the wrong tool for reading archives
 let g:loaded_tarPlugin = 1
 let g:loaded_zipPlugin = 1
 " I prefer filtering text with Unix tools
