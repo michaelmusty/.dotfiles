@@ -401,6 +401,9 @@ nnoremap <Bslash>> :<C-U>'[,']><CR>
 " \_ uses last changed or yanked text as an object
 onoremap <Bslash>_ :<C-U>normal! `[v`]<CR>
 
+" \% uses entire buffer as an object
+onoremap <Bslash>% :<C-U>normal! 1GVG<CR>
+
 " \{ and \} move to lines with non-space chars before current column
 nmap <Bslash>{ <Plug>(VerticalRegionUpNormal)
 nmap <Bslash>} <Plug>(VerticalRegionDownNormal)
