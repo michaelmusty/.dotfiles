@@ -398,10 +398,10 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
 
-" \_ uses last changed or yanked text as an object
+" \_ uses last changed or yanked text as a characterwise object
 onoremap <Bslash>_ :<C-U>normal! `[v`]<CR>
 
-" \% uses entire buffer as an object
+" \% uses entire buffer as a linewise object
 onoremap <Bslash>% :<C-U>normal! 1GVG<CR>
 
 " \{ and \} move to lines with non-space chars before current column
