@@ -140,7 +140,9 @@ set nojoinspaces
 
 " Don't show a statusline if there's only one window
 " This is the Vim default, but NeoVim changed it
-set laststatus=1
+if &laststatus
+  set laststatus=1
+endif
 
 " Don't redraw the screen during batch execution
 set lazyredraw
@@ -167,7 +169,9 @@ set path+=**            " Search current directory's whole tree
 
 " Disable command line display of file position
 " This is the Vim default, but NeoVim changed it
-set noruler
+if &ruler
+  set noruler
+endif
 
 " Make sessions usable
 if exists('+sessionoptions')
@@ -398,8 +402,11 @@ nnoremap <Bslash>. :<C-U>lmake!<CR>
 nnoremap <Bslash><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Bslash>> :<C-U>'[,']><CR>
 
-" \_ uses last changed or yanked text as an object
+" \_ uses last changed or yanked text as a characterwise object
 onoremap <Bslash>_ :<C-U>normal! `[v`]<CR>
+
+" \% uses entire buffer as a linewise object
+onoremap <Bslash>% :<C-U>normal! 1GVG<CR>
 
 " \{ and \} move to lines with non-space chars before current column
 nmap <Bslash>{ <Plug>(VerticalRegionUpNormal)
