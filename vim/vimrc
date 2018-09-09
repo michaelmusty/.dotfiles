@@ -140,7 +140,7 @@ set nojoinspaces
 
 " Don't show a statusline if there's only one window
 " This is the Vim default, but NeoVim changed it
-if &laststatus
+if &laststatus != 1
   set laststatus=1
 endif
 
