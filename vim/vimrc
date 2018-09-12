@@ -331,12 +331,15 @@ if exists(':xnoremap')
 endif
 
 " \o opens a line below in paste mode
-nmap <Bslash>o <Plug>(PasteOpenBelow)
+nmap <Bslash>o <Plug>(PasteHook)o
 " \O opens a line above in paste mode
-nmap <Bslash>O <Plug>(PasteOpenAbove)
+nmap <Bslash>O <Plug>(PasteHook)O
 
-" \p toggles paste mode
+" \p toggles paste mode, or sets a hook if plugin available
 nnoremap <Bslash>p :<C-U>set paste! paste?<CR>
+if &loadplugins
+  nmap <Bslash>p <Plug>(PasteHook)
+endif
 
 " \q formats the current paragraph
 nnoremap <Bslash>q gqap
