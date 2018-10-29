@@ -21,3 +21,8 @@ Known issues
 * Need to decide whether I care about XDG, and implement it if I do
 * Need to decide whether I'm testing the shell snippets for MPD, Keychain etc,
   and if so how.
+* The custom shell functions really should be documented, but it's not clear to
+  me exactly where this should happen, because the commands' availability
+  depends on which shell you're using; the `sd` function isn't available when
+  you're not using Bash. Maybe I should try to extend `help` without breaking
+  it?
