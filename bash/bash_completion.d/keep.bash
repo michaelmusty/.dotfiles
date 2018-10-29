@@ -39,6 +39,21 @@ _keep() {
                 COMPREPLY[${#COMPREPLY[@]}]=$word
             done < <(
                 shopt -s dotglob nullglob
+
+                # Make globbing case-insensitive if appropriate; is there a cleaner way
+                # to find this value?
+                while read -r _ option value ; do
+                    case $option in
+                        completion-ignore-case)
+                            case $value in
+                                on)
+                                    shopt -s nocaseglob
+                                    break
+                                    ;;
+                            esac
+                    esac
+                done < <(bind -v)
+
                 keep=${BASHKEEP:-"$HOME"/.bashkeep.d}
                 declare -a keeps
                 keeps=("$keep"/"${COMP_WORDS[COMP_CWORD]}"*.bash)
