@@ -23,6 +23,20 @@ _pass()
         shopt -u dotglob
         shopt -s globstar nullglob
 
+        # Make globbing case-insensitive if appropriate; is there a cleaner way
+        # to find this value?
+        while read -r _ option value ; do
+            case $option in
+                completion-ignore-case)
+                    case $value in
+                        on)
+                            shopt -s nocaseglob
+                            break
+                            ;;
+                    esac
+            esac
+        done < <(bind -v)
+
         # Gather the entries and remove their .gpg suffix
         declare -a entries
         entries=("$passdir"/"${COMP_WORDS[COMP_CWORD]}"*/**/*.gpg \

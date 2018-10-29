@@ -10,6 +10,21 @@ _eds() {
         COMPREPLY[${#COMPREPLY[@]}]=$executable
     done < <(
         shopt -s dotglob nullglob
+
+        # Make globbing case-insensitive if appropriate; is there a cleaner way
+        # to find this value?
+        while read -r _ option value ; do
+            case $option in
+                completion-ignore-case)
+                    case $value in
+                        on)
+                            shopt -s nocaseglob
+                            break
+                            ;;
+                    esac
+            esac
+        done < <(bind -v)
+
         declare -a files
         files=("${EDSPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
         declare -a executables

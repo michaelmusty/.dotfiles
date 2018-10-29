@@ -9,6 +9,21 @@ _td() {
     done < <(
         shopt -s extglob nullglob
         shopt -u dotglob
+
+        # Make globbing case-insensitive if appropriate; is there a cleaner way
+        # to find this value?
+        while read -r _ option value ; do
+            case $option in
+                completion-ignore-case)
+                    case $value in
+                        on)
+                            shopt -s nocaseglob
+                            break
+                            ;;
+                    esac
+            esac
+        done < <(bind -v)
+
         declare -a fns
         fns=("$dir"/"${COMP_WORDS[COMP_CWORD]}"*)
         fns=("${fns[@]#"$dir"/}")
