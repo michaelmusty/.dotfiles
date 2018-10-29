@@ -18,7 +18,6 @@ Known issues
 * Would be good to complete the Makefile variables for NAME, EMAIL etc with
   educated guesses (`id -u`@`cat /etc/mailname`) etc rather than hardcoding my
   own stuff in there
-* Document `install-conf` target once I'm sure it's not a dumb idea
 * Need to decide whether I care about XDG, and implement it if I do
 * Need to decide whether I'm testing the shell snippets for MPD, Keychain etc,
   and if so how.

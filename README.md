@@ -54,6 +54,20 @@ to figure out which shell's configuration files to install, falling back on
 The remaining files can be installed with the other `install-*` targets. Try
 `awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
+### Configuration
+
+To save a set of `make` targets useful for a specific user or host, you can
+save them in a newline-separated file `~/.dotfiles.conf`, and install using
+that with the special `install-conf` target. This can include variable
+settings, too:
+
+    $ cd
+    $ cat .dotfiles.conf
+    install-bash
+    install-bin
+    EMAIL=you@example.com
+    $ make -C .dotfiles install-conf
+
 Tools
 -----
 
