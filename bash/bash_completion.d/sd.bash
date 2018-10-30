@@ -21,9 +21,9 @@ _sd() {
         # to find this value?
         while read -r _ option value ; do
             case $option in
-                completion-ignore-case)
+                (completion-ignore-case)
                     case $value in
-                        on)
+                        (on)
                             shopt -s nocaseglob
                             break
                             ;;
