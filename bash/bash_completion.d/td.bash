@@ -21,6 +21,7 @@ _td() {
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 

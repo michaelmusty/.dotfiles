@@ -37,6 +37,7 @@ _path() {
                                         break
                                         ;;
                                 esac
+                                ;;
                         esac
                     done < <(bind -v)
 

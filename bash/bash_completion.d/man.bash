@@ -46,6 +46,7 @@ _man() {
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 
