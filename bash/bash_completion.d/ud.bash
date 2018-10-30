@@ -24,6 +24,7 @@ _ud() {
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 
