@@ -22,6 +22,7 @@ _eds() {
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 

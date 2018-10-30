@@ -51,6 +51,7 @@ _keep() {
                                     break
                                     ;;
                             esac
+                            ;;
                     esac
                 done < <(bind -v)
 

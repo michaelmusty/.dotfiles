@@ -28,6 +28,7 @@ _sd() {
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 

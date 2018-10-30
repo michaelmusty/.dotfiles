@@ -34,6 +34,7 @@ _pass()
                             break
                             ;;
                     esac
+                    ;;
             esac
         done < <(bind -v)
 
