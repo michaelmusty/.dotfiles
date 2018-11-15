@@ -53,6 +53,7 @@
 	install-vim-gui-config \
 	install-vim-indent \
 	install-vim-plugin \
+	install-vim-syntax \
 	install-vint \
 	install-wget \
 	install-x \
@@ -506,7 +507,8 @@ install-vim: install-vim-after \
 	install-vim-ftdetect \
 	install-vim-ftplugin \
 	install-vim-indent \
-	install-vim-plugin
+	install-vim-plugin \
+	install-vim-syntax
 
 install-neovim:
 	make install-vim \
@@ -590,6 +592,10 @@ install-vim-indent:
 install-vim-plugin:
 	mkdir -p -- $(VIMDIR)/plugin
 	cp -p -- vim/plugin/*.vim $(VIMDIR)/plugin
+
+install-vim-syntax:
+	mkdir -p -- $(VIMDIR)/syntax
+	cp -p -- vim/syntax/*.vim $(VIMDIR)/syntax
 
 install-vint:
 	cp -p -- vint/vintrc.yaml $(HOME)/.vintrc.yaml
