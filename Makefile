@@ -606,7 +606,7 @@ install-wget:
 install-x: check-xinit
 	mkdir -p -- \
 		$(HOME)/.config \
-		$(HOME)/.config/sxhkdrc \
+		$(HOME)/.config/sxhkd \
 		$(HOME)/.xinitrc.d \
 		$(HOME)/.Xresources.d
 	cp -p -- X/redshift.conf $(HOME)/.config
