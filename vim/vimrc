@@ -215,6 +215,9 @@ if exists('+virtualedit')
   set virtualedit+=block
 endif
 
+" Never beep at me
+set visualbell t_vb=
+
 " Stack normal/visual/select Ctrl-L to clear search highlight
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
