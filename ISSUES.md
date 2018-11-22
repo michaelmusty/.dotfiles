@@ -26,5 +26,3 @@ Known issues
   depends on which shell you're using; the `sd` function isn't available when
   you're not using Bash. Maybe I should try to extend `help` without breaking
   it?
-* The low-priority shortcut for mail messages in Vim doesn't work if you're on
-  the first line.
