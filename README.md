@@ -81,6 +81,7 @@ Configuration is included for:
 * [Abook](http://abook.sourceforge.net/) -- curses address book program
 * [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
   URL syntax
+* [Dillo](https://www.dillo.org/) -- A lightweight web browser
 * [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
   that works with `libnotify`
 * `finger(1)` -- User information lookup program
