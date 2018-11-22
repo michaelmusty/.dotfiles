@@ -42,6 +42,41 @@ function! s:StripRepeat()
 
 endfunction
 
+" Helper function to run the 'filetypedetect' group on a file in a temporary
+" sudoedit(8) directory, modifying it with an attempt to reverse the temporary
+" filename change
+function! s:SudoRepeat()
+
+  " Check we have the fnameescape() function
+  if !exists('*fnameescape')
+    return
+  endif
+
+  " Expand the match result
+  let l:fn = expand('<afile>')
+
+  " myfileXXQGS16A.conf: strip eight chars before final period
+  if l:fn =~# '/[^./]\+\w\{8}\.[^./]\+$'
+    let l:fr = expand('<afile>:r')
+    let l:fe = expand('<afile>:e')
+    let l:fn = strpart(l:fr, -8, strlen(l:fr)) . '.' . l:fe
+
+  " myfile.XXQGS16A: strip extension
+  elseif l:fn =~# '/[^./]\+\.\w\{8}$'
+    let l:fn = expand('<afile>:r')
+
+  " Unrecognised pattern; return, don't repeat
+  else
+    return
+  endif
+
+  " Re-run the group if there's anything left
+  if strlen(l:fn)
+    execute 'doautocmd filetypedetect BufRead ' . fnameescape(l:fn)
+  endif
+
+endfunction
+
 " Check whether the first line was changed and looks like a shebang, and if
 " so, re-run filetype detection
 function! s:CheckShebang()
@@ -493,6 +528,15 @@ augroup filetypedetect
   " Load any extra rules in ftdetect directories
   runtime! ftdetect/*.vim
 
+  " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
+  " been found
+  autocmd BufNewFile,BufRead
+        \ /var/tmp/?*????????.*
+        \,/var/tmp/?*.????????
+        \ if !did_filetype()
+        \|  call s:SudoRepeat()
+        \|endif
+
   " Generic text, config, and log files, if no type assigned yet
   autocmd BufNewFile,BufRead
         \ ?*.text
@@ -512,14 +556,6 @@ augroup filetypedetect
         \ */log/*
         \,?*.log
         \ setfiletype messages
-
-  " Clumsy attempt at typing files in `sudo -e` if a filename hasn't already
-  " been found; strip temporary extension and re-run
-  autocmd BufNewFile,BufRead
-        \ /var/tmp/?*.????????
-        \ if !did_filetype()
-        \|  call s:StripRepeat()
-        \|endif
 
   " If we still don't have a filetype, run the scripts.vim file that performs
   " cleverer checks including looking at actual file contents--but only my
