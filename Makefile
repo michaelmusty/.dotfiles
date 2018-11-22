@@ -9,6 +9,7 @@
 	install-bin \
 	install-bin-man \
 	install-curl \
+	install-dillo \
 	install-dunst \
 	install-ex \
 	install-finger \
@@ -266,6 +267,8 @@ clean distclean:
 		$(BINS_M4) \
 		$(BINS_SH) \
 		$(GAMES) \
+		dillo/dillorc \
+		dillo/dillorc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
 		gnupg/gpg.conf \
@@ -311,6 +314,11 @@ bin/swr.sh: bin/swr.m4 include/mktd.m4
 bin/tlcs.sh: bin/tlcs.m4 include/mktd.m4
 bin/try.sh: bin/try.m4 include/mktd.m4
 bin/urlc.sh: bin/urlc.m4 include/mktd.m4
+
+dillo/dillorc: dillo/dillorc.m4
+	m4 \
+		-D HOME=$(HOME) \
+		dillo/dillorc.m4 > $@
 
 git/gitconfig: git/gitconfig.m4
 	m4 \
@@ -370,6 +378,10 @@ install-bin-man:
 
 install-curl:
 	cp -p -- curl/curlrc $(HOME)/.curlrc
+
+install-dillo: dillo/dillorc install-x
+	mkdir -p -- $(HOME)/.dillo
+	cp -p -- dillo/dillorc $(HOME)/.dillo/dillorc
 
 install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst
