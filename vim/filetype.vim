@@ -186,6 +186,10 @@ augroup filetypedetect
         \ ?*.html
         \,?*.htm
         \ setfiletype html
+  " hosts(5) file
+  autocmd BufNewFile,BufRead
+        \ /etc/hosts
+        \ setfiletype hostconf
   " inittab(5) files
   autocmd BufNewFile,BufRead
         \ inittab
