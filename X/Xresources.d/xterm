@@ -5,4 +5,4 @@ xterm*colorMode: false
 xterm*eightBitInput: false
 xterm*locale: true
 xterm*metaSendsEscape: true
-xterm*termName: xterm-mono
+xterm*termName: xterm-256color
