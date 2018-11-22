@@ -43,10 +43,10 @@ endif
 
 " Flag messages as important/unimportant
 nnoremap <buffer> <LocalLeader>h
-      \ <C-U>:call mail#FlagImportant()<CR>
+      \ :<C-U>call mail#FlagImportant()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>h'
 nnoremap <buffer> <LocalLeader>l
-      \ <C-U>:call mail#FlagUnimportant()<CR>
+      \ :<C-U>call mail#FlagUnimportant()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
 
 " Quote operator

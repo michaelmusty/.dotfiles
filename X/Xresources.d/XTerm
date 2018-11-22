@@ -2,9 +2,7 @@
 XTerm.termName: xterm-256color
 XTerm.vt100.bellIsUrgent: true
 XTerm.vt100.internalBorder: 0
-XTerm.vt100.colorMode: true
 XTerm.vt100.eightBitInput: false
-XTerm.vt100.locale: true
 XTerm.vt100.metaSendsEscape: true
 XTerm.vt100.background: #030303
 XTerm.vt100.foreground: #E0E0E0
