@@ -1,3 +1,2 @@
 #include ".Xresources.d/URxvt"
-#include ".Xresources.d/Xft"
 #include ".Xresources.d/xterm"
