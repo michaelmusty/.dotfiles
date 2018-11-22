@@ -20,7 +20,7 @@ the results seem perfect.
 You can configure Vim to accommodate this by removing the settings in vim/vimrc
 for:
 
-* `expandtab`
-* `shiftwidth`
-* `smarttab`
-* `softtabstop`
+* `'expandtab'`
+* `'shiftwidth'`
+* `'smarttab'`
+* `'softtabstop'`
