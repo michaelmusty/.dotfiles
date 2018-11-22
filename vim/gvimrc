@@ -1,10 +1,3 @@
-" Ubuntu Mono on Unix, Consolas on Windows
-if has('unix')
-  set guifont=Ubuntu\ Mono\ 12
-elseif has('win32') || has('win64')
-  set guifont=Consolas:h11,Courier\ New:h11
-endif
-
 " Reset GUI options
 set guioptions=
 set guioptions+=a  " Use the system GUI clipboard
