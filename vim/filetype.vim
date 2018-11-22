@@ -324,6 +324,10 @@ augroup filetypedetect
         \,?*.rem
         \,?*.remind
         \ setfiletype remind
+  " resolv.conf files
+  autocmd BufNewFile,BufRead
+        \ resolv.conf
+        \ setfiletype resolv
   " robots.txt files
   autocmd BufNewFile,BufRead
         \ robots.txt
