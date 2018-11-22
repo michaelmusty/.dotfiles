@@ -329,13 +329,6 @@ The included `.Xresources` file assumes that `urxvt` can use 256 colors and
 Perl extensions. If you're missing functionality, try changing
 `perl-ext-common` to `default`.
 
-My choice of font is [Ubuntu Mono](http://font.ubuntu.com/), but the file
-should allow falling back to the more common [Deja Vu Sans
-Mono](https://dejavu-fonts.github.io/). I've found
-[Terminus](http://terminus-font.sourceforge.net/) works well too, but bitmap
-fonts are not really my cup of tea. The Lohit Kannada font bit is purely to
-make ಠ\_ಠ work correctly. ( ͡° ͜ʖ ͡°) seems to work out of the box.
-
 ### tmux
 
 These are just generally vi-friendly settings, not much out of the ordinary.

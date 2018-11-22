@@ -4,7 +4,6 @@
     bounce_freq          = 0
     dmenu                = dmenu -p dunst:
     follow               = mouse
-    font                 = Verdana 11 Bold
     format               = "%s %b"
     geometry             = "350x5-0-17"
     history_length       = 20
