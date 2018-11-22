@@ -76,6 +76,24 @@ The remaining files can be installed with the other \f[C]install\-*\f[]
 targets.
 Try \f[C]awk\ \-f\ bin/mftl.awk\ Makefile\f[] in the project's root
 directory to see a list.
+.SS Configuration
+.PP
+To save a set of \f[C]make\f[] targets useful for a specific user or
+host, you can save them in a newline\-separated file
+\f[C]~/.dotfiles.conf\f[], and install using that with the special
+\f[C]install\-conf\f[] target.
+This can include variable settings, too:
+.IP
+.nf
+\f[C]
+$\ cd
+$\ cat\ .dotfiles.conf
+install\-bash
+install\-bin
+EMAIL=you\@example.com
+$\ make\ \-C\ .dotfiles\ install\-conf
+\f[]
+.fi
 .SS Tools
 .PP
 Configuration is included for:
@@ -244,8 +262,7 @@ You can set \f[C]PROMPT_COLOR\f[], \f[C]PROMPT_PREFIX\f[], and
 \f[C]PROMPT_SUFFIX\f[] too, which all do about what you'd expect.
 .PP
 If you start up Bash, Korn shell, or Z shell, and it detects that it's
-normally your \f[C]$SHELL\f[] is one of the other two, the prompt will
-display an appropriate prefix.
+not your login shell, the prompt will display an appropriate prefix.
 .PP
 This is all managed within the \f[C]prompt\f[] function.
 There's some mildly hacky logic on \f[C]tput\f[] codes included such
@@ -300,6 +317,14 @@ second argument in \f[C]$PWD\f[], emulating a feature of the Zsh
 .IP \[bu] 2
 \f[C]vr()\f[] tries to change to the root directory of a source control
 repository.
+.RE
+.IP \[bu] 2
+Two editor wrapper functions:
+.RS 2
+.IP \[bu] 2
+\f[C]e()\f[] invokes \f[C]$EDITOR\f[], or \f[C]ed(1)\f[] if not set.
+.IP \[bu] 2
+\f[C]v()\f[] invokes \f[C]$VISUAL\f[], or \f[C]vi(1)\f[] if not set.
 .RE
 .IP \[bu] 2
 \f[C]bc()\f[] silences startup messages from GNU \f[C]bc(1)\f[].
@@ -450,14 +475,6 @@ The included \f[C]\&.Xresources\f[] file assumes that \f[C]urxvt\f[] can
 use 256 colors and Perl extensions.
 If you're missing functionality, try changing \f[C]perl\-ext\-common\f[]
 to \f[C]default\f[].
-.PP
-My choice of font is Ubuntu Mono (http://font.ubuntu.com/), but the file
-should allow falling back to the more common Deja Vu Sans
-Mono (https://dejavu-fonts.github.io/).
-I've found Terminus (http://terminus-font.sourceforge.net/) works well
-too, but bitmap fonts are not really my cup of tea.
-The Lohit Kannada font bit is purely to make ಠ_ಠ work correctly.
-( ͡° ͜ʖ ͡°) seems to work out of the box.
 .SS tmux
 .PP
 These are just generally vi\-friendly settings, not much out of the
@@ -522,10 +539,11 @@ and installed via submodules instead.
 I define a few of my own \f[C]:compiler\f[] scripts for
 \f[C]~/.vim/compiler\f[], for use for checking and linting of
 appropriate filetypes.
-Because checking (does it work?) and linting (is it well\-written?) are
-separate processes for me, I bind them separately with local leader
-maps; for example, \f[C]_c\f[] runs a \f[C]perl\ \-c\f[] syntax check of
-Perl scripts, and \f[C]_l\f[] runs a Perl::Critic check.
+Because checking (does it compile?) and linting (is it correct and
+well\-written?) are separate processes for me, I bind them separately
+with local leader maps; for example, for \f[C]perl\f[] filetypes,
+\f[C],c\f[] switches \f[C]makprg\f[] to \f[C]perl\ \-c\f[], and
+\f[C],l\f[] to \f[C]perlcritic\f[].
 .SS Neovim
 .PP
 I test my configuration every now and then with the Neovim
