@@ -6,7 +6,7 @@ fi
 "$@"
 ex=$?
 case $ex in
-    0) op='true'  ;;
+    0) op='true' ;;
     *) op='false' ;;
 esac
 printf '%s\n' "$op"

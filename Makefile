@@ -564,9 +564,9 @@ install-vim-bundle: install-vim-config
 
 install-vim-cache:
 	mkdir -p -- \
-	    $(VIMDIR)/cache/backup \
-	    $(VIMDIR)/cache/swap \
-	    $(VIMDIR)/cache/undo
+		$(VIMDIR)/cache/backup \
+		$(VIMDIR)/cache/swap \
+		$(VIMDIR)/cache/undo
 
 install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler

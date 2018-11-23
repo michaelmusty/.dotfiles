@@ -12,7 +12,7 @@ elif (
     ver=$(ex --version 2>/dev/null | awk '{print $1;exit}')
     case $ver in
         (VIM) exit 0 ;;
-        (*)   exit 1 ;;
+        (*) exit 1 ;;
     esac
 ) >/dev/null 2>&1 ; then
     EDITOR='exm'

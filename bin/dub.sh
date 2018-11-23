@@ -14,7 +14,7 @@ cd -- "$dir" || exit
 # wrong than malformed
 nl=$(printf '\n/')
 find . ! -name . -prune \( \
-    -name '*'"${nl%/}"'*'  \
+    -name '*'"${nl%/}"'*' \
         -exec sh -c '
             printf >&2 '\''%s: warning: skipped newline filename\n'\'' "$1"
         ' _ "$self" \; \
