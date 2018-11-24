@@ -13,8 +13,8 @@ BEGIN {
     # Floor args and check for sanity
     lower = int(ARGV[1] + 0)
     upper = int(ARGV[2] + 0)
-    if (lower >= upper)
-        fail("Bounds must be numeric, first lower than second")
+    if (upper < lower)
+        fail("Bounds must be numeric, first not greater than second")
 
     # Get a random seed if rnds(1df) available
     rnds = "rnds 2>/dev/null"
