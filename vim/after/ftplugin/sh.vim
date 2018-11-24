@@ -33,6 +33,16 @@ if exists('b:is_posix')
   let g:is_posix = 1
 endif
 
+" Queue up undo commands to clear the shell language flags that we set for
+" this buffer during filetype detection in filetype.vim
+if exists('b:is_bash')
+  let b:undo_ftplugin .= '|unlet b:is_bash'
+elseif exists('b:is_kornshell')
+  let b:undo_ftplugin .= '|unlet b:is_kornshell'
+elseif exists('b:is_posix')
+  let b:undo_ftplugin .= '|unlet b:is_posix'
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
   finish
