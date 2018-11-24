@@ -24,6 +24,7 @@
 	install-login-shell \
 	install-man \
 	install-mpd \
+	install-mpv \
 	install-mutt \
 	install-mysql \
 	install-ncmcpp \
@@ -436,6 +437,10 @@ install-mpd: install-sh
 	mkdir -p -- $(HOME)/.mpd/playlists
 	cp -p -- mpd/profile.d/* $(HOME)/.profile.d
 	cp -p -- mpd/mpdconf $(HOME)/.mpdconf
+
+install-mpv:
+	mkdir -p -- $(HOME)/.config/mpv
+	cp -p -- mpv/* $(HOME)/.config/mpv
 
 install-mutt:
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
