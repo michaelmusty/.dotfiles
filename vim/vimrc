@@ -198,10 +198,10 @@ silent! set ttymouse=
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
-  set undodir^=~/.vim/cache/undo//
   if has('win32') || has('win64')
-    set undodir-=~/.vim/cache/undo//
     set undodir^=~/vimfiles/cache/undo//
+  else
+    set undodir^=~/.vim/cache/undo//
   endif
 endif
 
