@@ -5,7 +5,7 @@
 xrdb "$HOME"/.Xresources
 
 # Faster mouse acceleration with a natural threshold
-xset m 5/2 0
+xset mouse 5/2 0
 
 # Load all supplementary scripts in ~/.xinitrc.d
 for sh in "$HOME"/.xinitrc.d/*.sh ; do
