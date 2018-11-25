@@ -5,13 +5,14 @@ endif
 
 " Include macros in completion
 setlocal complete+=d
+let b:undo_ftplugin .= '|setlocal complete<'
 
 " Set include pattern
 setlocal include=^\\s*#\\s*include
+let b:undo_ftplugin .= '|setlocal include<'
 
 " Include headers on UNIX
 if has('unix')
   setlocal path+=/usr/include
+  let b:undo_ftplugin .= '|setlocal path<'
 endif
-
-let b:undo_ftplugin .= '|setlocal complete< include< path<'
