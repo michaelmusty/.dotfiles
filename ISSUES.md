@@ -26,3 +26,5 @@ Known issues
   depends on which shell you're using; the `sd` function isn't available when
   you're not using Bash. Maybe I should try to extend `help` without breaking
   it?
+* The b:undo\_indent definition for the perl filetype can probably be pushed
+  upstream.

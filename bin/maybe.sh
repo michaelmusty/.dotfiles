@@ -3,8 +3,8 @@ self=maybe
 
 # Figure out numerator and denominator from arguments
 case $# in
-    0) num=1  den=2  ;;
-    1) num=1  den=$1 ;;
+    0) num=1 den=2 ;;
+    1) num=1 den=$1 ;;
     2) num=$1 den=$2 ;;
     *)
         printf >&2 '%s: Unexpected arguments\n' "$self"

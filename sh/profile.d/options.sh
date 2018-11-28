@@ -39,17 +39,17 @@ options ed \
 # Cache options for grep(1)
 options grep \
     binary-files \
-    color        \
-    devices      \
-    directories  \
-    exclude      \
+    color \
+    devices \
+    directories \
+    exclude \
     exclude-dir
 
 # Cache options for ls(1)
 options ls \
-    almost-all     \
-    block-size     \
-    color          \
+    almost-all \
+    block-size \
+    color \
     human-readable \
     time-style
 )

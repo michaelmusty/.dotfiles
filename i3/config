@@ -74,27 +74,27 @@ bindsym $mod+Shift+9 move container to workspace 9
 # Mod+r resizes a container
 bindsym $mod+r mode "resize"
 mode "resize" {
-    bindsym h resize shrink width  10 px or 10 ppt
-    bindsym j resize grow   height 10 px or 10 ppt
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
     bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow   width  10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 # i3bar at bottom of screen
 bar {
-    position          bottom
-    status_command    i3status --config ~/.i3/status
+    position bottom
+    status_command i3status --config ~/.i3/status
     workspace_buttons yes
 
     colors {
         background #111111
         statusline #eeeeee
 
-        focused_workspace  #ffffff #285577
-        active_workspace   #ffffff #333333
+        focused_workspace #ffffff #285577
+        active_workspace #ffffff #333333
         inactive_workspace #888888 #222222
-        urgent_workspace   #ffffff #900000
+        urgent_workspace #ffffff #900000
     }
 }

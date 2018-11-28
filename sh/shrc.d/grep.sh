@@ -28,7 +28,7 @@ grep() {
     # Add --exclude to ignore .gitignore and .gitmodules files
     [ -e "$HOME"/.cache/sh/opt/grep/exclude ] &&
         set -- \
-            --exclude=.gitignore  \
+            --exclude=.gitignore \
             --exclude=.gitmodules \
             "$@"
 
@@ -37,7 +37,7 @@ grep() {
         set -- \
             --exclude-dir=.cvs \
             --exclude-dir=.git \
-            --exclude-dir=.hg  \
+            --exclude-dir=.hg \
             --exclude-dir=.svn \
             "$@"
 

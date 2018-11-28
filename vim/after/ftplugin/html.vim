@@ -12,9 +12,9 @@ let b:undo_ftplugin .= '|unlet b:current_compiler'
 " Set up hooks for timestamp updating
 augroup html_timestamp
   autocmd BufWritePre <buffer>
-	\ if exists('b:html_timestamp_check')
-	\|  call html#TimestampUpdate()
-	\|endif
+        \ if exists('b:html_timestamp_check')
+        \|  call html#TimestampUpdate()
+        \|endif
 augroup END
 let b:undo_ftplugin .= '|autocmd! html_timestamp BufWritePre <buffer>'
 

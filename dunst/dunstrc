@@ -1,46 +1,46 @@
 [global]
-    alignment            = left
-    allow_markup         = no
-    bounce_freq          = 0
-    dmenu                = dmenu -p dunst:
-    follow               = mouse
-    format               = "%s %b"
-    geometry             = "350x5-0-17"
-    history_length       = 20
-    horizontal_padding   = 8
-    icon_position        = off
-    idle_threshold       = 0
-    ignore_newline       = no
-    indicate_hidden      = no
-    line_height          = 0
-    monitor              = 0
-    padding              = 8
-    separator_color      = frame
-    separator_height     = 0
-    show_age_threshold   = -1
-    show_indicators      = no
-    shrink               = no
-    sort                 = yes
-    startup_notification = false
-    sticky_history       = yes
-    transparency         = 0
-    word_wrap            = yes
+galignment = left
+gallow_markup = no
+gbounce_freq = 0
+gdmenu = dmenu -p dunst:
+gfollow = mouse
+gformat = "%s %b"
+ggeometry = "350x5-0-17"
+ghistory_length = 20
+ghorizontal_padding = 8
+gicon_position = off
+gidle_threshold = 0
+gignore_newline = no
+gindicate_hidden = no
+gline_height = 0
+gmonitor = 0
+gpadding = 8
+gseparator_color = frame
+gseparator_height = 0
+gshow_age_threshold = -1
+gshow_indicators = no
+gshrink = no
+gsort = yes
+gstartup_notification = false
+gsticky_history = yes
+gtransparency = 0
+gword_wrap = yes
 
 [frame]
-    width = 1
-    color = "#333333"
+gwidth = 1
+gcolor = "#333333"
 
 [urgency_low]
-    background = "#222222"
-    foreground = "#bbbbbb"
-    timeout    = 10
+gbackground = "#222222"
+gforeground = "#bbbbbb"
+gtimeout = 10
 
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
-    timeout    = 10
+gbackground = "#285577"
+gforeground = "#ffffff"
+gtimeout = 10
 
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
-    timeout    = 0
+gbackground = "#900000"
+gforeground = "#ffffff"
+gtimeout = 0

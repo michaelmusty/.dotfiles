@@ -14,8 +14,8 @@ pretty nicely:
         'for f;do unexpand -t2 "$f">"$f".tmp;mv "$f" "$f".tmp;done' \
         _ {} +
 
-If you have GNU unexpand(1) and can add `--first-only` to each of those calls,
-the results seem perfect.
+If you have GNU `unexpand(1)` and can add `--first-only` to each of those
+calls, the results seem perfect.
 
 You can configure Vim to accommodate this by removing the settings in vim/vimrc
 for:
