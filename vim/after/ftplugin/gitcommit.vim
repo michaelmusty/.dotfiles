@@ -22,8 +22,6 @@ endif
 " Quote operator
 nnoremap <buffer> <expr> <LocalLeader>q
       \ quote#Quote()
-nnoremap <buffer> <expr> <LocalLeader>qq
-      \ quote#Quote().'_'
 xnoremap <buffer> <expr> <LocalLeader>q
       \ quote#Quote()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
@@ -33,8 +31,6 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>q'
 " Quote operator with reformatting
 nnoremap <buffer> <expr> <LocalLeader>Q
       \ quote#QuoteReformat()
-nnoremap <buffer> <expr> <LocalLeader>QQ
-      \ quote#QuoteReformat().'_'
 xnoremap <buffer> <expr> <LocalLeader>Q
       \ quote#QuoteReformat()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
