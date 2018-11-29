@@ -41,6 +41,13 @@ if exists('g:no_plugin_maps') || exists('g:no_mail_maps')
   finish
 endif
 
+" Clear away the quoting maps that the stock mail.vim sets; they work fine,
+" but we have nicer ones to define shortly
+nunmap <buffer> <LocalLeader>q
+vunmap <buffer> <LocalLeader>q
+nunmap <buffer> <Plug>MailQuote
+vunmap <buffer> <Plug>MailQuote
+
 " Flag messages as important/unimportant
 nnoremap <buffer> <LocalLeader>h
       \ :<C-U>call mail#FlagImportant()<CR>
