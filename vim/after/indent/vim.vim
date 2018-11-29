@@ -2,7 +2,7 @@
 " Should only need to undo this if the stock plugin didn't
 setlocal indentkeys-=0#,0{,0},0),:
 if !exists('b:undo_indent')
-  let b:undo_indent = '|setlocal indentkeys<'
+  let b:undo_indent = 'setlocal indentkeys<'
 endif
 
 " Observe VimL conventions for two-space indents
