@@ -1,8 +1,3 @@
-" Extra configuration for PHP scripts
-if &filetype !=# 'php' || v:version < 700 || &compatible
-  finish
-endif
-
 " Use PHP itself for syntax checking
 compiler php
 let b:undo_ftplugin .= '|unlet b:current_compiler'

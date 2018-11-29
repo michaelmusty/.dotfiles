@@ -1,8 +1,3 @@
-" Extra configuration for Vim scripts
-if &filetype !=# 'vim' || v:version < 700 || &compatible
-  finish
-endif
-
 " Use Vint as a syntax checker
 if bufname('%') !=# 'command-line'
   compiler vint

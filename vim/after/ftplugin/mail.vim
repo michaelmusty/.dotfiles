@@ -1,8 +1,3 @@
-" Extra configuration for mail messages
-if &filetype !=# 'mail' || &compatible || v:version < 700
-  finish
-endif
-
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
 if line('.') == 1 && col('.') == 1

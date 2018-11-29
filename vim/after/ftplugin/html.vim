@@ -1,5 +1,5 @@
-" Extra configuration for HTML files
-if &filetype !=# 'html' || v:version < 700 || &compatible
+" Don't load if the buffer is not actually HTML (e.g. Markdown)
+if &filetype !=# 'html'
   finish
 endif
 

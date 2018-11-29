@@ -1,8 +1,3 @@
-" Extra configuration for diffs
-if &filetype !=# 'diff' || v:version < 700 || &compatible
-  finish
-endif
-
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_diff_maps')
   finish

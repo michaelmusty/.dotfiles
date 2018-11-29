@@ -1,8 +1,3 @@
-" Extra configuration for Vim help files
-if &filetype !=# 'help' || v:version < 700
-  finish
-endif
-
 " This variable had the wrong name before Vim 7.1
 if v:version == 700 && exists('b:undo_plugin')
   let b:undo_ftplugin = b:undo_plugin
