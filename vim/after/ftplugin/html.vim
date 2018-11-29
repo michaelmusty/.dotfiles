@@ -16,7 +16,7 @@ augroup html_timestamp
         \|  call html#TimestampUpdate()
         \|endif
 augroup END
-let b:undo_ftplugin .= '|autocmd! html_timestamp BufWritePre <buffer>'
+let b:undo_ftplugin .= '|autocmd! html_timestamp'
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_html_maps')
