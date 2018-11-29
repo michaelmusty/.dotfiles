@@ -1,5 +1,5 @@
-" Extra configuration for HTML files
-if &filetype !=# 'html' || v:version < 700 || &compatible
+" Don't load if the buffer is not actually HTML (e.g. Markdown)
+if &filetype !=# 'html'
   finish
 endif
 
@@ -16,7 +16,8 @@ augroup html_timestamp
         \|  call html#TimestampUpdate()
         \|endif
 augroup END
-let b:undo_ftplugin .= '|autocmd! html_timestamp BufWritePre <buffer>'
+let b:undo_ftplugin .= '|execute ''autocmd! html_timestamp'''
+      \ . '|augroup! html_timestamp'
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_html_maps')

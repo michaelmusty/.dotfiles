@@ -8,13 +8,13 @@
 runtime system.vim
 
 " Load filetype settings, plugins, and maps
-if has('autocmd')
+if has('autocmd') && v:version >= 700
   let g:maplocalleader = ','
   filetype plugin indent on
 endif
 
 " Options dependent on the syntax feature
-if has('syntax')
+if has('syntax') && v:version >= 700
 
   " Use syntax highlighting
   if !exists('g:syntax_on')
@@ -185,9 +185,9 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
-" New windows go below or to the right of a split
-set splitbelow
-set splitright
+" New window positioning
+set splitbelow  " Below the current window, not above
+set splitright  " Right of the current window, not left
 
 " Give me a bit longer to complete mappings
 set timeoutlen=3000
@@ -223,7 +223,7 @@ nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap insert Ctrl-C to undo the escaped insert operation
-if &loadplugins
+if &loadplugins  " Don't break the key if we won't be getting the plugin
   imap <C-C> <Plug>(InsertCancel)
 endif
 

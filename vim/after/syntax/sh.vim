@@ -1,9 +1,3 @@
-" Don't try to make these corrections if running 'compatible' or if the
-" runtime files are too old
-if &compatible || v:version < 700
-  finish
-endif
-
 " Remove g:is_posix if we resorted to it in order to get correct POSIX sh
 " highlighting with older Vim runtime files
 if exists('g:is_posix')

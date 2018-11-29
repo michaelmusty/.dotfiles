@@ -1,8 +1,3 @@
-" Extra configuration for shell script
-if &filetype !=# 'sh' || v:version < 700 || &compatible
-  finish
-endif
-
 " Set comment formats
 setlocal comments=:#
 setlocal formatoptions+=or
@@ -34,14 +29,9 @@ if exists('b:is_posix')
 endif
 
 " Queue up undo commands to clear the shell language flags that we set for
-" this buffer during filetype detection in filetype.vim
-if exists('b:is_bash')
-  let b:undo_ftplugin .= '|unlet b:is_bash'
-elseif exists('b:is_kornshell')
-  let b:undo_ftplugin .= '|unlet b:is_kornshell'
-elseif exists('b:is_posix')
-  let b:undo_ftplugin .= '|unlet b:is_posix'
-endif
+" this buffer during filetype detection in filetype.vim, or that the stock
+" syntax highlighting chose for us
+let b:undo_ftplugin .= '|unlet! b:is_bash b:is_kornshell b:is_posix'
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_sh_maps')

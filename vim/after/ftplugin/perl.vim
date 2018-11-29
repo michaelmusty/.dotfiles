@@ -1,8 +1,3 @@
-" Extra configuration for Perl filetypes
-if &filetype !=# 'perl' || v:version < 700 || &compatible
-  finish
-endif
-
 " Use Perl itself for checking and Perl::Tidy for tidying
 compiler perl
 setlocal equalprg=perltidy
