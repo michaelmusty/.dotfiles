@@ -14,7 +14,7 @@ if has('autocmd') && exists('+cursorcolumn')
     autocmd CursorMoved,CursorMovedI <buffer>
           \ let &l:colorcolumn = gitcommit#CursorColumn()
   augroup END
-  let b:undo_ftplugin .= '|autocmd! gitcommit'
+  let b:undo_ftplugin .= '|execute ''autocmd! gitcommit'''
         \ . '|augroup! gitcommit'
 endif
 
