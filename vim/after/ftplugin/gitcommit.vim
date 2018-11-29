@@ -16,6 +16,7 @@ if has('autocmd') && exists('+cursorcolumn')
   augroup END
   let b:undo_ftplugin .= '|execute ''autocmd! gitcommit'''
         \ . '|augroup! gitcommit'
+        \ . '|setlocal colorcolumn<'
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
