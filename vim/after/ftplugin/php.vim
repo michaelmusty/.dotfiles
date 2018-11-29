@@ -16,9 +16,3 @@ let b:undo_ftplugin .= '|setlocal keywordprg<'
 if exists('g:no_plugin_maps') || exists('g:no_php_maps')
   finish
 endif
-
-" Get rid of the core ftplugin's square-bracket maps on unload
-let b:undo_ftplugin .= '|nunmap <buffer> [['
-      \ . '|ounmap <buffer> [['
-      \ . '|nunmap <buffer> ]]'
-      \ . '|ounmap <buffer> ]]'
