@@ -8,13 +8,13 @@
 runtime system.vim
 
 " Load filetype settings, plugins, and maps
-if has('autocmd')
+if has('autocmd') && v:version >= 700
   let g:maplocalleader = ','
   filetype plugin indent on
 endif
 
 " Options dependent on the syntax feature
-if has('syntax')
+if has('syntax') && v:version >= 700
 
   " Use syntax highlighting
   if !exists('g:syntax_on')
