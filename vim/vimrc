@@ -1,20 +1,24 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This file is designed to load without unsuppressed errors on Vim 6.0 and up.
-" Anything older than that will probably break. There are also some odd bits
-" of logic to cope with loading as much config as possible on vim-tiny.
+" This file is designed to load on any build of Vim version 7.0 or newer,
+" including tiny builds without +eval.
+
+" Require at least Vim 7.0 (released 2006-05-08)
+if v:version < 700
+  finish
+endif
 
 " Undo anything the operating system's vimrc may have broken
 runtime system.vim
 
 " Load filetype settings, plugins, and maps
-if has('autocmd') && v:version >= 700
+if has('autocmd')
   let g:maplocalleader = ','
   filetype plugin indent on
 endif
 
 " Options dependent on the syntax feature
-if has('syntax') && v:version >= 700
+if has('syntax')
 
   " Use syntax highlighting
   if !exists('g:syntax_on')
@@ -223,7 +227,7 @@ nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap insert Ctrl-C to undo the escaped insert operation
-if &loadplugins  " Don't break the key if we won't be getting the plugin
+if &loadplugins  " Don't break the key if we won't be loading the plugin
   imap <C-C> <Plug>(InsertCancel)
 endif
 
@@ -232,16 +236,14 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Remap normal space to scroll down a page
 nnoremap <Space> <PageDown>
-" If we have plugins, do a :next after hitting the last line
-if &loadplugins
+" Do a :next after hitting the last line
+if &loadplugins  " Don't change the mapping if we won't be loading the plugin
   nmap <Space> <Plug>(ScrollNext)
 endif
 
 " Remap normal/visual & to preserve substitution flags
 nnoremap <silent> & :&&<CR>
-if exists(':xnoremap')
-  xnoremap <silent> & :&&<CR>
-endif
+xnoremap <silent> & :&&<CR>
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
@@ -275,9 +277,7 @@ nmap <Bslash>b <Plug>(CopyLinebreakToggle)
 nnoremap <Bslash>c :<C-U>setlocal cursorline! cursorline?<CR>
 " \C toggles 'cursorcolumn'; works in visual mode
 nnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-if exists(':xnoremap')
-  xnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
-endif
+xnoremap <Bslash>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
 " \d inserts the local date (POSIX date)
 nnoremap <Bslash>d :read !date<CR>
@@ -313,9 +313,7 @@ nnoremap <Bslash>k :<C-U>marks<CR>
 
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Bslash>l :<C-U>setlocal list! list?<CR>
-if exists(':xnoremap')
-  xnoremap <Bslash>l :<C-U>setlocal list! list?<CR>gv
-endif
+xnoremap <Bslash>l :<C-U>setlocal list! list?<CR>gv
 
 " \m shows normal maps
 nnoremap <Bslash>m :<C-U>map<CR>
@@ -324,14 +322,10 @@ nnoremap <Bslash>M :<C-U>map <buffer><CR>
 
 " \n toggles line number display
 nnoremap <Bslash>n :<C-U>setlocal number! number?<CR>
-if exists(':xnoremap')
-  xnoremap <Bslash>n :<C-U>setlocal number! number?<CR>gv
-endif
+xnoremap <Bslash>n :<C-U>setlocal number! number?<CR>gv
 " \N toggles position display in bottom right
 nnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>
-if exists(':xnoremap')
-  xnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>gv
-endif
+xnoremap <Bslash>N :<C-U>set ruler! ruler?<CR>gv
 
 " \o opens a line below in paste mode
 nmap <Bslash>o <Plug>(PasteOpenBelow)
@@ -346,9 +340,7 @@ nnoremap <Bslash>q gqap
 
 " \r acts as a replacement operator
 nmap <Bslash>r <Plug>(ReplaceOperator)
-if exists(':xmap')
-  xmap <Bslash>r <Plug>(ReplaceOperator)
-endif
+xmap <Bslash>r <Plug>(ReplaceOperator)
 
 " \R reloads ~/.vimrc
 nnoremap <Bslash>R :<C-U>source $MYVIMRC<CR>
@@ -371,21 +363,15 @@ nnoremap <Bslash>V :<C-U>let b: t: w:<CR>
 
 " \w toggles wrapping
 nnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>
-if exists(':xnoremap')
-  xnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>gv
-endif
+xnoremap <Bslash>w :<C-U>setlocal wrap! wrap?<CR>gv
 
 " \x strips trailing whitespace via a custom plugin
 nmap <Bslash>x :StripTrailingWhitespace<CR>
-if exists(':xmap')
-  xmap <Bslash>x :StripTrailingWhitespace<CR>
-endif
+xmap <Bslash>x :StripTrailingWhitespace<CR>
 
 " \X squeezes repeated blank lines via a custom plugin
 nmap <Bslash>X :SqueezeRepeatBlanks<CR>
-if exists(':xmap')
-  xmap <Bslash>X :SqueezeRepeatBlanks<CR>
-endif
+xmap <Bslash>X :SqueezeRepeatBlanks<CR>
 
 " \y shows all registers
 nnoremap <Bslash>y :<C-U>registers<CR>
@@ -416,10 +402,8 @@ nmap <Bslash>{ <Plug>(VerticalRegionUpNormal)
 nmap <Bslash>} <Plug>(VerticalRegionDownNormal)
 omap <Bslash>{ <Plug>(VerticalRegionUpOperator)
 omap <Bslash>} <Plug>(VerticalRegionDownOperator)
-if exists(':xmap')
-  xmap <Bslash>{ <Plug>(VerticalRegionUpVisual)
-  xmap <Bslash>} <Plug>(VerticalRegionDownVisual)
-endif
+xmap <Bslash>{ <Plug>(VerticalRegionUpVisual)
+xmap <Bslash>} <Plug>(VerticalRegionDownVisual)
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Bslash>/ :<C-U>vimgrep /\c/ **<S-Left><S-Left><Right>
