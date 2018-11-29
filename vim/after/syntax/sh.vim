@@ -1,6 +1,5 @@
-" Don't try to make these corrections if running 'compatible' or if the
-" runtime files are too old
-if &compatible || v:version < 700
+" Don't try to make these corrections if the runtime files are too old
+if v:version < 700
   finish
 endif
 
