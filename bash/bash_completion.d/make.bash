@@ -5,9 +5,10 @@ _make() {
     # first, then "Makefile"). You may want to add "GNU-makefile" after this.
     local mf
     for mf in makefile Makefile '' ; do
-        [[ -f $mf ]] && break
+        [[ -e $mf ]] || continue
+        break
     done
-    [[ -n $mf ]] || return 1
+    [[ -n $mf ]] || return
 
     # Iterate through the Makefile, line by line
     local line
@@ -39,7 +40,7 @@ _make() {
                         *[^[:word:]./-]*) ;;
 
                         # Add targets that match what we're completing
-                        ${COMP_WORDS[COMP_CWORD]}*)
+                        "${COMP_WORDS[COMP_CWORD]}"*)
                             COMPREPLY[${#COMPREPLY[@]}]=$target
                             ;;
                     esac

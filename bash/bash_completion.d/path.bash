@@ -52,8 +52,11 @@ _path() {
                 IFS=: read -rd '' -a promptarr < <(printf '%s\0' "$PATH")
                 local part
                 for part in "${promptarr[@]}" ; do
-                    [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                    COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
+                    case $part in
+                        "${COMP_WORDS[COMP_CWORD]}"*)
+                            COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
+                            ;;
+                    esac
                 done
                 ;;
 

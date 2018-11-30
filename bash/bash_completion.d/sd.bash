@@ -5,7 +5,9 @@ _sd() {
     ((COMP_CWORD == 1)) || return 1
 
     # Current directory can't be root directory
-    [[ $PWD != / ]] || return 1
+    case $PWD in
+        /) return 1 ;;
+    esac
 
     # Build list of matching sibling directories
     local dirname
@@ -37,8 +39,10 @@ _sd() {
         local -a sibs
         local dirname
         for dirname in "${dirnames[@]}" ; do
-            [[ $dirname != "${PWD##*/}" ]] || continue
-            sibs[${#sibs[@]}]=$dirname
+            case $dirname in
+                "${PWD##*/}") ;;
+                *) sibs[${#sibs[@]}]=$dirname ;;
+            esac
         done
 
         # Print quoted sibling directories, null-delimited

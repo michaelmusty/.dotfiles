@@ -15,8 +15,11 @@ _bd() {
     # Add the matching dirnames to the reply
     local dirname
     for dirname in "${dirnames[@]}" ; do
-        [[ $dirname == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$(printf %q "$dirname")
+        case $dirname in
+            "${COMP_WORDS[COMP_CWORD]}"*)
+                COMPREPLY[${#COMPREPLY[@]}]=$(printf %q "$dirname")
+            ;;
+        esac
     done
 }
 complete -F _bd bd

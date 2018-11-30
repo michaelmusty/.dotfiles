@@ -6,7 +6,8 @@ _mex() {
     for dir in "${path[@]}" ; do
         [[ -d $dir ]] || continue
         for name in "$dir"/* ; do
-            [[ -f $name ]] || continue
+            [[ -e $name ]] || continue
+            ! [[ -d $name ]] || continue
             ! [[ -x $name ]] || continue
             COMPREPLY[${#COMPREPLY[@]}]=${name##*/}
         done

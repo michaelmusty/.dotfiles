@@ -25,7 +25,9 @@ _eds() {
         files=("${EDSPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
         declare -a executables
         for file in "${files[@]}" ; do
-            [[ -f $file && -x $file ]] || continue
+            ! [[ -d $file ]] || continue
+            [[ -e $file ]] || continue
+            [[ -x $file ]] || continue
             executables[${#executables[@]}]=${file##*/}
         done
 

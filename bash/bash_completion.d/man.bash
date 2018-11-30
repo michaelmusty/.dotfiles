@@ -17,9 +17,13 @@ _man() {
     # If this is the second word, and the previous word started with a number,
     # we'll assume that's the section to search
     local section subdir
-    if ((COMP_CWORD > 1)) && [[ ${COMP_WORDS[COMP_CWORD-1]} == [0-9]* ]] ; then
-        section=${COMP_WORDS[COMP_CWORD-1]}
-        subdir=man${section%%[^0-9]*}
+    if ((COMP_CWORD > 1)) ; then
+        case ${COMP_WORDS[COMP_CWORD-1]} in
+            [0-9]*)
+                section=${COMP_WORDS[COMP_CWORD-1]}
+                subdir=man${section%%[^0-9]*}
+                ;;
+        esac
     fi
 
     # Read completion results from a subshell and add them to the COMPREPLY
