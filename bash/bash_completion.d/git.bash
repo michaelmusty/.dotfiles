@@ -19,9 +19,7 @@ _git() {
                         COMPREPLY[${#COMPREPLY[@]}]=$ref
                         ;;
                 esac
-            done < <(git for-each-ref \
-                --format '%(refname)' \
-                2>/dev/null)
+            done < <(git for-each-ref --format '%(refname)' 2>/dev/null)
             return
             ;;
 
@@ -51,9 +49,7 @@ _git() {
                         COMPREPLY[${#COMPREPLY[@]}]=$alias
                         ;;
                 esac
-            done < <(git config \
-                --get-regexp '^alias\.' \
-                2>/dev/null)
+            done < <(git config --get-regexp '^alias\.' 2>/dev/null)
             return
             ;;
 
