@@ -6,10 +6,18 @@ _path() {
 
         # Complete operation as first word
         local cmd
-        for cmd in list insert append remove shift pop check help ; do
-            [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
+        while read -r cmd ; do
             COMPREPLY[${#COMPREPLY[@]}]=$cmd
-        done
+        done < <(compgen -W '
+            append
+            check
+            help
+            insert
+            list
+            pop
+            remove
+            shift
+        ' -- "${COMP_WORDS[COMP_CWORD]}")
 
     # Complete with either directories or $PATH entries as all other words
     else
