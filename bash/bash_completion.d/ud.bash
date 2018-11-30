@@ -29,9 +29,6 @@ _ud() {
         dirnames=("${COMP_WORDS[COMP_CWORD]}"*/)
         dirnames=("${dirnames[@]%/}")
 
-        # Bail if no results to prevent empty output
-        ((${#dirnames[@]})) || exit 1
-
         # Print results null-delimited
         printf '%s\0' "${dirnames[@]}"
     )
