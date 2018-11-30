@@ -10,7 +10,9 @@ prompt() {
             PROMPT_COMMAND='history -a'
 
             # If Bash 4.0 is available, trim very long paths in prompt
-            ((BASH_VERSINFO[0] >= 4)) && PROMPT_DIRTRIM=4
+            if ((BASH_VERSINFO[0] >= 4)) ; then
+                PROMPT_DIRTRIM=4
+            fi
 
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
@@ -118,44 +120,55 @@ prompt() {
 
                 # Check various files in .git to flag processes
                 local proc
-                [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                if [[ -d .git/rebase-merge || -d .git/rebase-apply ]] ; then
                     proc=${proc:+"$proc",}'REBASE'
-                [[ -f .git/MERGE_HEAD ]] &&
+                fi
+                if [[ -f .git/MERGE_HEAD ]] ; then
                     proc=${proc:+"$proc",}'MERGE'
-                [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                fi
+                if [[ -f .git/CHERRY_PICK_HEAD ]] ; then
                     proc=${proc:+"$proc",}'PICK'
-                [[ -f .git/REVERT_HEAD ]] &&
+                fi
+                if [[ -f .git/REVERT_HEAD ]] ; then
                     proc=${proc:+"$proc",}'REVERT'
-                [[ -f .git/BISECT_LOG ]] &&
+                fi
+                if [[ -f .git/BISECT_LOG ]] ; then
                     proc=${proc:+"$proc",}'BISECT'
+                fi
 
                 # Collect symbols representing repository state
                 local state
 
                 # Upstream HEAD has commits after local HEAD; we're "behind"
-                (($(git rev-list --count 'HEAD..@{u}'))) &&
+                if (($(git rev-list --count 'HEAD..@{u}'))) ; then
                     state=${state}'<'
+                fi
 
                 # Local HEAD has commits after upstream HEAD; we're "ahead"
-                (($(git rev-list --count '@{u}..HEAD'))) &&
+                if (($(git rev-list --count '@{u}..HEAD'))) ; then
                     state=${state}'>'
+                fi
 
                 # Tracked files are modified
-                git diff-files --no-ext-diff --quiet ||
+                if ! git diff-files --no-ext-diff --quiet ; then
                     state=${state}'!'
+                fi
 
                 # Changes are staged
-                git diff-index --cached --no-ext-diff --quiet HEAD ||
+                if ! git diff-index --cached --no-ext-diff --quiet HEAD ; then
                     state=${state}'+'
+                fi
 
                 # There are some untracked and unignored files
-                git ls-files --directory --error-unmatch --exclude-standard \
-                    --no-empty-directory --others -- ':/*' &&
+                if git ls-files --directory --error-unmatch --exclude-standard \
+                        --no-empty-directory --others -- ':/*' ; then
                     state=${state}'?'
+                fi
 
                 # There are stashed changes
-                git rev-parse --quiet --verify refs/stash &&
+                if git rev-parse --quiet --verify refs/stash ; then
                     state=${state}'^'
+                fi
 
             } >/dev/null 2>&1
 
@@ -186,7 +199,8 @@ prompt() {
 
             # Exit if we couldn't get either--or, implicitly, if we don't have
             # svn(1).
-            [[ -n $url && -n $root ]] || return
+            [[ -n $url ]] || return
+            [[ -n $root ]] || return
 
             # Remove the root from the URL to get what's hopefully the branch
             # name, removing leading slashes and the 'branches' prefix, and any
@@ -196,7 +210,7 @@ prompt() {
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}
-            [[ -n $branch ]] || branch=unknown
+            branch=${branch:-unknown}
 
             # Parse the output of svn status to determine working copy state
             local symbol
@@ -210,8 +224,12 @@ prompt() {
 
             # Add appropriate state flags
             local state
-            ((modified)) && state=${state}'!'
-            ((untracked)) && state=${state}'?'
+            if ((modified)) ; then
+                state=${state}'!'
+            fi
+            if ((untracked)) ; then
+                state=${state}'?'
+            fi
 
             # Print the state in brackets with an svn: prefix
             printf '(svn:%s%s)' \
@@ -230,7 +248,8 @@ prompt() {
         # Show return status of previous command in angle brackets, if not zero
         ret)
             # shellcheck disable=SC2154
-            ((ret)) && printf '<%u>' "${ret//\\/\\\\}"
+            ((ret)) || return
+            printf '<%u>' "${ret//\\/\\\\}"
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
@@ -239,7 +258,8 @@ prompt() {
             while read -r ; do
                 ((jobc++))
             done < <(jobs -p)
-            ((jobc)) && printf '{%u}' "${jobc//\\/\\\\}"
+            ((jobc)) || return
+            printf '{%u}' "${jobc//\\/\\\\}"
             ;;
 
         # No argument given, print prompt strings and vars

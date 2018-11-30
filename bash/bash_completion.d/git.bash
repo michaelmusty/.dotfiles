@@ -198,11 +198,4 @@ _git() {
             ;;
     esac
 }
-
-# Defaulting to directory/file completion is important in Git's case;
-# bashdefault requires Bash >=3.0
-if ((BASH_VERSINFO[0] >= 3)) ; then
-    complete -F _git -o bashdefault -o default git
-else
-    complete -F _git -o default git
-fi
+complete -F _git -o bashdefault -o default git

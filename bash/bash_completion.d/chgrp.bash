@@ -11,10 +11,4 @@ _chgrp() {
         COMPREPLY[${#COMPREPLY[@]}]=$group
     done < <(compgen -A group -- "${COMP_WORDS[COMP_CWORD]}")
 }
-
-# bashdefault requires Bash >=3.0
-if ((BASH_VERSINFO[0] >= 3)) ; then
-    complete -F _chgrp -o bashdefault -o default chgrp
-else
-    complete -F _chgrp -o default chgrp
-fi
+complete -F _chgrp -o bashdefault -o default chgrp
