@@ -64,7 +64,7 @@ _find() {
 
         # Otherwise, look at the word *before* this one to figure out what to
         # complete
-        case "${COMP_WORDS[COMP_CWORD-1]}" in
+        case ${COMP_WORDS[COMP_CWORD-1]} in
 
             # Args to -exec and -execdir should be commands
             (-exec|-execdir)
