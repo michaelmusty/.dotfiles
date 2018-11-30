@@ -102,7 +102,7 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
         'readarray'
 fi
 
-# If we have dynamic completion loading (Bash>=4.0), use it
+# If we have dynamic completion loading (Bash >= 4.0), use it
 if ((BASH_VERSINFO[0] >= 4)) ; then
 
     # Handler tries to load appropriate completion for commands
