@@ -16,7 +16,7 @@ _ssh_config_hosts() {
         while read -r _ setting ; do
             case $setting in
                 ('completion-ignore-case on')
-                    shopt -qs nocasematch 2>/dev/null
+                    shopt -s nocasematch 2>/dev/null
                     break
                     ;;
             esac

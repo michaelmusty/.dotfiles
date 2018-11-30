@@ -32,7 +32,7 @@ _text_filenames() {
         # Check the filename extension to know what to exclude
         (
             # Case-insensitive matching available since 3.1-alpha
-            shopt -qs nocasematch 2>/dev/null
+            shopt -s nocasematch 2>/dev/null
 
             # Match against known binary patterns
             case $item in
