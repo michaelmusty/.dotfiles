@@ -21,9 +21,9 @@ if [ -n "$ENV" ] ; then
     . "$ENV"
 fi
 
-# Ensure we're using at least version 3.0.
-[ -n "$BASH_VERSINFO" ] || return
-((BASH_VERSINFO[0] >= 3)) || return
+# Ensure we're using at least version 3.0
+[ -n "$BASH_VERSINFO" ] || return    # Check version array exists (>=2.0)
+((BASH_VERSINFO[0] >= 3)) || return  # Check actual major version number
 
 # Clear away command_not_found_handle if a system bashrc file set it up
 unset -f command_not_found_handle
