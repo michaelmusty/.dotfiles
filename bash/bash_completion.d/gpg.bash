@@ -6,7 +6,8 @@ _gpg() {
 
     # Bail if not completing an option
     case ${COMP_WORDS[COMP_CWORD]} in
-        --*) return 1 ;;
+        --*) ;;
+        *) return 1 ;;
     esac
 
     # Generate completion reply from gpg(1) options
