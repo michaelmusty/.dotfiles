@@ -23,10 +23,4 @@ _openssl() {
             ;;
     esac
 }
-
-# bashdefault requires Bash >=3.0
-if ((BASH_VERSINFO[0] >= 3)) ; then
-    complete -F _openssl -o bashdefault -o default openssl
-else
-    complete -F _openssl -o default openssl
-fi
+complete -F _openssl -o bashdefault -o default openssl

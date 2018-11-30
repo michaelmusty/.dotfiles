@@ -75,7 +75,7 @@ Configuration is included for:
 
 * Bourne-style POSIX shells, sharing a `.profile`, an `ENV` file, and some
   helper functions:
-    * [GNU Bash](https://www.gnu.org/software/bash/) (2.05a or higher)
+    * [GNU Bash](https://www.gnu.org/software/bash/) (3.0 or higher)
     * [Korn shell](http://www.kornshell.com/) (`ksh93`, `pdksh`, `mksh`)
     * [Z shell](https://www.zsh.org/)
 * [Abook](http://abook.sourceforge.net/) -- curses address book program
@@ -137,8 +137,7 @@ and scripts where I can so that the same files can be loaded for all shells.
 On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell, preferably
 `ksh93` if it's available.
 
-As I occasionally have work on very old internal systems, my Bash is written to
-work with [any version 2.05a or
+My Bash is written to work with [any version 3.0 or
 newer](http://wiki.bash-hackers.org/scripting/bashchanges). This is why I use
 older syntax for certain things such as appending items to arrays:
 
@@ -150,8 +149,8 @@ actually works for arrays with sparse indices, unlike the above syntax:
     array+=("$item")
 
 Where I do use features that are only available in versions of Bash newer than
-2.05a, such as newer `shopt` options or `PROMPT_DIRTRIM`, they are only run
-after testing `BASH_VERSINFO` appropriately.
+3.0, such as newer `shopt` options or `PROMPT_DIRTRIM`, they are only run after
+testing `BASH_VERSINFO` appropriately.
 
 #### Prompt
 

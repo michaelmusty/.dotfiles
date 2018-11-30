@@ -84,10 +84,4 @@ _man() {
         fi
     )
 }
-
-# bashdefault requires Bash >=3.0
-if ((BASH_VERSINFO[0] >= 3)) ; then
-    complete -F _man -o bashdefault -o default man
-else
-    complete -F _man -o default man
-fi
+complete -F _man -o bashdefault -o default man

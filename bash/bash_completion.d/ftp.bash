@@ -30,10 +30,4 @@ _ftp() {
         COMPREPLY[${#COMPREPLY[@]}]=$machine
     done
 }
-
-# bashdefault requires Bash >=3.0
-if ((BASH_VERSINFO[0] >= 3)) ; then
-    complete -F _ftp -o bashdefault -o default ftp
-else
-    complete -F _ftp -o default ftp
-fi
+complete -F _ftp -o bashdefault -o default ftp

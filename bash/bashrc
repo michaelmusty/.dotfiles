@@ -18,14 +18,9 @@ unalias -a
 # we should be able to do this even if we're running a truly ancient Bash
 [ -n "$ENV" ] && . "$ENV"
 
-# Ensure we're using at least version 2.05. Weird arithmetic syntax needed here
-# due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
-# 2.05a).
-# shellcheck disable=SC2128
+# Ensure we're using at least version 3.0.
 [ -n "$BASH_VERSINFO" ] || return
-((BASH_VERSINFO[0] == 2)) &&
-    ((10#${BASH_VERSINFO[1]%%[!0-9]*} < 5)) &&
-    return
+((BASH_VERSINFO[0] >= 3)) || return
 
 # Clear away command_not_found_handle if a system bashrc file set it up
 unset -f command_not_found_handle
