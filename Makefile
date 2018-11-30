@@ -352,7 +352,7 @@ install: install-bin \
 	install-vim
 
 install-conf:
-	sh install/install-conf.sh
+	sh install/conf.sh
 
 install-abook:
 	mkdir -p -- $(HOME)/.abook
@@ -465,7 +465,7 @@ install-ksh: check-ksh install-sh
 	cp -p -- ksh/kshrc.d/* $(HOME)/.kshrc.d
 
 install-login-shell: check-login-shell
-	sh install/install-login-shell.sh
+	sh install/login-shell.sh
 
 install-perlcritic:
 	cp -p -- perlcritic/perlcriticrc $(HOME)/.perlcriticrc
