@@ -30,7 +30,7 @@ _find() {
     local item
     while read -r item ; do
         [[ -n $item ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$item
+        COMPREPLY+=("$item")
     done < <(
 
         # If the word being completed starts with a dash, just complete it as
