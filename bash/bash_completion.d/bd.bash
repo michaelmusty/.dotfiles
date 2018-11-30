@@ -2,14 +2,14 @@
 _bd() {
 
     # Only makes sense for the first argument
-    ((COMP_CWORD == 1)) || return 1
+    ((COMP_CWORD == 1)) || return
 
     # Build a list of dirnames in $PWD
     local -a dirnames
     IFS=/ read -rd '' -a dirnames < <(printf '%s\0' "${PWD#/}")
 
     # Remove the last element in the array (the current directory)
-    ((${#dirnames[@]})) || return 1
+    ((${#dirnames[@]})) || return
     dirnames=("${dirnames[@]:0:${#dirnames[@]}-1}")
 
     # Add the matching dirnames to the reply

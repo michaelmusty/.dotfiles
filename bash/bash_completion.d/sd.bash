@@ -2,7 +2,7 @@
 _sd() {
 
     # Only makes sense for the first argument
-    ((COMP_CWORD == 1)) || return 1
+    ((COMP_CWORD == 1)) || return
 
     # Current directory can't be root directory
     case $PWD in

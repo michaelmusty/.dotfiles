@@ -2,7 +2,7 @@
 _gpg() {
 
     # Bail if no gpg(1)
-    hash gpg 2>/dev/null || return 1
+    hash gpg 2>/dev/null || return
 
     # Bail if not completing an option
     case ${COMP_WORDS[COMP_CWORD]} in

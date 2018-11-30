@@ -8,7 +8,7 @@ _pass()
     # If we can't read the password directory, just bail
     local passdir
     passdir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
-    [[ -r $passdir ]] || return 1
+    [[ -r $passdir ]] || return
 
     # Iterate through list of .gpg paths, extension stripped, null-delimited,
     # and filter them down to the ones matching the completing word (compgen

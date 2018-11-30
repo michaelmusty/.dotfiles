@@ -2,12 +2,12 @@
 _mysql() {
 
     # Only makes sense for first argument
-    ((COMP_CWORD == 1)) || return 1
+    ((COMP_CWORD == 1)) || return
 
     # Bail if directory doesn't exist
     local dirname
     dirname=$HOME/.mysql
-    [[ -d $dirname ]] || return 1
+    [[ -d $dirname ]] || return
 
     # Return the names of the .cnf files sans prefix as completions
     local db

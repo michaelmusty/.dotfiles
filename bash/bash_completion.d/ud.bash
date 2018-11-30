@@ -2,7 +2,7 @@
 _ud() {
 
     # Only makes sense for the second argument
-    ((COMP_CWORD == 2)) || return 1
+    ((COMP_CWORD == 2)) || return
 
     # Iterate through directories, null-separated, add them to completions
     local dirname
