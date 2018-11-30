@@ -25,7 +25,6 @@ _ud() {
         done < <(bind -v)
 
         # Collect directory names, strip trailing slashes
-        local -a dirnames
         dirnames=("${COMP_WORDS[COMP_CWORD]}"*/)
         dirnames=("${dirnames[@]%/}")
 
