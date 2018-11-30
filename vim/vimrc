@@ -3,8 +3,16 @@
 " This file is designed to load on any build of Vim version 7.0 or newer,
 " including tiny builds without +eval.
 
-" Require at least Vim 7.0 (released 2006-05-08)
+" Require at least Vim 7.0 (released 2006-05-08); otherwise, self-suppress as
+" much of this config as possible
 if v:version < 700
+  if has('win32') || has('win64')
+    set runtimepath-=~/vimfiles
+    set runtimepath-=~/vimfiles/after
+  else
+    set runtimepath-=~/.vim
+    set runtimepath-=~/.vim/after
+  endif
   finish
 endif
 

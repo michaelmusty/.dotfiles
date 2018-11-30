@@ -1,5 +1,5 @@
-" Override system filetype.vim if sufficiently new
-if exists('g:did_load_filetypes') || v:version < 700
+" Override system filetype.vim
+if exists('g:did_load_filetypes')
   finish
 endif
 let g:did_load_filetypes = 1
