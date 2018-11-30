@@ -30,7 +30,7 @@ _find() {
     local item
     while read -r item ; do
         [[ -n $item ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$item
+        COMPREPLY+=("$item")
     done < <(
 
         # If the word being completed starts with a dash, just complete it as
@@ -64,7 +64,7 @@ _find() {
 
         # Otherwise, look at the word *before* this one to figure out what to
         # complete
-        case "${COMP_WORDS[COMP_CWORD-1]}" in
+        case ${COMP_WORDS[COMP_CWORD-1]} in
 
             # Args to -exec and -execdir should be commands
             (-exec|-execdir)

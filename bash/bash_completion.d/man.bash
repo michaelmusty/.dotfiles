@@ -2,7 +2,7 @@
 _man() {
 
     # Don't even bother if we don't have manpath(1)
-    hash manpath 2>/dev/null || return 1
+    hash manpath 2>/dev/null || return
 
     # Snarf the word
     local word
@@ -17,9 +17,13 @@ _man() {
     # If this is the second word, and the previous word started with a number,
     # we'll assume that's the section to search
     local section subdir
-    if ((COMP_CWORD > 1)) && [[ ${COMP_WORDS[COMP_CWORD-1]} == [0-9]* ]] ; then
-        section=${COMP_WORDS[COMP_CWORD-1]}
-        subdir=man${section%%[^0-9]*}
+    if ((COMP_CWORD > 1)) ; then
+        case ${COMP_WORDS[COMP_CWORD-1]} in
+            [0-9]*)
+                section=${COMP_WORDS[COMP_CWORD-1]}
+                subdir=man${section%%[^0-9]*}
+                ;;
+        esac
     fi
 
     # Read completion results from a subshell and add them to the COMPREPLY
@@ -35,17 +39,12 @@ _man() {
         shopt -u dotglob
         shopt -s extglob nullglob
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
+        # Make globbing case-insensitive if appropriate
+        while read -r _ setting ; do
+            case $setting in
+                ('completion-ignore-case on')
+                    shopt -s nocaseglob
+                    break
                     ;;
             esac
         done < <(bind -v)
@@ -59,7 +58,9 @@ _man() {
         for manpath in "${manpaths[@]}" ; do
             [[ -n $manpath ]] || continue
             if [[ -n $section ]] ; then
-                for page in "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z) ; do
+                for page in \
+                    "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z)
+                do
                     pages[${#pages[@]}]=$page
                 done
             else
@@ -74,14 +75,8 @@ _man() {
         pages=("${pages[@]%.@([glx]z|bz2|lzma|Z)}")
         pages=("${pages[@]%.[0-9]*}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#pages[@]})) ; then
-            printf '%q\0' "${pages[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${pages[@]}"
     )
 }
 complete -F _man -o bashdefault -o default man

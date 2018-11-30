@@ -2,18 +2,21 @@
 _gpg() {
 
     # Bail if no gpg(1)
-    hash gpg 2>/dev/null || return 1
+    hash gpg 2>/dev/null || return
 
     # Bail if not completing an option
-    [[ ${COMP_WORDS[COMP_CWORD]} == --* ]] || return 1
+    case ${COMP_WORDS[COMP_CWORD]} in
+        --*) return 1 ;;
+    esac
 
     # Generate completion reply from gpg(1) options
     local option
     while read -r option ; do
-        [[ $option == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$option
+        case $option in
+            "${COMP_WORDS[COMP_CWORD]}"*)
+                COMPREPLY[${#COMPREPLY[@]}]=$option
+                ;;
+        esac
     done < <(gpg --dump-options 2>/dev/null)
 }
-
-# bashdefault requires Bash >=3.0
 complete -F _gpg -o bashdefault -o default gpg

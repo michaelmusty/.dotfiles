@@ -4,7 +4,7 @@ _ftp() {
     # Bail if the .netrc file is illegible
     local netrc
     netrc=$HOME/.netrc
-    [[ -r $netrc ]] || return 1
+    [[ -r $netrc ]] || return
 
     # Tokenize the file
     local -a tokens

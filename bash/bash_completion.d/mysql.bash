@@ -2,12 +2,12 @@
 _mysql() {
 
     # Only makes sense for first argument
-    ((COMP_CWORD == 1)) || return 1
+    ((COMP_CWORD == 1)) || return
 
     # Bail if directory doesn't exist
     local dirname
     dirname=$HOME/.mysql
-    [[ -d $dirname ]] || return 1
+    [[ -d $dirname ]] || return
 
     # Return the names of the .cnf files sans prefix as completions
     local db
@@ -19,17 +19,12 @@ _mysql() {
         # Set options so that globs expand correctly
         shopt -s dotglob nullglob
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
+        # Make globbing case-insensitive if appropriate
+        while read -r _ setting ; do
+            case $setting in
+                ('completion-ignore-case on')
+                    shopt -s nocaseglob
+                    break
                     ;;
             esac
         done < <(bind -v)
@@ -40,14 +35,8 @@ _mysql() {
         cnfs=("${cnfs[@]#"$dirname"/}")
         cnfs=("${cnfs[@]%.cnf}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#cnfs[@]})) ; then
-            printf '%q\0' "${cnfs[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${cnfs[@]}"
     )
 }
 complete -F _mysql -o bashdefault -o default mysql

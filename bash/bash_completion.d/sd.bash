@@ -2,10 +2,12 @@
 _sd() {
 
     # Only makes sense for the first argument
-    ((COMP_CWORD == 1)) || return 1
+    ((COMP_CWORD == 1)) || return
 
     # Current directory can't be root directory
-    [[ $PWD != / ]] || return 1
+    case $PWD in
+        /) return 1 ;;
+    esac
 
     # Build list of matching sibling directories
     local dirname
@@ -17,17 +19,12 @@ _sd() {
         # Set options to glob correctly
         shopt -s dotglob nullglob
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
+        # Make globbing case-insensitive if appropriate
+        while read -r _ setting ; do
+            case $setting in
+                ('completion-ignore-case on')
+                    shopt -s nocaseglob
+                    break
                     ;;
             esac
         done < <(bind -v)
@@ -42,18 +39,14 @@ _sd() {
         local -a sibs
         local dirname
         for dirname in "${dirnames[@]}" ; do
-            [[ $dirname != "${PWD##*/}" ]] || continue
-            sibs[${#sibs[@]}]=$dirname
+            case $dirname in
+                "${PWD##*/}") ;;
+                *) sibs[${#sibs[@]}]=$dirname ;;
+            esac
         done
 
-        # Print quoted sibs, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#sibs[@]})) ; then
-            printf '%q\0' "${sibs[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted sibling directories, null-delimited
+        printf '%q\0' "${sibs[@]}"
     )
 }
 complete -F _sd sd

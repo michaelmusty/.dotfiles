@@ -2,71 +2,56 @@
 # stuff that's already kept
 _keep() {
 
-    # Default is to complete with function and variable names
+    # Determine what we're doing based on first completion word
     local mode
-    mode=names
-
-    # Iterate through the words up to the previous word to figure out how to
-    # complete this one
-    local i
-    for ((i = 0; i < COMP_CWORD; i++)) ; do
-        case ${COMP_WORDS[i]} in
-            --)
-                mode=names
-                break
-                ;;
-            -d)
-                mode=kept
-                break
-                ;;
+    mode=keep
+    if ((COMP_CWORD > 1)) ; then
+        case ${COMP_WORDS[1]} in
+            -h) return 1 ;;
+            -d) mode=delete ;;
         esac
-    done
+    fi
 
-    # Complete with appropriate mode
-    case $mode in
-        names)
-            local word
-            while IFS= read -r word ; do
-                [[ -n $word ]] || continue
-                COMPREPLY[${#COMPREPLY[@]}]=$word
-            done < <(compgen -A function -A variable \
-                -- "${COMP_WORDS[COMP_CWORD]}")
-            ;;
-        kept)
-            local word
-            while IFS= read -r word ; do
-                [[ -n $word ]] || continue
-                COMPREPLY[${#COMPREPLY[@]}]=$word
-            done < <(
-                shopt -s dotglob nullglob
+    # Collect words from an appropriate type of completion
+    local word
+    while read -r word ; do
+        [[ -n $word ]] || continue
+        COMPREPLY[${#COMPREPLY[@]}]=$word
+    done < <(
 
-                # Make globbing case-insensitive if appropriate; is there a cleaner way
-                # to find this value?
-                while read -r _ option value ; do
-                    case $option in
-                        (completion-ignore-case)
-                            case $value in
-                                (on)
-                                    shopt -s nocaseglob
-                                    break
-                                    ;;
-                            esac
+        # Switch on second word; is it a -d option?
+        case $mode in
+
+            # Keepable names: all functions and variables
+            (keep)
+                compgen -A function -A variable \
+                    -- "${COMP_WORDS[COMP_CWORD]}"
+                ;;
+
+            # Kept names: .bash-suffixed names in keep dir
+            (delete)
+                # Make globs behave correctly
+                shopt -s nullglob
+                while read -r _ setting ; do
+                    case $setting in
+                        ('completion-ignore-case on')
+                            shopt -s nocaseglob
+                            break
                             ;;
                     esac
                 done < <(bind -v)
 
-                keep=${BASHKEEP:-"$HOME"/.bashkeep.d}
-                declare -a keeps
-                keeps=("$keep"/"${COMP_WORDS[COMP_CWORD]}"*.bash)
-                keeps=("${keeps[@]##*/}")
-                keeps=("${keeps[@]%.bash}")
-                if ((${#keeps[@]})) ; then
-                    printf '%s\n' "${keeps[@]}"
-                else
-                    printf '\n'
-                fi
-            )
-            ;;
-    esac
+                # Build list of kept names
+                dir=${BASHKEEP:-"$HOME"/.bashkeep.d}
+                cword=${COMP_WORDS[COMP_CWORD]}
+                kept=("$dir"/"$cword"*.bash)
+                kept=("${kept[@]##*/}")
+                kept=("${kept[@]%.bash}")
+
+                # Print kept names
+                printf '%s\n' "${kept[@]}"
+                ;;
+        esac
+    )
 }
 complete -F _keep keep

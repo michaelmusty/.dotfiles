@@ -14,71 +14,146 @@ _text_filenames() {
         # Exclude blanks
         [[ -n $item ]] || continue
 
+        # Exclude nonexistent (some sort of error)
+        [[ -e $item ]] || continue
+
+        # Exclude files with block, character, pipe, or socket type
+        ! [[ -b $item ]] || continue
+        ! [[ -c $item ]] || continue
+        ! [[ -p $item ]] || continue
+        ! [[ -S $item ]] || continue
+
         # Accept directories
         if [[ -d $item ]] ; then
             COMPREPLY[${#COMPREPLY[@]}]=$item
             continue
         fi
 
-        # Exclude files with block, character, pipe, or socket type
-        [[ ! -b $item ]] || continue
-        [[ ! -c $item ]] || continue
-        [[ ! -p $item ]] || continue
-        [[ ! -S $item ]] || continue
-
         # Check the filename extension to know what to exclude
-        case $item in
+        (
+            # Case-insensitive matching available since 3.1-alpha
+            shopt -qs nocasematch 2>/dev/null
 
-            # Binary image file formats
-            *.bmp|*.gif|*.ico|*.jpeg|*.jpg|*.png|*.tif|*.xcf) ;;
-            *.BMP|*.GIF|*.ICO|*.JPEG|*.JPG|*.PNG|*.TIF|*.XCF) ;;
+            # Match against known binary patterns
+            case $item in
 
-            # Video file formats
-            *.avi|*.gifv|*.mkv|*.mov|*.mpg|*.rm|*.webm) ;;
-            *.AVI|*.GIFV|*.MKV|*.MOV|*.MPG|*.RM|*.WEBM) ;;
+                # Archives
+                (*.7z) ;;
+                (*.bz2) ;;
+                (*.gz) ;;
+                (*.jar) ;;
+                (*.rar) ;;
+                (*.tar) ;;
+                (*.xz) ;;
+                (*.zip) ;;
 
-            # Lossy audio file formats
-            *.au|*.m4a|*.mp[34]|*.ogg|*.snd|*.wma) ;;
-            *.AU|*.M4A|*.MP[34]|*.OGG|*.SND|*.WMA) ;;
+                # Bytecode
+                (*.class) ;;
+                (*.pyc) ;;
 
-            # Lossless/source audio file formats
-            *.aup|*.flac|*.mid|*.h2song|*.nwc|*.s3m|*.wav) ;;
-            *.AUP|*.FLAC|*.MID|*.H2SONG|*.NWC|*.S3M|*.WAV) ;;
+                # Databases
+                (*.db) ;;
+                (*.dbm) ;;
+                (*.sdbm) ;;
+                (*.sqlite) ;;
 
-            # Compressed/archived file formats
-            *.cab|*.deb|*.lzm|*.pack|*.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.zip) ;;
-            *.CAB|*.DEB|*.LZM|*.PACK|*.TAR|*.TAR.BZ2|*.TAR.GZ|*.TAR.XZ|*.ZIP) ;;
+                # Disk
+                (*.adf) ;;
+                (*.bin) ;;
+                (*.hdf) ;;
+                (*.iso) ;;
 
-            # Document formats
-            # (Not .doc, it's a plaintext format sometimes)
-            *.cbr|*.docx|*.epub|*.odp|*.odt|*.pdf|*.xls|*.xlsx) ;;
-            *.CBR|*.DOCX|*.EPUB|*.ODP|*.ODT|*.PDF|*.XLS|*.XLSX) ;;
+                # Documents
+                (*.docx) ;;
+                (*.djvu) ;;
+                (*.odp) ;;
+                (*.ods) ;;
+                (*.odt) ;;
+                (*.pdf) ;;
+                (*.ppt) ;;
+                (*.xls) ;;
+                (*.xlsx) ;;
 
-            # Filesystems/disk images
-            *.bin|*.cue|*.hdf|*.img|*.iso|*.mdf|*.raw) ;;
-            *.BIN|*.CUE|*.HDF|*.IMG|*.ISO|*.MDF|*.RAW) ;;
+                # Encrypted
+                (*.asc) ;;
+                (*.gpg) ;;
 
-            # Font files
-            *.ttf) ;;
-            *.TTF) ;;
+                # Executables
+                (*.exe) ;;
 
-            # Index file formats
-            *.idx) ;;
-            *.IDX) ;;
+                # Fonts
+                (*.ttf) ;;
 
-            # Encrypted file formats
-            *.gpg) ;;
-            *.GPG) ;;
+                # Images
+                (*.bmp) ;;
+                (*.gd2) ;;
+                (*.gif) ;;
+                (*.ico) ;;
+                (*.jpeg) ;;
+                (*.jpg) ;;
+                (*.pbm) ;;
+                (*.png) ;;
+                (*.psd) ;;
+                (*.tga) ;;
+                (*.xbm) ;;
+                (*.xcf) ;;
+                (*.xpm) ;;
 
-            # Other known binary extensions
-            # (I haven't included .com; on UNIX, that's more likely to be
-            # something I saved from a website and named after the domain)
-            *.a|*.drv|*.exe|*.o|*.torrent|*.wad|*.rom) ;;
-            *.A|*.DRV|*.EXE|*.O|*.TORRENT|*.WAD|*.ROM) ;;
+                # Incomplete
+                (*.filepart) ;;
 
-            # Complete everything else; some of it will still be binary
-            *) COMPREPLY[${#COMPREPLY[@]}]=$item ;;
+                # Objects
+                (*.a) ;;
+                (*.o) ;;
 
-        esac
+                # Sound
+                (*.au) ;;
+                (*.aup) ;;
+                (*.flac) ;;
+                (*.mid) ;;
+                (*.m4a) ;;
+                (*.mp3) ;;
+                (*.ogg) ;;
+                (*.opus) ;;
+                (*.s3m) ;;
+                (*.wav) ;;
+
+                # System-specific
+                (.DS_Store) ;;
+
+                # Translation
+                (*.gmo) ;;
+
+                # Version control
+                (.git) ;;
+                (.hg) ;;
+                (.svn) ;;
+
+                # Video
+                (*.avi) ;;
+                (*.gifv) ;;
+                (*.mp4) ;;
+                (*.ogv) ;;
+                (*.rm) ;;
+                (*.swf) ;;
+                (*.webm) ;;
+
+                # Vim
+                (*~) ;;
+                (*.swp) ;;
+
+                # Not binary that we can tell; maybe editable
+                (*) exit 0 ;;
+
+            esac
+
+            # Known usually-binary extension; flag failure
+            exit 1
+
+        ) || continue
+
+        # Complete everything else; some of it will still be binary
+        COMPREPLY[${#COMPREPLY[@]}]=$item
+
     done < <(compgen -A file -- "${COMP_WORDS[COMP_CWORD]}")
 }

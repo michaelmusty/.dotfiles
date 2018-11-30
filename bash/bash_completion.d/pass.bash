@@ -8,7 +8,7 @@ _pass()
     # If we can't read the password directory, just bail
     local passdir
     passdir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
-    [[ -r $passdir ]] || return 1
+    [[ -r $passdir ]] || return
 
     # Iterate through list of .gpg paths, extension stripped, null-delimited,
     # and filter them down to the ones matching the completing word (compgen
@@ -16,24 +16,19 @@ _pass()
     local entry
     while IFS= read -rd '' entry ; do
         [[ -n $entry ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$entry
+        COMPREPLY+=("$entry")
     done < <(
 
         # Set shell options to expand globs the way we expect
         shopt -u dotglob
         shopt -s globstar nullglob
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
+        # Make globbing case-insensitive if appropriate
+        while read -r _ setting ; do
+            case $setting in
+                ('completion-ignore-case on')
+                    shopt -s nocaseglob
+                    break
                     ;;
             esac
         done < <(bind -v)
@@ -45,14 +40,8 @@ _pass()
         entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#entries[@]})) ; then
-            printf '%q\0' "${entries[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${entries[@]}"
     )
 }
 complete -F _pass pass

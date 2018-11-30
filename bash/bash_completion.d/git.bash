@@ -12,16 +12,14 @@ _git() {
         refs)
             local ref
             while IFS= read -r ref ; do
-                [[ -n $ref ]] || continue
                 ref=${ref#refs/*/}
                 case $ref in
+                    '') continue ;;
                     "${COMP_WORDS[COMP_CWORD]}"*)
                         COMPREPLY[${#COMPREPLY[@]}]=$ref
                         ;;
                 esac
-            done < <(git for-each-ref \
-                --format '%(refname)' \
-                2>/dev/null)
+            done < <(git for-each-ref --format '%(refname)' 2>/dev/null)
             return
             ;;
 
@@ -51,9 +49,7 @@ _git() {
                         COMPREPLY[${#COMPREPLY[@]}]=$alias
                         ;;
                 esac
-            done < <(git config \
-                --get-regexp '^alias\.' \
-                2>/dev/null)
+            done < <(git config --get-regexp '^alias\.' 2>/dev/null)
             return
             ;;
 
@@ -63,7 +59,8 @@ _git() {
             execpath=$(git --exec-path) || return
             local path
             for path in "$execpath"/git-"${COMP_WORDS[COMP_CWORD]}"* ; do
-                [[ -f $path ]] || continue
+                ! [[ -d $path ]] || continue
+                [[ -e $path ]] || continue
                 [[ -x $path ]] || continue
                 COMPREPLY[${#COMPREPLY[@]}]=${path#"$execpath"/git-}
             done

@@ -11,17 +11,12 @@ _eds() {
     done < <(
         shopt -s dotglob nullglob
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
+        # Make globbing case-insensitive if appropriate
+        while read -r _ setting ; do
+            case $setting in
+                ('completion-ignore-case on')
+                    shopt -s nocaseglob
+                    break
                     ;;
             esac
         done < <(bind -v)
@@ -30,18 +25,14 @@ _eds() {
         files=("${EDSPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
         declare -a executables
         for file in "${files[@]}" ; do
-            [[ -f $file && -x $file ]] || continue
+            ! [[ -d $file ]] || continue
+            [[ -e $file ]] || continue
+            [[ -x $file ]] || continue
             executables[${#executables[@]}]=${file##*/}
         done
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#executables[@]})) ; then
-            printf '%q\0' "${executables[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${executables[@]}"
     )
 }
 complete -F _eds eds

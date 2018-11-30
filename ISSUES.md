@@ -28,3 +28,5 @@ Known issues
   it?
 * The b:undo\_indent definition for the perl filetype can probably be pushed
   upstream.
+* The `_text_filenames` completion handler for Bash won't work on files with
+  newlines in their names. Can it be made to?

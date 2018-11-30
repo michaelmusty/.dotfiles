@@ -6,10 +6,18 @@ _path() {
 
         # Complete operation as first word
         local cmd
-        for cmd in list insert append remove shift pop check help ; do
-            [[ $cmd == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
+        while read -r cmd ; do
             COMPREPLY[${#COMPREPLY[@]}]=$cmd
-        done
+        done < <(compgen -W '
+            append
+            check
+            help
+            insert
+            list
+            pop
+            remove
+            shift
+        ' -- "${COMP_WORDS[COMP_CWORD]}")
 
     # Complete with either directories or $PATH entries as all other words
     else
@@ -26,17 +34,12 @@ _path() {
                     # Set options to glob correctly
                     shopt -s dotglob nullglob
 
-                    # Make globbing case-insensitive if appropriate; is there a cleaner way
-                    # to find this value?
-                    while read -r _ option value ; do
-                        case $option in
-                            (completion-ignore-case)
-                                case $value in
-                                    (on)
-                                        shopt -s nocaseglob
-                                        break
-                                        ;;
-                                esac
+                    # Make globbing case-insensitive if appropriate
+                    while read -r _ setting ; do
+                        case $setting in
+                            ('completion-ignore-case on')
+                                shopt -s nocaseglob
+                                break
                                 ;;
                         esac
                     done < <(bind -v)
@@ -46,25 +49,23 @@ _path() {
                     dirnames=("${COMP_WORDS[COMP_CWORD]}"*/)
                     dirnames=("${dirnames[@]%/}")
 
-                    # Print quoted entries, null-delimited, if there was at
-                    # least one; otherwise, just print a null character to stop
-                    # this hanging in Bash 4.4
-                    if ((${#dirnames[@]})) ; then
-                        printf '%q\0' "${dirnames[@]}"
-                    else
-                        printf '\0'
-                    fi
+                    # Print quoted entries, null-delimited
+                    printf '%q\0' "${dirnames[@]}"
                 )
                 ;;
 
             # Complete with directories from PATH
             remove)
                 local -a promptarr
-                IFS=: read -rd '' -a promptarr < <(printf '%s\0' "$PATH")
+                IFS=: read -rd '' -a promptarr < \
+                    <(printf '%s\0' "$PATH")
                 local part
                 for part in "${promptarr[@]}" ; do
-                    [[ $part == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
-                    COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
+                    case $part in
+                        "${COMP_WORDS[COMP_CWORD]}"*)
+                            COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
+                            ;;
+                    esac
                 done
                 ;;
 
