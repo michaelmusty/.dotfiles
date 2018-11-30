@@ -58,7 +58,9 @@ _man() {
         for manpath in "${manpaths[@]}" ; do
             [[ -n $manpath ]] || continue
             if [[ -n $section ]] ; then
-                for page in "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z) ; do
+                for page in \
+                    "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z)
+                do
                     pages[${#pages[@]}]=$page
                 done
             else

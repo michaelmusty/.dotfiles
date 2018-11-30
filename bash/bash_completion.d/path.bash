@@ -49,7 +49,8 @@ _path() {
             # Complete with directories from PATH
             remove)
                 local -a promptarr
-                IFS=: read -rd '' -a promptarr < <(printf '%s\0' "$PATH")
+                IFS=: read -rd '' -a promptarr < \
+                    <(printf '%s\0' "$PATH")
                 local part
                 for part in "${promptarr[@]}" ; do
                     case $part in
