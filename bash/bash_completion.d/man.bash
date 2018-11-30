@@ -69,14 +69,8 @@ _man() {
         pages=("${pages[@]%.@([glx]z|bz2|lzma|Z)}")
         pages=("${pages[@]%.[0-9]*}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#pages[@]})) ; then
-            printf '%q\0' "${pages[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${pages[@]}"
     )
 }
 complete -F _man -o bashdefault -o default man

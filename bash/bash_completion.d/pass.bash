@@ -40,14 +40,8 @@ _pass()
         entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#entries[@]})) ; then
-            printf '%q\0' "${entries[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${entries[@]}"
     )
 }
 complete -F _pass pass

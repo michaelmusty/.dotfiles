@@ -29,14 +29,8 @@ _td() {
         fns=("$dir"/"${COMP_WORDS[COMP_CWORD]}"*)
         fns=("${fns[@]#"$dir"/}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#fns[@]})) ; then
-            printf '%q\0' "${fns[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${fns[@]}"
     )
 }
 complete -F _td td

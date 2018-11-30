@@ -35,14 +35,8 @@ _mysql() {
         cnfs=("${cnfs[@]#"$dirname"/}")
         cnfs=("${cnfs[@]%.cnf}")
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#cnfs[@]})) ; then
-            printf '%q\0' "${cnfs[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${cnfs[@]}"
     )
 }
 complete -F _mysql -o bashdefault -o default mysql

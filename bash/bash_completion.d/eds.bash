@@ -29,14 +29,8 @@ _eds() {
             executables[${#executables[@]}]=${file##*/}
         done
 
-        # Print quoted entries, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#executables[@]})) ; then
-            printf '%q\0' "${executables[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted entries, null-delimited
+        printf '%q\0' "${executables[@]}"
     )
 }
 complete -F _eds eds

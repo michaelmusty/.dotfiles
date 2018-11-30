@@ -41,14 +41,8 @@ _sd() {
             sibs[${#sibs[@]}]=$dirname
         done
 
-        # Print quoted sibs, null-delimited, if there was at least one;
-        # otherwise, just print a null character to stop this hanging in Bash
-        # 4.4
-        if ((${#sibs[@]})) ; then
-            printf '%q\0' "${sibs[@]}"
-        else
-            printf '\0'
-        fi
+        # Print quoted sibling directories, null-delimited
+        printf '%q\0' "${sibs[@]}"
     )
 }
 complete -F _sd sd
