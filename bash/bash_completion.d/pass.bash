@@ -1,6 +1,3 @@
-# Requires Bash >= 4.0 for globstar
-((BASH_VERSINFO[0] >= 4)) || return
-
 # Custom completion for pass(1), because I don't like the one included with the
 # distribution
 _pass()
@@ -10,37 +7,40 @@ _pass()
     passdir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
     [[ -r $passdir ]] || return
 
-    # Iterate through list of .gpg paths, extension stripped, null-delimited,
-    # and filter them down to the ones matching the completing word (compgen
-    # doesn't seem to do this properly with a null delimiter)
-    local entry
-    while IFS= read -rd '' entry ; do
-        [[ -n $entry ]] || continue
-        COMPREPLY+=("$entry")
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -d '' -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
         # Set shell options to expand globs the way we expect
         shopt -u dotglob
-        shopt -s globstar nullglob
+        shopt -s nullglob
 
-        # Make globbing case-insensitive if appropriate
+        # Check Readline settings for case-insensitive matching
         while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
+            if [[ $setting == 'completion-ignore-case on' ]] ; then
+                shopt -s nocaseglob
+                break
+            fi
         done < <(bind -v)
 
-        # Gather the entries and remove their .gpg suffix
-        declare -a entries
-        entries=("$passdir"/"$2"*/**/*.gpg \
-            "$passdir"/"$2"*.gpg)
+        # Gather the entries, use ** for depth search if we can
+        entries=("$passdir"/"$2"*.gpg)
+        if shopt -s globstar 2>/dev/null ; then
+            entries=("${entries[@]}" "$passdir"/"$2"**/*.gpg)
+        else
+            entries=("${entries[@]}" "$passdir"/"$2"*/*.gpg)
+        fi
+
+        # Bail out if there are no entries
+        ((${#entries[@]})) || exit
+
+        # Strip leading path and .gpg suffix from entry names
         entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 
-        # Print quoted entries, null-delimited
+        # Print entries, quoted and null-delimited
         printf '%q\0' "${entries[@]}"
     )
 }
