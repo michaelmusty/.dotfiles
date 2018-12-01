@@ -24,7 +24,7 @@ _abook_addresses() {
         # Generate list of email addresses from abook(1)
         while IFS=$'\t' read -r address _ ; do
             case $address in
-                ("${COMP_WORDS[COMP_CWORD]}"*)
+                ("$2"*)
                     printf '%s\n' "$address"
                     ;;
             esac

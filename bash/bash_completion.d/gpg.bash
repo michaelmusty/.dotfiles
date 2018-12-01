@@ -5,7 +5,7 @@ _gpg() {
     hash gpg 2>/dev/null || return
 
     # Bail if not completing an option
-    case ${COMP_WORDS[COMP_CWORD]} in
+    case $2 in
         --*) ;;
         *) return 1 ;;
     esac
@@ -14,7 +14,7 @@ _gpg() {
     local option
     while read -r option ; do
         case $option in
-            "${COMP_WORDS[COMP_CWORD]}"*)
+            "$2"*)
                 COMPREPLY[${#COMPREPLY[@]}]=$option
                 ;;
         esac

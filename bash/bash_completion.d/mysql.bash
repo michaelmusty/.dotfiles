@@ -31,7 +31,7 @@ _mysql() {
 
         # Collect all the config file names, strip off leading path and .cnf
         local -a cnfs
-        cnfs=("$dirname"/"${COMP_WORDS[COMP_CWORD]}"*.cnf)
+        cnfs=("$dirname"/"$2"*.cnf)
         cnfs=("${cnfs[@]#"$dirname"/}")
         cnfs=("${cnfs[@]%.cnf}")
 

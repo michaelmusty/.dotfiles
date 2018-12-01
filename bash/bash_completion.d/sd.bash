@@ -31,7 +31,7 @@ _sd() {
 
         # Collect directory names, strip leading ../ and trailing /
         local -a dirnames
-        dirnames=(../"${COMP_WORDS[COMP_CWORD]}"*/)
+        dirnames=(../"$2"*/)
         dirnames=("${dirnames[@]#../}")
         dirnames=("${dirnames[@]%/}")
 

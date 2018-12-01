@@ -4,7 +4,7 @@ _kill() {
     local pid
     while read -r pid ; do
         case $pid in
-            "${COMP_WORDS[COMP_CWORD]}"*)
+            "$2"*)
                 COMPREPLY[${#COMPREPLY[@]}]=$pid
                 ;;
         esac

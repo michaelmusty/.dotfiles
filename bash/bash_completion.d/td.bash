@@ -26,7 +26,7 @@ _td() {
         done < <(bind -v)
 
         declare -a fns
-        fns=("$dir"/"${COMP_WORDS[COMP_CWORD]}"*)
+        fns=("$dir"/"$2"*)
         fns=("${fns[@]#"$dir"/}")
 
         # Print quoted entries, null-delimited

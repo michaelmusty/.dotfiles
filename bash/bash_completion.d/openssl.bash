@@ -7,7 +7,7 @@ _openssl() {
             while read -r subcmd ; do
                 case $subcmd in
                     '') ;;
-                    "${COMP_WORDS[COMP_CWORD]}"*)
+                    "$2"*)
                         COMPREPLY[${#COMPREPLY[@]}]=$subcmd
                         ;;
                 esac

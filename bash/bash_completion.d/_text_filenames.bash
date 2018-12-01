@@ -155,5 +155,5 @@ _text_filenames() {
         # Complete everything else; some of it will still be binary
         COMPREPLY[${#COMPREPLY[@]}]=$item
 
-    done < <(compgen -A file -- "${COMP_WORDS[COMP_CWORD]}")
+    done < <(compgen -A file -- "$2")
 }

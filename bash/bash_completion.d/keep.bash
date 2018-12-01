@@ -25,7 +25,7 @@ _keep() {
             # Keepable names: all functions and variables
             (keep)
                 compgen -A function -A variable \
-                    -- "${COMP_WORDS[COMP_CWORD]}"
+                    -- "$2"
                 ;;
 
             # Kept names: .bash-suffixed names in keep dir
@@ -43,7 +43,7 @@ _keep() {
 
                 # Build list of kept names
                 dir=${BASHKEEP:-"$HOME"/.bashkeep.d}
-                cword=${COMP_WORDS[COMP_CWORD]}
+                cword=$2
                 kept=("$dir"/"$cword"*.bash)
                 kept=("${kept[@]##*/}")
                 kept=("${kept[@]%.bash}")

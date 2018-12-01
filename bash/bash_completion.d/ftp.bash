@@ -26,7 +26,7 @@ _ftp() {
     # Generate completion reply
     local machine
     for machine in "${machines[@]}" ; do
-        [[ $machine == "${COMP_WORDS[COMP_CWORD]}"* ]] || continue
+        [[ $machine == "$2"* ]] || continue
         COMPREPLY[${#COMPREPLY[@]}]=$machine
     done
 }

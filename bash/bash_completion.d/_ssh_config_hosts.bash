@@ -2,7 +2,7 @@
 _ssh_config_hosts() {
 
     # Don't complete anything that wouldn't be in a valid hostname
-    case ${COMP_WORDS[COMP_CWORD]} in
+    case $2 in
         *[!a-zA-Z0-9.-]*) return 1 ;;
     esac
 
@@ -37,7 +37,7 @@ _ssh_config_hosts() {
                     (*'*'*) ;;
 
                     # Found a match; print it
-                    ("${COMP_WORDS[COMP_CWORD]}"*)
+                    ("$2"*)
                         printf '%s\n' "$value"
                         ;;
                 esac

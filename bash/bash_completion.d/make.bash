@@ -40,7 +40,7 @@ _make() {
                         *[^[:word:]./-]*) ;;
 
                         # Add targets that match what we're completing
-                        "${COMP_WORDS[COMP_CWORD]}"*)
+                        "$2"*)
                             COMPREPLY[${#COMPREPLY[@]}]=$target
                             ;;
                     esac

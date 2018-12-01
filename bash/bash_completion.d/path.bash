@@ -17,7 +17,7 @@ _path() {
             pop
             remove
             shift
-        ' -- "${COMP_WORDS[COMP_CWORD]}")
+        ' -- "$2")
 
     # Complete with either directories or $PATH entries as all other words
     else
@@ -46,7 +46,7 @@ _path() {
 
                     # Collect directory names, strip trailing slash
                     local -a dirnames
-                    dirnames=("${COMP_WORDS[COMP_CWORD]}"*/)
+                    dirnames=("$2"*/)
                     dirnames=("${dirnames[@]%/}")
 
                     # Print quoted entries, null-delimited
@@ -62,7 +62,7 @@ _path() {
                 local part
                 for part in "${promptarr[@]}" ; do
                     case $part in
-                        "${COMP_WORDS[COMP_CWORD]}"*)
+                        "$2"*)
                             COMPREPLY[${#COMPREPLY[@]}]=$(printf '%q' "$part")
                             ;;
                     esac

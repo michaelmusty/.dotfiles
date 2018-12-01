@@ -4,13 +4,9 @@ _man() {
     # Don't even bother if we don't have manpath(1)
     hash manpath 2>/dev/null || return
 
-    # Snarf the word
-    local word
-    word=${COMP_WORDS[COMP_CWORD]}
-
     # Don't bother if the word has slashes in it, the user is probably trying
     # to complete an actual path
-    case $word in
+    case $2 in
         */*) return 1 ;;
     esac
 
@@ -18,9 +14,9 @@ _man() {
     # we'll assume that's the section to search
     local section subdir
     if ((COMP_CWORD > 1)) ; then
-        case ${COMP_WORDS[COMP_CWORD-1]} in
+        case $3 in
             [0-9]*)
-                section=${COMP_WORDS[COMP_CWORD-1]}
+                section=$3
                 subdir=man${section%%[^0-9]*}
                 ;;
         esac
@@ -59,12 +55,12 @@ _man() {
             [[ -n $manpath ]] || continue
             if [[ -n $section ]] ; then
                 for page in \
-                    "$manpath"/"$subdir"/"$word"*."$section"?(.[glx]z|.bz2|.lzma|.Z)
+                    "$manpath"/"$subdir"/"$2"*."$section"?(.[glx]z|.bz2|.lzma|.Z)
                 do
                     pages[${#pages[@]}]=$page
                 done
             else
-                for page in "$manpath"/man[0-9]*/"$word"*.* ; do
+                for page in "$manpath"/man[0-9]*/"$2"*.* ; do
                     pages[${#pages[@]}]=$page
                 done
             fi

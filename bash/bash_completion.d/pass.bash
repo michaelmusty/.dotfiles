@@ -35,8 +35,8 @@ _pass()
 
         # Gather the entries and remove their .gpg suffix
         declare -a entries
-        entries=("$passdir"/"${COMP_WORDS[COMP_CWORD]}"*/**/*.gpg \
-            "$passdir"/"${COMP_WORDS[COMP_CWORD]}"*.gpg)
+        entries=("$passdir"/"$2"*/**/*.gpg \
+            "$passdir"/"$2"*.gpg)
         entries=("${entries[@]#"$passdir"/}")
         entries=("${entries[@]%.gpg}")
 

@@ -22,7 +22,7 @@ _eds() {
         done < <(bind -v)
 
         declare -a files
-        files=("${EDSPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
+        files=("${EDSPATH:-"$HOME"/.local/bin}"/"$2"*)
         declare -a executables
         for file in "${files[@]}" ; do
             ! [[ -d $file ]] || continue

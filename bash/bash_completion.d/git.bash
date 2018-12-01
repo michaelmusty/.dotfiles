@@ -15,7 +15,7 @@ _git() {
                 ref=${ref#refs/*/}
                 case $ref in
                     '') continue ;;
-                    "${COMP_WORDS[COMP_CWORD]}"*)
+                    "$2"*)
                         COMPREPLY[${#COMPREPLY[@]}]=$ref
                         ;;
                 esac
@@ -29,7 +29,7 @@ _git() {
             while IFS= read -r remote ; do
                 case $remote in
                     '') continue ;;
-                    "${COMP_WORDS[COMP_CWORD]}"*)
+                    "$2"*)
                         COMPREPLY[${#COMPREPLY[@]}]=$remote
                         ;;
                 esac
@@ -45,7 +45,7 @@ _git() {
                 alias=${alias%% *}
                 case $alias in
                     '') continue ;;
-                    "${COMP_WORDS[COMP_CWORD]}"*)
+                    "$2"*)
                         COMPREPLY[${#COMPREPLY[@]}]=$alias
                         ;;
                 esac
@@ -58,7 +58,7 @@ _git() {
             local execpath
             execpath=$(git --exec-path) || return
             local path
-            for path in "$execpath"/git-"${COMP_WORDS[COMP_CWORD]}"* ; do
+            for path in "$execpath"/git-"$2"* ; do
                 ! [[ -d $path ]] || continue
                 [[ -e $path ]] || continue
                 [[ -x $path ]] || continue
@@ -121,7 +121,7 @@ _git() {
                     set-url
                     show
                     update
-                ' -- "${COMP_WORDS[COMP_CWORD]}")
+                ' -- "$2")
             else
                 "${FUNCNAME[0]}" remotes
             fi
@@ -146,7 +146,7 @@ _git() {
                 save
                 show
                 store
-            ' -- "${COMP_WORDS[COMP_CWORD]}")
+            ' -- "$2")
             return
             ;;
 
@@ -166,7 +166,7 @@ _git() {
                 summary
                 sync
                 update
-            ' -- "${COMP_WORDS[COMP_CWORD]}")
+            ' -- "$2")
             return
             ;;
 
@@ -187,7 +187,7 @@ _git() {
         # I normally only want a refspec for "reset" if I'm using the --hard or
         # --soft option; otherwise, files are fine
         reset)
-            case ${COMP_WORDS[COMP_CWORD-1]} in
+            case $3 in
                 --hard|--soft)
                     "${FUNCNAME[0]}" refs
                     ;;

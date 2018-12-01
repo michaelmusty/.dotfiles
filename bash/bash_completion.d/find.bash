@@ -36,7 +36,7 @@ _find() {
         # If the word being completed starts with a dash, just complete it as
         # an option; crude, but simple, and will be right the vast majority of
         # the time
-        case ${COMP_WORDS[COMP_CWORD]} in
+        case $2 in
             (-*)
                 compgen -W '
                     -atime
@@ -58,32 +58,32 @@ _find() {
                     -type
                     -user
                     -xdev
-                ' -- "${COMP_WORDS[COMP_CWORD]}"
+                ' -- "$2"
                 ;;
         esac
 
         # Otherwise, look at the word *before* this one to figure out what to
         # complete
-        case ${COMP_WORDS[COMP_CWORD-1]} in
+        case $3 in
 
             # Args to -exec and -execdir should be commands
             (-exec|-execdir)
-                compgen -A command -- "${COMP_WORDS[COMP_CWORD]}"
+                compgen -A command -- "$2"
                 ;;
 
             # Args to -group should complete group names
             (-group)
-                compgen -A group -- "${COMP_WORDS[COMP_CWORD]}"
+                compgen -A group -- "$2"
                 ;;
 
             # Legal POSIX flags for -type
             (-type)
-                compgen -W 'b c d f l p s' -- "${COMP_WORDS[COMP_CWORD]}"
+                compgen -W 'b c d f l p s' -- "$2"
                 ;;
 
             # Args to -user should complete usernames
             (-user)
-                compgen -A user -- "${COMP_WORDS[COMP_CWORD]}"
+                compgen -A user -- "$2"
                 ;;
         esac
     )

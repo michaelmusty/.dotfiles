@@ -9,6 +9,6 @@ _chgrp() {
     done
     while read -r group ; do
         COMPREPLY[${#COMPREPLY[@]}]=$group
-    done < <(compgen -A group -- "${COMP_WORDS[COMP_CWORD]}")
+    done < <(compgen -A group -- "$2")
 }
 complete -F _chgrp -o bashdefault -o default chgrp
