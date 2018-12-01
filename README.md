@@ -264,7 +264,6 @@ files, for things I really do get tired of typing repeatedly:
 
 * Bash builtins: commands, help topics, shell options, variables, etc.
 * `find(1)`'s more portable options
-* `git(1)` subcommands, remotes, branches, tags, and addable files
 * `gpg(1)` long options
 * `make(1)` targets read from a `Makefile`
 * `man(1)` page titles
