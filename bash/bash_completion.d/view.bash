@@ -1,4 +1,5 @@
 # Completion for view(1) with files that look editable
-declare -F _text_filenames >/dev/null ||
+if ! declare -F _text_filenames >/dev/null ; then
     source "$HOME"/.bash_completion.d/_text_filenames.bash
+fi
 complete -F _text_filenames -o filenames view
