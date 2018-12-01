@@ -79,7 +79,8 @@ complete -A helptopic \
 complete -P '%' -A job \
     'disown' \
     'fg' \
-    'jobs'
+    'jobs' \
+    'kill'
 complete -P '%' -A stopped \
     'bg'
 
