@@ -130,12 +130,12 @@ EOF
     # Otherwise the user must want us to print all the NAMEs kept
     (
         shopt -s nullglob
-        declare -a keeps
-        keeps=("$bashkeep"/*.bash)
-        keeps=("${keeps[@]##*/}")
-        keeps=("${keeps[@]%.bash}")
-        ((${#keeps[@]})) || exit 0
-        printf '%s\n' "${keeps[@]}"
+        for keep in "$bashkeep"/*.bash ; do
+            ! [[ -d $keep ]] || continue
+            keep=${keep##*/}
+            keep=${keep%.bash}
+            printf '%s\n' "$keep"
+        done
     )
 }
 
