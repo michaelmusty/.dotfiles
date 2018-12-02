@@ -23,10 +23,10 @@ _make() {
 
             # Match expected format
             case $line in
-                # Has no equals sign anywhere
-                (*=*) continue ;;
                 # First char not a tab
                 ($'\t'*) continue ;;
+                # Has no equals sign anywhere
+                (*=*) continue ;;
                 # Has a colon on the line
                 (*:*) ;;
                 # Skip anything else
