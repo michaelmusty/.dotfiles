@@ -22,7 +22,7 @@ _bd() {
         done
 
         # Continue if we have at least two nodes, counting the leaf
-        ((${#nodes[@]} > 1)) || return
+        ((ni > 1)) || return
 
         # Shift off the leaf, since it is not meaningful to go "back to" the
         # current directory
