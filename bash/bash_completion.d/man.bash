@@ -1,3 +1,8 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Autocompletion for man(1)
 _man() {
 
