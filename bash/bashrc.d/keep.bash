@@ -101,19 +101,17 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash ||
-                            ((errors++))
+                        rm -- "$bashkeep"/"$name".bash
 
                     # Save a function
                     elif [[ $(type -t "$name") = 'function' ]] ; then
-                        declare -f -- "$name" >"$bashkeep"/"$name".bash ||
-                            ((errors++))
+                        declare -f -- "$name" >"$bashkeep"/"$name".bash
 
                     # Save a variable
                     elif declare -p -- "$name" >/dev/null ; then
-                        declare -p -- "$name" >"$bashkeep"/"$name".bash ||
-                            ((errors++))
-                    fi
+                        declare -p -- "$name" >"$bashkeep"/"$name".bash
+
+                    fi || ((errors++))
                     ;;
             esac
         done
