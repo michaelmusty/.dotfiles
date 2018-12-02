@@ -131,7 +131,7 @@ EOF
 
     # Otherwise the user must want us to print all the NAMEs kept
     (
-        shopt -s dotglob nullglob
+        shopt -s nullglob
         declare -a keeps
         keeps=("$bashkeep"/*.bash)
         keeps=("${keeps[@]##*/}")

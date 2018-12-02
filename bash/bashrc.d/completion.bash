@@ -79,7 +79,8 @@ complete -A helptopic \
 complete -P '%' -A job \
     'disown' \
     'fg' \
-    'jobs'
+    'jobs' \
+    'kill'
 complete -P '%' -A stopped \
     'bg'
 
@@ -102,24 +103,42 @@ if ((BASH_VERSINFO[0] >= 4)) ; then
         'readarray'
 fi
 
-# If we have dynamic completion loading (Bash>=4.0), use it
+# If we have dynamic completion loading (Bash >= 4.0), use it
 if ((BASH_VERSINFO[0] >= 4)) ; then
 
     # Handler tries to load appropriate completion for commands
     _completion_loader() {
-        [[ -n $1 ]] || return
+
+        # Check completed command for validity
+        case $1 in
+            # Not empty
+            '') return 1 ;;
+            # Not starting with an underscore
+            _*) return 1 ;;
+        esac
+
+        # Build expected path for the command completion
         local compspec
         compspec=$HOME/.bash_completion.d/$1.bash
-        [[ -f $compspec ]] || return
-        source "$compspec" >/dev/null 2>&1 && return 124
+
+        # Skip directories and nonexistent files
+        [[ -e $compspec ]] || return
+        ! [[ -d $compspec ]] || return
+
+        # Try to read the file, return 124 if it worked
+        if source "$compspec" ; then
+            return 124
+        fi
     }
+
+    # Set completion loader to use the above function
     complete -D -F _completion_loader -o bashdefault -o default
 
 # If not, load all of the completions up now
 else
-    for sh in "$HOME"/.bash_completion.d/*.bash ; do
-        [[ -e $sh ]] || continue
-        source "$sh"
+    for bash in "$HOME"/.bash_completion.d/[^_]*.bash ; do
+        [[ -e $bash ]] || continue
+        source "$bash"
     done
-    unset -v sh
+    unset -v bash
 fi

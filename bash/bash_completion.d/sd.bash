@@ -1,52 +1,32 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Completion function for sd; any sibling directories, excluding the self
 _sd() {
 
-    # Only makes sense for the first argument
-    ((COMP_CWORD == 1)) || return
-
-    # Current directory can't be root directory
-    case $PWD in
-        /) return 1 ;;
-    esac
-
     # Build list of matching sibling directories
-    local dirname
-    while IFS= read -rd '' dirname ; do
-        [[ -n $dirname ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$dirname
+    local ci comp
+    while IFS= read -d / -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
-        # Set options to glob correctly
+        # Make globs expand appropriately
         shopt -s dotglob nullglob
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
-        # Make globbing case-insensitive if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
-
-        # Collect directory names, strip leading ../ and trailing /
-        local -a dirnames
-        dirnames=(../"${COMP_WORDS[COMP_CWORD]}"*/)
-        dirnames=("${dirnames[@]#../}")
-        dirnames=("${dirnames[@]%/}")
-
-        # Iterate again, but exclude the current directory this time
-        local -a sibs
-        local dirname
-        for dirname in "${dirnames[@]}" ; do
-            case $dirname in
-                "${PWD##*/}") ;;
-                *) sibs[${#sibs[@]}]=$dirname ;;
+        # Print matching sibling dirs that are not the current dir
+        for sibling in ../"$2"*/ ; do
+            sibling=${sibling%/}
+            sibling=${sibling#../}
+            case $sibling in
+                ("${PWD##*/}") ;;
+                (*) printf '%q/' "${sibling}" ;;
             esac
         done
-
-        # Print quoted sibling directories, null-delimited
-        printf '%q\0' "${sibs[@]}"
     )
 }
 complete -F _sd sd

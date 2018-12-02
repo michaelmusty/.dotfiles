@@ -8,34 +8,36 @@
 # the thing I want, and I want it to stay fast.
 #
 _text_filenames() {
-    local item
-    while IFS= read -r item ; do
+
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -r comp ; do
 
         # Exclude blanks
-        [[ -n $item ]] || continue
+        [[ -n $comp ]] || continue
 
         # Exclude nonexistent (some sort of error)
-        [[ -e $item ]] || continue
+        [[ -e $comp ]] || continue
 
         # Exclude files with block, character, pipe, or socket type
-        ! [[ -b $item ]] || continue
-        ! [[ -c $item ]] || continue
-        ! [[ -p $item ]] || continue
-        ! [[ -S $item ]] || continue
+        ! [[ -b $comp ]] || continue
+        ! [[ -c $comp ]] || continue
+        ! [[ -p $comp ]] || continue
+        ! [[ -S $comp ]] || continue
 
         # Accept directories
-        if [[ -d $item ]] ; then
-            COMPREPLY[${#COMPREPLY[@]}]=$item
+        if [[ -d $comp ]] ; then
+            COMPREPLY[ci++]=$comp
             continue
         fi
 
         # Check the filename extension to know what to exclude
         (
             # Case-insensitive matching available since 3.1-alpha
-            shopt -qs nocasematch 2>/dev/null
+            shopt -s nocasematch 2>/dev/null
 
             # Match against known binary patterns
-            case $item in
+            case $comp in
 
                 # Archives
                 (*.7z) ;;
@@ -153,7 +155,7 @@ _text_filenames() {
         ) || continue
 
         # Complete everything else; some of it will still be binary
-        COMPREPLY[${#COMPREPLY[@]}]=$item
+        COMPREPLY[ci++]=$comp
 
-    done < <(compgen -A file -- "${COMP_WORDS[COMP_CWORD]}")
+    done < <(compgen -A file -- "$2")
 }

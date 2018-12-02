@@ -1,47 +1,55 @@
-# Requires Bash >= 4.0 for globstar
-((BASH_VERSINFO[0] >= 4)) || return
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
 
 # Custom completion for pass(1), because I don't like the one included with the
 # distribution
-_pass()
-{
-    # If we can't read the password directory, just bail
-    local passdir
-    passdir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
-    [[ -r $passdir ]] || return
+_pass() {
 
-    # Iterate through list of .gpg paths, extension stripped, null-delimited,
-    # and filter them down to the ones matching the completing word (compgen
-    # doesn't seem to do this properly with a null delimiter)
-    local entry
-    while IFS= read -rd '' entry ; do
-        [[ -n $entry ]] || continue
-        COMPREPLY+=("$entry")
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -d '' -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
-        # Set shell options to expand globs the way we expect
+        # Make globs expand appropriately
         shopt -u dotglob
-        shopt -s globstar nullglob
+        shopt -s nullglob
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
-        # Make globbing case-insensitive if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
+        # Set password store path
+        pass_dir=${PASSWORD_STORE_DIR:-"$HOME"/.password-store}
 
-        # Gather the entries and remove their .gpg suffix
-        declare -a entries
-        entries=("$passdir"/"${COMP_WORDS[COMP_CWORD]}"*/**/*.gpg \
-            "$passdir"/"${COMP_WORDS[COMP_CWORD]}"*.gpg)
-        entries=("${entries[@]#"$passdir"/}")
-        entries=("${entries[@]%.gpg}")
+        # Gather the entries
+        for entry in "$pass_dir"/"$2"*.gpg ; do
+            entries[ei++]=$entry
+        done
 
-        # Print quoted entries, null-delimited
-        printf '%q\0' "${entries[@]}"
+        # Try to iterate into subdirs, use depth search with ** if available
+        if shopt -s globstar 2>/dev/null ; then
+            for entry in "$pass_dir"/"$2"**/*.gpg ; do
+                entries[ei++]=$entry
+            done
+        else
+            for entry in "$pass_dir"/"$2"*/*.gpg ; do
+                entries[ei++]=$entry
+            done
+        fi
+
+        # Iterate through entries
+        for entry in "${entries[@]}" ; do
+            # Skip directories
+            ! [[ -d $entry ]] || continue
+            # Strip leading path
+            entry=${entry#"$pass_dir"/}
+            # Strip .gpg suffix
+            entry=${entry%.gpg}
+            # Print shell-quoted entry, null terminated
+            printf '%q\0' "$entry"
+        done
     )
 }
 complete -F _pass pass

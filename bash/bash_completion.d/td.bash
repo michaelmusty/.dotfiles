@@ -1,36 +1,31 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Complete filenames for td(1df)
 _td() {
-    local dir
-    dir=${TODO_DIR:-"$HOME"/Todo}
-    local fn
-    while IFS= read -rd '' fn ; do
-        [[ -n $fn ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$fn
+
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -d / -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
-        shopt -s extglob nullglob
+
+        # Make globs expand appropriately
         shopt -u dotglob
+        shopt -s nullglob
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
-        # Make globbing case-insensitive if appropriate; is there a cleaner way
-        # to find this value?
-        while read -r _ option value ; do
-            case $option in
-                (completion-ignore-case)
-                    case $value in
-                        (on)
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
-                    ;;
-            esac
-        done < <(bind -v)
-
-        declare -a fns
-        fns=("$dir"/"${COMP_WORDS[COMP_CWORD]}"*)
-        fns=("${fns[@]#"$dir"/}")
-
-        # Print quoted entries, null-delimited
-        printf '%q\0' "${fns[@]}"
+        # Find and print matching file entries
+        for list in "${TODO_DIR:-"$HOME"/Todo}"/"$2"* ; do
+            # Skip directories
+            ! [[ -d $list ]] || continue
+            # Print entry, slash-terminated
+            printf '%q/' "${list##*/}"
+        done
     )
 }
 complete -F _td td

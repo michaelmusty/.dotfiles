@@ -6,6 +6,7 @@
 	install \
 	install-abook \
 	install-bash \
+	install-bash-completion \
 	install-bin \
 	install-bin-man \
 	install-curl \
@@ -359,11 +360,14 @@ install-abook:
 	cp -p -- abook/abookrc $(HOME)/.abook
 
 install-bash: check-bash install-sh
-	mkdir -p -- $(HOME)/.bashrc.d $(HOME)/.bash_completion.d $(HOME)/.config
+	mkdir -p -- $(HOME)/.bashrc.d
 	cp -p -- bash/bashrc $(HOME)/.bashrc
 	cp -p -- bash/bashrc.d/* $(HOME)/.bashrc.d
 	cp -p -- bash/bash_profile $(HOME)/.bash_profile
 	cp -p -- bash/bash_logout $(HOME)/.bash_logout
+
+install-bash-completion: install-bash
+	mkdir -p -- $(HOME)/.bash_completion.d $(HOME)/.config
 	cp -p -- bash/bash_completion $(HOME)/.config
 	cp -p -- bash/bash_completion.d/* $(HOME)/.bash_completion.d
 

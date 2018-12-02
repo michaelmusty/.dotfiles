@@ -16,8 +16,8 @@ HISTFILE=$HOME/.zsh_history
 SAVEHIST=$((1 << 12))
 
 # Load Zsh-specific startup files
-for sh in "$HOME"/.zshrc.d/*.zsh ; do
-    [[ -e $sh ]] || continue
-    source "$sh"
+for zsh in "$HOME"/.zshrc.d/*.zsh ; do
+    [[ -e $zsh ]] || continue
+    source "$zsh"
 done
-unset -v sh
+unset -v zsh

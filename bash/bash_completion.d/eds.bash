@@ -1,38 +1,34 @@
-# Complete args to eds(1df) with existing executables in $EDSPATH, defaulting
-# to ~/.local/bin
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
+# Complete args to eds(1df)
 _eds() {
-    local edspath
-    edspath=${EDSPATH:-"$HOME"/.local/bin}
-    [[ -d $edspath ]] || return
-    local executable
-    while IFS= read -rd '' executable ; do
-        [[ -n $executable ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$executable
+
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -d / -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
-        shopt -s dotglob nullglob
 
-        # Make globbing case-insensitive if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
+        # Make globs expand appropriately
+        shopt -u dotglob
+        shopt -s nullglob
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
-        declare -a files
-        files=("${EDSPATH:-"$HOME"/.local/bin}"/"${COMP_WORDS[COMP_CWORD]}"*)
-        declare -a executables
-        for file in "${files[@]}" ; do
+        # Iterate through files in local binaries directory
+        edspath=${EDSPATH:-"$HOME"/.local/bin}
+        for file in "$edspath"/"$2"* ; do
+            # Skip directories
             ! [[ -d $file ]] || continue
-            [[ -e $file ]] || continue
+            # Skip non-executable files
             [[ -x $file ]] || continue
-            executables[${#executables[@]}]=${file##*/}
+            # Print entry, null-terminated
+            printf '%q\0' "${file##*/}"
         done
-
-        # Print quoted entries, null-delimited
-        printf '%q\0' "${executables[@]}"
     )
 }
 complete -F _eds eds

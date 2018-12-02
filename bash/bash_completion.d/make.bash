@@ -1,3 +1,8 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Completion setup for Make, completing targets
 _make() {
 
@@ -5,48 +10,56 @@ _make() {
     # first, then "Makefile"). You may want to add "GNU-makefile" after this.
     local mf
     for mf in makefile Makefile '' ; do
-        [[ -e $mf ]] || continue
-        break
+        ! [[ -e $mf ]] || break
     done
     [[ -n $mf ]] || return
 
-    # Iterate through the Makefile, line by line
-    local line
-    while IFS= read -r line ; do
-        case $line in
+    # Iterate through completions produced by subshell
+    local ci comp
+    while read -r comp ; do
+        COMPREPLY[ci++]=$comp
+    done < <(
+        while IFS= read -r line ; do
 
-            # We're looking for targets but not variable assignments
-            \#*) ;;
-            $'\t'*) ;;
-            *:=*) ;;
-            *:*)
+            # Match expected format
+            case $line in
+                # Has no equals sign anywhere
+                (*=*) continue ;;
+                # First char not a tab
+                ($'\t'*) continue ;;
+                # Has a colon on the line
+                (*:*) ;;
+                # Skip anything else
+                (*) continue ;;
+            esac
 
-                # Break the target up with space delimiters
-                local -a targets
-                IFS=' ' read -rd '' -a targets < \
-                    <(printf '%s\0' "${line%%:*}")
+            # Break the target up with space delimiters
+            local -a targets
+            IFS=' ' read -a targets -r \
+                < <(printf '%s\n' "${line%%:*}")
 
-                # Iterate through the targets and add suitable ones
-                local target
-                for target in "${targets[@]}" ; do
-                    case $target in
+            # Short-circuit if there are no targets
+            ((${#targets[@]})) || exit
 
-                        # Don't complete special targets beginning with a
-                        # period
-                        .*) ;;
+            # Make matches behave correctly
+            if _completion_ignore_case ; then
+                shopt -s nocasematch 2>/dev/null
+            fi
 
-                        # Don't complete targets with names that have
-                        # characters outside of the POSIX spec (plus slashes)
-                        *[^[:word:]./-]*) ;;
+            # Examine each target for completion suitability
+            local target
+            for target in "${targets[@]}" ; do
+                case $target in
+                    # Not .PHONY, .POSIX etc
+                    (.*) ;;
+                    # Nothing with metacharacters
+                    (*[^[:word:]./-]*) ;;
+                    # Match!
+                    ("$2"*) printf '%s\n' "$target" ;;
+                esac
+            done
 
-                        # Add targets that match what we're completing
-                        "${COMP_WORDS[COMP_CWORD]}"*)
-                            COMPREPLY[${#COMPREPLY[@]}]=$target
-                            ;;
-                    esac
-                done
-                ;;
-        esac
-    done < "$mf"
+        done < "$mf"
+    )
 }
 complete -F _make -o bashdefault -o default make

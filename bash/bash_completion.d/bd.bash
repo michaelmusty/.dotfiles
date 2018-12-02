@@ -1,25 +1,45 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Completion setup for bd()
 _bd() {
 
-    # Only makes sense for the first argument
-    ((COMP_CWORD == 1)) || return
+    # Iterate through completions produced by subshell
+    local ci comp
+    while IFS= read -d / -r comp ; do
+        COMPREPLY[ci++]=$comp
+    done < <(
 
-    # Build a list of dirnames in $PWD
-    local -a dirnames
-    IFS=/ read -rd '' -a dirnames < <(printf '%s\0' "${PWD#/}")
+        # Build an array of path nodes, leaf to root
+        path=$PWD
+        while [[ -n $path ]] ; do
+            node=${path##*/}
+            path=${path%/*}
+            [[ -n $node ]] || continue
+            nodes[ni++]=$node
+        done
 
-    # Remove the last element in the array (the current directory)
-    ((${#dirnames[@]})) || return
-    dirnames=("${dirnames[@]:0:${#dirnames[@]}-1}")
+        # Continue if we have at least two nodes, counting the leaf
+        ((${#nodes[@]} > 1)) || return
 
-    # Add the matching dirnames to the reply
-    local dirname
-    for dirname in "${dirnames[@]}" ; do
-        case $dirname in
-            "${COMP_WORDS[COMP_CWORD]}"*)
-                COMPREPLY[${#COMPREPLY[@]}]=$(printf %q "$dirname")
-            ;;
-        esac
-    done
+        # Shift off the leaf, since it is not meaningful to go "back to" the
+        # current directory
+        nodes=("${nodes[@]:1}")
+
+        # Make matching behave appropriately
+        if _completion_ignore_case ; then
+            shopt -s nocasematch 2>/dev/null
+        fi
+
+        # Iterate through the nodes and print the ones that match the word
+        # being completed, with a trailing slash as terminator
+        for node in "${nodes[@]}" ; do
+            case $node in
+                ("$2"*) printf '%s/' "$node" ;;
+            esac
+        done
+    )
 }
 complete -F _bd bd
