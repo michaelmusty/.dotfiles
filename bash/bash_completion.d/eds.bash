@@ -26,8 +26,8 @@ _eds() {
             ! [[ -d $file ]] || continue
             # Skip non-executable files
             [[ -x $file ]] || continue
-            # Print entry, null-terminated
-            printf '%q\0' "${file##*/}"
+            # Print quoted entry, slash-terminated
+            printf '%q/' "${file##*/}"
         done
     )
 }
