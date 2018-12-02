@@ -24,20 +24,12 @@ _man() {
         COMPREPLY[ci++]=$comp
     done < <(
 
-        # Do not return dotfiles, give us extended globbing, and expand empty
-        # globs to just nothing
+        # Make globs expand appropriately
         shopt -u dotglob
         shopt -s nullglob
-
-        # Make globbing case-insensitive if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
         # Figure out the manual paths to search
         if hash amanpath 2>/dev/null ; then
