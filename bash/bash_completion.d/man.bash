@@ -32,7 +32,7 @@ _man() {
         fi
 
         # Figure out the manual paths to search
-        if hash amanpath 2>/dev/null ; then
+        if hash manpath 2>/dev/null ; then
 
             # manpath(1) exists, run it to find what to search
             IFS=: read -a manpaths -r \
