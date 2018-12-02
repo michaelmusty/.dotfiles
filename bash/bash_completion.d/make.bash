@@ -47,7 +47,6 @@ _make() {
             fi
 
             # Examine each target for completion suitability
-            local target
             for target in "${targets[@]}" ; do
                 case $target in
                     # Not .PHONY, .POSIX etc
