@@ -23,10 +23,10 @@ _make() {
 
             # Match expected format
             case $line in
-                # Has no equals sign anywhere
-                (*=*) continue ;;
                 # First char not a tab
                 ($'\t'*) continue ;;
+                # Has no equals sign anywhere
+                (*=*) continue ;;
                 # Has a colon on the line
                 (*:*) ;;
                 # Skip anything else
@@ -34,7 +34,7 @@ _make() {
             esac
 
             # Break the target up with space delimiters
-            local -a targets
+            declare -a targets
             IFS=' ' read -a targets -r \
                 < <(printf '%s\n' "${line%%:*}")
 
@@ -47,7 +47,6 @@ _make() {
             fi
 
             # Examine each target for completion suitability
-            local target
             for target in "${targets[@]}" ; do
                 case $target in
                     # Not .PHONY, .POSIX etc

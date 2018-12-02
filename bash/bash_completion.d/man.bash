@@ -1,3 +1,8 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Autocompletion for man(1)
 _man() {
 
@@ -8,6 +13,7 @@ _man() {
 
     # If previous word started with a number, we'll assume that's a section to
     # search
+    local sec
     case $3 in
         [0-9]*) sec=$3 ;;
     esac
@@ -19,27 +25,19 @@ _man() {
     # Read completion results from a subshell and add them to the COMPREPLY
     # array individually
     local ci comp
-    while IFS= read -d '' -r comp ; do
+    while IFS= read -d / -r comp ; do
         COMPREPLY[ci++]=$comp
     done < <(
 
-        # Do not return dotfiles, give us extended globbing, and expand empty
-        # globs to just nothing
+        # Make globs expand appropriately
         shopt -u dotglob
         shopt -s nullglob
-
-        # Make globbing case-insensitive if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocaseglob
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
+        if _completion_ignore_case ; then
+            shopt -s nocaseglob
+        fi
 
         # Figure out the manual paths to search
-        if hash amanpath 2>/dev/null ; then
+        if hash manpath 2>/dev/null ; then
 
             # manpath(1) exists, run it to find what to search
             IFS=: read -a manpaths -r \
@@ -84,8 +82,8 @@ _man() {
         # Strip section suffixes
         pages=("${pages[@]%.[0-9]*}")
 
-        # Print entries, null-delimited
-        printf '%s\0' "${pages[@]}"
+        # Print quoted entries, slash-delimited
+        printf '%q/' "${pages[@]}"
     )
 }
 complete -F _man -o bashdefault -o default man

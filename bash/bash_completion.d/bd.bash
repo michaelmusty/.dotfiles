@@ -22,7 +22,7 @@ _bd() {
         done
 
         # Continue if we have at least two nodes, counting the leaf
-        ((${#nodes[@]} > 1)) || return
+        ((ni > 1)) || return
 
         # Shift off the leaf, since it is not meaningful to go "back to" the
         # current directory
@@ -36,10 +36,18 @@ _bd() {
         # Iterate through the nodes and print the ones that match the word
         # being completed, with a trailing slash as terminator
         for node in "${nodes[@]}" ; do
-            case $node in
-                ("$2"*) printf '%s/' "$node" ;;
-            esac
+            node_quoted=$(printf '%q' "$node")
+            # Check the quoted and unquoted word for matching
+            for match in "$node" "$(printf '%q' "$node")" ; do
+                # Print any match, slash-terminated
+                case $match in
+                    ("$2"*)
+                        printf '%s/' "$node"
+                        continue
+                        ;;
+                esac
+            done
         done
     )
 }
-complete -F _bd bd
+complete -F _bd -o filenames bd

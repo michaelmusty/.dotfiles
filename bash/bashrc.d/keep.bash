@@ -101,19 +101,17 @@ EOF
 
                     # If -d was given, delete the keep files for the NAME
                     if ((delete)) ; then
-                        rm -- "$bashkeep"/"$name".bash ||
-                            ((errors++))
+                        rm -- "$bashkeep"/"$name".bash
 
                     # Save a function
                     elif [[ $(type -t "$name") = 'function' ]] ; then
-                        declare -f -- "$name" >"$bashkeep"/"$name".bash ||
-                            ((errors++))
+                        declare -f -- "$name" >"$bashkeep"/"$name".bash
 
                     # Save a variable
                     elif declare -p -- "$name" >/dev/null ; then
-                        declare -p -- "$name" >"$bashkeep"/"$name".bash ||
-                            ((errors++))
-                    fi
+                        declare -p -- "$name" >"$bashkeep"/"$name".bash
+
+                    fi || ((errors++))
                     ;;
             esac
         done
@@ -132,12 +130,12 @@ EOF
     # Otherwise the user must want us to print all the NAMEs kept
     (
         shopt -s nullglob
-        declare -a keeps
-        keeps=("$bashkeep"/*.bash)
-        keeps=("${keeps[@]##*/}")
-        keeps=("${keeps[@]%.bash}")
-        ((${#keeps[@]})) || exit 0
-        printf '%s\n' "${keeps[@]}"
+        for keep in "$bashkeep"/*.bash ; do
+            ! [[ -d $keep ]] || continue
+            keep=${keep##*/}
+            keep=${keep%.bash}
+            printf '%s\n' "$keep"
+        done
     )
 }
 

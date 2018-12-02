@@ -46,9 +46,13 @@ _keep() {
                 # Build list of kept names
                 bashkeep=${BASHKEEP:-"$HOME"/.bashkeep.d}
                 for keep in "$bashkeep"/"$2"*.bash ; do
+                    # Skip directories
                     ! [[ -d $keep ]] || continue
+                    # Strip leading path
                     keep=${keep##*/}
+                    # Strip trailing extension
                     keep=${keep%.bash}
+                    # Print kept name
                     printf '%s\n' "$keep"
                 done
                 ;;
