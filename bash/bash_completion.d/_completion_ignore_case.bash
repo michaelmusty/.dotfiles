@@ -6,7 +6,7 @@ _completion_ignore_case() {
         [[ $set == 'completion-ignore-case on' ]] || continue
         return 0
     done < <(bind -v)
-    
+
     # Didn't find it, stay case-sensitive
     return 1
 }
