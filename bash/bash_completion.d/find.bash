@@ -31,7 +31,7 @@ _find() {
                     -user
                     -xdev
                 ' -- "$2"
-                return
+                exit
                 ;;
         esac
 
