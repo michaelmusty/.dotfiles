@@ -24,7 +24,7 @@ _sd() {
             sibling=${sibling#../}
             case $sibling in
                 ("${PWD##*/}") ;;
-                (*) printf '%q/' "${sibling}" ;;
+                (*) printf '%q/' "$sibling" ;;
             esac
         done
     )
