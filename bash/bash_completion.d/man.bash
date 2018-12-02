@@ -8,6 +8,7 @@ _man() {
 
     # If previous word started with a number, we'll assume that's a section to
     # search
+    local sec
     case $3 in
         [0-9]*) sec=$3 ;;
     esac
