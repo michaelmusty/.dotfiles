@@ -1,3 +1,8 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Complete calls to keep() with variables and functions, or if -d is given with
 # stuff that's already kept
 _keep() {
@@ -7,16 +12,17 @@ _keep() {
     mode=keep
     if ((COMP_CWORD > 1)) ; then
         case ${COMP_WORDS[1]} in
+            # Help; no completion
             -h) return 1 ;;
+            # Deleting; change mode
             -d) mode=delete ;;
         esac
     fi
 
     # Collect words from an appropriate type of completion
-    local word
-    while read -r word ; do
-        [[ -n $word ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$word
+    local ci comp
+    while read -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
         # Switch on second word; is it a -d option?
@@ -24,32 +30,27 @@ _keep() {
 
             # Keepable names: all functions and variables
             (keep)
-                compgen -A function -A variable \
-                    -- "$2"
+                compgen -A function -A variable -- "$2"
                 ;;
 
             # Kept names: .bash-suffixed names in keep dir
             (delete)
+
                 # Make globs behave correctly
+                shopt -u dotglob
                 shopt -s nullglob
-                while read -r _ setting ; do
-                    case $setting in
-                        ('completion-ignore-case on')
-                            shopt -s nocaseglob
-                            break
-                            ;;
-                    esac
-                done < <(bind -v)
+                if _completion_ignore_case ; then
+                    shopt -s nocaseglob
+                fi
 
                 # Build list of kept names
-                dir=${BASHKEEP:-"$HOME"/.bashkeep.d}
-                cword=$2
-                kept=("$dir"/"$cword"*.bash)
-                kept=("${kept[@]##*/}")
-                kept=("${kept[@]%.bash}")
-
-                # Print kept names
-                printf '%s\n' "${kept[@]}"
+                bashkeep=${BASHKEEP:-"$HOME"/.bashkeep.d}
+                for keep in "$bashkeep"/"$2"*.bash ; do
+                    ! [[ -d $keep ]] || continue
+                    keep=${keep##*/}
+                    keep=${keep%.bash}
+                    printf '%s\n' "$keep"
+                done
                 ;;
         esac
     )

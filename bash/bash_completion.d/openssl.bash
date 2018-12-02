@@ -1,26 +1,32 @@
 # Some simple completion for openssl(1ssl)
 _openssl() {
 
+    # Needs openssl(1ssl)
+    hash openssl 2>/dev/null || return
+
     # Only complete the first word: OpenSSL subcommands
-    case $COMP_CWORD in
-        1)
-            while read -r subcmd ; do
-                case $subcmd in
-                    '') ;;
-                    "$2"*)
-                        COMPREPLY[${#COMPREPLY[@]}]=$subcmd
-                        ;;
-                esac
-            done < <(
-                for arg in \
-                list-cipher-commands \
-                list-standard-commands \
-                list-message-digest-commands ; do
-                    printf '%s\n' "$arg"
-                    openssl "$arg"
+    ((COMP_CWORD == 1)) || return
+
+    # Iterate through completions produced by subshell
+    local ci comp
+    while read -r comp ; do
+        COMPREPLY[ci++]=$comp
+    done < <(
+
+        # Run each of the command-listing commands; read each line into an
+        # array of subcommands (they are printed as a table)
+        for list in commands digest-commands cipher-commands ; do
+            openssl list -"$list"
+        done | {
+            declare -a subcmds
+            while read -a subcmds -r ; do
+                for subcmd in "${subcmds[@]}" ; do
+                    case $subcmd in
+                        ("$2"*) printf '%s\n' "$subcmd" ;;
+                    esac
                 done
-            )
-            ;;
-    esac
+            done
+        }
+    )
 }
 complete -F _openssl -o bashdefault -o default openssl

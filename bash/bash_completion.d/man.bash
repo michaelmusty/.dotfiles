@@ -1,39 +1,32 @@
 # Autocompletion for man(1)
 _man() {
 
-    # Don't even bother if we don't have manpath(1)
-    hash manpath 2>/dev/null || return
-
-    # Don't bother if the word has slashes in it, the user is probably trying
-    # to complete an actual path
+    # Don't interfere with a user typing a path
     case $2 in
         */*) return 1 ;;
     esac
 
-    # If this is the second word, and the previous word started with a number,
-    # we'll assume that's the section to search
-    local section subdir
-    if ((COMP_CWORD > 1)) ; then
-        case $3 in
-            [0-9]*)
-                section=$3
-                subdir=man${section%%[^0-9]*}
-                ;;
-        esac
-    fi
+    # If previous word started with a number, we'll assume that's a section to
+    # search
+    case $3 in
+        [0-9]*) sec=$3 ;;
+    esac
+
+    # Cut completion short if we have neither section nor word; there will
+    # probably be too many results
+    [[ -n $sec ]] || [[ -n $2 ]] || return
 
     # Read completion results from a subshell and add them to the COMPREPLY
     # array individually
-    local page
-    while IFS= read -rd '' page ; do
-        [[ -n $page ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$page
+    local ci comp
+    while IFS= read -d '' -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
         # Do not return dotfiles, give us extended globbing, and expand empty
         # globs to just nothing
         shopt -u dotglob
-        shopt -s extglob nullglob
+        shopt -s nullglob
 
         # Make globbing case-insensitive if appropriate
         while read -r _ setting ; do
@@ -45,34 +38,54 @@ _man() {
             esac
         done < <(bind -v)
 
-        # Break manpath(1) output into an array of paths
-        declare -a manpaths
-        IFS=: read -a manpaths -r < <(manpath 2>/dev/null)
+        # Figure out the manual paths to search
+        if hash amanpath 2>/dev/null ; then
 
-        # Iterate through the manual page paths and add every manual page we find
-        declare -a pages
-        for manpath in "${manpaths[@]}" ; do
-            [[ -n $manpath ]] || continue
-            if [[ -n $section ]] ; then
-                for page in \
-                    "$manpath"/"$subdir"/"$2"*."$section"?(.[glx]z|.bz2|.lzma|.Z)
-                do
-                    pages[${#pages[@]}]=$page
+            # manpath(1) exists, run it to find what to search
+            IFS=: read -a manpaths -r \
+                < <(manpath 2>/dev/null)
+        else
+
+            # Fall back on some typical paths
+            manpaths=( \
+                "$HOME"/.local/man \
+                "$HOME"/.local/share/man \
+                /usr/man \
+                /usr/share/man \
+                /usr/local/man \
+                /usr/local/share/man \
+            )
+        fi
+
+        # Add pages from each manual directory
+        local pages pi
+        for mp in "${manpaths[@]}" ; do
+            [[ -n $mp ]] || continue
+
+            # Which pattern? Depends on section specification
+            if [[ -n $sec ]] ; then
+
+                # Section requested; quoted value in glob
+                for page in "$mp"/man"${sec%%[!0-9]*}"/"$2"*."$sec"* ; do
+                    pages[pi++]=${page##*/}
                 done
             else
-                for page in "$manpath"/man[0-9]*/"$2"*.* ; do
-                    pages[${#pages[@]}]=$page
+
+                # No section;
+                for page in "$mp"/man[0-9]*/"$2"*.[0-9]* ; do
+                    pages[pi++]=${page##*/}
                 done
             fi
         done
 
-        # Strip paths, .gz suffixes, and finally .<section> suffixes
-        pages=("${pages[@]##*/}")
-        pages=("${pages[@]%.@([glx]z|bz2|lzma|Z)}")
+        # Bail if there are no pages
+        ((pi)) || exit
+
+        # Strip section suffixes
         pages=("${pages[@]%.[0-9]*}")
 
-        # Print quoted entries, null-delimited
-        printf '%q\0' "${pages[@]}"
+        # Print entries, null-delimited
+        printf '%s\0' "${pages[@]}"
     )
 }
 complete -F _man -o bashdefault -o default man

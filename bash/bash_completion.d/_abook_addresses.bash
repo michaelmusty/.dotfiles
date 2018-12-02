@@ -1,32 +1,29 @@
+# Load _completion_ignore_case helper function
+if ! declare -F _completion_ignore_case >/dev/null ; then
+    source "$HOME"/.bash_completion.d/_completion_ignore_case.bash
+fi
+
 # Email addresses from abook(1)
 _abook_addresses() {
 
     # Needs abook(1)
     hash abook 2>/dev/null || return
 
-    # Iterate through words produced by subshell
-    local word
-    while read -r word ; do
-        [[ -n $word ]] || continue
-        COMPREPLY[${#COMPREPLY[@]}]=$word
+    # Iterate through completions produced by subshell
+    local ci comp
+    while read -r comp ; do
+        COMPREPLY[ci++]=$comp
     done < <(
 
-        # Set case-insensitive matching if appropriate
-        while read -r _ setting ; do
-            case $setting in
-                ('completion-ignore-case on')
-                    shopt -s nocasematch 2>/dev/null
-                    break
-                    ;;
-            esac
-        done < <(bind -v)
+        # Make matches behave appropriately
+        if _completion_ignore_case ; then
+            shopt -s nocasematch 2>/dev/null
+        fi
 
         # Generate list of email addresses from abook(1)
         while IFS=$'\t' read -r address _ ; do
             case $address in
-                ("$2"*)
-                    printf '%s\n' "$address"
-                    ;;
+                ("$2"*) printf '%s\n' "$address" ;;
             esac
         done < <(abook --mutt-query \@)
     )
