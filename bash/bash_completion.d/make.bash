@@ -34,7 +34,7 @@ _make() {
             esac
 
             # Break the target up with space delimiters
-            local -a targets
+            declare -a targets
             IFS=' ' read -a targets -r \
                 < <(printf '%s\n' "${line%%:*}")
 
