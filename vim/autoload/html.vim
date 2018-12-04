@@ -14,6 +14,13 @@ function! html#UrlLink() abort
 
 endfunction
 
+" Tidy the whole buffer
+function! html#TidyBuffer() abort
+  let l:view = winsaveview()
+  %!tidy -quiet
+  call winrestview(l:view)
+endfunction
+
 " Update a timestamp
 function! html#TimestampUpdate() abort
   if !&modified

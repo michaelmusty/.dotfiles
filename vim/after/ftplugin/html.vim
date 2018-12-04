@@ -3,11 +3,16 @@ if &filetype !=# 'html'
   finish
 endif
 
-" Use tidy(1) for checking and program formatting
+" Use tidy(1) for checking
 compiler tidy
-setlocal equalprg=tidy\ -quiet
 let b:undo_ftplugin .= '|unlet b:current_compiler'
-      \ . '|setlocal equalprg< errorformat< makeprg<'
+      \ . '|setlocal errorformat< makeprg<'
+
+" tidy(1) copes fine with formatting an entire document, but not just part of
+" it; we map \= to do the former, but don't actually set 'equalprg', falling
+" back on the good-enough built-in Vim indentation behavior.
+nnoremap <buffer> <Leader>= :<C-U>call html#TidyBuffer()<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <Leader>='
 
 " Set up hooks for timestamp updating
 augroup html_timestamp

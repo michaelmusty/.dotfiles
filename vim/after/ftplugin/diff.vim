@@ -30,4 +30,3 @@ xmap <buffer> <LocalLeader>p
       \ <Plug>(DiffPrune)
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>p'
       \ . '|xunmap <buffer> <LocalLeader>p'
-      \ . '|nunmap <buffer> <LocalLeader>pp'

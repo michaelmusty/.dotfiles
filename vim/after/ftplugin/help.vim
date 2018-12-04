@@ -11,13 +11,16 @@ if has('conceal') && &modifiable && !&readonly
   let b:undo_ftplugin .= '|setlocal conceallevel<'
 endif
 
+" Use :help for 'keywordprg'; odd that this isn't the default
+setlocal keywordprg=:help
+let b:undo_ftplugin .= '|setlocal keywordprg<'
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_help_maps')
   finish
 endif
 
-" Make K jump to the help topic; NeoVim does this, and it's a damned good idea
-if !has('nvim')
-  nnoremap <buffer> K <C-]>
-  let b:undo_ftplugin .= '|nunmap <buffer> K'
-endif
+" ,K runs :helpgrep on the word under the cursor
+nnoremap <buffer> <LocalLeader>K
+      \ :<C-U>helpgrep <cword><CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>K'

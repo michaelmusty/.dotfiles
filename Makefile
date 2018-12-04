@@ -517,7 +517,7 @@ install-urxvt: urxvt/ext/select
 
 VIM = vim
 VIMDIR = $(HOME)/.vim
-VIMRC = $(HOME)/.vimrc
+VIMRC = $(HOME)/.vim/vimrc
 
 install-vim: install-vim-after \
 	install-vim-autoload \
@@ -582,6 +582,7 @@ install-vim-compiler:
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
 install-vim-config: install-vim-cache
+	cp -p -- vim/vimrc.stub.vim $(HOME)/.vimrc
 	cp -p -- vim/vimrc $(VIMRC)
 	if [ -e /etc/debian_version ] ; then \
 		cp -p -- vim/system/debian.vim $(VIMDIR)/system.vim ; \
