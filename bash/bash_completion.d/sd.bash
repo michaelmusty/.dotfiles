@@ -14,25 +14,46 @@ _sd() {
 
         # Make globs expand appropriately
         shopt -s dotglob nullglob
+
+        # Get list of siblings; use trailing slashes to limit to directories
+        # There should always be at least one (self)
+        siblings=(../*/)
+
+        # Strip leading dot-dot-slash and trailing slash
+        siblings=("${siblings[@]#../}")
+        siblings=("${siblings[@]%/}")
+
+        # Add quoted siblings to new array; for large directories, this is
+        # faster than forking a subshell for `printf %q` on each item
+        while read -d / -r sibling ; do
+            siblings_quoted[sqi++]=$sibling
+        done < <(printf '%q/' "${siblings[@]}")
+
+        # Make matching work appropriately
         if _completion_ignore_case ; then
             shopt -s nocasematch 2>/dev/null
         fi
 
-        # Print matching sibling dirs that are not the current dir
-        for sib in ../*/ ; do
-            # Strip leading ../
-            sib=${sib#../}
-            # Strip trailing slash
-            sib=${sib%/}
-            # Skip self
-            [[ $sib != "${PWD##*/}" ]] || continue
-            # Check the quoted and unquoted word for matching
-            for match in "$sib" "$(printf '%q' "$sib")" ; do
-                # Print any match, slash-terminated
+        # Get current dir
+        self=${PWD##*/}
+
+        # Iterate through keys of the siblings array
+        for si in "${!siblings[@]}" ; do
+
+            # Get sibling and associated quoted sibling
+            sibling=${siblings[si]}
+            sibling_quoted=${siblings_quoted[si]}
+
+            # Skip if this sibling looks like the current dir
+            [[ $sibling != "$self" ]] || continue
+
+            # If either the unquoted or quoted sibling matches, print the
+            # unquoted one as a completion reply
+            for match in "$sibling" "$sibling_quoted" ; do
                 case $match in
                     ("$2"*)
-                        printf '%s/' "$sib"
-                        continue
+                        printf '%s/' "$sibling"
+                        break
                         ;;
                 esac
             done
