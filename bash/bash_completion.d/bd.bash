@@ -12,38 +12,52 @@ _bd() {
         COMPREPLY[ci++]=$comp
     done < <(
 
-        # Build an array of path nodes, leaf to root
+        # Build an array of path ancestors
         path=$PWD
         while [[ -n $path ]] ; do
-            node=${path##*/}
+
+            # Peel off the leaf of the path
+            ancestor=${path##*/}
             path=${path%/*}
-            [[ -n $node ]] || continue
-            nodes[ni++]=$node
+
+            # Skip if this is a null string; root, trailing/double slash...
+            [[ -n $ancestor ]] || continue
+
+            # Skip the first non-null element (current dir)
+            ((generation++)) || continue
+
+            # Push node onto ancestry list
+            ancestors[ai++]=$ancestor
         done
 
-        # Continue if we have at least two nodes, counting the leaf
-        ((ni > 1)) || return
+        # Continue if we have at least one non-root ancestor
+        ((ai)) || return
 
-        # Shift off the leaf, since it is not meaningful to go "back to" the
-        # current directory
-        nodes=("${nodes[@]:1}")
+        # Add quoted ancestors to new array; for long paths, this is faster than
+        # forking a subshell for `printf %q` on each item
+        while read -d / -r ancestor ; do
+            ancestors_quoted[aqi++]=$ancestor
+        done < <(printf '%q/' "${ancestors[@]}")
 
         # Make matching behave appropriately
         if _completion_ignore_case ; then
             shopt -s nocasematch 2>/dev/null
         fi
 
-        # Iterate through the nodes and print the ones that match the word
-        # being completed, with a trailing slash as terminator
-        for node in "${nodes[@]}" ; do
-            node_quoted=$(printf '%q' "$node")
-            # Check the quoted and unquoted word for matching
-            for match in "$node" "$(printf '%q' "$node")" ; do
-                # Print any match, slash-terminated
+        # Iterate through keys of the ancestors array
+        for ai in "${!ancestors[@]}" ; do
+
+            # Get ancestor and associated quoted ancestor
+            ancestor=${ancestors[ai]}
+            ancestor_quoted=${ancestors_quoted[ai]}
+
+            # If either the unquoted or quoted ancestor matches, print the
+            # unquoted one as a completion reply
+            for match in "$ancestor" "$ancestor_quoted" ; do
                 case $match in
                     ("$2"*)
-                        printf '%s/' "$node"
-                        continue
+                        printf '%s/' "$ancestor"
+                        break
                         ;;
                 esac
             done
