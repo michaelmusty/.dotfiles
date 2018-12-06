@@ -3,7 +3,7 @@
 # do it all contextually
 
 # Requires Bash >=4.0 for COMP_KEY
-((BASH_VERSINFO[0] >= 4)) || continue
+((BASH_VERSINFO[0] >= 4)) || return
 
 # Define and set helper function
 _git() {
