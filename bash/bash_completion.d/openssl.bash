@@ -13,7 +13,7 @@ _openssl() {
     while read -a subcmds -r ; do
         for subcmd in "${subcmds[@]}" ; do
             case $subcmd in
-                "$2"*) COMPREPLY[ci++]=$comp ;;
+                "$2"*) COMPREPLY[ci++]=$subcmd ;;
             esac
         done
     done < <(
