@@ -8,25 +8,18 @@ _openssl() {
     ((COMP_CWORD == 1)) || return
 
     # Iterate through completions produced by subshell
+    local -a subcmds
     local ci comp
-    while read -r comp ; do
-        COMPREPLY[ci++]=$comp
+    while read -a subcmds -r ; do
+        for subcmd in "${subcmds[@]}" ; do
+            case $subcmd in
+                "$2"*) COMPREPLY[ci++]=$comp ;;
+            esac
+        done
     done < <(
-
-        # Run each of the command-listing commands; read each line into an
-        # array of subcommands (they are printed as a table)
-        for list in commands digest-commands cipher-commands ; do
-            openssl list -"$list"
-        done | {
-            declare -a subcmds
-            while read -a subcmds -r ; do
-                for subcmd in "${subcmds[@]}" ; do
-                    case $subcmd in
-                        ("$2"*) printf '%s\n' "$subcmd" ;;
-                    esac
-                done
-            done
-        }
+        openssl list -commands \
+            -cipher-commands \
+            -digest-commands
     )
 }
 complete -F _openssl -o bashdefault -o default openssl
