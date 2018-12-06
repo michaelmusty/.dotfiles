@@ -4,7 +4,7 @@
 [ "$#" -gt 0 ] || set -- -
 
 # Iterate through arguments
-for arg ; do
+for arg do
 
     # We'll print the filename "-stdin-" rather than - just to be slightly more
     # explicit

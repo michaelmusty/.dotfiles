@@ -7,7 +7,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate over the URL arguments
-for url ; do (
+for url do (
 
     # Look for patterns in the URL that suggest transformations
     case $url in

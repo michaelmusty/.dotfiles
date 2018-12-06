@@ -7,7 +7,7 @@ if [ "$#" -lt 2 ] ; then
 fi
 
 # Get the last argument (the directory to create)
-for dir ; do : ; done
+for dir do : ; done
 
 # Create it, or bail
 mkdir -p -- "$dir" || exit

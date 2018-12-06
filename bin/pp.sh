@@ -1,5 +1,5 @@
 # Print the full path to each argument; path need not exist
-for arg ; do
+for arg do
     case $arg in
         /*) path=$arg ;;
         *) path=$PWD/$arg ;;

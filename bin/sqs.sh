@@ -8,7 +8,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate through the given files
-for sn ; do
+for sn do
 
     # Strip trailing slash if any and then query string
     sn=${sn%/}

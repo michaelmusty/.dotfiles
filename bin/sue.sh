@@ -4,7 +4,7 @@
 user=
 
 # Iterate over the given files
-for file ; do
+for file do
 
     # Get the file's owner, or bail
     file_owner=$(stat -c %U -- "$file") || exit

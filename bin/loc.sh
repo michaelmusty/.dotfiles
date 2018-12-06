@@ -7,7 +7,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate through each search term and run an appropriate find(1) command
-for pat ; do
+for pat do
 
     # Skip dotfiles, dotdirs, and symbolic links; print anything that matches
     # the term as a substring (and stop iterating through it)
