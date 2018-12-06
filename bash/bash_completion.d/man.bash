@@ -56,7 +56,6 @@ _man() {
         fi
 
         # Add pages from each manual directory
-        local pages pi
         for mp in "${manpaths[@]}" ; do
             [[ -n $mp ]] || continue
 
