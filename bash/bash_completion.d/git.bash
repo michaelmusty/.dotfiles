@@ -15,7 +15,10 @@ _git() {
         98)
             local ci
             while read -r _ ref ; do
-                COMPREPLY[ci++]=${ref#refs/heads/}
+                branch=${ref#refs/heads/}
+                case $branch in
+                    "$2"*) COMPREPLY[ci++]=$branch ;;
+                esac
             done < <(git show-ref --heads)
             ;;
 
@@ -23,7 +26,10 @@ _git() {
         116)
             local ci
             while read -r _ ref ; do
-                COMPREPLY[ci++]=${ref#refs/tags/}
+                tag=${ref#refs/tags/}
+                case $tag in
+                    "$2"*) COMPREPLY[ci++]=$tag ;;
+                esac
             done < <(git show-ref --tags)
             ;;
 
