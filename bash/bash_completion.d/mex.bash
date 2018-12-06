@@ -51,4 +51,4 @@ _mex() {
         done
     )
 }
-complete -F _mex mex
+complete -F _mex -o filenames mex
