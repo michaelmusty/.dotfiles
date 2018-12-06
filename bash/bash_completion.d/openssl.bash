@@ -9,7 +9,7 @@ _openssl() {
 
     # Iterate through completions produced by subshell
     local -a subcmds
-    local ci comp
+    local ci subcmd
     while read -a subcmds -r ; do
         for subcmd in "${subcmds[@]}" ; do
             case $subcmd in
