@@ -30,7 +30,7 @@ _pass() {
 
         # Try to iterate into subdirs, use depth search with ** if available
         if shopt -s globstar 2>/dev/null ; then
-            for entry in "$pass_dir"/"$2"**/*.gpg ; do
+            for entry in "$pass_dir"/"$2"*/**/*.gpg ; do
                 entries[ei++]=$entry
             done
         else
