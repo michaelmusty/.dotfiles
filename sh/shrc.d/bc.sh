@@ -6,8 +6,9 @@
 bc() {
 
     # Add --quiet to stop the annoying welcome banner
-    [ -e "$HOME"/.cache/sh/opt/bc/quiet ] &&
+    if [ -e "$HOME"/.cache/sh/opt/bc/quiet ] ; then
         set -- --quiet "$@"
+    fi
 
     # Run bc(1) with the concluded arguments
     command bc "$@"

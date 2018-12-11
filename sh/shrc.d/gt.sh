@@ -19,7 +19,9 @@ gt() {
     done
 
     # If target isn't a directory, chop to its parent
-    [ -d "$1" ] || set -- "${1%/*}"
+    if ! [ -d "$1" ] ; then
+        set -- "${1%/*}"
+    fi
 
     # Try to change into the determined directory, or root if empty
     command cd -- "${1:-/}"

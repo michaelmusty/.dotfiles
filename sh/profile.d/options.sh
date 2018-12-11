@@ -23,8 +23,9 @@ options() {
     # Iterate through remaining arguments (desired options), creating files to
     # show they're available if found in the help output
     for opt do
-        command -p grep -q -- '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help &&
-            touch -- "$opt"
+        command -p grep -q -- \
+            '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help || continue
+        touch -- "$opt"
     done
 }
 

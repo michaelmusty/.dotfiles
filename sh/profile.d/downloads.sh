@@ -8,7 +8,7 @@ esac
 [ -z "$TMUX" ] || return
 
 # Not if ~/.hushlogin exists
-[ -e "$HOME"/.hushlogin ] && return
+! [ -e "$HOME"/.hushlogin ] || return
 
 # Not if ~/.downloads doesn't
 [ -f "$HOME"/.downloads ] || return
@@ -27,5 +27,7 @@ esac
         printf 'You have %u unsorted files in %s.\n' "$#" "$dir"
         lc=$((lc+1))
     done < "$HOME"/.downloads
-    [ "$((lc > 0))" -eq 1 ] && printf '\n'
+    if [ "$lc" -gt 0 ] ; then
+        printf '\n'
+    fi
 )

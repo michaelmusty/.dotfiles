@@ -34,7 +34,9 @@ path() {
 
         # Add a directory at the start of $PATH
         insert)
-            [ "$#" -eq 2 ] || set -- "$1" "$PWD"
+            if ! [ "$#" -eq 2 ] ; then
+                set -- "$1" "$PWD"
+            fi
             path _argcheck "$@" || return
             if path check "$2" ; then
                 printf >&2 'path(): %s: %s already in PATH\n' "$@"
@@ -45,7 +47,9 @@ path() {
 
         # Add a directory to the end of $PATH
         append)
-            [ "$#" -eq 2 ] || set -- "$1" "$PWD"
+            if ! [ "$#" -eq 2 ] ; then
+                set -- "$1" "$PWD"
+            fi
             path _argcheck "$@" || return
             if path check "$2" ; then
                 printf >&2 'path(): %s: %s already in PATH\n' "$@"
@@ -56,7 +60,9 @@ path() {
 
         # Remove a directory from $PATH
         remove)
-            [ "$#" -eq 2 ] || set -- "$1" "$PWD"
+            if ! [ "$#" -eq 2 ] ; then
+                set -- "$1" "$PWD"
+            fi
             path _argcheck "$@" || return
             if ! path check "$2" ; then
                 printf >&2 'path(): %s: %s not in PATH\n' "$@"
@@ -108,7 +114,9 @@ path() {
         # Check whether a directory is in PATH
         check)
             path _argcheck "$@" || return
-            [ "$#" -eq 2 ] || set -- "$1" "$PWD"
+            if ! [ "$#" -eq 2 ] ; then
+                set -- "$1" "$PWD"
+            fi
             case :$PATH: in
                 *:"$2":*) return 0 ;;
             esac

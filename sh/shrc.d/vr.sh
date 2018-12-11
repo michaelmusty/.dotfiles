@@ -11,9 +11,14 @@ vr() {
             exit 2
         fi
 
-        # Get path from first argument, strip trailing slash
+        # Get path from first argument
         path=${1:-"$PWD"}
-        [ "$path" = / ] || path=${path%/}
+
+        # Strip a trailing slash
+        case $path in
+            (/) ;;
+            (*) path=${path%/} ;;
+        esac
 
         # Step into the directory
         cd -- "$path" || exit
@@ -34,7 +39,7 @@ vr() {
         # that is the root (bad)
         while svn info >/dev/null 2>&1 ; do
             root=$PWD
-            [ "$root" = / ] && break
+            ! [ "$root" = / ] || break
             cd .. || exit
         done
         if [ -n "$root" ] ; then

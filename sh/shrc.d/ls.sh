@@ -12,26 +12,30 @@ unset -v LS_OPTIONS LS_COLORS
 # Define function proper
 ls() {
 
-    # -F to show trailing indicators of the filetype
-    # -q to replace control chars with '?'
+    # POSIX options:
+    ## -F to show trailing indicators of the filetype
+    ## -q to replace control chars with '?'
     set -- -Fq "$@"
+    ## -x to format entries across, not down, if output looks like a terminal
+    if [ -t 1 ] ; then
+        set -- -x "$@"
+    fi
 
-    # If output is to a terminal, add -x to format entries across, not down
-    [ -t 1 ] && set -- -x "$@"
-
-    # Add --block-size=K to always show the filesize in kibibytes
-    [ -e "$HOME"/.cache/sh/opt/ls/block-size ] &&
+    # GNU options:
+    ## Add --block-size=K to always show the filesize in kibibytes
+    if [ -e "$HOME"/.cache/sh/opt/ls/block-size ] ; then
         set -- --block-size=1024 "$@"
-
-    # Add --color if the terminal has at least 8 colors
-    [ -e "$HOME"/.cache/sh/opt/ls/color ] &&
-    [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] &&
+    fi
+    ## Add --color if the terminal has at least 8 colors
+    if [ -e "$HOME"/.cache/sh/opt/ls/color ] &&
+        [ "$(exec 2>/dev/null;tput colors||tput Co||echo 0)" -ge 8 ] ; then
         set -- --color=auto "$@"
-
-    # Add --time-style='+%Y-%m-%d %H:%M:%S' to show the date in my preferred
-    # (fixed) format
-    [ -e "$HOME"/.cache/sh/opt/ls/time-style ] &&
+    fi
+    ## Add --time-style='+%Y-%m-%d %H:%M:%S' to show the date in my preferred
+    ## (fixed) format
+    if [ -e "$HOME"/.cache/sh/opt/ls/time-style ] ; then
         set -- --time-style='+%Y-%m-%d %H:%M:%S' "$@"
+    fi
 
     # If the operating system is FreeBSD, there are some specific options we
     # can add that might mean different things to e.g. GNU ls(1)
