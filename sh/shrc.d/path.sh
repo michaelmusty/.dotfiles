@@ -5,15 +5,16 @@ path() {
     case $1 in
 
         # List current directories in PATH
-        list|'') (
-            path=$PATH:
-            while [ -n "$path" ] ; do
-                dir=${path%%:*}
-                path=${path#*:}
-                [ -n "$dir" ] || continue
-                printf '%s\n' "$dir"
+        list|'')
+            set -- "$PATH":
+            while [ -n "$1" ] ; do
+                case $1 in
+                    :*) ;;
+                    *) printf '%s\n' "${1%%:*}" ;;
+                esac
+                set -- "${1#*:}"
             done
-            ) ;;
+            ;;
 
         # Helper function checks directory argument makes sense
         _argcheck)
