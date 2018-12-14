@@ -13,7 +13,7 @@ ext=$1
 shift
 
 # Iterate through the given files (remaining args)
-for sn ; do
+for sn do
 
     # Strip trailing slash if any and then extension
     sn=${sn%/}

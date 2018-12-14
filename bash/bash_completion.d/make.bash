@@ -34,11 +34,11 @@ _make() {
             esac
 
             # Break the target up with space delimiters
-            declare -a targets
             IFS=' ' read -a targets -r \
                 < <(printf '%s\n' "${line%%:*}")
 
             # Short-circuit if there are no targets
+            # shellcheck disable=SC2154
             ((${#targets[@]})) || exit
 
             # Make matches behave correctly

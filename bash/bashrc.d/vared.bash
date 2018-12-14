@@ -24,7 +24,7 @@ vared() {
         return 2
     fi
     local name
-    for name ; do
+    for name do
         IFS= read -e -i "${!name}" -p "${prompt:-"$name"=}" -r -- "${name?}"
     done
 }

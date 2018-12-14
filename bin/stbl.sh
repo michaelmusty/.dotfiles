@@ -7,7 +7,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate over arguments and apply the same ed(1) script to each of them
-for fn ; do
+for fn do
     ed -s -- "$fn" <<'EOF' || ex=1
 $g/^ *$/d
 w

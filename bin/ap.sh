@@ -10,7 +10,7 @@ shift
 
 # Iterate through the remaining args; it's legal for there to be none, but in
 # that case the user may as well just have invoked the command directly
-for arg ; do
+for arg do
 
     # If this is the first iteration, clear the params away (we grabbed them in
     # the for statement)

@@ -21,7 +21,7 @@ case :$PATH: in
 esac
 
 # Prepend the path to each of the names given if they don't look like options
-for arg ; do
+for arg do
     [ -n "$reset" ] || set -- && reset=1
     case $arg in
         --)
@@ -44,7 +44,7 @@ done
 "${VISUAL:-"${EDITOR:-ed}"}" "$@"
 
 # Make any created scripts executable if they now appear to be files
-for script ; do
+for script do
     [ -f "$script" ] || continue
     chmod +x -- "$script"
 done

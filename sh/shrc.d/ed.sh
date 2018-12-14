@@ -12,16 +12,18 @@ ed() {
     fi
 
     # Add --verbose to explain errors
-    [ -e "$HOME"/.cache/sh/opt/ed/verbose ] &&
+    if [ -e "$HOME"/.cache/sh/opt/ed/verbose ] ; then
         set -- --verbose "$@"
+    fi
 
     # Add an asterisk prompt (POSIX feature)
     set -- -p\* "$@"
 
     # Run in rlwrap(1) if available
     set -- ed "$@"
-    command -v rlwrap >/dev/null 2>&1 &&
+    if command -v rlwrap >/dev/null 2>&1 ; then
         set -- rlwrap --history-filename=/dev/null "$@"
+    fi
 
     # Run determined command
     command "$@"

@@ -9,37 +9,43 @@ unset -v GREP_OPTIONS
 grep() {
 
     # Add --binary-files=without-match to gracefully skip binary files
-    [ -e "$HOME"/.cache/sh/opt/grep/binary-files ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/binary-files ] ; then
         set -- --binary-files=without-match "$@"
+    fi
 
     # Add --color=auto if the terminal has at least 8 colors
-    [ -e "$HOME"/.cache/sh/opt/grep/color ] &&
-    [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/color ] &&
+        [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] ; then
         set -- --color=auto "$@"
+    fi
 
     # Add --devices=skip to gracefully skip devices
-    [ -e "$HOME"/.cache/sh/opt/grep/devices ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/devices ] ; then
         set -- --devices=skip "$@"
+    fi
 
     # Add --directories=skip to gracefully skip directories
-    [ -e "$HOME"/.cache/sh/opt/grep/directories ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/directories ] ; then
         set -- --directories=skip "$@"
+    fi
 
     # Add --exclude to ignore .gitignore and .gitmodules files
-    [ -e "$HOME"/.cache/sh/opt/grep/exclude ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/exclude ] ; then
         set -- \
             --exclude=.gitignore \
             --exclude=.gitmodules \
             "$@"
+    fi
 
     # Add --exclude-dir to ignore version control dot-directories
-    [ -e "$HOME"/.cache/sh/opt/grep/exclude-dir ] &&
+    if [ -e "$HOME"/.cache/sh/opt/grep/exclude-dir ] ; then
         set -- \
             --exclude-dir=.cvs \
             --exclude-dir=.git \
             --exclude-dir=.hg \
             --exclude-dir=.svn \
             "$@"
+    fi
 
     # Run grep(1) with the concluded arguments
     command grep "$@"

@@ -94,7 +94,7 @@ EOF
 
         # Iterate through the NAMEs given
         typeset name
-        for name ; do
+        for name do
 
             # Check NAMEs for validity
             case $name in

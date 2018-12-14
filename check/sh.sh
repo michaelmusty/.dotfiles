@@ -4,7 +4,7 @@ set \
     sh/shinit \
     sh/shrc \
     sh/shrc.d/*.sh
-for sh ; do
+for sh do
     sh -n -- "$sh" || exit
 done
 printf 'POSIX shell dotfiles parsed successfully.\n'

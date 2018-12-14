@@ -6,7 +6,7 @@ esac
 
 # Don't do anything if restricted, not even sourcing the ENV file
 # Testing $- for "r" doesn't work
-! shopt -q restricted_shell >/dev/null 2>&1 || return
+! shopt -q restricted_shell 2>/dev/null || return
 
 # Clear away all aliases; we do this here rather than in the $ENV file shared
 # between POSIX shells, because ksh relies on aliases to implement certain

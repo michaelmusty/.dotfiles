@@ -2,7 +2,7 @@ set \
     zsh/zprofile \
     zsh/zshrc.d/*.zsh \
     zsh/zshrc
-for zsh ; do
+for zsh do
     zsh -n -- "$zsh" || exit
 done
 sh -n zsh/profile.d/zsh.sh || exit

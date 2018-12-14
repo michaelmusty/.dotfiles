@@ -9,7 +9,7 @@ if [ "$#" -eq 0 ] ; then
 fi
 
 # Iterate through the given names
-for name ; do
+for name do
 
     # Clear the found variable
     found=

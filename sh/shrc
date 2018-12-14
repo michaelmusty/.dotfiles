@@ -22,5 +22,7 @@ done
 unset -v sh
 
 # If ENV_EXT was set and exists, source that too, then clean it away
-[ -e "$ENV_EXT" ] && . "$ENV_EXT"
+if [ -e "$ENV_EXT" ] ; then
+    . "$ENV_EXT"
+fi
 unset -v ENV_EXT

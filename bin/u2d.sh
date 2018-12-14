@@ -10,7 +10,7 @@ fi
 r=$(printf '\r')
 
 # Iterate over arguments and apply the same ed(1) script to each of them
-for fn ; do
+for fn do
 
     # Note the heredoc WORD is intentionally unquoted because we want to expand
     # $r within it to get a literal carriage return; the escape characters

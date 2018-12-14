@@ -13,14 +13,9 @@ _gpg() {
     # Generate completion reply from gpg(1) options
     local ci comp
     while read -r comp ; do
-        COMPREPLY[ci++]=$comp
-    done < <(
-        gpg --dump-options 2>/dev/null |
-            while read -r option ; do
-                case $option in
-                    ("$2"*) printf '%s\n' "$option" ;;
-                esac
-            done
-    )
+        case $comp in
+            "$2"*) COMPREPLY[ci++]=$comp ;;
+        esac
+    done < <(gpg --dump-options 2>/dev/null)
 }
 complete -F _gpg -o bashdefault -o default gpg

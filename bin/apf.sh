@@ -16,7 +16,7 @@ shift 2
 if [ "$#" -gt 0 ] ; then
 
     # Iterate through any remaining arguments
-    for carg ; do
+    for carg do
 
         # If this is the first command argument, then before we add it, we'll
         # add all the ones from the file first if it exists

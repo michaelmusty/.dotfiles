@@ -62,6 +62,12 @@ $if Bash
     # Alt+A cycles through completion options
     "\ea": menu-complete
 
+    # Special completion keys for git(1)
+    ## Branches
+    "\C-xb": complete
+    ## Tags
+    "\C-xt": complete
+
     # Ctrl-Alt-L to clear screen; more ksh-like
     "\e\C-l": clear-screen
 

@@ -5,7 +5,7 @@ set \
     bash/bash_profile \
     bash/bashrc \
     bash/bashrc.d/*.bash
-for bash ; do
+for bash do
     bash -n -- "$bash" || exit
 done
 printf 'GNU Bash dotfiles parsed successfully.\n'

@@ -20,8 +20,10 @@ esac
 
     # Show a fortune
     if welcome fortune ; then
-        [ -d "$HOME"/.local/share/games/fortunes ] &&
-            : "${FORTUNE_PATH:="$HOME"/.local/share/games/fortunes}"
+        if ! [ -n "$FORTUNE_PATH"] &&
+            [ -d "$HOME"/.local/share/games/fortunes ] ; then
+            FORTUNE_PATH=$HOME/.local/share/games/fortunes
+        fi
         fortune -s "$FORTUNE_PATH"
         printf '\n'
     fi
@@ -34,7 +36,9 @@ esac
 
     # Run verse(1) if we haven't seen it already today
     if welcome verse ; then
-        [ -f "$HOME"/.verse ] && read -r last <"$HOME"/.verse
+        if [ -f "$HOME"/.verse ] ; then
+            read -r last <"$HOME"/.verse
+        fi
         now=$(date +%Y%m%d)
         if [ "$now" -gt "${last:-0}" ] ; then
             verse
