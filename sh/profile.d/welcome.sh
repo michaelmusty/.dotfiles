@@ -20,7 +20,7 @@ esac
 
     # Show a fortune
     if welcome fortune ; then
-        if ! [ -n "$FORTUNE_PATH"] &&
+        if [ -z "$FORTUNE_PATH" ] &&
             [ -d "$HOME"/.local/share/games/fortunes ] ; then
             FORTUNE_PATH=$HOME/.local/share/games/fortunes
         fi
