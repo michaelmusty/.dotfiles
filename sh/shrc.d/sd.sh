@@ -113,5 +113,6 @@ sd() {
     esac
 
     # Try and change into the first parameter
-    command cd -- "$1"
+    # shellcheck disable=SC2164
+    cd -- "$1"
 }

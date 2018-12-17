@@ -14,5 +14,6 @@ gd() {
     fi
 
     # Go to the marked directory
-    cd -- "$PMD" || return
+    # shellcheck disable=SC2164
+    cd -- "$PMD"
 }

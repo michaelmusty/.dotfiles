@@ -59,5 +59,6 @@ vr() {
     [ -n "$1" ] || return
 
     # Try to change into the determined directory
-    command cd -- "$@"
+    # shellcheck disable=SC2164
+    cd -- "$@"
 }
