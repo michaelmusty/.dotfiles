@@ -45,3 +45,12 @@ nnoremap <buffer> <LocalLeader>l
       \ :<C-U>compiler shellcheck<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'
+
+" Mapping to insert '\'' with Alt+'; not sure I'll keep this just yet
+if has('gui_running')
+  inoremap <buffer> <M-'> '\''
+  let b:undo_ftplugin .= '|nunmap <buffer> <M-''>'
+else
+  inoremap <buffer> <Esc>' '\''
+  let b:undo_ftplugin .= '|nunmap <buffer> <Esc>'''
+endif
