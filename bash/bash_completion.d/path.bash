@@ -66,7 +66,6 @@ _path() {
                     < <(printf '%s\0' "$PATH")
 
                 # Print shell-quoted matching parts, null-terminated
-                # shellcheck disable=SC2154
                 for path in "${paths[@]}" ; do
                     case $path in
                         ("$2"*) printf '%q\0' "$path" ;;

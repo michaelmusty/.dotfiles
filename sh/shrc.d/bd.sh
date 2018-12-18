@@ -43,5 +43,6 @@ bd() {
     fi
 
     # We have a match; try and change into it
-    command cd -- "$1"
+    # shellcheck disable=SC2164
+    cd -- "$1"
 }

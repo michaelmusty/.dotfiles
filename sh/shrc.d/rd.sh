@@ -35,5 +35,6 @@ rd() {
     esac
 
     # Try to change into the determined directory
-    command cd -- "$1"
+    # shellcheck disable=SC2164
+    cd -- "$1"
 }

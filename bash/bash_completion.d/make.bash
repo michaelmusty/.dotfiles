@@ -38,7 +38,6 @@ _make() {
                 < <(printf '%s\n' "${line%%:*}")
 
             # Short-circuit if there are no targets
-            # shellcheck disable=SC2154
             ((${#targets[@]})) || exit
 
             # Make matches behave correctly

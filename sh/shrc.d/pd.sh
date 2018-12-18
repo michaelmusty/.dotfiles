@@ -27,5 +27,6 @@ pd() {
     set -- "${1%/*}"
 
     # Try to change into the determined directory, or root if empty
-    command cd -- "${1:-/}"
+    # shellcheck disable=SC2164
+    cd -- "${1:-/}"
 }

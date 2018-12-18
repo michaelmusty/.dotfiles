@@ -42,5 +42,6 @@ ud() {
     shift
 
     # Try to change into the determined directory, or the root if blank
-    command cd -- "${1:-/}"
+    # shellcheck disable=SC2164
+    cd -- "${1:-/}"
 }

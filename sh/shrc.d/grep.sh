@@ -15,7 +15,7 @@ grep() {
 
     # Add --color=auto if the terminal has at least 8 colors
     if [ -e "$HOME"/.cache/sh/opt/grep/color ] &&
-        [ "$({ tput colors||tput Co||echo 0; } 2>/dev/null)" -ge 8 ] ; then
+        [ "$(exec 2>/dev/null;tput colors||tput Co||echo 0)" -ge 8 ] ; then
         set -- --color=auto "$@"
     fi
 

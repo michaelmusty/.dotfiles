@@ -13,7 +13,7 @@ options() {
     [ -d "$dir" ] && return
 
     # Create the directory and step into it
-    command -p mkdir -p -- "$dir" || return
+    mkdir -p -- "$dir" || return
     cd -- "$dir" || return
 
     # Write the program's --help output to a file, even if it's empty
@@ -23,7 +23,7 @@ options() {
     # Iterate through remaining arguments (desired options), creating files to
     # show they're available if found in the help output
     for opt do
-        command -p grep -q -- \
+        command grep -q -- \
             '[^[:alnum:]]--'"$opt"'[^[:alnum:]]' help || continue
         touch -- "$opt"
     done
