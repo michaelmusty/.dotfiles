@@ -16,3 +16,8 @@ let b:undo_ftplugin .= '|setlocal keywordprg<'
 if exists('g:no_plugin_maps') || exists('g:no_php_maps')
   finish
 endif
+
+" Switch to HTML filetype for templated PHP
+nnoremap <buffer> <LocalLeader>f
+      \ :<C-U>setlocal filetype=html<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>f'
