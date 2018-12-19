@@ -82,7 +82,7 @@ Configuration is included for:
 * [cURL](https://curl.haxx.se/) -- Command-line tool for transferring data with
   URL syntax
 * [Dillo](https://www.dillo.org/) -- A lightweight web browser
-* [Dunst](http://knopwob.org/dunst/) -- A lightweight X11 notification daemon
+* [Dunst](https://dunst-project.org/) -- A lightweight X11 notification daemon
   that works with `libnotify`
 * `finger(1)` -- User information lookup program
 * [Git](https://git-scm.com/) -- Distributed version control system
@@ -111,7 +111,7 @@ Configuration is included for:
   control system
 * [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
-* [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
+* [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
     * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
 * [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
   for Unix
@@ -305,7 +305,7 @@ My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
 [maildrop](https://www.courier-mta.org/maildrop/), and
-[msmtp](http://msmtp.sourceforge.net/); the configurations for these are not
+[msmtp](https://marlam.de/msmtp/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
 available for them. The GnuPG and S/MIME interfacing is done with
@@ -314,9 +314,8 @@ commands for each crypto operation. I wrote [an article about this
 setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
 appealing.
 
-You'll need [Abook](http://abook.sourceforge.net/) installed if you want to use
-the `query_command` I have defined, and [msmtp](http://msmtp.sourceforge.net/)
-for the `sendmail` command.
+You'll need Abook installed if you want to use the `query_command` I have
+defined, and msmtp for the `sendmail` command.
 
 ### rxvt-unicode
 
@@ -648,7 +647,7 @@ available to run them:
     * `lint-ksh`
     * `lint-sh`
     * `lint-xinit`
-* [Perl::Critic](http://perlcritic.com/):
+* Perl::Critic:
     * `lint-urxvt`
 * [Vint](https://github.com/Kuniwak/vint):
     * `lint-vim`
@@ -669,4 +668,4 @@ advocacy group, and let me know you did it because of this project:
 * [Free Software Foundation](https://www.fsf.org/)
 * [Software in the Public Interest](https://www.spi-inc.org/)
 * [FreeBSD Foundation](https://www.freebsdfoundation.org/)
-* [OpenBSD Foundation](http://www.openbsdfoundation.org/)
+* [OpenBSD Foundation](https://www.openbsdfoundation.org/)
