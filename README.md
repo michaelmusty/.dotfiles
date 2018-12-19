@@ -305,7 +305,7 @@ My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
 most unfiltered mail is sent. I use
 [Getmail](http://pyropus.ca/software/getmail/),
 [maildrop](https://www.courier-mta.org/maildrop/), and
-[msmtp](http://msmtp.sourceforge.net/); the configurations for these are not
+[msmtp](https://marlam.de/msmtp/); the configurations for these are not
 included here. I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
 available for them. The GnuPG and S/MIME interfacing is done with
