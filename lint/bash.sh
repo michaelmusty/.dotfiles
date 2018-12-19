@@ -6,4 +6,3 @@ set \
     bash/bashrc \
     bash/bashrc.d/*.bash
 shellcheck -e SC1090 -s bash -- "$@" || exit
-printf 'GNU Bash dotfiles linted successfully.\n'
