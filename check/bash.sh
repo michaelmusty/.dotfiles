@@ -8,4 +8,3 @@ set \
 for bash do
     bash -n -- "$bash" || exit
 done
-printf 'GNU Bash dotfiles parsed successfully.\n'

@@ -7,4 +7,3 @@ set \
 for sh do
     sh -n -- "$sh" || exit
 done
-printf 'POSIX shell dotfiles parsed successfully.\n'

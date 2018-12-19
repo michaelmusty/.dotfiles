@@ -41,7 +41,4 @@ if [ -s "$td"/nobin ] ; then
 fi
 
 # Exit appropriately
-if [ "$ex" -eq 0 ] ; then
-    printf 'All scripts have manual pages.\n'
-fi
 exit "$ex"

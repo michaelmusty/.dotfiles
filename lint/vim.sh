@@ -17,4 +17,3 @@ done
 
 # Run check
 vint -s -- "$@" || exit
-printf 'Vim configuration linted successfully.\n'
