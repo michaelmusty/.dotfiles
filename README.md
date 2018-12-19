@@ -111,7 +111,7 @@ Configuration is included for:
   control system
 * [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
-* [Vim](http://www.vim.org/) -- Vi IMproved, a text editor
+* [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
     * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
 * [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
   for Unix
