@@ -669,4 +669,4 @@ advocacy group, and let me know you did it because of this project:
 * [Free Software Foundation](https://www.fsf.org/)
 * [Software in the Public Interest](https://www.spi-inc.org/)
 * [FreeBSD Foundation](https://www.freebsdfoundation.org/)
-* [OpenBSD Foundation](http://www.openbsdfoundation.org/)
+* [OpenBSD Foundation](https://www.openbsdfoundation.org/)
