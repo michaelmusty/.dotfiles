@@ -314,9 +314,8 @@ commands for each crypto operation. I wrote [an article about this
 setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
 appealing.
 
-You'll need [Abook](http://abook.sourceforge.net/) installed if you want to use
-the `query_command` I have defined, and [msmtp](http://msmtp.sourceforge.net/)
-for the `sendmail` command.
+You'll need Abook installed if you want to use the `query_command` I have
+defined, and msmtp for the `sendmail` command.
 
 ### rxvt-unicode
 
@@ -648,7 +647,7 @@ available to run them:
     * `lint-ksh`
     * `lint-sh`
     * `lint-xinit`
-* [Perl::Critic](http://perlcritic.com/):
+* Perl::Critic:
     * `lint-urxvt`
 * [Vint](https://github.com/Kuniwak/vint):
     * `lint-vim`
