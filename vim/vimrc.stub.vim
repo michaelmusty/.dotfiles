@@ -11,4 +11,4 @@ set runtimepath-=~/.vim/after
 if has('win32') || has('win64')
   set runtimepath-=~/vimfiles
   set runtimepath-=~/vimfiles/after
-else
+endif
