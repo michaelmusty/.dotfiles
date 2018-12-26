@@ -84,6 +84,10 @@ endif
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
+" Require two spaces for sentence objects
+" Yes, I have become a filthy two-spacer
+set cpoptions+=J
+
 " Try to keep swapfiles in one system-appropriate dir
 set directory^=$MYVIMRUNTIME/cache/swap//
 
@@ -134,9 +138,6 @@ set include=
 
 " Show search matches as I type my pattern
 set incsearch
-
-" Don't join lines with two spaces at the end of sentences
-set nojoinspaces
 
 " Don't show a statusline if there's only one window
 " This is the Vim default, but NeoVim changed it
