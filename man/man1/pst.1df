@@ -16,7 +16,7 @@ pst ed
 .B pst
 saves all its standard input into a temporary file and runs the interactive
 command given, defaulting to a suitable pager, and then emits the contents of
-the same file (changed or unchanged) after the program exits. This can be used
+the same file (changed or unchanged) after the program exits.  This can be used
 as a way to watch the progress of data as it goes through the pipe, or to
 manually edit it.
 .SH SEE ALSO

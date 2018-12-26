@@ -11,7 +11,7 @@
 .SH DESCRIPTION
 .B rndf
 prints the name a random file (excluding dot files) from the given directory,
-defaulting to the current directory. It uses rndi(1df), which is probably not a
+defaulting to the current directory.  It uses rndi(1df), which is probably not a
 high-quality source, but should differ within seconds and between runs on most
 systems.
 .SH SEE ALSO

@@ -11,7 +11,7 @@ test -f /foo/bar/baz
 .SH DESCRIPTION
 .B vex
 runs the command given in its arguments, and prints "true" or "false" as the
-last line of stdout based on the command's exit value. It does not interfere
+last line of stdout based on the command's exit value.  It does not interfere
 with any output or error from the command itself.
 .P
 The exit value is the same as the command wrapped.

@@ -10,7 +10,7 @@
 .SH DESCRIPTION
 .B grc
 checks whether the given directory (defaulting to the working directory) is a
-Git repository and has pending changes. Normally this emits no output.
+Git repository and has pending changes.  Normally this emits no output.
 .SH SEE ALSO
 git(1), isgr(1df)
 .SH AUTHOR

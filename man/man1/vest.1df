@@ -11,7 +11,7 @@
 .SH DESCRIPTION
 .B vest
 wraps the test(1) command, but prints an explicit "true" or "false" to stdout
-to show whether the test was true or false. It exits with the same value as the
+to show whether the test was true or false.  It exits with the same value as the
 test it ran.
 .SH SEE ALSO
 test(1), vex(1df)

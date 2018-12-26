@@ -8,7 +8,7 @@ file
 .SH DESCRIPTION
 .B clwr
 clears the screen, accepts a line of input from stdin, writes it to the given
-file, and loops. This is for use in minimal socket-network programs like ii(1),
+file, and loops.  This is for use in minimal socket-network programs like ii(1),
 along with clrd(1df).
 .SH SEE ALSO
 clrd(1df), ii(1)

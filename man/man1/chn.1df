@@ -35,13 +35,13 @@ But this won't:
 .SH CAVEATS
 It's slow.
 .P
-It's not a real pipe. The commands are run successively, not in parallel. That
+It's not a real pipe.  The commands are run successively, not in parallel.  That
 means you can't pass one line to it and have it return another line before
 sending EOF, for unbuffered (e.g. linewise) tools.
 .P
 There's almost certainly a better way to do this, fixing one or both of the
 above issues, and possibly even in shell; maybe with curlier file descriptor
-logic to save unneeded open(2) syscalls. I smell `eval` usage on the horizon.
+logic to save unneeded open(2) syscalls.  I smell `eval` usage on the horizon.
 .SH SEE ALSO
 maybe(1df), rep(1df), try(1df)
 .SH AUTHOR

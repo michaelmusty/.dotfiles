@@ -11,7 +11,7 @@ ssh_config_alt1 ssh_config_alt2
 .B sls
 runs slsf(1df) on the given set of ssh_config(5) files to print the first
 non-wildcard hostname on each "Host" line, defaulting to /etc/ssh/ssh_config
-and ~/.ssh/config if they exist. Suitable for use in batch scripts like
+and ~/.ssh/config if they exist.  Suitable for use in batch scripts like
 sra(1df).
 .SH SEE ALSO
 slsf(1df), sra(1df), sta(1df), ssh(1), ssh_config(5)

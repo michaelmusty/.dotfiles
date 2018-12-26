@@ -9,7 +9,7 @@ htenc urls |
 .SH DESCRIPTION
 .B htref
 looks for http:// and https:// URLs, and wraps <a href="..."> tags around them
-pointing to the same URL. HTML encoding of the URL should be done before this
+pointing to the same URL.  HTML encoding of the URL should be done before this
 step.
 .P
 All characters that are not spaces, tabs, or angle brackets are included in the

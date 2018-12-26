@@ -7,8 +7,8 @@
 file
 .SH DESCRIPTION
 .B clrd
-clears the screen and runs tail -f on the given file. It will not run if stdout
-is not a terminal. This is for use in minimal socket-network programs like
+clears the screen and runs tail -f on the given file.  It will not run if stdout
+is not a terminal.  This is for use in minimal socket-network programs like
 ii(1), along with clwr(1df).
 .SH SEE ALSO
 clwr(1df), ii(1)

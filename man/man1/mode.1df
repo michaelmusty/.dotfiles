@@ -14,7 +14,7 @@ file1 file2
 .SH DESCRIPTION
 .B mode
 collects all the newline-delimited numbers given as input, and prints the
-mode. If two values have the same frequency (i.e. a multimodal distribution),
+mode.  If two values have the same frequency (i.e. a multimodal distribution),
 it will print one of them, but which one depends on whether your awk(1) sorts
 array indexes...
 .SH AUTHOR

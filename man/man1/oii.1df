@@ -12,6 +12,6 @@ CMD [ARGS ...]
 .SH DESCRIPTION
 Run the given program passing in stdin but only if at least one byte of input
 is actually received, rather like the -E switch to mail(1) behaves on
-bsd-mailx. If no input is received, exit silently with an error status.
+bsd-mailx.  If no input is received, exit silently with an error status.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

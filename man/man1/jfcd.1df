@@ -8,7 +8,7 @@
 .SH DESCRIPTION
 .B jfcd
 watches a directory recursively with inotifywait(1) and commits all changes
-with jfc(1df) as it detects them. It logs its output and errors to syslog using
+with jfc(1df) as it detects them.  It logs its output and errors to syslog using
 logger(1).
 .SH SEE ALSO
 git(1), inotifywait(1), jfc(1df), logger(1)

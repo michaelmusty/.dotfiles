@@ -11,7 +11,7 @@ XBACKGROUNDS=/path/to/images
 .B xrbg
 searches for images in the directory named in the XBACKGROUNDS environment
 variable (defaults to ~/.xbackgrounds), chooses a random one with rndf(1df),
-and applies it with feh(1). It's designed for use in ~/.xinitrc, but it seems
+and applies it with feh(1).  It's designed for use in ~/.xinitrc, but it seems
 to work when called manually from within an X session too.
 .SH SEE ALSO
 feh(1), rndf(1df)

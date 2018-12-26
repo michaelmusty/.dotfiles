@@ -13,7 +13,7 @@ command |
 .B brnl
 .SH DESCRIPTION
 .B brnl
-strips trailing HTML linebreaks (<br>) from content. It reverses nlbr(1df).
+strips trailing HTML linebreaks (<br>) from content.  It reverses nlbr(1df).
 .SH SEE ALSO
 htenc(1df), htdec(1df), nlbr(1df)
 .SH AUTHOR

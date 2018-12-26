@@ -24,7 +24,7 @@ leading date(1), and writes it to the file with path in environment variable
 CLOG, defaulting to ~/.clog, terminating each entry with two hyphens.
 .P
 If there are no files to read and standard input is coming from a terminal, and
-rlwrap(1) is found, it will be used for the line editing. If not, just the
+rlwrap(1) is found, it will be used for the line editing.  If not, just the
 terminal's cooked mode will be used.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

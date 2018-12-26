@@ -12,7 +12,7 @@
 uses POSIX tools to try and find a random number device on the system and emits
 the first field of a cksum(1) based on it as a low-quality random numeric seed.
 The only optional argument allows specifying the number of random bytes to
-read, defaulting to 32. This is intended as a low-quality seed for rndi(1df).
+read, defaulting to 32.  This is intended as a low-quality seed for rndi(1df).
 .P
 /dev/urandom is tried first, then /dev/arandom, then /dev/random, before the
 script gives up and emits nothing.

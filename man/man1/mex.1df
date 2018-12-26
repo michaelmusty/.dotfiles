@@ -15,7 +15,7 @@ name
 .SH DESCRIPTION
 Iterate through the directories named in $PATH looking for files with any of
 the specified names that do not have the executable permissions bit set, and
-attempt to set them if any such files are found. Exit nonzero if any of the
+attempt to set them if any such files are found.  Exit nonzero if any of the
 names were not found, or if any of the permissions changes failed.
 .SH SEE ALSO
 chmod(1), eds(1df)

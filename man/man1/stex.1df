@@ -9,7 +9,7 @@
 .SH DESCRIPTION
 .B stex
 renames any of the files given as its trailing arguments to remove the
-extension given as its first argument. It is not an error if none of the files
+extension given as its first argument.  It is not an error if none of the files
 have the extension.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

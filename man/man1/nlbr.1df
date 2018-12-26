@@ -13,7 +13,7 @@ command |
 .B nlbr
 .SH DESCRIPTION
 .B nlbr
-adds trailing HTML linebreaks (<br>) to content. Good for running after
+adds trailing HTML linebreaks (<br>) to content.  Good for running after
 htenc(1df).
 .SH SEE ALSO
 htenc(1df), htdec(1df), brnl(1df)
