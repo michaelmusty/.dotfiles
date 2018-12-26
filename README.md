@@ -367,12 +367,6 @@ They eventually get either discarded or spun off into their own repositories,
 added to this repository as submodules under `vim/bundle` instead, and uploaded
 to [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
-I still use two third-party plugins: Tim Pope's
-[repeat.vim](https://www.vim.org/scripts/script.php?script_id=2136) and
-[surround.vim](https://www.vim.org/scripts/script.php?script_id=1697). In my
-opinion, these plugins are so fundamental and useful that they should have been
-implemented in or bundled with Vim itself many years ago.
-
 #### Filetype plugins
 
 I also define a few rules specific to file types I often edit in
