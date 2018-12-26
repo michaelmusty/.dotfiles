@@ -1,4 +1,4 @@
-# My Vim plugins
+# Vim plugins
 [submodule "vim/bundle/big_file_options"]
     path = vim/bundle/big_file_options
     url = https://sanctum.geek.nz/code/vim-big-file-options.git
@@ -72,7 +72,7 @@
     path = vim/bundle/vimrc_reload_filetype
     url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
 
-# My Vim filetype plugins
+# Vim filetype plugins
 [submodule "vim/bundle/diff_prune"]
     path = vim/bundle/diff_prune
     url = https://sanctum.geek.nz/code/vim-diff-prune.git
@@ -83,18 +83,10 @@
     path = vim/bundle/perl_version_bump
     url = https://sanctum.geek.nz/code/vim-perl-version-bump.git
 
-# My Vim colorschemes
+# Vim colorschemes
 [submodule "vim/bundle/juvenile"]
     path = vim/bundle/juvenile
     url = https://sanctum.geek.nz/code/vim-juvenile.git
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
     url = https://sanctum.geek.nz/code/vim-sahara.git
-
-# Others' Vim plugins
-[submodule "vim/bundle/repeat"]
-    path = vim/bundle/repeat
-    url = https://sanctum.geek.nz/clone/vim-repeat.git
-[submodule "vim/bundle/surround"]
-    path = vim/bundle/surround
-    url = https://sanctum.geek.nz/clone/vim-surround.git
