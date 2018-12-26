@@ -1,9 +1,9 @@
 # Abstract calls to Bash help vs man(1)
 self=han
 
-# Ensure we're using at least version 2.05.  Weird arithmetic syntax needed here
-# due to leading zeroes and trailing letters in some 2.x version numbers (e.g.
-# 2.05a).
+# Ensure we're using at least version 2.05.  Weird arithmetic syntax needed
+# here due to leading zeroes and trailing letters in some 2.x version numbers
+# (e.g.  2.05a).
 # shellcheck disable=SC2128
 [ -n "$BASH_VERSINFO" ] || exit
 ((BASH_VERSINFO[0] == 2)) &&
