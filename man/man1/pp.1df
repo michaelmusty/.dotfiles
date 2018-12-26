@@ -13,8 +13,8 @@ with a slash, in which case they are printed verbatim.
 The path need not actually exist.
 .SH CAVEATS
 Newlines in filenames will still work, but the results won't really make sense
-as they'll be indistinguishable from newlines separating the files.  This is for
-generating human-readable file lists, not for machines.
+as they'll be indistinguishable from newlines separating the files.  This is
+for generating human-readable file lists, not for machines.
 .SH SEE ALSO
 pph(1df)
 .SH AUTHOR

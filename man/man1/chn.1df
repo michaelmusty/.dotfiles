@@ -35,8 +35,8 @@ But this won't:
 .SH CAVEATS
 It's slow.
 .P
-It's not a real pipe.  The commands are run successively, not in parallel.  That
-means you can't pass one line to it and have it return another line before
+It's not a real pipe.  The commands are run successively, not in parallel.
+That means you can't pass one line to it and have it return another line before
 sending EOF, for unbuffered (e.g. linewise) tools.
 .P
 There's almost certainly a better way to do this, fixing one or both of the

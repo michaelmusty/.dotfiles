@@ -10,7 +10,7 @@ PATTERN1 [PATTERN2...]
 is a simple wrapper around find(1) which searches in the current directory tree
 for filenames matching a pattern, and prints them to stdout, newline-separated.
 It skips dotfiles and symbolic links, and doesn't recurse further into a
-directory if it matches the terms.  It is intended only for interactive use as a
-shortcut.
+directory if it matches the terms.  It is intended only for interactive use as
+a shortcut.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

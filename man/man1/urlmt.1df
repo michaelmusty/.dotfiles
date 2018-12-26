@@ -7,8 +7,8 @@
 https://www.sanctum.geek.nz/
 .SH DESCRIPTION
 .B urlmt
-uses urlh(1df) to search for a Content-Type header for the given URL, and prints
-it with any trailing data (e.g. charset) trimmed off.
+uses urlh(1df) to search for a Content-Type header for the given URL, and
+prints it with any trailing data (e.g. charset) trimmed off.
 .SH SEE ALSO
 curl(1), unf(1df), urlh(1df)
 .SH AUTHOR

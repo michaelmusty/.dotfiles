@@ -10,8 +10,8 @@ BROWSER=firefox
 .SH DESCRIPTION
 .B bp
 reads an URL from stdin, with an "URL:" prompt if stdin is a terminal, and runs
-br(1df) against it.  It was written because the author hates quoting URLs on the
-command line.
+br(1df) against it.  It was written because the author hates quoting URLs on
+the command line.
 .SH SEE ALSO
 br(1df), ap(1df)
 .SH AUTHOR

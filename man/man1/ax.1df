@@ -16,6 +16,7 @@ expression.
 .SH SECURITY
 Note that the second argument has no evaluation protection on it.  There's very
 little to stop a user putting a fully-fledged awk program in as the second
-argument if they needed to.  Don't accept untrusted user input in this argument!
+argument if they needed to.  Don't accept untrusted user input in this
+argument!
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

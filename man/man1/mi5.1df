@@ -42,10 +42,11 @@ Macros can be expanded as blocks:
 .P
 For this format, `dnl' macros to delete newlines for each declaration are
 inserted for you.  Blank lines are skipped, and leading and trailing spaces are
-ignored.  The above code therefore produces no actual output, as it only has two
-define calls.
+ignored.  The above code therefore produces no actual output, as it only has
+two define calls.
 .P
-For inline expansion, the syntax is similar, but the behaviour slightly different:
+For inline expansion, the syntax is similar, but the behaviour slightly
+different:
 .P
     The value of the FOO macro is <% FOO %>.
 .P

@@ -25,7 +25,9 @@ No file locking is implemented.  If you need it, you're probably already at the
 point that you need to write a proper solution, but you could always use Linux
 flock(1) or daemontool's setlock(1) in the command if you're stubborn:
 .P
-    flock -x /var/lock/example.chc chc /var/cache/example.chc 20 curl http://www.example.com/
+    flock -x /var/lock/example.chc \\
+        chc /var/cache/example.chc 20 \\
+        curl http://www.example.com/
 .P
 If you want to express the duration in human-readable terms, sec(1df) might be
 useful too.
