@@ -1,14 +1,10 @@
 # Abstract calls to Bash help vs man(1)
 self=han
 
-# Ensure we're using at least version 2.05.  Weird arithmetic syntax needed
-# here due to leading zeroes and trailing letters in some 2.x version numbers
-# (e.g.  2.05a).
+# Ensure we're using at least version 3.0
 # shellcheck disable=SC2128
-[ -n "$BASH_VERSINFO" ] || exit
-((BASH_VERSINFO[0] == 2)) &&
-    ((10#${BASH_VERSINFO[1]%%[![:digit:]]*} < 5)) &&
-    exit
+[ -n "$BASH_VERSINFO" ] || exit    # Check version array exists (>=2.0)
+((BASH_VERSINFO[0] >= 3)) || exit  # Check actual major version number
 
 # Figure out the options with which we can call help; Bash >=4.0 has an -m
 # option which prints the help output in a man-page like format
