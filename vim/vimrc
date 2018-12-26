@@ -190,7 +190,8 @@ set splitbelow  " Below the current window, not above
 set splitright  " Right of the current window, not left
 
 " No terminal mouse, even if we could
-if exists('+ttymouse')
+" The manual says to set 't_RV', but I don't like that
+if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
 
