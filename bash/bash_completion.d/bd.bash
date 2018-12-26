@@ -33,8 +33,8 @@ _bd() {
         # Continue if we have at least one non-root ancestor
         ((ai)) || return
 
-        # Add quoted ancestors to new array; for long paths, this is faster than
-        # forking a subshell for `printf %q` on each item
+        # Add quoted ancestors to new array; for long paths, this is faster
+        # than forking a subshell for `printf %q` on each item
         while read -d / -r ancestor ; do
             ancestors_quoted[aqi++]=$ancestor
         done < <(printf '%q/' "${ancestors[@]}")

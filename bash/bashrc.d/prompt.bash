@@ -160,8 +160,9 @@ prompt() {
                 fi
 
                 # There are some untracked and unignored files
-                if git ls-files --directory --error-unmatch --exclude-standard \
-                        --no-empty-directory --others -- ':/*' ; then
+                if git ls-files --directory --error-unmatch \
+                        --exclude-standard --no-empty-directory \
+                        --others -- ':/*' ; then
                     state=${state}'?'
                 fi
 
