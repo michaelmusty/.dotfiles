@@ -4,6 +4,15 @@
 " Undo anything the operating system's vimrc may have broken
 runtime system.vim
 
+" Set an environment variable for the user runtime directory
+if !exists('$MYVIMRUNTIME')
+  if has('win32') || has('win64')
+    let $MYVIMRUNTIME = expand('~/vimfiles')
+  else
+    let $MYVIMRUNTIME = expand('~/.vim')
+  endif
+endif
+
 " Load filetype settings, plugins, and maps
 if has('autocmd')
   let g:maplocalleader = ','
@@ -49,11 +58,7 @@ set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir
 set backup
-if has('win32') || has('win64')
-  set backupdir^=~/vimfiles/cache/backup
-else
-  set backupdir^=~/.vim/cache/backup
-endif
+set backupdir^=$MYVIMRUNTIME/cache/backup
 
 " Add some paths not to back up
 if has('unix')
@@ -79,11 +84,7 @@ endif
 set confirm
 
 " Try to keep swapfiles in one system-appropriate dir
-if has('win32') || has('win64')
-  set directory^=~/vimfiles/cache/swap//
-else
-  set directory^=~/.vim/cache/swap//
-endif
+set directory^=$MYVIMRUNTIME/cache/swap//
 
 " Use UTF-8 if we can and env LANG didn't tell us not to
 if has('multi_byte') && !exists('$LANG') && &encoding ==# 'latin1'
@@ -198,11 +199,7 @@ endif
 " Keep undo files, hopefully in a dedicated directory
 if has('persistent_undo')
   set undofile
-  if has('win32') || has('win64')
-    set undodir^=~/vimfiles/cache/undo//
-  else
-    set undodir^=~/.vim/cache/undo//
-  endif
+  set undodir^=$MYVIMRUNTIME/cache/undo//
 endif
 
 " Wildmenu settings; see also plugin/wildignore.vim
