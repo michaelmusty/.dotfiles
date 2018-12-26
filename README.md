@@ -25,7 +25,7 @@ For the default `all` target, you'll need a POSIX-fearing userland, including
 The installation `Makefile` will overwrite things standing in the way of its
 installed files without backing them up, so read the output of `make -n
 install` before running `make install` to make sure you aren't going to lose
-anything unexpected. If you're still not sure, install it in a temporary
+anything unexpected.  If you're still not sure, install it in a temporary
 directory so you can explore:
 
     $ tmpdir=$(mktemp -d)
@@ -33,8 +33,8 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" "$SHELL" -l
 
 The default `install` target will install these targets and all their
-dependencies. Note that you don't actually have to have any of this except `sh`
-installed.
+dependencies.  Note that you don't actually have to have any of this except
+`sh` installed.
 
 * `install-bin`
 * `install-bin-man`
@@ -51,14 +51,14 @@ The `install-login-shell` looks at your `SHELL` environment variable and tries
 to figure out which shell's configuration files to install, falling back on
 `install-sh`.
 
-The remaining files can be installed with the other `install-*` targets. Try
+The remaining files can be installed with the other `install-*` targets.  Try
 `awk -f bin/mftl.awk Makefile` in the project's root directory to see a list.
 
 ### Configuration
 
 To save a set of `make` targets useful for a specific user or host, you can
 save them in a newline-separated file `~/.dotfiles.conf`, and install using
-that with the special `install-conf` target. This can include variable
+that with the special `install-conf` target.  This can include variable
 settings, too:
 
     $ cd
@@ -117,28 +117,28 @@ Configuration is included for:
   for Unix
 
 The configurations for shells, GnuPG, Mutt, tmux, and Vim are the most
-expansive, and most likely to be of interest. The i3 configuration is mostly
+expansive, and most likely to be of interest.  The i3 configuration is mostly
 changed to make window switching behave like Vim windows and tmux panes do, and
 there's a fair few resources defined for rxvt-unicode.
 
 ### Shell
 
 My `.profile` and other files in `sh` are written in POSIX shell script, so
-they should work in most `sh(1)` implementations. Individual scripts called by
+they should work in most `sh(1)` implementations.  Individual scripts called by
 `.profile` are saved in `.profile.d` and iterated on login for ease of
-management. Most of these boil down to exporting variables appropriate to the
+management.  Most of these boil down to exporting variables appropriate to the
 system and the software it has available.
 
 Configuration that should be sourced for all POSIX-fearing interactive shells
-is kept in `~/.shrc`, with subscripts read from `~/.shrc.d`. There's a shim in
-`~/.shinit` to act as `ENV`. I make an effort to target POSIX for my functions
+is kept in `~/.shrc`, with subscripts read from `~/.shrc.d`.  There's a shim in
+`~/.shinit` to act as `ENV`.  I make an effort to target POSIX for my functions
 and scripts where I can so that the same files can be loaded for all shells.
 
 On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell, preferably
 `ksh93` if it's available.
 
 My Bash is written to work with [any version 3.0 or
-newer](http://wiki.bash-hackers.org/scripting/bashchanges). This is why I use
+newer](http://wiki.bash-hackers.org/scripting/bashchanges).  This is why I use
 older syntax for certain things such as appending items to arrays:
 
     array[${#array[@]}]=$item
@@ -168,12 +168,12 @@ A terminal session with my prompt looks something like this:
     [1] 28937
     remote:~/.dotfiles(master+!){1}$
 
-The hostname is elided if not connected via SSH. The working directory with
-tilde abbreviation for `$HOME` is always shown. The rest of the prompt expands
+The hostname is elided if not connected via SSH.  The working directory with
+tilde abbreviation for `$HOME` is always shown.  The rest of the prompt expands
 based on context to include these elements in this order:
 
 * Whether in a Git repository if applicable, and punctuation to show repository
-  status including reference to upstreams at a glance. Subversion support can
+  status including reference to upstreams at a glance.  Subversion support can
   also be enabled (I need it at work), in which case a `git:` or `svn:` prefix
   is added appropriately.
 * The number of running background jobs, if non-zero.
@@ -185,16 +185,16 @@ do about what you'd expect.
 If you start up Bash, Korn shell, or Z shell, and it detects that it's not your
 login shell, the prompt will display an appropriate prefix.
 
-This is all managed within the `prompt` function. There's some mildly hacky
+This is all managed within the `prompt` function.  There's some mildly hacky
 logic on `tput` codes included such that it should work correctly for most
 common terminals using both `termcap(5)` and `terminfo(5)`, including \*BSD
-systems. It's also designed to degrade gracefully for eight-color and no-color
+systems.  It's also designed to degrade gracefully for eight-color and no-color
 terminals.
 
 #### Functions
 
 If a function can be written in POSIX `sh` without too much hackery, I put it
-in `sh/shrc.d` to be loaded by any POSIX interactive shell. Those include:
+in `sh/shrc.d` to be loaded by any POSIX interactive shell.  Those include:
 
 * Four functions for using a "marked" directory, which I find a more manageable
   concept than the `pushd`/`popd` directory stack:
@@ -255,8 +255,8 @@ non-POSIX features, as compatibility allows:
 #### Completion
 
 I find the `bash-completion` package a bit too heavy for my tastes, and turn it
-off using a stub file installed in `~/.config/bash_completion`. The majority of
-the time I just want to complete paths anyway, and this makes for a quicker
+off using a stub file installed in `~/.config/bash_completion`.  The majority
+of the time I just want to complete paths anyway, and this makes for a quicker
 startup without a lot of junk functions in my Bash namespace.
 
 I do make some exceptions with completions defined in `.bash_completion.d`
@@ -272,23 +272,23 @@ files, for things I really do get tired of typing repeatedly:
 
 For commands that pretty much always want to operate on text, such as text file
 or stream editors, I exclude special file types and extensions I know are
-binary. I don't actually read the file, so this is more of a heuristic thing,
+binary.  I don't actually read the file, so this is more of a heuristic thing,
 and sometimes it will get things wrong.
 
-I also add completions for my own scripts and functions where useful. The
+I also add completions for my own scripts and functions where useful.  The
 completions are dynamically loaded if Bash is version 4.0 or greater.
 Otherwise, they're all loaded on startup.
 
 #### Korn shell
 
 These are experimental; they are mostly used to tinker with MirBSD `mksh`, AT&T
-`ksh93`, and OpenBSD `pdksh`. All shells in this family default to a yellow
+`ksh93`, and OpenBSD `pdksh`.  All shells in this family default to a yellow
 prompt if detected.
 
 #### Z shell
 
-These are experimental; I do not like Z shell much at the moment. The files
-started as a joke (`exec bash`). `zsh` shells default to having a prompt
+These are experimental; I do not like Z shell much at the moment.  The files
+started as a joke (`exec bash`).  `zsh` shells default to having a prompt
 colored cyan.
 
 ### GnuPG
@@ -302,15 +302,15 @@ neither tilde nor `$HOME` expansion works for this.
 ### Mutt
 
 My mail is kept in individual Maildirs under `~/Mail`, with `inbox` being where
-most unfiltered mail is sent. I use
+most unfiltered mail is sent.  I use
 [Getmail](http://pyropus.ca/software/getmail/),
 [maildrop](https://www.courier-mta.org/maildrop/), and
 [msmtp](https://marlam.de/msmtp/); the configurations for these are not
-included here. I sign whenever I have some indication that the recipient might
+included here.  I sign whenever I have some indication that the recipient might
 be using a PGP implementation, and I encrypt whenever I have a public key
-available for them. The GnuPG and S/MIME interfacing is done with
+available for them.  The GnuPG and S/MIME interfacing is done with
 [GPGme](https://www.gnupg.org/related_software/gpgme/), rather than defining
-commands for each crypto operation. I wrote [an article about this
+commands for each crypto operation.  I wrote [an article about this
 setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
 appealing.
 
@@ -324,7 +324,7 @@ I've butchered the URxvt Perl extensions `selection-to-clipboard` and
 only extension I define in `~/.Xresources`.
 
 The included `.Xresources` file assumes that `urxvt` can use 256 colors and
-Perl extensions. If you're missing functionality, try changing
+Perl extensions.  If you're missing functionality, try changing
 `perl-ext-common` to `default`.
 
 ### tmux
@@ -335,26 +335,26 @@ and uses non-login shells, with an attempt to control the environment to stop
 shells thinking they have access to an X display.
 
 The shell scripts in `bin` include `tm(1df)`, a shortcut to make `attach` into
-the default command if no arguments are given and sessions do already exist. My
-`~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same key
-combination to detach.
+the default command if no arguments are given and sessions do already exist.
+My `~/.inputrc` file binds Alt+M to run that, and Tmux in turn binds the same
+key combination to detach.
 
 ### Vim
 
 The majority of the Vim configuration is just setting options, with a fair few
-mappings and remappings, both global and buffer-local. I try not to deviate too
-much from the Vim defaults behavior in terms of interactive behavior and
-keybindings. It's extensively commented, mostly because I was reading through
-it one day and realized I'd forgotten what half of it did. System-specific
+mappings and remappings, both global and buffer-local.  I try not to deviate
+too much from the Vim defaults behavior in terms of interactive behavior and
+keybindings.  It's extensively commented, mostly because I was reading through
+it one day and realized I'd forgotten what half of it did.  System-specific
 configuration files go in `~/.vim/config`.
 
 #### Filetypes
 
 I define my own `filetype.vim` and `scripts.vim`, so that filetype detection
-works in a way I like, and loads quickly. They are very unlikely to suit you as
-they are, but you might be able to extend them with your favourite filetypes.
-If you delete both of them from `~/.vim`, you'll get the stock filetype
-detection back.
+works in a way I like, and loads quickly.  They are very unlikely to suit you
+as they are, but you might be able to extend them with your favourite
+filetypes.  If you delete both of them from `~/.vim`, you'll get the stock
+filetype detection back.
 
 #### Plugins
 
@@ -371,15 +371,15 @@ to [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
 I also define a few rules specific to file types I often edit in
 `~/.vim/after/ftplugin`, including some buffer-local mapping targets for
-checking, linting, and tidying, and a few more in `~/.vim/after/indent`. There
+checking, linting, and tidying, and a few more in `~/.vim/after/indent`.  There
 are also a few tweaks to core syntax files in `~/.vim/after/syntax`, especially
-for shell script (`sh.vim`). Some of these filetype plugins are also due to be
+for shell script (`sh.vim`).  Some of these filetype plugins are also due to be
 separately distributed and installed via submodules instead.
 
 #### Compilers
 
 I define a few of my own `:compiler` scripts for `~/.vim/compiler`, for use for
-checking and linting of appropriate filetypes. Because checking (does it
+checking and linting of appropriate filetypes.  Because checking (does it
 compile?) and linting (is it correct and well-written?) are separate processes
 for me, I bind them separately with local leader maps; for example, for `perl`
 filetypes, `,c` switches `makprg` to `perl -c`, and `,l` to `perlcritic`.
@@ -387,7 +387,7 @@ filetypes, `,c` switches `makprg` to `perl -c`, and `,l` to `perlcritic`.
 #### Neovim
 
 I test my configuration every now and then with the [Neovim
-fork](https://neovim.io/). There's an `install-neovim` target to run
+fork](https://neovim.io/).  There's an `install-neovim` target to run
 `install-vim` with the appropriate paths changed.
 
 Its [godless arrogance](https://twitter.com/tpope/status/437019518444240896)
@@ -399,14 +399,14 @@ Scripts
 -------
 
 Where practical, I make short scripts into POSIX (but not Bourne) `sh(1)`,
-`awk(1)`, or `sed(1)` scripts in `~/.local/bin`. I try to use shell functions
+`awk(1)`, or `sed(1)` scripts in `~/.local/bin`.  I try to use shell functions
 only when I actually need to, which tends to be when I need to tinker with the
 namespace of the user's current shell.
 
 Installed by the `install-bin` target:
 
 * Three SSH-related scripts:
-    * `sls(1df)` prints hostnames read from a `ssh_config(5)` file. It uses
+    * `sls(1df)` prints hostnames read from a `ssh_config(5)` file.  It uses
       `slsf(1df)` to read each one.
     * `sra(1df)` runs a command on multiple hosts read from `sls(1df)` and
       prints output.
@@ -451,8 +451,9 @@ Installed by the `install-bin` target:
       shortcut.
     * `tlcs(1df)` executes a command and uses `tl(1df)` to tag standard output
       and standard error lines, and color them if you want.
-    * `unf(1df)` joins lines with leading spaces to the previous line. Intended
-      for unfolding HTTP headers, but it should work for most RFC 822 formats.
+    * `unf(1df)` joins lines with leading spaces to the previous line.
+      Intended for unfolding HTTP headers, but it should work for most RFC 822
+      formats.
 * Six simple aggregate scripts for numbers:
     * `max(1df)` prints the maximum.
     * `mean(1df)` prints the mean.
@@ -534,14 +535,14 @@ Installed by the `install-bin` target:
 * `gred(1df)` is a more logically-named `grep -v`.
 * `gwp(1df)` searches for alphanumeric words in a similar way to `grep(1)`.
 * `han(1df)` provides a `keywordprg` for Vim's Bash script file type that will
-  look for `help` topics. You could use it from the shell too.
+  look for `help` topics.  You could use it from the shell too.
 * `igex(1df)` wraps around a command to allow you to ignore error conditions
   that don't actually worry you, exiting with 0 anyway.
 * `ix(1df)` posts its input to the `ix.io` pastebin.
 * `jfp(1df)` prints its input, excluding any shebang on the first line only.
 * `loc(1df)` is a quick-search wrapped around `find(1)`.
 * `maybe(1df)` is like `true(1)` or `false(1)`; given a probability of success,
-  it exits with success or failure. Good for quick tests.
+  it exits with success or failure.  Good for quick tests.
 * `mex(1df)` makes given filenames in `$PATH` executable.
 * `mi5(1df)` is a crude preprocessor for `m4`.
 * `mim(1df)` starts an interactive Mutt message with its input.
@@ -584,7 +585,7 @@ Installed by the `install-bin` target:
   `new-session` if it doesn't.
 * `trs(1df)` replaces strings (not regular expression) in its input.
 * `try(1df)` repeats a command up to a given number of times until it succeeds,
-  only printing error output if all three attempts failed. Good for tolerating
+  only printing error output if all three attempts failed.  Good for tolerating
   blips or temporary failures in `cron(8)` scripts.
 * `umake(1df)` iterates upwards through the directory tree from `$PWD` until it
   finds a Makefile for which to run `make(1)` with the given arguments.
@@ -619,7 +620,7 @@ Manuals
 -------
 
 The `install-bin` and `install-games` targets install manuals for each script
-they install. If you want to use the manuals, you may need to add
+they install.  If you want to use the manuals, you may need to add
 `~/.local/share/man` to your `~/.manpath` or `/etc/manpath` configuration,
 depending on your system.
 
@@ -628,7 +629,7 @@ Testing
 
 You can check that both sets of shell scripts are syntactically correct with
 `make check-bash`, `make check-sh`, or `make check` for everything including
-the scripts in `bin` and `games`. There's no proper test suite for the actual
+the scripts in `bin` and `games`.  There's no proper test suite for the actual
 functionality (yet).
 
 There are also optional `lint` targets, if you have the appropriate tools
@@ -654,7 +655,7 @@ See ISSUES.markdown.
 License
 -------
 
-Public domain; see the included `UNLICENSE` file. It's just configuration and
+Public domain; see the included `UNLICENSE` file.  It's just configuration and
 simple scripts, so do whatever you like with it if any of it's useful to you.
 If you're feeling generous, please join and/or donate to a free software
 advocacy group, and let me know you did it because of this project:
