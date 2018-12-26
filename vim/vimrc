@@ -63,7 +63,8 @@ set backupdir^=$MYVIMRUNTIME/cache/backup
 " Add some paths not to back up
 if has('unix')
   set backupskip^=/dev/shm/*  " Shared memory RAM disk
-  set backupskip^=/var/tmp/*  " Debian's $TMPDIR for sudoedit(8)
+  set backupskip^=/usr/tmp/*  " Hardcoded path for `sudo -e`
+  set backupskip^=/var/tmp/*  " Hardcoded path for `sudo -e`
 endif
 
 " Indent wrapped lines if supported
