@@ -2,7 +2,7 @@
 # keep -- Main function for zshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
 # directory $ZSHKEEP (defaults to ~/.zshkeep.d) with a .zsh suffix, each of
-# which is reloaded each time this file is called. This allows you to quickly
+# which is reloaded each time this file is called.  This allows you to quickly
 # arrange to keep that useful shell function or variable you made inline on
 # subsequent logins.
 #

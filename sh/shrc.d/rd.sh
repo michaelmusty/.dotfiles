@@ -1,5 +1,5 @@
 # Replace the first instance of the first argument string with the second
-# argument string in $PWD, and make that the target of the cd builtin. This is
+# argument string in $PWD, and make that the target of the cd builtin.  This is
 # to emulate a feature of the `cd` builtin in Zsh that I like, but that I think
 # should be a separate command rather than overloading `cd`.
 #

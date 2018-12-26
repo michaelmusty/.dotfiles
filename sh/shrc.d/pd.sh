@@ -1,6 +1,6 @@
 # Attempt to change into the argument's parent directory; This is intended for
 # use when you've got a file path in a variable, or in history, or in Alt+.,
-# and want to quickly move to its containing directory. In the absence of an
+# and want to quickly move to its containing directory.  In the absence of an
 # argument, this just shifts up a directory, i.e. `cd ..`
 #
 # Note this is equivalent to `ud 1`.

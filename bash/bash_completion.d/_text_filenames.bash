@@ -3,7 +3,7 @@
 #
 # I've seen some very clever people figure out ways to actually read the files
 # or run something like file(1) over them to make an educated guess as to
-# whether they're binary or not, but I don't really want to go that far. It's
+# whether they're binary or not, but I don't really want to go that far.  It's
 # not supposed to be perfect, just a bit more likely to complete singly with
 # the thing I want, and I want it to stay fast.
 #

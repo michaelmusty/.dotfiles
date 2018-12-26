@@ -9,7 +9,7 @@ dir=${1:-.} lim=${2:-10}
 # Enter the target dir or bail
 cd -- "$dir" || exit
 
-# Some find(1) devilry to deal with newlines as safely as possible. The idea is
+# Some find(1) devilry to deal with newlines as safely as possible.  The idea is
 # not even to touch them, and warn about their presence; better the results are
 # wrong than malformed
 nl=$(printf '\n/')

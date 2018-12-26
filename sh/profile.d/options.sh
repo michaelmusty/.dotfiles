@@ -1,4 +1,4 @@
-# Cache the options available to certain programs. Run all this in a subshell
+# Cache the options available to certain programs.  Run all this in a subshell
 # (none of its state needs to endure in the session)
 (
 options() {
