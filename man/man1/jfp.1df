@@ -19,7 +19,7 @@ because it's a shebang.
 .SH DESCRIPTION
 .B jfp
 prints all the input given to it except for the first line if it starts with a
-shebang "#!". This means it can be used in a shebang to simply echo the entire
+shebang "#!".  This means it can be used in a shebang to simply echo the entire
 remaining contents of the script.
 .SH NOTES
 Can you guess what it stands for?

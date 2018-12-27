@@ -10,7 +10,8 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 # In the absence of any other recipient, encrypt messages for myself
 default-recipient-self
 
-# Show complete dates and use proper column separation for --with-colon listing mode
+# Show complete dates and use proper column separation for --with-colon listing
+# mode
 fixed-list-mode
 
 # Use only fingerprints as key IDs

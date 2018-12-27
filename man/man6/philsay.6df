@@ -1,7 +1,7 @@
 .TH PHILSAY 6df "July 2017" "Manual page for philsay"
 .SH NAME
 .B philsay
-\- Ha, ha, ha! ASCII art!
+\- Ha, ha, ha!  ASCII art!
 .SH USAGE
 .B philsay
 .br

@@ -1,5 +1,5 @@
-# If the argument is a directory, change to it. If it's a file, change to its
-# parent. Stands for "get to".
+# If the argument is a directory, change to it.  If it's a file, change to its
+# parent.  Stands for "get to".
 gt() {
 
     # Check argument count

@@ -14,7 +14,8 @@ BEGIN {
     # match case-insensitively
     word = tolower(ARGV[1])
 
-    # Blank the first argument so Awk doesn't try to read data from it as a file
+    # Blank the first argument so Awk doesn't try to read data from it as a
+    # file
     ARGV[1] = ""
 
     # Bail out if we don't have a suitable word

@@ -11,7 +11,7 @@ prog1 |
 .SH DESCRIPTION
 .B mw
 separates the input into space-delimited words and prints them one per line,
-with no deduplication or sorting. It's a fairly naïve approach to the problem
+with no deduplication or sorting.  It's a fairly naïve approach to the problem
 but it works fine as a crude initial approach.
 .SH NOTES
 This was written after watching that lovely old AT&T video where members of the

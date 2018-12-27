@@ -12,11 +12,11 @@ DENOMINATOR
 NUMERATOR DENOMINATOR
 .SH DESCRIPTION
 Like true(1) or false(1), but exits with success randomly with a given
-probability. Good for using in tests. Exits with 2 rather than 1 on usage
+probability.  Good for using in tests.  Exits with 2 rather than 1 on usage
 errors.
 .P
 The numerator defaults to 1 and the denominator to 2 for a roughly equal chance
-of success or failure. rndi(1df) is used for the randomness.
+of success or failure.  rndi(1df) is used for the randomness.
 .P
    $ maybe
    $ maybe 3

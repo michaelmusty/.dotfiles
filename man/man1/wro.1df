@@ -16,7 +16,7 @@ Text on standard input.
 ^D
 .SH DESCRIPTION
 .B wro
-adds an email-style quote lead-in to its standard input. It's intended to
+adds an email-style quote lead-in to its standard input.  It's intended to
 receive input from quo(1df).
 .SH SEE ALSO
 quo(1df)

@@ -1,4 +1,4 @@
-# Get a low-quality random number between two integers. Depending on the awk
+# Get a low-quality random number between two integers.  Depending on the awk
 # implementation, if you don't have rnds(1df) available to generate a seed of
 # sufficient quality, you might get very predictable random numbers based on
 # the current epoch second.

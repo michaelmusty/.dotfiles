@@ -14,7 +14,7 @@ d6
 .SH DESCRIPTION
 .B dr
 rolls dice according to the formulas used in D&D and other tabletop roleplaying
-games. It only allows d4, d6, d8, d10, d12, and d20 dice.
+games.  It only allows d4, d6, d8, d10, d12, and d20 dice.
 .SH SEE ALSO
 rndi(1df)
 .SH AUTHOR

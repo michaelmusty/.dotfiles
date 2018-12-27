@@ -9,7 +9,7 @@ ud() {
     fi
     set -- "${1:-1}" "${2:-"$PWD"}"
 
-    # Check first argument, number of steps upward. "0" is weird, but valid;
+    # Check first argument, number of steps upward.  "0" is weird, but valid;
     # "-1" however makes no sense at all
     if [ "$1" -lt 0 ] ; then
         printf >&2 'ud(): Invalid step count\n'

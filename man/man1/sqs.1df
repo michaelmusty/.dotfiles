@@ -9,6 +9,6 @@
 .SH DESCRIPTION
 .B sqs
 renames any of the files given as its trailing arguments to remove a trailing
-HTTP query string. It is not an error if none of the files have the extension.
+HTTP query string.  It is not an error if none of the files have the extension.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

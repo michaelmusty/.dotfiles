@@ -1,7 +1,7 @@
 .TH MURL 1df "June 2016" "Manual page for murl"
 .SH NAME
 .B murl
-\- convert Markdown to HTML with pandoc(1) and extract URLs from it with hurl(1df)
+\- convert Markdown to HTML with pandoc(1), extract URLs with hurl(1df)
 .SH SYNOPSIS
 .B murl
 README.md

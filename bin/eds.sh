@@ -1,4 +1,5 @@
-# Create and edit executable scripts in a directory EDSPATH (defaults to ~/.local/bin)
+# Create and edit executable scripts in a directory EDSPATH (defaults to
+# ~/.local/bin)
 
 # Need at least one script name
 if [ "$#" -eq 0 ] ; then

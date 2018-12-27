@@ -6,7 +6,7 @@
 .B motd
 .SH DESCRIPTION
 .B motd
-emits /etc/motd to stdout, if found. The filename can be overriden with the
+emits /etc/motd to stdout, if found.  The filename can be overriden with the
 MOTD variable.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

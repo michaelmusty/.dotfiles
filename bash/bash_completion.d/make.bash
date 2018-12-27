@@ -7,7 +7,7 @@ fi
 _make() {
 
     # Find a legible Makefile according to the POSIX spec (look for "makefile"
-    # first, then "Makefile"). You may want to add "GNU-makefile" after this.
+    # first, then "Makefile").  You may want to add "GNU-makefile" after this.
     local mf
     for mf in makefile Makefile '' ; do
         ! [[ -e $mf ]] || break

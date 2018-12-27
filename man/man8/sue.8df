@@ -7,7 +7,7 @@
 FILE1 [FILE2...]
 .SH DESCRIPTION
 Run sudoedit(8) over the arguments given as the user that owns them all; exit
-with an error if they're not owned by a common user. This could be useful in
+with an error if they're not owned by a common user.  This could be useful in
 situations where you don't have full root access via sudo(8), or simply want
 to be strict about working with least privilege.
 .SH AUTHOR

@@ -18,7 +18,7 @@ circumstances.
 This even works for the first argument (i.e. the command), provided that it
 will run on the local system once copied in.
 .SH CAVEATS
-You can't write to remote files with it. The arguments only work as input
+You can't write to remote files with it.  The arguments only work as input
 streams, so e.g. "cp .vimrc remote:.vimrc" won't do what you expect.
 .P
 This only works for simple commands; you can't put shell syntax into any of the
@@ -28,7 +28,7 @@ The whole script will stop if even one of its arguments can't be copied in, as
 there's no way to tell whether it's safe to proceed without some of the data.
 .P
 Don't even think about using this for mission-critical cases or situations
-requiring high security. It's a convenience wrapper.
+requiring high security.  It's a convenience wrapper.
 .P
 You may not need this at all if your shell has working command substitution and
 you find its syntax clearer:

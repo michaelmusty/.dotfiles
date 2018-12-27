@@ -71,8 +71,8 @@ fi
 include(`include/mktd.m4')
 %>
 
-# Execute the command, passing stdout and stderr to tl(1df) calls as appropriate
-# via named pipes
+# Execute the command, passing stdout and stderr to tl(1df) calls as
+# appropriate via named pipes
 out=$td/out err=$td/err
 mkfifo -- "$out" "$err" || exit
 tl -p "$out_pref" -s "$out_suff" < "$out" &

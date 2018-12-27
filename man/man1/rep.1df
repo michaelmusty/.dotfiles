@@ -7,7 +7,7 @@
 COUNT
 COMMAND [ARG1...]
 .SH DESCRIPTION
-Run the given command the specified number of times. Zero is a valid count;
+Run the given command the specified number of times.  Zero is a valid count;
 nothing happens.
 .SH SEE ALSO
 chn(1df), maybe(1df), try(1df), watch(1)

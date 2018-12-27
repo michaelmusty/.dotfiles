@@ -12,7 +12,8 @@ for url do (
     # Look for patterns in the URL that suggest transformations
     case $url in
 
-        # If this is a GitHub or GitLab link, swap "blob" for "raw" to get the actual file
+        # If this is a GitHub or GitLab link, swap "blob" for "raw" to get the
+        # actual file
         (*://github.com/*/blob/*|*://gitlab.com/*/blob/*)
             url=$(printf '%s\n' "$url" | sed 's_/blob/_/raw/_')
             ;;
@@ -20,7 +21,8 @@ for url do (
         # Dig out the plain text for pastebin.com links
         (*://pastebin.com/*)
             # shellcheck disable=SC2016
-            url=$(printf '%s\n' "$url" | sed 's_/[A-Za-z0-9][A-Za-z0-9]*$_/raw&_')
+            url=$(printf '%s\n' "$url" |
+                sed 's_/[A-Za-z0-9][A-Za-z0-9]*$_/raw&_')
             ;;
 
         # If this is a not-direct imgur link and not to an album, swap URL
@@ -28,10 +30,12 @@ for url do (
         # the MIME type will tell us)
         (*://imgur.com/a/*) ;;
         (*://imgur.com/*)
-            url=$(printf '%s\n' "$url" | sed 's_imgur\.com_i.imgur.com_;s/$/.jpg/')
+            url=$(printf '%s\n' "$url" |
+                sed 's_imgur\.com_i.imgur.com_;s/$/.jpg/')
             ;;
 
-        # If this is a YouTube video without a given start time, load it in mpv(1)
+        # If this is a YouTube video without a given start time, load it in
+        # mpv(1)
         (*[/.]youtube.com/watch*[?\&]t=) ;;
         (*[/.]youtube.com/watch*)
             mpv -- "$url" && exit

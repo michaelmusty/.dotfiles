@@ -6,7 +6,7 @@
 .B eds [EDITOR_OPTS] [--] FILE1 [FILE2...]
 .SH DESCRIPTION
 Create and edit executable scripts in a directory EDSPATH (defaults to
-~/.local/bin). Makes any created files executable for convenience.
+~/.local/bin).  Makes any created files executable for convenience.
 .P
    $ eds myscript
    $ eds myscript newscript

@@ -21,7 +21,7 @@ Any targets it finds that are simple strings or filenames that look like they
 should be referenced by the user are printed uniquely sorted to stdout.
 .P
 This is not 100% accurate (and probably can't be); GNU Make's heresies make it
-particularly complicated. For simple POSIX-ish Makefiles, it should work well.
+particularly complicated.  For simple POSIX-ish Makefiles, it should work well.
 The idea is to get an overview of what's accessible in a Makefile without
 having to page through the whole thing.
 .SH SEE ALSO

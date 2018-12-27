@@ -11,7 +11,7 @@ fi
 c=$1
 shift
 
-# Check the repetition count looks sane. Zero is fine!
+# Check the repetition count looks sane.  Zero is fine!
 if [ "$c" -lt 0 ] ; then
     printf >&2 '%s: Nonsensical negative count\n' "$self"
     exit 2

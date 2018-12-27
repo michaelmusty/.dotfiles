@@ -72,7 +72,7 @@ sd() {
             # Check the number of matches
             case $# in
 
-                # One match? Must be $PWD, so no siblings--throw in 0 just in
+                # One match?  Must be $PWD, so no siblings--throw in 0 just in
                 # case, but that Shouldn't Happen (TM)
                 0|1)
                     printf >&2 'sd(): No siblings\n'
@@ -99,7 +99,7 @@ sd() {
                     esac
                     ;;
 
-                # Anything else? Multiple siblings--user will need to specify
+                # Anything else?  Multiple siblings--user will need to specify
                 *)
                     printf >&2 'sd(): Multiple siblings\n'
                     return 1

@@ -9,7 +9,7 @@ esac
 # keep -- Main function for kshkeep; provided with a list of NAMEs, whether
 # shell functions or variables, writes the current definition of each NAME to a
 # directory $KSHKEEP (defaults to ~/.kshkeep.d) with a .ksh suffix, each of
-# which is reloaded each time this file is called. This allows you to quickly
+# which is reloaded each time this file is called.  This allows you to quickly
 # arrange to keep that useful shell function or variable you made inline on
 # subsequent logins.
 #

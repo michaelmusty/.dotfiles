@@ -14,7 +14,7 @@
 .B gscr
 runs the git fsck, reflog --expire, and gc commands to get rid of dangling
 commit objects in a repository and pack the repository down as small as
-possible. Each command will only run if the one before it exited non-zero.
+possible.  Each command will only run if the one before it exited non-zero.
 .SH SEE ALSO
 git(1), fgscr(1df), isgr(1df)
 .SH AUTHOR

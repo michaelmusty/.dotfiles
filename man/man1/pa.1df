@@ -7,7 +7,7 @@
 arg1 arg2 arg3
 .SH DESCRIPTION
 .B pa
-prints each of its arguments followed by a newline. If there are no arguments,
+prints each of its arguments followed by a newline.  If there are no arguments,
 it does nothing.
 .SH SEE ALSO
 paz(1df)

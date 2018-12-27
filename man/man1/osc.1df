@@ -16,7 +16,7 @@ editing.
 .P
 It's intended to be run as an interactive tool for cases where you want to
 focus more on debugging the data exchange with the actual server, and not
-debugging the OpenSSL negotiation itself. The author finds it handy for poking
+debugging the OpenSSL negotiation itself.  The author finds it handy for poking
 his STARTTLS SMTP mailserver.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

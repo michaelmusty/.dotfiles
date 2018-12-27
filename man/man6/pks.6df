@@ -16,7 +16,7 @@ DICT=$HOME/dict
 .B pks
 .SH DESCRIPTION
 .B pks
-picks the first word from a random line on a set of files and laughs at it. If
+picks the first word from a random line on a set of files and laughs at it.  If
 no files are given, it defaults to /usr/share/dict/words, or the value of DICT
 (ha, ha!) if specified in the environment.
 .P

@@ -11,8 +11,8 @@ curl http://example.net/ |
 .SH DESCRIPTION
 .B mim
 takes all its input and puts it into a temporary file for mutt(1) to read with
-its -i option, redirecting the terminal input appropriately. This allows you to
-concatenate or pipe input straight into a new Mutt message.
+its -i option, redirecting the terminal input appropriately.  This allows you
+to concatenate or pipe input straight into a new Mutt message.
 .P
 The author wrote it so that he could use ! and :! commands in Vim with it, to
 email sections of buffers to people conveniently.

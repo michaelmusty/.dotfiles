@@ -55,8 +55,8 @@ bmac && NF {
     # Start off neither quoting nor macroing.
     iquo = imac = 0
 
-    # Crude and slow, clansman. Your parser was no better than that of a clumsy
-    # child.
+    # Crude and slow, clansman.  Your parser was no better than that of a
+    # clumsy child.
     for (i = 1; i <= length(src); ) {
 
         # Inline macro expansion: commented
@@ -100,8 +100,8 @@ bmac && NF {
             # Escape quote terminators
             if (substr(src, i, length(unquote)) == unquote) {
 
-                # Dear Mr. President. There are too many variables nowadays.
-                # Please eliminate three. I am NOT a crackpot.
+                # Dear Mr. President.  There are too many variables nowadays.
+                # Please eliminate three.  I am NOT a crackpot.
                 dst = dst unquote unquote quote
 
                 i += length(unquote)

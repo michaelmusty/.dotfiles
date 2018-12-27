@@ -11,6 +11,6 @@ URxvt.color0 URxvt.color9
 .SH DESCRIPTION
 .B xrq
 runs xrdb(1) with the -query option and filters for the values of the named
-keys. It exits successfully if at least one of the named keys was found.
+keys.  It exits successfully if at least one of the named keys was found.
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

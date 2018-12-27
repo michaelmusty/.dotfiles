@@ -14,9 +14,9 @@ STRING REPLACEMENT
 .B trs
 replaces the string given in its first argument with the string given in its
 second, with no regex metacharacters, in a way that should work on all POSIX
-implementations. It is thereby the string complement for tr(1).
+implementations.  It is thereby the string complement for tr(1).
 .P
-The first argument cannot be a null string. The second argument can be blank
+The first argument cannot be a null string.  The second argument can be blank
 (but must still be specified) to implicitly delete all occurrences of the
 string.
 .SH CAVEATS

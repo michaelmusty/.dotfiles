@@ -8,8 +8,8 @@ command arg1 ...
 .SH DESCRIPTION
 .B fnl
 runs the command specifies in its arguments, writing any stdout and stderr to
-separate temporary files created with mktd(1df), and then runs wc(1) over them to
-show their statistics and full paths.
+separate temporary files created with mktd(1df), and then runs wc(1) over them
+to show their statistics and full paths.
 .SH SEE ALSO
 igex(1df)
 .SH AUTHOR
