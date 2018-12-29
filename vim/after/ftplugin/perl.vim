@@ -8,6 +8,10 @@ let b:undo_ftplugin .= '|unlet b:current_compiler'
 setlocal matchpairs+=<:>
 let b:undo_ftplugin .= '|setlocal matchpairs<'
 
+" Specify ERE regex (close to perlre) for regex_escape.vim
+let b:regex_escape_flavor = 'ere'
+let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_perl_maps')
   finish
