@@ -5,6 +5,10 @@ if bufname('%') !=# 'command-line'
         \ . '|setlocal errorformat< makeprg<'
 endif
 
+" Specify Vim pattern flavor for regex_escape.vim
+let b:regex_escape_flavor = 'vim'
+let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
   finish
