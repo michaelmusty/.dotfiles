@@ -405,6 +405,10 @@ nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
 " \? types :helpgrep for me ready to enter a search pattern
 nnoremap <Leader>? :<C-U>helpgrep \c<S-Left>
 
+" \\ escapes regex metacharacters
+nmap <Leader>\ <Plug>(RegexEscape)
+xmap <Leader>\ <Plug>(RegexEscape)
+
 " \DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
 " \INS edits a new buffer
