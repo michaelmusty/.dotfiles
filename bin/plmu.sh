@@ -1,8 +1,12 @@
 # Upgrade plenv modules with cpanm(1)
 
 # Set up exceptions file if it exists
-ef=$HOME/.plenv/non-cpanm-modules
-[ -e "$ef" ] || ef=/dev/null
+def="$HOME"/.plenv/non-cpanm-modules
+if [ -e "$def" ] ; then
+    ef=$def
+else
+    ef=/dev/null
+fi
 
 # Check that exceptions file is sorted
 if ! LC_COLLATE=C sort -c -- "$ef" ; then

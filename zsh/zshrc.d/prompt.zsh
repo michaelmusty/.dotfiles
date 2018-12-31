@@ -81,44 +81,55 @@ prompt() {
 
                 # Check various files in .git to flag processes
                 local proc
-                [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                if [[ -d .git/rebase-merge || -d .git/rebase-apply ]] ; then
                     proc=${proc:+"$proc",}'REBASE'
-                [[ -f .git/MERGE_HEAD ]] &&
+                fi
+                if [[ -f .git/MERGE_HEAD ]] ; then
                     proc=${proc:+"$proc",}'MERGE'
-                [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                fi
+                if [[ -f .git/CHERRY_PICK_HEAD ]] ; then
                     proc=${proc:+"$proc",}'PICK'
-                [[ -f .git/REVERT_HEAD ]] &&
+                fi
+                if [[ -f .git/REVERT_HEAD ]] ; then
                     proc=${proc:+"$proc",}'REVERT'
-                [[ -f .git/BISECT_LOG ]] &&
+                fi
+                if [[ -f .git/BISECT_LOG ]] ; then
                     proc=${proc:+"$proc",}'BISECT'
+                fi
 
                 # Collect symbols representing repository state
                 local state
 
                 # Upstream HEAD has commits after local HEAD; we're "behind"
-                (($(git rev-list --count 'HEAD..@{u}'))) &&
+                if (($(git rev-list --count 'HEAD..@{u}'))) ; then
                     state=${state}'<'
+                fi
 
                 # Local HEAD has commits after upstream HEAD; we're "ahead"
-                (($(git rev-list --count '@{u}..HEAD'))) &&
+                if (($(git rev-list --count '@{u}..HEAD'))) ; then
                     state=${state}'>'
+                fi
 
                 # Tracked files are modified
-                git diff-files --no-ext-diff --quiet ||
+                if ! git diff-files --no-ext-diff --quiet ; then
                     state=${state}'!'
+                fi
 
                 # Changes are staged
-                git diff-index --cached --no-ext-diff --quiet HEAD ||
+                if ! git diff-index --cached --no-ext-diff --quiet HEAD ; then
                     state=${state}'+'
+                fi
 
                 # There are some untracked and unignored files
-                git ls-files --directory --error-unmatch --exclude-standard \
-                    --no-empty-directory --others -- ':/*' &&
+                if git ls-files --directory --error-unmatch --exclude-standard \
+                    --no-empty-directory --others -- ':/*' ; then
                     state=${state}'?'
+                fi
 
                 # There are stashed changes
-                git rev-parse --quiet --verify refs/stash &&
+                if git rev-parse --quiet --verify refs/stash ; then
                     state=${state}'^'
+                fi
 
             } >/dev/null 2>&1
 
@@ -154,7 +165,9 @@ prompt() {
             branch=${branch#/}
             branch=${branch#branches/}
             branch=${branch%%/*}
-            [[ -n $branch ]] || branch=unknown
+            if [[ -z $branch ]] ; then
+                branch=unknown
+            fi
 
             # Parse the output of svn status to determine working copy state
             local symbol

@@ -15,7 +15,8 @@ for url do (
         # If this is a GitHub or GitLab link, swap "blob" for "raw" to get the
         # actual file
         (*://github.com/*/blob/*|*://gitlab.com/*/blob/*)
-            url=$(printf '%s\n' "$url" | sed 's_/blob/_/raw/_')
+            url=$(printf '%s\n' "$url" |
+                sed 's_/blob/_/raw/_')
             ;;
 
         # Dig out the plain text for pastebin.com links
@@ -38,7 +39,7 @@ for url do (
         # mpv(1)
         (*[/.]youtube.com/watch*[?\&]t=) ;;
         (*[/.]youtube.com/watch*)
-            mpv -- "$url" && exit
+            exec mpv -- "$url"
             ;;
     esac
 
@@ -54,30 +55,32 @@ for url do (
             (
                 cd -- "$HOME"/Downloads || exit
                 curl -O -- "$url" || exit
-                xpdf -- "${url##*/}"
-            ) && exit
+                exec xpdf -- "${url##*/}"
+            )
             ;;
 
         # Open audio and video in mpv(1); force a window even for audio so I
         # can control it
         (audio/*|video/*)
-            mpv --force-window -- "$url" && exit
+            exec mpv --force-window -- "$url"
             ;;
 
         # If the MIME type is an image that is not a GIF, load it in feh(1)
         (image/gif) ;;
         (image/*)
-            curl -- "$url" | feh - && exit
+            exec curl -- "$url" | feh -
             ;;
 
         # Open plain text in a terminal view(1)
         (text/plain)
             # shellcheck disable=SC2016
-            urxvt -e sh -c 'curl -- "$1" | view -' _ "$url" && exit
+            exec urxvt -e sh -c 'curl -- "$1" | view -' _ "$url"
+            ;;
+
+        # Otherwise, just pass it to br(1df)
+        (*)
+            exec br "$url"
             ;;
     esac
-
-    # Otherwise, just pass it to br(1df)
-    br "$url"
 
 ) & done

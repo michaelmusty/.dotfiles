@@ -23,7 +23,10 @@ esac
 
 # Prepend the path to each of the names given if they don't look like options
 for arg do
-    [ -n "$reset" ] || set -- && reset=1
+    if [ -z "$reset" ] ; then
+        set --
+        reset=1
+    fi
     case $arg in
         --)
             optend=1

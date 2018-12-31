@@ -38,12 +38,26 @@ sd() {
         return 2
     fi
 
+    # Strip trailing slashes
+    while : ; do
+        case $1 in
+            *?/) set -- "${1%/}" ;;
+            *) break ;;
+        esac
+    done
+
     # Read sole optional argument
     case $1 in
 
+        # Root has no siblings
+        /)
+            printf >&2 'sd(): Radical misunderstanding\n'
+            return 2
+            ;;
+
         # Slashes aren't allowed
         */*)
-            printf >&2 'bd(): Illegal slash\n'
+            printf >&2 'sd(): Illegal slash\n'
             return 2
             ;;
 

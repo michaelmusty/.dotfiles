@@ -57,8 +57,12 @@ set -- "$@" -connect "$host":"$serv"
 td='' fil=''
 cleanup() {
     trap - EXIT "$1"
-    [ -n "$fil" ] && kill -TERM "$fil"
-    [ -n "$td" ] && rm -fr -- "$td"
+    if [ -n "$fil" ] ; then
+        kill -TERM "$fil"
+    fi
+    if [ -n "$td" ] ; then
+        rm -fr -- "$td"
+    fi
     if [ "$1" != EXIT ] ; then
         kill -"$1" "$$"
     fi

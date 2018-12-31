@@ -3,7 +3,9 @@
 # Trap to remove whatever's set in lockdir if we're killed
 lockdir=
 cleanup() {
-    [ -n "$lockdir" ] && rm -fr -- "$lockdir"
+    if [ -n "$lockdir" ] ; then
+        rm -fr -- "$lockdir"
+    fi
     if [ "$1" != EXIT ] ; then
         trap - "$1"
         kill "-$1" "$$"
@@ -23,7 +25,8 @@ for rcfile in "${GETMAIL:-"$HOME"/.getmail}"/getmailrc.* ; do (
     lockdir=${TMPDIR:-/tmp}/getmail.$uid.${rcfile##*/}.lock
     mkdir -m 0700 -- "$lockdir" 2>/dev/null || exit
     try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
-    rm -fr -- "$lockdir" && lockdir=
+    rm -fr -- "$lockdir"
+    lockdir=
 ) & done
 
 # Wait for all of the enqueued tasks to finish
