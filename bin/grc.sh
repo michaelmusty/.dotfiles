@@ -12,4 +12,4 @@ fi
 # Exit 0 if the first command gives any output (added files) or the second one
 # exits 1 (inverted; differences in tracked files)
 [ -n "$(git ls-files --others --exclude-standard)" ] ||
-! git diff-index --quiet HEAD
+    ! git diff-index --quiet HEAD

@@ -117,27 +117,34 @@ function prompt {
 
                 # Check various files in .git to flag processes
                 typeset proc
-                [[ -d .git/rebase-merge || -d .git/rebase-apply ]] &&
+                if [[ -d .git/rebase-merge || -d .git/rebase-apply ]] ; then
                     proc=${proc:+"$proc",}'REBASE'
-                [[ -f .git/MERGE_HEAD ]] &&
+                fi
+                if [[ -f .git/MERGE_HEAD ]] ; then
                     proc=${proc:+"$proc",}'MERGE'
-                [[ -f .git/CHERRY_PICK_HEAD ]] &&
+                fi
+                if [[ -f .git/CHERRY_PICK_HEAD ]] ; then
                     proc=${proc:+"$proc",}'PICK'
-                [[ -f .git/REVERT_HEAD ]] &&
+                fi
+                if [[ -f .git/REVERT_HEAD ]] ; then
                     proc=${proc:+"$proc",}'REVERT'
-                [[ -f .git/BISECT_LOG ]] &&
+                fi
+                if [[ -f .git/BISECT_LOG ]] ; then
                     proc=${proc:+"$proc",}'BISECT'
+                fi
 
                 # Collect symbols representing repository state
                 typeset state
 
                 # Upstream HEAD has commits after local HEAD; we're "behind"
-                (($(git rev-list --count 'HEAD..@{u}'))) &&
+                if (($(git rev-list --count 'HEAD..@{u}'))) ; then
                     state=${state}'<'
+                fi
 
                 # Local HEAD has commits after upstream HEAD; we're "ahead"
-                (($(git rev-list --count '@{u}..HEAD'))) &&
+                if (($(git rev-list --count '@{u}..HEAD'))) ; then
                     state=${state}'>'
+                fi
 
                 # Tracked files are modified
                 if ! git diff-files --no-ext-diff --quiet ; then
@@ -164,17 +171,20 @@ function prompt {
                 fi
 
                 # Changes are staged
-                git diff-index --cached --no-ext-diff --quiet HEAD ||
+                if ! git diff-index --cached --no-ext-diff --quiet HEAD ; then
                     state=${state}'+'
+                fi
 
                 # There are some untracked and unignored files
-                git ls-files --directory --error-unmatch --exclude-standard \
-                    --no-empty-directory --others -- ':/*' &&
+                if git ls-files --directory --error-unmatch --exclude-standard \
+                    --no-empty-directory --others -- ':/*' ; then
                     state=${state}'?'
+                fi
 
                 # There are stashed changes
-                git rev-parse --quiet --verify refs/stash &&
+                if git rev-parse --quiet --verify refs/stash ; then
                     state=${state}'^'
+                fi
 
             } >/dev/null 2>&1
 
@@ -214,13 +224,17 @@ function prompt {
         # Show return status of previous command in angle brackets, if not zero
         ret)
             # shellcheck disable=SC2154
-            ((ret)) && printf '<%u>' "$ret"
+            if ((ret)) ; then
+                printf '<%u>' "$ret"
+            fi
             ;;
 
         # Show the count of background jobs in curly brackets, if not zero
         job)
             # shellcheck disable=SC2154
-            ((jobc)) && printf '{%u}' "$jobc"
+            if ((jobc)) ; then
+                printf '{%u}' "$jobc"
+            fi
             ;;
 
         # Print error

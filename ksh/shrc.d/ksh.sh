@@ -29,4 +29,6 @@ if [ -z "$KSH_VERSION" ] ; then
 fi
 
 # If ENV_EXT isn't already set, set it
-[ -n "$ENV_EXT" ] || ENV_EXT=$HOME/.kshrc
+if [ -z "$ENV_EXT" ] ; then
+    ENV_EXT=$HOME/.kshrc
+fi

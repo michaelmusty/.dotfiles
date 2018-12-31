@@ -2,7 +2,8 @@
 # any given args
 while [ "$PWD" != / ] ; do
     for mf in makefile Makefile ; do
-        [ -f "$mf" ] && exec make "$@"
+        [ -f "$mf" ] || continue
+        exec make "$@"
     done
     cd .. || exit
 done

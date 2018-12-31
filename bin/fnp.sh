@@ -1,7 +1,9 @@
 # Print input, but include filenames as headings
 
 # Assume stdin if no options given
-[ "$#" -gt 0 ] || set -- -
+if [ "$#" -eq 0 ] ; then
+    set -- -
+fi
 
 # Iterate through arguments
 for arg do
@@ -13,7 +15,9 @@ for arg do
         *) fn=$arg ;;
     esac
 
-    [ -n "$tail" ] && printf '\n'
+    if [ -n "$tail" ] ; then
+        printf '\n'
+    fi
     tail=1
 
     # Form the underline; is there a nicer way to do this in POSIX sh?
