@@ -8,7 +8,9 @@ command -p stty -ixon -ctlecho 2>/dev/null
 HISTSIZE=$((1 << 12))
 
 # If HOSTNAME isn't set by this shell, we'll do it
-[ -n "$HOSTNAME" ] || HOSTNAME=$(uname -n)
+if [ -z "$HOSTNAME" ] ; then
+    HOSTNAME=$(uname -n)
+fi
 
 # Don't warn me about new mail
 unset -v MAILCHECK
