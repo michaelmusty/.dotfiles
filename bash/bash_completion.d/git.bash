@@ -8,7 +8,7 @@
 # Define and set helper function
 _git() {
 
-    # What completion to do 
+    # What completion to do
     case $COMP_KEY in
 
         # Complete with branch names if C-x,B is pressed

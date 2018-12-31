@@ -72,5 +72,3 @@ function! filetype#CheckShebang() abort
     doautocmd filetypedetect BufRead
   endif
 endfunction
-
-

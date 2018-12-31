@@ -24,7 +24,7 @@ esac
 # Prepend the path to each of the names given if they don't look like options
 for arg do
     if [ -z "$reset" ] ; then
-        set -- 
+        set --
         reset=1
     fi
     case $arg in
