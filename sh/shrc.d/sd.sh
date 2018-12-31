@@ -43,7 +43,7 @@ sd() {
 
         # Slashes aren't allowed
         */*)
-            printf >&2 'bd(): Illegal slash\n'
+            printf >&2 'sd(): Illegal slash\n'
             return 2
             ;;
 
