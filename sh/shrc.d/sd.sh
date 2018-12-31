@@ -49,6 +49,12 @@ sd() {
     # Read sole optional argument
     case $1 in
 
+        # Root has no siblings
+        /)
+            printf >&2 'sd(): Radical misunderstanding\n'
+            return 2
+            ;;
+
         # Slashes aren't allowed
         */*)
             printf >&2 'sd(): Illegal slash\n'
