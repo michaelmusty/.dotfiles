@@ -38,6 +38,14 @@ sd() {
         return 2
     fi
 
+    # Strip trailing slashes
+    while : ; do
+        case $1 in
+            *?/) set -- "${1%/}" ;;
+            *) break ;;
+        esac
+    done
+
     # Read sole optional argument
     case $1 in
 
