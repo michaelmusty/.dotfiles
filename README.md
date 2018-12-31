@@ -86,6 +86,7 @@ Configuration is included for:
   that works with `libnotify`
 * `finger(1)` -- User information lookup program
 * [Git](https://git-scm.com/) -- Distributed version control system
+* [GNU Emacs](https://www.gnu.org/software/emacs/) -- Extensible text editor
 * [GnuPG](https://www.gnupg.org/) -- GNU Privacy Guard, for private
   communication and file encryption
 * [GTK+](https://www.gtk.org/) -- GIMP Toolkit, for graphical user interface

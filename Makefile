@@ -12,6 +12,7 @@
 	install-curl \
 	install-dillo \
 	install-dunst \
+	install-emacs \
 	install-ex \
 	install-finger \
 	install-games \
@@ -391,6 +392,9 @@ install-dillo: dillo/dillorc install-x
 install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst
 	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
+
+install-emacs:
+	cp -p -- emacs/emacs $(HOME)/.emacs
 
 install-ex:
 	cp -p -- ex/exrc $(HOME)/.exrc
