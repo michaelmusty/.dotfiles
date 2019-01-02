@@ -6,7 +6,7 @@ if command -v emacs >/dev/null 2>&1 &&
     # Use or start a GNU Emacs client, if possible
     if command -v pgrep >/dev/null 2>&1 &&
             pgrep -fxu "$USER" 'emacs --daemon' >/dev/null ||
-            emacs --daemon >/dev/null ; then
+            emacs --daemon 2>/dev/null ; then
         VISUAL=emacsclient
 
     # If no GNU Emacs daemon is available, just create a new instance every
