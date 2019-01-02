@@ -4,4 +4,8 @@
 (package-initialize)
 (custom-set-variables
   '(package-selected-packages
-    (quote (markdown-mode fireplace))))
+    (quote (
+      fireplace
+      markdown-mode
+      vimrc-mode
+    ))))
