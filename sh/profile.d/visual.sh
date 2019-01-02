@@ -5,8 +5,7 @@ if command -v emacs >/dev/null 2>&1 &&
 
     # Use or start a GNU Emacs client, if possible
     if command -v pgrep >/dev/null 2>&1 &&
-            pgrep --exact --full --euid="$USER" \
-                'emacs --daemon' >/dev/null ||
+            pgrep -fxu "$USER" 'emacs --daemon' >/dev/null ||
             emacs --daemon >/dev/null ; then
         VISUAL=emacsclient
 
