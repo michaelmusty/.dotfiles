@@ -1,3 +1,4 @@
+;; Package setup
 (require 'package)
 (add-to-list 'package-archives
   '("melpa"     . "https://melpa.org/packages/"))
@@ -10,6 +11,24 @@
       vimrc-mode
     ))))
 
-(add-to-list 'auto-mode-alist '("/mutt" . message-mode))
-(add-hook 'message-mode-hook 'auto-fill-mode)
-(add-hook 'message-mode-hook (lambda () (use-hard-newlines 1 'always)))
+;; Still trying to get mail to behave properly
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+(add-hook 'mail-mode-hook 'auto-fill-mode)
+(add-hook 'mail-mode-hook 'use-hard-newlines)
+
+;; From better-defaults.el <https://github.com/technomancy/better-defaults/blob/master/better-defaults.el>
+(show-paren-mode 1)
+(setq-default indent-tabs-mode nil)
+(setq
+  require-final-newline t
+  visible-bell t
+  save-place-file (concat user-emacs-directory "places")
+  backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
+)
+
+;; A few more options I've found around the web
+(customize-set-variable 'inhibit-startup-screen t)
+(column-number-mode 1)
+(line-number-mode 1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
