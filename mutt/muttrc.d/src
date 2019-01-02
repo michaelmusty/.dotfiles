@@ -4,3 +4,10 @@ for rc in "$HOME"/.muttrc.d/*.rc ; do
     [ -e "$rc" ] || continue
     cat -- "$rc"
 done
+
+# Special case: if using GNU Emacs, emit a line to disable edit_headers, just
+# because at the moment I haven't worked out how to make this work sanely with
+# messages-are-flowing in message-mode.
+case $VISUAL in
+    emacs|emacsclient) printf 'set edit_headers = no\n' ;;
+esac

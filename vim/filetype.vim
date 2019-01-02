@@ -204,6 +204,7 @@ augroup filetypedetect
         \ Muttrc
         \,*/.muttrc.d/*.rc
         \,.muttrc
+        \,muttrc
         \,/etc/Muttrc.d/*
         \ setfiletype muttrc
   " BIND configuration file
