@@ -9,3 +9,7 @@
       markdown-mode
       vimrc-mode
     ))))
+
+(add-to-list 'auto-mode-alist '("/mutt" . message-mode))
+(add-hook 'message-mode-hook 'auto-fill-mode)
+(add-hook 'message-mode-hook (lambda () (use-hard-newlines 1 'always)))
