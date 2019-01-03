@@ -172,6 +172,13 @@ augroup filetypedetect
         \ ?*.l
         \,?*.lex
         \ setfiletype lex
+  " Lisp
+  autocmd BufNewFile,BufRead
+        \ ?*.lisp
+        \,?*.el
+        \,.emacs
+        \,emacs
+        \ setfiletype lisp
   " Lua files
   autocmd BufNewFile,BufRead
         \ ?*.lua

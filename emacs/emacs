@@ -26,9 +26,9 @@
   backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
 )
 
-;; A few more options I've found around the web
+;; Show a scratch buffer rather than the startup hints
 (customize-set-variable 'inhibit-startup-screen t)
+
+;; Show line and column number in status bar
 (column-number-mode 1)
 (line-number-mode 1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)

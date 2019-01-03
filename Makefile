@@ -393,8 +393,11 @@ install-dunst: install-x
 	mkdir -p -- $(HOME)/.config/dunst
 	cp -p -- dunst/dunstrc $(HOME)/.config/dunst
 
-install-emacs:
+install-emacs: emacs/bin/emacsm install-sh
+	mkdir -p -- $(HOME)/.local/bin
 	cp -p -- emacs/emacs $(HOME)/.emacs
+	cp -p -- emacs/bin/emacsm $(HOME)/.local/bin
+	cp -p -- emacs/profile.d/emacs.sh $(HOME)/.profile.d
 
 install-ex:
 	cp -p -- ex/exrc $(HOME)/.exrc
