@@ -260,8 +260,6 @@ nnoremap ]l :lnext<CR>
 nmap [<Space> <Plug>(PutBlankLinesAbove)
 nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
-" Normal leader maps; use <Leader> not <Leader> for vim-tiny
-
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Leader>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 
