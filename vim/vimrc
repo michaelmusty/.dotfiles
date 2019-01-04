@@ -421,13 +421,5 @@ nnoremap <Leader>: ^"zyg_:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 
-" Testing out delimit_operator.vim, in development
-" Use q for a prefix key, followed by the wrapping quote
-for s:char in ["'", '"', '`', '[', '<', '(', '{', '*']
-  execute 'nmap q'.s:char.' <Plug>(DelimitOperator)'.s:char
-  execute 'xmap q'.s:char.' <Plug>(DelimitOperator)'.s:char
-endfor
-unlet s:char
-
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
