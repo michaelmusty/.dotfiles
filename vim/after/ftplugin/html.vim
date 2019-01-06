@@ -9,8 +9,9 @@ let b:undo_ftplugin .= '|unlet b:current_compiler'
       \ . '|setlocal errorformat< makeprg<'
 
 " tidy(1) copes fine with formatting an entire document, but not just part of
-" it; we map \= to do the former, but don't actually set 'equalprg', falling
-" back on the good-enough built-in Vim indentation behavior.
+" it; we map \= to do the former, but don't actually set 'equalprg' for the
+" latter, instead falling back on the good-enough built-in Vim indentation
+" behavior
 nnoremap <buffer> <Leader>= :<C-U>call html#TidyBuffer()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <Leader>='
 

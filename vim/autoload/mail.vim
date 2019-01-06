@@ -1,19 +1,33 @@
+" Add a header to a mail message
+function! mail#AddHeaderField(name, body) abort
+  let l:num = 0
+  while l:num < line('$') && getline(l:num + 1) !=# ''
+    let l:num += 1
+  endwhile
+  call append(l:num, a:name.': '.a:body)
+endfunction
+
+" Add a set of headers to a mail message
+function! mail#AddHeaderFields(fields) abort
+  for l:name in sort(keys(a:fields))
+    call mail#AddHeaderField(l:name, a:fields[l:name])
+  endfor
+endfunction
+
 " Flag a message as important
 function! mail#FlagImportant() abort
-  call cursor(1, 1)
-  call search('^$')
-  -
-  call append(line('.'), 'X-Priority: 1')
-  call append(line('.'), 'Importance: High')
+  call mail#AddHeaderFields({
+        \ 'Importance': 'High',
+        \ 'X-Priority': 1
+        \ })
 endfunction
 
 " Flag a message as unimportant
 function! mail#FlagUnimportant() abort
-  call cursor(1, 1)
-  call search('^$')
-  -
-  call append(line('.'), 'X-Priority: 5')
-  call append(line('.'), 'Importance: Low')
+  call mail#AddHeaderFields({
+        \ 'Importance': 'Low',
+        \ 'X-Priority': 5
+        \ })
 endfunction
 
 " Move through quoted paragraphs like normal-mode `{` and `}`
