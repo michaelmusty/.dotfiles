@@ -4,7 +4,7 @@ setlocal complete+=d
 " Set include pattern
 setlocal include=^\\s*#\\s*include
 
-" Include headers on UNIX
+" Include system headers on UNIX
 if has('unix')
   setlocal path+=/usr/include
 endif
