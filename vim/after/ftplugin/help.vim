@@ -11,9 +11,12 @@ if has('conceal') && &modifiable && !&readonly
   let b:undo_ftplugin .= '|setlocal conceallevel<'
 endif
 
-" Use :help for 'keywordprg'; odd that this isn't the default
-setlocal keywordprg=:help
-let b:undo_ftplugin .= '|setlocal keywordprg<'
+" Use :help as 'keywordprg' if not already set; this is the default since Vim
+" v8.1.0690
+if &keywordprg !=# ':help'
+  setlocal keywordprg=:help
+  let b:undo_ftplugin .= '|setlocal keywordprg<'
+endif
 
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_help_maps')
