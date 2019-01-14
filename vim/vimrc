@@ -109,12 +109,14 @@ if has('folding')
 endif
 
 " Delete comment leaders when joining lines, if supported
-if v:version > 703 || v:version == 703 && has('patch541')
+if v:version > 703
+      \ || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
 " Don't break a single space after a period, if supported
-if v:version > 801 || v:version == 801 && has('patch728')
+if v:version > 801
+      \ || v:version == 801 && has('patch728')
   set formatoptions+=p
 endif
 
