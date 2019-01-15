@@ -608,11 +608,13 @@ install-vim-ftplugin:
 	mkdir -p -- $(VIMDIR)/ftplugin
 	cp -p -- vim/ftplugin/*.vim $(VIMDIR)/ftplugin
 
+GVIMRC = $(HOME)/.gvimrc
+
 install-vim-gui: install-vim \
 	install-vim-gui-config
 
 install-vim-gui-config:
-	cp -p -- vim/gvimrc $(HOME)/.gvimrc
+	cp -p -- vim/gvimrc $(GVIMRC)
 
 install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
