@@ -49,8 +49,8 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
 " Mapping to insert '\'' with Alt+'; not sure I'll keep this just yet
 if has('gui_running')
   inoremap <buffer> <M-'> '\''
-  let b:undo_ftplugin .= '|nunmap <buffer> <M-''>'
+  let b:undo_ftplugin .= '|iunmap <buffer> <M-''>'
 else
   inoremap <buffer> <Esc>' '\''
-  let b:undo_ftplugin .= '|nunmap <buffer> <Esc>'''
+  let b:undo_ftplugin .= '|iunmap <buffer> <Esc>'''
 endif
