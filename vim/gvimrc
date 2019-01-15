@@ -6,3 +6,6 @@ set guioptions+=M  " Don't load menu.vim (also set in .vimrc)
 
 " Don't use the mouse
 set mouse=
+
+" Clear 't_vb' again, since starting the GUI sets it
+set t_vb=
