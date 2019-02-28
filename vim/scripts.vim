@@ -54,7 +54,7 @@ elseif s:line =~# '\<sh\>'
   setfiletype sh
 
 " TCL
-elseif s:line =~# '\<\%(tcl\|wish\)\>'
+elseif s:line =~# '\<\%(expect\|tcl\|wish\)\>'
   setfiletype tcl
 
 endif
