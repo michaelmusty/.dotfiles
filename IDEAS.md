@@ -23,3 +23,5 @@ Ideas
 * Ideally, the .awk and/or .sed scripts in the bin and games dirs should be
   syntax-checked or linted. I could at least add some patient application of
   appropriate `gawk --lint` calls for each of the .awk scripts.
+* Alternate buffer type switching would probably work rather well as a simple
+  plugin.
