@@ -383,7 +383,11 @@ augroup filetypedetect
   " Terminfo
   autocmd BufNewFile,BufRead
         \ ?*.ti
-        \ setf terminfo
+        \ setfiletype terminfo
+  " TextEditorAnywhere text field
+  autocmd BufNewFile,BufRead
+        \ TextEditorAnywhere_??_??_??.txt
+        \ setfiletype textarea
   " Tidy config
   autocmd BufNewFile,BufRead
         \ .tidyrc
