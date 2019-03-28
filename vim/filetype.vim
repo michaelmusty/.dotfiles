@@ -383,7 +383,7 @@ augroup filetypedetect
   " Terminfo
   autocmd BufNewFile,BufRead
         \ ?*.ti
-        \ setf terminfo
+        \ setfiletype terminfo
   " Tidy config
   autocmd BufNewFile,BufRead
         \ .tidyrc
