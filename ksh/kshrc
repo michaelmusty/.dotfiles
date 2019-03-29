@@ -21,6 +21,7 @@ HISTFILE=$HOME/.ksh_history
 
 # Load any supplementary scripts
 for ksh in "$HOME"/.kshrc.d/*.ksh ; do
-    [[ -e $ksh ]] && . "$ksh"
+    [[ -e $ksh ]] || continue
+    . "$ksh"
 done
 unset -v ksh

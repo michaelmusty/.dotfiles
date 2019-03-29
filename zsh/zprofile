@@ -1,2 +1,4 @@
 # Source ~/.profile, since Zsh doesn't do this by default
-[[ -e $HOME/.profile ]] && source "$HOME"/.profile
+if [[ -e $HOME/.profile ]] ; then
+    source "$HOME"/.profile
+fi

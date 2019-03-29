@@ -14,7 +14,7 @@ function prompt {
         on)
             # Basic prompt shape depends on whether we're in SSH or not
             PS1=
-            if [[ -n $SSH_CLIENT ]] || [[ -n $SSH_CONNECTION ]] ; then
+            if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
                 PS1=$PS1'${HOSTNAME%%.*}:'
             fi
 
@@ -176,8 +176,9 @@ function prompt {
                 fi
 
                 # There are some untracked and unignored files
-                if git ls-files --directory --error-unmatch --exclude-standard \
-                    --no-empty-directory --others -- ':/*' ; then
+                if git ls-files --directory --error-unmatch \
+                        --exclude-standard --no-empty-directory \
+                        --others -- ':/*' ; then
                     state=${state}'?'
                 fi
 
