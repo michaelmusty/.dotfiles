@@ -7,4 +7,4 @@ endif
 " areas I edit using TextEditorAnywhere
 nnoremap <buffer> <LocalLeader>f
       \ :<C-U>setlocal filetype=mail<CR>
-let b:undo_ftplugin = '|nunmap <buffer> <LocalLeader>f'
+let b:undo_ftplugin = 'nunmap <buffer> <LocalLeader>f'

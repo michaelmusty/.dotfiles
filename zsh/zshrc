@@ -5,7 +5,9 @@
 unalias -a >/dev/null 2>&1
 
 # If ENV is set, source it to get all the POSIX-compatible interactive stuff
-[[ -n $ENV ]] && source "$ENV"
+if [[ -n $ENV ]] ; then
+    source "$ENV"
+fi
 
 # Emacs keybindings even if EDITOR is vi(1)
 bindkey -e

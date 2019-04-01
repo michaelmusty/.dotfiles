@@ -9,6 +9,13 @@ endif
 let b:regex_escape_flavor = 'vim'
 let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
 
+" Use :help as 'keywordprg' if not already set; this is the default since Vim
+" v8.1.1290
+if &keywordprg !=# ':help'
+  setlocal keywordprg=:help
+  let b:undo_ftplugin .= '|setlocal keywordprg<'
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
   finish
