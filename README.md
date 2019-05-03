@@ -104,13 +104,13 @@ Configuration is included for:
   for Perl
 * [Perl::Tidy](http://perltidy.sourceforge.net/) -- Perl source code
   reformatter
-* [Readline](https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html) -- GNU
+* [Readline](https://tiswww.case.edu/php/chet/readline/rltop.html) -- GNU
   library for user input used by Bash, MySQL, and others
 * [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html) -- Fork of
   the rxvt terminal emulator with Unicode support
 * [Subversion](https://subversion.apache.org/) -- Apache Subversion, a version
   control system
-* [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
+* [tidy](https://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
 * [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
     * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
@@ -139,7 +139,7 @@ On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell, preferably
 `ksh93` if it's available.
 
 My Bash is written to work with [any version 3.0 or
-newer](http://wiki.bash-hackers.org/scripting/bashchanges).  This is why I use
+newer](https://wiki.bash-hackers.org/scripting/bashchanges).  This is why I use
 older syntax for certain things such as appending items to arrays:
 
     array[${#array[@]}]=$item
@@ -312,7 +312,7 @@ be using a PGP implementation, and I encrypt whenever I have a public key
 available for them.  The GnuPG and S/MIME interfacing is done with
 [GPGme](https://www.gnupg.org/related_software/gpgme/), rather than defining
 commands for each crypto operation.  I wrote [an article about this
-setup](https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it sounds
+setup](https://sanctum.geek.nz/arabesque/gnu-linux-crypto-email/) if it sounds
 appealing.
 
 You'll need Abook installed if you want to use the `query_command` I have
