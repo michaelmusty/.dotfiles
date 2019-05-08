@@ -348,6 +348,9 @@ nnoremap <Leader>R :<C-U>source $MYVIMRC<CR>
 " \s toggles spell checking
 nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
 
+" \S shows loaded scripts
+nnoremap <Leader>S :<C-U>scriptnames<CR>
+
 " \t shows current filetype
 nnoremap <Leader>t :<C-U>setlocal filetype?<CR>
 " \T clears filetype
