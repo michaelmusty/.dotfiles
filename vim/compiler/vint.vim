@@ -1,7 +1,7 @@
-if exists('g:current_compiler')
+if exists('current_compiler')
   finish
 endif
-let g:current_compiler = 'vimlint'
+let current_compiler = 'vimlint'
 
 if exists(':CompilerSet') != 2
   command -nargs=* CompilerSet setlocal <args>

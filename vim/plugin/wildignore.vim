@@ -4,10 +4,10 @@
 if &compatible || v:version < 700 || !has('wildignore')
   finish
 endif
-if exists('g:loaded_wildmenu')
+if exists('loaded_wildmenu')
   finish
 endif
-let g:loaded_wildmenu = 1
+let loaded_wildmenu = 1
 
 " Helper function for local scope
 function! s:Wildignore() abort

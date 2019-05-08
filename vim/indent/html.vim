@@ -1,2 +1,2 @@
 " Indent after <p> paragraph tags too
-let g:html_indent_inctags = 'p'
+let html_indent_inctags = 'p'
