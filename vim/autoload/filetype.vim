@@ -8,24 +8,24 @@ function! filetype#StripRepeat() abort
   endif
 
   " Expand the match result
-  let l:fn = expand('<afile>')
+  let fn = expand('<afile>')
 
   " Strip leading and trailing #hashes#
-  if l:fn =~# '^#\+.*#\+$'
-    let l:fn = substitute(l:fn, '^#\+\(.\+\)#\+$', '\1', '')
+  if fn =~# '^#\+.*#\+$'
+    let fn = substitute(fn, '^#\+\(.\+\)#\+$', '\1', '')
 
   " Strip trailing tilde~
-  elseif l:fn =~# '\~$'
-    let l:fn = substitute(l:fn, '\~$', '', '')
+  elseif fn =~# '\~$'
+    let fn = substitute(fn, '\~$', '', '')
 
   " Strip generic .extension
   else
-    let l:fn = expand('<afile>:r')
+    let fn = expand('<afile>:r')
   endif
 
   " Re-run the group if there's anything left
-  if strlen(l:fn)
-    execute 'doautocmd filetypedetect BufRead ' . fnameescape(l:fn)
+  if strlen(fn)
+    execute 'doautocmd filetypedetect BufRead ' . fnameescape(fn)
   endif
 
 endfunction
@@ -41,17 +41,17 @@ function! filetype#SudoRepeat() abort
   endif
 
   " Expand the match result
-  let l:fn = expand('<afile>')
+  let fn = expand('<afile>')
 
   " myfileXXQGS16A.conf: strip eight chars before final period
-  if l:fn =~# '/[^./]\+\w\{8}\.[^./]\+$'
-    let l:fr = expand('<afile>:r')
-    let l:fe = expand('<afile>:e')
-    let l:fn = strpart(l:fr, -8, strlen(l:fr)) . '.' . l:fe
+  if fn =~# '/[^./]\+\w\{8}\.[^./]\+$'
+    let fr = expand('<afile>:r')
+    let fe = expand('<afile>:e')
+    let fn = strpart(fr, -8, strlen(fr)) . '.' . fe
 
   " myfile.XXQGS16A: strip extension
-  elseif l:fn =~# '/[^./]\+\.\w\{8}$'
-    let l:fn = expand('<afile>:r')
+  elseif fn =~# '/[^./]\+\.\w\{8}$'
+    let fn = expand('<afile>:r')
 
   " Unrecognised pattern; return, don't repeat
   else
@@ -59,8 +59,8 @@ function! filetype#SudoRepeat() abort
   endif
 
   " Re-run the group if there's anything left
-  if strlen(l:fn)
-    execute 'doautocmd filetypedetect BufRead ' . fnameescape(l:fn)
+  if strlen(fn)
+    execute 'doautocmd filetypedetect BufRead ' . fnameescape(fn)
   endif
 
 endfunction

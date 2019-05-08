@@ -16,9 +16,9 @@ endfunction
 
 " Tidy the whole buffer
 function! html#TidyBuffer() abort
-  let l:view = winsaveview()
+  let view = winsaveview()
   %!tidy -quiet
-  call winrestview(l:view)
+  call winrestview(view)
 endfunction
 
 " Update a timestamp
@@ -26,14 +26,14 @@ function! html#TimestampUpdate() abort
   if !&modified
     return
   endif
-  let l:cv = winsaveview()
+  let cv = winsaveview()
   call cursor(1,1)
-  let l:li = search('\C^\s*<em>Last updated: .\+</em>$', 'n')
-  if l:li
-    let l:date = substitute(system('date -u'), '\C\n$', '', '')
-    let l:line = getline(l:li)
-    call setline(l:li, substitute(l:line, '\C\S.*',
-          \ '<em>Last updated: '.l:date.'</em>', ''))
+  let li = search('\C^\s*<em>Last updated: .\+</em>$', 'n')
+  if li
+    let date = substitute(system('date -u'), '\C\n$', '', '')
+    let line = getline(li)
+    call setline(li, substitute(line, '\C\S.*',
+          \ '<em>Last updated: '.date.'</em>', ''))
   endif
-  call winrestview(l:cv)
+  call winrestview(cv)
 endfunction

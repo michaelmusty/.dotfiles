@@ -13,10 +13,10 @@ let loaded_wildmenu = 1
 function! s:Wildignore() abort
 
   " New empty array
-  let l:ignores = []
+  let ignores = []
 
   " Archives
-  let l:ignores += [
+  let ignores += [
         \ '*.7z'
         \,'*.bz2'
         \,'*.gz'
@@ -28,13 +28,13 @@ function! s:Wildignore() abort
         \ ]
 
   " Bytecode
-  let l:ignores += [
+  let ignores += [
         \ '*.class'
         \,'*.pyc'
         \ ]
 
   " Databases
-  let l:ignores += [
+  let ignores += [
         \ '*.db'
         \,'*.dbm'
         \,'*.sdbm'
@@ -42,7 +42,7 @@ function! s:Wildignore() abort
         \ ]
 
   " Disk
-  let l:ignores += [
+  let ignores += [
         \ '*.adf'
         \,'*.bin'
         \,'*.hdf'
@@ -50,7 +50,7 @@ function! s:Wildignore() abort
         \ ]
 
   " Documents
-  let l:ignores += [
+  let ignores += [
         \ '*.docx'
         \,'*.djvu'
         \,'*.odp'
@@ -63,23 +63,23 @@ function! s:Wildignore() abort
         \ ]
 
   " Encrypted
-  let l:ignores += [
+  let ignores += [
         \ '*.asc'
         \,'*.gpg'
         \ ]
 
   " Executables
-  let l:ignores += [
+  let ignores += [
         \ '*.exe'
         \ ]
 
   " Fonts
-  let l:ignores += [
+  let ignores += [
         \ '*.ttf'
         \ ]
 
   " Images
-  let l:ignores += [
+  let ignores += [
         \ '*.bmp'
         \,'*.gd2'
         \,'*.gif'
@@ -96,18 +96,18 @@ function! s:Wildignore() abort
         \ ]
 
   " Incomplete
-  let l:ignores += [
+  let ignores += [
         \ '*.filepart'
         \ ]
 
   " Objects
-  let l:ignores += [
+  let ignores += [
         \ '*.a'
         \,'*.o'
         \ ]
 
   " Sound
-  let l:ignores += [
+  let ignores += [
         \ '*.au'
         \,'*.aup'
         \,'*.flac'
@@ -121,24 +121,24 @@ function! s:Wildignore() abort
         \ ]
 
   " System-specific
-  let l:ignores += [
+  let ignores += [
         \ '.DS_Store'
         \ ]
 
   " Translation
-  let l:ignores += [
+  let ignores += [
         \ '*.gmo'
         \ ]
 
   " Version control
-  let l:ignores += [
+  let ignores += [
         \ '.git'
         \,'.hg'
         \,'.svn'
         \ ]
 
   " Video
-  let l:ignores += [
+  let ignores += [
         \ '*.avi'
         \,'*.gifv'
         \,'*.mp4'
@@ -149,7 +149,7 @@ function! s:Wildignore() abort
         \ ]
 
   " Vim
-  let l:ignores += [
+  let ignores += [
         \ '*~'
         \,'*.swp'
         \ ]
@@ -157,15 +157,15 @@ function! s:Wildignore() abort
   " If on a system where case matters for filenames, for any that had
   " lowercase letters, add their uppercase analogues
   if has('fname_case')
-    for l:ignore in l:ignores
-      if l:ignore =~# '\l'
-        call add(l:ignores, toupper(l:ignore))
+    for ignore in ignores
+      if ignore =~# '\l'
+        call add(ignores, toupper(ignore))
       endif
     endfor
   endif
 
   " Return the completed setting
-  return join(l:ignores, ',')
+  return join(ignores, ',')
 
 endfunction
 
