@@ -56,9 +56,15 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
-" Try to keep backups in one system-appropriate dir
+" Try to keep backups in one system-appropriate dir, including full encoded
+" path in filename (trailing double slash) if supported (8.1.0251)
 set backup
-set backupdir^=$MYVIMRUNTIME/cache/backup
+if v:version > 801
+      \ || v:version == 801 && has('patch251')
+  set backupdir^=$MYVIMRUNTIME/cache/backup//
+else
+  set backupdir^=$MYVIMRUNTIME/cache/backup
+endif
 
 " Add some paths not to back up
 if has('unix')
@@ -88,7 +94,8 @@ set confirm
 " Yes, I have become a filthy two-spacer
 set cpoptions+=J
 
-" Try to keep swapfiles in one system-appropriate dir
+" Try to keep swapfiles in one system-appropriate dir, including full encoded
+" path in filename (trailing double slash)
 set directory^=$MYVIMRUNTIME/cache/swap//
 
 " Use UTF-8 if we can and env LANG didn't tell us not to
@@ -203,7 +210,8 @@ if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
 
-" Keep undo files, hopefully in a dedicated directory
+" Try to keep persistent undo files in one system-appropriate dir, including
+" full encoded path in filename (trailing double slash)
 if has('persistent_undo')
   set undofile
   set undodir^=$MYVIMRUNTIME/cache/undo//
