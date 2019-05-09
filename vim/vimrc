@@ -15,7 +15,7 @@ endif
 
 " Load filetype settings, plugins, and maps
 if has('autocmd')
-  let g:maplocalleader = ','
+  let maplocalleader = ','
   filetype plugin indent on
 endif
 
@@ -23,7 +23,7 @@ endif
 if has('syntax')
 
   " Use syntax highlighting
-  if !exists('g:syntax_on')
+  if !exists('syntax_on')
     syntax enable
   endif
 
@@ -33,7 +33,7 @@ if has('syntax')
   endif
 
   " If my colorscheme loaded, turn on subtle 'cursorline' coloring
-  if exists('g:colors_name') && g:colors_name ==# 'sahara'
+  if exists('colors_name') && colors_name ==# 'sahara'
     if exists('+cursorline')
       set cursorline
     endif
