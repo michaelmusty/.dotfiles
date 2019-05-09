@@ -1,7 +1,7 @@
-if exists('g:current_compiler') || &compatible
+if exists('current_compiler') || &compatible
   finish
 endif
-let g:current_compiler = 'php'
+let current_compiler = 'php'
 
 if exists(':CompilerSet') != 2
   command -nargs=* CompilerSet setlocal <args>

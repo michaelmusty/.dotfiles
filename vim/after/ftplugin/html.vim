@@ -26,7 +26,7 @@ let b:undo_ftplugin .= '|execute ''autocmd! html_timestamp'''
       \ . '|augroup! html_timestamp'
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_html_maps')
+if exists('no_plugin_maps') || exists('no_html_maps')
   finish
 endif
 

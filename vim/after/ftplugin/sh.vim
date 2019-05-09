@@ -25,7 +25,7 @@ let b:undo_ftplugin .= '|unlet b:current_compiler b:sh_check_compiler'
 " 8.1.257 updated the runtime files to include a fix for this
 if exists('b:is_posix')
       \ && (v:version < 800 || v:version == 800 && !has('patch257'))
-  let g:is_posix = 1
+  let is_posix = 1
 endif
 
 " Queue up undo commands to clear the shell language flags that we set for
@@ -34,7 +34,7 @@ endif
 let b:undo_ftplugin .= '|unlet! b:is_bash b:is_kornshell b:is_posix'
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_sh_maps')
+if exists('no_plugin_maps') || exists('no_sh_maps')
   finish
 endif
 

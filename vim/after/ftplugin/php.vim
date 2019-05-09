@@ -17,7 +17,7 @@ let b:regex_escape_flavor = 'ere'
 let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_php_maps')
+if exists('no_plugin_maps') || exists('no_php_maps')
   finish
 endif
 

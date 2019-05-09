@@ -17,7 +17,7 @@ if has('spell')
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_markdown_maps')
+if exists('no_plugin_maps') || exists('no_markdown_maps')
   finish
 endif
 

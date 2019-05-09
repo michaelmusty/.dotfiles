@@ -243,9 +243,10 @@ if &loadplugins  " Don't change the mapping if we won't be loading the plugin
   nmap <Space> <Plug>(ScrollNext)
 endif
 
-" Remap normal/visual & to preserve substitution flags
+" Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
 xnoremap <silent> & :&&<CR>
+nnoremap <silent> g& :<C-U>%&&<CR>
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
@@ -347,6 +348,9 @@ nnoremap <Leader>R :<C-U>source $MYVIMRC<CR>
 
 " \s toggles spell checking
 nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
+
+" \S shows loaded scripts
+nnoremap <Leader>S :<C-U>scriptnames<CR>
 
 " \t shows current filetype
 nnoremap <Leader>t :<C-U>setlocal filetype?<CR>

@@ -19,7 +19,7 @@ endif
 " Adjust the match words for the matchit plugin; the default filetype plugin
 " matches e.g. an opening "function" with the first "return" within, which I
 " don't like
-if exists('g:loaded_matchit')
+if exists('loaded_matchit')
   let b:match_words =
         \ '\<fu\%[nction]\>:\<endf\%[unction]\>,' .
         \ '\<\(wh\%[ile]\|for\)\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
@@ -29,7 +29,7 @@ if exists('g:loaded_matchit')
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_vim_maps')
+if exists('no_plugin_maps') || exists('no_vim_maps')
   finish
 endif
 

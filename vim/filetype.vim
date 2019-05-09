@@ -1,8 +1,8 @@
 " Override system filetype.vim if sufficiently new
-if exists('g:did_load_filetypes') || v:version < 700
+if exists('did_load_filetypes') || v:version < 700
   finish
 endif
-let g:did_load_filetypes = 1
+let did_load_filetypes = 1
 
 " If we don't have +autocmd or are 'compatible', do nothing, and don't try
 " again later

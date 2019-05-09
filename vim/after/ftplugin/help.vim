@@ -19,7 +19,7 @@ if &keywordprg !=# ':help'
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
-if exists('g:no_plugin_maps') || exists('g:no_help_maps')
+if exists('no_plugin_maps') || exists('no_help_maps')
   finish
 endif
 

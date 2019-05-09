@@ -1,7 +1,7 @@
-if exists('g:current_compiler')
+if exists('current_compiler')
   finish
 endif
-let g:current_compiler = 'perlcritic'
+let current_compiler = 'perlcritic'
 
 if exists(':CompilerSet') != 2
   command -nargs=* CompilerSet setlocal <args>

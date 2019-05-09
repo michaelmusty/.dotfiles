@@ -1,7 +1,7 @@
 " Remove g:is_posix if we resorted to it in order to get correct POSIX sh
 " highlighting with older Vim runtime files
-if exists('g:is_posix')
-  unlet! g:is_posix g:is_kornshell
+if exists('is_posix')
+  unlet! is_posix is_kornshell
 endif
 
 " If we know we have another shell type, clear away the others completely, now
