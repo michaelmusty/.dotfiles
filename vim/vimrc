@@ -27,21 +27,25 @@ if has('syntax')
     syntax enable
   endif
 
-  " Use my colorscheme if using the GUI or if we have 256 colors
-  if has('gui_running') || &t_Co >= 256
-    silent! colorscheme sahara
-  endif
+  " Colorscheme handling
+  try
 
-  " If my colorscheme loaded, turn on subtle 'cursorline' coloring
-  if exists('colors_name') && colors_name ==# 'sahara'
+    " Use sahara.vim colorscheme, if using gVim or a 256-color term
+    if has('gui_running') || &t_Co >= 256
+      colorscheme sahara
+    else
+      throw 'Not loading sahara on this terminal'
+    endif
+
+    " Use the colorscheme's subtle 'cursorline', if it loaded
     if exists('+cursorline')
       set cursorline
     endif
 
-  " If it didn't load, default to default scheme with dark background
-  else
+  " Otherwise, use the default colorscheme with a dark background
+  catch
     set background=dark
-  endif
+  endtry
 
 endif
 
@@ -78,8 +82,9 @@ if exists('+breakindent')
   set breakindent
 endif
 
-" Clear default 'comments' value, let the filetype handle it
+" Clear default 'comments' and 'commentstring', filetype to handle
 set comments=
+set commentstring=
 
 " Add completion options
 if exists('+completeopt')
@@ -125,11 +130,6 @@ endif
 if v:version > 801
       \ || v:version == 801 && has('patch728')
   set formatoptions+=p
-endif
-
-" If available, use GNU grep niceties for searching
-if system('grep --version') =~# '^grep (GNU grep)'
-  set grepprg=grep\ -HnRs\ --exclude='.git*'
 endif
 
 " Don't load GUI menus; set here before GUI starts
