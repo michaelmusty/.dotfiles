@@ -127,11 +127,6 @@ if v:version > 801
   set formatoptions+=p
 endif
 
-" If available, use GNU grep niceties for searching
-if system('grep --version') =~# '^grep (GNU grep)'
-  set grepprg=grep\ -HnRs\ --exclude='.git*'
-endif
-
 " Don't load GUI menus; set here before GUI starts
 if has('gui_running')
   set guioptions+=M
