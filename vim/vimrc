@@ -82,8 +82,9 @@ if exists('+breakindent')
   set breakindent
 endif
 
-" Clear default 'comments' value, let the filetype handle it
+" Clear default 'comments' and 'commentstring', filetype to handle
 set comments=
+set commentstring=
 
 " Add completion options
 if exists('+completeopt')
