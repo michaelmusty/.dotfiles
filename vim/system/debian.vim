@@ -1,17 +1,14 @@
 " Revert settings that Debian might have touched
-if $VIM !=# '/usr/share/vim' || !filereadable('/etc/debian_version')
+if $VIM !=# '/usr/share/vim'
+      \ || !filereadable('/etc/debian_version')
   finish
 endif
 
 " Set options back to appropriate defaults
 set history&
+set printoptions&
+set ruler&
 set suffixes&
-if has('cmdline_info')
-  set ruler&
-endif
-if has('printoptions')
-  set printoptions&
-endif
 
 " Restore terminal settings to reflect terminfo
 set t_Co& t_Sf& t_Sb&
