@@ -5,11 +5,9 @@ endif
 
 " Set options back to appropriate defaults
 set history&
+set printoptions&
 set ruler&
 set suffixes&
-if has('printoptions')
-  set printoptions&
-endif
 
 " Restore terminal settings to reflect terminfo
 set t_Co& t_Sf& t_Sb&
