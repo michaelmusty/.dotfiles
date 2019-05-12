@@ -5,10 +5,8 @@ endif
 
 " Set options back to appropriate defaults
 set history&
+set ruler&
 set suffixes&
-if has('cmdline_info')
-  set ruler&
-endif
 if has('printoptions')
   set printoptions&
 endif
