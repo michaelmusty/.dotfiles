@@ -1,5 +1,6 @@
 " Revert settings that CentOS might have touched
-if $VIM !=# '/usr/share/vim' || !filereadable('/etc/centos-release')
+if $VIM !=# '/usr/share/vim'
+      \ || !filereadable('/etc/centos-release')
   finish
 endif
 

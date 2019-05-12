@@ -1,5 +1,6 @@
 " Revert settings that Debian might have touched
-if $VIM !=# '/usr/share/vim' || !filereadable('/etc/debian_version')
+if $VIM !=# '/usr/share/vim'
+      \ || !filereadable('/etc/debian_version')
   finish
 endif
 
