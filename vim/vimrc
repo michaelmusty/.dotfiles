@@ -299,7 +299,7 @@ nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 nnoremap <Leader>F :<C-U>doautocmd filetypedetect BufRead<CR>
 
 " \g changes directory to the current file's location
-nnoremap <Leader>g :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Leader>g :<C-U>cd %:h<CR>
 
 " \h toggles highlighting search results
 nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
