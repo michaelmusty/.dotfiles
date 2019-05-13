@@ -27,13 +27,9 @@ if has('syntax')
     syntax enable
   endif
 
-  " Colorscheme handling
+  " Try to use sahara colorscheme with 'cursorline' set
   try
-
-    " Use sahara.vim colorscheme, if using gVim or a 256-color term
     colorscheme sahara
-
-    " Use the colorscheme's subtle 'cursorline', if it loaded
     if exists('+cursorline')
       set cursorline
     endif
