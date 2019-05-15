@@ -195,8 +195,7 @@ if has('persistent_undo')
   set undodir^=$MYVIMRUNTIME/cache/undo//
 endif
 
-" Wildmenu settings; see also plugin/wildignore.vim
-set wildmenu               " Use wildmenu
+" Tab completion settings; see also plugin/wildignore.vim
 set wildmode=list:longest  " Tab press completes and lists
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
