@@ -6,11 +6,11 @@ runtime system.vim
 
 " Set an environment variable for the user runtime directory
 if !exists('$MYVIMRUNTIME')
-  if has('win32') || has('win64')
-    let $MYVIMRUNTIME = expand('~/vimfiles')
-  else
-    let $MYVIMRUNTIME = expand('~/.vim')
-  endif
+  let $MYVIMRUNTIME = expand(
+        \ has('win32') || has('win64')
+        \ ? '~/vimfiles'
+        \ : '~/.vim'
+        \ )
 endif
 
 " Load filetype settings, plugins, and maps
