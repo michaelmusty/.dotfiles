@@ -43,7 +43,7 @@ set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir, including full encoded
-" path in filename (trailing double slash) if supported (8.1.0251)
+" path in filename (trailing double slash) if supported (v8.1.251)
 set backup
 if v:version > 801
       \ || v:version == 801 && has('patch251')
@@ -59,7 +59,7 @@ if has('unix')
   set backupskip^=/var/tmp/*  " Hardcoded path for `sudo -e`
 endif
 
-" Indent wrapped lines if supported
+" Indent wrapped lines if supported (v7.4.338)
 if exists('+breakindent')
   set breakindent
 endif
@@ -100,13 +100,13 @@ endif
 set foldlevelstart=99
 set foldmethod=indent
 
-" Delete comment leaders when joining lines, if supported
+" Delete comment leaders when joining lines, if supported (v7.3.541)
 if v:version > 703
       \ || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
-" Don't break a single space after a period, if supported
+" Don't break a single space after a period, if supported (v8.1.728)
 if v:version > 801
       \ || v:version == 801 && has('patch728')
   set formatoptions+=p
@@ -134,7 +134,7 @@ set include=
 set incsearch
 
 " Don't show a statusline if there's only one window
-" This is the Vim default, but NeoVim changed it
+" This is Vim's default, but not NeoVim's
 if &laststatus != 1
   set laststatus=1
 endif
@@ -163,7 +163,7 @@ set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
 
 " Disable command line display of file position
-" This is the Vim default, but NeoVim changed it
+" This is Vim's default, but not NeoVim's
 if &ruler
   set noruler
 endif
@@ -188,8 +188,8 @@ if &ttymouse !=# ''
   set ttymouse=
 endif
 
-" Try to keep persistent undo files in one system-appropriate dir, including
-" full encoded path in filename (trailing double slash)
+" Try to keep persistent undo files in one system-appropriate dir (v7.2.438),
+" including full encoded path in filename (trailing double slash)
 if has('persistent_undo')
   set undofile
   set undodir^=$MYVIMRUNTIME/cache/undo//
@@ -199,7 +199,7 @@ endif
 set wildmenu               " Use wildmenu
 set wildmode=list:longest  " Tab press completes and lists
 if exists('+wildignorecase')
-  set wildignorecase  " Case insensitive, if supported
+  set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
 
 " Let me move beyond buffer text in visual block mode
