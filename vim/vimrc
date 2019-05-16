@@ -175,7 +175,7 @@ set splitright  " Right of the current window, not left
 
 " No terminal mouse, even if we could
 " The manual says to set 't_RV', but I don't like that
-if &ttymouse !=# ''
+if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
 
