@@ -199,6 +199,24 @@ set virtualedit+=block
 " Never beep at me
 set visualbell t_vb=
 
+" Load filetype settings, plugins, and maps
+let maplocalleader = ','
+filetype plugin indent on
+
+" Use syntax highlighting
+if !exists('syntax_on')
+  syntax enable
+endif
+
+" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
+" default colorscheme with a dark background
+try
+  colorscheme sahara
+  set cursorline
+catch
+  set background=dark
+endtry
+
 " Remap normal space to scroll down a page
 nnoremap <Space> <PageDown>
 " Do a :next after hitting the last line
@@ -406,24 +424,6 @@ nnoremap <Leader>@ ^"zyg_@z
 nnoremap <Leader>: ^"zyg_:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
-
-" Load filetype settings, plugins, and maps
-let maplocalleader = ','
-filetype plugin indent on
-
-" Use syntax highlighting
-if !exists('syntax_on')
-  syntax enable
-endif
-
-" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
-" default colorscheme with a dark background
-try
-  colorscheme sahara
-  set cursorline
-catch
-  set background=dark
-endtry
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
