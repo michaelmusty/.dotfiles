@@ -205,10 +205,10 @@ if has('persistent_undo')
 endif
 
 " Tab completion settings; see also plugin/wildignore.vim
-set wildmode=list:longest  " Tab press completes and lists
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
+set wildmode=list:longest  " Tab press completes and lists
 
 " Let me move beyond buffer text in visual block mode
 set virtualedit+=block
@@ -216,9 +216,12 @@ set virtualedit+=block
 " Never beep at me
 set visualbell t_vb=
 
-" Stack normal/visual/select Ctrl-L to clear search highlight
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+" Remap normal space to scroll down a page
+nnoremap <Space> <PageDown>
+" Do a :next after hitting the last line
+if &loadplugins  " Don't change the mapping if we won't be loading the plugin
+  nmap <Space> <Plug>(ScrollNext)
+endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation
 if &loadplugins  " Don't break the key if we won't be loading the plugin
@@ -228,12 +231,9 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Remap normal space to scroll down a page
-nnoremap <Space> <PageDown>
-" Do a :next after hitting the last line
-if &loadplugins  " Don't change the mapping if we won't be loading the plugin
-  nmap <Space> <Plug>(ScrollNext)
-endif
+" Stack normal/visual/select Ctrl-L to clear search highlight
+nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
