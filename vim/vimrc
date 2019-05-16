@@ -13,33 +13,24 @@ if !exists('$MYVIMRUNTIME')
         \ )
 endif
 
-" Load filetype settings, plugins, and maps
-let maplocalleader = ','
-filetype plugin indent on
+" The all-important default indent settings; filetypes to tweak
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Use spaces instead of tabs
+set shiftwidth=4  " Indent with four spaces
 
-" Use syntax highlighting
-if !exists('syntax_on')
-  syntax enable
+" The number of spaces the Tab key should insert should follow 'shiftwidth';
+" if Vim is new enough (v7.3.693), use a negative value to automate this,
+" otherwise just use its present value
+if v:version > 703
+      \ || v:version == 703 && has('patch693')
+  set softtabstop=-1
+else
+  let &softtabstop = &shiftwidth
 endif
 
-" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
-" default colorscheme with a dark background
-try
-  colorscheme sahara
-  set cursorline
-catch
-  set background=dark
-endtry
-
-" The all-important default indent settings; filetypes to tweak
-set autoindent     " Use indent of previous line on new lines
-set expandtab      " Use spaces instead of tabs
-set shiftwidth=4   " Indent with four spaces
-set softtabstop=4  " Insert four spaces with tab key
-
 " Let me backspace over pretty much anything
-set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
+set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir, including full encoded
@@ -75,8 +66,7 @@ set completeopt+=menuone  " Show the menu even if only one match
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
-" Require two spaces for sentence objects
-" Yes, I have become a filthy two-spacer
+" Sentence objects are separated by two spaces
 set cpoptions+=J
 
 " Try to keep swapfiles in one system-appropriate dir, including full encoded
@@ -112,7 +102,8 @@ if v:version > 801
   set formatoptions+=p
 endif
 
-" Don't load GUI menus; set here before GUI starts
+" Don't load GUI menus; set here before GUI starts or any filetype or syntax
+" logic is performed
 if has('gui_running')
   set guioptions+=M
 endif
@@ -182,9 +173,10 @@ set showbreak=...
 set splitbelow  " Below the current window, not above
 set splitright  " Right of the current window, not left
 
-" No terminal mouse, even if we could
-" The manual says to set 't_RV', but I don't like that
-if &ttymouse !=# ''
+" No terminal mouse, even if we could; the manual says to set 't_RV', but I
+" don't like that
+" Not in NeoVim
+if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
 
@@ -196,10 +188,10 @@ if has('persistent_undo')
 endif
 
 " Tab completion settings; see also plugin/wildignore.vim
-set wildmode=list:longest  " Tab press completes and lists
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
+set wildmode=list:longest  " Tab press completes and lists
 
 " Let me move beyond buffer text in visual block mode
 set virtualedit+=block
@@ -207,9 +199,30 @@ set virtualedit+=block
 " Never beep at me
 set visualbell t_vb=
 
-" Stack normal/visual/select Ctrl-L to clear search highlight
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+" Load filetype settings, plugins, and maps
+let maplocalleader = ','
+filetype plugin indent on
+
+" Use syntax highlighting
+if !exists('syntax_on')
+  syntax enable
+endif
+
+" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
+" default colorscheme with a dark background
+try
+  colorscheme sahara
+  set cursorline
+catch
+  set background=dark
+endtry
+
+" Remap normal space to scroll down a page
+nnoremap <Space> <PageDown>
+" Do a :next after hitting the last line
+if &loadplugins  " Don't change the mapping if we won't be loading the plugin
+  nmap <Space> <Plug>(ScrollNext)
+endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation
 if &loadplugins  " Don't break the key if we won't be loading the plugin
@@ -219,12 +232,9 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Remap normal space to scroll down a page
-nnoremap <Space> <PageDown>
-" Do a :next after hitting the last line
-if &loadplugins  " Don't change the mapping if we won't be loading the plugin
-  nmap <Space> <Plug>(ScrollNext)
-endif
+" Stack normal/visual/select Ctrl-L to clear search highlight
+nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
