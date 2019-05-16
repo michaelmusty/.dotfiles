@@ -47,8 +47,8 @@ else
 endif
 
 " Let me backspace over pretty much anything
-set backspace+=eol     " Line breaks
 set backspace+=indent  " Spaces from 'autoindent'
+set backspace+=eol     " Line breaks
 set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir, including full encoded
