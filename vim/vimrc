@@ -1,8 +1,8 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 " Requires Vim 7.0 or newer with +eval.
 
-" Revert everything to Vim defaults
-set all&
+" Undo anything the operating system's vimrc may have broken
+runtime system.vim
 
 " Set an environment variable for the user runtime directory
 if !exists('$MYVIMRUNTIME')
