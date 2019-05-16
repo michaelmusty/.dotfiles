@@ -591,11 +591,6 @@ install-vim-compiler:
 install-vim-config: install-vim-cache
 	cp -p -- vim/vimrc.stub.vim $(HOME)/.vimrc
 	cp -p -- vim/vimrc $(VIMRC)
-	if [ -e /etc/debian_version ] ; then \
-		cp -p -- vim/system/debian.vim $(VIMDIR)/system.vim ; \
-	elif [ -e /etc/centos-release ] ; then \
-		cp -p -- vim/system/centos.vim $(VIMDIR)/system.vim ; \
-	fi
 
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
