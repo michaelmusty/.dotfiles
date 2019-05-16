@@ -13,24 +13,6 @@ if !exists('$MYVIMRUNTIME')
         \ )
 endif
 
-" Load filetype settings, plugins, and maps
-let maplocalleader = ','
-filetype plugin indent on
-
-" Use syntax highlighting
-if !exists('syntax_on')
-  syntax enable
-endif
-
-" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
-" default colorscheme with a dark background
-try
-  colorscheme sahara
-  set cursorline
-catch
-  set background=dark
-endtry
-
 " The all-important default indent settings; filetypes to tweak
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
@@ -120,7 +102,8 @@ if v:version > 801
   set formatoptions+=p
 endif
 
-" Don't load GUI menus; set here before GUI starts
+" Don't load GUI menus; set here before GUI starts or any filetype or syntax
+" logic is performed
 if has('gui_running')
   set guioptions+=M
 endif
@@ -422,6 +405,24 @@ nnoremap <Leader>@ ^"zyg_@z
 nnoremap <Leader>: ^"zyg_:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
+
+" Load filetype settings, plugins, and maps
+let maplocalleader = ','
+filetype plugin indent on
+
+" Use syntax highlighting
+if !exists('syntax_on')
+  syntax enable
+endif
+
+" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
+" default colorscheme with a dark background
+try
+  colorscheme sahara
+  set cursorline
+catch
+  set background=dark
+endtry
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
