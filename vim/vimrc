@@ -32,10 +32,19 @@ catch
 endtry
 
 " The all-important default indent settings; filetypes to tweak
-set autoindent     " Use indent of previous line on new lines
-set expandtab      " Use spaces instead of tabs
-set shiftwidth=4   " Indent with four spaces
-set softtabstop=4  " Insert four spaces with tab key
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Use spaces instead of tabs
+set shiftwidth=4  " Indent with four spaces
+
+" The number of spaces the Tab key should insert should follow 'shiftwidth';
+" if Vim is new enough (v7.3.693), use a negative value to automate this,
+" otherwise just use its present value
+if v:version > 703
+      \ || v:version == 703 && has('patch693')
+  set softtabstop=-1
+else
+  let &softtabstop = &shiftwidth
+endif
 
 " Let me backspace over pretty much anything
 set backspace+=eol     " Line breaks
