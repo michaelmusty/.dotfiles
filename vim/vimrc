@@ -84,8 +84,7 @@ set completeopt+=menuone  " Show the menu even if only one match
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
-" Require two spaces for sentence objects
-" Yes, I have become a filthy two-spacer
+" Sentence objects are separated by two spaces
 set cpoptions+=J
 
 " Try to keep swapfiles in one system-appropriate dir, including full encoded
