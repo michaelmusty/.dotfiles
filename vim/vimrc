@@ -190,75 +190,26 @@ endif
 " Tab completion settings
 set wildignore=*~
       \,*.7z
-      \,*.a
-      \,*.adf
-      \,*.asc
-      \,*.au
-      \,*.aup
-      \,*.avi
-      \,*.bin
-      \,*.bmp
-      \,*.bz2
+      \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
+      \,*.bin,*.bmp,*.bz2
       \,*.class
-      \,*.db
-      \,*.dbm
-      \,*.djvu
-      \,*.docx
+      \,*.db,*.dbm,*.djvu,*.docx
       \,*.exe
-      \,*.filepart
-      \,*.flac
-      \,*.gd2
-      \,*.gif
-      \,*.gifv
-      \,*.gmo
-      \,*.gpg
-      \,*.gz
+      \,*.filepart,*.flac
+      \,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz
       \,*.hdf
-      \,*.ico
-      \,*.iso
-      \,*.jar
-      \,*.jpeg
-      \,*.jpg
-      \,*.m4a
-      \,*.mid
-      \,*.mp3
-      \,*.mp4
-      \,*.o
-      \,*.odp
-      \,*.ods
-      \,*.odt
-      \,*.ogg
-      \,*.ogv
-      \,*.opus
-      \,*.pbm
-      \,*.pdf
-      \,*.png
-      \,*.ppt
-      \,*.psd
-      \,*.pyc
-      \,*.rar
-      \,*.rm
-      \,*.s3m
-      \,*.sdbm
-      \,*.sqlite
-      \,*.swf
-      \,*.swp
-      \,*.tar
-      \,*.tga
-      \,*.ttf
-      \,*.wav
-      \,*.webm
-      \,*.xbm
-      \,*.xcf
-      \,*.xls
-      \,*.xlsx
-      \,*.xpm
-      \,*.xz
+      \,*.ico,*.iso
+      \,*.jar,*.jpeg,*.jpg
+      \,*.m4a,*.mid,*.mp3,*.mp4
+      \,*.o,*.odp,*.ods,*.odt,*.ogg,*.ogv,*.opus
+      \,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc
+      \,*.rar,*.rm
+      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp
+      \,*.tar,*.tga,*.ttf
+      \,*.wav,*.webm
+      \,*.xbm,*.xcf,*.xls,*.xlsx,*.xpm,*.xz
       \,*.zip
-      \,.DS_Store
-      \,.git
-      \,.hg
-      \,.svn
+      \,.DS_Store,.git,.hg,.svn
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
