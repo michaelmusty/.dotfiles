@@ -102,7 +102,7 @@ Bourne\-style POSIX shells, sharing a \f[C]\&.profile\f[], an
 \f[C]ENV\f[] file, and some helper functions:
 .RS 2
 .IP \[bu] 2
-GNU Bash (https://www.gnu.org/software/bash/) (2.05a or higher)
+GNU Bash (https://www.gnu.org/software/bash/) (3.0 or higher)
 .IP \[bu] 2
 Korn shell (http://www.kornshell.com/) (\f[C]ksh93\f[], \f[C]pdksh\f[],
 \f[C]mksh\f[])
@@ -115,12 +115,17 @@ Abook (http://abook.sourceforge.net/) \[en] curses address book program
 cURL (https://curl.haxx.se/) \[en] Command\-line tool for transferring
 data with URL syntax
 .IP \[bu] 2
-Dunst (http://knopwob.org/dunst/) \[en] A lightweight X11 notification
+Dillo (https://www.dillo.org/) \[en] A lightweight web browser
+.IP \[bu] 2
+Dunst (https://dunst-project.org/) \[en] A lightweight X11 notification
 daemon that works with \f[C]libnotify\f[]
 .IP \[bu] 2
 \f[C]finger(1)\f[] \[en] User information lookup program
 .IP \[bu] 2
 Git (https://git-scm.com/) \[en] Distributed version control system
+.IP \[bu] 2
+GNU Emacs (https://www.gnu.org/software/emacs/) \[en] Extensible text
+editor
 .IP \[bu] 2
 GnuPG (https://www.gnupg.org/) \[en] GNU Privacy Guard, for private
 communication and file encryption
@@ -131,6 +136,8 @@ interface elements
 i3 (https://i3wm.org/) \[en] Tiling window manager
 .IP \[bu] 2
 less (https://www.gnu.org/software/less/) \[en] Terminal pager
+.IP \[bu] 2
+mpv (https://mpv.io/) \[en] Media player
 .IP \[bu] 2
 Mutt (http://www.mutt.org/) \[en] Terminal mail user agent
 .IP \[bu] 2
@@ -150,8 +157,8 @@ engine for Perl
 Perl::Tidy (http://perltidy.sourceforge.net/) \[en] Perl source code
 reformatter
 .IP \[bu] 2
-Readline (https://cnswww.cns.cwru.edu/php/chet/readline/rltop.html)
-\[en] GNU library for user input used by Bash, MySQL, and others
+Readline (https://tiswww.case.edu/php/chet/readline/rltop.html) \[en]
+GNU library for user input used by Bash, MySQL, and others
 .IP \[bu] 2
 rxvt\-unicode (http://software.schmorp.de/pkg/rxvt-unicode.html) \[en]
 Fork of the rxvt terminal emulator with Unicode support
@@ -164,7 +171,7 @@ tidy (http://www.html-tidy.org/) \[en] HTML/XHTML linter and tidier
 tmux (https://tmux.github.io/) \[en] Terminal multiplexer similar to GNU
 Screen
 .IP \[bu] 2
-Vim (http://www.vim.org/) \[en] Vi IMproved, a text editor
+Vim (https://www.vim.org/) \[en] Vi IMproved, a text editor
 .RS 2
 .IP \[bu] 2
 Neovim (https://neovim.io/) \[en] An \[lq]emphatic fork\[rq] of Vim
@@ -198,9 +205,8 @@ can so that the same files can be loaded for all shells.
 On GNU/Linux I use Bash, on BSD I use some variant of Korn Shell,
 preferably \f[C]ksh93\f[] if it's available.
 .PP
-As I occasionally have work on very old internal systems, my Bash is
-written to work with any version 2.05a or
-newer (http://wiki.bash-hackers.org/scripting/bashchanges).
+My Bash is written to work with any version 3.0 or
+newer (https://wiki.bash-hackers.org/scripting/bashchanges).
 This is why I use older syntax for certain things such as appending
 items to arrays:
 .IP
@@ -220,7 +226,7 @@ array+=("$item")
 .fi
 .PP
 Where I do use features that are only available in versions of Bash
-newer than 2.05a, such as newer \f[C]shopt\f[] options or
+newer than 3.0, such as newer \f[C]shopt\f[] options or
 \f[C]PROMPT_DIRTRIM\f[], they are only run after testing
 \f[C]BASH_VERSINFO\f[] appropriately.
 .SS Prompt
@@ -401,10 +407,6 @@ Bash builtins: commands, help topics, shell options, variables, etc.
 .IP \[bu] 2
 \f[C]find(1)\f[]'s more portable options
 .IP \[bu] 2
-\f[C]ftp(1)\f[] hostnames from \f[C]~/.netrc\f[]
-.IP \[bu] 2
-\f[C]git(1)\f[] subcommands, remotes, branches, tags, and addable files
-.IP \[bu] 2
 \f[C]gpg(1)\f[] long options
 .IP \[bu] 2
 \f[C]make(1)\f[] targets read from a \f[C]Makefile\f[]
@@ -449,8 +451,8 @@ My mail is kept in individual Maildirs under \f[C]~/Mail\f[], with
 \f[C]inbox\f[] being where most unfiltered mail is sent.
 I use Getmail (http://pyropus.ca/software/getmail/),
 maildrop (https://www.courier-mta.org/maildrop/), and
-msmtp (http://msmtp.sourceforge.net/); the configurations for these are
-not included here.
+msmtp (https://marlam.de/msmtp/); the configurations for these are not
+included here.
 I sign whenever I have some indication that the recipient might be using
 a PGP implementation, and I encrypt whenever I have a public key
 available for them.
@@ -458,12 +460,12 @@ The GnuPG and S/MIME interfacing is done with
 GPGme (https://www.gnupg.org/related_software/gpgme/), rather than
 defining commands for each crypto operation.
 I wrote an article about this
-setup (https://sanctum.geek.nz/arabesque/linux-crypto-email/) if it
+setup (https://sanctum.geek.nz/arabesque/gnu-linux-crypto-email/) if it
 sounds appealing.
 .PP
-You'll need Abook (http://abook.sourceforge.net/) installed if you want
-to use the \f[C]query_command\f[] I have defined, and
-msmtp (http://msmtp.sourceforge.net/) for the \f[C]sendmail\f[] command.
+You'll need Abook installed if you want to use the
+\f[C]query_command\f[] I have defined, and msmtp for the
+\f[C]sendmail\f[] command.
 .SS rxvt\-unicode
 .PP
 I've butchered the URxvt Perl extensions
@@ -516,13 +518,6 @@ They eventually get either discarded or spun off into their own
 repositories, added to this repository as submodules under
 \f[C]vim/bundle\f[] instead, and uploaded to
 vim.org (https://www.vim.org/account/profile.php?user_id=73687).
-.PP
-I still use two third\-party plugins: Tim Pope's
-repeat.vim (https://www.vim.org/scripts/script.php?script_id=2136) and
-surround.vim (https://www.vim.org/scripts/script.php?script_id=1697).
-In my opinion, these plugins are so fundamental and useful that they
-should have been implemented in or bundled with Vim itself many years
-ago.
 .SS Filetype plugins
 .PP
 I also define a few rules specific to file types I often edit in
@@ -1025,7 +1020,7 @@ ShellCheck (https://www.shellcheck.net/):
 \f[C]lint\-xinit\f[]
 .RE
 .IP \[bu] 2
-Perl::Critic (http://perlcritic.com/):
+Perl::Critic:
 .RS 2
 .IP \[bu] 2
 \f[C]lint\-urxvt\f[]
@@ -1053,6 +1048,6 @@ Software in the Public Interest (https://www.spi-inc.org/)
 .IP \[bu] 2
 FreeBSD Foundation (https://www.freebsdfoundation.org/)
 .IP \[bu] 2
-OpenBSD Foundation (http://www.openbsdfoundation.org/)
+OpenBSD Foundation (https://www.openbsdfoundation.org/)
 .SH AUTHORS
 Tom Ryder.
