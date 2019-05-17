@@ -503,5 +503,9 @@ nnoremap <Leader>: ^"zyg_:<C-R>z<CR>
 " \! executes line with 'shell'
 nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 
+" Things I almsot always type wrnog
+inoreabbrev almsot almost
+inoreabbrev wrnog wrong
+
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
