@@ -24,7 +24,8 @@ let b:undo_ftplugin .= '|unlet b:current_compiler b:sh_check_compiler'
 " Resort to g:is_posix for correct syntax on older runtime files
 " 8.1.257 updated the runtime files to include a fix for this
 if exists('b:is_posix')
-      \ && (v:version < 800 || v:version == 800 && !has('patch257'))
+      \ && (v:version < 800
+        \ || v:version == 800 && !has('patch257'))
   let is_posix = 1
 endif
 

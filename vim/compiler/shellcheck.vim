@@ -19,7 +19,8 @@ endif
 
 " 7.4.191 is the earliest version with the :S file name modifier, which we
 " really should use if we can
-if v:version >= 704 || v:version == 704 && has('patch191')
+if v:version >= 704
+      \ || v:version == 704 && has('patch191')
   execute s:set . '\ --\ %:S'
 else
   execute s:set . '\ --\ %'
