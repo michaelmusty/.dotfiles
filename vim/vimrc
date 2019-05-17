@@ -29,8 +29,8 @@ else
 endif
 
 " Let me backspace over pretty much anything
-set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=eol     " Line breaks
+set backspace+=indent  " Spaces from 'autoindent'
 set backspace+=start   " The start of current insertion
 
 " Try to keep backups in one system-appropriate dir, including full encoded
@@ -138,10 +138,10 @@ set linebreak
 
 " Define extra 'list' display characters
 set listchars+=extends:>   " Unwrapped text to screen right
+set listchars+=nbsp:+      " Non-breaking spaces
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=tab:>-      " Tab characters, preserve width
 set listchars+=trail:_     " Trailing spaces
-set listchars+=nbsp:+      " Non-breaking spaces
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -288,7 +288,7 @@ nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 nnoremap <Leader>F :<C-U>doautocmd filetypedetect BufRead<CR>
 
 " \g changes directory to the current file's location
-nnoremap <Leader>g :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Leader>g :<C-U>cd %:h<Bar>pwd<CR>
 
 " \h toggles highlighting search results
 nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
@@ -308,6 +308,10 @@ nnoremap <Leader>k :<C-U>marks<CR>
 " \l toggles showing tab, end-of-line, and trailing whitespace
 nnoremap <Leader>l :<C-U>setlocal list! list?<CR>
 xnoremap <Leader>l :<C-U>setlocal list! list?<CR>gv
+
+" \L toggles 'colorcolumn' showing 'textwidth'
+nnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>
+xnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
 
 " \m shows normal maps
 nnoremap <Leader>m :<C-U>map<CR>

@@ -5,10 +5,7 @@ if v:version >= 700
   finish
 endif
 
-" Otherwise, prevent Vim from using any part of our configuration
+" Otherwise, prevent an old and/or tiny Vim from using any part of our
+" configuration, because parts of it will break
 set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
-if has('win32') || has('win64')
-  set runtimepath-=~/vimfiles
-  set runtimepath-=~/vimfiles/after
-endif

@@ -110,7 +110,7 @@ Configuration is included for:
   the rxvt terminal emulator with Unicode support
 * [Subversion](https://subversion.apache.org/) -- Apache Subversion, a version
   control system
-* [tidy](https://www.html-tidy.org/) -- HTML/XHTML linter and tidier
+* [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
 * [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
     * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
