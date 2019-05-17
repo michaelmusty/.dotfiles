@@ -462,6 +462,16 @@ augroup filetypedetect
         \,zshrc
         \ setfiletype zsh
 
+  " If it's a new file in a bin, libexec, or scripts subdir that has a
+  " Makefile.PL sibling, and I'm editing it, it's almost definitely Perl.
+  autocmd BufNewFile
+        \ ?*/bin/?*
+        \,?*/libexec/?*
+        \,?*/scripts/?*
+        \ if filereadable(expand('<afile>:p:h:h') . '/Makefile.PL')
+        \|  setfiletype perl
+        \|endif
+
   " Load any extra rules in ftdetect directories
   runtime! ftdetect/*.vim
 
