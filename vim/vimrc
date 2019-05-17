@@ -236,6 +236,9 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
 
+" Make Ctrl-L work in insert mode too; good for choppy terminals
+inoremap <silent> <C-L> <C-O>:redraw<CR>
+
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
 xnoremap <silent> & :&&<CR>

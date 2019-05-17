@@ -277,7 +277,6 @@ clean distclean:
 		gnupg/gpg.conf \
 		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
-		man/man8/dotfiles.7df \
 		urxvt/ext/select \
 		vim/dist/*
 
