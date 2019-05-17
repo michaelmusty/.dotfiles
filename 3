@@ -133,19 +133,12 @@ if exists('b:is_posix')
         \ nextgroup=@shDerefPatternList
   syntax match shDerefPattern contained
         \ '[^{}]\+'
-        \ contains=shDeref
-        \,shCommandSub
-        \,shDerefEscape
-        \,shDerefPattern
-        \,shDerefSimple
-        \,shDerefString
+        \ contains=shDeref,shDerefEscape,shDerefPattern,shDerefSimple,shDerefString
+        \,shDerefString,shCommandSub
         \ nextgroup=shDerefPattern
   syntax region shDerefPattern contained
         \ start='{' end='}'
-        \ contains=shDeref
-        \,shCommandSub
-        \,shDerefSimple
-        \,shDerefString
+        \ contains=shDeref,shDerefSimple,shDerefString,shCommandSub
         \ nextgroup=shDerefPattern
 
 endif
