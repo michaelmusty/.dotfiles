@@ -1,4 +1,5 @@
-" Skip loading some plugins:
+" Skip loading some plugins
+
 " I manage plugins myself with Git and a Makefile
 let loaded_getscriptPlugin = 1
 let loaded_vimballPlugin = 1
