@@ -309,6 +309,10 @@ nnoremap <Leader>k :<C-U>marks<CR>
 nnoremap <Leader>l :<C-U>setlocal list! list?<CR>
 xnoremap <Leader>l :<C-U>setlocal list! list?<CR>gv
 
+" \L toggles 'colorcolumn' showing 'textwidth'
+nnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>
+xnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
+
 " \m shows normal maps
 nnoremap <Leader>m :<C-U>map<CR>
 " \M shows buffer-local normal maps
