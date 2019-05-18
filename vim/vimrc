@@ -28,11 +28,6 @@ else
   let &softtabstop = &shiftwidth
 endif
 
-" Let me backspace over pretty much anything
-set backspace+=eol     " Line breaks
-set backspace+=indent  " Spaces from 'autoindent'
-set backspace+=start   " The start of current insertion
-
 " Try to keep backups in one system-appropriate dir, including full encoded
 " path in filename (trailing double slash) if supported (v8.1.251)
 set backup
