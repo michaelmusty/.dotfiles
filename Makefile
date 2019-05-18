@@ -539,7 +539,7 @@ install-neovim:
 	make install-vim \
 		VIM=nvim \
 		VIMDIR="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim" \
-		VIMRC="$${XDG_CONFIG_HOME:="$$HOME"/.config}/nvim/init.vim"
+		VIMRC="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim/init.vim"
 
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
