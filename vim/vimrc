@@ -28,8 +28,8 @@ else
   let &softtabstop = &shiftwidth
 endif
 
-" Try to keep backups in one system-appropriate dir, including full encoded
-" path in filename (trailing double slash) if supported (v8.1.251)
+" Try to keep backups in one system-appropriate directory, including full
+" encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
 if v:version > 801
       \ || v:version == 801 && has('patch251')
@@ -41,8 +41,8 @@ endif
 " Add some *nix paths not to back up
 if has('unix')
   set backupskip^=/dev/shm/*  " Shared memory RAM disk
-  set backupskip^=/usr/tmp/*  " Hardcoded path for `sudo -e`
-  set backupskip^=/var/tmp/*  " Hardcoded path for `sudo -e`
+  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e`
+  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e`
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
@@ -64,11 +64,11 @@ set confirm
 " Sentence objects are separated by two spaces
 set cpoptions+=J
 
-" Try to keep swapfiles in one system-appropriate dir, including full encoded
-" path in filename (trailing double slash)
+" Try to keep swap files in one system-appropriate directory, including full
+" encoded path in filename (trailing double slash)
 set directory^=$MYVIMRUNTIME/cache/swap//
 
-" Use UTF-8 if we can and env LANG didn't tell us not to
+" Use UTF-8 if we can and $LANG doesn't tell us not to
 if has('multi_byte')
       \ && !exists('$LANG')
       \ && &encoding ==# 'latin1'
@@ -119,7 +119,7 @@ set include=
 " Show search matches as I type my pattern
 set incsearch
 
-" Don't show a statusline if there's only one window
+" Don't show a status line if there's only one window
 " This is Vim's default, but not NeoVim's
 if &laststatus != 1
   set laststatus=1
@@ -144,7 +144,7 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Options for file search with gf/:find
+" Options for file search
 set path-=/usr/include  " Let the C/C++ filetypes set that
 set path+=**            " Search current directory's whole tree
 
@@ -175,8 +175,8 @@ if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
 
-" Try to keep persistent undo files in one system-appropriate dir (v7.2.438),
-" including full encoded path in filename (trailing double slash)
+" Try to keep persistent undo files in one system-appropriate directory
+" (v7.2.438), including full encoded path in filename (trailing double slash)
 if has('persistent_undo')
   set undofile
   set undodir^=$MYVIMRUNTIME/cache/undo//
@@ -225,8 +225,8 @@ if !exists('syntax_on')
   syntax enable
 endif
 
-" Try to use sahara colorscheme with 'cursorline' set; otherwise, use the
-" default colorscheme with a dark background
+" Try to use sahara color scheme with 'cursorline' set; otherwise, use the
+" default color scheme with a dark background
 try
   colorscheme sahara
   set cursorline
@@ -270,7 +270,7 @@ nnoremap ]a :next<CR>
 " Cycle through buffers
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-" Cycle through quicklist/:helpgrep items
+" Cycle through quickfix list items
 nnoremap [c :cprevious<CR>
 nnoremap ]c :cnext<CR>
 " Cycle through location list items
@@ -284,7 +284,7 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Leader>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 
-" \b toggles copy-pasteable linebreak settings
+" \b toggles settings friendly to copying and pasting
 nmap <Leader>b <Plug>(CopyLinebreakToggle)
 
 " \c toggles 'cursorline'; no visual mode map as it doesn't work
@@ -319,13 +319,13 @@ nnoremap <Leader>H :<C-U>history :<CR>
 " \i toggles showing matches as I enter my pattern
 nnoremap <Leader>i :<C-U>set incsearch! incsearch?<CR>
 
-" \j jumps to buffers (jetpack)
+" \j jumps to buffers ("jetpack")
 nnoremap <Leader>j :<C-U>buffers<CR>:buffer<Space>
 
 " \k shows my marks
 nnoremap <Leader>k :<C-U>marks<CR>
 
-" \l toggles showing tab, end-of-line, and trailing whitespace
+" \l toggles showing tab, end-of-line, and trailing white space
 nnoremap <Leader>l :<C-U>setlocal list! list?<CR>
 xnoremap <Leader>l :<C-U>setlocal list! list?<CR>gv
 
@@ -412,10 +412,10 @@ nnoremap <Leader>. :<C-U>lmake!<CR>
 nnoremap <Leader><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Leader>> :<C-U>'[,']><CR>
 
-" \_ uses last changed or yanked text as a characterwise object
+" \_ uses last changed or yanked text as an object
 onoremap <Leader>_ :<C-U>normal! `[v`]<CR>
 
-" \% uses entire buffer as a linewise object
+" \% uses entire buffer as an object
 onoremap <Leader>% :<C-U>normal! 1GVG<CR>
 
 " \{ and \} move to lines with non-space chars before current column
