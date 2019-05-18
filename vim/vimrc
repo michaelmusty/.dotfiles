@@ -190,6 +190,12 @@ if has('persistent_undo')
   set undodir^=$MYVIMRUNTIME/cache/undo//
 endif
 
+" Let me move beyond buffer text in visual block mode
+set virtualedit+=block
+
+" Never beep at me
+set visualbell t_vb=
+
 " Tab completion settings
 set wildignore=*~
       \,*.7z
@@ -217,12 +223,6 @@ if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
 set wildmode=list:longest  " Tab press completes and lists
-
-" Let me move beyond buffer text in visual block mode
-set virtualedit+=block
-
-" Never beep at me
-set visualbell t_vb=
 
 " Load filetype settings, plugins, and maps
 let maplocalleader = ','
