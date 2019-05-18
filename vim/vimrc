@@ -144,9 +144,8 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Options for file search
-set path-=/usr/include  " Let the C/C++ filetypes set that
-set path+=**            " Search current directory's whole tree
+" Search whole directory tree, and not /usr/include
+set path=**
 
 " Disable command line display of file position
 " This is Vim's default, but not NeoVim's
