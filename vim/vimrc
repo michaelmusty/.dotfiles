@@ -171,6 +171,11 @@ set splitright  " Right of the current window, not left
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
+" PuTTY is a fast terminal
+if &term =~# '^putty'
+  set ttyfast
+endif
+
 " No terminal mouse, even if we could; the manual says to set 't_RV', but I
 " don't like that
 " Not in NeoVim
