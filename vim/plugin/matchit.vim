@@ -2,5 +2,5 @@
 if has('packages') && !has('nvim')
   packadd matchit
 else
-  silent! runtime macros/matchit.vim
+  runtime macros/matchit.vim
 endif
