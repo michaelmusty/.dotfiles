@@ -360,6 +360,9 @@ nmap <Leader>O <Plug>(PasteOpenAbove)
 " \p toggles paste mode
 nnoremap <Leader>p :<C-U>set paste! paste?<CR>
 
+" \P creates the path to the current file
+nnoremap <Leader>P :<C-U>call mkdir(expand('%:h'), 'p')<CR>
+
 " \q formats the current paragraph
 nnoremap <Leader>q gqap
 
