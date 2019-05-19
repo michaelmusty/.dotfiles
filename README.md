@@ -33,8 +33,7 @@ directory so you can explore:
     $ env -i HOME="$tmpdir" TERM="$TERM" "$SHELL" -l
 
 The default `install` target will install these targets and all their
-dependencies.  Note that you don't actually have to have any of this except
-`sh` installed.
+dependencies:
 
 * `install-bin`
 * `install-bin-man`
