@@ -175,8 +175,12 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" No 'ttymouse' (terminal mouse), even if we could
-set t_RV=
+" No terminal mouse, even if we could; the manual says to set 't_RV', but that
+" doesn't seem to work
+" Not in NeoVim
+if exists('+ttymouse') && &ttymouse !=# ''
+  set ttymouse=
+endif
 
 " Try to keep persistent undo files in one system-appropriate directory
 " (v7.2.438), including full encoded path in filename (trailing double slash)
