@@ -462,6 +462,7 @@ nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 " Things I almsot always type wrnog
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
+inoreabbrev Fielding Feilding
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
