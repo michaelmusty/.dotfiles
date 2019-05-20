@@ -173,8 +173,8 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" No terminal mouse, even if we could; the manual says to set 't_RV', but that
-" doesn't seem to work
+" No terminal mouse, even if we could; the manual says to set 't_RV', but
+" doing that doesn't seem to prevent 'ttyfast' from being set
 " Not in NeoVim
 if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
