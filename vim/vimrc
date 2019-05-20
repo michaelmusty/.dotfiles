@@ -40,8 +40,8 @@ endif
 " Add some *nix paths not to back up
 if has('unix')
   set backupskip^=/dev/shm/*  " Shared memory RAM disk
-  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e`
-  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e`
+  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
+  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
