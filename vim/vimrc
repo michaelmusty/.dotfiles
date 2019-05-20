@@ -31,8 +31,7 @@ endif
 " Try to keep backups in one system-appropriate directory, including full
 " encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
-if v:version > 801
-      \ || v:version == 801 && has('patch251')
+if has('patch-8.1.251')
   set backupdir^=$MYVIMRUNTIME/cache/backup//
 else
   set backupdir^=$MYVIMRUNTIME/cache/backup
@@ -92,8 +91,7 @@ if v:version > 703
 endif
 
 " Don't break a single space after a period, if supported (v8.1.728)
-if v:version > 801
-      \ || v:version == 801 && has('patch728')
+if has('patch-8.1.728')
   set formatoptions+=p
 endif
 
