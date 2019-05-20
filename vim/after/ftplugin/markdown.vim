@@ -31,3 +31,9 @@ xnoremap <buffer> <expr> <LocalLeader>Q
       \ quote#QuoteReformat()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|xunmap <buffer> <LocalLeader>Q'
+
+" Autoformat headings
+nnoremap <buffer> <LocalLeader>-
+      \ :<C-U>call markdown#Heading('-')<CR>
+nnoremap <buffer> <LocalLeader>=
+      \ :<C-U>call markdown#Heading('=')<CR>
