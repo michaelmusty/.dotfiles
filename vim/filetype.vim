@@ -513,10 +513,4 @@ augroup filetypedetect
         \|  runtime scripts.vim
         \|endif
 
-  " On leaving insert mode, check whether the first line was changed and looks
-  " like a shebang format, and if so, re-run filetype detection
-  autocmd InsertLeave
-        \ *
-        \ call filetype#CheckShebang()
-
 augroup END
