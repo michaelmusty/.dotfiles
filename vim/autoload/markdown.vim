@@ -5,5 +5,6 @@ function! markdown#Heading(char) abort
   let underline = repeat(a:char, strlen(heading))
   call append(pos[1], underline)
   let pos[1] += 1
+  let pos[2] = 1
   call setpos('.', pos)
 endfunction
