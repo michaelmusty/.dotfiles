@@ -53,6 +53,9 @@
 [submodule "vim/bundle/scroll_next"]
     path = vim/bundle/scroll_next
     url = https://sanctum.geek.nz/code/vim-scroll-next.git
+[submodule "vim/bundle/shebang_change_filetype"]
+    path = vim/bundle/shebang_change_filetype
+    url = https://sanctum.geek.nz/code/vim-shebang-change-filetype.git
 [submodule "vim/bundle/shebang_create_exec"]
     path = vim/bundle/shebang_create_exec
     url = https://sanctum.geek.nz/code/vim-shebang-create-exec.git
