@@ -26,3 +26,9 @@ Ideas
   appropriate `gawk --lint` calls for each of the .awk scripts.
 * Alternate buffer type switching would probably work rather well as a simple
   plugin.
+* Write my own take on a plugin that creates paths if they don't exist before
+  saving a file.  I already have \P, but it might be nice to automate it, maybe
+  with a prompt for security raisins.
+* Write a ftplugin for Perl to switch between punctuation variable names and
+  English variable names., i.e. \e on `$?` would change to `$CHILD_ERROR`, and
+  vice-versa.

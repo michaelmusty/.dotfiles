@@ -31,8 +31,7 @@ endif
 " Try to keep backups in one system-appropriate directory, including full
 " encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
-if v:version > 801
-      \ || v:version == 801 && has('patch251')
+if has('patch-8.1.251')
   set backupdir^=$MYVIMRUNTIME/cache/backup//
 else
   set backupdir^=$MYVIMRUNTIME/cache/backup
@@ -92,8 +91,7 @@ if v:version > 703
 endif
 
 " Don't break a single space after a period, if supported (v8.1.728)
-if v:version > 801
-      \ || v:version == 801 && has('patch728')
+if has('patch-8.1.728')
   set formatoptions+=p
 endif
 
@@ -175,8 +173,8 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" No terminal mouse, even if we could; the manual says to set 't_RV', but I
-" don't like that
+" No terminal mouse, even if we could; the manual says to set 't_RV', but that
+" doesn't seem to work
 " Not in NeoVim
 if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
@@ -360,6 +358,9 @@ nmap <Leader>O <Plug>(PasteOpenAbove)
 " \p toggles paste mode
 nnoremap <Leader>p :<C-U>set paste! paste?<CR>
 
+" \P creates the path to the current file
+nnoremap <Leader>P :<C-U>call mkdir(expand('%:h'), 'p')<CR>
+
 " \q formats the current paragraph
 nnoremap <Leader>q gqap
 
@@ -459,6 +460,7 @@ nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 " Things I almsot always type wrnog
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
+inoreabbrev Fielding Feilding
 
 " Source any .vim files from ~/.vim/config
 runtime! config/*.vim
