@@ -5,11 +5,11 @@
 runtime system.vim
 
 " Set an environment variable for the user runtime directory
-if !exists('$MYVIMRUNTIME')
+if !exists('$MYVIM')
   if has('win32') || has('win64')
-    let $MYVIMRUNTIME = expand('~/vimfiles')
+    let $MYVIM = expand('~/vimfiles')
   else
-    let $MYVIMRUNTIME = expand('~/.vim')
+    let $MYVIM = expand('~/.vim')
   endif
 endif
 
@@ -32,9 +32,9 @@ endif
 " encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
 if has('patch-8.1.251')
-  set backupdir^=$MYVIMRUNTIME/cache/backup//
+  set backupdir^=$MYVIM/cache/backup//
 else
-  set backupdir^=$MYVIMRUNTIME/cache/backup
+  set backupdir^=$MYVIM/cache/backup
 endif
 
 " Add some *nix paths not to back up
@@ -65,7 +65,7 @@ set cpoptions+=J
 
 " Try to keep swap files in one system-appropriate directory, including full
 " encoded path in filename (trailing double slash)
-set directory^=$MYVIMRUNTIME/cache/swap//
+set directory^=$MYVIM/cache/swap//
 
 " Use UTF-8 if we can and $LANG doesn't tell us not to
 if has('multi_byte')
@@ -184,7 +184,7 @@ endif
 " (v7.2.438), including full encoded path in filename (trailing double slash)
 if has('persistent_undo')
   set undofile
-  set undodir^=$MYVIMRUNTIME/cache/undo//
+  set undodir^=$MYVIM/cache/undo//
 endif
 
 " Let me move beyond buffer text in visual block mode
