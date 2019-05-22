@@ -12,12 +12,12 @@ setlocal comments+=n:>   " Mail-style quotes
 let &l:commentstring = '> %s'
 let b:undo_ftplugin = 'setlocal comments< commentstring<'
 
-" Specify format options
+" Specify format options (Tim Pope)
 setlocal formatoptions+=ln
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
-" Let's try this heading-based fold method out
+" Let's try this heading-based fold method out (Tim Pope)
 function! MarkdownFold()
   let line = getline(v:lnum)
 
