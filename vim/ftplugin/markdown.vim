@@ -7,8 +7,6 @@ if exists("b:did_ftplugin")
   finish
 endif
 
-runtime! ftplugin/html.vim ftplugin/html_*.vim ftplugin/html/*.vim
-
 setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
 setlocal formatoptions+=tcqln formatoptions-=r formatoptions-=o
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+\\\|^\\[^\\ze[^\\]]\\+\\]:

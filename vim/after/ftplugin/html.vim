@@ -1,8 +1,3 @@
-" Don't load if the buffer is not actually HTML (e.g. Markdown)
-if &filetype !=# 'html'
-  finish
-endif
-
 " Spellcheck documents we're actually editing (not just viewing)
 if &modifiable && !&readonly
   setlocal spell
