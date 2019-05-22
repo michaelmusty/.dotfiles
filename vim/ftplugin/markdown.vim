@@ -28,11 +28,11 @@ function! MarkdownFold()
   endif
 
   " Setext style headings
-  if line =~ '^.\+$'
+  if line =~# '^.\+$'
     let nextline = getline(v:lnum + 1)
-    if nextline =~ '^=\+$'
+    if nextline =~# '^=\+$'
       return '>1'
-    elseif nextline =~ '^-\+$'
+    elseif nextline =~# '^-\+$'
       return '>2'
     endif
   endif
