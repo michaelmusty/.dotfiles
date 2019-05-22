@@ -7,18 +7,14 @@ let b:did_ftplugin = 1
 " Specify format for comments (lists, quotes)
 setlocal comments=fb:*,fb:-,fb:+,n:>
 setlocal commentstring=>\ %s
+let b:undo_ftplugin .= '|setlocal comments< commentstring<'
 
 " Specify format options
 setlocal formatoptions+=tcqln
 setlocal formatoptions-=o
 setlocal formatoptions-=r
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+\\\|^\\[^\\ze[^\\]]\\+\\]:
-
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin .= "|setl cms< com< fo< flp<"
-else
-  let b:undo_ftplugin = "setl cms< com< fo< flp<"
-endif
+let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
 function! MarkdownFold()
   let line = getline(v:lnum)
