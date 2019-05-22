@@ -5,8 +5,11 @@ endif
 let b:did_ftplugin = 1
 
 " Specify format for comments (lists, quotes)
-setlocal comments=fb:*,fb:-,fb:+,n:>
-setlocal commentstring=>\ %s
+setlocal comments+=fb:*  " Bulleted lists
+setlocal comments+=fb:-  " Dashed lists
+setlocal comments+=fb:+  " Plussed lists (?)
+setlocal comments+=n:>   " Mail-style quotes
+let &l:commentstring = '> %s'
 let b:undo_ftplugin = 'setlocal comments< commentstring<'
 
 " Specify format options
