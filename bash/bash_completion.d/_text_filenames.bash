@@ -140,6 +140,9 @@ _text_filenames() {
                 (*.swf) ;;
                 (*.webm) ;;
 
+                # Emacs
+                (\#*\#) ;;
+
                 # Vim
                 (*~) ;;
                 (*.swp) ;;

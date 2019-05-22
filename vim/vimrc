@@ -194,7 +194,7 @@ set virtualedit+=block
 set visualbell t_vb=
 
 " Tab completion settings
-set wildignore=*~
+set wildignore=*~,#*#
       \,*.7z
       \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
       \,*.bin,*.bmp,*.bz2
