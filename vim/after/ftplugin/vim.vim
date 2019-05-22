@@ -16,6 +16,12 @@ if &keywordprg !=# ':help'
   let b:undo_ftplugin .= '|setlocal keywordprg<'
 endif
 
+" Keywords for including files
+let &l:include = '\<source\>\|\<runtime!\=\>'
+
+" Search runtime paths for included scripts
+let &l:path = &runtimepath . ',' . &path
+
 " Adjust the match words for the matchit plugin; the default filetype plugin
 " matches e.g. an opening "function" with the first "return" within, which I
 " don't like
