@@ -10,7 +10,7 @@ if line('.') == 1 && col('.') == 1
   " we can just strip out; delete any following lines too, if they're blank
   if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\(\s\+\S\+\)\=[,;]*\s*$'
     delete
-    while getline('.') =~# '^>$'
+    while getline('.') =~# '^>\s*$'
       delete
     endwhile
   endif
