@@ -4,8 +4,14 @@ if exists('b:did_ftplugin')
 endif
 let b:did_ftplugin = 1
 
-setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
-setlocal formatoptions+=tcqln formatoptions-=r formatoptions-=o
+" Specify format for comments (lists, quotes)
+setlocal comments=fb:*,fb:-,fb:+,n:>
+setlocal commentstring=>\ %s
+
+" Specify format options
+setlocal formatoptions+=tcqln
+setlocal formatoptions-=o
+setlocal formatoptions-=r
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+\\\|^\\[^\\ze[^\\]]\\+\\]:
 
 if exists('b:undo_ftplugin')
