@@ -39,3 +39,6 @@ nnoremap <buffer> <LocalLeader>=
       \ :<C-U>MarkdownHeading =<CR>
 nnoremap <buffer> <LocalLeader>-
       \ :<C-U>MarkdownHeading -<CR>
+let b:undo_ftplugin .= '|delcommand MarkdownHeading'
+      \ . '|nunmap <buffer> <LocalLeader>='
+      \ . '|nunmap <buffer> <LocalLeader>-'
