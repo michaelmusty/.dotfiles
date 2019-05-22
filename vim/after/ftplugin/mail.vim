@@ -29,7 +29,7 @@ for lnum in range(1, line('$'))
   " Get the leading quote string, if any; stop if there isn't one
   let quote = matchstr(line, '^[> \t]\+')
   if strlen(quote) == 0
-    return
+    break
   endif
 
   " Normalise the quote with no intermediate and one trailing space
