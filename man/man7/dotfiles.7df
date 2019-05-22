@@ -44,9 +44,7 @@ $\ env\ \-i\ HOME="$tmpdir"\ TERM="$TERM"\ "$SHELL"\ \-l
 .fi
 .PP
 The default \f[C]install\f[] target will install these targets and all
-their dependencies.
-Note that you don't actually have to have any of this except \f[C]sh\f[]
-installed.
+their dependencies:
 .IP \[bu] 2
 \f[C]install\-bin\f[]
 .IP \[bu] 2
