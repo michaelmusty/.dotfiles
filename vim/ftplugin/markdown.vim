@@ -13,9 +13,7 @@ let &l:commentstring = '> %s'
 let b:undo_ftplugin = 'setlocal comments< commentstring<'
 
 " Specify format options
-setlocal formatoptions+=tcqln
-setlocal formatoptions-=o
-setlocal formatoptions-=r
+setlocal formatoptions+=ln
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
