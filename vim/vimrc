@@ -448,6 +448,9 @@ nnoremap <Leader><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Leader><Insert> :<C-U>enew<CR>
 
+" \TAB toggles 'autoindent'
+nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
+
 " Execution mappings; each of these clobbers register z
 
 " \@ executes line in normal mode
