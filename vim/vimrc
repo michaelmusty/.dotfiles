@@ -5,12 +5,12 @@
 runtime system.vim
 
 " Set an environment variable for the user runtime directory
-if !exists('$MYVIMRUNTIME')
-  let $MYVIMRUNTIME = expand(
-        \ has('win32') || has('win64')
-        \ ? '~/vimfiles'
-        \ : '~/.vim'
-        \ )
+if !exists('$MYVIM')
+  if has('win32') || has('win64')
+    let $MYVIM = expand('~/vimfiles')
+  else
+    let $MYVIM = expand('~/.vim')
+  endif
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -32,16 +32,16 @@ endif
 " encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
 if has('patch-8.1.251')
-  set backupdir^=$MYVIMRUNTIME/cache/backup//
+  set backupdir^=$MYVIM/cache/backup//
 else
-  set backupdir^=$MYVIMRUNTIME/cache/backup
+  set backupdir^=$MYVIM/cache/backup
 endif
 
 " Add some *nix paths not to back up
 if has('unix')
   set backupskip^=/dev/shm/*  " Shared memory RAM disk
-  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e`
-  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e`
+  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
+  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
@@ -65,7 +65,7 @@ set cpoptions+=J
 
 " Try to keep swap files in one system-appropriate directory, including full
 " encoded path in filename (trailing double slash)
-set directory^=$MYVIMRUNTIME/cache/swap//
+set directory^=$MYVIM/cache/swap//
 
 " Use UTF-8 if we can and $LANG doesn't tell us not to
 if has('multi_byte')
@@ -142,8 +142,8 @@ set nomodeline
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Search whole directory tree, and not /usr/include
-set path=**
+" Don't search /usr/include by default
+set path-=/usr/include
 
 " Disable command line display of file position
 " This is Vim's default, but not NeoVim's
@@ -173,8 +173,8 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" No terminal mouse, even if we could; the manual says to set 't_RV', but that
-" doesn't seem to work
+" No terminal mouse, even if we could; the manual says to set 't_RV', but
+" doing that doesn't seem to prevent 'ttyfast' from being set
 " Not in NeoVim
 if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
@@ -184,7 +184,7 @@ endif
 " (v7.2.438), including full encoded path in filename (trailing double slash)
 if has('persistent_undo')
   set undofile
-  set undodir^=$MYVIMRUNTIME/cache/undo//
+  set undodir^=$MYVIM/cache/undo//
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -194,7 +194,7 @@ set virtualedit+=block
 set visualbell t_vb=
 
 " Tab completion settings
-set wildignore=*~
+set wildignore=*~,#*#
       \,*.7z
       \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
       \,*.bin,*.bmp,*.bz2
@@ -447,6 +447,9 @@ xmap <Leader>\ <Plug>(RegexEscape)
 nnoremap <Leader><Delete> :bdelete<CR>
 " \INS edits a new buffer
 nnoremap <Leader><Insert> :<C-U>enew<CR>
+
+" \TAB toggles 'autoindent'
+nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 
 " Execution mappings; each of these clobbers register z
 

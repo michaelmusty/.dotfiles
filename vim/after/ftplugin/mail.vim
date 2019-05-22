@@ -6,11 +6,11 @@ if line('.') == 1 && col('.') == 1
   " no quote, which is fine
   call search('\m^>', 'c')
 
-  " Check this line to see if it's a generic hello-name greeting that we can
-  " just strip out; delete any following lines too, if they're blank
-  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\s\+\S\+\s*$'
+  " Check this line to see if it's a generic hello or hello-name greeting that
+  " we can just strip out; delete any following lines too, if they're blank
+  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\(\s\+\S\+\)\=[,;]*\s*$'
     delete
-    while getline('.') =~# '^>$'
+    while getline('.') =~# '^>\s*$'
       delete
     endwhile
   endif
@@ -20,15 +20,37 @@ if line('.') == 1 && col('.') == 1
 
 endif
 
+" Normalise quoting
+for lnum in range(1, line('$'))
+
+  " Get current line
+  let line = getline(lnum)
+
+  " Get the leading quote string, if any; stop if there isn't one
+  let quote = matchstr(line, '^[> \t]\+')
+  if strlen(quote) == 0
+    break
+  endif
+
+  " Normalise the quote with no intermediate and one trailing space
+  let quote = substitute(quote, '[^>]', '', 'g').' '
+
+  " Re-set the line
+  let line = substitute(line, '^[> \t]\+', quote, '')
+  call setline(lnum, line)
+
+endfor
+
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
 
 " Define what constitutes a 'blank line' for the squeeze_repeat_blanks.vim
-" plugin, if loaded, to include leading quotes and spaces
+" plugin, if loaded, to include leading quotes and spaces, and then do it
 if exists('loaded_squeeze_repeat_blanks')
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
+  silent SqueezeRepeatBlanks
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
