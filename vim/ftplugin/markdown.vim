@@ -13,7 +13,7 @@ let b:undo_ftplugin = 'setlocal comments< commentstring<'
 setlocal formatoptions+=tcqln
 setlocal formatoptions-=o
 setlocal formatoptions-=r
-setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+\\\|^\\[^\\ze[^\\]]\\+\\]:
+let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
 function! MarkdownFold()
