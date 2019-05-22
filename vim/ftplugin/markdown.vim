@@ -1,11 +1,8 @@
-" Vim filetype plugin
-" Language:		Markdown
-" Maintainer:		Tim Pope <vimNOSPAM@tpope.org>
-" Last Change:		2016 Aug 29
-
-if exists("b:did_ftplugin")
+" Only do this when not yet done for this buffer
+if exists('b:did_ftplugin')
   finish
 endif
+let b:did_ftplugin = 1
 
 setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
 setlocal formatoptions+=tcqln formatoptions-=r formatoptions-=o
@@ -89,4 +86,3 @@ nnoremap <buffer> <LocalLeader>-
 let b:undo_ftplugin .= '|delcommand MarkdownHeading'
       \ . '|nunmap <buffer> <LocalLeader>='
       \ . '|nunmap <buffer> <LocalLeader>-'
-" vim:set sw=2:
