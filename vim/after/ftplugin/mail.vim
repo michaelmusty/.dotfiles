@@ -46,10 +46,11 @@ setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
 
 " Define what constitutes a 'blank line' for the squeeze_repeat_blanks.vim
-" plugin, if loaded, to include leading quotes and spaces
+" plugin, if loaded, to include leading quotes and spaces, and then do it
 if exists('loaded_squeeze_repeat_blanks')
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
+  silent SqueezeRepeatBlanks
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
