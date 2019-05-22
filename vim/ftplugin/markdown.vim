@@ -7,7 +7,7 @@ let b:did_ftplugin = 1
 " Specify format for comments (lists, quotes)
 setlocal comments=fb:*,fb:-,fb:+,n:>
 setlocal commentstring=>\ %s
-let b:undo_ftplugin .= '|setlocal comments< commentstring<'
+let b:undo_ftplugin = 'setlocal comments< commentstring<'
 
 " Specify format options
 setlocal formatoptions+=tcqln
