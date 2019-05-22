@@ -17,33 +17,31 @@ setlocal formatoptions+=ln
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
+" Let's try this heading-based fold method out
 function! MarkdownFold()
   let line = getline(v:lnum)
 
   " Regular headers
   let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
   if depth > 0
-    return ">" . depth
+    return '>' . depth
   endif
 
   " Setext style headings
-  let nextline = getline(v:lnum + 1)
-  if (line =~ '^.\+$') && (nextline =~ '^=\+$')
-    return ">1"
+  if line =~ '^.\+$'
+    let nextline = getline(v:lnum + 1)
+    if nextline =~ '^=\+$'
+      return '>1'
+    elseif nextline =~ '^-\+$'
+      return '>2'
+    endif
   endif
 
-  if (line =~ '^.\+$') && (nextline =~ '^-\+$')
-    return ">2"
-  endif
-
-  return "="
+  return '='
 endfunction
-
-if has("folding") && exists("g:markdown_folding")
-  setlocal foldexpr=MarkdownFold()
-  setlocal foldmethod=expr
-  let b:undo_ftplugin .= " foldexpr< foldmethod<"
-endif
+setlocal foldexpr=MarkdownFold()
+setlocal foldmethod=expr
+let b:undo_ftplugin .= '|setlocal foldexpr< foldmethod<'
 
 " Spellcheck documents we're actually editing (not just viewing)
 if &modifiable && !&readonly
