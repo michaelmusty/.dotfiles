@@ -6,9 +6,9 @@ if line('.') == 1 && col('.') == 1
   " no quote, which is fine
   call search('\m^>', 'c')
 
-  " Check this line to see if it's a generic hello-name greeting that we can
-  " just strip out; delete any following lines too, if they're blank
-  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\s\+\S\+\s*$'
+  " Check this line to see if it's a generic hello or hello-name greeting that
+  " we can just strip out; delete any following lines too, if they're blank
+  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\(\s\+\S\+\)\=[,;]*\s*$'
     delete
     while getline('.') =~# '^>$'
       delete
