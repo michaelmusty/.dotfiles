@@ -20,6 +20,27 @@ if line('.') == 1 && col('.') == 1
 
 endif
 
+" Normalise quoting
+for lnum in range(1, line('$'))
+
+  " Get current line
+  let line = getline(lnum)
+
+  " Get the leading quote string, if any; stop if there isn't one
+  let quote = matchstr(line, '^[> \t]\+')
+  if strlen(quote) == 0
+    return
+  endif
+
+  " Normalise the quote with no intermediate and one trailing space
+  let quote = substitute(quote, '[^>]', '', 'g').' '
+
+  " Re-set the line
+  let line = substitute(line, '^[> \t]\+', quote, '')
+  call setline(lnum, line)
+
+endfor
+
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
