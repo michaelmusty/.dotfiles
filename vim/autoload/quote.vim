@@ -9,10 +9,9 @@ endfunction
 " Quoting operator function
 function! quote#QuoteOpfunc(type) abort
 
-  " May as well make this configurable
-  let char = exists('b:quote_char')
-        \ ? b:quote_char
-        \ : '>'
+  " Make character and space appending configurable
+  let char = get(b:, 'quote_char', '>')
+  let space = get(b:, 'quote_space', 1)
 
   " Iterate over each matched line
   for li in range(line('''['), line(''']'))
@@ -25,11 +24,13 @@ function! quote#QuoteOpfunc(type) abort
       continue
     endif
 
-    " Only add a space after the quote character if this line isn't already
-    " quoted with the same character
-    let new = cur[0] == char
-          \ ? char.cur
-          \ : char.' '.cur
+    " If configured to do so, add a a space after the quote character, but
+    " only if this line isn't already quoted
+    let new = char
+    if l:space && cur[0] != char
+      let new .= ' '
+    endif
+    let new .= cur
     call setline(li, new)
 
   endfor

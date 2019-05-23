@@ -1,3 +1,7 @@
+" Don't append spaces after quote chars, for strict compliance with
+" format=flowed
+let b:quote_space = 0
+
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
 if line('.') == 1 && col('.') == 1
@@ -6,10 +10,17 @@ if line('.') == 1 && col('.') == 1
   " no quote, which is fine
   call search('\m^>', 'c')
 
+  " Delete quoted blank lines until we get to something with substance
+  while getline('.') =~# '^>\s*$'
+    delete
+  endwhile
+
   " Check this line to see if it's a generic hello or hello-name greeting that
   " we can just strip out; delete any following lines too, if they're blank
   if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\%(\s\+\S\+\)\=[,;]*\s*$'
     delete
+
+    " Delete quoted blank lines again
     while getline('.') =~# '^>\s*$'
       delete
     endwhile
