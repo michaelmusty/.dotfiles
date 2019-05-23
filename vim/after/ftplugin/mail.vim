@@ -10,25 +10,28 @@ if line('.') == 1 && col('.') == 1
   " no quote, which is fine
   call search('\m^>', 'c')
 
-  " Delete quoted blank lines until we get to something with substance
-  while getline('.') =~# '^>\s*$'
+  " Delete quoted blank lines or quoted greetings until we get to something
+  " with substance.  Yes, I like Perl, how could you tell?
+  while getline('.') =~? '^> *'
+        \ . '\%('
+          \ . '\%('
+            \ . 'g''\=day'
+            \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
+            \ . '\|h[eu]\%(ll\|rr\)o\+'
+            \ . '\|hey\+'
+            \ . '\|hi\+'
+            \ . '\|sup'
+            \ . '\|what''s up'
+            \ . '\|yo'
+          \ . '\)'
+          \ . '[[:punct:] ]*'
+          \ . '\%('
+            \ . '\a\+'
+            \ . '[[:punct:] ]*'
+          \ . '\)\='
+        \ . '\)\=$'
     delete
   endwhile
-
-  " Check this line to see if it's a generic greeting that we can just strip
-  " out; delete any following lines too, if they're blank
-  if getline('.') =~? '^> *'
-        \ . '\%(h[eu]llo\+\|hey\+\|hi\+\|sup\|what''s up'
-        \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)\)'
-        \ . '\%( \a\+\)\='
-        \ . '[[:punct:]]* *$'
-    delete
-
-    " Delete quoted blank lines again
-    while getline('.') =~# '^>\s*$'
-      delete
-    endwhile
-  endif
 
   " Now move to the first quoted or unquoted blank line
   call search('\m^>\=$', 'c')
