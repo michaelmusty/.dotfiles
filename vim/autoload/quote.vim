@@ -10,9 +10,7 @@ endfunction
 function! quote#QuoteOpfunc(type) abort
 
   " May as well make this configurable
-  let char = exists('b:quote_char')
-        \ ? b:quote_char
-        \ : '>'
+  let char = get(b:, 'quote_char', '>')
 
   " Iterate over each matched line
   for li in range(line('''['), line(''']'))
