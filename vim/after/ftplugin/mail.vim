@@ -45,12 +45,19 @@ endfor
 setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
 
-" Define what constitutes a 'blank line' for the squeeze_repeat_blanks.vim
-" plugin, if loaded, to include leading quotes and spaces, and then do it
+" Mail-specific handling for custom vim-squeeze-repeat-blanks plugin
 if exists('loaded_squeeze_repeat_blanks')
+
+  " Set the blank line pattern
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
-  silent SqueezeRepeatBlanks
+
+  " If there is anything quoted in this message (i.e. it looks like a reply),
+  " squeeze blanks, but don't report lines deleted
+  if search('\m^>', 'cnw')
+    silent SqueezeRepeatBlanks
+  endif
+
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
