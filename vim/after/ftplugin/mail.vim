@@ -15,9 +15,9 @@ if line('.') == 1 && col('.') == 1
     delete
   endwhile
 
-  " Check this line to see if it's a generic hello or hello-name greeting that
-  " we can just strip out; delete any following lines too, if they're blank
-  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\%(\s\+\S\+\)\=[,;]*\s*$'
+  " Check this line to see if it's a generic greeting that we can just strip
+  " out; delete any following lines too, if they're blank
+  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\|\%(good\s\+\)\=\%(morning\|afternoon\|evening\)\)\%(\s\+\S\+\)\=[,;]*\s*$'
     delete
 
     " Delete quoted blank lines again
