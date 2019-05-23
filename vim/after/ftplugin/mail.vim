@@ -45,7 +45,7 @@ for lnum in range(1, line('$'))
   let line = getline(lnum)
 
   " Get the leading quote string, if any; stop if there isn't one
-  let quote = matchstr(line, '^[> \t]\+')
+  let quote = matchstr(line, '^[> ]\+')
   if strlen(quote) == 0
     continue
   endif
@@ -54,7 +54,7 @@ for lnum in range(1, line('$'))
   let quote = substitute(quote, '[^>]', '', 'g')
 
   " Re-set the line
-  let line = substitute(line, '^[> \t]\+', quote, '')
+  let line = substitute(line, '^[> ]\+', quote, '')
   call setline(lnum, line)
 
 endfor
