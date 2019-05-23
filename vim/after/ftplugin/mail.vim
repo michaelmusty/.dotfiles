@@ -1,3 +1,7 @@
+" Don't append spaces after quote chars, for strict compliance with
+" format=flowed
+let b:quote_space = 0
+
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
 if line('.') == 1 && col('.') == 1
