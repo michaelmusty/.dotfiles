@@ -32,8 +32,8 @@ for lnum in range(1, line('$'))
     break
   endif
 
-  " Normalise the quote with no intermediate and one trailing space
-  let quote = substitute(quote, '[^>]', '', 'g').' '
+  " Normalise the quote with no spaces
+  let quote = substitute(quote, '[^>]', '', 'g')
 
   " Re-set the line
   let line = substitute(line, '^[> \t]\+', quote, '')
