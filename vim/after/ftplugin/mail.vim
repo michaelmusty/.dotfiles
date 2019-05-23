@@ -8,7 +8,7 @@ if line('.') == 1 && col('.') == 1
 
   " Check this line to see if it's a generic hello or hello-name greeting that
   " we can just strip out; delete any following lines too, if they're blank
-  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\(\s\+\S\+\)\=[,;]*\s*$'
+  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\%(\s\+\S\+\)\=[,;]*\s*$'
     delete
     while getline('.') =~# '^>\s*$'
       delete
@@ -32,8 +32,8 @@ for lnum in range(1, line('$'))
     break
   endif
 
-  " Normalise the quote with no intermediate and one trailing space
-  let quote = substitute(quote, '[^>]', '', 'g').' '
+  " Normalise the quote with no spaces
+  let quote = substitute(quote, '[^>]', '', 'g')
 
   " Re-set the line
   let line = substitute(line, '^[> \t]\+', quote, '')
@@ -45,12 +45,19 @@ endfor
 setlocal formatoptions+=w
 let b:undo_ftplugin .= '|setlocal formatoptions<'
 
-" Define what constitutes a 'blank line' for the squeeze_repeat_blanks.vim
-" plugin, if loaded, to include leading quotes and spaces, and then do it
+" Mail-specific handling for custom vim-squeeze-repeat-blanks plugin
 if exists('loaded_squeeze_repeat_blanks')
+
+  " Set the blank line pattern
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
-  silent SqueezeRepeatBlanks
+
+  " If there is anything quoted in this message (i.e. it looks like a reply),
+  " squeeze blanks, but don't report lines deleted
+  if search('\m^>', 'cnw')
+    silent SqueezeRepeatBlanks
+  endif
+
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
