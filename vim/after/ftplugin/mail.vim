@@ -10,21 +10,28 @@ if line('.') == 1 && col('.') == 1
   " no quote, which is fine
   call search('\m^>', 'c')
 
-  " Delete quoted blank lines until we get to something with substance
-  while getline('.') =~# '^>\s*$'
+  " Delete quoted blank lines or quoted greetings until we get to something
+  " with substance.  Yes, I like Perl, how could you tell?
+  while getline('.') =~? '^> *'
+        \ . '\%('
+          \ . '\%('
+            \ . 'g''\=day'
+            \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
+            \ . '\|h[eu]\%(ll\|rr\)o\+'
+            \ . '\|hey\+'
+            \ . '\|hi\+'
+            \ . '\|sup'
+            \ . '\|what''s up'
+            \ . '\|yo'
+          \ . '\)'
+          \ . '[[:punct:] ]*'
+          \ . '\%('
+            \ . '\a\+'
+            \ . '[[:punct:] ]*'
+          \ . '\)\='
+        \ . '\)\=$'
     delete
   endwhile
-
-  " Check this line to see if it's a generic hello or hello-name greeting that
-  " we can just strip out; delete any following lines too, if they're blank
-  if getline('.') =~? '^>\s*\%(<hello\|hey\+\|hi\)\%(\s\+\S\+\)\=[,;]*\s*$'
-    delete
-
-    " Delete quoted blank lines again
-    while getline('.') =~# '^>\s*$'
-      delete
-    endwhile
-  endif
 
   " Now move to the first quoted or unquoted blank line
   call search('\m^>\=$', 'c')
@@ -38,7 +45,7 @@ for lnum in range(1, line('$'))
   let line = getline(lnum)
 
   " Get the leading quote string, if any; stop if there isn't one
-  let quote = matchstr(line, '^[> \t]\+')
+  let quote = matchstr(line, '^[> ]\+')
   if strlen(quote) == 0
     continue
   endif
@@ -47,7 +54,7 @@ for lnum in range(1, line('$'))
   let quote = substitute(quote, '[^>]', '', 'g')
 
   " Re-set the line
-  let line = substitute(line, '^[> \t]\+', quote, '')
+  let line = substitute(line, '^[> ]\+', quote, '')
   call setline(lnum, line)
 
 endfor
