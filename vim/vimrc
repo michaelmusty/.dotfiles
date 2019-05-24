@@ -120,9 +120,7 @@ set lazyredraw
 set linebreak
 
 " Define extra 'list' display characters
-if has('nvim')  " Neovim adds duplicates otherwise
-  set listchars&vi
-endif
+set listchars&vi  " Neovim adds duplicates otherwise
 set listchars+=tab:>-      " Tab characters, preserve width
 set listchars+=trail:-     " Trailing spaces
 set listchars+=extends:>   " Unwrapped text to screen right
