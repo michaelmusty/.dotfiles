@@ -27,7 +27,7 @@ function! quote#QuoteOpfunc(type) abort
     " If configured to do so, add a a space after the quote character, but
     " only if this line isn't already quoted
     let new = char
-    if l:space && cur[0] != char
+    if space && cur[0] != char
       let new .= ' '
     endif
     let new .= cur
