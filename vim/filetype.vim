@@ -418,6 +418,7 @@ augroup filetypedetect
   " .viminfo files
   autocmd BufNewFile,BufRead
         \ .viminfo
+        \,viminfo
         \ setfiletype viminfo
   " .wgetrc files
   autocmd BufNewFile,BufRead
