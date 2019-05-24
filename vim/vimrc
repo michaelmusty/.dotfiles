@@ -41,10 +41,11 @@ if &backspace !=# ''
 endif
 
 " Add some *nix paths not to back up
+"   /dev/shm: Shared memory RAM disk
+"   /usr/tmp: Hard-coded path for `sudo -e` 1/2
+"   /var/tmp: Hard-coded path for `sudo -e` 2/2
 if has('unix')
-  set backupskip^=/dev/shm/*  " Shared memory RAM disk
-        \,/usr/tmp/*          " Hard-coded paths for `sudo -e` 1/2
-        \,/var/tmp/*          " Hard-coded paths for `sudo -e` 2/2
+  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
@@ -57,8 +58,9 @@ set comments=
 set commentstring=
 
 " Add completion options
-set completeopt+=longest  " Insert longest common substring
-      \,menuone           " Show the menu even if only one match
+"   longest: Insert longest common substring
+"   menuone: Show the menu even if only one match
+set completeopt+=longest,menuone
 
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
@@ -133,11 +135,12 @@ set lazyredraw
 set linebreak
 
 " Define extra 'list' display characters
-set listchars+=extends:>  " Unwrapped text to screen right
-      \,nbsp:+            " Non-breaking spaces
-      \,precedes:<        " Unwrapped text to screen left
-      \,tab:>-            " Tab characters, preserve width
-      \,trail:-           " Trailing spaces
+"   extends: Unwrapped text to screen right
+"   nbsp: Non-breaking spaces
+"   precedes: Unwrapped text to screen left
+"   tab: Tab characters, preserve width
+"   trail: Trailing spaces
+set listchars+=extends:>,nbsp:+,precedes:<,tab:>-,trail:-
 
 " Don't allow setting options via buffer content
 set nomodeline
