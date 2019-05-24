@@ -137,7 +137,7 @@ set listchars+=extends:>  " Unwrapped text to screen right
       \,nbsp:+            " Non-breaking spaces
       \,precedes:<        " Unwrapped text to screen left
       \,tab:>-            " Tab characters, preserve width
-      \,trail:_           " Trailing spaces
+      \,trail:-           " Trailing spaces
 
 " Don't allow setting options via buffer content
 set nomodeline
