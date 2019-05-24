@@ -12,13 +12,12 @@ set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
 
-" Make a tab key in insert mode add the same number of spaces as 'shiftwidth'
-if v:version > 703  " Can use negative value as reference to &shiftwidth
-      \ || v:version == 703 && has('patch693')
-  set softtabstop=-1
-else
-  let &softtabstop = &shiftwidth
-endif
+" Make insert mode tab key add the same number of spaces as 'shiftwidth', use
+" negative value to do this if Vim new enough to support it
+let &softtabstop =
+      \ v:version > 703 || v:version == 703 && has('patch693')
+      \ ? -1
+      \ : &shiftwidth
 
 " Restore insert mode 'backspace' limits to the stringent Vim default, if a
 " system vimrc or Neovim has messed with it
