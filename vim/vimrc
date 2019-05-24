@@ -1,9 +1,6 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 " Requires Vim 7.0 or newer with +eval.
 
-" Undo anything the operating system's vimrc may have broken
-runtime system.vim
-
 " Set an environment variable for the user runtime directory
 if !exists('$MYVIM')
   if has('win32') || has('win64')
@@ -35,6 +32,12 @@ if has('patch-8.1.251')
   set backupdir^=$MYVIM/cache/backup//
 else
   set backupdir^=$MYVIM/cache/backup
+endif
+
+" Restore insert mode 'backspace' limits to the stringent Vim default, if a
+" system vimrc or Neovim's heretical defaults has messed with it
+if &backspace !=# ''
+  set backspace=
 endif
 
 " Add some *nix paths not to back up
@@ -149,6 +152,12 @@ set path-=/usr/include
 " This is Vim's default, but not NeoVim's
 if &ruler
   set noruler
+endif
+
+" Remove Debian's 'runtimepath' nonsense if present
+if &runtimepath =~# '/var/lib/vim/addons'
+  set runtimepath-=/var/lib/vim/addons
+  set runtimepath-=/var/lib/vim/addons/after
 endif
 
 " Make sessions usable
