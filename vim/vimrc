@@ -238,11 +238,11 @@ catch
   set background=dark
 endtry
 
-" Remap normal space to scroll down a page
-nnoremap <Space> <PageDown>
-" Do a :next after hitting the last line
-if &loadplugins  " Don't change the mapping if we won't be loading the plugin
+" Space bar scrolls down a page, :next if plugin available
+if &loadplugins
   nmap <Space> <Plug>(ScrollNext)
+else
+  nnoremap <Space> <PageDown>
 endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation
