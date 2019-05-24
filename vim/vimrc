@@ -36,9 +36,7 @@ endif
 
 " Restore insert mode 'backspace' limits to the stringent Vim default, if a
 " system vimrc or Neovim's heretical defaults has messed with it
-if &backspace !=# ''
-  set backspace=
-endif
+set backspace=
 
 " Add some *nix paths not to back up
 "   /dev/shm: Shared memory RAM disk
@@ -124,9 +122,7 @@ set incsearch
 
 " Don't show a status line if there's only one window
 " This is Vim's default, but not Neovim's
-if &laststatus != 1
-  set laststatus=1
-endif
+set laststatus=1
 
 " Don't redraw the screen during batch execution
 set lazyredraw
@@ -153,15 +149,11 @@ set path-=/usr/include
 
 " Disable command line display of file position if a system vimrc or Neovim
 " has switched it on
-if &ruler
-  set noruler
-endif
+set noruler
 
 " Remove Debian's 'runtimepath' nonsense if present
-if stridx(&runtimepath, '/var/lib/vim/addons') != -1
-  set runtimepath-=/var/lib/vim/addons
-  set runtimepath-=/var/lib/vim/addons/after
-endif
+set runtimepath-=/var/lib/vim/addons
+set runtimepath-=/var/lib/vim/addons/after
 
 " Make sessions usable
 set sessionoptions-=localoptions  " No buffer options or mappings
@@ -186,9 +178,9 @@ if &term =~# '^putty'
 endif
 
 " No terminal mouse, even if we could; the manual says to set 't_RV', but
-" doing that doesn't seem to prevent 'ttyfast' from being set
-" Not in Neovim
-if exists('+ttymouse') && &ttymouse !=# ''
+" doing that doesn't seem to prevent 'ttyfast' from being set; check for
+" option existence as this is not an option in Neovim
+if exists('+ttymouse')
   set ttymouse=
 endif
 
@@ -248,7 +240,7 @@ try
   colorscheme sahara
   set cursorline
 catch
-  if &background != 'dark'
+  if &background != 'dark'  " Avoid reloading syntax files unnecessarily
     set background=dark
   endif
 endtry
