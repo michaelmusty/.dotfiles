@@ -191,6 +191,14 @@ if has('persistent_undo')
   set undodir^=$MYVIM/cache/undo//
 endif
 
+" Keep the viminfo file in the ~/.vim directory, mostly to stop history
+" getting clobbered when something runs Vim without using this file
+if exists('+viminfofile')  " Use the new method if we can (v8.1.716)
+  let &viminfofile = $MYVIM.'/viminfo'
+else  " Use old method instead; it works fine, it's just a bit clunky
+  execute 'set viminfo+=n'.escape($MYVIM.'/viminfo', '\ ')
+endif
+
 " Let me move beyond buffer text in visual block mode
 set virtualedit+=block
 
