@@ -182,7 +182,7 @@ endif
 " getting clobbered when something runs Vim without using this vimrc
 let $VIMINFO = $MYVIM.'/viminfo'
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
-  let &viminfofile = $VIMINFO
+  set viminfofile=$VIMINFO
 else  " Resort to clunkier method with 'viminfo' option flag
   execute 'set viminfo+=n'.escape($VIMINFO, '\ ')
 endif
