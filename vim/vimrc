@@ -158,7 +158,7 @@ if &ruler
 endif
 
 " Remove Debian's 'runtimepath' nonsense if present
-if &runtimepath =~# '/var/lib/vim/addons'
+if stridx(&runtimepath, '/var/lib/vim/addons') != -1
   set runtimepath-=/var/lib/vim/addons
   set runtimepath-=/var/lib/vim/addons/after
 endif
