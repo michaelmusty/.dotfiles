@@ -70,10 +70,8 @@ set cpoptions+=J
 " encoded path in filename (trailing double slash)
 set directory^=$MYVIM/cache/swap//
 
-" Use UTF-8 if we can and $LANG doesn't tell us not to
-if has('multi_byte')
-      \ && !exists('$LANG')
-      \ && &encoding ==# 'latin1'
+" Default to UTF-8 if $LANG didn't specify
+if !exists('$LANG')
   set encoding=utf-8
 endif
 
