@@ -25,6 +25,10 @@ else
   let &softtabstop = &shiftwidth
 endif
 
+" Restore insert mode 'backspace' limits to the stringent Vim default, if a
+" system vimrc or Neovim's heretical defaults has messed with it
+set backspace=
+
 " Try to keep backups in one system-appropriate directory, including full
 " encoded path in filename (trailing double slash) if supported (v8.1.251)
 set backup
@@ -33,10 +37,6 @@ if has('patch-8.1.251')
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-
-" Restore insert mode 'backspace' limits to the stringent Vim default, if a
-" system vimrc or Neovim's heretical defaults has messed with it
-set backspace=
 
 " Add some *nix paths not to back up
 "   /dev/shm: Shared memory RAM disk
