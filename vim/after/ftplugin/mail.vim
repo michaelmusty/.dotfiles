@@ -34,7 +34,7 @@ if line('.') == 1 && col('.') == 1
   endwhile
 
   " Now move to the first quoted or unquoted blank line
-  call search('\m^>\=$', 'c')
+  call search('\m^>\= *$', 'c')
 
 endif
 

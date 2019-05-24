@@ -1,16 +1,13 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 " Requires Vim 7.0 or newer with +eval.
 
-" Undo anything the operating system's vimrc may have broken
-runtime system.vim
-
 " Set an environment variable for the user runtime directory
 if !exists('$MYVIM')
-  if has('win32') || has('win64')
-    let $MYVIM = expand('~/vimfiles')
-  else
-    let $MYVIM = expand('~/.vim')
-  endif
+  let $MYVIM = expand(
+        \ has('win32') || has('win64')
+        \ ? '~/vimfiles'
+        \ : '~/.vim'
+        \ )
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -37,11 +34,16 @@ else
   set backupdir^=$MYVIM/cache/backup
 endif
 
+" Restore insert mode 'backspace' limits to the stringent Vim default, if a
+" system vimrc or Neovim's heretical defaults has messed with it
+set backspace=
+
 " Add some *nix paths not to back up
+"   /dev/shm: Shared memory RAM disk
+"   /usr/tmp: Hard-coded path for `sudo -e` 1/2
+"   /var/tmp: Hard-coded path for `sudo -e` 2/2
 if has('unix')
-  set backupskip^=/dev/shm/*  " Shared memory RAM disk
-  set backupskip^=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
-  set backupskip^=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
+  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
@@ -54,8 +56,9 @@ set comments=
 set commentstring=
 
 " Add completion options
-set completeopt+=longest  " Insert longest common substring
-set completeopt+=menuone  " Show the menu even if only one match
+"   longest: Insert longest common substring
+"   menuone: Show the menu even if only one match
+set completeopt+=longest,menuone
 
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
@@ -75,7 +78,7 @@ if has('multi_byte')
 endif
 
 " Don't wait for a key after Escape in insert mode
-" Not in NeoVim
+" Not in Neovim
 if exists('+esckeys')
   set noesckeys
 endif
@@ -118,10 +121,8 @@ set include=
 set incsearch
 
 " Don't show a status line if there's only one window
-" This is Vim's default, but not NeoVim's
-if &laststatus != 1
-  set laststatus=1
-endif
+" This is Vim's default, but not Neovim's
+set laststatus=1
 
 " Don't redraw the screen during batch execution
 set lazyredraw
@@ -130,11 +131,12 @@ set lazyredraw
 set linebreak
 
 " Define extra 'list' display characters
-set listchars+=extends:>   " Unwrapped text to screen right
-set listchars+=nbsp:+      " Non-breaking spaces
-set listchars+=precedes:<  " Unwrapped text to screen left
-set listchars+=tab:>-      " Tab characters, preserve width
-set listchars+=trail:_     " Trailing spaces
+"   extends: Unwrapped text to screen right
+"   nbsp: Non-breaking spaces
+"   precedes: Unwrapped text to screen left
+"   tab: Tab characters, preserve width
+"   trail: Trailing spaces
+set listchars+=extends:>,nbsp:+,precedes:<,tab:>-,trail:-
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -145,11 +147,13 @@ set nrformats-=octal
 " Don't search /usr/include by default
 set path-=/usr/include
 
-" Disable command line display of file position
-" This is Vim's default, but not NeoVim's
-if &ruler
-  set noruler
-endif
+" Disable command line display of file position if a system vimrc or Neovim
+" has switched it on
+set noruler
+
+" Remove Debian's 'runtimepath' nonsense if present
+set runtimepath-=/var/lib/vim/addons
+set runtimepath-=/var/lib/vim/addons/after
 
 " Make sessions usable
 set sessionoptions-=localoptions  " No buffer options or mappings
@@ -168,15 +172,15 @@ set splitright  " Right of the current window, not left
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
-" PuTTY is a fast terminal
+" PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
   set ttyfast
 endif
 
 " No terminal mouse, even if we could; the manual says to set 't_RV', but
-" doing that doesn't seem to prevent 'ttyfast' from being set
-" Not in NeoVim
-if exists('+ttymouse') && &ttymouse !=# ''
+" doing that doesn't seem to prevent 'ttyfast' from being set; check for
+" option existence as this is not an option in Neovim
+if exists('+ttymouse')
   set ttymouse=
 endif
 
@@ -236,7 +240,9 @@ try
   colorscheme sahara
   set cursorline
 catch
-  set background=dark
+  if &background != 'dark'  " Avoid reloading syntax files unnecessarily
+    set background=dark
+  endif
 endtry
 
 " Remap normal space to scroll down a page
