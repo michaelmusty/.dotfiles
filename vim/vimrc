@@ -245,7 +245,9 @@ try
   colorscheme sahara
   set cursorline
 catch
-  set background=dark
+  if &background != 'dark'
+    set background=dark
+  endif
 endtry
 
 " Remap normal space to scroll down a page
