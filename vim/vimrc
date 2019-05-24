@@ -12,10 +12,8 @@ set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
 
-" The number of spaces the Tab key should insert should follow 'shiftwidth';
-" if Vim is new enough (v7.3.693), use a negative value to automate this,
-" otherwise just use its present value
-if v:version > 703
+" Make a tab key in insert mode add the same number of spaces as 'shiftwidth'
+if v:version > 703  " Can use negative value as reference to &shiftwidth
       \ || v:version == 703 && has('patch693')
   set softtabstop=-1
 else
@@ -23,24 +21,23 @@ else
 endif
 
 " Restore insert mode 'backspace' limits to the stringent Vim default, if a
-" system vimrc or Neovim's heretical defaults has messed with it
+" system vimrc or Neovim has messed with it
 set backspace=
 
-" Try to keep backups in one system-appropriate directory, including full
-" encoded path in filename (trailing double slash) if supported (v8.1.251)
+" Keep backup files in dedicated directory
 set backup
-if has('patch-8.1.251')
+if has('patch-8.1.251')  " Can keep full path in filename
   set backupdir^=$MYVIM/cache/backup//
 else
   set backupdir^=$MYVIM/cache/backup
 endif
 
 " Add some *nix paths not to back up
-"   /dev/shm: Shared memory RAM disk
-"   /usr/tmp: Hard-coded path for `sudo -e` 1/2
-"   /var/tmp: Hard-coded path for `sudo -e` 2/2
 if has('unix')
-  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
+  set backupskip&  " Reset to avoid duplicates (Vim bug?)
+  set backupskip+=/dev/shm/*  " Shared memory RAM disk
+  set backupskip+=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
+  set backupskip+=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
 endif
 
 " Indent wrapped lines if supported (v7.4.338)
@@ -53,9 +50,8 @@ set comments=
 set commentstring=
 
 " Add completion options
-"   longest: Insert longest common substring
-"   menuone: Show the menu even if only one match
-set completeopt+=longest,menuone
+set completeopt+=longest  " Insert longest common substring
+set completeopt+=menuone  " Show the menu even if only one match
 
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
@@ -63,11 +59,10 @@ set confirm
 " Sentence objects are separated by two spaces
 set cpoptions+=J
 
-" Try to keep swap files in one system-appropriate directory, including full
-" encoded path in filename (trailing double slash)
+" Keep swap files in dedicated directory, named with full path
 set directory^=$MYVIM/cache/swap//
 
-" Default to UTF-8 if $LANG didn't specify
+" If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
   set encoding=utf-8
 endif
@@ -82,13 +77,13 @@ endif
 set foldlevelstart=99
 set foldmethod=indent
 
-" Delete comment leaders when joining lines, if supported (v7.3.541)
+" Delete comment leaders when joining lines, if supported
 if v:version > 703
       \ || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
-" Don't break a single space after a period, if supported (v8.1.728)
+" Don't break a single space after a period, if supported
 if has('patch-8.1.728')
   set formatoptions+=p
 endif
@@ -126,12 +121,14 @@ set lazyredraw
 set linebreak
 
 " Define extra 'list' display characters
-"   extends: Unwrapped text to screen right
-"   nbsp: Non-breaking spaces
-"   precedes: Unwrapped text to screen left
-"   tab: Tab characters, preserve width
-"   trail: Trailing spaces
-set listchars+=extends:>,nbsp:+,precedes:<,tab:>-,trail:-
+if has('nvim')  " Neovim adds duplicates otherwise
+  set listchars&vi
+endif
+set listchars+=tab:>-      " Tab characters, preserve width
+set listchars+=trail:-     " Trailing spaces
+set listchars+=extends:>   " Unwrapped text to screen right
+set listchars+=precedes:<  " Unwrapped text to screen left
+set listchars+=nbsp:+      " Non-breaking spaces
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -146,7 +143,7 @@ set path-=/usr/include
 " has switched it on
 set noruler
 
-" Remove Debian's 'runtimepath' nonsense if present
+" Remove Debian's 'runtimepath' addenda if present
 set runtimepath-=/var/lib/vim/addons
 set runtimepath-=/var/lib/vim/addons/after
 
@@ -172,25 +169,23 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" No terminal mouse, even if we could; the manual says to set 't_RV', but
-" doing that doesn't seem to prevent 'ttyfast' from being set; check for
-" option existence as this is not an option in Neovim
-if exists('+ttymouse')
+" Don't use terminal mouse support, even if it would work; the manual says to
+" set 't_RV' to do this, but that doesn't seem to work
+if exists('+ttymouse')  " No such option in Neovim
   set ttymouse=
 endif
 
-" Try to keep persistent undo files in one system-appropriate directory
-" (v7.2.438), including full encoded path in filename (trailing double slash)
-if has('persistent_undo')
+" Keep persistent undo files in dedicated directory, named with full path
+if has('persistent_undo')  " v7.2.438
   set undofile
   set undodir^=$MYVIM/cache/undo//
 endif
 
 " Keep the viminfo file in the ~/.vim directory, mostly to stop history
 " getting clobbered when something runs Vim without using this file
-if exists('+viminfofile')  " Use the new method if we can (v8.1.716)
+if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   let &viminfofile = $MYVIM.'/viminfo'
-else  " Use old method instead; it works fine, it's just a bit clunky
+else  " Resort to clunkier method with 'viminfo' option flag
   execute 'set viminfo+=n'.escape($MYVIM.'/viminfo', '\ ')
 endif
 
