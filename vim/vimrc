@@ -78,7 +78,7 @@ if has('multi_byte')
 endif
 
 " Don't wait for a key after Escape in insert mode
-" Not in NeoVim
+" Not in Neovim
 if exists('+esckeys')
   set noesckeys
 endif
@@ -121,7 +121,7 @@ set include=
 set incsearch
 
 " Don't show a status line if there's only one window
-" This is Vim's default, but not NeoVim's
+" This is Vim's default, but not Neovim's
 if &laststatus != 1
   set laststatus=1
 endif
@@ -149,7 +149,7 @@ set nrformats-=octal
 set path-=/usr/include
 
 " Disable command line display of file position
-" This is Vim's default, but not NeoVim's
+" This is Vim's default, but not Neovim's
 if &ruler
   set noruler
 endif
@@ -184,7 +184,7 @@ endif
 
 " No terminal mouse, even if we could; the manual says to set 't_RV', but
 " doing that doesn't seem to prevent 'ttyfast' from being set
-" Not in NeoVim
+" Not in Neovim
 if exists('+ttymouse') && &ttymouse !=# ''
   set ttymouse=
 endif
