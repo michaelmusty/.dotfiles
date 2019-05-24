@@ -224,7 +224,6 @@ endif
 set wildmode=list:longest  " Tab press completes and lists
 
 " Load filetype settings, plugins, and maps
-let maplocalleader = ','
 filetype plugin indent on
 
 " Use syntax highlighting
@@ -287,6 +286,10 @@ nnoremap ]l :lnext<CR>
 " Insert blank lines around current line
 nmap [<Space> <Plug>(PutBlankLinesAbove)
 nmap ]<Space> <Plug>(PutBlankLinesBelow)
+
+" Set leader keys
+let mapleader = '\'
+let maplocalleader = ','
 
 " \a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Leader>a :<C-U>ToggleFlagLocal formatoptions a<CR>
