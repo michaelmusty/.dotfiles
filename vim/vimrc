@@ -148,8 +148,8 @@ set nrformats-=octal
 " Don't search /usr/include by default
 set path-=/usr/include
 
-" Disable command line display of file position
-" This is Vim's default, but not Neovim's
+" Disable command line display of file position if a system vimrc or Neovim
+" has switched it on
 if &ruler
   set noruler
 endif
@@ -177,7 +177,7 @@ set splitright  " Right of the current window, not left
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
-" PuTTY is a fast terminal
+" PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
   set ttyfast
 endif
