@@ -1,13 +1,10 @@
 " Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
 " Requires Vim 7.0 or newer with +eval.
 
-" Set an environment variable for the user runtime directory
+" Set an environment variable for the user runtime directory, if not already
+" set; use the first element of &runtimepath, rather like 'spellfile'
 if !exists('$MYVIM')
-  let $MYVIM = expand(
-        \ has('win32') || has('win64')
-        \ ? '~/vimfiles'
-        \ : '~/.vim'
-        \ )
+  let $MYVIM = expand(split(&runtimepath, ',')[0])
 endif
 
 " The all-important default indent settings; filetypes to tweak
