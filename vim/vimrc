@@ -3,11 +3,11 @@
 
 " Set an environment variable for the user runtime directory
 if !exists('$MYVIM')
-  if has('win32') || has('win64')
-    let $MYVIM = expand('~/vimfiles')
-  else
-    let $MYVIM = expand('~/.vim')
-  endif
+  let $MYVIM = expand(
+        \ has('win32') || has('win64')
+        \ ? '~/vimfiles'
+        \ : '~/.vim'
+        \ )
 endif
 
 " The all-important default indent settings; filetypes to tweak
