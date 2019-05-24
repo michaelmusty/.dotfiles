@@ -418,9 +418,9 @@ nnoremap <Leader>y :<C-U>registers<CR>
 nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz<CR>
 
 " \= runs the whole buffer through =, preserving position
-nnoremap <Leader>= :<C-U>call vimrc#Anchor('1G=G')<CR>
+nnoremap <Leader>= m`1G=G``
 " \+ runs the whole buffer through gq, preserving position
-nnoremap <Leader>+ :<C-U>call vimrc#Anchor('1GgqG')<CR>
+nnoremap <Leader>+ m`1GgqG``
 
 " \. runs the configured make program into the location list
 nnoremap <Leader>. :<C-U>lmake!<CR>
