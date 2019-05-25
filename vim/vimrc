@@ -179,7 +179,7 @@ endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
 " getting clobbered when something runs Vim without using this vimrc
-let $VIMINFO = $MYVIM.'/viminfo'
+let $VIMINFO = $MYVIM.'/cache/viminfo'
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$VIMINFO
 else  " Resort to clunkier method with 'viminfo' option flag
