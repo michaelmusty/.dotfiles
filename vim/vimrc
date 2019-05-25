@@ -466,3 +466,14 @@ nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
+
+" Automatic quickfix window and location list opening, merci romainl
+augroup quickfix_auto_open
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
+  autocmd VimEnter * cwindow
+augroup END
+
+augroup equalalways_resized
+  autocmd!
