@@ -15,7 +15,7 @@ if line('.') == 1 && col('.') == 1
   while getline('.') =~? '^> *'
         \ . '\%('
           \ . '\%('
-            \ . 'g''\=day'
+            \ . 'g[''’]\=day'
             \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
             \ . '\|h[eu]\%(ll\|rr\)o\+'
             \ . '\|hey\+'
