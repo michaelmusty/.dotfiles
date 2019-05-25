@@ -14,22 +14,21 @@ set shiftwidth=4  " Indent with four spaces
 
 " Make insert mode tab key add the same number of spaces as 'shiftwidth', use
 " negative value to do this if Vim new enough to support it
-let &softtabstop =
-      \ v:version > 703 || v:version == 703 && has('patch693')
-      \ ? -1
-      \ : &shiftwidth
+let &softtabstop = v:version > 703
+      \ || v:version == 703 && has('patch693')
+      \ ? -1 : &shiftwidth
 
 " Restore insert mode 'backspace' limits to the stringent Vim default, if a
 " system vimrc or Neovim has messed with it
 set backspace=
 
-" Keep backup files in dedicated directory
+" Keep backup files in dedicated directory; add trailing double-slash to keep
+" full path in name, if Vim is new enough to support that
 set backup
-if has('patch-8.1.251')  " Can keep full path in filename
-  set backupdir^=$MYVIM/cache/backup//
-else
-  set backupdir^=$MYVIM/cache/backup
-endif
+execute 'set backupdir^='
+      \ . escape($MYVIM, '\ ')
+      \ . '/cache/backup'
+      \ . (has('patch-8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
 if has('unix')
