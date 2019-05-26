@@ -101,6 +101,7 @@ set thorough_search = yes
 set time_inc = 250
 
 # Encryption settings
+set crypt_protected_headers_write = yes
 set crypt_replysign = yes
 set crypt_replyencrypt = yes
 set crypt_replysignencrypted = yes
