@@ -87,6 +87,7 @@ set quote_regexp = '^(>[ \t]*)+'
 
 # Responses
 set fast_reply = yes
+set forward_attachments = yes
 set forward_format = 'Fw: %s'
 set include = yes
 set use_envelope_from = yes
