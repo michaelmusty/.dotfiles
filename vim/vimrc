@@ -4,7 +4,9 @@
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
 if !exists('$MYVIM')
-  let $MYVIM = expand(split(&runtimepath, ',')[0])
+  let $MYVIM = expand(
+        \ strpart(&runtimepath, 0, stridx(&runtimepath, ','))
+        \ )
 endif
 
 " The all-important default indent settings; filetypes to tweak
