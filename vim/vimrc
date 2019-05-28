@@ -4,7 +4,9 @@
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
 if !exists('$MYVIM')
-  let $MYVIM = expand(split(&runtimepath, ',')[0])
+  let $MYVIM = expand(
+        \ strpart(&runtimepath, 0, stridx(&runtimepath, ','))
+        \ )
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -25,9 +27,7 @@ set backspace=
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='
-      \ . escape($MYVIM, '\ ')
-      \ . '/cache/backup'
+execute 'set backupdir^='.escape($MYVIM, '\ ').'/cache/backup'
       \ . (has('patch-8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
@@ -179,7 +179,7 @@ endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
 " getting clobbered when something runs Vim without using this vimrc
-let $VIMINFO = $MYVIM.'/viminfo'
+let $VIMINFO = $MYVIM.'/cache/viminfo'
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$VIMINFO
 else  " Resort to clunkier method with 'viminfo' option flag

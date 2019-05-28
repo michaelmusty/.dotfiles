@@ -87,6 +87,7 @@ set quote_regexp = '^(>[ \t]*)+'
 
 # Responses
 set fast_reply = yes
+set forward_attachments = yes
 set forward_format = 'Fw: %s'
 set include = yes
 set use_envelope_from = yes
@@ -101,6 +102,7 @@ set thorough_search = yes
 set time_inc = 250
 
 # Encryption settings
+set crypt_protected_headers_write = yes
 set crypt_replysign = yes
 set crypt_replyencrypt = yes
 set crypt_replysignencrypted = yes
