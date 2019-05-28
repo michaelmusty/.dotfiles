@@ -1,5 +1,5 @@
 " :compiler support for Korn shell syntax checking with `ksh -n`
-if exists('current_compiler') || &compatible || v:version < 800
+if exists('current_compiler') || &compatible || !has('patch-7.4.191')
   finish
 endif
 let current_compiler = 'ksh'
