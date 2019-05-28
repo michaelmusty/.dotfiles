@@ -68,9 +68,6 @@
 [submodule "vim/bundle/toggle_flags"]
     path = vim/bundle/toggle_flags
     url = https://sanctum.geek.nz/code/vim-toggle-flags.git
-[submodule "vim/bundle/uncap_ex"]
-    path = vim/bundle/uncap_ex
-    url = https://sanctum.geek.nz/code/vim-uncap-ex.git
 [submodule "vim/bundle/vertical_region"]
     path = vim/bundle/vertical_region
     url = https://sanctum.geek.nz/code/vim-vertical-region.git
