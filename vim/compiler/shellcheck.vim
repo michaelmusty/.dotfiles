@@ -1,13 +1,11 @@
-if exists('current_compiler')
+" :compiler support for shell script linting with ShellCheck
+" <https://www.shellcheck.net/>
+if exists('current_compiler') || &compatible || v:version < 800
   finish
 endif
 let current_compiler = 'shellcheck'
 
-if exists(':CompilerSet') != 2
-  command -nargs=* CompilerSet setlocal <args>
-endif
-
-" Build :CompilerSet command based on buffer shell type
+" Build 'makeprg' command line based on this buffer's shell script type
 let s:set = 'CompilerSet makeprg=shellcheck\ -e\ SC1090\ -f\ gcc'
 if exists('b:is_bash')
   let s:set = s:set . '\ -s\ bash'
@@ -16,13 +14,6 @@ elseif exists('b:is_kornshell')
 else
   let s:set = s:set . '\ -s\ sh'
 endif
+execute s:set . '\ --\ %:S'
 
-" 7.4.191 is the earliest version with the :S file name modifier, which we
-" really should use if we can
-if v:version >= 704
-      \ || v:version == 704 && has('patch191')
-  execute s:set . '\ --\ %:S'
-else
-  execute s:set . '\ --\ %'
-endif
 CompilerSet errorformat=%f:%l:%c:\ %m\ [SC%n]
