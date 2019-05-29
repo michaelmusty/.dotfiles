@@ -17,6 +17,9 @@ add_exceptions = inet4 inet6 ipv4 ipv6
 # This one causes more trouble than it's worth, too
 [-Documentation::RequirePODUseEncodingUTF8]
 
+# Cool story, bro
+[-Editor::RequireEmacsFileVariables]
+
 # Soften this rather harsh policy a fair bit; tolerate negative one, all the
 # single-digit integers as literals, three powers of 10 (for percentages,
 # milliseconds etc), 60 (for angles and clocks), and 1900 (for localtime)
