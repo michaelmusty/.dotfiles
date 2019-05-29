@@ -34,6 +34,9 @@
     extendRegexp = true
     lineNumber = true
 
+[init]
+    templateDir = ~/.git-template
+
 [log]
     date = local
     decorate = short
