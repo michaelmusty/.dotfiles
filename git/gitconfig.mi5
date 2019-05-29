@@ -1,3 +1,6 @@
+[fetch]
+    output = compact
+
 [init]
     templateDir = ~/.git-template
 
