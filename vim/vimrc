@@ -251,9 +251,9 @@ endif
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Stack Ctrl-L to clear search highlight, make it work in insert mode too
-nmap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-inoremap <C-L> <C-O><C-L>
+nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+inoremap <silent> <C-L> <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
