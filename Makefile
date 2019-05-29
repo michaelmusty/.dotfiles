@@ -261,7 +261,9 @@ GAMES = games/aaf \
 	games/xyzzy \
 	games/zs
 
-all: $(BINS) git/gitconfig gnupg/gpg.conf
+GIT_TEMPLATE_HOOKS = git/template/hooks/post-update
+
+all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
 
 clean distclean:
 	rm -f -- \
@@ -269,6 +271,7 @@ clean distclean:
 		$(BINS_M4) \
 		$(BINS_SH) \
 		$(GAMES) \
+		$(GIT_TEMPLATE_HOOKS) \
 		dillo/dillorc \
 		dillo/dillorc.m4 \
 		git/gitconfig \
@@ -414,8 +417,15 @@ install-games-man:
 	mkdir -p -- $(HOME)/.local/share/man/man6
 	cp -p -- man/man6/*.6df $(HOME)/.local/share/man/man6
 
-install-git: git/gitconfig
+install-git: git/gitconfig $(GIT_TEMPLATE_HOOKS)
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
+	find git/template \
+		-type d -exec sh -c 'mkdir -p -- \
+			$(HOME)/.git-template"$${1#git/template}"' \
+		_ {} \; \
+		-o -exec sh -c 'cp -p -- "$$1" \
+			$(HOME)/.git-template"$${1#git/template}"' \
+		_ {} \;
 
 install-gnupg: gnupg/gpg.conf
 	mkdir -m 0700 -p -- $(HOME)/.gnupg
