@@ -65,6 +65,7 @@
 	check-bash \
 	check-bin \
 	check-games \
+	check-git-template-hooks \
 	check-ksh \
 	check-login-shell \
 	check-man \
@@ -76,6 +77,7 @@
 	lint-bash \
 	lint-bin \
 	lint-games \
+	lint-git-template-hooks \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
@@ -666,6 +668,9 @@ check-bin: $(BINS)
 check-games: $(GAMES)
 	sh check/games.sh
 
+check-git-template-hooks: $(GIT_TEMPLATE_HOOKS)
+	sh check/git-template-hooks.sh
+
 check-man:
 	sh check/man.sh
 
@@ -704,6 +709,9 @@ lint-bin: check-bin
 
 lint-games: check-games
 	sh lint/games.sh
+
+lint-git-template-hooks: check-git-template-hooks
+	sh lint/git-template-hooks.sh
 
 lint-ksh: check-ksh
 	sh lint/ksh.sh
