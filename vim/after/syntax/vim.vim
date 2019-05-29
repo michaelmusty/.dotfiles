@@ -3,7 +3,7 @@ syntax clear vimCommentString
 
 " Highlight :CompilerSet commands like :set/:setlocal, but only in compiler
 " scripts in recognisable paths
-if expand('%:h:t') ==# 'compiler'
+if expand('%:p:h:t') ==# 'compiler'
       \ && expand('%:e') ==# 'vim'
   syntax keyword vimCommand contained
         \ CompilerSet
