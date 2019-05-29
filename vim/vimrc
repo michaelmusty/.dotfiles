@@ -429,12 +429,10 @@ onoremap <Leader>_ :<C-U>normal! `[v`]<CR>
 onoremap <Leader>% :<C-U>normal! 1GVG<CR>
 
 " \{ and \} move to lines with non-space chars before current column
-nmap <Leader>{ <Plug>(VerticalRegionUp)
-nmap <Leader>} <Plug>(VerticalRegionDown)
-omap <Leader>{ <Plug>(VerticalRegionUp)
-omap <Leader>} <Plug>(VerticalRegionDown)
-xmap <Leader>{ <Plug>(VerticalRegionUp)
-xmap <Leader>} <Plug>(VerticalRegionDown)
+map <Leader>{ <Plug>(VerticalRegionUp)
+sunmap <Leader>{
+map <Leader>} <Plug>(VerticalRegionDown)
+sunmap <Leader>}
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
