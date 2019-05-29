@@ -1,6 +1,10 @@
 [init]
     templateDir = ~/.git-template
 
+[log]
+    date = local
+    decorate = short
+
 [merge]
     ff = false
     log = 1024
