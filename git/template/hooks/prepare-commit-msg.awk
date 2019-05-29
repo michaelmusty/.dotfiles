@@ -17,7 +17,7 @@ BEGIN {
 }
 
 # This line is blank, or a comment; reset the branch
-!NF || $1 ~ /^\#/ { branch = 0 }
+!NF || $1 ~ /^#/ { branch = 0 }
 
 # Commit message subject patterns to skip go here; be as precise as you can
 $0 == "  Bump VERSION" { next }  # Skip version number bumps
