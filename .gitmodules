@@ -71,6 +71,9 @@
 [submodule "vim/bundle/vimrc_reload_filetype"]
     path = vim/bundle/vimrc_reload_filetype
     url = https://sanctum.geek.nz/code/vim-vimrc-reload-filetype.git
+[submodule "vim/bundle/write_mkpath"]
+    path = vim/bundle/write_mkpath
+    url = https://sanctum.geek.nz/code/vim-write-mkpath.git
 
 # Vim filetype plugins
 [submodule "vim/bundle/diff_prune"]

@@ -657,6 +657,7 @@ install-zsh: check-zsh install-sh
 	cp -p -- zsh/zshrc.d/* $(HOME)/.zshrc.d
 
 check: check-bin \
+	check-git-template-hooks \
 	check-login-shell \
 	check-man \
 	check-sh
@@ -697,6 +698,7 @@ check-zsh:
 lint: lint-bash \
 	lint-bin \
 	lint-games \
+	lint-git-template-hooks \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
