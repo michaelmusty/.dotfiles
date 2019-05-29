@@ -263,7 +263,8 @@ GAMES = games/aaf \
 	games/xyzzy \
 	games/zs
 
-GIT_TEMPLATE_HOOKS = git/template/hooks/post-update
+GIT_TEMPLATE_HOOKS = git/template/hooks/post-update \
+    git/template/hooks/prepare-commit-msg
 
 all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
 
@@ -425,7 +426,7 @@ install-git: git/gitconfig $(GIT_TEMPLATE_HOOKS)
 		-type d -exec sh -c 'mkdir -p -- \
 			$(HOME)/.git-template"$${1#git/template}"' \
 		_ {} \; \
-		-o ! -name '*.sh' -exec sh -c 'cp -p -- "$$1" \
+		-o ! -name '*.*' -exec sh -c 'cp -p -- "$$1" \
 			$(HOME)/.git-template"$${1#git/template}"' \
 		_ {} \;
 
