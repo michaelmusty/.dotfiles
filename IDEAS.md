@@ -35,3 +35,5 @@ Ideas
 * Could probably put my pre-commit hook that bans commits to master in here;
   maybe make it a bit smarter by only banning commits to master if a branch
   named "develop" exists
+* Almost definitely going to want to try a runparts layout for Git hooks at
+  some point
