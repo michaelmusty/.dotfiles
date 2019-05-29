@@ -16,11 +16,11 @@ BEGIN {
     next
 }
 
-# This line is blank, or a comment; reset the branch
-!NF || $1 ~ /^#/ { branch = 0 }
-
 # Commit message subject patterns to skip go here; be as precise as you can
 $0 == "  Bump VERSION" { next }  # Skip version number bumps
+
+# This line is blank, or a comment; reset the branch
+!NF || $1 ~ /^#/ { branch = 0 }
 
 # Don't emit consecutive blanks
 NF { blank = 0 }
