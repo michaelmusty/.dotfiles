@@ -65,6 +65,7 @@
 	check-bash \
 	check-bin \
 	check-games \
+	check-git-template-hooks \
 	check-ksh \
 	check-login-shell \
 	check-man \
@@ -76,6 +77,7 @@
 	lint-bash \
 	lint-bin \
 	lint-games \
+	lint-git-template-hooks \
 	lint-ksh \
 	lint-sh \
 	lint-urxvt \
@@ -261,7 +263,9 @@ GAMES = games/aaf \
 	games/xyzzy \
 	games/zs
 
-all: $(BINS) git/gitconfig gnupg/gpg.conf
+GIT_TEMPLATE_HOOKS = git/template/hooks/post-update
+
+all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
 
 clean distclean:
 	rm -f -- \
@@ -269,6 +273,7 @@ clean distclean:
 		$(BINS_M4) \
 		$(BINS_SH) \
 		$(GAMES) \
+		$(GIT_TEMPLATE_HOOKS) \
 		dillo/dillorc \
 		dillo/dillorc.m4 \
 		git/gitconfig \
@@ -414,8 +419,15 @@ install-games-man:
 	mkdir -p -- $(HOME)/.local/share/man/man6
 	cp -p -- man/man6/*.6df $(HOME)/.local/share/man/man6
 
-install-git: git/gitconfig
+install-git: git/gitconfig $(GIT_TEMPLATE_HOOKS)
 	cp -p -- git/gitconfig $(HOME)/.gitconfig
+	find git/template \
+		-type d -exec sh -c 'mkdir -p -- \
+			$(HOME)/.git-template"$${1#git/template}"' \
+		_ {} \; \
+		-o -exec sh -c 'cp -p -- "$$1" \
+			$(HOME)/.git-template"$${1#git/template}"' \
+		_ {} \;
 
 install-gnupg: gnupg/gpg.conf
 	mkdir -m 0700 -p -- $(HOME)/.gnupg
@@ -656,6 +668,9 @@ check-bin: $(BINS)
 check-games: $(GAMES)
 	sh check/games.sh
 
+check-git-template-hooks: $(GIT_TEMPLATE_HOOKS)
+	sh check/git-template-hooks.sh
+
 check-man:
 	sh check/man.sh
 
@@ -694,6 +709,9 @@ lint-bin: check-bin
 
 lint-games: check-games
 	sh lint/games.sh
+
+lint-git-template-hooks: check-git-template-hooks
+	sh lint/git-template-hooks.sh
 
 lint-ksh: check-ksh
 	sh lint/ksh.sh

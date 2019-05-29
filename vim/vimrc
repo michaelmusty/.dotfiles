@@ -193,8 +193,7 @@ set virtualedit+=block
 set visualbell t_vb=
 
 " Tab completion settings
-set wildignore=*~,#*#
-      \,*.7z
+set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn
       \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
       \,*.bin,*.bmp,*.bz2
       \,*.class
@@ -214,7 +213,6 @@ set wildignore=*~,#*#
       \,*.wav,*.webm
       \,*.xbm,*.xcf,*.xls,*.xlsx,*.xpm,*.xz
       \,*.zip
-      \,.DS_Store,.git,.hg,.svn
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
@@ -252,12 +250,10 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Stack normal/visual/select Ctrl-L to clear search highlight
+" Stack Ctrl-L to clear search highlight, make it work in insert mode too
 nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
-
-" Make Ctrl-L work in insert mode too; good for choppy terminals
-inoremap <silent> <C-L> <C-O>:redraw<CR>
+inoremap <silent> <C-L> <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
@@ -429,12 +425,10 @@ onoremap <Leader>_ :<C-U>normal! `[v`]<CR>
 onoremap <Leader>% :<C-U>normal! 1GVG<CR>
 
 " \{ and \} move to lines with non-space chars before current column
-nmap <Leader>{ <Plug>(VerticalRegionUp)
-nmap <Leader>} <Plug>(VerticalRegionDown)
-omap <Leader>{ <Plug>(VerticalRegionUp)
-omap <Leader>} <Plug>(VerticalRegionDown)
-xmap <Leader>{ <Plug>(VerticalRegionUp)
-xmap <Leader>} <Plug>(VerticalRegionDown)
+map <Leader>{ <Plug>(VerticalRegionUp)
+sunmap <Leader>{
+map <Leader>} <Plug>(VerticalRegionDown)
+sunmap <Leader>}
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
