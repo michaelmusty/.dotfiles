@@ -1,59 +1,14 @@
-[advice]
-    statusHints = false
-    detachedHead = false
-    implicitIdentity = false
-    pushUpdateRejected = false
-
-[alias]
-    amend = commit --amend
-    ls = log --oneline
-    others = ls-files --others --exclude-standard
-    fuckit = "!git clean -dfx ; git reset --hard"
-
-[color]
-    ui = true
-
-[commit]
-    status = false
-
-[core]
-    compression = 9
-
-[diff]
-    algorithm = patience
-    tool = vimdiff
-
-[difftool]
-    prompt = false
-
-[fetch]
-    output = compact
-    prune = true
-
-[grep]
-    extendRegexp = true
-    lineNumber = true
-
 [init]
     templateDir = ~/.git-template
 
-[log]
-    date = local
-    decorate = short
-
 [merge]
     ff = false
-    log = 500
-
-[pager]
-    diff = cat
 
 [pull]
     ff = only
 
 [push]
     default = current
-    followTags = true
 
 [sendemail]
     confirm = compose
@@ -61,7 +16,6 @@
 
 [status]
     short = true
-    showUntrackedFiles = all
 
 [user]
     name = <% NAME %>
