@@ -3,6 +3,7 @@
 
 [merge]
     ff = false
+    log = 1024
 
 [pull]
     ff = only
