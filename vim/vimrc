@@ -20,9 +20,9 @@ let &softtabstop = v:version > 703
       \ || v:version == 703 && has('patch693')
       \ ? -1 : &shiftwidth
 
-" Restore insert mode 'backspace' limits to the stringent Vim default, if a
-" system vimrc or Neovim has messed with it
-set backspace=
+" Allow me to backspace 'autoindent' spaces in insert mode, and back over the
+" end of lines I've inserted in this session
+set backspace=indent,eol
 
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
