@@ -425,7 +425,7 @@ install-git: git/gitconfig $(GIT_TEMPLATE_HOOKS)
 		-type d -exec sh -c 'mkdir -p -- \
 			$(HOME)/.git-template"$${1#git/template}"' \
 		_ {} \; \
-		-o -exec sh -c 'cp -p -- "$$1" \
+		-o ! -name '*.sh' -exec sh -c 'cp -p -- "$$1" \
 			$(HOME)/.git-template"$${1#git/template}"' \
 		_ {} \;
 
