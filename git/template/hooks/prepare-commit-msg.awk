@@ -6,6 +6,7 @@ BEGIN {
     if (ARGV[2] != "merge")
         exit(0)
     message = ARGV[1]
+    ARGC = 2
 }
 
 # This line starts with an asterisk, so we're starting the commit listings for
