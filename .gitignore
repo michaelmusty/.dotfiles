@@ -170,7 +170,7 @@
 /games/zs
 /git/gitconfig
 /git/gitconfig.m4
-/git/template/hooks/applypatch-msg
+/git/template/hooks/prepare-commit-msg
 /git/template/hooks/post-update
 /gnupg/gpg.conf
 /gnupg/gpg.conf.m4
