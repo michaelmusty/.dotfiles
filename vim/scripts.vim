@@ -11,7 +11,7 @@ if s:line !~# '^#!'
 endif
 
 " AWK
-if s:line =~# '\<[gm]\=awk\>'
+if s:line =~# '\<[gm]\=awk\d*\>'
   setfiletype awk
 
 " Perl 5
@@ -23,28 +23,28 @@ elseif s:line =~# '\<perl6\>'
   setfiletype perl6
 
 " PHP
-elseif s:line =~# '\<php\>'
+elseif s:line =~# '\<php\d*\>'
   setfiletype php
 
 " Python
-elseif s:line =~# '\<python[23]\=\>'
+elseif s:line =~# '\<python\d*\>'
   setfiletype python
 
 " Ruby
-elseif s:line =~# '\<ruby[23]\=\>'
+elseif s:line =~# '\<ruby\d*\>'
   setfiletype ruby
 
 " sed
-elseif s:line =~# '\<sed\>'
+elseif s:line =~# '\<sed\d*\>'
   setfiletype sed
 
 " Bash
-elseif s:line =~# '\<bash\>'
+elseif s:line =~# '\<bash\d*\>'
   let b:is_bash = 1
   setfiletype sh
 
-" Korn shell
-elseif s:line =~# '\<\%(\ksh\|ksh93\|mksh\|pdksh\)\>'
+" Korn shell; either starts or ends in 'ksh'
+elseif s:line =~# '\<ksh\|ksh\d*\>'
   let b:is_kornshell = 1
   setfiletype sh
 
@@ -54,7 +54,7 @@ elseif s:line =~# '\<sh\>'
   setfiletype sh
 
 " TCL
-elseif s:line =~# '\<\%(expect\|tcl\|wish\)\>'
+elseif s:line =~# '\<\%(expect\|tcl\|wish\)\d*\>'
   setfiletype tcl
 
 endif
