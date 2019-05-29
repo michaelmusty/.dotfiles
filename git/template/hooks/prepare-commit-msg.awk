@@ -22,6 +22,10 @@ BEGIN {
 # Commit message subject patterns to skip go here; be as precise as you can
 $0 == "  Bump VERSION" { next }  # Skip version number bumps
 
+# Don't emit consecutive blanks
+NF { blank = 0 }
+!NF && blank++ { next }
+
 # If we got past this point, we have an actual commit line to include, so if
 # there's a branch heading yet to print, we should do so now; add it to the
 # line buffer
