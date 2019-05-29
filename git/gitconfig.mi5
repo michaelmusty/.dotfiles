@@ -1,3 +1,9 @@
+[commit]
+    status = false
+
+[fetch]
+    output = compact
+
 [init]
     templateDir = ~/.git-template
 
