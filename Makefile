@@ -264,6 +264,7 @@ GAMES = games/aaf \
 	games/zs
 
 GIT_TEMPLATE_HOOKS = git/template/hooks/post-update \
+    git/template/hooks/pre-commit \
     git/template/hooks/prepare-commit-msg
 
 all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
