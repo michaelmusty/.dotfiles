@@ -263,7 +263,8 @@ GAMES = games/aaf \
 	games/xyzzy \
 	games/zs
 
-GIT_TEMPLATE_HOOKS = git/template/hooks/post-update
+GIT_TEMPLATE_HOOKS = git/template/hooks/applypatch-msg \
+	git/template/hooks/post-update
 
 all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
 
