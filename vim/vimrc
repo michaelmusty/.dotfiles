@@ -460,3 +460,10 @@ nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
+
+" Reload this file when I save it, modified or nay
+augroup vimrc
+  autocmd!
+  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
+        \ source $MYVIMRC
+augroup END
