@@ -232,7 +232,9 @@ try
   colorscheme sahara
   set cursorline
 catch
+  colorscheme default
   set background=dark
+  set nocursorline
 endtry
 
 " Space bar scrolls down a page, :next if plugin available
