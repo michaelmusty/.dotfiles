@@ -193,8 +193,7 @@ set virtualedit+=block
 set visualbell t_vb=
 
 " Tab completion settings
-set wildignore=*~,#*#
-      \,*.7z
+set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn
       \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
       \,*.bin,*.bmp,*.bz2
       \,*.class
@@ -214,7 +213,6 @@ set wildignore=*~,#*#
       \,*.wav,*.webm
       \,*.xbm,*.xcf,*.xls,*.xlsx,*.xpm,*.xz
       \,*.zip
-      \,.DS_Store,.git,.hg,.svn
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
