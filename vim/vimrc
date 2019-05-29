@@ -250,12 +250,10 @@ endif
 " Map double Ctrl-K in insert mode to search digraph names
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Stack normal/visual/select Ctrl-L to clear search highlight
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+" Stack Ctrl-L to clear search highlight, make it work in insert mode too
+nmap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
+inoremap <C-L> <C-O><C-L>
 vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
-
-" Make Ctrl-L work in insert mode too; good for choppy terminals
-inoremap <silent> <C-L> <C-O>:redraw<CR>
 
 " Remap normal/visual & and g& to preserve substitution flags
 nnoremap <silent> & :&&<CR>
