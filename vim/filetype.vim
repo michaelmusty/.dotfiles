@@ -1,14 +1,8 @@
-" Override system filetype.vim if sufficiently new
-if exists('did_load_filetypes') || v:version < 700
+" Override system filetype.vim if sufficiently new and not 'compatible'
+if exists('did_load_filetypes') || v:version < 700 || &compatible
   finish
 endif
 let did_load_filetypes = 1
-
-" If we don't have +autocmd or are 'compatible', do nothing, and don't try
-" again later
-if !has('autocmd') || &compatible
-  finish
-endif
 
 " Use our own filetype detection rules
 augroup filetypedetect
