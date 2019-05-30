@@ -43,3 +43,13 @@ endif
 nnoremap <buffer> <LocalLeader>K
       \ :<C-U>helpgrep <cword><CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>K'
+
+" ,@ executes line in normal mode
+nnoremap <buffer> <LocalLeader>@
+      \ ^"zyg_@z
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>@'
+
+" ,: executes line in command mode
+nnoremap <buffer> <LocalLeader>:
+      \ ^"zyg_:<C-R>z<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>:'

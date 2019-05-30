@@ -44,3 +44,7 @@ nnoremap <buffer> <LocalLeader>l
       \ :<C-U>compiler shellcheck<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'
+
+" ,! executes line with 'shell'
+nnoremap <buffer> <LocalLeader>! ^"zyg_:!<C-R>z<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>!'

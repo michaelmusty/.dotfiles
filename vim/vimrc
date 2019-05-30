@@ -449,15 +449,6 @@ nnoremap <Leader><Insert> :<C-U>enew<CR>
 " \TAB toggles 'autoindent'
 nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 
-" Execution mappings; each of these clobbers register z
-
-" \@ executes line in normal mode
-nnoremap <Leader>@ ^"zyg_@z
-" \: executes line in command mode
-nnoremap <Leader>: ^"zyg_:<C-R>z<CR>
-" \! executes line with 'shell'
-nnoremap <Leader>! ^"zyg_:!<C-R>z<CR>
-
 " Things I almsot always type wrnog
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
