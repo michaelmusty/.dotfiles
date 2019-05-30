@@ -8,10 +8,9 @@ let s:line = getline(1)
 " If it's not a shebang, we're done
 if s:line !~# '^#!'
   finish
-endif
 
 " AWK
-if s:line =~# '\<[gm]\=awk\d*\>'
+elseif s:line =~# '\<[gm]\=awk\d*\>'
   setfiletype awk
 
 " Perl 5
