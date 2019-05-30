@@ -33,3 +33,5 @@ Ideas
   some point
 * It would be good for vim-write-mkpath to handle 'confirm' for :w without a
   bang, and probably not too hard to write
+* I'd like a Git hook that pre-fills out "Version X.Y.Z" if making a commit
+  tagged with vX.Y.Z.
