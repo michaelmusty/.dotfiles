@@ -26,12 +26,11 @@ let &l:path = &runtimepath . ',' . &path
 " matches e.g. an opening "function" with the first "return" within, which I
 " don't like
 if exists('loaded_matchit')
-  let b:match_words =
-        \ '\<fu\%[nction]\>:\<endf\%[unction]\>,' .
-        \ '\<\(wh\%[ile]\|for\)\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
-        \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
-        \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
-        \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>,'
+  let b:match_words = '\<fu\%[nction]\>:\<endf\%[unction]\>,'
+        \ . '\<\(wh\%[ile]\|for\)\>:\<end\(w\%[hile]\|fo\%[r]\)\>,'
+        \ . '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,'
+        \ . '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,'
+        \ . '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>,'
 endif
 
 " Stop here if the user doesn't want ftplugin mappings
