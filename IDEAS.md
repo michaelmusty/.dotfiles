@@ -31,7 +31,5 @@ Ideas
   vice-versa.
 * Almost definitely going to want to try a runparts layout for Git hooks at
   some point
-* It would be good for vim-write-mkpath to handle 'confirm' for :w without a
-  bang, and probably not too hard to write
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making a commit
   tagged with vX.Y.Z.
