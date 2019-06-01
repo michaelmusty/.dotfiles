@@ -30,3 +30,6 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names. Can it be made to?
+* Alternate files for buffers handled by vim-write-mkpath on creation still
+  have their alternate files broken; not a big deal but it would be nice to fix
+  it

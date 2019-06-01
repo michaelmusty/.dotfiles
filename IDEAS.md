@@ -33,6 +33,3 @@ Ideas
   some point
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
   tag named vX.Y.Z.
-* Alternate files for buffers handled by vim-write-mkpath on creation still
-  have their alternate files broken; not a big deal but it would be nice to fix
-  it
