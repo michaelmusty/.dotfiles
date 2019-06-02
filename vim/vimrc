@@ -3,10 +3,8 @@
 
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
-if !exists('$MYVIM')
-  let $MYVIM = expand(
-        \ strpart(&runtimepath, 0, stridx(&runtimepath, ','))
-        \ )
+if !exists('$MYVIM') && strlen(&runtimepath) > 0
+  let $MYVIM = vimrc#SplitEscaped(&runtimepath)[0]
 endif
 
 " The all-important default indent settings; filetypes to tweak
