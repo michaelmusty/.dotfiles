@@ -31,5 +31,5 @@ Ideas
   vice-versa.
 * Almost definitely going to want to try a runparts layout for Git hooks at
   some point
-* I'd like a Git hook that pre-fills out "Version X.Y.Z" if making a commit
-  tagged with vX.Y.Z.
+* I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
+  tag named vX.Y.Z.

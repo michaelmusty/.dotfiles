@@ -3,10 +3,8 @@
 
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
-if !exists('$MYVIM')
-  let $MYVIM = expand(
-        \ strpart(&runtimepath, 0, stridx(&runtimepath, ','))
-        \ )
+if !exists('$MYVIM') && strlen(&runtimepath) > 0
+  let $MYVIM = vimrc#SplitEscaped(&runtimepath)[0]
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -16,9 +14,7 @@ set shiftwidth=4  " Indent with four spaces
 
 " Make insert mode tab key add the same number of spaces as 'shiftwidth', use
 " negative value to do this if Vim new enough to support it
-let &softtabstop = v:version > 703
-      \ || v:version == 703 && has('patch693')
-      \ ? -1 : &shiftwidth
+let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
 " Allow me to backspace 'autoindent' spaces in insert mode, and back over the
 " end of lines I've inserted in this session
@@ -28,7 +24,7 @@ set backspace=indent,eol
 " full path in name, if Vim is new enough to support that
 set backup
 execute 'set backupdir^='.escape($MYVIM, '\ ').'/cache/backup'
-      \ . (has('patch-8.1.251') ? '//' : '')
+      \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
 if has('unix')
@@ -76,13 +72,12 @@ set foldlevelstart=99
 set foldmethod=indent
 
 " Delete comment leaders when joining lines, if supported
-if v:version > 703
-      \ || v:version == 703 && has('patch541')
+if vimrc#Version('7.3.541')
   set formatoptions+=j
 endif
 
 " Don't break a single space after a period, if supported
-if has('patch-8.1.728')
+if vimrc#Version('8.1.728')
   set formatoptions+=p
 endif
 
@@ -253,14 +248,14 @@ endif
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Stack Ctrl-L to clear search highlight, make it work in insert mode too
-nnoremap <silent> <C-L> :<C-U>nohlsearch<CR><C-L>
-vnoremap <silent> <C-L> :<C-U>nohlsearch<CR>gv<C-L>
-inoremap <silent> <C-L> <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
+nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
+vnoremap <C-L> :<C-U>nohlsearch<CR>gv<C-L>
+inoremap <C-L> <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
-nnoremap <silent> & :&&<CR>
-xnoremap <silent> & :&&<CR>
-nnoremap <silent> g& :<C-U>%&&<CR>
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+nnoremap g& :<C-U>%&&<CR>
 
 " Map g: as a 'colon operator'
 nmap g: <Plug>(ColonOperator)
@@ -312,8 +307,10 @@ nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 " \F reloads filetype plugins
 nnoremap <Leader>F :<C-U>doautocmd filetypedetect BufRead<CR>
 
-" \g changes directory to the current file's location
-nnoremap <Leader>g :<C-U>cd %:h<Bar>pwd<CR>
+" \g shows the current file's fully expanded path
+nnoremap <Leader>g :<C-U>echo expand('%:p')<CR>
+" \G changes directory to the current file's location
+nnoremap <Leader>G :<C-U>cd %:h<Bar>pwd<CR>
 
 " \h toggles highlighting search results
 nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
@@ -395,12 +392,12 @@ nnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>
 xnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>gv
 
 " \x strips trailing whitespace via a custom plugin
-nmap <Leader>x :StripTrailingWhitespace<CR>
-xmap <Leader>x :StripTrailingWhitespace<CR>
+nnoremap <Leader>x :StripTrailingWhitespace<CR>
+xnoremap <Leader>x :StripTrailingWhitespace<CR>
 
 " \X squeezes repeated blank lines via a custom plugin
-nmap <Leader>X :SqueezeRepeatBlanks<CR>
-xmap <Leader>X :SqueezeRepeatBlanks<CR>
+nnoremap <Leader>X :SqueezeRepeatBlanks<CR>
+xnoremap <Leader>X :SqueezeRepeatBlanks<CR>
 
 " \y shows all registers
 nnoremap <Leader>y :<C-U>registers<CR>
@@ -409,9 +406,9 @@ nnoremap <Leader>y :<C-U>registers<CR>
 nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz<CR>
 
 " \= runs the whole buffer through =, preserving position
-nnoremap <Leader>= m`1G=G``
+nnoremap <Leader>= :<C-U>KeepPosition normal! 1G=G<CR>
 " \+ runs the whole buffer through gq, preserving position
-nnoremap <Leader>+ m`1GgqG``
+nnoremap <Leader>+ :<C-U>KeepPosition normal! 1GgqG<CR>
 
 " \. runs the configured make program into the location list
 nnoremap <Leader>. :<C-U>lmake!<CR>
@@ -434,8 +431,8 @@ sunmap <Leader>}
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
-" \? types :lhelpgrep for me ready to enter a search pattern
-nnoremap <Leader>? :<C-U>lhelpgrep \c<S-Left>
+" \? types :helpgrep for me ready to enter a search pattern
+nnoremap <Leader>? :<C-U>helpgrep \c<S-Left>
 
 " \\ escapes regex metacharacters
 nmap <Leader>\ <Plug>(RegexEscape)
