@@ -392,12 +392,12 @@ nnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>
 xnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>gv
 
 " \x strips trailing whitespace via a custom plugin
-nmap <Leader>x :StripTrailingWhitespace<CR>
-xmap <Leader>x :StripTrailingWhitespace<CR>
+nnoremap <Leader>x :StripTrailingWhitespace<CR>
+xnoremap <Leader>x :StripTrailingWhitespace<CR>
 
 " \X squeezes repeated blank lines via a custom plugin
-nmap <Leader>X :SqueezeRepeatBlanks<CR>
-xmap <Leader>X :SqueezeRepeatBlanks<CR>
+nnoremap <Leader>X :SqueezeRepeatBlanks<CR>
+xnoremap <Leader>X :SqueezeRepeatBlanks<CR>
 
 " \y shows all registers
 nnoremap <Leader>y :<C-U>registers<CR>
