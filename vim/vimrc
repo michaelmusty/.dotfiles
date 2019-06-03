@@ -406,9 +406,9 @@ nnoremap <Leader>y :<C-U>registers<CR>
 nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz<CR>
 
 " \= runs the whole buffer through =, preserving position
-nnoremap <Leader>= m`1G=G``
+nnoremap <Leader>= :<C-U>KeepPosition normal! 1G=G<CR>
 " \+ runs the whole buffer through gq, preserving position
-nnoremap <Leader>+ m`1GgqG``
+nnoremap <Leader>+ :<C-U>KeepPosition normal! 1GgqG<CR>
 
 " \. runs the configured make program into the location list
 nnoremap <Leader>. :<C-U>lmake!<CR>
