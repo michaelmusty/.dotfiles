@@ -14,9 +14,7 @@ set shiftwidth=4  " Indent with four spaces
 
 " Make insert mode tab key add the same number of spaces as 'shiftwidth', use
 " negative value to do this if Vim new enough to support it
-let &softtabstop = v:version > 703
-      \ || v:version == 703 && has('patch693')
-      \ ? -1 : &shiftwidth
+let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
 " Allow me to backspace 'autoindent' spaces in insert mode, and back over the
 " end of lines I've inserted in this session
@@ -26,7 +24,7 @@ set backspace=indent,eol
 " full path in name, if Vim is new enough to support that
 set backup
 execute 'set backupdir^='.escape($MYVIM, '\ ').'/cache/backup'
-      \ . (has('patch-8.1.251') ? '//' : '')
+      \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
 if has('unix')
@@ -74,13 +72,12 @@ set foldlevelstart=99
 set foldmethod=indent
 
 " Delete comment leaders when joining lines, if supported
-if v:version > 703
-      \ || v:version == 703 && has('patch541')
+if vimrc#Version('7.3.541')
   set formatoptions+=j
 endif
 
 " Don't break a single space after a period, if supported
-if has('patch-8.1.728')
+if vimrc#Version('8.1.728')
   set formatoptions+=p
 endif
 

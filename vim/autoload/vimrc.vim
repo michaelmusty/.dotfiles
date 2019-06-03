@@ -45,3 +45,30 @@ function! vimrc#SplitEscaped(str, ...) abort
   return list
 
 endfunction
+
+" Convenience version function check that should work with 7.0 or newer;
+" takes strings like 7.3.251
+function! vimrc#Version(verstr) abort
+
+  " Throw toys if the string doesn't match the expected format
+  if a:verstr !~# '^\d\+\.\d\+.\d\+$'
+    echoerr 'Invalid version string: '.a:verstr
+  endif
+
+  " Split version string into major, minor, and patch level integers
+  let [major, minor, patch] = split(a:verstr, '\.')
+
+  " Create a string like 801 from a version number 8.1 to compare it to
+  " the v:version integer
+  let ver = major * 100 + minor
+
+  " Compare versions
+  if v:version > ver
+    return 1  " Current Vim is newer than the wanted one
+  elseif ver < v:version
+    return 0  " Current Vim is older than the wanted one
+  else
+    return has('patch'.patch)  " Versions equal, return patch presence
+  endif
+
+endfunction
