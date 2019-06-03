@@ -434,9 +434,14 @@ nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
 " \? types :helpgrep for me ready to enter a search pattern
 nnoremap <Leader>? :<C-U>helpgrep \c<S-Left>
 
-" \\ escapes regex metacharacters
-nmap <Leader>\ <Plug>(RegexEscape)
-xmap <Leader>\ <Plug>(RegexEscape)
+" \* escapes regex metacharacters
+nmap <Leader>* <Plug>(RegexEscape)
+xmap <Leader>* <Plug>(RegexEscape)
+
+" \\ jumps to the last edit position mark, like g;, but works as a motion
+" "Now, where was I?" (tap-tap)
+nmap <Leader>\ `"
+xmap <Leader>\ `"
 
 " \DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
