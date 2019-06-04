@@ -418,8 +418,8 @@ sunmap <Leader>}
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
-" \? types :helpgrep for me ready to enter a search pattern
-nnoremap <Leader>? :<C-U>helpgrep \c<S-Left>
+" \? types :lhelpgrep for me ready to enter a search pattern
+nnoremap <Leader>? :<C-U>lhelpgrep \c<S-Left>
 
 " \* escapes regex metacharacters
 nmap <Leader>* <Plug>(RegexEscape)
