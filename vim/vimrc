@@ -16,9 +16,10 @@ set shiftwidth=4  " Indent with four spaces
 " negative value to do this if Vim new enough to support it
 let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
-" Allow me to backspace 'autoindent' spaces in insert mode, and back over the
-" end of lines I've inserted in this session
-set backspace=indent,eol
+" Let me backspace over pretty much anything
+set backspace+=eol     " Line breaks
+set backspace+=indent  " Spaces from 'autoindent'
+set backspace+=start   " Before the start of current insertion
 
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
