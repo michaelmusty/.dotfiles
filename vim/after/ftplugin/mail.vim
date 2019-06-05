@@ -78,6 +78,12 @@ if exists('loaded_squeeze_repeat_blanks')
 
 endif
 
+" Spellcheck documents we're actually editing (not just viewing)
+if &modifiable && !&readonly
+  setlocal spell
+  let b:undo_ftplugin .= '|setlocal spell<'
+endif
+
 " Stop here if the user doesn't want ftplugin mappings
 if exists('no_plugin_maps') || exists('no_mail_maps')
   finish
