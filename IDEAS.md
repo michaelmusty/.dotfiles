@@ -19,8 +19,8 @@ Ideas
 * Write something like `hcat(1df)` or `tcat(1df)` that includes filename
   headings for each concatenated file.
 * I can probably get rid of all that nasty templated shell by writing something
-  that wraps around `td(1df)` and generates shell script to run, and calls that
-  via `eval`.
+  that wraps around `mktd(1df)` and generates shell script to run, and calls
+  that via `eval`.
 * Ideally, the AWK and/or sed scripts in the bin and games directories should
   be syntax-checked or linted. I could at least add some patient application of
   appropriate `gawk --lint` calls for each of the .awk scripts.
