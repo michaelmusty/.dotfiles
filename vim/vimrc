@@ -16,9 +16,10 @@ set shiftwidth=4  " Indent with four spaces
 " negative value to do this if Vim new enough to support it
 let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
-" Allow me to backspace 'autoindent' spaces in insert mode, and back over the
-" end of lines I've inserted in this session
-set backspace=indent,eol
+" Let me backspace over pretty much anything
+set backspace+=eol     " Line breaks
+set backspace+=indent  " Spaces from 'autoindent'
+set backspace+=start   " Before the start of current insertion
 
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
@@ -188,26 +189,13 @@ set virtualedit+=block
 set visualbell t_vb=
 
 " Tab completion settings
-set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn
-      \,*.a,*.adf,*.asc,*.au,*.aup,*.avi
-      \,*.bin,*.bmp,*.bz2
-      \,*.class
-      \,*.db,*.dbm,*.djvu,*.docx
-      \,*.exe
-      \,*.filepart,*.flac
-      \,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz
-      \,*.hdf
-      \,*.ico,*.iso
-      \,*.jar,*.jpeg,*.jpg
-      \,*.m4a,*.mid,*.mp3,*.mp4
-      \,*.o,*.odp,*.ods,*.odt,*.ogg,*.ogv,*.opus
-      \,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc
-      \,*.rar,*.rm
-      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp
-      \,*.tar,*.tga,*.ttf
-      \,*.wav,*.webm
-      \,*.xbm,*.xcf,*.xls,*.xlsx,*.xpm,*.xz
-      \,*.zip
+set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
+      \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
+      \,*.filepart,*.flac,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz,*.hdf,*.ico
+      \,*.iso,*.jar,*.jpeg,*.jpg,*.m4a,*.mid,*.mp3,*.mp4,*.o,*.odp,*.ods,*.odt
+      \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
+      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
+      \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
 if exists('+wildignorecase')
   set wildignorecase  " Case insensitive, if supported (v7.3.072)
 endif
@@ -431,12 +419,17 @@ sunmap <Leader>}
 
 " \/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
-" \? types :helpgrep for me ready to enter a search pattern
-nnoremap <Leader>? :<C-U>helpgrep \c<S-Left>
+" \? types :lhelpgrep for me ready to enter a search pattern
+nnoremap <Leader>? :<C-U>lhelpgrep \c<S-Left>
 
-" \\ escapes regex metacharacters
-nmap <Leader>\ <Plug>(RegexEscape)
-xmap <Leader>\ <Plug>(RegexEscape)
+" \* escapes regex metacharacters
+nmap <Leader>* <Plug>(RegexEscape)
+xmap <Leader>* <Plug>(RegexEscape)
+
+" \\ jumps to the last edit position mark, like g;, but works as a motion
+" "Now, where was I?" (tap-tap)
+nmap <Leader>\ `"
+xmap <Leader>\ `"
 
 " \DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
