@@ -125,6 +125,9 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=nbsp:+      " Non-breaking spaces
 
+" Show matching brackets a bit more briefly
+set matchtime=3
+
 " Don't allow setting options via buffer content
 set nomodeline
 
@@ -151,6 +154,9 @@ set shortmess+=I
 
 " Prefix wrapped rows with three dots
 set showbreak=...
+
+" Jump to matching bracket when typed in insert mode
+set showmatch
 
 " New window positioning
 set splitbelow  " Below the current window, not above
