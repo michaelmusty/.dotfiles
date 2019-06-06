@@ -24,7 +24,7 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.vimrc#EscapeSet($MYVIM).'/cache/backup'
+execute 'set backupdir^='.vimrc#EscapeSet($MYVIM.'/cache/backup')
       \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
