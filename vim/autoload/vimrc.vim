@@ -30,16 +30,20 @@ endfunction
 " takes strings like 7.3.251
 function! vimrc#Version(string) abort
 
-  " Throw toys if the string doesn't match the expected format
-  if a:string !~# '^\d\+\.\d\+\.\d\+$'
+  " Test the version string and get submatches for each part
+  let match = matchlist(a:string, '^\(\d\+\)\.\(\d\+\)\.\(\d\+\)$')
+
+  " Throw toys if the string didn't match the expected format
+  if !len(match)
     echoerr 'Invalid version string: '.a:string
+    return
   endif
 
-  " Split version string into major, minor, and patch level integers
-  let [major, minor, patch] = split(a:string, '\.')
+  " Get the major, minor, and patch numbers from the submatches
+  let [major, minor, patch] = match[1:3]
 
-  " Create a string like 801 from a version number 8.1 to compare it to
-  " the v:version integer
+  " Create a string like 801 from a version number 8.1 to compare it to the
+  " v:version integer
   let ver = major * 100 + minor
 
   " Compare versions
