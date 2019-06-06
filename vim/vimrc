@@ -72,6 +72,8 @@ set foldlevelstart=99
 set foldmethod=indent
 
 " Automatic formatting options
+set formatoptions+=l  " Don't break a long line in insert mode
+set formatoptions+=1  " Avoid breaking lines after one-letter words
 if vimrc#Version('7.3.541')
   set formatoptions+=j  " Delete comment leaders when joining lines
 endif
