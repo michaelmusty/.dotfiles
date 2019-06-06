@@ -31,7 +31,7 @@ endfunction
 function! vimrc#Version(verstr) abort
 
   " Throw toys if the string doesn't match the expected format
-  if a:verstr !~# '^\d\+\.\d\+.\d\+$'
+  if a:verstr !~# '^\d\+\.\d\+\.\d\+$'
     echoerr 'Invalid version string: '.a:verstr
   endif
 
