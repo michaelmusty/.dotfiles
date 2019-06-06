@@ -216,15 +216,16 @@ catch
   set nocursorline
 endtry
 
-" Space bar scrolls down a page, :next if plugin available
-if &loadplugins
+" Space bar scrolls down a page, :next at buffer's end if plugin available
+if vimrc#PluginReady('scroll_next')
   nmap <Space> <Plug>(ScrollNext)
 else
   nnoremap <Space> <PageDown>
 endif
 
-" Remap insert Ctrl-C to undo the escaped insert operation
-if &loadplugins  " Don't break the key if we won't be loading the plugin
+" Remap insert Ctrl-C to undo the escaped insert operation, but don't break
+" the key if the plugin isn't there
+if vimrc#PluginReady('insert_cancel')
   imap <C-C> <Plug>(InsertCancel)
 endif
 

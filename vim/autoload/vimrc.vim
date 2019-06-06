@@ -3,6 +3,12 @@ function! vimrc#EscapeSet(string) abort
   return escape(a:string, '\ ,')
 endfunction
 
+" Check that we have a plugin available, and will be loading it
+function! vimrc#PluginReady(filename) abort
+  return globpath(&runtimepath, 'plugin/'.a:filename.'.vim') !=# ''
+        \ && &loadplugins
+endfunction
+
 " Split a string with a split character that can be escaped with another,
 " e.g. &runtimepath with commas and backslashes respectively
 function! vimrc#SplitEscaped(str, ...) abort
