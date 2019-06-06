@@ -13,7 +13,7 @@ set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
 
 " Make insert mode tab key add the same number of spaces as 'shiftwidth', use
-" negative value to do this if Vim new enough to support it
+" negative value to do this dynamically, if Vim is new enough to support it
 let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
 " Let me backspace over pretty much anything
@@ -35,8 +35,8 @@ if has('unix')
   set backupskip+=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
 endif
 
-" Indent wrapped lines if supported (v7.4.338)
-if exists('+breakindent')
+" Indent wrapped lines
+if exists('+breakindent')  " v7.4.338
   set breakindent
 endif
 
@@ -63,8 +63,7 @@ if !exists('$LANG')
 endif
 
 " Don't wait for a key after Escape in insert mode
-" Not in Neovim
-if exists('+esckeys')
+if exists('+esckeys')  " No such option in Neovim
   set noesckeys
 endif
 
@@ -193,8 +192,8 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
       \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
       \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
-if exists('+wildignorecase')
-  set wildignorecase  " Case insensitive, if supported (v7.3.072)
+if exists('+wildignorecase')  " v7.3.072
+  set wildignorecase  " Case insensitive tab completion
 endif
 set wildmode=list:longest  " Tab press completes and lists
 
