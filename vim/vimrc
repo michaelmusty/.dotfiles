@@ -160,7 +160,9 @@ set splitright  " Right of the current window, not left
 set synmaxcol=500
 
 " Add thesaurus; install with `make install-vim-thesaurus`
-execute 'set thesaurus^='.vimrc#EscapeSetPart($MYVIM.'/ref/thesaurus.txt')
+execute 'set thesaurus^='.vimrc#EscapeSetPart(
+      \ $MYVIM.'/ref/thesaurus.txt'
+      \ )
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -176,7 +178,9 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
+  execute 'set undodir^='.vimrc#EscapeSetPart(
+        \ $MYVIM.'/cache/undo//'
+        \ )
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -184,7 +188,9 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
+  execute 'set viminfo+='.vimrc#EscapeSet(
+        \ 'n'.$MYVIM.'/cache/viminfo'
+        \ )
 endif
 
 " Let me move beyond buffer text in visual block mode
