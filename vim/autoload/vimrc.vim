@@ -1,5 +1,5 @@
 " Escape a text value for inclusion in a comma-separated option value
-function! vimrc#EscapeSet(string)
+function! vimrc#EscapeSet(string) abort
   return escape(a:string, '\ ,')
 endfunction
 
