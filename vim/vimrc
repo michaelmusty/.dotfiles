@@ -173,11 +173,10 @@ endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
 " getting clobbered when something runs Vim without using this vimrc
-let $VIMINFO = $MYVIM.'/cache/viminfo'
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
-  set viminfofile=$VIMINFO
+  set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+=n'.vimrc#EscapeSet($VIMINFO)
+  execute 'set viminfo+=n'.vimrc#EscapeSet($MYVIM.'/cache/viminfo')
 endif
 
 " Let me move beyond buffer text in visual block mode
