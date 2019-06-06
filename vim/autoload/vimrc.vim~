@@ -1,12 +1,13 @@
-" Escape a text value for inclusion in an option value
+" Escape a text value for :execute-based :set inclusion in an option
 function! vimrc#EscapeSet(string) abort
   return escape(a:string, '\ |"')
 endfunction
 
 " Escape a text value for inclusion as an element in a comma-separated list
-" option value.  Yes, the comma being the sole inner escaped character here is
-" correct.  If you escape existing backslashes, you'll break it.
-function! vimrc#EscapeSetList(string) abort
+" option.  Yes, the comma being the sole inner escaped character here is
+" correct.  No, we shouldn't escape backslash itself.  Yes, that means it's
+" impossible to have the literal string '\,' in a part.
+function! vimrc#EscapeSetPart(string) abort
   return vimrc#EscapeSet(escape(a:string, ','))
 endfunction
 
@@ -16,36 +17,13 @@ function! vimrc#PluginReady(filename) abort
         \ && &loadplugins
 endfunction
 
+" Split a comma-separated option string into its constituent parts, imitating
+" copy_option_part() in the Vim sources.  This isn't perfect, but it should be
+" more than good enough.  A separator can be defined as: a comma that is not
+" preceded by a backslash, and which is followed by any number of spaces
+" and/or further commas.
 function! vimrc#SplitOption(str) abort
-
-  let esc = '\'
-  let sep = ','
-
-  let str = a:str
-  let len = strlen(str)
-
-  let parts = []
-  let part = ''
-  let idx = 0
-
-  while idx < len
-
-    let char = str[idx]
-    if char ==# esc && str[idx+1] ==# sep
-      let part .= sep
-      let idx += 1
-    elseif char ==# sep
-      call add(list, part)
-      let part = ''
-    else
-      let part .= char
-    endif
-    let idx += 1
-
-  endwhile
-
-  return parts
-
+  return split(a:str, '\\\@<!,[, ]*')
 endfunction
 
 " Convenience version function check that should work with 7.0 or newer;
