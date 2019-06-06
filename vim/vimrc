@@ -24,8 +24,9 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.vimrc#EscapeSetPart($MYVIM.'/cache/backup')
-      \ . (vimrc#Version('8.1.251') ? '//' : '')
+execute 'set backupdir^='.vimrc#EscapeSetPart(
+      \ $MYVIM.'/cache/backup'.(vimrc#Version('8.1.251') ? '//' : '')
+      \ )
 
 " Add some *nix paths not to back up
 if has('unix')
@@ -55,7 +56,7 @@ set confirm
 set cpoptions+=J
 
 " Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap')
+execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap//')
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
