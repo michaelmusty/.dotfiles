@@ -427,8 +427,8 @@ xmap <Leader>* <Plug>(RegexEscape)
 
 " \\ jumps to the last edit position mark, like g;, but works as a motion
 " "Now, where was I?" (tap-tap)
-nmap <Leader>\ `"
-xmap <Leader>\ `"
+nnoremap <Leader>\ `"
+xnoremap <Leader>\ `"
 
 " \DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
