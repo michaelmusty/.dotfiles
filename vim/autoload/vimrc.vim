@@ -12,9 +12,10 @@ function! vimrc#EscapeSetPart(string) abort
 endfunction
 
 " Expand the first path in an option string, check if it exists, and attempt
-" to create it if it doesn't.
+" to create it if it doesn't.  Strip double-trailing-slash hints.
 function! vimrc#Establish(string) abort
   let part = vimrc#SplitOption(a:string)[0]
+  let part = substitute(part, '//$', '', '')
   let dirname = expand(part)
   return isdirectory(dirname)
         \ || mkdir(dirname, 'p')
