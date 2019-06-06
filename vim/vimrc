@@ -3,8 +3,8 @@
 
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
-if !exists('$MYVIM') && strlen(&runtimepath) > 0
-  let $MYVIM = vimrc#SplitEscaped(&runtimepath)[0]
+if !exists('$MYVIM') && &runtimepath !=# ''
+  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -13,7 +13,7 @@ set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
 
 " Make insert mode tab key add the same number of spaces as 'shiftwidth', use
-" negative value to do this if Vim new enough to support it
+" negative value to do this dynamically, if Vim is new enough to support it
 let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
 " Let me backspace over pretty much anything
@@ -24,7 +24,7 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.escape($MYVIM, '\ ').'/cache/backup'
+execute 'set backupdir^='.vimrc#EscapeSetPart($MYVIM.'/cache/backup')
       \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
@@ -35,8 +35,8 @@ if has('unix')
   set backupskip+=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
 endif
 
-" Indent wrapped lines if supported (v7.4.338)
-if exists('+breakindent')
+" Indent wrapped lines
+if exists('+breakindent')  " v7.4.338
   set breakindent
 endif
 
@@ -55,7 +55,7 @@ set confirm
 set cpoptions+=J
 
 " Keep swap files in dedicated directory, named with full path
-set directory^=$MYVIM/cache/swap//
+execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap')
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
@@ -63,8 +63,7 @@ if !exists('$LANG')
 endif
 
 " Don't wait for a key after Escape in insert mode
-" Not in Neovim
-if exists('+esckeys')
+if exists('+esckeys')  " No such option in Neovim
   set noesckeys
 endif
 
@@ -72,14 +71,14 @@ endif
 set foldlevelstart=99
 set foldmethod=indent
 
-" Delete comment leaders when joining lines, if supported
+" Automatic formatting options
+set formatoptions+=l  " Don't break a long line in insert mode
+set formatoptions+=1  " Avoid breaking lines after one-letter words
 if vimrc#Version('7.3.541')
-  set formatoptions+=j
+  set formatoptions+=j  " Delete comment leaders when joining lines
 endif
-
-" Don't break a single space after a period, if supported
 if vimrc#Version('8.1.728')
-  set formatoptions+=p
+  set formatoptions+=p  " Don't break a single space after a period
 endif
 
 " Don't load GUI menus; set here before GUI starts or any filetype or syntax
@@ -170,16 +169,15 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  set undodir^=$MYVIM/cache/undo//
+  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
 " getting clobbered when something runs Vim without using this vimrc
-let $VIMINFO = $MYVIM.'/cache/viminfo'
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
-  set viminfofile=$VIMINFO
+  set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+=n'.escape($VIMINFO, '\ ')
+  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -196,8 +194,8 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
       \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
       \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
-if exists('+wildignorecase')
-  set wildignorecase  " Case insensitive, if supported (v7.3.072)
+if exists('+wildignorecase')  " v7.3.072
+  set wildignorecase  " Case insensitive tab completion
 endif
 set wildmode=list:longest  " Tab press completes and lists
 
@@ -215,20 +213,21 @@ try
   colorscheme sahara
   set cursorline
 catch
-  colorscheme default
+  syntax reset
   set background=dark
   set nocursorline
 endtry
 
-" Space bar scrolls down a page, :next if plugin available
-if &loadplugins
+" Space bar scrolls down a page, :next at buffer's end if plugin available
+if vimrc#PluginReady('scroll_next')
   nmap <Space> <Plug>(ScrollNext)
 else
   nnoremap <Space> <PageDown>
 endif
 
-" Remap insert Ctrl-C to undo the escaped insert operation
-if &loadplugins  " Don't break the key if we won't be loading the plugin
+" Remap insert Ctrl-C to undo the escaped insert operation, but don't break
+" the key if the plugin isn't there
+if vimrc#PluginReady('insert_cancel')
   imap <C-C> <Plug>(InsertCancel)
 endif
 
@@ -428,8 +427,8 @@ xmap <Leader>* <Plug>(RegexEscape)
 
 " \\ jumps to the last edit position mark, like g;, but works as a motion
 " "Now, where was I?" (tap-tap)
-nmap <Leader>\ `"
-xmap <Leader>\ `"
+nnoremap <Leader>\ `"
+xnoremap <Leader>\ `"
 
 " \DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
@@ -443,6 +442,8 @@ nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
+inoreabbrev THe the
+inoreabbrev THere there
 
 " Reload this file when I save it, modified or nay
 augroup vimrc

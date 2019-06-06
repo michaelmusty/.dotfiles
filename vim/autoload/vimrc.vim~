@@ -22,32 +22,33 @@ endfunction
 " more than good enough.  A separator can be defined as: a comma that is not
 " preceded by a backslash, and which is followed by any number of spaces
 " and/or further commas.
-function! vimrc#SplitOption(string) abort
-  return split(a:string, '\\\@<!,[, ]*')
+function! vimrc#SplitOption(str) abort
+  return split(a:str, '\\\@<!,[, ]*')
 endfunction
 
 " Convenience version function check that should work with 7.0 or newer;
 " takes strings like 7.3.251
-function! vimrc#Version(string) abort
+function! vimrc#Version(verstr) abort
 
-  " Test the version string and get submatches for each part
-  let match = matchlist(a:string, '^\(\d\+\)\.\(\d\+\)\.\(\d\+\)$')
-
-  " Throw toys if the string didn't match the expected format
-  if !len(match)
-    echoerr 'Invalid version string: '.a:string
-    return
+  " Throw toys if the string doesn't match the expected format
+  if a:verstr !~# '^\d\+\.\d\+.\d\+$'
+    echoerr 'Invalid version string: '.a:verstr
   endif
 
-  " Get the major, minor, and patch numbers from the submatches
-  let [major, minor, patch] = match[1:3]
+  " Split version string into major, minor, and patch level integers
+  let [major, minor, patch] = split(a:verstr, '\.')
 
-  " Create a string like 801 from a version number 8.1 to compare it to the
-  " v:version integer
+  " Create a string like 801 from a version number 8.1 to compare it to
+  " the v:version integer
   let ver = major * 100 + minor
 
   " Compare versions
-  return v:version > ver
-        \ || v:version == ver && has('patch'.patch)
+  if v:version > ver
+    return 1  " Current Vim is newer than the wanted one
+  elseif ver < v:version
+    return 0  " Current Vim is older than the wanted one
+  else
+    return has('patch'.patch)  " Versions equal, return patch presence
+  endif
 
 endfunction
