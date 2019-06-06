@@ -462,6 +462,10 @@ nnoremap <Leader><Insert> :<C-U>enew<CR>
 " \TAB toggles 'autoindent'
 nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 
+" Some useful abbreviations
+inoreabbrev tr@ tom@sanctum.geek.nz
+inoreabbrev tr/ <https://sanctum.geek.nz/>
+
 " Things I almsot always type wrnog
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
