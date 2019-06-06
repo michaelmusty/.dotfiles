@@ -11,6 +11,16 @@ function! vimrc#EscapeSetPart(string) abort
   return vimrc#EscapeSet(escape(a:string, ','))
 endfunction
 
+" Expand the first path in an option string, check if it exists, and attempt
+" to create it if it doesn't.  Strip double-trailing-slash hints.
+function! vimrc#Establish(string) abort
+  let part = vimrc#SplitOption(a:string)[0]
+  let part = substitute(part, '//$', '', '')
+  let dirname = expand(part)
+  return isdirectory(dirname)
+        \ || mkdir(dirname, 'p')
+endfunction
+
 " Check that we have a plugin available, and will be loading it
 function! vimrc#PluginReady(filename) abort
   return globpath(&runtimepath, 'plugin/'.a:filename.'.vim') !=# ''

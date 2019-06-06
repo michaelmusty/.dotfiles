@@ -15,13 +15,13 @@ if line('.') == 1 && col('.') == 1
   while getline('.') =~? '^> *'
         \ . '\%('
           \ . '\%('
-            \ . "g['\u2019]\\=day"
+            \ . 'g[''\u2019]\=day'
             \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
             \ . '\|h[eu]\%(ll\|rr\)o\+'
             \ . '\|hey\+'
             \ . '\|hi\+'
             \ . '\|sup'
-            \ . "\\|what['\u2019]\\=s up"
+            \ . '\|what[''\u2019]\=s up'
             \ . '\|yo'
           \ . '\)'
           \ . '[[:punct:] ]*'
@@ -114,21 +114,13 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|xunmap <buffer> <LocalLeader>Q'
 
 " Maps using autoloaded function for quoted paragraph movement
-nnoremap <buffer> <silent> <LocalLeader>[
+noremap <buffer> <silent> <LocalLeader>[
       \ :<C-U>call mail#NewBlank(v:count1, 1, 0)<CR>
-nnoremap <buffer> <silent> <LocalLeader>]
+sunmap <buffer> <LocalLeader>[
+noremap <buffer> <silent> <LocalLeader>]
       \ :<C-U>call mail#NewBlank(v:count1, 0, 0)<CR>
-onoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call mail#NewBlank(v:count1, 1, 0)<CR>
-onoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call mail#NewBlank(v:count1, 0, 0)<CR>
-xnoremap <buffer> <silent> <LocalLeader>[
-      \ :<C-U>call mail#NewBlank(v:count1, 1, 1)<CR>
-xnoremap <buffer> <silent> <LocalLeader>]
-      \ :<C-U>call mail#NewBlank(v:count1, 0, 1)<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>['
-      \ . '|nunmap <buffer> <LocalLeader>]'
-      \ . '|ounmap <buffer> <LocalLeader>['
-      \ . '|ounmap <buffer> <LocalLeader>]'
-      \ . '|xunmap <buffer> <LocalLeader>['
-      \ . '|xunmap <buffer> <LocalLeader>]'
+sunmap <buffer> <LocalLeader>]
+let b:undo_ftplugin .= '|smap <buffer> <LocalLeader>] <nop>'
+      \ . '|unmap <buffer> <LocalLeader>]'
+      \ . '|smap <buffer> <LocalLeader>] <nop>'
+      \ . '|unmap <buffer> <LocalLeader>]'

@@ -24,8 +24,10 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.vimrc#EscapeSetPart($MYVIM.'/cache/backup')
-      \ . (vimrc#Version('8.1.251') ? '//' : '')
+execute 'set backupdir^='.vimrc#EscapeSetPart(
+      \ $MYVIM.'/cache/backup'.(vimrc#Version('8.1.251') ? '//' : '')
+      \ )
+call vimrc#Establish(&backupdir)
 
 " Add some *nix paths not to back up
 if has('unix')
@@ -54,8 +56,14 @@ set confirm
 " Sentence objects are separated by two spaces
 set cpoptions+=J
 
+" Specify where to look for a dictionary even if 'spell' isn't on
+set dictionary^=/usr/share/dict/words
+
 " Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap')
+execute 'set directory^='.vimrc#EscapeSetPart(
+      \ $MYVIM.'/cache/swap//'
+      \ )
+call vimrc#Establish(&directory)
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
@@ -121,6 +129,9 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=nbsp:+      " Non-breaking spaces
 
+" Show matching brackets a bit more briefly
+set matchtime=3
+
 " Don't allow setting options via buffer content
 set nomodeline
 
@@ -148,12 +159,20 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
+" Jump to matching bracket when typed in insert mode
+set showmatch
+
 " New window positioning
 set splitbelow  " Below the current window, not above
 set splitright  " Right of the current window, not left
 
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
+
+" Add thesaurus; install with `make install-vim-thesaurus`
+execute 'set thesaurus^='.vimrc#EscapeSetPart(
+      \ $MYVIM.'/ref/thesaurus.txt'
+      \ )
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -169,7 +188,10 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
+  execute 'set undodir^='.vimrc#EscapeSetPart(
+        \ $MYVIM.'/cache/undo//'
+        \ )
+  call vimrc#Establish(&undodir)
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -177,7 +199,9 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
+  execute 'set viminfo+='.vimrc#EscapeSet(
+        \ 'n'.$MYVIM.'/cache/viminfo'
+        \ )
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -437,6 +461,10 @@ nnoremap <Leader><Insert> :<C-U>enew<CR>
 
 " \TAB toggles 'autoindent'
 nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
+
+" Some useful abbreviations
+inoreabbrev tr@ tom@sanctum.geek.nz
+inoreabbrev tr/ <https://sanctum.geek.nz/>
 
 " Things I almsot always type wrnog
 inoreabbrev almsot almost
