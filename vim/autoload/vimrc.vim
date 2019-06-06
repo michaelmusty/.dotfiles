@@ -1,6 +1,12 @@
-" Escape a text value for inclusion in a comma-separated option value
+" Escape a text value for inclusion in an option value
 function! vimrc#EscapeSet(string) abort
-  return escape(a:string, '\ ,')
+  return escape(a:string, '\ ')
+endfunction
+
+" Escape a text value for inclusion as an element in a comma-separated list
+" option value
+function! vimrc#EscapeSetList(string) abort
+  return vimrc#EscapeSet(escape(a:string, ','))
 endfunction
 
 " Check that we have a plugin available, and will be loading it

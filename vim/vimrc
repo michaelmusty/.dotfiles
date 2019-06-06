@@ -24,7 +24,7 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.vimrc#EscapeSet($MYVIM.'/cache/backup')
+execute 'set backupdir^='.vimrc#EscapeSetList($MYVIM.'/cache/backup')
       \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
@@ -55,7 +55,7 @@ set confirm
 set cpoptions+=J
 
 " Keep swap files in dedicated directory, named with full path
-set directory^=$MYVIM/cache/swap//
+execute 'set directory^='.vimrc#EscapeSetList($MYVIM.'/cache/swap')
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
@@ -169,7 +169,7 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  set undodir^=$MYVIM/cache/undo//
+  execute 'set undodir^='.vimrc#EscapeSetList($MYVIM.'/cache/undo//')
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -177,7 +177,7 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+=n'.vimrc#EscapeSet($MYVIM.'/cache/viminfo')
+  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
 endif
 
 " Let me move beyond buffer text in visual block mode
