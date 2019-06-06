@@ -213,7 +213,7 @@ try
   colorscheme sahara
   set cursorline
 catch
-  colorscheme default
+  syntax reset
   set background=dark
   set nocursorline
 endtry
