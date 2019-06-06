@@ -28,15 +28,15 @@ endfunction
 
 " Convenience version function check that should work with 7.0 or newer;
 " takes strings like 7.3.251
-function! vimrc#Version(verstr) abort
+function! vimrc#Version(string) abort
 
   " Throw toys if the string doesn't match the expected format
-  if a:verstr !~# '^\d\+\.\d\+\.\d\+$'
-    echoerr 'Invalid version string: '.a:verstr
+  if a:string !~# '^\d\+\.\d\+\.\d\+$'
+    echoerr 'Invalid version string: '.a:string
   endif
 
   " Split version string into major, minor, and patch level integers
-  let [major, minor, patch] = split(a:verstr, '\.')
+  let [major, minor, patch] = split(a:string, '\.')
 
   " Create a string like 801 from a version number 8.1 to compare it to
   " the v:version integer
