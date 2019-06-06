@@ -443,6 +443,8 @@ nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
+inoreabbrev THe the
+inoreabbrev THere there
 
 " Reload this file when I save it, modified or nay
 augroup vimrc
