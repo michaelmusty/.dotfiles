@@ -3,7 +3,7 @@
 
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
-if !exists('$MYVIM') && strlen(&runtimepath) > 0
+if !exists('$MYVIM') && &runtimepath !=# ''
   let $MYVIM = vimrc#SplitEscaped(&runtimepath)[0]
 endif
 
