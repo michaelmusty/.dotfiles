@@ -156,6 +156,9 @@ set splitright  " Right of the current window, not left
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
+" Add thesaurus; install with `make install-vim-thesaurus`
+execute 'set thesaurus^='.vimrc#EscapeSetPart($MYVIM.'/ref/thesaurus.txt')
+
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
   set ttyfast

@@ -57,6 +57,7 @@
 	install-vim-indent \
 	install-vim-plugin \
 	install-vim-syntax \
+	install-vim-thesaurus \
 	install-vint \
 	install-wget \
 	install-x \
@@ -629,6 +630,11 @@ install-vim-plugin:
 install-vim-syntax:
 	mkdir -p -- $(VIMDIR)/syntax
 	cp -p -- vim/syntax/*.vim $(VIMDIR)/syntax
+
+install-vim-thesaurus:
+	mkdir -p -- $(VIMDIR)/ref
+	curl 'https://sanctum.geek.nz/ref/thesaurus.txt' \
+		> $(VIMDIR)/ref/thesaurus.txt
 
 install-vint:
 	cp -p -- vint/vintrc.yaml $(HOME)/.vintrc.yaml
