@@ -18,9 +18,12 @@ if exists('no_plugin_maps') || exists('no_perl_maps')
 endif
 
 " Add boilerplate intelligently
-nnoremap <buffer> <silent> <LocalLeader>b
-      \ :<C-U>call perl#Boilerplate()<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>b'
+command -buffer Boilerplate
+      \ call perl#Boilerplate()
+nnoremap <buffer> <LocalLeader>b
+      \ :<C-U>Boilerplate<CR>
+let b:undo_ftplugin .= '|delcommand Boilerplate'
+      \ . '|nunmap <buffer> <LocalLeader>b'
 
 " Mappings to choose compiler
 nnoremap <buffer> <LocalLeader>c
