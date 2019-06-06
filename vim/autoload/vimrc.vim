@@ -43,12 +43,7 @@ function! vimrc#Version(string) abort
   let ver = major * 100 + minor
 
   " Compare versions
-  if v:version > ver
-    return 1  " Current Vim is newer than the wanted one
-  elseif ver < v:version
-    return 0  " Current Vim is older than the wanted one
-  else
-    return has('patch'.patch)  " Versions equal, return patch presence
-  endif
+  return v:version > ver
+        \ || v:version == ver && has('patch'.patch)
 
 endfunction
