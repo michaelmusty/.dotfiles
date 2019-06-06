@@ -15,13 +15,13 @@ if line('.') == 1 && col('.') == 1
   while getline('.') =~? '^> *'
         \ . '\%('
           \ . '\%('
-            \ . "g['\u2019]\\=day"
+            \ . 'g[''\u2019]\=day'
             \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
             \ . '\|h[eu]\%(ll\|rr\)o\+'
             \ . '\|hey\+'
             \ . '\|hi\+'
             \ . '\|sup'
-            \ . "\\|what['\u2019]\\=s up"
+            \ . '\|what[''\u2019]\=s up'
             \ . '\|yo'
           \ . '\)'
           \ . '[[:punct:] ]*'
