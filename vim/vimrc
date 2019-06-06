@@ -4,7 +4,7 @@
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = vimrc#SplitEscaped(&runtimepath)[0]
+  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
 endif
 
 " The all-important default indent settings; filetypes to tweak
@@ -24,7 +24,7 @@ set backspace+=start   " Before the start of current insertion
 " Keep backup files in dedicated directory; add trailing double-slash to keep
 " full path in name, if Vim is new enough to support that
 set backup
-execute 'set backupdir^='.vimrc#EscapeSetList($MYVIM.'/cache/backup')
+execute 'set backupdir^='.vimrc#EscapeSetPart($MYVIM.'/cache/backup')
       \ . (vimrc#Version('8.1.251') ? '//' : '')
 
 " Add some *nix paths not to back up
@@ -55,7 +55,7 @@ set confirm
 set cpoptions+=J
 
 " Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetList($MYVIM.'/cache/swap')
+execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap')
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
@@ -169,7 +169,7 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetList($MYVIM.'/cache/undo//')
+  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
