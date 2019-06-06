@@ -1,3 +1,8 @@
+" Escape a text value for inclusion in a comma-separated option value
+function! vimrc#EscapeSet(string)
+  return escape(a:string, '\ ,')
+endfunction
+
 " Split a string with a split character that can be escaped with another,
 " e.g. &runtimepath with commas and backslashes respectively
 function! vimrc#SplitEscaped(str, ...) abort
