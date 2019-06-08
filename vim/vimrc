@@ -1,36 +1,120 @@
-" Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
-" Requires Vim 7.0 or newer with +eval.
+"
+" Tom Ryder (tejr)'s vimrc
+" ------------------------
+"
+" <https://sanctum.geek.nz/cgit/dotfiles.git>
+"
+" This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
+" comments abound.
+"
+" This file should be saved as vimrc in the user runtime directory. (UNIX
+" ~/.vim, Windows ~/vimfiles).  It requires Vim 7.0 or newer with +eval, not
+" running in &compatible mode.  The vimrc stub (UNIX ~/.vimrc, Windows
+" ~/_vimrc) that loads this file checks that these two conditions are met.
+"
+" > And I was lifted up in heart, and thought
+" > Of all my late-shown prowess in the lists,
+" > How my strong lance had beaten down the knights,
+" > So many and famous names; and never yet
+" > Had heaven appeared so blue, nor earth so green,
+" > For all my blood danced in me, and I knew
+" > That I should light upon the Holy Grail.
+" > --Tennyson
+"
 
-" Set an environment variable for the user runtime directory, if not already
-" set; use the first element of &runtimepath, rather like 'spellfile'
+" Set an environment variable MYVIM for the user runtime directory, if such
+" a variable does not already exist in the environment, and there's a value in
+" 'runtimepath' from which to glean a useable path.  We'll use the path
+" nominated in the MYVIM variable as the root of our 'backupdir', 'directory',
+" 'undodir', and 'viminfofile' caches.
+"
+" I think the absence of a variable like this is a glaring omission from Vim.
+" We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
+" variable for the first runtime directory?  It's a mystery, and that's why so
+" is mankind.
+"
 if !exists('$MYVIM') && &runtimepath !=# ''
+
+  " We'll use the first path specified in 'runtimepath', rather like Vim
+  " itself does for spelling database files in the absence of a setting for
+  " 'spellfile'.
+  "
   let s:runtimepath_paths = vimrc#SplitOption(&runtimepath)
   let $MYVIM = s:runtimepath_paths[0]
+
 endif
 
-" The all-important default indent settings; filetypes to tweak
+" Global indent settings go here.  Filetype indent plugins will often refine
+" these settings for individual buffers.  For example, 'expandtab' is not
+" appropriate for Makefiles, nor for the Go programming language.  For
+" another, two-space indents are more traditional for Vim script.
+"
+" In general, however, I prefer spaces to tabs as a default, and I like to use
+" four of them, for a more distinct visual structure.  Should you happen to
+" disagree with this, I cordially invite you to fite me irl.
+"
+" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
+"
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " Indent with four spaces
 
-" Make insert mode tab key add the same number of spaces as 'shiftwidth', use
-" negative value to do this dynamically, if Vim is new enough to support it
-let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
+" Apply 'softtabstop' option to make a tab key press in insert mode insert the
+" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
+" Vim is new enough to support it (v7.3.693), apply a negative value to do
+" this dynamically if 'shiftwidth' changes.
+"
+let s:negative_softtabstop = vimrc#Version('7.3.693')
+let &softtabstop = s:negative_softtabstop ? -1 : &shiftwidth
 
-" Let me backspace over pretty much anything
+" Relax traditional vi's harsh standards over what regions of the buffer can
+" be removed with backspace in insert mode.  While this admittedly allows bad
+" habits to continue, since insert mode by definition is not really intended
+" for deleting text, I feel the convenience outweighs that in this case.
+"
 set backspace+=eol     " Line breaks
-set backspace+=indent  " Spaces from 'autoindent'
-set backspace+=start   " Before the start of current insertion
+set backspace+=indent  " Leading whitespace characters created by 'autoindent'
+set backspace+=start   " Text before the start of the current insertion
 
-" Keep backup files in dedicated directory; add trailing double-slash to keep
-" full path in name, if Vim is new enough to support that
+" Enable automatic backups of most file buffers.  In practice, I don't need
+" these backups very much if I'm using version control sensibly, but they have
+" still saved my bacon a few times.
 set backup
+
+" Try to keep the aforementioned backup files in a dedicated cache directory,
+" to stop them proliferating next to their prime locations, and thereby
+" getting accidentally committed to Git repositories.
+"
+" If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
+" inserting, which prompts Vim to incorporate the full escaped path in the
+" backup filename, avoiding collisions.
+"
+" As a historical note, other similar directory path list options supported
+" this trailing slashes hint for a long time before 'backupdir' caught up to
+" them.  The 'directory' option for swapfiles has supported it at least as far
+" back as v5.8.0 (2001), and 'undodir' appears to have supported it since its
+" creation in v7.2.438.  Even though the :help for 'backupdir' didn't say so,
+" people assumed it would work the same way, when in fact Vim simply ignored
+" it until v8.1.251.
+"
+" I think options named something like 'backuppath', 'swapfilepath', and
+" 'undopath' would be much clearer.
+"
 let s:backup_full_path = vimrc#Version('8.1.251')
 let s:backupdir = $MYVIM.'/cache/backup'.(s:backup_full_path ? '//' : '')
 execute 'set backupdir^='.vimrc#EscapeSetPart(s:backupdir)
+
+" Create the first path in the 'backupdir' list, the one we just added, if it
+" doesn't already exist.  It isn't created automatically, which is by design.
+"
 call vimrc#Ensure(&backupdir)
 
-" Add some *nix paths not to back up
+" Files in certain directories on UNIX-compatible filesystems should not be
+" backed up for reasons of privacy, or an intentional ephemerality, or both.
+" On the systems I use, this is particularly important if editing temporary
+" files created by sudoedit(8).  We add a few paths to the default value
+" of 'backupskip' to prevent the creation of such undesired backup files.
+"
 if has('unix')
 
   " * /dev/shm: RAM disk, default path for password-store's temporary files
@@ -55,26 +139,81 @@ if has('unix')
 
 endif
 
-" Indent wrapped lines
-if exists('+breakindent')  " v7.4.338
+" The visual structure of code provided by indents breaks down if a lot of the
+" lines wrap.  Ideally, most if not all lines would be kept below 80
+" characters, but in cases where this isn't possible, soft-wrapping longer
+" lines when 'wrap' is on so that the indent is preserved in the following
+" line mitigates this somewhat.
+"
+" This option wasn't added until v7.4.338, so we need to check it exists
+" before we set it.
+"
+if exists('+breakindent')
   set breakindent
 endif
 
-" Clear default 'comments' and 'commentstring', filetype to handle
+" vi was often used for development in the C programming language.  The
+" default values for a lot of Vim's options still reflect this common use
+" pattern.  In this case, the 'comments' and 'commentstring' options reflect
+" the C syntax for comments:
+"
+"     /*
+"      * This is an ANSI C comment.
+"      */
+"
+" Times change, however, and I don't get to work with C nearly as much as I'd
+" like.  The defaults no longer make sense, and so we blank the global values
+" for these options, compelling filetype plugins to set them as they need
+" instead.
+"
 set comments=
 set commentstring=
 
-" Give me a prompt instead of just rejecting risky :write, :saveas
+" Rather than rejecting operations like :write or :saveas when 'readonly' is
+" set, and other situations in which data might be lost or I'm acting against
+" an option, Vim should give me a prompt to allow me to confirm that I know
+" what I'm doing.
+"
 set confirm
 
-" Sentence objects are separated by two spaces
+" After staunchly opposing it for years, I have converted to two-spacing.  You
+" can blame Steve Losh:
+"
+" <http://stevelosh.com/blog/2012/10/why-i-two-space/>
+"
+" Consequently, we specify that sentence objects for the purposes of the 's'
+" text object, the '(' and ')' sentence motions, and formatting with the 'gq'
+" command must be separated by *two* spaces.  One space does not suffice.
+"
+" My defection to the two-spacers is the reason I now also leave 'joinspaces'
+" set, per its default, so that two spaces are inserted when consecutive
+" sentences separated by a line break are joined onto one line by the 'J'
+" command.
+"
 set cpoptions+=J
 
-" Specify where to look for a dictionary even if 'spell' isn't on
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, this specifies the path to the system dictionary.
+" This makes the dictionary completion work even if 'spell' isn't set.
+"
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently with reference to the same resources.
+"
 set dictionary^=/usr/share/dict/words
 
+" Keep swap files for file buffers in a dedicated directory, rather than the
+" default of writing them to the same directory as the buffer file.  Add two
+" trailing slashes to the path to prompt Vim to use the full escaped path in
+" its name, in order to avoid filename collisions.
+"
 let s:directory = $MYVIM.'/cache/swap//'
 execute 'set directory^='.vimrc#EscapeSetPart(s:directory)
+
+" Create the first path in the 'directory' swapfile path list, the one we just
+" added, if it doesn't already exist.  It isn't created automatically, which
+" is by design.
+"
 call vimrc#Ensure(&directory)
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
