@@ -1,121 +1,513 @@
-" Tom Ryder (tejr)'s vimrc: <https://sanctum.geek.nz/cgit/dotfiles.git>
-" Requires Vim 7.0 or newer with +eval.
+"
+" Tom Ryder (tejr)'s vimrc
+" ========================
+"
+" <https://sanctum.geek.nz/cgit/dotfiles.git>
+"
+" This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
+" comments abound.
+"
+" This file should be saved as "vimrc" in the user runtime directory. On
+" Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
+" It requires Vim 7.0 or newer with +eval, not running in &compatible mode.
+" The vimrc stub at ~/.vimrc on Unix or ~/_vimrc on Windows checks that these
+" conditions are met before loading this file.
+"
+" > And I was lifted up in heart, and thought
+" > Of all my late-shown prowess in the lists,
+" > How my strong lance had beaten down the knights,
+" > So many and famous names; and never yet
+" > Had heaven appeared so blue, nor earth so green,
+" > For all my blood danced in me, and I knew
+" > That I should light upon the Holy Grail.
+" > --Tennyson
+"
 
-" Set an environment variable for the user runtime directory, if not already
-" set; use the first element of &runtimepath, rather like 'spellfile'
+" We'll start by removing unwanted addenda to 'runtimepath' from Debian
+" GNU/Linux's debian.vim, so that any Vim script installed at the system level
+" is ignored, since we don't want it interfering with our personal setup.
+" This doesn't raise an error if the paths aren't present, so we don't need to
+" check if they're already there.
+"
+set runtimepath-=/var/lib/vim/addons runtimepath-=/var/lib/vim/addons/after
+
+" With 'runtimepath' cleaned up, the next thing we'll do is set an environment
+" variable MYVIM for the user runtime directory, if such a variable does not
+" already exist in the environment, and there's a value in 'runtimepath' from
+" which to glean a useable path.  We'll use the path nominated in the MYVIM
+" variable as the root of our 'backupdir', 'directory', 'undodir', and
+" 'viminfofile' caches, and anywhere else we need a sensible writeable
+" location for Vim-related files.
+"
+" I think the absence of a variable like this is a glaring omission from Vim.
+" We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
+" variable for the user's Vim runtime directory?  It is a mystery.
+"
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
+
+  " We'll use the first path specified in 'runtimepath' as a default value for
+  " the MYVIM environment variable.  This is similar to what Vim itself does
+  " for the location of the spelling database files in the absence of
+  " a setting for 'spellfile'.
+  "
+  " Splitting the values of a comma-separated option like 'runtimepath'
+  " correctly is a bit more complicated than it seems.  The list separator is
+  " more accurately defined as a comma that is not preceded by a backslash, and
+  " which is followed by any number of spaces and/or further commas.
+  "
+  " The pattern required for the split breaks down like this:
+  "
+  "   \\     Literal backslash
+  "   \@<!   Negative lookbehind assertion; means that whatever occurred before
+  "          this pattern, i.e. a backslash, cannot precede what follows, but is
+  "          not included as part of the split delimiter itself
+  "   ,      Literal comma
+  "   [, ]*  Any number of commas and spaces
+  "
+  " We don't have to deal with escaped backslashes; read the source of
+  " copy_option_part() in vim/src/misc2.c to see why.
+  "
+  let s:option_split_pattern = '\\\@<!,[, ]*'
+
+  " Man, I wish the runtime path was just a List, or could be treated as one.
+  " Vim, I love you, but you are weird.
+  "
+  let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
+
 endif
 
-" The all-important default indent settings; filetypes to tweak
+" The path named in the MYVIM environment variable can't contain a comma
+" anywhere, because its use in comma-separated option values will confuse Vim
+" into thinking more than one directory is being specified for the option
+" value, per normal :set semantics.  If there's a comma, we raise an error and
+" end the script.
+"
+" It's possible to work around this with some careful escaping, either at :set
+" time with an :execute abstraction or with a separate environment variable
+" for that particular context, but it's not really worth the extra complexity
+" for such a niche situation.
+"
+if stridx($MYVIM, ',') != -1
+  echoerr '$MYVIM contains a comma, refusing to proceed'
+  finish
+endif
+
+" If we have a directory creation function, and the cache directory doesn't
+" already exist, create it.  This will be where backup, swap, undo, and
+" viminfo files are stored, each in their own directories.
+"
+if exists('*mkdir') && !isdirectory($MYVIM.'/cache')
+  call mkdir($MYVIM.'/cache', 'p', 0700)
+endif
+
+" Create a 'vimrc' automatic command hook group, if it already exists, and
+" clear away any automatic command hooks already defined within it if it does,
+" so that we don't end up collecting multiple copies of the hooks configured
+" in the rest of this file if it's reloaded.
+"
+augroup vimrc
+  autocmd!
+augroup END
+
+" If this file or the vimrc stub that calls it is written to by Vim, reload
+" the stub vimrc and thereby the main vimrc, so that our changes apply
+" immediately in the current editing session.  This often makes broken changes
+" immediately apparent.
+"
+autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+      \ source $MYVIMRC
+
+" Similarly, if this file or the vimrc stub that calls it is sourced, whether
+" because of the above hook, or the <Leader>R mapping prescribed later in this
+" file, add a hook that re-runs filetype detection and thereby ftplugin
+" loading.  This is chiefly so that any global options set in this file don't
+" trample over needed buffer-local settings.
+"
+" If there's stuff in any of your ftplugins that doesn't cope well with being
+" reloaded, and just assumes a single BufRead event, it might be necessary to
+" rewrite those parts to be idempotent, or to add load guards around them so
+" that they only run once.
+"
+" Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
+" check it exists first.
+"
+if exists('##SourceCmd')
+
+  " We can't wrap this in a script-local function like I normally would,
+  " because without a load guard around it, Vim will get upset that we're
+  " trying to redefine that function the next time this script loads.
+  "
+  " So, we just inline the whole thing into the hook.  It's only four
+  " commands, anyway, and I'd rather most if not all of the vimrc was reloaded
+  " when we source it.
+  "
+  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+        \ source <afile>
+        \|if exists('#filetypedetect#BufRead')
+        \|  doautocmd filetypedetect BufRead
+        \|endif
+endif
+
+" We'll start our options by modernising a little in adjusting some options
+" with language-specific defaults.
+"
+" Traditional vi was often used for development in the C programming language.
+" The default values for a lot of Vim's options still reflect this common use
+" pattern.  In this case, the 'comments' and 'commentstring' options reflect
+" the C syntax for comments:
+"
+"     /*
+"      * This is an ANSI C comment.
+"      */
+"
+" Similarly, the 'define' and 'include' options default to C preprocessor
+" directives:
+"
+"     #define FOO "bar"
+"
+"     #include "baz.h"
+"
+" Times change, however, and I don't get to work with C nearly as much as I'd
+" like.  The defaults for these options no longer make sense, and so we blank
+" them, compelling filetype plugins to set them as they need instead.
+"
+set comments= commentstring= define= include=
+
+" The default value for the 'path' option is similar in that it has an aged
+" default; this option specifies directories in which project files and
+" includes can be unearthed by navigation commands like 'gf'.  Specifically,
+" its default value comprises /usr/include, which is another C default.  Let's
+" get rid of that, too.
+"
+set path-=/usr/include
+
+" Next, we'll adjust the global indentation settings.  In general and as
+" a default, I prefer spaces to tabs, and I like to use four of them, for
+" a more distinct visual structure.  Should you happen to disagree with this,
+" I cordially invite you to fite me irl.
+"
+" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
+"
+" Filetype indent plugins will often refine these settings for individual
+" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
+" the Go programming language.  For another, two-space indents are more
+" traditional for Vim script.
+"
 set autoindent    " Use indent of previous line on new lines
-set expandtab     " Use spaces instead of tabs
-set shiftwidth=4  " Indent with four spaces
+set expandtab     " Insert spaces when tab key is pressed in insert mode
+set shiftwidth=4  " Indent command like < and > use four-space indents
 
-" Make insert mode tab key add the same number of spaces as 'shiftwidth', use
-" negative value to do this dynamically, if Vim is new enough to support it
-let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
-
-" Let me backspace over pretty much anything
-set backspace+=eol     " Line breaks
-set backspace+=indent  " Spaces from 'autoindent'
-set backspace+=start   " Before the start of current insertion
-
-" Keep backup files in dedicated directory; add trailing double-slash to keep
-" full path in name, if Vim is new enough to support that
-set backup
-execute 'set backupdir^='.vimrc#EscapeSetPart(
-      \ $MYVIM.'/cache/backup'.(vimrc#Version('8.1.251') ? '//' : '')
-      \ )
-call vimrc#Establish(&backupdir)
-
-" Add some *nix paths not to back up
-if has('unix')
-  set backupskip&  " Reset to avoid duplicates (Vim bug?)
-  set backupskip+=/dev/shm/*  " Shared memory RAM disk
-  set backupskip+=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
-  set backupskip+=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
+" Apply 'softtabstop' option to make a tab key press in insert mode insert the
+" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
+" Vim is new enough to support it (v7.3.693), apply a negative value to do
+" this dynamically if 'shiftwidth' changes.
+"
+if v:version > 730 || v:version == 730 && has('patch693')
+  set softtabstop=-1
+else
+  let &softtabstop = &shiftwidth
 endif
 
-" Indent wrapped lines
-if exists('+breakindent')  " v7.4.338
+" Relax traditional vi's harsh standards over what regions of the buffer can
+" be removed with backspace in insert mode.  While this admittedly allows bad
+" habits to continue, since insert mode by definition is not really intended
+" for deleting text, I feel the convenience outweighs that in this case.
+"
+set backspace+=eol     " Line breaks
+set backspace+=indent  " Leading whitespace characters created by 'autoindent'
+set backspace+=start   " Text before the start of the current insertion
+
+" Enable automatic backups of most file buffers.  In practice, I don't need
+" these backups very much if I'm using version control sensibly, but they have
+" still saved my bacon a few times.
+"
+set backup
+
+" Try to keep the aforementioned backup files in a dedicated cache directory,
+" to stop them proliferating next to their prime locations and getting
+" committed to version control repositories.  Create that directory if needed,
+" too, with restrictive permissions.
+"
+" If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
+" inserting, which prompts Vim to incorporate the full escaped path in the
+" backup filename, avoiding collisions.
+"
+" As a historical note, other similar directory path list options supported
+" this trailing slashes hint for a long time before 'backupdir' caught up to
+" them.  The 'directory' option for swapfiles has supported it at least as far
+" back as v5.8.0 (2001), and 'undodir' appears to have supported it since its
+" creation in v7.2.438.  Even though the :help for 'backupdir' didn't say so,
+" people assumed it would work the same way, when in fact Vim simply ignored
+" it until v8.1.251.
+"
+" I don't want to add the slashes to the option value in older versions of Vim
+" where they don't do anything, so I check the version to see if there's any
+" point adding them.
+"
+" It's all so awkward.  Surely options named something like 'backupfullpath',
+" 'swapfilefullpath', and 'undofullpath' would have been clearer.
+"
+if has('patch-8.1.251')
+  set backupdir^=$MYVIM/cache/backup//
+else
+  set backupdir^=$MYVIM/cache/backup
+endif
+let s:backupdir = split(&backupdir, s:option_split_pattern)[0]
+if exists('*mkdir') && !isdirectory(s:backupdir)
+  call mkdir(s:backupdir, '', 0700)
+endif
+
+" Files in certain directories on Unix-compatible filesystems should not be
+" backed up for reasons of privacy, or an intentional ephemerality, or both.
+" This is particularly important if editing temporary files created by
+" sudoedit(8).  We add a few paths to the default value of 'backupskip' here
+" in order to prevent the creation of such undesired backup files.
+"
+if has('unix')
+
+  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
+  " so adding them repeatedly if this file is reloaded results in duplicates.
+  " This might be a bug in Vim.  To work around this, we reset the path back
+  " to its default first.
+  "
+  set backupskip&
+
+  " * /dev/shm: RAM disk, default path for password-store's temporary files
+  " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
+  " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
+  "
+  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
+
+endif
+
+" The visual structure of code provided by indents breaks down if a lot of the
+" lines wrap.  Ideally, most if not all lines would be kept below 80
+" characters, but in cases where this isn't possible, soft-wrapping longer
+" lines when 'wrap' is on so that the indent is preserved in the following
+" line mitigates this breakdown somewhat.
+"
+" This option wasn't added until v7.4.338, so we need to check it exists
+" before we set it.
+"
+if exists('+breakindent')
   set breakindent
 endif
 
-" Clear default 'comments' and 'commentstring', filetype to handle
-set comments=
-set commentstring=
-
-" Add completion options
-set completeopt+=longest  " Insert longest common substring
-set completeopt+=menuone  " Show the menu even if only one match
-
-" Give me a prompt instead of just rejecting risky :write, :saveas
+" Rather than rejecting operations like :write or :saveas when 'readonly' is
+" set, and other situations in which data might be lost or I'm acting against
+" an option, Vim should give me a prompt to allow me to confirm that I know
+" what I'm doing.
+"
 set confirm
 
-" Sentence objects are separated by two spaces
+" After staunchly opposing it for years, I have converted to two-spacing.  You
+" can blame Steve Losh:
+"
+" <http://stevelosh.com/blog/2012/10/why-i-two-space/>
+"
+" Consequently, we specify that sentence objects for the purposes of the 's'
+" text object, the '(' and ')' sentence motions, and formatting with the 'gq'
+" command must be separated by *two* spaces.  One space does not suffice.
+"
+" My defection to the two-spacers is the reason I now also leave 'joinspaces'
+" set, per its default, so that two spaces are inserted when consecutive
+" sentences separated by a line break are joined onto one line by the 'J'
+" command.
+"
 set cpoptions+=J
 
-" Specify where to look for a dictionary even if 'spell' isn't on
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, this specifies the path to the system dictionary to
+" find words.  This makes the dictionary completion work consistently, even if
+" 'spell' isn't set at that moment.
+"
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently with reference to the same resources.
+"
+" It's not an error if this file doesn't exist; indeed, on some systems I use,
+" it doesn't.
+"
 set dictionary^=/usr/share/dict/words
 
-" Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetPart(
-      \ $MYVIM.'/cache/swap//'
-      \ )
-call vimrc#Establish(&directory)
+" Keep swap files for file buffers in a dedicated directory, rather than the
+" default of writing them to the same directory as the buffer file.  Add two
+" trailing slashes to the path to prompt Vim to use the full escaped path in
+" its name, in order to avoid filename collisions.  Create that path if
+" needed, too.
+"
+set directory^=$MYVIM/cache/swap//
+let s:directory = split(&directory, s:option_split_pattern)[0]
+if exists('*mkdir') && !isdirectory(s:directory)
+  call mkdir(s:directory, '', 0700)
+endif
 
-" If the environment didn't set an encoding, use UTF-8, not ASCII
+" On Unix, I keep LANG defined in my environment, and it's almost always set
+" to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
+" character encoding, but the default for the 'encoding' option is latin1,
+" which is seldom what I want, and if I do want it, I'll specify it with LANG
+" or possibly a manual :set command.  UTF-8 makes much more sense as a default
+" encoding if Vim can't glean what I want from LANG.
+"
 if !exists('$LANG')
   set encoding=utf-8
 endif
 
-" Don't wait for a key after Escape in insert mode
-if exists('+esckeys')  " No such option in Neovim
+" If Vim receives an Escape key code in insert mode, it shouldn't wait to see
+" if it's going to be followed by another key code, despite this being how the
+" function keys and Meta/Alt modifier are implemented for many terminal types.
+" Otherwise, if I press Escape, there's an annoying delay before 'showmode'
+" stops showing "--INSERT--".
+"
+" This breaks the function keys and the Meta/Alt modifier in insert mode in
+" most or maybe all of the terminals I use, but I don't want those keys in
+" insert mode anyway.  It all works fine in the GUI, of course.
+"
+" There's no such option as 'esckeys' in Neovim, which I gather has completely
+" overhauled its method of keyboard event handling, so we need to check
+" whether the option exists before we try to set it.
+"
+if exists('+esckeys')
   set noesckeys
 endif
 
-" Fold based on indent, but only when I ask
-set foldlevelstart=99
+" By default, I prefer that figuring out where a region of text to fold away
+" should be done by the indent level of its lines, since I tend to be careful
+" about my indentation even in languages where it has no structure
+" significance.
+"
 set foldmethod=indent
 
-" Automatic formatting options
-set formatoptions+=l  " Don't break a long line in insert mode
-set formatoptions+=1  " Avoid breaking lines after one-letter words
-if vimrc#Version('7.3.541')
-  set formatoptions+=j  " Delete comment leaders when joining lines
-endif
-if vimrc#Version('8.1.728')
-  set formatoptions+=p  " Don't break a single space after a period
+" That said, I don't want any folding to actually take place unless
+" I specifically ask for it.
+"
+" I think of a Vim window with a file buffer loaded as a two-dimensional
+" planar view of the file, so that moving down one screen line means moving
+" down one buffer line, at least when 'wrap' is unset.  Folds break that
+" mental model, and so I usually enable them explicitly only when I'm
+" struggling to grasp some in-depth code with very long functions or loops.
+"
+" Therefore, we set the depth level at which folds should automatically start
+" as closed to a rather high number, per the documentation's recommendations.
+"
+set foldlevelstart=99
+
+" Automatic text wrapping options using flags in the 'formatoptions' option
+" begin here.  I allow filetypes to set 't' and 'c' to configure whether text
+" or comments should be wrapped, and so I don't mess with either of those
+" flags here.
+
+" If a line is already longer than 'textwidth' would otherwise limit when
+" editing of that line begins in insert mode, don't suddenly automatically
+" wrap it; I'll break it apart myself with a command like 'gq'.
+"
+set formatoptions+=l
+
+" Don't wrap a line in such a way that a single-letter word like "I" or "a" is
+" at the end of it.  Typographically, as far as I can tell, this seems to be
+" a stylistic preference rather than a rule like avoiding "widow" and "orphan"
+" lines in typesetting.  I think it generally looks better to have the short
+" word start the line.
+"
+set formatoptions+=1
+
+" If the filetype plugins have correctly described what the comment syntax for
+" the buffer's language looks like, it makes sense to use that to figure out
+" how to join lines within comments without redunant comment leaders cropping
+" up.  For example, with this set, in Vim, joining lines in this very comment
+" with 'J' would remove the leading '"' characters that denote a comment.
+"
+" This option flag wasn't added until v7.3.541.  Because we can't test for the
+" availability of option flags directly, we resort to a version number check
+" before attempting to add the flag.
+"
+if v:version > 730 || v:version == 730 && has('patch541')
+  set formatoptions+=j
 endif
 
-" Don't load GUI menus; set here before GUI starts or any filetype or syntax
-" logic is performed
+" Separating sentences with two spaces has an advantage in distinguishing
+" between two different types of periods: periods that abbreviate longer
+" words, as in "Mr. Moolenaar", and periods that terminate sentences, like
+" this one.
+"
+" If we're using two-period spacing for sentences, Vim can interpret the
+" different spacing to distinguish between the two types, and can avoid
+" breaking a line just after an abbreviating period.  That means the two words
+" in "Mr. Moolenaar" should never be split apart, preventing confusion on the
+" reader's part, and also preserving the semantics of the period for
+" subsequent reformats.
+"
+" This is what the 'p' flag does.  I wrote the patch that added it, after
+" becoming envious of an analogous feature during an ill-fated foray into GNU
+" Emacs usage.
+"
+" <https://github.com/vim/vim/commit/c3c3158>
+"
+if has('patch-8.1.728')
+  set formatoptions+=p
+endif
+
+" In an effort to avoid loading unnecessary files, we add a flag to the
+" 'guioptions' option to prevent the menu.vim runtime file from being loaded.
+" It doesn't do any harm, but I never use it, and it's easy to turn it off.
+"
+" The documentation for this flag in `:help 'go-M'` includes a note saying the
+" flag should be set here, rather that in the GUI-specific gvimrc file, as one
+" might otherwise think.
+"
 if has('gui_running')
   set guioptions+=M
 endif
 
-" Allow buffers to have changes without being displayed
+" By default, Vim doesn't allow a file buffer to have unsaved changes if it's
+" not displayed in a window.  Setting this option removes that restriction so
+" that buffers can be modified and not displayed.
+"
+" Despite this option being in almost every vimrc I read, I didn't personally
+" need it for years into my Vim career, because I instinctively only closed
+" windows onto buffers after the buffers within them were saved anyway.
+"
+" However, the option really is required for batch operations performed with
+" commands like :argdo or :bufdo.  After I started using those a bit more
+" often, I realised I finally had a reason to turn this on, and so on it shall
+" stay.
+"
 set hidden
 
-" Keep much more command and search history
-set history=2000
+" I don't think I'm ever likely to be in a situation where remembering several
+" thousand Vim commands and search patterns is going to severely tax memory,
+" let alone hard disk space.  The maximum value for this option is documented
+" as 10000, so let's just use that.
+"
+set history=10000
 
-" Highlight completed searches; clear on reload
+" Do highlight completed searches, but clear them away on vimrc reload.  Later
+" on in this file, CTRL-L in normal mode is remapped to stack on a :nohlsearch
+" as well.
+"
 set hlsearch
 nohlsearch
 
-" Don't assume I'm editing C; let the filetype set this
-set include=
-
-" Show search matches as I type my pattern
+" Show search matches as I type my pattern, including scrolling the screen if
+" necessary.  This is somewhat jarring sometimes, particularly when the cursor
+" runs so far away from home, but I think the benefits of being able to see
+" instances of what I'm trying to match as I try to match it do outweight
+" that.
+"
 set incsearch
 
-" Don't show a status line if there's only one window
-" This is Vim's default, but not Neovim's
+" If there's only one window, I don't need a statusline to appear beneath it.
+" I very often edit only one file, and just open a :help buffer or two.  This
+" is the Vim default, but Neovim changed it, so we'll explicitly set it to the
+" default here in case we're using Neovim.
+"
 set laststatus=1
 
-" Don't redraw the screen during batch execution
+" Don't waste cycles and bandwidth redrawing the screen during batch execution
+" of macros.  I think this does amount to the occasional :redraw needing to be
+" in a script, but it's not too bad, and last I checked it really does speed
+" things up, especially for linewise operations on really big data sets.
+"
 set lazyredraw
 
 " Break lines at word boundaries
@@ -129,25 +521,29 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=nbsp:+      " Non-breaking spaces
 
-" Show matching brackets a bit more briefly
-set matchtime=3
+" I like the brief jump to the matching brackets provided by the 'showmatch'
+" option; the only change I want is for it to be a little quicker, so we'll
+" adjust that to 0.3 seconds.
+"
+set showmatch matchtime=3
 
-" Don't allow setting options via buffer content
+" Don't let your editor's options be configured by content in arbitrary files!
+" Down with modelines!  Purge them from your files!  Écrasez l'infâme!
+"
+" I think that modelines are Vim's worst misfeature, and that 'nomodeline'
+" should be the default.  It's enabled pretty bad security vulnerabilities
+" over the years, and it's a lot more effective to use filetype detection,
+" other automatic command hooks, or systems like .editorconfig to set
+" variables specifically for a buffer or project.
+"
 set nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
 
-" Don't search /usr/include by default
-set path-=/usr/include
-
 " Disable command line display of file position if a system vimrc or Neovim
 " has switched it on
 set noruler
-
-" Remove Debian's 'runtimepath' addenda if present
-set runtimepath-=/var/lib/vim/addons
-set runtimepath-=/var/lib/vim/addons/after
 
 " Make sessions usable
 set sessionoptions-=localoptions  " No buffer options or mappings
@@ -159,9 +555,6 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
-" Jump to matching bracket when typed in insert mode
-set showmatch
-
 " New window positioning
 set splitbelow  " Below the current window, not above
 set splitright  " Right of the current window, not left
@@ -170,9 +563,7 @@ set splitright  " Right of the current window, not left
 set synmaxcol=500
 
 " Add thesaurus; install with `make install-vim-thesaurus`
-execute 'set thesaurus^='.vimrc#EscapeSetPart(
-      \ $MYVIM.'/ref/thesaurus.txt'
-      \ )
+set thesaurus^=$MYVIM/ref/thesaurus.txt
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -188,10 +579,11 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetPart(
-        \ $MYVIM.'/cache/undo//'
-        \ )
-  call vimrc#Establish(&undodir)
+  set undodir^=$MYVIM/cache/undo//
+  let s:undodir = split(&undodir, s:option_split_pattern)[0]
+  if exists('*mkdir') && !isdirectory(s:undodir)
+    call mkdir(s:undodir, '', 0700)
+  endif
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -199,9 +591,7 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+='.vimrc#EscapeSet(
-        \ 'n'.$MYVIM.'/cache/viminfo'
-        \ )
+  set viminfo+=n$MYVIM/cache/viminfo
 endif
 
 " Let me move beyond buffer text in visual block mode
@@ -243,7 +633,8 @@ catch
 endtry
 
 " Space bar scrolls down a page, :next at buffer's end if plugin available
-if vimrc#PluginReady('scroll_next')
+if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
+      \ && &loadplugins
   nmap <Space> <Plug>(ScrollNext)
 else
   nnoremap <Space> <PageDown>
@@ -251,7 +642,8 @@ endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation, but don't break
 " the key if the plugin isn't there
-if vimrc#PluginReady('insert_cancel')
+if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
+      \ && &loadplugins
   imap <C-C> <Plug>(InsertCancel)
 endif
 
@@ -472,10 +864,3 @@ inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
 inoreabbrev THe the
 inoreabbrev THere there
-
-" Reload this file when I save it, modified or nay
-augroup vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ source $MYVIMRC
-augroup END
