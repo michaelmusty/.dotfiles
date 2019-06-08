@@ -611,7 +611,7 @@ catch
 endtry
 
 " Space bar scrolls down a page, :next at buffer's end if plugin available
-if globpath(&runtimepath, 'plugin/scroll_next.vim')
+if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
   nmap <Space> <Plug>(ScrollNext)
 else
@@ -620,7 +620,7 @@ endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation, but don't break
 " the key if the plugin isn't there
-if globpath(&runtimepath, 'plugin/insert_cancel.vim')
+if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
       \ && &loadplugins
   imap <C-C> <Plug>(InsertCancel)
 endif
