@@ -274,6 +274,12 @@ endif
 "
 set comments= commentstring= define= include=
 
+" Similarly to the above, the default value for 'path' that lists directories
+" in which project files and includes can be found adds /usr/include, which is
+" another C default,  so we'll get rid of that, too.
+"
+set path-=/usr/include
+
 " Rather than rejecting operations like :write or :saveas when 'readonly' is
 " set, and other situations in which data might be lost or I'm acting against
 " an option, Vim should give me a prompt to allow me to confirm that I know
@@ -510,9 +516,6 @@ set nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
 set nrformats-=octal
-
-" Don't search /usr/include by default
-set path-=/usr/include
 
 " Disable command line display of file position if a system vimrc or Neovim
 " has switched it on
