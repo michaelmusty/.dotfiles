@@ -45,8 +45,9 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   " Splitting the values of a comma-separated option like 'runtimepath'
   " correctly is a bit more complicated than it seems.  The list separator is
   " more accurately defined as a comma that is not preceded by a backslash, and
-  " which is followed by any number of spaces and/or further commas.  The
-  " pattern breaks down like this:
+  " which is followed by any number of spaces and/or further commas.
+  "
+  " The pattern breaks down like this:
   "
   "   \\     Literal backslash
   "   \@<!   Negative lookbehind assertion; means that whatever occurred before
