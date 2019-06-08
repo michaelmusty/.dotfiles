@@ -59,7 +59,7 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   " copy_option_part() in vim/src/misc2.c to see why.
   "
   " Man, I wish the runtime path was just a List, or could be treated as one.
-  " Vim, I love you, but man, you are weird.
+  " Vim, I love you, but you are weird.
   "
   let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
 
