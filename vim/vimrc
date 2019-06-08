@@ -4,7 +4,8 @@
 " Set an environment variable for the user runtime directory, if not already
 " set; use the first element of &runtimepath, rather like 'spellfile'
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
+  let s:runtimepath_paths = vimrc#SplitOption(&runtimepath)
+  let $MYVIM = s:runtimepath_paths[0]
 endif
 
 " The all-important default indent settings; filetypes to tweak
