@@ -61,7 +61,8 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   " Man, I wish the runtime path was just a List, or could be treated as one.
   " Vim, I love you, but you are weird.
   "
-  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
+  let s:option_split_pattern = '\\\@<!,[, ]*'
+  let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 
 endif
 
@@ -79,6 +80,14 @@ endif
 if stridx($MYVIM, ',') != -1
   echoerr '$MYVIM contains a comma, refusing to proceed'
   finish
+endif
+
+" If we have a directory creation function, and the cache directory doesn't
+" already exist, create it.  This will be where backup, swap, undo, and
+" viminfo files are stored.
+"
+if exists('*mkdir') && !isdirectory($MYVIM.'/cache')
+  call mkdir($MYVIM.'/cache', 'p', 0700)
 endif
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
@@ -174,7 +183,8 @@ set backup
 
 " Try to keep the aforementioned backup files in a dedicated cache directory,
 " to stop them proliferating next to their prime locations and getting
-" committed to version control repositories.  Create that path if needed, too.
+" committed to version control repositories.  Create that directory if needed,
+" too, with restrictive permissions.
 "
 " If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path in the
@@ -189,8 +199,8 @@ set backup
 " it until v8.1.251.
 "
 " I don't want to add the slashes to the option value in older versions of Vim
-" where they don't do anything, so I check the version to see if I should add
-" them.
+" where they don't do anything, so I check the version to see if there's any
+" point adding them.
 "
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
@@ -200,7 +210,10 @@ if has('patch-8.1.251')
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-call mkdir($MYVIM.'/cache/backup', 'p')
+let s:backupdir = split(&backupdir, s:option_split_pattern)[0]
+if exists('*mkdir') && !isdirectory(s:backupdir)
+  call mkdir(s:backupdir, '', 0700)
+endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
@@ -302,7 +315,10 @@ set dictionary^=/usr/share/dict/words
 " needed, too.
 "
 set directory^=$MYVIM/cache/swap//
-call mkdir($MYVIM.'/cache/swap', 'p')
+let s:directory = split(&directory, s:option_split_pattern)[0]
+if exists('*mkdir') && !isdirectory(s:directory)
+  call mkdir(s:directory, '', 0700)
+endif
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -503,7 +519,10 @@ endif
 if has('persistent_undo')  " v7.2.438
   set undofile
   set undodir^=$MYVIM/cache/undo//
-  call mkdir($MYVIM.'/cache/undo', 'p')
+  let s:undodir = split(&undodir, s:option_split_pattern)[0]
+  if exists('*mkdir') && !isdirectory(s:undodir)
+    call mkdir(s:undodir, '', 0700)
+  endif
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -513,7 +532,6 @@ if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
 else  " Resort to clunkier method with 'viminfo' option flag
   set viminfo+=n$MYVIM/cache/viminfo
 endif
-call mkdir($MYVIM.'/cache', 'p')
 
 " Let me move beyond buffer text in visual block mode
 set virtualedit+=block
