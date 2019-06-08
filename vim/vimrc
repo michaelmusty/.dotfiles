@@ -29,7 +29,34 @@
 " This doesn't raise an error if the paths aren't present, so we don't need to
 " check if they're already there.
 "
-set runtimepath-=/var/lib/vim/addons runtimepath-=/var/lib/vim/addons/after
+set runtimepath-=/var/lib/vim/addons
+set runtimepath-=/var/lib/vim/addons/after
+
+" Splitting the values of a comma-separated option like 'runtimepath'
+" correctly, which we'll need to do a few times throughout this file, is a bit
+" more complicated than it seems.  The list separator is more accurately
+" defined as a comma that is not preceded by a backslash, and which is
+" followed by any number of spaces and/or further commas.
+"
+" The pattern required for the split breaks down like this:
+"
+"   \\     Literal backslash
+"   \@<!   Negative lookbehind assertion; means that whatever occurred before
+"          this pattern, i.e. a backslash, cannot precede what follows, but is
+"          not included as part of the split delimiter itself
+"   ,      Literal comma
+"   [, ]*  Any number of commas and spaces
+"
+" Vim, I love you, but you are weird.
+"
+" We don't have to deal with escaped backslashes; read the source of
+" copy_option_part() in vim/src/misc2.c to see why.
+"
+let s:option_split_pattern
+      \ = '\\'
+      \ . '\@<!'
+      \ . ','
+      \ . '[, ]*'
 
 " With 'runtimepath' cleaned up, the next thing we'll do is set an environment
 " variable MYVIM for the user runtime directory, if such a variable does not
@@ -43,62 +70,71 @@ set runtimepath-=/var/lib/vim/addons runtimepath-=/var/lib/vim/addons/after
 " We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
 " variable for the user's Vim runtime directory?  It is a mystery.
 "
+" We'll use the first path specified in 'runtimepath' as a default value.
+" This is similar to what Vim does internally for the location of the spelling
+" database files in the absence of a setting for 'spellfile'.
+"
 if !exists('$MYVIM') && &runtimepath !=# ''
-
-  " We'll use the first path specified in 'runtimepath' as a default value for
-  " the MYVIM environment variable.  This is similar to what Vim itself does
-  " for the location of the spelling database files in the absence of
-  " a setting for 'spellfile'.
-  "
-  " Splitting the values of a comma-separated option like 'runtimepath'
-  " correctly is a bit more complicated than it seems.  The list separator is
-  " more accurately defined as a comma that is not preceded by a backslash, and
-  " which is followed by any number of spaces and/or further commas.
-  "
-  " The pattern required for the split breaks down like this:
-  "
-  "   \\     Literal backslash
-  "   \@<!   Negative lookbehind assertion; means that whatever occurred before
-  "          this pattern, i.e. a backslash, cannot precede what follows, but is
-  "          not included as part of the split delimiter itself
-  "   ,      Literal comma
-  "   [, ]*  Any number of commas and spaces
-  "
-  " We don't have to deal with escaped backslashes; read the source of
-  " copy_option_part() in vim/src/misc2.c to see why.
-  "
-  let s:option_split_pattern = '\\\@<!,[, ]*'
-
-  " Man, I wish the runtime path was just a List, or could be treated as one.
-  " Vim, I love you, but you are weird.
-  "
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
-
 endif
 
-" The path named in the MYVIM environment variable can't contain a comma
-" anywhere, because its use in comma-separated option values will confuse Vim
-" into thinking more than one directory is being specified for the option
-" value, per normal :set semantics.  If there's a comma, we raise an error and
-" end the script.
+" If the path specified in the MYVIM environment variable contains a comma,
+" its use in comma-separated option values will confuse Vim into thinking more
+" than one directory is being specified, per normal :set semantics.
 "
 " It's possible to work around this with some careful escaping, either at :set
 " time with an :execute abstraction or with a separate environment variable
 " for that particular context, but it's not really worth the extra complexity
 " for such a niche situation.
 "
-if stridx($MYVIM, ',') != -1
-  echoerr '$MYVIM contains a comma, refusing to proceed'
+" So, if there's a comma, we just raise an error and end the script.
+"
+" Similarly, the 'thesaurus' option, and possibly others, won't accept a path
+" with a pipe in its name, so don't allow that, either.
+"
+if $MYVIM =~# '[,|]'
+  echoerr 'Illegal characters in $MYVIM path'
   finish
 endif
 
-" If we have a directory creation function, and the cache directory doesn't
-" already exist, create it.  This will be where backup, swap, undo, and
-" viminfo files are stored, each in their own directories.
+" We're going to be creating a few directories, and the code to do so in
+" a compatible way is surprisingly verbose, because we need to check the
+" mkdir() function is actually available, and also whether the directory
+" concerned already exists, even if we specify the special 'p' value for its
+" optional {path} argument.
 "
-if exists('*mkdir') && !isdirectory($MYVIM.'/cache')
-  call mkdir($MYVIM.'/cache', 'p', 0700)
-endif
+" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
+" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function.  We'll make all
+" the directories we create have restrictive permissions, too, with a {prot}
+" argument of 0700.
+"
+function! s:Mkdir(path) abort
+  if exists('*mkdir') && !isdirectory(a:path)
+    call mkdir(a:path, 'p', 0700)
+  endif
+endfunction
+
+" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
+" subdirectory if necessary.
+"
+" Using this location for viminfo has the nice benefit of preventing history
+" from getting clobbered when something runs Vim without using this vimrc,
+" because it writes its history to the default viminfo path instead.  It also
+" means that everything Vim-related in the user's home directory should be
+" encapsulated in the one ~/.vim or ~/vimfiles directory.
+"
+" The normal method of specifying the path to the viminfo file used here is an
+" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
+" a nicer way to set it with a 'viminfofile' option, but there's no particular
+" reason to use it until it's in a few more stable versions.
+"
+call s:Mkdir($MYVIM.'/cache')
+set viminfo+=n$MYVIM/cache/viminfo
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
@@ -252,10 +288,7 @@ if has('patch-8.1.251')
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-let s:backupdir = split(&backupdir, s:option_split_pattern)[0]
-if exists('*mkdir') && !isdirectory(s:backupdir)
-  call mkdir(s:backupdir, '', 0700)
-endif
+call s:Mkdir(split(&backupdir, s:option_split_pattern)[0])
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
@@ -337,10 +370,7 @@ set dictionary^=/usr/share/dict/words
 " needed, too.
 "
 set directory^=$MYVIM/cache/swap//
-let s:directory = split(&directory, s:option_split_pattern)[0]
-if exists('*mkdir') && !isdirectory(s:directory)
-  call mkdir(s:directory, '', 0700)
-endif
+call s:Mkdir(split(&directory, s:option_split_pattern)[0])
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -538,14 +568,26 @@ set showmatch matchtime=3
 "
 set nomodeline
 
-" Treat numbers with a leading zero as decimal, not octal
+" The only octal numbers I can think of that I ever even encounter are Unix
+" permissions masks, and I'd never use CTRL-A or CTRL-X to increment them.
+" Numbers with leading zeroes are far more likely to be decimals.
+"
 set nrformats-=octal
 
-" Disable command line display of file position if a system vimrc or Neovim
-" has switched it on
+" I like to leave the last line of the screen blank unless something is
+" actually happening in it, so I have grown to like the Vim default of
+" 'noruler'.
+"
+" System vimrc files tend to turn this back on, though, and Neovim has it on
+" by default, so we will often need to put it back to normal.
+"
 set noruler
 
-" Make sessions usable
+" Sessions are great, but they don't play together well with plugins and
+" filetype plugins.  Restoring the same settings from both reloaded plugins
+" and from the session causes screeds of errors.  Adjusting session behaviour
+" to stop it trying to restore quite so much makes them useable.
+"
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
@@ -580,18 +622,7 @@ endif
 if has('persistent_undo')  " v7.2.438
   set undofile
   set undodir^=$MYVIM/cache/undo//
-  let s:undodir = split(&undodir, s:option_split_pattern)[0]
-  if exists('*mkdir') && !isdirectory(s:undodir)
-    call mkdir(s:undodir, '', 0700)
-  endif
-endif
-
-" Keep the viminfo file in the home Vim directory, mostly to stop history
-" getting clobbered when something runs Vim without using this vimrc
-if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
-  set viminfofile=$MYVIM/cache/viminfo
-else  " Resort to clunkier method with 'viminfo' option flag
-  set viminfo+=n$MYVIM/cache/viminfo
+  call s:Mkdir(split(&undodir, s:option_split_pattern)[0])
 endif
 
 " Let me move beyond buffer text in visual block mode
