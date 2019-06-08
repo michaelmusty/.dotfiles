@@ -161,13 +161,17 @@ endif
 "      * This is an ANSI C comment.
 "      */
 "
-" Times change, however, and I don't get to work with C nearly as much as I'd
-" like.  The defaults no longer make sense, and so we blank the global values
-" for these options, compelling filetype plugins to set them as they need
-" instead.
+" Similarly, the 'define' and 'include' options default to C preprocessor
+" directives:
 "
-set comments=
-set commentstring=
+"     #define FOO "bar"
+"     #include "baz.h"
+"
+" Times change, however, and I don't get to work with C nearly as much as I'd
+" like; the defaults for these options no longer make sense, and so we blank
+" them, compelling filetype plugins to set them as they need instead.
+"
+set comments= commentstring= define= include=
 
 " Rather than rejecting operations like :write or :saveas when 'readonly' is
 " set, and other situations in which data might be lost or I'm acting against
@@ -257,7 +261,6 @@ set hlsearch
 nohlsearch
 
 " Don't assume I'm editing C; let the filetype set this
-set include=
 
 " Show search matches as I type my pattern
 set incsearch
