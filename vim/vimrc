@@ -576,8 +576,10 @@ set nrformats-=octal
 
 " I like to leave the last line of the screen blank unless something is
 " actually happening in it, so I have grown to like the Vim default of
-" 'noruler'.  System vimrc files tend to turn this back on, though, and Neovim
-" has it on by default, so we will often need to put it back to normal.
+" 'noruler'.
+"
+" System vimrc files tend to turn this back on, though, and Neovim has it on
+" by default, so we will often need to put it back to normal.
 "
 set noruler
 
