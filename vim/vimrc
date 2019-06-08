@@ -96,7 +96,7 @@ endif
 " for that particular context, but it's not really worth the extra complexity
 " for such a niche situation.
 "
-if $MYVIM != '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
+if $MYVIM ==# '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
   echoerr 'Illegal user runtime path, halting user init'
   finish
 endif
