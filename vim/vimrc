@@ -46,6 +46,23 @@ if !exists('$MYVIM') && &runtimepath !=# ''
 
 endif
 
+" Create a 'vimrc' automatic command hook group, if it already exists, and
+" clear away any automatic command hooks already defined within it if it does,
+" so that we don't end up collecting multiple copies of the hooks configured
+" in the rest of this file if it's reloaded.
+"
+augroup vimrc
+  autocmd!
+augroup END
+
+" If this file or the vimrc stub that calls it is written to by Vim, reload
+" the stub vimrc and thereby the main vimrc, so that our changes apply
+" immediately in the current editing session.  This often makes broken changes
+" immediately apparent.
+"
+autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+      \ source $MYVIMRC
+
 " Global indent settings go here.  Filetype indent plugins will often refine
 " these settings for individual buffers.  For example, 'expandtab' is not
 " appropriate for Makefiles, nor for the Go programming language.  For
@@ -683,10 +700,3 @@ inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
 inoreabbrev THe the
 inoreabbrev THere there
-
-" Reload this file when I save it, modified or nay
-augroup vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ source $MYVIMRC
-augroup END
