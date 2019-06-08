@@ -602,9 +602,13 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
-" New window positioning
-set splitbelow  " Below the current window, not above
-set splitright  " Right of the current window, not left
+" By default, the positioning of new Vim windows differs from the i3 and tmux
+" window management to which I'm accustomed, in that new windows are created
+" above or to the left of existing ones.  I have tried to get used to this,
+" but haven't managed to, so we configure it to behave more consistently
+" instead.
+"
+set splitbelow splitright
 
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
@@ -617,9 +621,14 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" Don't use terminal mouse support, even if it would work; the manual says to
-" set 't_RV' to do this, but that doesn't seem to work
-if exists('+ttymouse')  " No such option in Neovim
+" We don't want a mouse.  Don't use terminal mouse support, even if it would
+" work. The manual suggests this should be done by clearing 't_RV', but that
+" doesn't seem to work.
+"
+" We have to check for the existence of the option first, as it doesn't exist
+" in Neovim.
+"
+if exists('+ttymouse')
   set ttymouse=
 endif
 
