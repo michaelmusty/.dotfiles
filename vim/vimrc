@@ -10,7 +10,7 @@
 " This file should be saved as "vimrc" in the user runtime directory. (UNIX
 " ~/.vim, Windows ~/vimfiles).  It requires Vim 7.0 or newer with +eval, not
 " running in &compatible mode.  The vimrc stub (UNIX ~/.vimrc, Windows
-" ~/_vimrc) that loads this file checks that these two conditions are met.
+" ~/_vimrc) that loads this file checks that these conditions are met.
 "
 " > And I was lifted up in heart, and thought
 " > Of all my late-shown prowess in the lists,
