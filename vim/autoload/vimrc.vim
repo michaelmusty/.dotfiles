@@ -1,26 +1,5 @@
 " Utility functions for use in .vim/vimrc only
 
-" Escape a text value for :execute-based :set inclusion as an option value
-function! vimrc#EscapeSet(string) abort
-
-  " Escape all the characters that `:help option-backslash` warns us about
-  return escape(a:string, '\ |"')
-
-endfunction
-
-" Escape a text value for :execute-based :set inclusion as an element in
-" a comma-separated option value
-function! vimrc#EscapeSetPart(string) abort
-
-  " Message to future Tom: yes, the comma being the sole inner escaped
-  " character here is correct.  No, we shouldn't escape backslash itself.
-  " Yes, that means it's impossible to have the literal string '\,' in a part.
-  " Yes, this reflects what Vim does internally.  Read the source of
-  " copy_option_part() in vim/src/misc2.c to confirm.
-  return vimrc#EscapeSet(escape(a:string, ','))
-
-endfunction
-
 " Expand the first path in an option string, check if it exists, and attempt
 " to create it if it doesn't.  Strip double-trailing-slash hints.
 function! vimrc#Ensure(string) abort

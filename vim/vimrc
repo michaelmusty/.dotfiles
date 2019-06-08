@@ -33,17 +33,29 @@
 " variable for the first runtime directory?  It's a mystery, and that's why so
 " is mankind.
 "
+" We'll use the first path specified in 'runtimepath', rather like Vim itself
+" does for spelling database files in the absence of a setting for
+" 'spellfile'.  Splitting the values of an option like 'runtimepath' correctly
+" is a bit more complicated than it seems; we defer that to an autoloaded
+" utility function for clarity.
+"
 if !exists('$MYVIM') && &runtimepath !=# ''
+  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
+endif
 
-  " We'll use the first path specified in 'runtimepath', rather like Vim
-  " itself does for spelling database files in the absence of a setting for
-  " 'spellfile'.  Splitting the values of an option like 'runtimepath' is
-  " a bit more complicated than it looks; we defer it to an autoloaded utility
-  " function for clarity.
-  "
-  let s:runtimepath_paths = vimrc#SplitOption(&runtimepath)
-  let $MYVIM = s:runtimepath_paths[0]
-
+" The path named in the MYVIM environment variable can't contain a comma
+" anywhere, because its use in comma-separated option values will confuse Vim
+" into thinking more than one directory is being specified for the option
+" value, per normal :set semantics.  If it does, we refuse to proceed.
+"
+" It's possible to work around this with some careful escaping, either at :set
+" time with an :execute abstraction or with a separate environment variable
+" for that particular context, but it's not really worth the extra complexity
+" for such a niche situation.
+"
+if stridx($MYVIM, ',') != -1
+  echoerr '$MYVIM contains a comma, refusing to proceed'
+  finish
 endif
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
@@ -121,11 +133,11 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
-let s:backupdir = $MYVIM.'/cache/backup'
 if vimrc#Version('8.1.251')
-  let s:backupdir .= '//'
+  set backupdir^=$MYVIM/cache/backup//
+else
+  set backupdir^=$MYVIM/cache/backup
 endif
-execute 'set backupdir^='.vimrc#EscapeSetPart(s:backupdir)
 
 " Create the first path in the 'backupdir' list, the one we just added, if it
 " doesn't already exist.  It isn't created automatically, which is by design.
@@ -140,30 +152,18 @@ call vimrc#Ensure(&backupdir)
 "
 if has('unix')
 
+  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
+  " so adding them repeatedly if this file is reloaded results in duplicates.
+  " This might be a bug in Vim.  To work around this, we reset the path back
+  " to its default first.
+  set backupskip&
+
+  "
   " * /dev/shm: RAM disk, default path for password-store's temporary files
   " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
   " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
   "
-  let s:backupskip_patterns = [
-        \ '/dev/shm/*'
-        \,'/usr/tmp/*'
-        \,'/var/tmp/*'
-        \ ]
-
-  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
-  " so adding them repeatedly if this file is reloaded results in duplicates.
-  " This might be a bug in Vim.  To work around this, we attempt to remove
-  " each pattern before we add it.
-  "
-  " We sort and add them backwards only so that they're in alphabetical order
-  " in the final option!
-  "
-  for s:pattern in reverse(sort(s:backupskip_patterns))
-    let s:pattern_escaped = vimrc#EscapeSetPart(s:pattern)
-    execute 'set'
-          \.' backupskip-='.s:pattern_escaped
-          \.' backupskip^='.s:pattern_escaped
-  endfor
+  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 
 endif
 
@@ -243,8 +243,7 @@ set dictionary^=/usr/share/dict/words
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions.
 "
-let s:directory = $MYVIM.'/cache/swap'.'//'
-execute 'set directory^='.vimrc#EscapeSetPart(s:directory)
+set directory^=$MYVIM/cache/swap
 
 " Create the first path in the 'directory' swapfile path list, the one we just
 " added, if it doesn't already exist.  It isn't created automatically, which
@@ -434,7 +433,7 @@ set splitright  " Right of the current window, not left
 set synmaxcol=500
 
 " Add thesaurus; install with `make install-vim-thesaurus`
-execute 'set thesaurus^='.vimrc#EscapeSetPart($MYVIM.'/ref/thesaurus.txt')
+set thesaurus^=$MYVIM/ref/thesaurus.txt
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -450,7 +449,7 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
+  set undodir^=$MYVIM/cache/undo//
   call vimrc#Ensure(&undodir)
 endif
 
@@ -459,7 +458,7 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
+  set viminfo+=n$MYVIM/cache/viminfo
 endif
 
 " Let me move beyond buffer text in visual block mode
