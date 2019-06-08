@@ -516,8 +516,11 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=nbsp:+      " Non-breaking spaces
 
-" Show matching brackets a bit more briefly
-set matchtime=3
+" I like the brief jump to the matching brackets provided by the 'showmatch'
+" option; the only change I want is for it to be a little quicker, so we'll
+" adjust that to 0.3 seconds.
+"
+set showmatch matchtime=3
 
 " Don't allow setting options via buffer content
 set nomodeline
@@ -538,9 +541,6 @@ set shortmess+=I
 
 " Prefix wrapped rows with three dots
 set showbreak=...
-
-" Jump to matching bracket when typed in insert mode
-set showmatch
 
 " New window positioning
 set splitbelow  " Below the current window, not above
