@@ -276,9 +276,24 @@ set foldmethod=indent
 "
 set foldlevelstart=99
 
-" Automatic formatting options
-set formatoptions+=l  " Don't break a long line in insert mode
-set formatoptions+=1  " Avoid breaking lines after one-letter words
+" Automatic text wrapping options using flags in the 'formatoptions' option
+" begin here.  I allow filetypes to set 't' and 'c' to configure whether text
+" or comments should be wrapped, and don't mess with it here.
+"
+" If a line is already longer than 'textwidth' would otherwise limit when
+" editing of that line begins in insert mode, don't suddenly automatically
+" wrap it.
+"
+set formatoptions+=l
+
+" Don't wrap a line in such a way that a single-letter word like "I" or "a" is
+" at the end of it.  Typographically, as far as I can tell, this seems to be
+" a stylistic preference rather than a rule like avoiding "widow" and "orphan"
+" lines in typesetting.  I think it generally looks better to have the short
+" word start the line.
+"
+set formatoptions+=1
+
 if vimrc#Version('7.3.541')
   set formatoptions+=j  " Delete comment leaders when joining lines
 endif
