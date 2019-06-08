@@ -101,45 +101,6 @@ if $MYVIM != '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
   finish
 endif
 
-" We're going to be creating a few directories, and the code to do so in
-" a compatible way is surprisingly verbose, because we need to check the
-" mkdir() function is actually available, and also whether the directory
-" concerned already exists, even if we specify the special 'p' value for its
-" optional {path} argument.
-"
-" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
-" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
-" Even with the magic 'p' sauce, these versions throw errors if the directory
-" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
-" shell script might expect.
-"
-" So, let's wrap all that nonsense in a script-local function.  We'll make all
-" the directories we create have restrictive permissions, too, with a {prot}
-" argument of 0700.
-"
-function! s:Mkdir(path) abort
-  if exists('*mkdir') && !isdirectory(a:path)
-    call mkdir(a:path, 'p', 0700)
-  endif
-endfunction
-
-" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
-" subdirectory if necessary.
-"
-" Using this location for viminfo has the nice benefit of preventing history
-" from getting clobbered when something runs Vim without using this vimrc,
-" because it writes its history to the default viminfo path instead.  It also
-" means that everything Vim-related in the user's home directory should be
-" encapsulated in the one ~/.vim or ~/vimfiles directory.
-"
-" The normal method of specifying the path to the viminfo file used here is an
-" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
-" a nicer way to set it with a 'viminfofile' option, but there's no particular
-" reason to use it until it's in a few more stable versions.
-"
-call s:Mkdir($MYVIM.'/cache')
-set viminfo+=n$MYVIM/cache/viminfo
-
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
 " so that we don't end up collecting multiple copies of the hooks configured
@@ -187,6 +148,45 @@ if exists('##SourceCmd')
         \|  doautocmd filetypedetect BufRead
         \|endif
 endif
+
+" We're going to be creating a few directories, and the code to do so in
+" a compatible way is surprisingly verbose, because we need to check the
+" mkdir() function is actually available, and also whether the directory
+" concerned already exists, even if we specify the special 'p' value for its
+" optional {path} argument.
+"
+" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
+" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function.  We'll make all
+" the directories we create have restrictive permissions, too, with a {prot}
+" argument of 0700.
+"
+function! s:Mkdir(path) abort
+  if exists('*mkdir') && !isdirectory(a:path)
+    call mkdir(a:path, 'p', 0700)
+  endif
+endfunction
+
+" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
+" subdirectory if necessary.
+"
+" Using this location for viminfo has the nice benefit of preventing history
+" from getting clobbered when something runs Vim without using this vimrc,
+" because it writes its history to the default viminfo path instead.  It also
+" means that everything Vim-related in the user's home directory should be
+" encapsulated in the one ~/.vim or ~/vimfiles directory.
+"
+" The normal method of specifying the path to the viminfo file used here is an
+" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
+" a nicer way to set it with a 'viminfofile' option, but there's no particular
+" reason to use it until it's in a few more stable versions.
+"
+call s:Mkdir($MYVIM.'/cache')
+set viminfo+=n$MYVIM/cache/viminfo
 
 " We'll start our options by modernising a little in adjusting some options
 " with language-specific defaults.
