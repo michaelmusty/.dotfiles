@@ -29,7 +29,8 @@
 " This doesn't raise an error if the paths aren't present, so we don't need to
 " check if they're already there.
 "
-set runtimepath-=/var/lib/vim/addons runtimepath-=/var/lib/vim/addons/after
+set runtimepath-=/var/lib/vim/addons
+set runtimepath-=/var/lib/vim/addons/after
 
 " With 'runtimepath' cleaned up, the next thing we'll do is set an environment
 " variable MYVIM for the user runtime directory, if such a variable does not
