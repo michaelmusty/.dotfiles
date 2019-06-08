@@ -7,7 +7,7 @@
 " This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
 " comments abound.
 "
-" This file should be saved as vimrc in the user runtime directory. (UNIX
+" This file should be saved as "vimrc" in the user runtime directory. (UNIX
 " ~/.vim, Windows ~/vimfiles).  It requires Vim 7.0 or newer with +eval, not
 " running in &compatible mode.  The vimrc stub (UNIX ~/.vimrc, Windows
 " ~/_vimrc) that loads this file checks that these two conditions are met.
@@ -294,6 +294,7 @@ set formatoptions+=l
 "
 set formatoptions+=1
 
+"
 if vimrc#Version('7.3.541')
   set formatoptions+=j  " Delete comment leaders when joining lines
 endif
