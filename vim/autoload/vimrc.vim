@@ -1,39 +1,73 @@
-" Escape a text value for :execute-based :set inclusion in an option
+" Utility functions for use in .vim/vimrc only
+
+" Escape a text value for :execute-based :set inclusion as an option value
 function! vimrc#EscapeSet(string) abort
+
+  " Escape all the characters that `:help option-backslash` warns us about
   return escape(a:string, '\ |"')
+
 endfunction
 
-" Escape a text value for inclusion as an element in a comma-separated list
-" option.  Yes, the comma being the sole inner escaped character here is
-" correct.  No, we shouldn't escape backslash itself.  Yes, that means it's
-" impossible to have the literal string '\,' in a part.
+" Escape a text value for :execute-based :set inclusion as an element in
+" a comma-separated option value
 function! vimrc#EscapeSetPart(string) abort
+
+  " Message to future Tom: yes, the comma being the sole inner escaped
+  " character here is correct.  No, we shouldn't escape backslash itself.
+  " Yes, that means it's impossible to have the literal string '\,' in a part.
+  " Yes, this reflects what Vim does internally.  Read the source of
+  " copy_option_part() in vim/src/misc2.c to confirm.
   return vimrc#EscapeSet(escape(a:string, ','))
+
 endfunction
 
 " Expand the first path in an option string, check if it exists, and attempt
 " to create it if it doesn't.  Strip double-trailing-slash hints.
 function! vimrc#Establish(string) abort
+
+  " Get first part of the option string
   let part = vimrc#SplitOption(a:string)[0]
+
+  " Remove any trailing slashes; neither expand() nor mkdir() seems bothered,
+  " at least on Unix, but let's be tidy anyway
   let part = substitute(part, '/\+$', '', '')
+
+  " Expand the directory name to replace tildes with the home directory, but
+  " it still may not necessarily be an absolute path
   let dirname = expand(part)
+
+  " Return either the confirmed presence of the directory, or failing that,
+  " the result of an attempt to create it
   return isdirectory(dirname)
         \ || mkdir(dirname, 'p')
+
 endfunction
 
 " Check that we have a plugin available, and will be loading it
 function! vimrc#PluginReady(filename) abort
-  return globpath(&runtimepath, 'plugin/'.a:filename.'.vim') !=# ''
+
+  " Return whether the given filename with a .vim extension is present in
+  " a subdirectory named 'plugin', and that the 'loadplugins' option is on,
+  " implying that Vim will at least attempt to load it
+  let path = 'plugin/'.a:filename.'.vim'
+  return globpath(&runtimepath, path) !=# ''
         \ && &loadplugins
+
 endfunction
 
-" Split a comma-separated option string into its constituent parts, imitating
-" copy_option_part() in the Vim sources.  This isn't perfect, but it should be
-" more than good enough.  A separator can be defined as: a comma that is not
-" preceded by a backslash, and which is followed by any number of spaces
-" and/or further commas.
+" Split a comma-separated option string into its constituent parts
 function! vimrc#SplitOption(string) abort
-  return split(a:string, '\\\@<!,[, ]*')
+
+  " A separator can be defined as: a comma that is not preceded by
+  " a backslash, and which is followed by any number of spaces and/or further
+  " commas.  No, I don't have to deal with escaped backslashes; read the
+  " source of copy_option_part() in vim/src/misc2.c to see why.
+  let pattern
+        \ = '\\\@<!'
+        \ . ','
+        \ . '[, ]*'
+  return split(a:string, pattern)
+
 endfunction
 
 " Convenience version function check that should work with 7.0 or newer;
@@ -41,7 +75,15 @@ endfunction
 function! vimrc#Version(string) abort
 
   " Test the version string and get submatches for each part
-  let match = matchlist(a:string, '^\(\d\+\)\.\(\d\+\)\.\(\d\+\)$')
+  let pattern
+        \ = '^'
+        \ . '\(\d\+\)'
+        \ . '\.'
+        \ . '\(\d\+\)'
+        \ . '\.'
+        \ . '\(\d\+\)'
+        \ . '$'
+  let match = matchlist(a:string, pattern)
 
   " Throw toys if the string didn't match the expected format
   if !len(match)
@@ -49,15 +91,13 @@ function! vimrc#Version(string) abort
     return
   endif
 
-  " Get the major, minor, and patch numbers from the submatches
-  let [major, minor, patch] = match[1:3]
-
-  " Create a string like 801 from a version number 8.1 to compare it to the
-  " v:version integer
-  let ver = major * 100 + minor
+  " Create a version integer like 801 from a version number 8.1, and a patch
+  " level string from the patch number
+  let running = match[1] * 100 + match[2]
+  let patch = 'patch'.match[3]
 
   " Compare versions
-  return v:version > ver
-        \ || v:version == ver && has('patch'.patch)
+  return v:version > running
+        \ || v:version == running && has(patch)
 
 endfunction
