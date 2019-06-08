@@ -152,8 +152,8 @@ endif
 " <https://sanctum.geek.nz/blinkenlights/spaces.webm>
 "
 set autoindent    " Use indent of previous line on new lines
-set expandtab     " Use spaces instead of tabs
-set shiftwidth=4  " Indent with four spaces
+set expandtab     " Insert spaces when tab key is pressed in insert mode
+set shiftwidth=4  " Indent command like < and > use four-space indents
 
 " Apply 'softtabstop' option to make a tab key press in insert mode insert the
 " same number of spaces as defined by the indent depth in 'shiftwidth'.  If
@@ -217,9 +217,9 @@ endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
-" On the systems I use, this is particularly important if editing temporary
-" files created by sudoedit(8).  We add a few paths to the default value
-" of 'backupskip' to prevent the creation of such undesired backup files.
+" This is particularly important if editing temporary files created by
+" sudoedit(8).  We add a few paths to the default value of 'backupskip' here
+" in order to prevent the creation of such undesired backup files.
 "
 if has('unix')
 
@@ -241,7 +241,7 @@ endif
 " lines wrap.  Ideally, most if not all lines would be kept below 80
 " characters, but in cases where this isn't possible, soft-wrapping longer
 " lines when 'wrap' is on so that the indent is preserved in the following
-" line mitigates this somewhat.
+" line mitigates this breakdown somewhat.
 "
 " This option wasn't added until v7.4.338, so we need to check it exists
 " before we set it.
@@ -250,8 +250,8 @@ if exists('+breakindent')
   set breakindent
 endif
 
-" vi was often used for development in the C programming language.  The
-" default values for a lot of Vim's options still reflect this common use
+" Traditional vi was often used for development in the C programming language.
+" The default values for a lot of Vim's options still reflect this common use
 " pattern.  In this case, the 'comments' and 'commentstring' options reflect
 " the C syntax for comments:
 "
@@ -263,10 +263,11 @@ endif
 " directives:
 "
 "     #define FOO "bar"
+"
 "     #include "baz.h"
 "
 " Times change, however, and I don't get to work with C nearly as much as I'd
-" like; the defaults for these options no longer make sense, and so we blank
+" like.  The defaults for these options no longer make sense, and so we blank
 " them, compelling filetype plugins to set them as they need instead.
 "
 set comments= commentstring= define= include=
@@ -349,19 +350,21 @@ if exists('+esckeys')
   set noesckeys
 endif
 
-" By default, figuring out where a region of text to fold away should be done
-" by the indent level of its lines, since I tend to be careful about my
-" indentation even in languages where it has no structure significance.
+" By default, I prefer that figuring out where a region of text to fold away
+" should be done by the indent level of its lines, since I tend to be careful
+" about my indentation even in languages where it has no structure
+" significance.
 "
 set foldmethod=indent
 
 " That said, I don't want any folding to actually take place unless
-" I specifically ask for it.  I think of a Vim window with a file buffer
-" loaded as a two-dimensional planar view of the file, so that moving down one
-" screen line means moving down one buffer line, at least when 'wrap' is
-" unset.  Folds break that mental model, and so I usually enable them
-" explicitly only when I'm struggling to grasp some in-depth code with very
-" long functions or loops.
+" I specifically ask for it.
+"
+" I think of a Vim window with a file buffer loaded as a two-dimensional
+" planar view of the file, so that moving down one screen line means moving
+" down one buffer line, at least when 'wrap' is unset.  Folds break that
+" mental model, and so I usually enable them explicitly only when I'm
+" struggling to grasp some in-depth code with very long functions or loops.
 "
 " Therefore, we set the depth level at which folds should automatically start
 " as closed to a rather high number, per the documentation's recommendations.
@@ -370,11 +373,12 @@ set foldlevelstart=99
 
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I allow filetypes to set 't' and 'c' to configure whether text
-" or comments should be wrapped, and don't mess with it here.
+" or comments should be wrapped, and so I don't mess with either of those
+" flags here.
 
 " If a line is already longer than 'textwidth' would otherwise limit when
 " editing of that line begins in insert mode, don't suddenly automatically
-" wrap it.
+" wrap it; I'll break it apart myself with a command like 'gq'.
 "
 set formatoptions+=l
 
@@ -393,7 +397,7 @@ set formatoptions+=1
 " with 'J' would remove the leading '"' characters that denote a comment.
 "
 " This option flag wasn't added until v7.3.541.  Because we can't test for the
-" availability of option flags directly, we instead do a version number check
+" availability of option flags directly, we resort to a version number check
 " before attempting to add the flag.
 "
 if v:version > 730 || v:version == 730 && has('patch541')
