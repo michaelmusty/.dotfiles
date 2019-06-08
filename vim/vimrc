@@ -97,10 +97,39 @@ augroup END
 autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
       \ source $MYVIMRC
 
-" Global indent settings go here.  Filetype indent plugins will often refine
-" these settings for individual buffers.  For example, 'expandtab' is not
-" appropriate for Makefiles, nor for the Go programming language.  For
-" another, two-space indents are more traditional for Vim script.
+" Similarly, if this file or the vimrc stub that calls it is sourced, whether
+" because of the above hook, or the <Leader>R mapping prescribed later in this
+" file, add a hook that re-runs filetype detection and thereby ftplugin
+" loading.  This is chiefly so that any global options set in this file don't
+" trample over needed buffer-local settings.
+"
+" If there's stuff in any of your ftplugins that doesn't cope well with being
+" reloaded, and just assumes a single BufRead event, it might be necessary to
+" rewrite those parts to be idempotent, or to add load guards around them so
+" that they only run once.
+"
+" Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
+" check it exists first.
+"
+if exists('##SourceCmd')
+
+  " We can't wrap this in a script-local function like I normally would,
+  " because then Vim will get upset that we're trying to redefine it the next
+  " time it loads.  It's only four commands, anyway.
+  "
+  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+        \ source <afile>
+        \|if exists('#filetypedetect#BufRead')
+        \|  doautocmd filetypedetect BufRead
+        \|endif
+
+endif
+
+" Global indent and other whitespace-related settings go here.  Filetype
+" indent plugins will often refine these settings for individual buffers.  For
+" example, 'expandtab' is not appropriate for Makefiles, nor for the Go
+" programming language.  For another, two-space indents are more traditional
+" for Vim script.
 "
 " In general, however, I prefer spaces to tabs as a default, and I like to use
 " four of them, for a more distinct visual structure.  Should you happen to
