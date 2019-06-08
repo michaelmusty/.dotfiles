@@ -78,63 +78,28 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 endif
 
-" If the path specified in the MYVIM environment variable contains a comma,
-" its use in comma-separated option values will confuse Vim into thinking more
-" than one directory is being specified, per normal :set semantics.
+" The MYVIM user runtime directory can't be blank.
+"
+" The 'dictionary' and 'thesaurus' options have a blacklist of characters that
+" they don't allow.  None of them are a particularly good idea for use in
+" a filename, so don't allow their use in this vimrc at all, even though
+" options like 'backupdir' will accept them.
+"
+" The comma character isn't actually part of that blacklist, but it has its
+" own problems; if the path specified in the MYVIM environment variable
+" contains a comma, its use in comma-separated option values will confuse Vim
+" into thinking more than one directory is being specified, per normal :set
+" semantics.
 "
 " It's possible to work around this with some careful escaping, either at :set
 " time with an :execute abstraction or with a separate environment variable
 " for that particular context, but it's not really worth the extra complexity
 " for such a niche situation.
 "
-" So, if there's a comma, we just raise an error and end the script.
-"
-" Similarly, the 'thesaurus' option, and possibly others, won't accept a path
-" with a pipe in its name, so don't allow that, either.
-"
-if $MYVIM =~# '[,|]'
-  echoerr 'Illegal characters in $MYVIM path'
+if $MYVIM != '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
+  echoerr 'Illegal user runtime path, halting user init'
   finish
 endif
-
-" We're going to be creating a few directories, and the code to do so in
-" a compatible way is surprisingly verbose, because we need to check the
-" mkdir() function is actually available, and also whether the directory
-" concerned already exists, even if we specify the special 'p' value for its
-" optional {path} argument.
-"
-" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
-" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
-" Even with the magic 'p' sauce, these versions throw errors if the directory
-" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
-" shell script might expect.
-"
-" So, let's wrap all that nonsense in a script-local function.  We'll make all
-" the directories we create have restrictive permissions, too, with a {prot}
-" argument of 0700.
-"
-function! s:Mkdir(path) abort
-  if exists('*mkdir') && !isdirectory(a:path)
-    call mkdir(a:path, 'p', 0700)
-  endif
-endfunction
-
-" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
-" subdirectory if necessary.
-"
-" Using this location for viminfo has the nice benefit of preventing history
-" from getting clobbered when something runs Vim without using this vimrc,
-" because it writes its history to the default viminfo path instead.  It also
-" means that everything Vim-related in the user's home directory should be
-" encapsulated in the one ~/.vim or ~/vimfiles directory.
-"
-" The normal method of specifying the path to the viminfo file used here is an
-" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
-" a nicer way to set it with a 'viminfofile' option, but there's no particular
-" reason to use it until it's in a few more stable versions.
-"
-call s:Mkdir($MYVIM.'/cache')
-set viminfo+=n$MYVIM/cache/viminfo
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
@@ -183,6 +148,45 @@ if exists('##SourceCmd')
         \|  doautocmd filetypedetect BufRead
         \|endif
 endif
+
+" We're going to be creating a few directories, and the code to do so in
+" a compatible way is surprisingly verbose, because we need to check the
+" mkdir() function is actually available, and also whether the directory
+" concerned already exists, even if we specify the special 'p' value for its
+" optional {path} argument.
+"
+" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
+" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function.  We'll make all
+" the directories we create have restrictive permissions, too, with a {prot}
+" argument of 0700.
+"
+function! s:Mkdir(path) abort
+  if exists('*mkdir') && !isdirectory(a:path)
+    call mkdir(a:path, 'p', 0700)
+  endif
+endfunction
+
+" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
+" subdirectory if necessary.
+"
+" Using this location for viminfo has the nice benefit of preventing history
+" from getting clobbered when something runs Vim without using this vimrc,
+" because it writes its history to the default viminfo path instead.  It also
+" means that everything Vim-related in the user's home directory should be
+" encapsulated in the one ~/.vim or ~/vimfiles directory.
+"
+" The normal method of specifying the path to the viminfo file used here is an
+" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
+" a nicer way to set it with a 'viminfofile' option, but there's no particular
+" reason to use it until it's in a few more stable versions.
+"
+call s:Mkdir($MYVIM.'/cache')
+set viminfo+=n$MYVIM/cache/viminfo
 
 " We'll start our options by modernising a little in adjusting some options
 " with language-specific defaults.
@@ -299,8 +303,9 @@ call s:Mkdir(split(&backupdir, s:option_split_pattern)[0])
 if has('unix')
 
   " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
-  " so adding them repeatedly if this file is reloaded results in duplicates.
-  " This might be a bug in Vim.  To work around this, we reset the path back
+  " so adding them repeatedly if this file is reloaded results in duplicates,
+  " due to the absence of the P_NODUP flag for its definition in src/option.c.
+  " This is likely a bug in Vim.  To work around this, we reset the path back
   " to its default first.
   "
   set backupskip&
@@ -361,7 +366,7 @@ set cpoptions+=J
 " It's not an error if this file doesn't exist; indeed, on some systems I use,
 " it doesn't.
 "
-set dictionary^=/usr/share/dict/words
+set dictionary^=$MYVIM/ref/dictionary.txt,/usr/share/dict/words
 
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
@@ -597,10 +602,6 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
-" New window positioning
-set splitbelow  " Below the current window, not above
-set splitright  " Right of the current window, not left
-
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
@@ -612,9 +613,14 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" Don't use terminal mouse support, even if it would work; the manual says to
-" set 't_RV' to do this, but that doesn't seem to work
-if exists('+ttymouse')  " No such option in Neovim
+" We don't want a mouse.  Don't use terminal mouse support, even if it would
+" work. The manual suggests this should be done by clearing 't_RV', but that
+" doesn't seem to work.
+"
+" We have to check for the existence of the option first, as it doesn't exist
+" in Neovim.
+"
+if exists('+ttymouse')
   set ttymouse=
 endif
 
