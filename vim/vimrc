@@ -96,11 +96,16 @@ set backup
 " people assumed it would work the same way, when in fact Vim simply ignored
 " it until v8.1.251.
 "
-" I think options named something like 'backuppath', 'swapfilepath', and
-" 'undopath' would be much clearer.
+" I don't want to add the slashes to the option value in older versions of Vim
+" where they don't do anything, so I check the version before I add them.
 "
-let s:backup_full_path = vimrc#Version('8.1.251')
-let s:backupdir = $MYVIM.'/cache/backup'.(s:backup_full_path ? '//' : '')
+" It's all so awkward.  Surely options named something like 'backupfullpath',
+" 'swapfilefullpath', and 'undofullpath' would have been clearer.
+"
+let s:backupdir = $MYVIM.'/cache/backup'
+if vimrc#Version('8.1.251')
+  let s:backupdir .= '//'
+endif
 execute 'set backupdir^='.vimrc#EscapeSetPart(s:backupdir)
 
 " Create the first path in the 'backupdir' list, the one we just added, if it
