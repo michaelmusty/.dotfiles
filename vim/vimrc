@@ -602,14 +602,6 @@ set shortmess+=I
 " Prefix wrapped rows with three dots
 set showbreak=...
 
-" By default, the positioning of new Vim windows differs from the i3 and tmux
-" window management to which I'm accustomed, in that new windows are created
-" above or to the left of existing ones.  I have tried to get used to this,
-" but haven't managed to, so we configure it to behave more consistently
-" instead.
-"
-set splitbelow splitright
-
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
 
