@@ -426,32 +426,66 @@ if has('patch-8.1.728')
   set formatoptions+=p
 endif
 
-" Don't load GUI menus; set here before GUI starts or any filetype or syntax
-" logic is performed
+" In an effort to avoid loading unnecessary files, we add a flag to the
+" 'guioptions' option to prevent the menu.vim runtime file from being loaded.
+" It doesn't do any harm, but I never use it, and it's easy to turn it off.
+"
+" The documentation for this flag in `:help 'go-M'` includes a note saying the
+" flag should be set here, rather that in the GUI-specific gvimrc file, as one
+" might otherwise think.
+"
 if has('gui_running')
   set guioptions+=M
 endif
 
-" Allow buffers to have changes without being displayed
+" By default, Vim doesn't allow a file buffer to have unsaved changes if it's
+" not displayed in a window.  Setting this option removes that restriction so
+" that buffers can be modified and not displayed.
+"
+" Despite this option being in almost every vimrc I read, I didn't personally
+" need it for years into my Vim career, because I instinctively only closed
+" windows onto buffers after the buffers within them were saved anyway.
+"
+" However, the option really is required for batch operations performed with
+" commands like :argdo or :bufdo.  After I started using those a bit more
+" often, I realised I finally had a reason to turn this on, and so on it shall
+" stay.
+"
 set hidden
 
-" Keep much more command and search history
+" I don't think I'm ever likely to be in a situation where remembering several
+" thousand Vim commands and search patterns is going to severely tax memory,
+" let alone hard disk space.
+"
 set history=2000
 
-" Highlight completed searches; clear on reload
+" Do highlight completed searches, but clear them away on vimrc reload.  Later
+" on in this file, CTRL-L in normal mode is remapped to stack on a :nohlsearch
+" as well.
+"
 set hlsearch
 nohlsearch
 
-" Don't assume I'm editing C; let the filetype set this
-
-" Show search matches as I type my pattern
+" Show search matches as I type my pattern, including scrolling the screen if
+" necessary.  This is somewhat jarring sometimes, particularly when the cursor
+" runs so far away from home, but I think the benefits of being able to see
+" instances of what I'm trying to match as I try to match it do outweight
+" that.
+"
 set incsearch
 
-" Don't show a status line if there's only one window
-" This is Vim's default, but not Neovim's
+" If there's only one window, I don't need a statusline to appear beneath it.
+" I very often edit only one file, and just open a :help buffer or two.  This
+" is the Vim default, but Neovim changed it, so we'll explicitly set it to the
+" default here in case we're using Neovim.
+"
 set laststatus=1
 
-" Don't redraw the screen during batch execution
+" Don't waste cycles and bandwidth redrawing the screen during batch execution
+" of macros.  I think this does amount to the occasional :redraw needing to be
+" in a script, but it's not too bad, and last I checked it really does speed
+" things up, especially for linewise operations on really big data sets.
+"
 set lazyredraw
 
 " Break lines at word boundaries
