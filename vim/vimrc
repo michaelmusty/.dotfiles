@@ -115,8 +115,12 @@ autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
 if exists('##SourceCmd')
 
   " We can't wrap this in a script-local function like I normally would,
-  " because then Vim will get upset that we're trying to redefine it the next
-  " time it loads.  It's only four commands, anyway.
+  " because without a load guard around it, Vim will get upset that we're
+  " trying to redefine that function the next time this script loads.
+  "
+  " So, we just inline the whole thing into the hook.  It's only four
+  " commands, anyway, and I'd rather most if not all of the vimrc was reloaded
+  " when we source it.
   "
   autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
         \ source <afile>
