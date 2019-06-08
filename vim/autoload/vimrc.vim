@@ -15,7 +15,7 @@ endfunction
 " to create it if it doesn't.  Strip double-trailing-slash hints.
 function! vimrc#Establish(string) abort
   let part = vimrc#SplitOption(a:string)[0]
-  let part = substitute(part, '//$', '', '')
+  let part = substitute(part, '/\+$', '', '')
   let dirname = expand(part)
   return isdirectory(dirname)
         \ || mkdir(dirname, 'p')
