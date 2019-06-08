@@ -78,19 +78,26 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 endif
 
-" If the path specified in the MYVIM environment variable contains a comma,
-" its use in comma-separated option values will confuse Vim into thinking more
-" than one directory is being specified, per normal :set semantics.
+" The MYVIM user runtime directory can't be blank.
+"
+" The 'dictionary' and 'thesaurus' options have a blacklist of characters that
+" they don't allow.  None of them are a particularly good idea for use in
+" a filename, so don't allow their use in this vimrc at all, even though
+" options like 'backupdir' will accept them.
+"
+" The comma character isn't actually part of that blacklist, but it has its
+" own problems; if the path specified in the MYVIM environment variable
+" contains a comma, its use in comma-separated option values will confuse Vim
+" into thinking more than one directory is being specified, per normal :set
+" semantics.
 "
 " It's possible to work around this with some careful escaping, either at :set
 " time with an :execute abstraction or with a separate environment variable
 " for that particular context, but it's not really worth the extra complexity
 " for such a niche situation.
 "
-" So, if there's a comma, we just raise an error and end the script.
-"
-if stridx($MYVIM, ',') != -1
-  echoerr '$MYVIM contains a comma, refusing to proceed'
+if $MYVIM != '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
+  echoerr 'Illegal user runtime path, halting user init'
   finish
 endif
 
