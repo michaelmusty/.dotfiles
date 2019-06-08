@@ -68,7 +68,8 @@ endif
 " The path named in the MYVIM environment variable can't contain a comma
 " anywhere, because its use in comma-separated option values will confuse Vim
 " into thinking more than one directory is being specified for the option
-" value, per normal :set semantics.  If it does, we refuse to proceed.
+" value, per normal :set semantics.  If there's a comma, we raise an error and
+" end the script.
 "
 " It's possible to work around this with some careful escaping, either at :set
 " time with an :execute abstraction or with a separate environment variable
