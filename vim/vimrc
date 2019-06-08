@@ -148,7 +148,39 @@ if exists('##SourceCmd')
         \|endif
 endif
 
+" We'll start our options by modernising a little in adjusting some options
+" with language-specific defaults.
 "
+" Traditional vi was often used for development in the C programming language.
+" The default values for a lot of Vim's options still reflect this common use
+" pattern.  In this case, the 'comments' and 'commentstring' options reflect
+" the C syntax for comments:
+"
+"     /*
+"      * This is an ANSI C comment.
+"      */
+"
+" Similarly, the 'define' and 'include' options default to C preprocessor
+" directives:
+"
+"     #define FOO "bar"
+"
+"     #include "baz.h"
+"
+" Times change, however, and I don't get to work with C nearly as much as I'd
+" like.  The defaults for these options no longer make sense, and so we blank
+" them, compelling filetype plugins to set them as they need instead.
+"
+set comments= commentstring= define= include=
+
+" The default value for the 'path' option is similar in that it has an aged
+" default; this option specifies directories in which project files and
+" includes can be unearthed by navigation commands like 'gf'.  Specifically,
+" its default value comprises /usr/include, which is another C default.  Let's
+" get rid of that, too.
+"
+set path-=/usr/include
+
 " Next, we'll adjust the global indentation settings.  In general and as
 " a default, I prefer spaces to tabs, and I like to use four of them, for
 " a more distinct visual structure.  Should you happen to disagree with this,
@@ -260,34 +292,6 @@ endif
 if exists('+breakindent')
   set breakindent
 endif
-
-" Traditional vi was often used for development in the C programming language.
-" The default values for a lot of Vim's options still reflect this common use
-" pattern.  In this case, the 'comments' and 'commentstring' options reflect
-" the C syntax for comments:
-"
-"     /*
-"      * This is an ANSI C comment.
-"      */
-"
-" Similarly, the 'define' and 'include' options default to C preprocessor
-" directives:
-"
-"     #define FOO "bar"
-"
-"     #include "baz.h"
-"
-" Times change, however, and I don't get to work with C nearly as much as I'd
-" like.  The defaults for these options no longer make sense, and so we blank
-" them, compelling filetype plugins to set them as they need instead.
-"
-set comments= commentstring= define= include=
-
-" Similarly to the above, the default value for 'path' that lists directories
-" in which project files and includes can be found adds /usr/include, which is
-" another C default,  so we'll get rid of that, too.
-"
-set path-=/usr/include
 
 " Rather than rejecting operations like :write or :saveas when 'readonly' is
 " set, and other situations in which data might be lost or I'm acting against
