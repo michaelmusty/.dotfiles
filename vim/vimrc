@@ -73,8 +73,8 @@ set cpoptions+=J
 " Specify where to look for a dictionary even if 'spell' isn't on
 set dictionary^=/usr/share/dict/words
 
-" Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap//')
+let s:directory = $MYVIM.'/cache/swap//'
+execute 'set directory^='.vimrc#EscapeSetPart(s:directory)
 call vimrc#Ensure(&directory)
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
