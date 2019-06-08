@@ -31,10 +31,27 @@ call vimrc#Ensure(&backupdir)
 
 " Add some *nix paths not to back up
 if has('unix')
-  set backupskip&  " Reset to avoid duplicates (Vim bug?)
-  set backupskip+=/dev/shm/*  " Shared memory RAM disk
-  set backupskip+=/usr/tmp/*  " Hard-coded path for `sudo -e` 1/2
-  set backupskip+=/var/tmp/*  " Hard-coded path for `sudo -e` 2/2
+
+  " * /dev/shm: RAM disk, default path for password-store's temporary files
+  " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
+  " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
+  "
+  let s:backupskip_patterns = [
+        \ '/dev/shm/*'
+        \,'/usr/tmp/*'
+        \,'/var/tmp/*'
+        \ ]
+
+  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
+  " so adding them repeatedly if this file is reloaded results in duplicates.
+  " This might be a bug in Vim.  To work around this, we attempt to remove
+  " each pattern before we add it.
+  "
+  for s:pattern in reverse(s:backupskip_patterns)
+    execute 'set backupskip-='.vimrc#EscapeSetPart(s:pattern)
+    execute 'set backupskip^='.vimrc#EscapeSetPart(s:pattern)
+  endfor
+
 endif
 
 " Indent wrapped lines
