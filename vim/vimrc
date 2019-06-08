@@ -303,7 +303,7 @@ set foldlevelstart=99
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I allow filetypes to set 't' and 'c' to configure whether text
 " or comments should be wrapped, and don't mess with it here.
-"
+
 " If a line is already longer than 'textwidth' would otherwise limit when
 " editing of that line begins in insert mode, don't suddenly automatically
 " wrap it.
@@ -318,12 +318,40 @@ set formatoptions+=l
 "
 set formatoptions+=1
 
+" If the filetype plugins have correctly described what the comment syntax for
+" the buffer's language looks like, it makes sense to use that to figure out
+" how to join lines within comments without redunant comment leaders cropping
+" up.  For example, with this set, in Vim, joining lines in this very comment
+" with 'J' would remove the leading '"' characters that denote a comment.
+"
+" This option flag wasn't added until v7.3.541.  Because we can't test for the
+" availability of option flags directly, we instead do a version number check
+" before attempting to add the flag.
 "
 if vimrc#Version('7.3.541')
-  set formatoptions+=j  " Delete comment leaders when joining lines
+  set formatoptions+=j
 endif
+
+" Separating sentences with two spaces has an advantage in distinguishing
+" between two different types of periods: periods that abbreviate longer
+" words, as in "Mr. Moolenaar", and periods that terminate sentences, like
+" this one.
+"
+" If we're using two-period spacing for sentences, Vim can interpret the
+" different spacing to distinguish between the two types, and can avoid
+" breaking a line just after an abbreviating period.  That means the two words
+" in "Mr. Moolenaar" should never be split apart, preventing confusion on the
+" reader's part, and also preserving the semantics of the period for
+" subsequent reformats.
+"
+" This is what the 'p' flag does.  I wrote the patch that added it, after
+" becoming envious of an analogous feature during an ill-fated foray into GNU
+" Emacs usage.
+"
+" <https://github.com/vim/vim/commit/c3c3158>
+"
 if vimrc#Version('8.1.728')
-  set formatoptions+=p  " Don't break a single space after a period
+  set formatoptions+=p
 endif
 
 " Don't load GUI menus; set here before GUI starts or any filetype or syntax
