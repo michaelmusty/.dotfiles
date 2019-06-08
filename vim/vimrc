@@ -7,9 +7,9 @@
 " This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
 " comments abound.
 "
-" This file should be saved as "vimrc" in the user runtime directory. (UNIX
+" This file should be saved as "vimrc" in the user runtime directory. (Unix
 " ~/.vim, Windows ~/vimfiles).  It requires Vim 7.0 or newer with +eval, not
-" running in &compatible mode.  The vimrc stub (UNIX ~/.vimrc, Windows
+" running in &compatible mode.  The vimrc stub (Unix ~/.vimrc, Windows
 " ~/_vimrc) that loads this file checks that these conditions are met.
 "
 " > And I was lifted up in heart, and thought
@@ -132,7 +132,7 @@ execute 'set backupdir^='.vimrc#EscapeSetPart(s:backupdir)
 "
 call vimrc#Ensure(&backupdir)
 
-" Files in certain directories on UNIX-compatible filesystems should not be
+" Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
 " On the systems I use, this is particularly important if editing temporary
 " files created by sudoedit(8).  We add a few paths to the default value
