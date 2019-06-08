@@ -47,7 +47,7 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   " more accurately defined as a comma that is not preceded by a backslash, and
   " which is followed by any number of spaces and/or further commas.
   "
-  " The pattern breaks down like this:
+  " The pattern required for the split breaks down like this:
   "
   "   \\     Literal backslash
   "   \@<!   Negative lookbehind assertion; means that whatever occurred before
@@ -59,10 +59,11 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   " We don't have to deal with escaped backslashes; read the source of
   " copy_option_part() in vim/src/misc2.c to see why.
   "
+  let s:option_split_pattern = '\\\@<!,[, ]*'
+
   " Man, I wish the runtime path was just a List, or could be treated as one.
   " Vim, I love you, but you are weird.
   "
-  let s:option_split_pattern = '\\\@<!,[, ]*'
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 
 endif
