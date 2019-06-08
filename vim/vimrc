@@ -83,8 +83,8 @@ set backspace+=start   " Text before the start of the current insertion
 set backup
 
 " Try to keep the aforementioned backup files in a dedicated cache directory,
-" to stop them proliferating next to their prime locations, and thereby
-" getting accidentally committed to Git repositories.
+" to stop them proliferating next to their prime locations and getting
+" committed to version control repositories.
 "
 " If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path in the
