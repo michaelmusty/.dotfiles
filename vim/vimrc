@@ -64,8 +64,7 @@ set shiftwidth=4  " Indent with four spaces
 " Vim is new enough to support it (v7.3.693), apply a negative value to do
 " this dynamically if 'shiftwidth' changes.
 "
-let s:negative_softtabstop = vimrc#Version('7.3.693')
-let &softtabstop = s:negative_softtabstop ? -1 : &shiftwidth
+let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
 
 " Relax traditional vi's harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
