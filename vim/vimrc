@@ -366,7 +366,7 @@ set cpoptions+=J
 " It's not an error if this file doesn't exist; indeed, on some systems I use,
 " it doesn't.
 "
-set dictionary^=/usr/share/dict/words
+set dictionary^=$MYVIM/ref/dictionary.txt,/usr/share/dict/words
 
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
