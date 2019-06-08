@@ -527,7 +527,15 @@ set listchars+=nbsp:+      " Non-breaking spaces
 "
 set showmatch matchtime=3
 
-" Don't allow setting options via buffer content
+" Don't let your editor's options be configured by content in arbitrary files!
+" Down with modelines!  Purge them from your files!  Écrasez l'infâme!
+"
+" I think that modelines are Vim's worst misfeature, and that 'nomodeline'
+" should be the default.  It's enabled pretty bad security vulnerabilities
+" over the years, and it's a lot more effective to use filetype detection,
+" other automatic command hooks, or systems like .editorconfig to set
+" variables specifically for a buffer or project.
+"
 set nomodeline
 
 " Treat numbers with a leading zero as decimal, not octal
