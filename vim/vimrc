@@ -23,30 +23,46 @@
 " > --Tennyson
 "
 
-" Set an environment variable MYVIM for the user runtime directory, if such
-" a variable does not already exist in the environment, and there's a value in
-" 'runtimepath' from which to glean a useable path.  We'll use the path
-" nominated in the MYVIM variable as the root of our 'backupdir', 'directory',
-" 'undodir', and 'viminfofile' caches.
+" The first thing we'll do is set an environment variable MYVIM for the user
+" runtime directory, if such a variable does not already exist in the
+" environment, and there's a value in 'runtimepath' from which to glean
+" a useable path.  We'll use the path nominated in the MYVIM variable as the
+" root of our 'backupdir', 'directory', 'undodir', and 'viminfofile' caches,
+" and anywhere else we need a sensible writeable location for Vim-related
+" files.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
 " We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
-" variable for the first runtime directory?  It's a mystery, and that's why so
-" is mankind.
-"
-" We'll use the first path specified in 'runtimepath', rather like Vim itself
-" does for spelling database files in the absence of a setting for
-" 'spellfile'.
-"
-" Splitting the values of an option like 'runtimepath' correctly
-" is a bit more complicated than it seems.  A separator can be defined as:
-" a comma that is not preceded by a backslash, and which is followed by any
-" number of spaces and/or further commas.  No, I don't have to deal with
-" escaped backslashes; read the source of copy_option_part() in
-" vim/src/misc2.c to see why.
+" variable for the user's Vim runtime directory?  It is a mystery.
 "
 if !exists('$MYVIM') && &runtimepath !=# ''
+
+  " We'll use the first path specified in 'runtimepath' as a default value for
+  " the MYVIM environment variable.  This is similar to what Vim itself does
+  " for the location of the spelling database files in the absence of
+  " a setting for 'spellfile'.
+  "
+  " Splitting the values of a comma-separated option like 'runtimepath'
+  " correctly is a bit more complicated than it seems.  The list separator is
+  " more accurately defined as a comma that is not preceded by a backslash, and
+  " which is followed by any number of spaces and/or further commas.  The
+  " pattern breaks down like this:
+  "
+  "   \\     Literal backslash
+  "   \@<!   Negative lookbehind assertion; means that whatever occurred before
+  "          this pattern, i.e. a backslash, cannot precede what follows, but is
+  "          not included as part of the split delimiter itself
+  "   ,      Literal comma
+  "   [, ]*  Any number of commas and spaces
+  "
+  " We don't have to deal with escaped backslashes; read the source of
+  " copy_option_part() in vim/src/misc2.c to see why.
+  "
+  " Man, I wish the runtime path was just a List, or could be treated as one.
+  " Vim, I love you, but man, you are weird.
+  "
   let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
+
 endif
 
 " The path named in the MYVIM environment variable can't contain a comma
@@ -119,18 +135,16 @@ set backspace+=start   " Text before the start of the current insertion
 " Enable automatic backups of most file buffers.  In practice, I don't need
 " these backups very much if I'm using version control sensibly, but they have
 " still saved my bacon a few times.
+"
 set backup
 
 " Try to keep the aforementioned backup files in a dedicated cache directory,
 " to stop them proliferating next to their prime locations and getting
-" committed to version control repositories.
+" committed to version control repositories.  Create that path if needed, too.
 "
 " If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path in the
 " backup filename, avoiding collisions.
-"
-" Create the first path in the 'backupdir' list, the one we just added, if it
-" doesn't already exist.  It isn't created automatically, which is by design.
 "
 " As a historical note, other similar directory path list options supported
 " this trailing slashes hint for a long time before 'backupdir' caught up to
@@ -168,7 +182,6 @@ if has('unix')
   " to its default first.
   set backupskip&
 
-  "
   " * /dev/shm: RAM disk, default path for password-store's temporary files
   " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
   " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
@@ -251,10 +264,8 @@ set dictionary^=/usr/share/dict/words
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
 " trailing slashes to the path to prompt Vim to use the full escaped path in
-" its name, in order to avoid filename collisions.
-"
-" Create the first directory after adding it, if it doesn't already exist.  It
-" isn't created automatically, by design.
+" its name, in order to avoid filename collisions.  Create that path if
+" needed, too.
 "
 set directory^=$MYVIM/cache/swap//
 call mkdir($MYVIM.'/cache/swap', 'p')
