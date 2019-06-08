@@ -27,7 +27,7 @@ set backup
 execute 'set backupdir^='.vimrc#EscapeSetPart(
       \ $MYVIM.'/cache/backup'.(vimrc#Version('8.1.251') ? '//' : '')
       \ )
-call vimrc#Establish(&backupdir)
+call vimrc#Ensure(&backupdir)
 
 " Add some *nix paths not to back up
 if has('unix')
@@ -61,7 +61,7 @@ set dictionary^=/usr/share/dict/words
 
 " Keep swap files in dedicated directory, named with full path
 execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap//')
-call vimrc#Establish(&directory)
+call vimrc#Ensure(&directory)
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
 if !exists('$LANG')
@@ -185,7 +185,7 @@ endif
 if has('persistent_undo')  " v7.2.438
   set undofile
   execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
-  call vimrc#Establish(&undodir)
+  call vimrc#Ensure(&undodir)
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history

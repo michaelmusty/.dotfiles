@@ -23,7 +23,7 @@ endfunction
 
 " Expand the first path in an option string, check if it exists, and attempt
 " to create it if it doesn't.  Strip double-trailing-slash hints.
-function! vimrc#Establish(string) abort
+function! vimrc#Ensure(string) abort
 
   " Get first part of the option string
   let part = vimrc#SplitOption(a:string)[0]
