@@ -197,8 +197,9 @@ set confirm
 set cpoptions+=J
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, this specifies the path to the system dictionary.
-" This makes the dictionary completion work even if 'spell' isn't set.
+" includes the 'k' flag, this specifies the path to the system dictionary to
+" find words.  This makes the dictionary completion work consistently, even if
+" 'spell' isn't set at that moment.
 "
 " At some point, I may end up having to set this option along with 'spellfile'
 " a bit more intelligently to ensure that spell checking and dictionary
@@ -220,19 +221,53 @@ execute 'set directory^='.vimrc#EscapeSetPart(s:directory)
 "
 call vimrc#Ensure(&directory)
 
-" If the environment didn't set an encoding, use UTF-8, not ASCII
+" On Unix, I keep LANG defined in my environment, and it's almost always set
+" to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
+" character encoding, but the default for the 'encoding' option is latin1,
+" which is seldom what I want, and if I do want it, I'll specify it with LANG
+" or possibly a manual :set command.  UTF-8 makes much more sense as a default
+" encoding if Vim can't glean what I want from LANG.
+"
 if !exists('$LANG')
   set encoding=utf-8
 endif
 
-" Don't wait for a key after Escape in insert mode
-if exists('+esckeys')  " No such option in Neovim
+" If Vim receives an Escape key code in insert mode, it shouldn't wait to see
+" if it's going to be followed by another key code, despite this being how the
+" function keys and Meta/Alt modifier are implemented for many terminal types.
+" Otherwise, if I press Escape, there's an annoying delay before 'showmode'
+" stops showing "--INSERT--".
+"
+" This breaks the function keys and the Meta/Alt modifier in insert mode in
+" most or maybe all of the terminals I use, but I don't want those keys in
+" insert mode anyway.  It all works fine in the GUI, of course.
+"
+" There's no such option as 'esckeys' in Neovim, which I gather has completely
+" overhauled its method of keyboard event handling, so we need to check
+" whether the option exists before we try to set it.
+"
+if exists('+esckeys')
   set noesckeys
 endif
 
-" Fold based on indent, but only when I ask
-set foldlevelstart=99
+" By default, figuring out where a region of text to fold away should be done
+" by the indent level of its lines, since I tend to be careful about my
+" indentation even in languages where it has no structure significance.
+"
 set foldmethod=indent
+
+" That said, I don't want any folding to actually take place unless
+" I specifically ask for it.  I think of a Vim window with a file buffer
+" loaded as a two-dimensional planar view of the file, so that moving down one
+" screen line means moving down one buffer line, at least when 'wrap' is
+" unset.  Folds break that mental model, and so I usually enable them
+" explicitly only when I'm struggling to grasp some in-depth code with very
+" long functions or loops.
+"
+" Therefore, we set the depth level at which folds should automatically start
+" as closed to a rather high number, per the documentation's recommendations.
+"
+set foldlevelstart=99
 
 " Automatic formatting options
 set formatoptions+=l  " Don't break a long line in insert mode
