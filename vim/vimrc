@@ -559,9 +559,6 @@ set noruler
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
-" Don't show startup splash screen (I donated)
-set shortmess+=I
-
 " Prefix wrapped rows with three dots
 set showbreak=...
 
