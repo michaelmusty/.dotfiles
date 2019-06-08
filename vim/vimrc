@@ -23,13 +23,21 @@
 " > --Tennyson
 "
 
-" The first thing we'll do is set an environment variable MYVIM for the user
-" runtime directory, if such a variable does not already exist in the
-" environment, and there's a value in 'runtimepath' from which to glean
-" a useable path.  We'll use the path nominated in the MYVIM variable as the
-" root of our 'backupdir', 'directory', 'undodir', and 'viminfofile' caches,
-" and anywhere else we need a sensible writeable location for Vim-related
-" files.
+" We'll start by removing unwanted addenda to 'runtimepath' from Debian
+" GNU/Linux's debian.vim, so that any Vim script installed at the system level
+" is ignored, since we don't want it interfering with our personal setup.
+" This doesn't raise an error if the paths aren't present, so we don't need to
+" check if they're already there.
+"
+set runtimepath-=/var/lib/vim/addons runtimepath-=/var/lib/vim/addons/after
+
+" With 'runtimepath' cleaned up, the next thing we'll do is set an environment
+" variable MYVIM for the user runtime directory, if such a variable does not
+" already exist in the environment, and there's a value in 'runtimepath' from
+" which to glean a useable path.  We'll use the path nominated in the MYVIM
+" variable as the root of our 'backupdir', 'directory', 'undodir', and
+" 'viminfofile' caches, and anywhere else we need a sensible writeable
+" location for Vim-related files.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
 " We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
@@ -520,10 +528,6 @@ set nrformats-=octal
 " Disable command line display of file position if a system vimrc or Neovim
 " has switched it on
 set noruler
-
-" Remove Debian's 'runtimepath' addenda if present
-set runtimepath-=/var/lib/vim/addons
-set runtimepath-=/var/lib/vim/addons/after
 
 " Make sessions usable
 set sessionoptions-=localoptions  " No buffer options or mappings
