@@ -159,8 +159,10 @@ if has('unix')
   " in the final option!
   "
   for s:pattern in reverse(sort(s:backupskip_patterns))
-    execute 'set backupskip-='.vimrc#EscapeSetPart(s:pattern)
-    execute 'set backupskip^='.vimrc#EscapeSetPart(s:pattern)
+    let s:pattern_escaped = vimrc#EscapeSetPart(s:pattern)
+    execute 'set'
+          \.' backupskip-='.s:pattern_escaped
+          \.' backupskip^='.s:pattern_escaped
   endfor
 
 endif
