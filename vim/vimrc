@@ -7,10 +7,11 @@
 " This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
 " comments abound.
 "
-" This file should be saved as "vimrc" in the user runtime directory. (Unix
-" ~/.vim, Windows ~/vimfiles).  It requires Vim 7.0 or newer with +eval, not
-" running in &compatible mode.  The vimrc stub (Unix ~/.vimrc, Windows
-" ~/_vimrc) that loads this file checks that these conditions are met.
+" This file should be saved as "vimrc" in the user runtime directory. On
+" Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
+" It requires Vim 7.0 or newer with +eval, not running in &compatible mode.
+" The vimrc stub at ~/.vimrc on Unix or ~/_vimrc on Windows checks that these
+" conditions are met before loading this file.
 "
 " > And I was lifted up in heart, and thought
 " > Of all my late-shown prowess in the lists,
@@ -128,7 +129,8 @@ set backup
 " it until v8.1.251.
 "
 " I don't want to add the slashes to the option value in older versions of Vim
-" where they don't do anything, so I check the version before I add them.
+" where they don't do anything, so I check the version to see if I should add
+" them.
 "
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
