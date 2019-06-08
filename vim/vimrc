@@ -148,17 +148,18 @@ if exists('##SourceCmd')
         \|endif
 endif
 
-" Global indent and other whitespace-related settings go here.  Filetype
-" indent plugins will often refine these settings for individual buffers.  For
-" example, 'expandtab' is not appropriate for Makefiles, nor for the Go
-" programming language.  For another, two-space indents are more traditional
-" for Vim script.
 "
-" In general, however, I prefer spaces to tabs as a default, and I like to use
-" four of them, for a more distinct visual structure.  Should you happen to
-" disagree with this, I cordially invite you to fite me irl.
+" Next, we'll adjust the global indentation settings.  In general and as
+" a default, I prefer spaces to tabs, and I like to use four of them, for
+" a more distinct visual structure.  Should you happen to disagree with this,
+" I cordially invite you to fite me irl.
 "
 " <https://sanctum.geek.nz/blinkenlights/spaces.webm>
+"
+" Filetype indent plugins will often refine these settings for individual
+" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
+" the Go programming language.  For another, two-space indents are more
+" traditional for Vim script.
 "
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Insert spaces when tab key is pressed in insert mode
