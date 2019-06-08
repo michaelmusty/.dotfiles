@@ -136,6 +136,9 @@ if has('unix')
   " This might be a bug in Vim.  To work around this, we attempt to remove
   " each pattern before we add it.
   "
+  " We sort and add them backwards only so that they're in alphabetical order
+  " in the final option!
+  "
   for s:pattern in reverse(sort(s:backupskip_patterns))
     execute 'set backupskip-='.vimrc#EscapeSetPart(s:pattern)
     execute 'set backupskip^='.vimrc#EscapeSetPart(s:pattern)
