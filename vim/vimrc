@@ -37,7 +37,9 @@ if !exists('$MYVIM') && &runtimepath !=# ''
 
   " We'll use the first path specified in 'runtimepath', rather like Vim
   " itself does for spelling database files in the absence of a setting for
-  " 'spellfile'.
+  " 'spellfile'.  Splitting the values of an option like 'runtimepath' is
+  " a bit more complicated than it looks; we defer it to an autoloaded utility
+  " function for clarity.
   "
   let s:runtimepath_paths = vimrc#SplitOption(&runtimepath)
   let $MYVIM = s:runtimepath_paths[0]
