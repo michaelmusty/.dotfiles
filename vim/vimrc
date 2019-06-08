@@ -136,7 +136,6 @@ if exists('##SourceCmd')
         \|if exists('#filetypedetect#BufRead')
         \|  doautocmd filetypedetect BufRead
         \|endif
-
 endif
 
 " Global indent and other whitespace-related settings go here.  Filetype
@@ -227,6 +226,7 @@ if has('unix')
   " so adding them repeatedly if this file is reloaded results in duplicates.
   " This might be a bug in Vim.  To work around this, we reset the path back
   " to its default first.
+  "
   set backupskip&
 
   " * /dev/shm: RAM disk, default path for password-store's temporary files
