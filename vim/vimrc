@@ -89,11 +89,8 @@ endif
 "
 " So, if there's a comma, we just raise an error and end the script.
 "
-" Similarly, the 'thesaurus' option, and possibly others, won't accept a path
-" with a pipe in its name, so don't allow that, either.
-"
-if $MYVIM =~# '[,|]'
-  echoerr 'Illegal characters in $MYVIM path'
+if stridx($MYVIM, ',') != -1
+  echoerr '$MYVIM contains a comma, refusing to proceed'
   finish
 endif
 
