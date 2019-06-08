@@ -36,12 +36,17 @@
 "
 " We'll use the first path specified in 'runtimepath', rather like Vim itself
 " does for spelling database files in the absence of a setting for
-" 'spellfile'.  Splitting the values of an option like 'runtimepath' correctly
-" is a bit more complicated than it seems; we defer that to an autoloaded
-" utility function for clarity.
+" 'spellfile'.
+"
+" Splitting the values of an option like 'runtimepath' correctly
+" is a bit more complicated than it seems.  A separator can be defined as:
+" a comma that is not preceded by a backslash, and which is followed by any
+" number of spaces and/or further commas.  No, I don't have to deal with
+" escaped backslashes; read the source of copy_option_part() in
+" vim/src/misc2.c to see why.
 "
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = vimrc#SplitOption(&runtimepath)[0]
+  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
 endif
 
 " The path named in the MYVIM environment variable can't contain a comma
@@ -96,7 +101,11 @@ set shiftwidth=4  " Indent with four spaces
 " Vim is new enough to support it (v7.3.693), apply a negative value to do
 " this dynamically if 'shiftwidth' changes.
 "
-let &softtabstop = vimrc#Version('7.3.693') ? -1 : &shiftwidth
+if v:version > 730 || v:version == 730 && has('patch693')
+  set softtabstop=-1
+else
+  let &softtabstop = &shiftwidth
+endif
 
 " Relax traditional vi's harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
@@ -120,6 +129,9 @@ set backup
 " inserting, which prompts Vim to incorporate the full escaped path in the
 " backup filename, avoiding collisions.
 "
+" Create the first path in the 'backupdir' list, the one we just added, if it
+" doesn't already exist.  It isn't created automatically, which is by design.
+"
 " As a historical note, other similar directory path list options supported
 " this trailing slashes hint for a long time before 'backupdir' caught up to
 " them.  The 'directory' option for swapfiles has supported it at least as far
@@ -135,16 +147,12 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
-if vimrc#Version('8.1.251')
+if has('patch-8.1.251')
   set backupdir^=$MYVIM/cache/backup//
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-
-" Create the first path in the 'backupdir' list, the one we just added, if it
-" doesn't already exist.  It isn't created automatically, which is by design.
-"
-call vimrc#Ensure(&backupdir)
+call mkdir($MYVIM.'/cache/backup', 'p')
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
@@ -245,13 +253,11 @@ set dictionary^=/usr/share/dict/words
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions.
 "
-set directory^=$MYVIM/cache/swap
-
-" Create the first path in the 'directory' swapfile path list, the one we just
-" added, if it doesn't already exist.  It isn't created automatically, which
-" is by design.
+" Create the first directory after adding it, if it doesn't already exist.  It
+" isn't created automatically, by design.
 "
-call vimrc#Ensure(&directory)
+set directory^=$MYVIM/cache/swap//
+call mkdir($MYVIM.'/cache/swap', 'p')
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -329,7 +335,7 @@ set formatoptions+=1
 " availability of option flags directly, we instead do a version number check
 " before attempting to add the flag.
 "
-if vimrc#Version('7.3.541')
+if v:version > 730 || v:version == 730 && has('patch541')
   set formatoptions+=j
 endif
 
@@ -351,7 +357,7 @@ endif
 "
 " <https://github.com/vim/vim/commit/c3c3158>
 "
-if vimrc#Version('8.1.728')
+if has('patch-8.1.728')
   set formatoptions+=p
 endif
 
@@ -452,7 +458,7 @@ endif
 if has('persistent_undo')  " v7.2.438
   set undofile
   set undodir^=$MYVIM/cache/undo//
-  call vimrc#Ensure(&undodir)
+  call mkdir($MYVIM.'/cache/undo', 'p')
 endif
 
 " Keep the viminfo file in the home Vim directory, mostly to stop history
@@ -462,6 +468,7 @@ if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
 else  " Resort to clunkier method with 'viminfo' option flag
   set viminfo+=n$MYVIM/cache/viminfo
 endif
+call mkdir($MYVIM.'/cache', 'p')
 
 " Let me move beyond buffer text in visual block mode
 set virtualedit+=block
@@ -502,7 +509,8 @@ catch
 endtry
 
 " Space bar scrolls down a page, :next at buffer's end if plugin available
-if vimrc#PluginReady('scroll_next')
+if globpath(&runtimepath, 'plugin/scroll_next.vim')
+      \ && &loadplugins
   nmap <Space> <Plug>(ScrollNext)
 else
   nnoremap <Space> <PageDown>
@@ -510,7 +518,8 @@ endif
 
 " Remap insert Ctrl-C to undo the escaped insert operation, but don't break
 " the key if the plugin isn't there
-if vimrc#PluginReady('insert_cancel')
+if globpath(&runtimepath, 'plugin/insert_cancel.vim')
+      \ && &loadplugins
   imap <C-C> <Plug>(InsertCancel)
 endif
 
