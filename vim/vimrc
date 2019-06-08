@@ -219,7 +219,7 @@ set dictionary^=/usr/share/dict/words
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions.
 "
-let s:directory = $MYVIM.'/cache/swap//'
+let s:directory = $MYVIM.'/cache/swap'.'//'
 execute 'set directory^='.vimrc#EscapeSetPart(s:directory)
 
 " Create the first path in the 'directory' swapfile path list, the one we just
