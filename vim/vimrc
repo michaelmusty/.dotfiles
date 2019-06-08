@@ -538,14 +538,24 @@ set showmatch matchtime=3
 "
 set nomodeline
 
-" Treat numbers with a leading zero as decimal, not octal
+" The only octal numbers I can think of that I ever even encounter are Unix
+" permissions masks, and I'd never use CTRL-A or CTRL-X to increment them.
+" Numbers with leading zeroes are far more likely to be decimals.
+"
 set nrformats-=octal
 
-" Disable command line display of file position if a system vimrc or Neovim
-" has switched it on
+" I like to leave the last line of the screen blank unless something is
+" actually happening in it, so I have grown to like the Vim default of
+" 'noruler'.  System vimrc files tend to turn this back on, though, and Neovim
+" has it on by default, so we will often need to put it back to normal.
+"
 set noruler
 
-" Make sessions usable
+" Sessions are great, but they don't play together well with plugins and
+" filetype plugins.  Restoring the same settings from both reloaded plugins
+" and from the session causes screeds of errors.  Adjusting session behaviour
+" to stop it trying to restore quite so much makes them useable.
+"
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
