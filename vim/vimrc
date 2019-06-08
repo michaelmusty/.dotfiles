@@ -455,9 +455,10 @@ set hidden
 
 " I don't think I'm ever likely to be in a situation where remembering several
 " thousand Vim commands and search patterns is going to severely tax memory,
-" let alone hard disk space.
+" let alone hard disk space.  The maximum value for this option is documented
+" as 10000, so let's just use that.
 "
-set history=2000
+set history=10000
 
 " Do highlight completed searches, but clear them away on vimrc reload.  Later
 " on in this file, CTRL-L in normal mode is remapped to stack on a :nohlsearch
