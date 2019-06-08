@@ -78,10 +78,9 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 endif
 
-" The path named in the MYVIM environment variable can't contain a comma
-" anywhere, because its use in comma-separated option values will confuse Vim
-" into thinking more than one directory is being specified, per normal :set
-" semantics.
+" If the path specified in the MYVIM environment variable contains a comma,
+" its use in comma-separated option values will confuse Vim into thinking more
+" than one directory is being specified, per normal :set semantics.
 "
 " It's possible to work around this with some careful escaping, either at :set
 " time with an :execute abstraction or with a separate environment variable
