@@ -60,9 +60,7 @@ set cpoptions+=J
 set dictionary^=/usr/share/dict/words
 
 " Keep swap files in dedicated directory, named with full path
-execute 'set directory^='.vimrc#EscapeSetPart(
-      \ $MYVIM.'/cache/swap//'
-      \ )
+execute 'set directory^='.vimrc#EscapeSetPart($MYVIM.'/cache/swap//')
 call vimrc#Establish(&directory)
 
 " If the environment didn't set an encoding, use UTF-8, not ASCII
@@ -170,9 +168,7 @@ set splitright  " Right of the current window, not left
 set synmaxcol=500
 
 " Add thesaurus; install with `make install-vim-thesaurus`
-execute 'set thesaurus^='.vimrc#EscapeSetPart(
-      \ $MYVIM.'/ref/thesaurus.txt'
-      \ )
+execute 'set thesaurus^='.vimrc#EscapeSetPart($MYVIM.'/ref/thesaurus.txt')
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -188,9 +184,7 @@ endif
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
   set undofile
-  execute 'set undodir^='.vimrc#EscapeSetPart(
-        \ $MYVIM.'/cache/undo//'
-        \ )
+  execute 'set undodir^='.vimrc#EscapeSetPart($MYVIM.'/cache/undo//')
   call vimrc#Establish(&undodir)
 endif
 
@@ -199,9 +193,7 @@ endif
 if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
   set viminfofile=$MYVIM/cache/viminfo
 else  " Resort to clunkier method with 'viminfo' option flag
-  execute 'set viminfo+='.vimrc#EscapeSet(
-        \ 'n'.$MYVIM.'/cache/viminfo'
-        \ )
+  execute 'set viminfo+='.vimrc#EscapeSet('n'.$MYVIM.'/cache/viminfo')
 endif
 
 " Let me move beyond buffer text in visual block mode
