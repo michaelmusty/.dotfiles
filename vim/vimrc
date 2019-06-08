@@ -214,6 +214,9 @@ set cpoptions+=J
 " a bit more intelligently to ensure that spell checking and dictionary
 " function consistently with reference to the same resources.
 "
+" It's not an error if this file doesn't exist; indeed, on some systems I use,
+" it doesn't.
+"
 set dictionary^=/usr/share/dict/words
 
 " Keep swap files for file buffers in a dedicated directory, rather than the
