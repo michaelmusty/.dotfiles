@@ -86,7 +86,7 @@ endif
 
 " If we have a directory creation function, and the cache directory doesn't
 " already exist, create it.  This will be where backup, swap, undo, and
-" viminfo files are stored.
+" viminfo files are stored, each in their own directories.
 "
 if exists('*mkdir') && !isdirectory($MYVIM.'/cache')
   call mkdir($MYVIM.'/cache', 'p', 0700)
