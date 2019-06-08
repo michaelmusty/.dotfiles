@@ -303,8 +303,9 @@ call s:Mkdir(split(&backupdir, s:option_split_pattern)[0])
 if has('unix')
 
   " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
-  " so adding them repeatedly if this file is reloaded results in duplicates.
-  " This might be a bug in Vim.  To work around this, we reset the path back
+  " so adding them repeatedly if this file is reloaded results in duplicates,
+  " due to the absence of the P_NODUP flag for its definition in src/option.c.
+  " This is likely a bug in Vim.  To work around this, we reset the path back
   " to its default first.
   "
   set backupskip&
