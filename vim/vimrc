@@ -95,13 +95,44 @@ if stridx($MYVIM, ',') != -1
   finish
 endif
 
-" If we have a directory creation function, and the cache directory doesn't
-" already exist, create it.  This will be where backup, swap, undo, and
-" viminfo files are stored, each in their own directories.
+" We're going to be creating a few directories, and the code to do so in
+" a compatible way is surprisingly verbose, because we need to check the
+" mkdir() function is actually available, and also whether the directory
+" concerned already exists, even if we specify the special 'p' value for its
+" optional {path} argument.
 "
-if exists('*mkdir') && !isdirectory($MYVIM.'/cache')
-  call mkdir($MYVIM.'/cache', 'p', 0700)
-endif
+" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
+" in shell script, or at least, it isn't in older versions of Vim.  Even with
+" the magic 'p' sauce, these older versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function.  We'll make all
+" the directories we create have restrictive permissions, too, with a {prot}
+" argument of 0700.
+"
+function! s:Mkdir(path) abort
+  if exists('*mkdir') && !isdirectory(a:path)
+    call mkdir(a:path, 'p', 0700)
+  endif
+endfunction
+
+" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
+" subdirectory if necessary.
+"
+" Using this location for viminfo has the nice benefit of preventing history
+" from getting clobbered when something runs Vim without using this vimrc,
+" because it writes its history to the default viminfo path instead.  It also
+" means that everything Vim-related in the user's home directory should be
+" encapsulated in the one ~/.vim or ~/vimfiles directory.
+"
+" The normal method of specifying the path to the viminfo file used here is an
+" addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
+" a nicer way to set it with a 'viminfofile' option, but there's no particular
+" reason to use it until it's in a few more stable versions.
+"
+call s:Mkdir($MYVIM.'/cache')
+set viminfo+=n$MYVIM/cache/viminfo
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
@@ -255,10 +286,7 @@ if has('patch-8.1.251')
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-let s:backupdir = split(&backupdir, s:option_split_pattern)[0]
-if exists('*mkdir') && !isdirectory(s:backupdir)
-  call mkdir(s:backupdir, '', 0700)
-endif
+call s:Mkdir(split(&backupdir, s:option_split_pattern)[0])
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
@@ -340,10 +368,7 @@ set dictionary^=/usr/share/dict/words
 " needed, too.
 "
 set directory^=$MYVIM/cache/swap//
-let s:directory = split(&directory, s:option_split_pattern)[0]
-if exists('*mkdir') && !isdirectory(s:directory)
-  call mkdir(s:directory, '', 0700)
-endif
+call s:Mkdir(split(&directory, s:option_split_pattern)[0])
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -590,18 +615,7 @@ endif
 if has('persistent_undo')  " v7.2.438
   set undofile
   set undodir^=$MYVIM/cache/undo//
-  let s:undodir = split(&undodir, s:option_split_pattern)[0]
-  if exists('*mkdir') && !isdirectory(s:undodir)
-    call mkdir(s:undodir, '', 0700)
-  endif
-endif
-
-" Keep the viminfo file in the home Vim directory, mostly to stop history
-" getting clobbered when something runs Vim without using this vimrc
-if exists('+viminfofile')  " Use new option method if we can (v8.1.716)
-  set viminfofile=$MYVIM/cache/viminfo
-else  " Resort to clunkier method with 'viminfo' option flag
-  set viminfo+=n$MYVIM/cache/viminfo
+  call s:Mkdir(split(&undodir, s:option_split_pattern)[0])
 endif
 
 " Let me move beyond buffer text in visual block mode
