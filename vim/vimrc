@@ -32,6 +32,32 @@
 set runtimepath-=/var/lib/vim/addons
 set runtimepath-=/var/lib/vim/addons/after
 
+" Splitting the values of a comma-separated option like 'runtimepath'
+" correctly, which we'll need to do a few times throughout this file, is a bit
+" more complicated than it seems.  The list separator is more accurately
+" defined as a comma that is not preceded by a backslash, and which is
+" followed by any number of spaces and/or further commas.
+"
+" The pattern required for the split breaks down like this:
+"
+"   \\     Literal backslash
+"   \@<!   Negative lookbehind assertion; means that whatever occurred before
+"          this pattern, i.e. a backslash, cannot precede what follows, but is
+"          not included as part of the split delimiter itself
+"   ,      Literal comma
+"   [, ]*  Any number of commas and spaces
+"
+" Vim, I love you, but you are weird.
+"
+" We don't have to deal with escaped backslashes; read the source of
+" copy_option_part() in vim/src/misc2.c to see why.
+"
+let s:option_split_pattern
+      \ = '\\'
+      \ . '\@<!'
+      \ . ','
+      \ . '[, ]*'
+
 " With 'runtimepath' cleaned up, the next thing we'll do is set an environment
 " variable MYVIM for the user runtime directory, if such a variable does not
 " already exist in the environment, and there's a value in 'runtimepath' from
@@ -44,37 +70,12 @@ set runtimepath-=/var/lib/vim/addons/after
 " We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
 " variable for the user's Vim runtime directory?  It is a mystery.
 "
+" We'll use the first path specified in 'runtimepath' as a default value.
+" This is similar to what Vim does internally for the location of the spelling
+" database files in the absence of a setting for 'spellfile'.
+"
 if !exists('$MYVIM') && &runtimepath !=# ''
-
-  " We'll use the first path specified in 'runtimepath' as a default value for
-  " the MYVIM environment variable.  This is similar to what Vim itself does
-  " for the location of the spelling database files in the absence of
-  " a setting for 'spellfile'.
-  "
-  " Splitting the values of a comma-separated option like 'runtimepath'
-  " correctly is a bit more complicated than it seems.  The list separator is
-  " more accurately defined as a comma that is not preceded by a backslash, and
-  " which is followed by any number of spaces and/or further commas.
-  "
-  " The pattern required for the split breaks down like this:
-  "
-  "   \\     Literal backslash
-  "   \@<!   Negative lookbehind assertion; means that whatever occurred before
-  "          this pattern, i.e. a backslash, cannot precede what follows, but is
-  "          not included as part of the split delimiter itself
-  "   ,      Literal comma
-  "   [, ]*  Any number of commas and spaces
-  "
-  " We don't have to deal with escaped backslashes; read the source of
-  " copy_option_part() in vim/src/misc2.c to see why.
-  "
-  let s:option_split_pattern = '\\\@<!,[, ]*'
-
-  " Man, I wish the runtime path was just a List, or could be treated as one.
-  " Vim, I love you, but you are weird.
-  "
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
-
 endif
 
 " The path named in the MYVIM environment variable can't contain a comma
