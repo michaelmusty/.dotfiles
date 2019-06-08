@@ -64,10 +64,6 @@ endif
 set comments=
 set commentstring=
 
-" Add completion options
-set completeopt+=longest  " Insert longest common substring
-set completeopt+=menuone  " Show the menu even if only one match
-
 " Give me a prompt instead of just rejecting risky :write, :saveas
 set confirm
 
