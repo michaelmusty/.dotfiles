@@ -23,13 +23,29 @@
 " > --Tennyson
 "
 
-" The first thing we'll do is set an environment variable MYVIM for the user
-" runtime directory, if such a variable does not already exist in the
-" environment, and there's a value in 'runtimepath' from which to glean
-" a useable path.  We'll use the path nominated in the MYVIM variable as the
-" root of our 'backupdir', 'directory', 'undodir', and 'viminfofile' caches,
-" and anywhere else we need a sensible writeable location for Vim-related
-" files.
+" This file contains a few Unicode characters, and the Vint Vim script linter
+" wants me to declare that, so I'll do so.  The :help for :scriptencoding says
+" that I should do that after 'encoding' is set, so we'll do that now.
+"
+" On Unix, I keep LANG defined in my environment, and it's almost always set
+" to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
+" character encoding, but the default for the 'encoding' option is latin1,
+" which is seldom what I want, and if I do want it, I'll specify it with LANG
+" or possibly a manual :set command.  UTF-8 makes much more sense as a default
+" encoding if Vim can't glean what I want from LANG.
+"
+if !exists('$LANG')
+  set encoding=utf-8
+endif
+scriptencoding utf-8
+
+" With encoding handled, the next thing we'll do is set an environment
+" variable MYVIM for the user runtime directory, if such a variable does not
+" already exist in the environment, and there's a value in 'runtimepath' from
+" which to glean a useable path.  We'll use the path nominated in the MYVIM
+" variable as the root of our 'backupdir', 'directory', 'undodir', and
+" 'viminfofile' caches, and anywhere else we need a sensible writeable
+" location for Vim-related files.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
 " We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
@@ -395,17 +411,6 @@ if $MYVIM !=# ''
   set directory^=$MYVIM/cache/swap//
 endif
 
-" On Unix, I keep LANG defined in my environment, and it's almost always set
-" to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
-" character encoding, but the default for the 'encoding' option is latin1,
-" which is seldom what I want, and if I do want it, I'll specify it with LANG
-" or possibly a manual :set command.  UTF-8 makes much more sense as a default
-" encoding if Vim can't glean what I want from LANG.
-"
-if !exists('$LANG')
-  set encoding=utf-8
-endif
-
 " If Vim receives an Escape key code in insert mode, it shouldn't wait to see
 " if it's going to be followed by another key code, despite this being how the
 " function keys and Meta/Alt modifier are implemented for many terminal types.
@@ -581,7 +586,7 @@ set listchars+=nbsp:+      " Non-breaking spaces
 set showmatch matchtime=3
 
 " Don't let your editor's options be configured by content in arbitrary files!
-" Down with modelines!  Purge them from your files!  Écrasez l'infâme!
+" Down with modelines!  Purge them from your files!
 "
 " I think that modelines are Vim's worst misfeature, and that 'nomodeline'
 " should be the default.  It's enabled pretty bad security vulnerabilities
