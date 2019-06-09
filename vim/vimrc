@@ -138,10 +138,10 @@ augroup vimrc
   autocmd!
 augroup END
 
-" If this file or the vimrc stub that calls it is written to by Vim, reload
-" the stub vimrc and thereby the main vimrc, so that our changes apply
-" immediately in the current editing session.  This often makes broken changes
-" immediately apparent.
+" If this file or the vimrc stub that calls it is written to by Vim, we'd like
+" to reload the stub vimrc and thereby the main vimrc, so that our changes
+" apply immediately in the current editing session.  This often makes broken
+" changes immediately apparent.
 "
 autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
       \ source $MYVIMRC
