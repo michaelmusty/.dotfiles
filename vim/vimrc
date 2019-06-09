@@ -65,9 +65,7 @@ endif
 " We need to check the MYVIM environment variable's value to ensure it's not
 " going to cause problems for the rest of this file.
 "
-" First of all, it can't be blank.
-"
-" Secondlly, if the path specified in the MYVIM environment variable contains
+" Firstly, if the path specified in the MYVIM environment variable contains
 " a comma, its use in comma-separated option values will confuse Vim into
 " thinking more than one directory is being specified, per normal :set
 " semantics.  It's possible to work around this with some careful escaping,
@@ -75,16 +73,17 @@ endif
 " environment variable for that particular context, but it's not really worth
 " the extra complexity for such a niche situation.
 "
-" Thirdly and finally, some versions of Vim prior to v7.2.0 exhibit bizarre
-" behaviour with escaping with the backslash character, so on these older
-" versions of Vim, forbid that character.  I haven't found the exact
-" patchlevel that this was fixed yet.
+" Secondly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour
+" with escaping with the backslash character on the command line, so on these
+" older versions of Vim, forbid that character.  I haven't found the exact
+" patchlevel that this was fixed yet, nor the true reason for the bug.
 "
-if $MYVIM ==# ''
-      \ || $MYVIM =~# ','
-      \ || v:version < 702 && $MYVIM =~# '\'
-  echoerr 'Illegal user runtime path, halting user init'
-  finish
+if $MYVIM =~# ','
+  echoerr 'Illegal comma in user runtime path'
+  let $MYVIM = ''
+elseif v:version < 702 && $MYVIM =~# '\\'
+  echoerr 'Illegal backslash in user runtime path on Vim <=7.2'
+  let $MYVIM = ''
 endif
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
@@ -173,8 +172,10 @@ command! -complete=dir -nargs=+ EnsureDir
 " a nicer way to set it with a 'viminfofile' option, but there's no particular
 " reason to use it until it's in a few more stable versions.
 "
-EnsureDir $MYVIM/cache
-set viminfo+=n$MYVIM/cache/viminfo
+if $MYVIM !=# ''
+  EnsureDir $MYVIM/cache
+  set viminfo+=n$MYVIM/cache/viminfo
+endif
 
 " We'll start our options by modernising a little in adjusting some options
 " with language-specific defaults.
@@ -275,11 +276,13 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
-EnsureDir $MYVIM/cache/backup
-if has('patch-8.1.251')
-  set backupdir^=$MYVIM/cache/backup//
-else
-  set backupdir^=$MYVIM/cache/backup
+if $MYVIM !=# ''
+  EnsureDir $MYVIM/cache/backup
+  if has('patch-8.1.251')
+    set backupdir^=$MYVIM/cache/backup//
+  else
+    set backupdir^=$MYVIM/cache/backup
+  endif
 endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
@@ -354,7 +357,10 @@ set cpoptions+=J
 " It's not an error if this file doesn't exist; indeed, on some systems I use,
 " it doesn't.
 "
-set dictionary^=$MYVIM/ref/dictionary.txt,/usr/share/dict/words
+set dictionary^=/usr/share/dict/words
+if $MYVIM !=# ''
+  set dictionary^=$MYVIM/ref/dictionary.txt
+endif
 
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
@@ -362,8 +368,10 @@ set dictionary^=$MYVIM/ref/dictionary.txt,/usr/share/dict/words
 " its name, in order to avoid filename collisions.  Create that path if
 " needed, too.
 "
-EnsureDir $MYVIM/cache/swap
-set directory^=$MYVIM/cache/swap//
+if $MYVIM !=# ''
+  EnsureDir $MYVIM/cache/swap
+  set directory^=$MYVIM/cache/swap//
+endif
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -594,7 +602,9 @@ set showbreak=...
 set synmaxcol=500
 
 " Add thesaurus; install with `make install-vim-thesaurus`
-set thesaurus^=$MYVIM/ref/thesaurus.txt
+if $MYVIM !=# ''
+  set thesaurus^=$MYVIM/ref/thesaurus.txt
+endif
 
 " PuTTY is a fast terminal, but Vim doesn't know that yet
 if &term =~# '^putty'
@@ -614,9 +624,11 @@ endif
 
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
-  EnsureDir $MYVIM/cache/undo
+  if $MYVIM !=# ''
+    EnsureDir $MYVIM/cache/undo
+    set undodir^=$MYVIM/cache/undo//
+  endif
   set undofile
-  set undodir^=$MYVIM/cache/undo//
 endif
 
 " Let me move beyond buffer text in visual block mode
