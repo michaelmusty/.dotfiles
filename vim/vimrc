@@ -1008,9 +1008,13 @@ endif
 " look up how to compose a specific character that I can at least in part
 " name.  The table in `:help digraph-table` is what to use for that situation,
 " and it works great, but the overhead of repeated lookups therein was just
-" a little bit high.  Steve Losh had a solution I rather liked where
-" a double-tap of CTRL-K in insert mode brought up a help window with the
-" table, which could then be searched as normal.
+" a little bit high.
+"
+" Steve Losh has a solution I liked where a double-tap of CTRL-K in insert
+" mode brought up a help window with the table, which could then be searched
+" as normal:
+"
+" <https://bitbucket.org/sjl/dotfiles/src/2559256/vim/vimrc#lines-309:310>
 "
 " I took it one step further with a custom plugin digraph_search.vim that
 " parses the digraph table and runs a plaintext search of its names using
