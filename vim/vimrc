@@ -1171,12 +1171,32 @@ nnoremap <Leader>C
 xnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
-" Leader,d inserts the local date (POSIX date)
+" Print an RFC2822-compliant date string
+command PutDate
+      \ put=strftime('%a, %d %b %Y %T %z')
+
+" Set up a quick command-function pair to run a command with the UTC timezone,
+" in this case, for my date-printing mappings.  Is there a nicer way to do
+" this?  I couldn't find one.
+"
+" This presently seems to be broken in v8.1.1487; the timezone first chosen
+" seems to 'stick' permanently.  I haven't worked out why yet.  Using the new
+" getenv() and setenv() functions does not seem to fix it.  It works fine in
+" Debian GNU/Linux's packaged v8.0.x.
+"
+function! UTC(command) abort
+  let tz = expand('$TZ')
+  let $TZ = 'UTC' | execute a:command | let $TZ = tz
+endfunction
+command -complete=command -nargs=1 UTC
+      \ call UTC(<q-args>)
+
+" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
-      \ :read !date<CR>
-" Leader,D inserts the UTC date (POSIX date)
+      \ :<C-U>PutDate<CR>
+" Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :read !date -u<CR>
+      \ :<C-U>UTC PutDate<CR>
 
 " Leader,e forces a buffer to be editable
 nnoremap <Leader>e
@@ -1393,12 +1413,12 @@ nnoremap <Leader><Tab>
       \ :<C-U>setlocal autoindent! autoindent?<CR>
 
 " Some useful abbreviations
-inoreabbrev tr@ tom@sanctum.geek.nz
-inoreabbrev tr/ <https://sanctum.geek.nz/>
+inoreabbrev  tr@  tom@sanctum.geek.nz
+inoreabbrev  tr/  <https://sanctum.geek.nz/>
 
-" Things I almsot always type wrnog
-inoreabbrev almsot almost
-inoreabbrev wrnog wrong
-inoreabbrev Fielding Feilding
-inoreabbrev THe The
-inoreabbrev THere There
+" THe things I almsot always type wrnog
+inoreabbrev  almsot    almost
+inoreabbrev  wrnog     wrong
+inoreabbrev  Fielding  Feilding
+inoreabbrev  THe       The
+inoreabbrev  THere     There
