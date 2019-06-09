@@ -1020,9 +1020,11 @@ endtry
 "
 if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
-  nmap <Space> <Plug>(ScrollNext)
+  nmap <Space>
+        \ <Plug>(ScrollNext)
 else
-  nnoremap <Space> <PageDown>
+  nnoremap <Space>
+        \ <PageDown>
 endif
 
 " I hate CTRL-C in insert mode, which ends the insert session without firing
@@ -1062,7 +1064,8 @@ endif
 "
 if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
       \ && &loadplugins
-  imap <C-C> <Plug>(InsertCancel)
+  imap <C-C>
+        \ <Plug>(InsertCancel)
 endif
 
 " I often don't remember or can't guess digraph codes very well, and want to
@@ -1097,211 +1100,297 @@ endif
 " checking that the plugin's available before we map to it; it'll just quietly
 " do nothing.
 "
-imap <C-K><C-K> <Plug>(DigraphSearch)
+imap <C-K><C-K>
+      \ <Plug>(DigraphSearch)
 
 " Stack Ctrl-L to clear search highlight, make it work in insert mode too
-nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
-vnoremap <C-L> :<C-U>nohlsearch<CR>gv<C-L>
-inoremap <C-L> <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
+nnoremap <C-L>
+      \ :<C-U>nohlsearch<CR><C-L>
+vnoremap <C-L>
+      \ :<C-U>nohlsearch<CR>gv<C-L>
+inoremap <C-L>
+      \ <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
 
 " Remap normal/visual & and g& to preserve substitution flags
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
-nnoremap g& :<C-U>%&&<CR>
+nnoremap &
+      \ :&&<CR>
+xnoremap &
+      \ :&&<CR>
+nnoremap g&
+      \ :<C-U>%&&<CR>
 
 " Map g: as a 'colon operator'
-nmap g: <Plug>(ColonOperator)
+nmap g:
+      \ <Plug>(ColonOperator)
 
 " Cycle through argument list
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
+nnoremap [a
+      \ :previous<CR>
+nnoremap ]a
+      \ :next<CR>
 " Cycle through buffers
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
+nnoremap [b
+      \ :bprevious<CR>
+nnoremap ]b
+      \ :bnext<CR>
 " Cycle through quickfix list items
-nnoremap [c :cprevious<CR>
-nnoremap ]c :cnext<CR>
+nnoremap [c
+      \ :cprevious<CR>
+nnoremap ]c
+      \ :cnext<CR>
 " Cycle through location list items
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
+nnoremap [l
+      \ :lprevious<CR>
+nnoremap ]l
+      \ :lnext<CR>
 
 " Insert blank lines around current line
-nmap [<Space> <Plug>(PutBlankLinesAbove)
-nmap ]<Space> <Plug>(PutBlankLinesBelow)
+nmap [<Space>
+      \ <Plug>(PutBlankLinesAbove)
+nmap ]<Space>
+      \ <Plug>(PutBlankLinesBelow)
 
 " Set leader keys
 let mapleader = '\'
 let maplocalleader = ','
 
 " Leader,a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Leader>a :<C-U>ToggleFlagLocal formatoptions a<CR>
+nnoremap <Leader>a
+      \ :<C-U>ToggleFlagLocal formatoptions a<CR>
 
 " Leader,b toggles settings friendly to copying and pasting
-nmap <Leader>b <Plug>(CopyLinebreakToggle)
+nmap <Leader>b
+      \ <Plug>(CopyLinebreakToggle)
 
 " Leader,c toggles 'cursorline'; no visual mode map as it doesn't work
-nnoremap <Leader>c :<C-U>setlocal cursorline! cursorline?<CR>
+nnoremap <Leader>c
+      \ :<C-U>setlocal cursorline! cursorline?<CR>
 " Leader,C toggles 'cursorcolumn'; works in visual mode
-nnoremap <Leader>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-xnoremap <Leader>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
+nnoremap <Leader>C
+      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
+xnoremap <Leader>C
+      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
 " Leader,d inserts the local date (POSIX date)
-nnoremap <Leader>d :read !date<CR>
+nnoremap <Leader>d
+      \ :read !date<CR>
 " Leader,D inserts the UTC date (POSIX date)
-nnoremap <Leader>D :read !date -u<CR>
+nnoremap <Leader>D
+      \ :read !date -u<CR>
 
 " Leader,e forces a buffer to be editable
-nnoremap <Leader>e :<C-U>setlocal modifiable noreadonly<CR>
+nnoremap <Leader>e
+      \ :<C-U>setlocal modifiable noreadonly<CR>
 
 " Leader,f shows the current 'formatoptions' at a glance
-nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
+nnoremap <Leader>f
+      \ :<C-U>setlocal formatoptions?<CR>
 
 " Leader,F reloads filetype plugins
-nnoremap <Leader>F :<C-U>FileTypeReload<CR>
+nnoremap <Leader>F
+      \ :<C-U>FileTypeReload<CR>
 
 " Leader,g shows the current file's fully expanded path
-nnoremap <Leader>g :<C-U>echo expand('%:p')<CR>
+nnoremap <Leader>g
+      \ :<C-U>echo expand('%:p')<CR>
 " Leader,G changes directory to the current file's location
-nnoremap <Leader>G :<C-U>cd %:h<Bar>pwd<CR>
+nnoremap <Leader>G
+      \ :<C-U>cd %:h<Bar>pwd<CR>
 
 " Leader,h toggles highlighting search results
-nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
+nnoremap <Leader>h
+      \ :<C-U>set hlsearch! hlsearch?<CR>
 
 " Leader,H shows command history
-nnoremap <Leader>H :<C-U>history :<CR>
+nnoremap <Leader>H
+      \ :<C-U>history :<CR>
 
 " Leader,i toggles showing matches as I enter my pattern
-nnoremap <Leader>i :<C-U>set incsearch! incsearch?<CR>
+nnoremap <Leader>i
+      \ :<C-U>set incsearch! incsearch?<CR>
 
 " Leader,j jumps to buffers ("jetpack")
-nnoremap <Leader>j :<C-U>buffers<CR>:buffer<Space>
+nnoremap <Leader>j
+      \ :<C-U>buffers<CR>:buffer<Space>
 
 " Leader,k shows my marks
-nnoremap <Leader>k :<C-U>marks<CR>
+nnoremap <Leader>k
+      \ :<C-U>marks<CR>
 
 " Leader,l toggles showing tab, end-of-line, and trailing white space
-nnoremap <Leader>l :<C-U>setlocal list! list?<CR>
-xnoremap <Leader>l :<C-U>setlocal list! list?<CR>gv
+nnoremap <Leader>l
+      \ :<C-U>setlocal list! list?<CR>
+xnoremap <Leader>l
+      \ :<C-U>setlocal list! list?<CR>gv
 
 " Leader,L toggles 'colorcolumn' showing 'textwidth'
-nnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>
-xnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
+nnoremap <Leader>L
+      \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
+xnoremap <Leader>L
+      \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
 
 " Leader,m shows normal maps
-nnoremap <Leader>m :<C-U>map<CR>
+nnoremap <Leader>m
+      \ :<C-U>map<CR>
 " Leader,M shows buffer-local normal maps
-nnoremap <Leader>M :<C-U>map <buffer><CR>
+nnoremap <Leader>M
+      \ :<C-U>map <buffer><CR>
 
 " Leader,n toggles line number display
-nnoremap <Leader>n :<C-U>setlocal number! number?<CR>
-xnoremap <Leader>n :<C-U>setlocal number! number?<CR>gv
+nnoremap <Leader>n
+      \ :<C-U>setlocal number! number?<CR>
+xnoremap <Leader>n
+      \ :<C-U>setlocal number! number?<CR>gv
 " Leader,N toggles position display in bottom right
-nnoremap <Leader>N :<C-U>set ruler! ruler?<CR>
-xnoremap <Leader>N :<C-U>set ruler! ruler?<CR>gv
+nnoremap <Leader>N
+      \ :<C-U>set ruler! ruler?<CR>
+xnoremap <Leader>N
+      \ :<C-U>set ruler! ruler?<CR>gv
 
 " Leader,o opens a line below in paste mode
-nmap <Leader>o <Plug>(PasteOpenBelow)
+nmap <Leader>o
+      \ <Plug>(PasteOpenBelow)
 " Leader,O opens a line above in paste mode
-nmap <Leader>O <Plug>(PasteOpenAbove)
+nmap <Leader>O
+      \ <Plug>(PasteOpenAbove)
 
 " Leader,p toggles paste mode
-nnoremap <Leader>p :<C-U>set paste! paste?<CR>
+nnoremap <Leader>p
+      \ :<C-U>set paste! paste?<CR>
 
 " Leader,P creates the path to the current file
-nnoremap <Leader>P :<C-U>call mkdir(expand('%:h'), 'p')<CR>
+nnoremap <Leader>P
+      \ :<C-U>call mkdir(expand('%:h'), 'p')<CR>
 
 " Leader,q formats the current paragraph
-nnoremap <Leader>q gqap
+nnoremap <Leader>q
+      \ gqap
 
 " Leader,r acts as a replacement operator
-nmap <Leader>r <Plug>(ReplaceOperator)
-xmap <Leader>r <Plug>(ReplaceOperator)
+nmap <Leader>r
+      \ <Plug>(ReplaceOperator)
+xmap <Leader>r
+      \ <Plug>(ReplaceOperator)
 
 " Leader,R reloads ~/.vimrc
-nnoremap <Leader>R :<C-U>source $MYVIMRC<CR>
+nnoremap <Leader>R
+      \ :<C-U>source $MYVIMRC<CR>
 
 " Leader,s toggles spell checking
-nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
+nnoremap <Leader>s
+      \ :<C-U>setlocal spell! spell?<CR>
 
 " Leader,S shows loaded scripts
-nnoremap <Leader>S :<C-U>scriptnames<CR>
+nnoremap <Leader>S
+      \ :<C-U>scriptnames<CR>
 
 " Leader,t shows current filetype
-nnoremap <Leader>t :<C-U>setlocal filetype?<CR>
+nnoremap <Leader>t
+      \ :<C-U>setlocal filetype?<CR>
 " Leader,T clears filetype
-nnoremap <Leader>T :<C-U>setlocal filetype=<CR>
+nnoremap <Leader>T
+      \ :<C-U>setlocal filetype=<CR>
 
 " Leader,u sets US English spelling (compare Leader,z)
-nnoremap <Leader>u :<C-U>setlocal spelllang=en_us<CR>
+nnoremap <Leader>u
+      \ :<C-U>setlocal spelllang=en_us<CR>
 
 " Leader,v shows all global variables
-nnoremap <Leader>v :<C-U>let g: v:<CR>
+nnoremap <Leader>v
+      \ :<C-U>let g: v:<CR>
 " Leader,V shows all local variables
-nnoremap <Leader>V :<C-U>let b: t: w:<CR>
+nnoremap <Leader>V
+      \ :<C-U>let b: t: w:<CR>
 
 " Leader,w toggles wrapping
-nnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>
-xnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>gv
+nnoremap <Leader>w
+      \ :<C-U>setlocal wrap! wrap?<CR>
+xnoremap <Leader>w
+      \ :<C-U>setlocal wrap! wrap?<CR>gv
 
 " Leader,x strips trailing whitespace via a custom plugin
-nnoremap <Leader>x :StripTrailingWhitespace<CR>
-xnoremap <Leader>x :StripTrailingWhitespace<CR>
+nnoremap <Leader>x
+      \ :StripTrailingWhitespace<CR>
+xnoremap <Leader>x
+      \ :StripTrailingWhitespace<CR>
 
 " Leader,X squeezes repeated blank lines via a custom plugin
-nnoremap <Leader>X :SqueezeRepeatBlanks<CR>
-xnoremap <Leader>X :SqueezeRepeatBlanks<CR>
+nnoremap <Leader>X
+      \ :SqueezeRepeatBlanks<CR>
+xnoremap <Leader>X
+      \ :SqueezeRepeatBlanks<CR>
 
 " Leader,y shows all registers
-nnoremap <Leader>y :<C-U>registers<CR>
+nnoremap <Leader>y
+      \ :<C-U>registers<CR>
 
 " Leader,z sets NZ English spelling (compare Leader,u)
-nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz<CR>
+nnoremap <Leader>z
+      \ :<C-U>setlocal spelllang=en_nz<CR>
 
 " Leader,= runs the whole buffer through =, preserving position
-nnoremap <Leader>= :<C-U>KeepPosition normal! 1G=G<CR>
+nnoremap <Leader>=
+      \ :<C-U>KeepPosition normal! 1G=G<CR>
 " Leader,+ runs the whole buffer through gq, preserving position
-nnoremap <Leader>+ :<C-U>KeepPosition normal! 1GgqG<CR>
+nnoremap <Leader>+
+      \ :<C-U>KeepPosition normal! 1GgqG<CR>
 
 " Leader,. runs the configured make program into the location list
-nnoremap <Leader>. :<C-U>lmake!<CR>
+nnoremap <Leader>.
+      \ :<C-U>lmake!<CR>
 
 " Leader,< and Leader,> adjust indent of last edit; good for pasting
-nnoremap <Leader><lt> :<C-U>'[,']<lt><CR>
-nnoremap <Leader>> :<C-U>'[,']><CR>
+nnoremap <Leader><lt>
+      \ :<C-U>'[,']<lt><CR>
+nnoremap <Leader>>
+      \ :<C-U>'[,']><CR>
 
 " Leader,_ uses last changed or yanked text as an object
-onoremap <Leader>_ :<C-U>normal! `[v`]<CR>
+onoremap <Leader>_
+      \ :<C-U>normal! `[v`]<CR>
 
 " Leader,% uses entire buffer as an object
-onoremap <Leader>% :<C-U>normal! 1GVG<CR>
+onoremap <Leader>%
+      \ :<C-U>normal! 1GVG<CR>
 
 " Leader,{ and Leader,} move to lines with non-space chars before current column
-map <Leader>{ <Plug>(VerticalRegionUp)
+map <Leader>{
+      \ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
-map <Leader>} <Plug>(VerticalRegionDown)
+map <Leader>}
+      \ <Plug>(VerticalRegionDown)
 sunmap <Leader>}
 
 " Leader,/ types :vimgrep for me ready to enter a search pattern
-nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
+nnoremap <Leader>/
+      \ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
 " Leader,? types :lhelpgrep for me ready to enter a search pattern
-nnoremap <Leader>? :<C-U>lhelpgrep \c<S-Left>
+nnoremap <Leader>?
+      \ :<C-U>lhelpgrep \c<S-Left>
 
 " Leader,* escapes regex metacharacters
-nmap <Leader>* <Plug>(RegexEscape)
-xmap <Leader>* <Plug>(RegexEscape)
+nmap <Leader>*
+      \ <Plug>(RegexEscape)
+xmap <Leader>*
+      \ <Plug>(RegexEscape)
 
 " Leader,\ jumps to the last edit position mark, like g;, but works as a motion
 " "Now, where was I?" (tap-tap)
-nnoremap <Leader>\ `"
-xnoremap <Leader>\ `"
+nnoremap <Leader>\
+      \ `"
+xnoremap <Leader>\
+      \ `"
 
 " Leader,DEL deletes the current buffer
-nnoremap <Leader><Delete> :bdelete<CR>
+nnoremap <Leader><Delete>
+      \ :bdelete<CR>
 " Leader,INS edits a new buffer
-nnoremap <Leader><Insert> :<C-U>enew<CR>
+nnoremap <Leader><Insert>
+      \ :<C-U>enew<CR>
 
 " Leader,TAB toggles 'autoindent'
-nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
+nnoremap <Leader><Tab>
+      \ :<C-U>setlocal autoindent! autoindent?<CR>
 
 " Some useful abbreviations
 inoreabbrev tr@ tom@sanctum.geek.nz
