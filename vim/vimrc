@@ -186,6 +186,9 @@ command! FileTypeReload
 " rewrite those parts to be idempotent, or to add load guards around them so
 " that they only run once.
 "
+" Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
+" this main file is saved, using :doautocmd abstraction.
+"
 if exists('##SourceCmd')
   autocmd vimrc SourceCmd $MYVIMRC
         \ source <afile> | FileTypeReload
