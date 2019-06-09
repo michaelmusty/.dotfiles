@@ -23,15 +23,6 @@
 " > --Tennyson
 "
 
-" We'll start by removing unwanted addenda to 'runtimepath' from Debian
-" GNU/Linux's debian.vim, so that any Vim script installed at the system level
-" is ignored, since we don't want it interfering with our personal setup.
-" This doesn't raise an error if the paths aren't present, so we don't need to
-" check if they're already there.
-"
-set runtimepath-=/var/lib/vim/addons
-set runtimepath-=/var/lib/vim/addons/after
-
 " Splitting the values of a comma-separated option like 'runtimepath'
 " correctly, which we'll need to do a few times throughout this file, is a bit
 " more complicated than it seems.  The list separator is more accurately
