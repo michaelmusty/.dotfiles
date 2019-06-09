@@ -103,6 +103,9 @@ endif
 " older versions of Vim, forbid that character.  I haven't found the exact
 " patch level that this was fixed yet, nor the true reason for the bug.
 "
+" If either of these conditions are meant, throw an error and blank the MYVIM
+" variable so that nothing uses it.
+"
 if $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
   let $MYVIM = ''
