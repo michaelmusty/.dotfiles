@@ -424,25 +424,6 @@ set confirm
 "
 set cpoptions+=J
 
-" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, this specifies the path to the system dictionary to
-" find words.  This makes the dictionary completion work consistently, even if
-" 'spell' isn't set at that moment.
-"
-" At some point, I may end up having to set this option along with 'spellfile'
-" a bit more intelligently to ensure that spell checking and dictionary
-" function consistently with reference to the same resources.  For the moment,
-" I've added another entry referring to a directory in the user runtime
-" directory, but I don't have anything distinct to put there just yet.
-"
-" It's not an error if this file doesn't exist; indeed, on some systems I use,
-" it doesn't.
-"
-set dictionary^=/usr/share/dict/words
-if $MYVIM !=# '' && $MYVIM !=~ '[*?[|;&<>\r\n]'
-  set dictionary^=$MYVIM/ref/dictionary.txt
-endif
-
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
 " trailing slashes to the path to prompt Vim to use the full escaped path in
@@ -686,21 +667,6 @@ set shortmess+=I
 "
 set synmaxcol=500
 
-" Add the expected path to the thesaurus, for completion with CTRL-X CTRL-T in
-" insert mode, or with 't' added to 'completeopt.  This isn't installed as
-" part of the default `install-vim` target in tejr's dotfiles; it can be
-" installed with `install-vim-thesaurus`.
-"
-" I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
-" website that the Makefile recipe attempts to retrieve.  I had to remove the
-" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
-" them as part of the body data.
-"
-if $MYVIM !=# '' && $MYVIM !=~ '[*?[|;&<>\r\n]'
-  set thesaurus^=$MYVIM/ref/thesaurus.txt
-endif
-
 " Vim has an internal list of terminal types that support using smoother
 " terminal redrawing.  It includes most of the terminals I use, but there are
 " a couple more for which the 'ttyfast' option should apply: the windows
@@ -837,6 +803,46 @@ set wildmode=list:longest
 " didn't appear in my 'wildmode' setting.  I hadn't read the documentation
 " properly.
 "
+
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, this specifies the path to the system dictionary to
+" find words.  This makes the dictionary completion work consistently, even if
+" 'spell' isn't set at that moment.
+"
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently with reference to the same resources.  For the moment,
+" I've added another entry referring to a directory in the user runtime
+" directory, but I don't have anything distinct to put there just yet.
+"
+" It's not an error if this file doesn't exist; indeed, on some systems I use,
+" it doesn't.
+"
+" In the same way, add an expected path to a thesaurus, for completion with
+" CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
+" thesaurus data isn't installed as part of the default `install-vim` target
+" in tejr's dotfiles, but it can be retrieved and installed with
+" `install-vim-thesaurus`.
+"
+" I got the thesaurus itself from the link in the :help for 'thesaurus' in
+" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" website that the Makefile recipe attempts to retrieve.  I had to remove the
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
+" them as part of the body data.
+"
+" The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
+" need to be stricter than the ones for 'backupdir', because the P_NDNAME
+" property is assigned to them, which enforces a character blacklist.  We
+" check for it here and just tolerate not having the user runtime completion
+" references, rather than throwing cryptic errors at the user.  None of them
+" are particularly wise characters to have in paths, anyway, legal though they
+" may be on Unix filesystems.
+"
+set dictionary^=/usr/share/dict/words
+if $MYVIM !=# '' && $MYVIM !~# '[*?[|;&<>\r\n]'
+  set dictionary^=$MYVIM/ref/dictionary.txt
+  set thesaurus^=$MYVIM/ref/thesaurus.txt
+endif
 
 " Use all of the filetype detection, plugin, and indent support available.
 " I define my own filetype.vim and scripts.vim files for filetype detection,
