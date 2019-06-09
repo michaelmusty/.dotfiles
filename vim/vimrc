@@ -431,7 +431,9 @@ set cpoptions+=J
 "
 " At some point, I may end up having to set this option along with 'spellfile'
 " a bit more intelligently to ensure that spell checking and dictionary
-" function consistently with reference to the same resources.
+" function consistently with reference to the same resources.  For the moment,
+" I've added another entry referring to a directory in the user runtime
+" directory, but I don't have anything distinct to put there just yet.
 "
 " It's not an error if this file doesn't exist; indeed, on some systems I use,
 " it doesn't.
