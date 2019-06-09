@@ -1,11 +1,19 @@
 "
-" Tom Ryder (tejr)'s vimrc
-" ========================
+" Tom Ryder (tejr)'s Literate Vimrc
+" =================================
 "
 " <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
-" comments abound.
+" This is an attempt at something like a 'literate vimrc', in the tradition of
+" Donald Knuth's "literate programming".
+"
+" <http://www.literateprogramming.com/>
+"
+" It's a long file, and comments abound.  If this bothers you, you can do
+" something like this to strip out all the blank lines and lines with only
+" comments:
+"
+"   :v/^\s*[^"]/d
 "
 " This file should be saved as "vimrc" in the user runtime directory. On
 " Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
@@ -95,10 +103,13 @@ endif
 " older versions of Vim, forbid that character.  I haven't found the exact
 " patch level that this was fixed yet, nor the true reason for the bug.
 "
+" If either of these conditions are meant, throw an error and blank the MYVIM
+" variable so that nothing uses it.
+"
 if $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
   let $MYVIM = ''
-elseif v:version < 702 && $MYVIM =~# '\\'
+elseif $MYVIM =~# '\\' && v:version < 702
   echoerr 'Illegal backslash in user runtime path on Vim < v7.2'
   let $MYVIM = ''
 endif
@@ -107,7 +118,9 @@ endif
 " to the first element of the default &runtimepath.  If this is the case,
 " we'll slot it in, having already checked it for troublesome characters.
 "
-if $MYVIM !=# '' && len(runtimepath) > 0 && $MYVIM !=# runtimepath[0]
+if $MYVIM !=# ''
+      \ && len(runtimepath) > 0
+      \ && $MYVIM !=# runtimepath[0]
   set runtimepath^=$MYVIM
 endif
 
@@ -135,7 +148,13 @@ function s:EnsureDir(path) abort
   return isdirectory(path)
         \ || exists('*mkdir') && mkdir(path, 'p', 0700)
 endfunction
-command! -complete=dir -nargs=+ EnsureDir
+
+" Now we define the :EnsureDir command for user-level access to the
+" s:EnsureDir() function.  We set the tab completion to provide directory
+" names as candidates, and specify that there must be only one argument, which
+" we'll provide as a quoted parameter to the function.
+"
+command! -complete=dir -nargs=1 EnsureDir
       \ call s:EnsureDir(<q-args>)
 
 " Now that we have a clean means to create directories if they don't already
@@ -411,23 +430,6 @@ set confirm
 "
 set cpoptions+=J
 
-" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, this specifies the path to the system dictionary to
-" find words.  This makes the dictionary completion work consistently, even if
-" 'spell' isn't set at that moment.
-"
-" At some point, I may end up having to set this option along with 'spellfile'
-" a bit more intelligently to ensure that spell checking and dictionary
-" function consistently with reference to the same resources.
-"
-" It's not an error if this file doesn't exist; indeed, on some systems I use,
-" it doesn't.
-"
-set dictionary^=/usr/share/dict/words
-if $MYVIM !=# ''
-  set dictionary^=$MYVIM/ref/dictionary.txt
-endif
-
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
 " trailing slashes to the path to prompt Vim to use the full escaped path in
@@ -671,21 +673,6 @@ set shortmess+=I
 "
 set synmaxcol=500
 
-" Add the expected path to the thesaurus, for completion with CTRL-X CTRL-T in
-" insert mode, or with 't' added to 'completeopt.  This isn't installed as
-" part of the default `install-vim` target in tejr's dotfiles; it can be
-" installed with `install-vim-thesaurus`.
-"
-" I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
-" website that the Makefile recipe attempts to retrieve.  I had to remove the
-" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
-" them as part of the body data.
-"
-if $MYVIM !=# ''
-  set thesaurus^=$MYVIM/ref/thesaurus.txt
-endif
-
 " Vim has an internal list of terminal types that support using smoother
 " terminal redrawing.  It includes most of the terminals I use, but there are
 " a couple more for which the 'ttyfast' option should apply: the windows
@@ -728,8 +715,8 @@ if has('persistent_undo')
   endif
 
   " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them.  It's better than losing the history
-  " completely.
+  " a cache directory for them as a result of the logic above.  It's better
+  " than losing the history completely.
   "
   set undofile
 
@@ -756,15 +743,34 @@ set virtualedit+=block
 "
 set visualbell t_vb=
 
+" When Ex command line completion is started with Tab, list valid completions
+" and complete the command line to the longest common substring, just as Bash
+" does, with just the one keypress.
+"
+" The default value of 'full' for the 'wildmmode option puts the full
+" completion onto the line immediately, which I tolerate for insert mode
+" completion but don't really like on the Ex command line.  Instead, I arrange
+" for that with a second keypress if I ever want it.
+"
+set wildmenu
+set wildmode=list:longest,full
+
 " Define a list of wildignore patterns for into the 'wildignore' option.
 " Files and directories with names matching any of these patterns won't be
 " presented as options for tab completion on the command line.
 "
+" It's tempting to put the list of patterns here into a separate file, or at
+" least into a more readily editable intermediate list variable, rather than
+" the minor maintenance hassle it presently constitutes in this compact form.
+" I'm not sure whether I'll do that just yet.
+"
 " To make this list, I went right through my home directory with
 " a `find`-toothed comb, counted the lowercased occurrences of every
 " extension, and then manually selected the ones that I was confident would
-" seldom contain plain text.  This does the trick, giving you patterns for the
-" top 50 extensions:
+" seldom contain plain text.
+"
+" This does the trick with POSIX-compatible shell tools, giving you patterns
+" for the top 50 extensions:
 "
 "     $ find ~ -type f -name '*.*' |
 "           awk -F. '{exts[tolower($NF)]++}
@@ -773,11 +779,6 @@ set visualbell t_vb=
 "           sed 50q
 "
 " Turns out I have a lot of .html files.
-"
-" It's tempting to put the list of patterns here into a separate file, or at
-" least into a more readily editable intermediate list variable, rather than
-" the minor maintenance hassle it presently constitutes in this compact form.
-" I'm not sure whether I'll do that just yet.
 "
 set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
@@ -792,36 +793,55 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
 " appropriate case, like the Readline setting completion-ignore-case can be
 " used for GNU Bash.
 "
-" As far as I can tell, this option doesn't have anything to do with the
-" 'wildignore' settings, and so files that would match any of those patterns
-" only with case insensitivity implied will still be candidates for
-" completion.  It also wasn't added until v7.3.72, so we need to check it
+" As far as I can tell, despite its name, this option doesn't have anything to
+" do with the 'wildignore' settings, and so files that would match any of
+" those patterns only with case insensitivity implied will still be candidates
+" for completion.  It also wasn't added until v7.3.72, so we need to check it
 " exists before we try to set it.
 "
 if exists('+wildignorecase')
   set wildignorecase
 endif
 
-" When Ex command line completion is started with Tab, list valid completions
-" and complete the command line to the longest common substring, just as Bash
-" does, with just the one keypress.  The default value of 'full' puts the full
-" completion onto the line immediately, which I tolerate for insert mode
-" completion but don't really like on the Ex command line.
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, this specifies the path to the system dictionary to
+" find words.  This makes the dictionary completion work consistently, even if
+" 'spell' isn't set at that moment.
 "
-set wildmode=list:longest
-
-" You might be wondering why we got through the options with 'wild...' as
-" a prefix to their names without setting 'wildmenu'.  The answer is that
-" I don't actually want the popup navigable completion menu.  I just want
-" tab-completion to work in a shell-like fashion.  I've never used the former,
-" nor have I messed with 'wildchar' or 'wildcharm'; I've just never needed to,
-" and so 'wildmenu' stays as the default.
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently with reference to the same resources.  For the moment,
+" I've added another entry referring to a directory in the user runtime
+" directory, but I don't have anything distinct to put there just yet.
 "
-" I used to have 'wildmenu' set, and I didn't realise for years that this did
-" nothing at all, because the 'full' flag on which its appearance hinges
-" didn't appear in my 'wildmode' setting.  I hadn't read the documentation
-" properly.
+" It's not an error if this file doesn't exist; indeed, on some systems I use,
+" it doesn't.
 "
+" In the same way, add an expected path to a thesaurus, for completion with
+" CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
+" thesaurus data isn't installed as part of the default `install-vim` target
+" in tejr's dotfiles, but it can be retrieved and installed with
+" `install-vim-thesaurus`.
+"
+" I got the thesaurus itself from the link in the :help for 'thesaurus' in
+" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" website that the Makefile recipe attempts to retrieve.  I had to remove the
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
+" them as part of the body data.
+"
+" The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
+" need to be stricter than the ones for 'backupdir', because the P_NDNAME
+" property is assigned to them, which enforces a character blacklist.  We
+" check for it here and just tolerate not having the user runtime completion
+" references, rather than throwing cryptic errors at the user.  None of them
+" are particularly wise characters to have in paths, anyway, legal though they
+" may be on Unix filesystems.
+"
+set dictionary^=/usr/share/dict/words
+if $MYVIM !=# '' && $MYVIM !~# '[*?[|;&<>\r\n]'
+  set dictionary^=$MYVIM/ref/dictionary.txt
+  set thesaurus^=$MYVIM/ref/thesaurus.txt
+endif
 
 " Use all of the filetype detection, plugin, and indent support available.
 " I define my own filetype.vim and scripts.vim files for filetype detection,
@@ -879,7 +899,59 @@ catch
   set nocursorline
 endtry
 
-" Space bar scrolls down a page, :next at buffer's end if plugin available
+" My mapping definitions begin here.  I have some general personal rules for
+" approaches to mappings:
+"
+" * Use the configured Leader key as a prefix for mappings as much as
+" possible.
+"
+" * Use only the configured LocalLeader key as a prefix for mappings that are
+" defined as local to a buffer, which for me are almost always based on
+" &filetype and set up by ftplugin files.
+"
+" * If a normal mode map would make sense in visual mode, take the time to
+" configure that too.  Use :xmap and its analogues rather :vmap to avoid
+" defining unusable select-mode mappings, even though I never actually use
+" selection mode directly.
+"
+" * Avoid mapping in insert mode; let characters be literal to the greatest
+" extent possible, and avoid "doing more" in insert mode besides merely
+" inserting text as it's typed.
+"
+" * Avoid chording with Ctrl in favour of leader keys.
+"
+" * Never use Alt/Meta chording; the terminal support for them is just too
+" confusing and flaky.
+"
+" * Don't suppress display of mapped commands for no reason; it's OK to show
+" the user the command that's being run under the hood.  Do avoid HIT-ENTER
+" prompts, though.
+"
+" * Avoid shadowing any of Vim's existing functionality.  If possible, extend
+" or supplement what Vim does, rather than replacing it.
+"
+
+" We'll start with the non-leader mappings.  Ideally there shouldn't be too
+" many of these.
+"
+
+" I like the space bar to scroll down a page, so I can lazily tap it to read
+" documents, and I find its default behaviour of moving right one character to
+" be useless.
+"
+" I also have a custom plugin named scroll_next.vim that issues :next to have
+" it move to the next file in the arglist if the bottom line of the buffer is
+" visible, for reading multiple buffers.
+"
+" However, I only want that plugin mapped if the plugin is actually going to
+" load, so I check that it's available and that the 'loadplugin' option is set
+" before using its provided map target, otherwise it kills the space key.  If
+" the plugin doesn't look like it's going to load, I just bind Space to do the
+" same thing as PageDown.
+"
+" Either way, the downside of this arrangement is it's an easy key to hit
+" accidentally.  I'm keeping it for the moment, though.
+"
 if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
   nmap <Space> <Plug>(ScrollNext)
@@ -887,14 +959,64 @@ else
   nnoremap <Space> <PageDown>
 endif
 
-" Remap insert Ctrl-C to undo the escaped insert operation, but don't break
-" the key if the plugin isn't there
+" I hate CTRL-C in insert mode, which ends the insert session without firing
+" the InsertLeave event for automatic command hooks.  It seems worse than
+" useless; why would you want that?
+"
+" Instead, I apply a custom plugin named insert_cancel.vim to make it cancel
+" the current insert operation; that is, if the buffer has changed at all
+" since the start of the insert operation, pressing CTRL-C will reverse it,
+" while ending insert mode and firing InsertLeave as normal.  This makes way
+" more sense to me, and I use it all the time now.
+"
+" You might think on a first look, as I did, that a mapping like this is all
+" that's required:
+"
+"   :inoremap <C-C> <Esc>u
+"
+" However, there's a subtle problem with that; if you didn't make any changes,
+" it *still* reverses the previous change, which has nothing to do with the
+" current insert mode operation.  The plugin's way of working around this is
+" pretty simple, but does still seem to be necessary to avoid that case.
+"
+" At any rate, as with the spacebar's leverage of the scroll_next.vim plugin
+" above, we only want to establish the mapping if we can expect the plugin to
+" load, so test that it exists with the expected name and that 'loadplugins'
+" is set.
+"
+" If the plugin isn't available, I don't change what CTRL-C does at all.
+"
 if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
       \ && &loadplugins
   imap <C-C> <Plug>(InsertCancel)
 endif
 
-" Map double Ctrl-K in insert mode to search digraph names
+" I often don't remember or can't guess digraph codes very well, and want to
+" look up how to compose a specific character that I can at least in part
+" name.  The table in `:help digraph-table` is what to use for that situation,
+" and it works great, but the overhead of repeated lookups therein was just
+" a little bit high.  Steve Losh had a solution I rather liked where
+" a double-tap of CTRL-K in insert mode brought up a help window with the
+" table, which could then be searched as normal.
+"
+" I took it one step further with a custom plugin digraph_search.vim that
+" parses the digraph table and runs a plaintext search of its names using
+" a string provided by the user, e.g. searching for ACUTE yields:
+"
+" > Digraphs matching ACUTE:
+" > ´  ''  ACUTE ACCENT
+" > Á  A'  LATIN CAPITAL LETTER A WITH ACUTE
+" > É  E'  LATIN CAPITAL LETTER E WITH ACUTE
+" > Í  I'  LATIN CAPITAL LETTER I WITH ACUTE
+" > ... etc ...
+"
+" This leaves you in insert mode, ready to hit CTRL-K one more time and then
+" type the digraph that you've hopefully found.
+"
+" Since a double-tap of CTRL-K does nothing in default Vim, we don't bother
+" checking that the plugin's available before we map to it; it'll just quietly
+" do nothing.
+"
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Stack Ctrl-L to clear search highlight, make it work in insert mode too
@@ -931,174 +1053,174 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 let mapleader = '\'
 let maplocalleader = ','
 
-" \a toggles 'formatoptions' 'a' flag using a plugin
+" Leader,a toggles 'formatoptions' 'a' flag using a plugin
 nnoremap <Leader>a :<C-U>ToggleFlagLocal formatoptions a<CR>
 
-" \b toggles settings friendly to copying and pasting
+" Leader,b toggles settings friendly to copying and pasting
 nmap <Leader>b <Plug>(CopyLinebreakToggle)
 
-" \c toggles 'cursorline'; no visual mode map as it doesn't work
+" Leader,c toggles 'cursorline'; no visual mode map as it doesn't work
 nnoremap <Leader>c :<C-U>setlocal cursorline! cursorline?<CR>
-" \C toggles 'cursorcolumn'; works in visual mode
+" Leader,C toggles 'cursorcolumn'; works in visual mode
 nnoremap <Leader>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
 xnoremap <Leader>C :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
-" \d inserts the local date (POSIX date)
+" Leader,d inserts the local date (POSIX date)
 nnoremap <Leader>d :read !date<CR>
-" \D inserts the UTC date (POSIX date)
+" Leader,D inserts the UTC date (POSIX date)
 nnoremap <Leader>D :read !date -u<CR>
 
-" \e forces a buffer to be editable
+" Leader,e forces a buffer to be editable
 nnoremap <Leader>e :<C-U>setlocal modifiable noreadonly<CR>
 
-" \f shows the current 'formatoptions' at a glance
+" Leader,f shows the current 'formatoptions' at a glance
 nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 
-" \F reloads filetype plugins
+" Leader,F reloads filetype plugins
 nnoremap <Leader>F :<C-U>FileTypeReload<CR>
 
-" \g shows the current file's fully expanded path
+" Leader,g shows the current file's fully expanded path
 nnoremap <Leader>g :<C-U>echo expand('%:p')<CR>
-" \G changes directory to the current file's location
+" Leader,G changes directory to the current file's location
 nnoremap <Leader>G :<C-U>cd %:h<Bar>pwd<CR>
 
-" \h toggles highlighting search results
+" Leader,h toggles highlighting search results
 nnoremap <Leader>h :<C-U>set hlsearch! hlsearch?<CR>
 
-" \H shows command history
+" Leader,H shows command history
 nnoremap <Leader>H :<C-U>history :<CR>
 
-" \i toggles showing matches as I enter my pattern
+" Leader,i toggles showing matches as I enter my pattern
 nnoremap <Leader>i :<C-U>set incsearch! incsearch?<CR>
 
-" \j jumps to buffers ("jetpack")
+" Leader,j jumps to buffers ("jetpack")
 nnoremap <Leader>j :<C-U>buffers<CR>:buffer<Space>
 
-" \k shows my marks
+" Leader,k shows my marks
 nnoremap <Leader>k :<C-U>marks<CR>
 
-" \l toggles showing tab, end-of-line, and trailing white space
+" Leader,l toggles showing tab, end-of-line, and trailing white space
 nnoremap <Leader>l :<C-U>setlocal list! list?<CR>
 xnoremap <Leader>l :<C-U>setlocal list! list?<CR>gv
 
-" \L toggles 'colorcolumn' showing 'textwidth'
+" Leader,L toggles 'colorcolumn' showing 'textwidth'
 nnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>
 xnoremap <Leader>L :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
 
-" \m shows normal maps
+" Leader,m shows normal maps
 nnoremap <Leader>m :<C-U>map<CR>
-" \M shows buffer-local normal maps
+" Leader,M shows buffer-local normal maps
 nnoremap <Leader>M :<C-U>map <buffer><CR>
 
-" \n toggles line number display
+" Leader,n toggles line number display
 nnoremap <Leader>n :<C-U>setlocal number! number?<CR>
 xnoremap <Leader>n :<C-U>setlocal number! number?<CR>gv
-" \N toggles position display in bottom right
+" Leader,N toggles position display in bottom right
 nnoremap <Leader>N :<C-U>set ruler! ruler?<CR>
 xnoremap <Leader>N :<C-U>set ruler! ruler?<CR>gv
 
-" \o opens a line below in paste mode
+" Leader,o opens a line below in paste mode
 nmap <Leader>o <Plug>(PasteOpenBelow)
-" \O opens a line above in paste mode
+" Leader,O opens a line above in paste mode
 nmap <Leader>O <Plug>(PasteOpenAbove)
 
-" \p toggles paste mode
+" Leader,p toggles paste mode
 nnoremap <Leader>p :<C-U>set paste! paste?<CR>
 
-" \P creates the path to the current file
+" Leader,P creates the path to the current file
 nnoremap <Leader>P :<C-U>call mkdir(expand('%:h'), 'p')<CR>
 
-" \q formats the current paragraph
+" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 
-" \r acts as a replacement operator
+" Leader,r acts as a replacement operator
 nmap <Leader>r <Plug>(ReplaceOperator)
 xmap <Leader>r <Plug>(ReplaceOperator)
 
-" \R reloads ~/.vimrc
+" Leader,R reloads ~/.vimrc
 nnoremap <Leader>R :<C-U>source $MYVIMRC<CR>
 
-" \s toggles spell checking
+" Leader,s toggles spell checking
 nnoremap <Leader>s :<C-U>setlocal spell! spell?<CR>
 
-" \S shows loaded scripts
+" Leader,S shows loaded scripts
 nnoremap <Leader>S :<C-U>scriptnames<CR>
 
-" \t shows current filetype
+" Leader,t shows current filetype
 nnoremap <Leader>t :<C-U>setlocal filetype?<CR>
-" \T clears filetype
+" Leader,T clears filetype
 nnoremap <Leader>T :<C-U>setlocal filetype=<CR>
 
-" \u sets US English spelling (compare \z)
+" Leader,u sets US English spelling (compare Leader,z)
 nnoremap <Leader>u :<C-U>setlocal spelllang=en_us<CR>
 
-" \v shows all global variables
+" Leader,v shows all global variables
 nnoremap <Leader>v :<C-U>let g: v:<CR>
-" \V shows all local variables
+" Leader,V shows all local variables
 nnoremap <Leader>V :<C-U>let b: t: w:<CR>
 
-" \w toggles wrapping
+" Leader,w toggles wrapping
 nnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>
 xnoremap <Leader>w :<C-U>setlocal wrap! wrap?<CR>gv
 
-" \x strips trailing whitespace via a custom plugin
+" Leader,x strips trailing whitespace via a custom plugin
 nnoremap <Leader>x :StripTrailingWhitespace<CR>
 xnoremap <Leader>x :StripTrailingWhitespace<CR>
 
-" \X squeezes repeated blank lines via a custom plugin
+" Leader,X squeezes repeated blank lines via a custom plugin
 nnoremap <Leader>X :SqueezeRepeatBlanks<CR>
 xnoremap <Leader>X :SqueezeRepeatBlanks<CR>
 
-" \y shows all registers
+" Leader,y shows all registers
 nnoremap <Leader>y :<C-U>registers<CR>
 
-" \z sets NZ English spelling (compare \u)
+" Leader,z sets NZ English spelling (compare Leader,u)
 nnoremap <Leader>z :<C-U>setlocal spelllang=en_nz<CR>
 
-" \= runs the whole buffer through =, preserving position
+" Leader,= runs the whole buffer through =, preserving position
 nnoremap <Leader>= :<C-U>KeepPosition normal! 1G=G<CR>
-" \+ runs the whole buffer through gq, preserving position
+" Leader,+ runs the whole buffer through gq, preserving position
 nnoremap <Leader>+ :<C-U>KeepPosition normal! 1GgqG<CR>
 
-" \. runs the configured make program into the location list
+" Leader,. runs the configured make program into the location list
 nnoremap <Leader>. :<C-U>lmake!<CR>
 
-" \< and \> adjust indent of last edit; good for pasting
+" Leader,< and Leader,> adjust indent of last edit; good for pasting
 nnoremap <Leader><lt> :<C-U>'[,']<lt><CR>
 nnoremap <Leader>> :<C-U>'[,']><CR>
 
-" \_ uses last changed or yanked text as an object
+" Leader,_ uses last changed or yanked text as an object
 onoremap <Leader>_ :<C-U>normal! `[v`]<CR>
 
-" \% uses entire buffer as an object
+" Leader,% uses entire buffer as an object
 onoremap <Leader>% :<C-U>normal! 1GVG<CR>
 
-" \{ and \} move to lines with non-space chars before current column
+" Leader,{ and Leader,} move to lines with non-space chars before current column
 map <Leader>{ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
 map <Leader>} <Plug>(VerticalRegionDown)
 sunmap <Leader>}
 
-" \/ types :vimgrep for me ready to enter a search pattern
+" Leader,/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
-" \? types :lhelpgrep for me ready to enter a search pattern
+" Leader,? types :lhelpgrep for me ready to enter a search pattern
 nnoremap <Leader>? :<C-U>lhelpgrep \c<S-Left>
 
-" \* escapes regex metacharacters
+" Leader,* escapes regex metacharacters
 nmap <Leader>* <Plug>(RegexEscape)
 xmap <Leader>* <Plug>(RegexEscape)
 
-" \\ jumps to the last edit position mark, like g;, but works as a motion
+" Leader,\ jumps to the last edit position mark, like g;, but works as a motion
 " "Now, where was I?" (tap-tap)
 nnoremap <Leader>\ `"
 xnoremap <Leader>\ `"
 
-" \DEL deletes the current buffer
+" Leader,DEL deletes the current buffer
 nnoremap <Leader><Delete> :bdelete<CR>
-" \INS edits a new buffer
+" Leader,INS edits a new buffer
 nnoremap <Leader><Insert> :<C-U>enew<CR>
 
-" \TAB toggles 'autoindent'
+" Leader,TAB toggles 'autoindent'
 nnoremap <Leader><Tab> :<C-U>setlocal autoindent! autoindent?<CR>
 
 " Some useful abbreviations
