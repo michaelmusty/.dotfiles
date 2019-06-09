@@ -899,6 +899,42 @@ catch
   set nocursorline
 endtry
 
+" My mapping definitions begin here.  I have some general personal rules for
+" approaches to mappings:
+"
+" * Use the configured Leader key as a prefix for mappings as much as
+" possible.
+"
+" * Use only the configured LocalLeader key as a prefix for mappings that are
+" defined as local to a buffer, which for me are almost always based on
+" &filetype and set up by ftplugin files.
+"
+" * If a normal mode map would make sense in visual mode, take the time to
+" configure that too.  Use :xmap and its analogues rather :vmap to avoid
+" defining unusable select-mode mappings, even though I never actually use
+" selection mode directly.
+"
+" * Avoid mapping in insert mode; let characters be literal to the greatest
+" extent possible, and avoid "doing more" in insert mode besides merely
+" inserting text as it's typed.
+"
+" * Avoid chording with Ctrl in favour of leader keys.
+"
+" * Never use Alt/Meta chording; the terminal support for them is just too
+" confusing and flaky.
+"
+" * Don't suppress display of mapped commands for no reason; it's OK to show
+" the user the command that's being run under the hood.  Do avoid HIT-ENTER
+" prompts, though.
+"
+" * Avoid shadowing any of Vim's existing functionality.  If possible, extend
+" or supplement what Vim does, rather than replacing it.
+"
+
+" We'll start with the non-leader mappings.  Ideally there shouldn't be too
+" many of these.
+"
+
 " Space bar scrolls down a page, :next at buffer's end if plugin available
 if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
