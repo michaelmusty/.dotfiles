@@ -201,8 +201,8 @@ command! FileTypeReload
       \|  doautocmd filetypedetect BufRead
       \|endif
 
-" Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
-" check it exists first.
+" Now we'll use that new :FileTypeReload command as part of an automatic
+" command hook that runs whenever this vimrc is sourced.
 "
 " If there's stuff in any of your filetype plugins that doesn't cope well with
 " being reloaded, and just assumes a single BufRead event, it might be
@@ -210,7 +210,9 @@ command! FileTypeReload
 " around them so that they only run once.
 "
 " Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
-" this main file is saved, using :doautocmd abstraction.
+" this main file is saved, using :doautocmd abstraction.  Note also that the
+" SourceCmd event wasn't added until Vim 7.0.187, so we need to check it
+" exists first.
 "
 if exists('##SourceCmd')
   autocmd vimrc SourceCmd $MYVIMRC
