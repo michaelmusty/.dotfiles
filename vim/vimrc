@@ -165,10 +165,11 @@ if $MYVIM !=# ''
   EnsureDir $MYVIM
 endif
 
-" Create a 'vimrc' automatic command hook group, if it already exists, and
-" clear away any automatic command hooks already defined within it if it does,
-" so that we don't end up collecting multiple copies of the hooks configured
-" in the rest of this file if it's reloaded.
+" Create a 'vimrc' automatic command hook group, if it doesn't already exist,
+" and clear away any automatic command hooks already defined within it if it
+" does.  This way, we don't end up collecting multiple copies of the hooks
+" configured in the rest of this file if it's reloaded.  I don't want to make
+" the augroup span the entire file, though.
 "
 augroup vimrc
   autocmd!
@@ -243,8 +244,18 @@ if $MYVIM !=# ''
   set viminfo+=n$MYVIM/cache/viminfo
 endif
 
-" We'll start our options by modernising a little in adjusting some options
-" with language-specific defaults.
+" Speaking of recorded data in viminfo files, the command and search history
+" count default limit of 50 is pretty restrictive.  Because I don't think I'm
+" ever likely to be in a situation where remembering several thousand Vim
+" commands and search patterns is going to severely tax memory, let alone hard
+" disk space, I'd rather it were much higher, as it's sometimes really handy
+" to dig up commands from some time ago.  The maximum value for this option is
+" documented as 10000, so let's just use that and see if anything breaks.
+"
+set history=10000
+
+" Next, we'll modernise a little in adjusting some options with old
+" language-specific defaults.
 "
 " Traditional vi was often used for development in the C programming language.
 " The default values for a lot of Vim's options still reflect this common use
@@ -268,7 +279,7 @@ endif
 "
 set comments= commentstring= define= include=
 
-" The default value for the 'path' option is similar in that it has an aged
+" The default value for the 'path' option is similar, in that it has an aged
 " default; this option specifies directories in which project files and
 " includes can be unearthed by navigation commands like 'gf'.  Specifically,
 " its default value comprises /usr/include, which is another C default.  Let's
@@ -305,13 +316,14 @@ endif
 
 " Enable automatic backups of most file buffers.  In practice, I don't need
 " these backups very much if I'm using version control sensibly, but they have
-" still saved my bacon a few times.
+" still saved my bacon a few times.  We're not done here yet, though; it
+" requires some fine-tuning.
 "
 set backup
 
 " Try to keep the aforementioned backup files in a dedicated cache directory,
 " to stop them proliferating next to their prime locations and getting
-" committed to version control repositories.  Create that directory if needed,
+" committed to version control repositories.  Create said directory if needed,
 " too, with restrictive permissions.
 "
 " If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
@@ -345,16 +357,17 @@ endif
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
 " This is particularly important if editing temporary files created by
-" sudoedit(8).  We add a few paths to the default value of 'backupskip' here
-" in order to prevent the creation of such undesired backup files.
+" sudoedit(8).  On Unix-like systems, we here add a few paths to the default
+" value of 'backupskip' in order to prevent the creation of such undesired
+" backup files.
 "
 if has('unix')
 
   " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
   " so adding them repeatedly if this file is reloaded results in duplicates,
   " due to the absence of the P_NODUP flag for its definition in src/option.c.
-  " This is likely a bug in Vim.  To work around this, we reset the path back
-  " to its default first.
+  " This is likely a bug in Vim.  For the moment, to work around the problem,
+  " we reset the path back to its default first.
   "
   set backupskip&
 
@@ -415,22 +428,6 @@ endif
 " what I'm doing.
 "
 set confirm
-
-" After staunchly opposing it for years, I have converted to two-spacing.  You
-" can blame Steve Losh:
-"
-" <http://stevelosh.com/blog/2012/10/why-i-two-space/>
-"
-" Consequently, we specify that sentence objects for the purposes of the 's'
-" text object, the '(' and ')' sentence motions, and formatting with the 'gq'
-" command must be separated by *two* spaces.  One space does not suffice.
-"
-" My defection to the two-spacers is the reason I now also leave 'joinspaces'
-" set, per its default, so that two spaces are inserted when consecutive
-" sentences separated by a line break are joined onto one line by the 'J'
-" command.
-"
-set cpoptions+=J
 
 " Keep swap files for file buffers in a dedicated directory, rather than the
 " default of writing them to the same directory as the buffer file.  Add two
@@ -509,27 +506,47 @@ set formatoptions+=1
 "
 " This option flag wasn't added until v7.3.541.  Because we can't test for the
 " availability of option flags directly, we resort to a version number check
-" before attempting to add the flag.
+" before attempting to add the flag.  I don't like using :silent! to suppress
+" errors for this sort of thing when I can reasonably avoid it, even if it's
+" somewhat more verbose.
 "
 if v:version > 730 || v:version == 730 && has('patch541')
   set formatoptions+=j
 endif
 
-" Separating sentences with two spaces has an advantage in distinguishing
-" between two different types of periods: periods that abbreviate longer
-" words, as in "Mr. Moolenaar", and periods that terminate sentences, like
-" this one.
+" A momentary digression here into the doldrums of 'cpoptions'--after
+" staunchly opposing it for years, I have converted to two-spacing.  You can
+" blame Steve Losh:
+"
+" <http://stevelosh.com/blog/2012/10/why-i-two-space/>
+"
+" Consequently, we specify that sentence objects for the purposes of the 's'
+" text object, the '(' and ')' sentence motions, and formatting with the 'gq'
+" command must be separated by *two* spaces.  One space does not suffice.
+"
+" My defection to the two-spacers is also the reason I now leave 'joinspaces'
+" set, per its default, so that two spaces are inserted when consecutive
+" sentences separated by a line break are joined onto one line by the 'J'
+" command.
+"
+set cpoptions+=J
+
+" Separating sentences with two spaces has an advantage in making a clear
+" distinction between two different types of periods: periods that abbreviate
+" longer words, as in "Mr. Moolenaar", and periods that terminate sentences,
+" like this one.
 "
 " If we're using two-period spacing for sentences, Vim can interpret the
-" different spacing to distinguish between the two types, and can avoid
-" breaking a line just after an abbreviating period.  That means the two words
-" in "Mr. Moolenaar" should never be split apart, preventing confusion on the
-" reader's part, and also preserving the semantics of the period for
-" subsequent reformats.
+" different spacing to distinguish between the two types, and can thereby
+" avoid breaking a line just after an abbreviating period.  For example, the
+" two words in "Mr. Moolenaar" should never be split apart, preventing
+" confusion on the reader's part lest the word "Mr." look too much like the
+" end of a sentence, and also preserving the semantics of that same period for
+" subsequent reformats; its single-space won't get lost.
 "
-" This is what the 'p' flag does.  I wrote the patch that added it, after
-" becoming envious of an analogous feature during an ill-fated foray into GNU
-" Emacs usage.
+" So, getting back to our 'formatoptions' settings, that is what the 'p' flag
+" does.  I wrote the patch that added it, after becoming envious of an
+" analogous feature during an ill-fated foray into GNU Emacs usage.
 "
 " <https://github.com/vim/vim/commit/c3c3158>
 "
@@ -551,82 +568,91 @@ endif
 
 " By default, Vim doesn't allow a file buffer to have unsaved changes if it's
 " not displayed in a window.  Setting this option removes that restriction so
-" that buffers can be modified and not displayed.
+" that buffers can remain in a modified state while not actually displayed
+" anywhere.
 "
-" Despite this option being in almost every vimrc I read, I didn't personally
-" need it for years into my Vim career, because I instinctively only closed
-" windows onto buffers after the buffers within them were saved anyway.
+" This option is set in almost every vimrc I read; it's so pervasive that
+" I sometimes see comments expressing astonishment or annoyance that it isn't
+" set by default.  However, I didn't actually need this option for several
+" years of Vim usage, because I instinctively close windows onto buffers only
+" after the buffers within them were saved anyway.
 "
 " However, the option really is required for batch operations performed with
-" commands like :argdo or :bufdo.  After I started using those a bit more
-" often, I realised I finally had a reason to turn this on, and so on it shall
-" stay.
+" commands like :argdo or :bufdo, because Vim won't otherwise tolerate unsaved
+" changes to a litany of undisplayed buffers.  After I started using such
+" command maps a bit more often, I realised I finally had a reason to turn
+" this on permanently.
 "
 set hidden
 
-" I don't think I'm ever likely to be in a situation where remembering several
-" thousand Vim commands and search patterns is going to severely tax memory,
-" let alone hard disk space.  The maximum value for this option is documented
-" as 10000, so let's just use that.
-"
-set history=10000
-
-" Do highlight completed searches, but clear them away on vimrc reload.  Later
-" on in this file, CTRL-L in normal mode is remapped to stack on a :nohlsearch
-" as well.
+" Do highlight matches for completed searches in the text, but clear that
+" highlighting away when this vimrc is reload.  Later on in this file, CTRL-L
+" in normal mode is remapped to tack on a :nohlsearch as well.
 "
 set hlsearch
 nohlsearch
 
-" Show search matches as I type my pattern, including scrolling the screen if
-" necessary.  This is somewhat jarring sometimes, particularly when the cursor
-" runs so far away from home, but I think the benefits of being able to see
-" instances of what I'm trying to match as I try to match it do outweigh that.
+" Highlight search matches in my text while I'm still typing my pattern,
+" including scrolling the screen to show the first such match if necessary.
+" This can be somewhat jarring, particularly when the cursor ends up scrolling
+" a long way from home in a large file, but I think the benefits of being able
+" to see instances of what I'm trying to match as I try to match it do
+" outweigh that discomfort.
 "
 set incsearch
 
 " If there's only one window, I don't need a status line to appear beneath it.
-" I very often edit only one file, and just open a :help buffer or two.  This
-" is the Vim default, but Neovim changed it, so we'll explicitly set it to the
-" default here in case we're using Neovim.
+" I very often edit only a few files in one window in a Vim session.  I like
+" the initial screen just being empty save for the trademark tildes.  It gives
+" me an extra screen line, too.  It's a reflex for me to press CTRL-G in
+" normal mode if I need to see the buffer name.
+"
+" This value reflects the Vim default, but Neovim changed its default to '2'
+" for an 'always-on' status line, so we'll explicitly set it to the default
+" here in case we're using Neovim.
 "
 set laststatus=1
 
-" Don't waste cycles and bandwidth redrawing the screen during batch execution
-" of macros.  I think this does amount to the occasional :redraw needing to be
-" in a script, but it's not too bad, and last I checked it really does speed
-" things up, especially for operations on really big data sets.
+" Don't waste cycles and bandwidth redrawing the screen during execution of
+" aggregate commands in e.g. macros.  I think this does amount to the
+" occasional :redraw needing to be in a script, but it's not too bad, and last
+" I checked it really does speed things up, especially for operations on
+" really big data sets.
 "
 set lazyredraw
 
-" Define meta-characters to show in place of otherwise difficult to detect
-" characters, or line wrapping attributes when the 'list' option is enabled.
+" Define meta-characters to show in place of characters that are otherwise
+" invisible, or line wrapping attributes when the 'list' option is enabled.
 "
-" We reset the option to its default value first, because at the time of
-" writing at least, Neovim v0.3.5 doesn't check these for uniqueness,
-" resulting in duplicates if this file is reloaded.
+" We need to reset the option to its default value first, because at the time
+" of writing at least, Neovim v0.3.5 doesn't check these for uniqueness,
+" resulting in duplicates if this file is reloaded.  'backupskip' has similar
+" problems in the original Vim v8.1.1487 and earlier.
 "
 set listchars&vi
 
-" These ones all correspond to otherwise invisible or indistinguishable
-" characters.  We leave the default eol:$ in place to show newlines, too.
+" These 'list' characters all correspond to invisible or indistinguishable
+" characters.  We leave the default eol:$ in place to show newlines, and add
+" a few more.
 "
 set listchars+=tab:>-   " Tab characters, preserve width with hyphens
 set listchars+=trail:-  " Trailing spaces
 set listchars+=nbsp:+   " Non-breaking spaces
 
-" These two are actually somewhat misplaced, in that they don't represent
-" characters, but the line wrap state.  They're useful, though.
+" The next pair of 'list' characters are arguably somewhat misplaced, in that
+" they don't really represent invisible characters in the same way as the
+" others, but are hints for the presence of other characters unwrapped lines
+" that are wider than the screen.  They're very useful, though.
 "
-" If the current encoding supports it, use these characters for the markers,
-" as they're visually distinctive:
+" If the current encoding supports it, use these non-ASCII characters for the
+" markers, as they're visually distinctive:
 "
 " extends: Signals presence of unwrapped text to screen right
 "     »  U+00BB  RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
 " precedes: Signals presence of unwrapped text to screen left
 "     «  U+00BB  LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
 "
-" Failing that, '<' and '>' will do fine.
+" Failing that, '<' and '>' will still do the trick.
 "
 if has('multi_byte_encoding')
   set listchars+=extends:» listchars+=precedes:«
@@ -653,53 +679,58 @@ set nrformats-=octal
 
 " I like to leave the last line of the screen blank unless something is
 " actually happening in it, so I have grown to like the Vim default of
-" 'noruler'.
+" 'noruler'.  CTRL-G shows me everything I need to know, and is
+" near-instinctive now.
 "
-" System vimrc files tend to turn this back on, though, and Neovim has it on
-" by default, so we will often need to put it back to normal.
+" Rude system vimrc files tend to switch this back on, though, and Neovim has
+" it on by default, so we will often need to put it back to normal, as we do
+" here.
 "
 set noruler
 
-" Sessions are great, but they don't play together well with plugins and
-" filetype plugins.  Restoring the same settings from both reloaded plugins
-" and from the session causes screeds of errors.  Adjusting session behaviour
-" to stop it trying to restore quite so much makes them useable.
+" Sessions preserving buffer and window layout are great for more complex and
+" longer-term projects like books, but they don't play together well with
+" plugins and filetype plugins.  Restoring the same settings from both
+" reloaded plugins and from the session causes screeds of errors.  Adjusting
+" session behaviour to stop it trying to restore quite so much makes them
+" useable.
 "
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
-" This flag prevents the display of the Vim startup screen with version
-" information, :help hints, and donation suggestion.  After I registered Vim
-" and donated to Uganda per the screen's plea, I didn't feel bad about turning
-" this off anymore.
-"
-" Even with this setting in place, I wouldn't normally see it too often, as
-" I seldom start Vim with no file arguments.
+" The 'I' flag for the 'shortmess' option prevents the display of the Vim
+" startup screen with version information, :help hints, and donation
+" suggestion.  After I registered Vim and donated to Uganda per the screen's
+" plea, I didn't feel bad about turning this off anymore.  Even with this
+" setting in place, I wouldn't normally see it too often anyway, as I seldom
+" start Vim with no file arguments.
 "
 " I haven't felt the need to mess with the other flags in this option.
 " I don't have any problems with spurious Enter prompts, which seems to be
-" one of the main reasons people abuse this option.
+" the main reason people pile it full of letters.
 "
 set shortmess+=I
 
 " Limit the number of characters per line that syntax highlighting will
-" attempt to highlight.  This is as much an effort to encourage me to break
-" long lines and do hard wrapping correctly as it is for efficiency.
+" attempt to match.  This is as much an effort to encourage me to break long
+" lines and do hard wrapping correctly as it is for efficiency.
 "
 set synmaxcol=500
 
 " Vim has an internal list of terminal types that support using smoother
-" terminal redrawing.  It includes most of the terminals I use, but there are
-" a couple more for which the 'ttyfast' option should apply: the windows
-" terminal emulator PuTTY, and the terminal multiplexer tmux, both of which
-" I use heavily.
+" terminal redrawing, and for which 'ttyfast' is normally set, described in
+" `:help 'ttyfast'`.  That list includes most of the terminals I use, but
+" there are a couple more for which the 'ttyfast' option should apply: the
+" windows terminal emulator PuTTY, and the terminal multiplexer tmux, both of
+" which I use heavily.
 "
 if &term =~# '^putty\|^tmux'
   set ttyfast
 endif
 
-" We really don't want a mouse; it just gets in the way.  Mouse events should
-" be exclusively handled by the terminal emulator application, so Vim
+" We really don't want a mouse; while I use it a lot for cut and paste in X,
+" at the terminal application level, it just gets in the way.  Mouse events
+" should be exclusively handled by the terminal emulator application, so Vim
 " shouldn't try to give me terminal mouse support, even if it would work.
 "
 " The manual suggests that disabling this should be done by clearing 't_RV',
@@ -713,7 +744,8 @@ if exists('+ttymouse')
 endif
 
 " Keep tracked undo history for files permanently, in a dedicated cache
-" directory.
+" directory, so that the u/:undo and CTRL-R/:redo commands will work between
+" Vim invocations.
 "
 " Support for persistent undo file caches was not added until v7.2.438, so we
 " need to check for the feature's presence before we enable it.
@@ -722,7 +754,9 @@ if has('persistent_undo')
 
   " This has the same structure as 'backupdir' and 'directory'; if we have
   " a user runtime directory, create a sub-subdirectory within it dedicated to
-  " the undo files cache.
+  " the undo files cache.  Note also the trailing double-slash as a signal to
+  " Vim to use the full path of the original file in its undo file cache's
+  " name.
   "
   if $MYVIM !=# ''
     EnsureDir $MYVIM/cache/undo
@@ -730,7 +764,8 @@ if has('persistent_undo')
   endif
 
   " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them as a result of the logic above.  It's better
+  " a cache directory for them as a result of the logic above.  The files
+  " might sprinkle around the filesystem annoyingly, but that's still better
   " than losing the history completely.
   "
   set undofile
@@ -738,23 +773,27 @@ if has('persistent_undo')
 endif
 
 " While using virtual block mode, allow me to navigate to any column of the
-" buffer window; don't confine the boundaries of the block to actually present
-" characters.
+" buffer window; don't confine the boundaries of the block to the coordinates
+" of characters that actually exist in the buffer text.  While working with
+" formatted columnar data with this off is generally OK, it's a hassle for
+" more subtle applications of visual block mode.
 "
 set virtualedit+=block
 
 " I can't recall a time that Vim's error beeping or flashing was actually
-" useful to me, so turn it off in the manner that the manual suggests in
-" `:help 'visualbell'`, enabling visual rather than audio error bells, but
-" blanking the terminal attribute that would be used for the screen blinking
-" at the same time, effectively silencing it.
+" useful to me, and so we turn it off in the manner that the manual instructs
+" in `:help 'visualbell'`.  This enables visual rather than audio error bells,
+" but in the same breath blanks the terminal attribute that would be used to
+" trigger such screen blinking, indirectly disabling the bell altogether.
 "
 " I thought at first that the newer 'belloff' and/or 'errorbells' options
-" would be a nicer way to keep Vim quiet, but they don't actually appear to
-" work as comprehensively as this older method, last time I checked that.
+" would be a more intuitive way to keep Vim quiet, but the last time I checked
+" that they didn't actually appear to work as comprehensively as this older
+" method does.
 "
-" Interestingly, the :help says that this setting has to be reinstated in the
-" gvimrc file for GUI Vim.
+" Interestingly, the :help says that this setting has to be repeated in the
+" gvimrc file for GUI Vim, so you'll find this exact same command issued again
+" in there.
 "
 set visualbell t_vb=
 
@@ -765,7 +804,8 @@ set visualbell t_vb=
 " The default value of 'full' for the 'wildmode' option puts the full
 " completion onto the line immediately, which I tolerate for insert mode
 " completion but don't really like on the Ex command line.  Instead, I arrange
-" for that with a second keypress if I ever want it.
+" for that with a second keypress if I ever want it, which isn't often.  I did
+" without using it at all for years.
 "
 set wildmenu
 set wildmode=list:longest,full
@@ -773,11 +813,6 @@ set wildmode=list:longest,full
 " Define a list of patterns for the 'wildignore' option.  Files and
 " directories with names matching any of these patterns won't be presented as
 " candidates for tab completion on the command line.
-"
-" It's tempting to put the list of patterns here into a separate file, or at
-" least into a more readily editable intermediate list variable, rather than
-" the minor maintenance hassle it presently constitutes in this compact form.
-" I'm not sure whether I'll do that just yet.
 "
 " To make this list, I went right through my home directory with
 " a `find`-toothed comb, counted the occurrences of every extension, forced
@@ -793,7 +828,12 @@ set wildmode=list:longest,full
 "           sort -k1,1nr |
 "           sed 50q
 "
-" Turns out I have a lot of .html files.
+" I turned out to have rather a lot of .html and .vim files.
+"
+" It's tempting to put the list of patterns here into a separate file--or at
+" least into a more readily editable intermediate list variable--rather than
+" the minor maintenance hassle it presently constitutes in this compact form.
+" I'm not sure whether I'll do that just yet.
 "
 set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
@@ -808,49 +848,53 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
 " appropriate case, like the Readline setting completion-ignore-case can be
 " used for GNU Bash.
 "
-" As far as I can tell, despite its name, this option doesn't have anything to
-" do with the 'wildignore' settings, and so files that would match any of
-" those patterns only with case insensitivity implied will still be candidates
-" for completion.  It also wasn't added until v7.3.72, so we need to check it
-" exists before we try to set it.
+" As far as I can tell, despite its name, the 'wildignore' case option doesn't
+" have anything to do with the 'wildignore' option, and so files that would
+" match any of those patterns only with case insensitivity implied will still
+" be candidates for completion.
+"
+" The option wasn't added until v7.3.72, so we need to check it exists before
+" we try to set it.
 "
 if exists('+wildignorecase')
   set wildignorecase
 endif
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, this specifies the path to the system dictionary to
-" find words.  This makes the dictionary completion work consistently, even if
-" 'spell' isn't set at that moment.
+" includes the 'k' flag, the 'dictionary' option specifies the path to the
+" system word list.  This makes the dictionary completion work consistently,
+" even if 'spell' isn't set at the time to coax it into using 'spellfile'.
+"
+" It's not an error if the system directory file added first doesn't exist;
+" it's just a common location that often yields a workable word list, and does
+" so on all of my main machines.
 "
 " At some point, I may end up having to set this option along with 'spellfile'
 " a bit more intelligently to ensure that spell checking and dictionary
-" function consistently with reference to the same resources.  For the moment,
-" I've added another entry referring to a directory in the user runtime
-" directory, but I don't have anything distinct to put there just yet.
+" function consistently, and with reference to the same resources.  For the
+" moment, I've just added another entry referring to a directory in the user
+" runtime directory, but I don't have anything distinct to put there yet.
 "
-" It's not an error if this file doesn't exist; indeed, on some systems I use,
-" it doesn't.
-"
-" In the same way, add an expected path to a thesaurus, for completion with
-" CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
+" In much the same way, we add an expected path to a thesaurus, for completion
+" with CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
 " thesaurus data isn't installed as part of the default `install-vim` target
 " in tejr's dotfiles, but it can be retrieved and installed with
 " `install-vim-thesaurus`.
 "
 " I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
 " website that the Makefile recipe attempts to retrieve.  I had to remove the
 " first two metadata lines from thesaurus.txt, as Vim appeared to interpret
 " them as part of the body data.
 "
 " The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
 " need to be stricter than the ones for 'backupdir', because the P_NDNAME
-" property is assigned to them, which enforces a character blacklist.  We
-" check for it here and just tolerate not having the user runtime completion
-" references, rather than throwing cryptic errors at the user.  None of them
-" are particularly wise characters to have in paths, anyway, legal though they
-" may be on Unix filesystems.
+" property is assigned to them, which enforces a character blacklist in the
+" option value.  We check for the same set of blacklist characters here, and
+" if the MYVIM path offends, we just skip the setting entirely, rather than
+" throwing cryptic errors at the user.  None of them are particularly wise
+" characters to have in paths, anyway, legal though they may be on Unix
+" filesystems.
 "
 set dictionary^=/usr/share/dict/words
 if $MYVIM !=# '' && $MYVIM !~# '[*?[|;&<>\r\n]'
@@ -879,27 +923,29 @@ filetype plugin indent on
 " That experiment was instructive and interesting, and I found I had been
 " leaning on colour information in some surprising ways.  However, some months
 " later, I found I still missed my colours, and so I went back to my
-" Kodachrome roots, and didn't pine for my old monochrome world.
+" Kodachrome roots, and didn't pine at all for that monochrome world.
 "
 " The thing I most like about syntax highlighting is detecting runaway
 " strings, which generally works in even the most threadbare language syntax
 " highlighting definitions.  I kept missing such errors when I didn't have the
-" colours.
+" colours.  I don't have high standards for it otherwise, except maybe for
+" shell script.
 "
 if !exists('syntax_on')
   syntax enable
 endif
 
-" Try to use my 'sahara' fork of the 'desert256' colour scheme, and if
-" successful, turn on the 'cursorline' feature, since the scheme configures it
-" and 'cursorcolumn' to be a very dark grey that doesn't stand out too much
-" against a black background.  Aside from the aforementioned experiment with
-" monochrome terminals, I exclusively use dark backgrounds.
+" We'll have Vim try to use my 'sahara' fork of the 'desert256' colour scheme,
+" and if it manages to do so without errors, turn on the 'cursorline' feature,
+" since the scheme configures it and 'cursorcolumn' to be a very dark grey
+" that doesn't stand out too much against a black background.  Aside from the
+" aforementioned experiment with monochrome terminals, I exclusively use dark
+" backgrounds.
 "
 " If we fail to load the colour scheme, for whatever reason, suppress the
 " error, and reset the syntax highlighting, 'background', and 'cursorline' for
-" dark-background default syntax highlighting.  I used it for years; it looks
-" and works just fine.
+" dark-background default colours.  I used it for years; it looks and works
+" just fine.
 "
 " There's also a very simple grayscale colour scheme I occasionally use
 " instead called 'juvenile', which is included as a Git submodule with this
@@ -918,54 +964,59 @@ endtry
 " approaches to mappings:
 "
 " * Use the configured Leader key as a prefix for mappings as much as
-" possible.
+"   possible.
 "
 " * Use only the configured LocalLeader key as a prefix for mappings that are
-" defined as local to a buffer, which for me are almost always based on
-" &filetype and set up by ftplugin files.
+"   defined as local to a buffer, which for me are almost always based on
+"   &filetype and set up by ftplugin files.
 "
 " * If a normal mode map would make sense in visual mode, take the time to
-" configure that too.  Use :xmap and its analogues rather :vmap to avoid
-" defining unusable select-mode mappings, even though I never actually use
-" selection mode directly.
+"   configure that too.  Use :xmap and its analogues rather :vmap to avoid
+"   defining unusable select-mode mappings, even though I never actually use
+"   selection mode directly.
 "
 " * Avoid mapping in insert mode; let characters be literal to the greatest
-" extent possible, and avoid "doing more" in insert mode besides merely
-" inserting text as it's typed.
+"   extent possible, and avoid "doing more" in insert mode besides merely
+"   inserting text as it's typed.
 "
 " * Avoid chording with Ctrl in favour of leader keys.
 "
 " * Never use Alt/Meta chording; the terminal support for them is just too
-" confusing and flaky.
+"   confusing and flaky.
 "
 " * Don't suppress display of mapped commands for no reason; it's OK to show
-" the user the command that's being run under the hood.  Do avoid HIT-ENTER
-" prompts, though.
+"   the user the command that's being run under the hood.  Do avoid HIT-ENTER
+"   prompts, though.
 "
 " * Avoid shadowing any of Vim's existing functionality.  If possible, extend
-" or supplement what Vim does, rather than replacing it.
+"   or supplement what Vim does, rather than replacing it.
 "
 
 " We'll start with the non-leader mappings.  Ideally there shouldn't be too
 " many of these.
 "
 
-" I like the space bar to scroll down a page, so I can lazily tap it to read
-" documents, and I find its default behaviour of moving right one character to
-" be useless.
+" I like using the space bar to scroll down a page, so I can lazily tap it to
+" read documents, and I find its default behaviour of moving right one
+" character to be useless.
 "
 " I also have a custom plugin named scroll_next.vim that issues :next to have
 " it move to the next file in the arglist if the bottom line of the buffer is
 " visible, for reading multiple buffers.
 "
-" However, I only want that plugin mapped if the plugin is actually going to
-" load, so I check that it's available and that the 'loadplugin' option is set
-" before using its provided map target, otherwise it kills the space key.  If
-" the plugin doesn't look like it's going to load, I just bind Space to do the
+" <https://sanctum.geek.nz/cgit/vim-scroll-next.git/about/>
+"
+" However, I only want that functionality mapped if the required plugin is
+" actually going to load, so I check that it's available and that the
+" 'loadplugin' option is set before using its provided map target, because if
+" it doesn't it will kill the space key.  it kills the space key.  If the
+" plugin doesn't look like it's going to load, I just bind Space to do the
 " same thing as PageDown.
 "
 " Either way, the downside of this arrangement is it's an easy key to hit
 " accidentally.  I'm keeping it for the moment, though.
+"
+" I always wanted you to go into space, man.
 "
 if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
@@ -976,7 +1027,9 @@ endif
 
 " I hate CTRL-C in insert mode, which ends the insert session without firing
 " the InsertLeave event for automatic command hooks.  It seems worse than
-" useless; why would you want that?
+" useless; why would you want that?  It breaks plugins that hinge on mirrored
+" functionality between the InsertEnter and InsertLeave automatic command
+" events, and doesn't otherwise do anything different from Escape.  Terrible!
 "
 " Instead, I apply a custom plugin named insert_cancel.vim to make it cancel
 " the current insert operation; that is, if the buffer has changed at all
@@ -984,22 +1037,28 @@ endif
 " while ending insert mode and firing InsertLeave as normal.  This makes way
 " more sense to me, and I use it all the time now.
 "
-" You might think on a first look, as I did, that a mapping like this is all
-" that's required:
+" <https://sanctum.geek.nz/cgit/vim-insert-cancel.git/about/>
+"
+" You might think on a first look, as I did, that a plugin is overkill, and
+" that a mapping like this would be all that's required:
 "
 "   :inoremap <C-C> <Esc>u
 "
-" However, there's a subtle problem with that; if you didn't make any changes,
-" it *still* reverses the previous change, which has nothing to do with the
-" current insert mode operation.  The plugin's way of working around this is
-" pretty simple, but does still seem to be necessary to avoid that case.
+" Indeed, it *mostly* works, but there are some subtle problems with it.  The
+" primary issue is that if you didn't make any changes during the insert mode
+" session that you're terminating, it *still* reverses the previous change,
+" which will be something else entirely that you probably *didn't* mean to be
+" undone.  The plugin's way of working around this and the other shortcomings
+" of the simple mapping above is not too much more complicated, but it was not
+" easy to figure out.
 "
 " At any rate, as with the space bar's leverage of the scroll_next.vim plugin
 " above, we only want to establish the mapping if we can expect the plugin to
 " load, so test that it exists with the expected name and that 'loadplugins'
 " is set.
 "
-" If the plugin isn't available, I don't change what CTRL-C does at all.
+" If the plugin isn't available, I just abandon CTRL-C to continue its
+" uselessness.
 "
 if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
       \ && &loadplugins
@@ -1007,10 +1066,10 @@ if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
 endif
 
 " I often don't remember or can't guess digraph codes very well, and want to
-" look up how to compose a specific character that I can at least in part
-" name.  The table in `:help digraph-table` is what to use for that situation,
-" and it works great, but the overhead of repeated lookups therein was just
-" a little bit high.
+" look up how to compose a specific character that I can name, at least in
+" part.  The table in `:help digraph-table` is what to use for that situation,
+" and it solves the problem, but the overhead of repeated lookups therein was
+" just a little bit high.
 "
 " Steve Losh has a solution I liked where a double-tap of CTRL-K in insert
 " mode brought up a help window with the table, which could then be searched
@@ -1020,7 +1079,7 @@ endif
 "
 " I took it one step further with a custom plugin digraph_search.vim that
 " parses the digraph table and runs a simple text search of its names using
-" a string provided by the user, e.g. searching for ACUTE yields:
+" a string provided by the user.  For example, searching for ACUTE yields:
 "
 " > Digraphs matching ACUTE:
 " > ´  ''  ACUTE ACCENT
@@ -1028,6 +1087,8 @@ endif
 " > É  E'  LATIN CAPITAL LETTER E WITH ACUTE
 " > Í  I'  LATIN CAPITAL LETTER I WITH ACUTE
 " > ... etc ...
+"
+" <https://sanctum.geek.nz/cgit/vim-digraph-search.git/about/>
 "
 " This leaves you in insert mode, ready to hit CTRL-K one more time and then
 " type the digraph that you've hopefully found.
