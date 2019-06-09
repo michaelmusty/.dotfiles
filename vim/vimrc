@@ -58,8 +58,9 @@
 "
 " Vim, I love you, but you are so weird.
 "
-if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
+let runtimepath = split(&runtimepath, '\\\@<!,[, ]*')
+if !exists('$MYVIM') && len(runtimepath) > 0
+  let $MYVIM = runtimepath[0]
 endif
 
 " We need to check the MYVIM environment variable's value to ensure it's not
@@ -84,6 +85,14 @@ if $MYVIM =~# ','
 elseif v:version < 702 && $MYVIM =~# '\\'
   echoerr 'Illegal backslash in user runtime path on Vim <=7.2'
   let $MYVIM = ''
+endif
+
+" If the MYVIM environment variable was set outside Vim, it may not correspond
+" to the first element of the default &runtimepath.  If this is the case,
+" we'll slot it in, having already checked it for troublesome characters.
+"
+if $MYVIM !=# runtimepath[0]
+  set runtimepath^=$MYVIM
 endif
 
 " We're going to be creating a few directories, and the code to do so in
@@ -119,14 +128,6 @@ command! -complete=dir -nargs=+ EnsureDir
 "
 if $MYVIM !=# ''
   EnsureDir $MYVIM
-endif
-
-" If the MYVIM environment variable was set outside Vim, it may not correspond
-" to the first element of the default &runtimepath.  If this is the case,
-" we'll slot it in, having already checked it for troublesome characters.
-"
-if $MYVIM !=# s:SplitOption(&runtimepath)[0]
-  set runtimepath^=$MYVIM
 endif
 
 " Create a 'vimrc' automatic command hook group, if it already exists, and
