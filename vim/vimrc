@@ -118,7 +118,9 @@ endif
 " to the first element of the default &runtimepath.  If this is the case,
 " we'll slot it in, having already checked it for troublesome characters.
 "
-if $MYVIM !=# '' && len(runtimepath) > 0 && $MYVIM !=# runtimepath[0]
+if $MYVIM !=# ''
+      \ && len(runtimepath) > 0
+      \ && $MYVIM !=# runtimepath[0]
   set runtimepath^=$MYVIM
 endif
 
