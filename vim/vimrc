@@ -581,12 +581,6 @@ set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
 set listchars+=nbsp:+      " Non-breaking spaces
 
-" I like the brief jump to the matching brackets provided by the 'showmatch'
-" option; the only change I want is for it to be a little quicker, so we'll
-" adjust that to 0.3 seconds.
-"
-set showmatch matchtime=3
-
 " Don't let your editor's options be configured by content in arbitrary files!
 " Down with modelines!  Purge them from your files!
 "
