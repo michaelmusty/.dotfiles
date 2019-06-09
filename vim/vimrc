@@ -56,7 +56,7 @@ scriptencoding utf-8
 " location for Vim-related files.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
-" We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
+" We have VIM, VIMRUNTIME, and MYVIMRC, so why is there not an environment
 " variable for the user's Vim runtime directory?  It is a mystery.
 "
 " We'll use the first path specified in 'runtimepath' as a default value.
@@ -223,8 +223,8 @@ if exists('##SourceCmd')
   endif
 endif
 
-" Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
-" subdirectory first if necessary.
+" Keep the viminfo file in a cache subdirectory of the user runtime directory,
+" creating that subdirectory first if necessary.
 "
 " Using this non-default location for viminfo has the nice benefit of
 " preventing command and search history from getting clobbered when something
