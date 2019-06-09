@@ -160,8 +160,12 @@ augroup END
 " apply immediately in the current editing session.  This often makes broken
 " changes immediately apparent.
 "
-autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+autocmd vimrc BufWritePost $MYVIMRC
       \ source $MYVIMRC
+if $MYVIMRC !=# ''
+  autocmd vimrc BufWritePost $MYVIM/vimrc
+        \ doautocmd vimrc BufWritePost $MYVIMRC
+endif
 
 " Similarly, if this file or the vimrc stub that calls it is sourced, whether
 " because of the above hook, or the <Leader>R mapping prescribed later in this
