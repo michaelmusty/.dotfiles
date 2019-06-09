@@ -460,7 +460,7 @@ endif
 
 " By default, I prefer that figuring out where a region of text to fold away
 " should be done by the indent level of its lines, since I tend to be careful
-" about my indentation even in languages where it has no structure
+" about my indentation even in languages where it has no structural
 " significance.
 "
 set foldmethod=indent
