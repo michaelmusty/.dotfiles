@@ -1171,6 +1171,10 @@ nnoremap <Leader>C
 xnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
+" Print an RFC2822-compliant date string
+command Date
+      \ put=strftime('%a, %d %b %Y %T %z')
+
 " Set up a quick command-function pair to run a command with the UTC timezone,
 " in this case, for my date-printing mappings.  Is there a nicer way to do
 " this?  I couldn't find one.
@@ -1186,10 +1190,10 @@ command -complete=command -nargs=1 UTC
 
 " Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
-      \ :<C-U>put=strftime('%a, %d %b %Y %T %z')<CR>
+      \ :<C-U>Date<CR>
 " Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :<C-U>UTC put=strftime('%a, %d %b %Y %T %z')<CR>
+      \ :<C-U>UTC Date<CR>
 
 " Leader,e forces a buffer to be editable
 nnoremap <Leader>e
