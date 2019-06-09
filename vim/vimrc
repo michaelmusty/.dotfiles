@@ -170,8 +170,12 @@ command! FileTypeReload
 " that they only run once.
 "
 if exists('##SourceCmd')
-  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+  autocmd vimrc SourceCmd $MYVIMRC
         \ source <afile> | FileTypeReload
+  if $MYVIM !=# ''
+    autocmd vimrc SourceCmd $MYVIM/vimrc
+          \ doautocmd vimrc SourceCmd $MYVIMRC
+  endif
 endif
 
 " Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
