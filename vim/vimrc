@@ -148,6 +148,12 @@ function s:EnsureDir(path) abort
   return isdirectory(path)
         \ || exists('*mkdir') && mkdir(path, 'p', 0700)
 endfunction
+
+" Now we define the :EnsureDir command for user-level access to the
+" s:EnsureDir() function.  We set the tab completion to provide directory
+" names as candidates, and specify that there must be only one argument, which
+" we'll provide as a quoted parameter to the function.
+"
 command! -complete=dir -nargs=1 EnsureDir
       \ call s:EnsureDir(<q-args>)
 
