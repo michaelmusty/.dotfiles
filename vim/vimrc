@@ -121,6 +121,14 @@ if $MYVIM !=# ''
   EnsureDir $MYVIM
 endif
 
+" If the MYVIM environment variable was set outside Vim, it may not correspond
+" to the first element of the default &runtimepath.  If this is the case,
+" we'll slot it in, having already checked it for troublesome characters.
+"
+if $MYVIM !=# s:SplitOption(&runtimepath)[0]
+  set runtimepath^=$MYVIM
+endif
+
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
 " so that we don't end up collecting multiple copies of the hooks configured
