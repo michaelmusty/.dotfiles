@@ -179,13 +179,14 @@ if exists('##SourceCmd')
 endif
 
 " Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
-" subdirectory if necessary.
+" subdirectory first if necessary.
 "
-" Using this location for viminfo has the nice benefit of preventing history
-" from getting clobbered when something runs Vim without using this vimrc,
-" because it writes its history to the default viminfo path instead.  It also
-" means that everything Vim-related in the user's home directory should be
-" encapsulated in the one ~/.vim or ~/vimfiles directory.
+" Using this non-default location for viminfo has the nice benefit of
+" preventing command and search history from getting clobbered when something
+" runs Vim without using this vimrc, because it writes its history to the
+" default viminfo path instead.  It also means that everything Vim-related in
+" the user's home directory should be encapsulated in the one ~/.vim or
+" ~/vimfiles directory.
 "
 " The normal method of specifying the path to the viminfo file used here is an
 " addendum to the 'viminfo' option, which works OK.  Vim v8.1.716 introduced
