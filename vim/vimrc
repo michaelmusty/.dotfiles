@@ -715,8 +715,8 @@ if has('persistent_undo')
   endif
 
   " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them.  It's better than losing the history
-  " completely.
+  " a cache directory for them as a result of the logic above.  It's better
+  " than losing the history completely.
   "
   set undofile
 
