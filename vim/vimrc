@@ -86,6 +86,41 @@ elseif v:version < 702 && $MYVIM =~# '\\'
   let $MYVIM = ''
 endif
 
+" We're going to be creating a few directories, and the code to do so in
+" a compatible way is surprisingly verbose, because we need to check the
+" mkdir() function is actually available, and also whether the directory
+" concerned already exists, even if we specify the special 'p' value for its
+" optional {path} argument.
+"
+" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
+" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function, and then
+" abstract that away too with a user command, to keep the semantics of the
+" :set operations nice and clean.  We'll make all the directories we create
+" have restrictive permissions, too, with a {prot} argument of 0700 for the
+" final one, since every directory we want to create in this file should be
+" locked down in this way.
+"
+function s:EnsureDir(path) abort
+  let path = expand(a:path)
+  return isdirectory(path)
+        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
+endfunction
+command! -complete=dir -nargs=+ EnsureDir
+      \ call s:EnsureDir(<q-args>)
+
+" Now that we have a clean means to create directories if they don't already
+" exist, let's apply it for the first time, in making sure that the MYVIM
+" directory exists, if it's been set.
+"
+if $MYVIM !=# ''
+  EnsureDir $MYVIM
+endif
+
 " Create a 'vimrc' automatic command hook group, if it already exists, and
 " clear away any automatic command hooks already defined within it if it does,
 " so that we don't end up collecting multiple copies of the hooks configured
@@ -133,30 +168,6 @@ if exists('##SourceCmd')
         \|  doautocmd filetypedetect BufRead
         \|endif
 endif
-
-" We're going to be creating a few directories, and the code to do so in
-" a compatible way is surprisingly verbose, because we need to check the
-" mkdir() function is actually available, and also whether the directory
-" concerned already exists, even if we specify the special 'p' value for its
-" optional {path} argument.
-"
-" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
-" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
-" Even with the magic 'p' sauce, these versions throw errors if the directory
-" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
-" shell script might expect.
-"
-" So, let's wrap all that nonsense in a script-local function.  We'll make all
-" the directories we create have restrictive permissions, too, with a {prot}
-" argument of 0700.
-"
-function s:EnsureDir(path) abort
-  let path = expand(a:path)
-  return isdirectory(path)
-        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
-endfunction
-command! -complete=dir -nargs=+ EnsureDir
-      \ call s:EnsureDir(<q-args>)
 
 " Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
 " subdirectory if necessary.
