@@ -43,11 +43,16 @@
 " We don't have to deal with escaped backslashes; read the source of
 " copy_option_part() in vim/src/misc2.c to see why.
 "
-let s:option_split_pattern
-      \ = '\\'
-      \ . '\@<!'
-      \ . ','
-      \ . '[, ]*'
+function! s:SplitOption(string) abort
+  let string = a:string
+  let pattern
+        \ = '\\'
+        \ . '\@<!'
+        \ . ','
+        \ . '[, ]*'
+  let parts = split(string, pattern)
+  return parts
+endfunction
 
 " With 'runtimepath' cleaned up, the next thing we'll do is set an environment
 " variable MYVIM for the user runtime directory, if such a variable does not
@@ -66,7 +71,7 @@ let s:option_split_pattern
 " database files in the absence of a setting for 'spellfile'.
 "
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
+  let $MYVIM = s:SplitOption(&runtimepath)[0]
 endif
 
 " We need to check the MYVIM environment variable's value to ensure it's not
