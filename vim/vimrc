@@ -959,8 +959,33 @@ else
   nnoremap <Space> <PageDown>
 endif
 
-" Remap insert Ctrl-C to undo the escaped insert operation, but don't break
-" the key if the plugin isn't there
+" I hate CTRL-C in insert mode, which ends the insert session without firing
+" the InsertLeave event for automatic command hooks.  It seems worse than
+" useless; why would you want that?
+"
+" Instead, I apply a custom plugin named insert_cancel.vim to make it cancel
+" the current insert operation; that is, if the buffer has changed at all
+" since the start of the insert operation, pressing CTRL-C will reverse it,
+" while ending insert mode and firing InsertLeave as normal.  This makes way
+" more sense to me, and I use it all the time now.
+"
+" You might think on a first look, as I did, that a mapping like this is all
+" that's required:
+"
+"   :inoremap <C-C> <Esc>u
+"
+" However, there's a subtle problem with that; if you didn't make any changes,
+" it *still* reverses the previous change, which has nothing to do with the
+" current insert mode operation.  The plugin's way of working around this is
+" pretty simple, but does still seem to be necessary to avoid that case.
+"
+" At any rate, as with the spacebar's leverage of the scroll_next.vim plugin
+" above, we only want to establish the mapping if we can expect the plugin to
+" load, so test that it exists with the expected name and that 'loadplugins'
+" is set.
+"
+" If the plugin isn't available, I don't change what CTRL-C does at all.
+"
 if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
       \ && &loadplugins
   imap <C-C> <Plug>(InsertCancel)
