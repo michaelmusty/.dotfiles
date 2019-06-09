@@ -320,11 +320,11 @@ set backup
 "
 " As a historical note, other similar directory path list options supported
 " this trailing slashes hint for a long time before 'backupdir' caught up to
-" them.  The 'directory' option for swapfiles has supported it at least as far
-" back as v5.8.0 (2001), and 'undodir' appears to have supported it since its
-" creation in v7.2.438.  Even though the :help for 'backupdir' didn't say so,
-" people assumed it would work the same way, when in fact Vim simply ignored
-" it until v8.1.251.
+" them.  The 'directory' option for swap files has supported it at least as
+" far back as v5.8.0 (2001), and 'undodir' appears to have supported it since
+" its creation in v7.2.438.  Even though the :help for 'backupdir' didn't say
+" so, people assumed it would work the same way, when in fact Vim simply
+" ignored it until v8.1.251.
 "
 " I don't want to add the slashes to the option value in older versions of Vim
 " where they don't do anything, so I check the version to see if there's any
@@ -762,7 +762,7 @@ set visualbell t_vb=
 " and complete the command line to the longest common substring, just as Bash
 " does, with just the one keypress.
 "
-" The default value of 'full' for the 'wildmmode option puts the full
+" The default value of 'full' for the 'wildmode' option puts the full
 " completion onto the line immediately, which I tolerate for insert mode
 " completion but don't really like on the Ex command line.  Instead, I arrange
 " for that with a second keypress if I ever want it.
@@ -770,9 +770,9 @@ set visualbell t_vb=
 set wildmenu
 set wildmode=list:longest,full
 
-" Define a list of wildignore patterns for into the 'wildignore' option.
-" Files and directories with names matching any of these patterns won't be
-" presented as options for tab completion on the command line.
+" Define a list of patterns for the 'wildignore' option.  Files and
+" directories with names matching any of these patterns won't be presented as
+" candidates for tab completion on the command line.
 "
 " It's tempting to put the list of patterns here into a separate file, or at
 " least into a more readily editable intermediate list variable, rather than
@@ -780,9 +780,9 @@ set wildmode=list:longest,full
 " I'm not sure whether I'll do that just yet.
 "
 " To make this list, I went right through my home directory with
-" a `find`-toothed comb, counted the lowercased occurrences of every
-" extension, and then manually selected the ones that I was confident would
-" seldom contain plain text.
+" a `find`-toothed comb, counted the occurrences of every extension, forced
+" down to lowercase; and then manually selected the ones that I was confident
+" would seldom contain plain text.
 "
 " This does the trick with POSIX-compatible shell tools, giving you patterns
 " for the top 50 extensions:
@@ -841,7 +841,7 @@ endif
 " I got the thesaurus itself from the link in the :help for 'thesaurus' in
 " v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
 " website that the Makefile recipe attempts to retrieve.  I had to remove the
-" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpret
 " them as part of the body data.
 "
 " The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
@@ -862,7 +862,7 @@ endif
 " I define my own filetype.vim and scripts.vim files for filetype detection,
 " in a similar but not identical form to the stock runtime files.  I also
 " define my own ftplugin and indent files for some types, sometimes replacing
-" and sometimes supplenting the runtime files.
+" and sometimes supplementing the runtime files.
 "
 filetype plugin indent on
 
@@ -881,7 +881,7 @@ filetype plugin indent on
 " later, I found I still missed my colours, and so I went back to my
 " Kodachrome roots, and didn't pine for my old monochrome world.
 "
-" The thing I most like about syntax highlighting is detecting unterminated
+" The thing I most like about syntax highlighting is detecting runaway
 " strings, which generally works in even the most threadbare language syntax
 " highlighting definitions.  I kept missing such errors when I didn't have the
 " colours.
@@ -901,9 +901,9 @@ endif
 " dark-background default syntax highlighting.  I used it for years; it looks
 " and works just fine.
 "
-" There's also a very simple grayscale colorscheme I occasionally use instead
-" called 'juvenile', which is included as a submodule with this dotfiles
-" distribution.
+" There's also a very simple grayscale colour scheme I occasionally use
+" instead called 'juvenile', which is included as a Git submodule with this
+" dotfiles distribution.
 "
 try
   colorscheme sahara
@@ -994,7 +994,7 @@ endif
 " current insert mode operation.  The plugin's way of working around this is
 " pretty simple, but does still seem to be necessary to avoid that case.
 "
-" At any rate, as with the spacebar's leverage of the scroll_next.vim plugin
+" At any rate, as with the space bar's leverage of the scroll_next.vim plugin
 " above, we only want to establish the mapping if we can expect the plugin to
 " load, so test that it exists with the expected name and that 'loadplugins'
 " is set.
@@ -1019,7 +1019,7 @@ endif
 " <https://bitbucket.org/sjl/dotfiles/src/2559256/vim/vimrc#lines-309:310>
 "
 " I took it one step further with a custom plugin digraph_search.vim that
-" parses the digraph table and runs a plaintext search of its names using
+" parses the digraph table and runs a simple text search of its names using
 " a string provided by the user, e.g. searching for ACUTE yields:
 "
 " > Digraphs matching ACUTE:
