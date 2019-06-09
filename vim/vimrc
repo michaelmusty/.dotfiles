@@ -354,11 +354,32 @@ set backspace+=eol     " Line breaks
 set backspace+=indent  " Leading whitespace characters created by 'autoindent'
 set backspace+=start   " Text before the start of the current insertion
 
+" When soft-wrapping text with the 'wrap' option on, which is off by default,
+" break the lines between words, rather than within them; it's much easier to
+" read.
+"
+set linebreak
+
+" Similarly, show that the screen line is a trailing part of a wrapped line by
+" prefixing it with an ellipsis.  If we have a multi-byte encoding, use U+2026
+" HORIZONTAL ELLIPSIS to save a couple of columns, but otherwise three periods
+" will do just fine.
+"
+if has('multi_byte_encoding')
+  set showbreak=…
+else
+  set showbreak=...
+endif
+
 " The visual structure of code provided by indents breaks down if a lot of the
 " lines wrap.  Ideally, most if not all lines would be kept below 80
 " characters, but in cases where this isn't possible, soft-wrapping longer
 " lines when 'wrap' is on so that the indent is preserved in the following
 " line mitigates this breakdown somewhat.
+"
+" With this set, it's particularly important to have 'showbreak' set to
+" something, above, otherwise without line numbers it's hard to tell what's
+" a logical line and what's not.
 "
 " This option wasn't added until v7.4.338, so we need to check it exists
 " before we set it.
@@ -574,8 +595,6 @@ set laststatus=1
 "
 set lazyredraw
 
-" Break lines at word boundaries
-set linebreak
 
 " Define extra 'list' display characters
 set listchars&vi  " Neovim adds duplicates otherwise
@@ -621,9 +640,6 @@ set sessionoptions-=options       " No global options or mappings
 
 " Don't show startup splash screen (I donated)
 set shortmess+=I
-
-" Prefix wrapped rows with three dots
-set showbreak=...
 
 " Don't try to syntax highlight run-on lines
 set synmaxcol=500
