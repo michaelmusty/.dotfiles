@@ -1,11 +1,19 @@
 "
-" Tom Ryder (tejr)'s vimrc
-" ========================
+" Tom Ryder (tejr)'s Literate Vimrc
+" =================================
 "
 " <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
-" This is a 'literate vimrc', in the Donald Knuth tradition.  It's long, and
-" comments abound.
+" This is an attempt at something like a 'literate vimrc', in the tradition of
+" Donald Knuth's "literate programming".
+"
+" <http://www.literateprogramming.com/>
+"
+" It's a long file, and comments abound.  If this bothers you, you can do
+" something like this to strip out all the blank lines and lines with only
+" comments:
+"
+"   :v/^\s*[^"]/d
 "
 " This file should be saved as "vimrc" in the user runtime directory. On
 " Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
