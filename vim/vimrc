@@ -686,8 +686,13 @@ if $MYVIM !=# ''
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
 
-" PuTTY is a fast terminal, but Vim doesn't know that yet
-if &term =~# '^putty'
+" Vim has an internal list of terminal types that support using smoother
+" terminal redrawing.  It includes most of the terminals I use, but there are
+" a couple more for which the 'ttyfast' option should apply: the windows
+" terminal emulator PuTTY, and the terminal multiplexer tmux, both of which
+" I use heavily.
+"
+if &term =~# '^putty\|^tmux'
   set ttyfast
 endif
 
