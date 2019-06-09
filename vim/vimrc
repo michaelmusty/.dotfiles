@@ -1031,7 +1031,9 @@ endif
 " the InsertLeave event for automatic command hooks.  It seems worse than
 " useless; why would you want that?  It breaks plugins that hinge on mirrored
 " functionality between the InsertEnter and InsertLeave automatic command
-" events, and doesn't otherwise do anything different from Escape.  Terrible!
+" events, and doesn't otherwise do anything different from Escape.  Even
+" worse, people think it's a *synonym* for Escape, and use it because it's
+" easier to reach than the Escape key or CTRL-[.  It's terrible!
 "
 " Instead, I apply a custom plugin named insert_cancel.vim to make it cancel
 " the current insert operation; that is, if the buffer has changed at all
