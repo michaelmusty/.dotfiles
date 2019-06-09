@@ -99,7 +99,7 @@ if $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
   let $MYVIM = ''
 elseif v:version < 702 && $MYVIM =~# '\\'
-  echoerr 'Illegal backslash in user runtime path on Vim <=7.2'
+  echoerr 'Illegal backslash in user runtime path on Vim < v7.2'
   let $MYVIM = ''
 endif
 
