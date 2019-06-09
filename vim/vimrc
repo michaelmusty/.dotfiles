@@ -158,11 +158,13 @@ endif
 " the directories we create have restrictive permissions, too, with a {prot}
 " argument of 0700.
 "
-function! s:Mkdir(path) abort
-  if exists('*mkdir') && !isdirectory(a:path)
-    call mkdir(a:path, 'p', 0700)
-  endif
+function s:EnsureDir(path) abort
+  let path = expand(a:path)
+  return isdirectory(path)
+        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
 endfunction
+command! -complete=dir -nargs=+ EnsureDir
+      \ call s:EnsureDir(<q-args>)
 
 " Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
 " subdirectory if necessary.
@@ -178,7 +180,7 @@ endfunction
 " a nicer way to set it with a 'viminfofile' option, but there's no particular
 " reason to use it until it's in a few more stable versions.
 "
-call s:Mkdir($MYVIM.'/cache')
+EnsureDir $MYVIM/cache
 set viminfo+=n$MYVIM/cache/viminfo
 
 " We'll start our options by modernising a little in adjusting some options
@@ -280,12 +282,12 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
+EnsureDir $MYVIM/cache/backup
 if has('patch-8.1.251')
   set backupdir^=$MYVIM/cache/backup//
 else
   set backupdir^=$MYVIM/cache/backup
 endif
-call s:Mkdir(split(&backupdir, s:option_split_pattern)[0])
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
@@ -367,8 +369,8 @@ set dictionary^=$MYVIM/ref/dictionary.txt,/usr/share/dict/words
 " its name, in order to avoid filename collisions.  Create that path if
 " needed, too.
 "
+EnsureDir $MYVIM/cache/swap
 set directory^=$MYVIM/cache/swap//
-call s:Mkdir(split(&directory, s:option_split_pattern)[0])
 
 " On Unix, I keep LANG defined in my environment, and it's almost always set
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
@@ -619,9 +621,9 @@ endif
 
 " Keep persistent undo files in dedicated directory, named with full path
 if has('persistent_undo')  " v7.2.438
+  EnsureDir $MYVIM/cache/undo
   set undofile
   set undodir^=$MYVIM/cache/undo//
-  call s:Mkdir(split(&undodir, s:option_split_pattern)[0])
 endif
 
 " Let me move beyond buffer text in visual block mode
