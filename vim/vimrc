@@ -743,15 +743,34 @@ set virtualedit+=block
 "
 set visualbell t_vb=
 
+" When Ex command line completion is started with Tab, list valid completions
+" and complete the command line to the longest common substring, just as Bash
+" does, with just the one keypress.
+"
+" The default value of 'full' for the 'wildmmode option puts the full
+" completion onto the line immediately, which I tolerate for insert mode
+" completion but don't really like on the Ex command line.  Instead, I arrange
+" for that with a second keypress if I ever want it.
+"
+set wildmenu
+set wildmode=list:longest,full
+
 " Define a list of wildignore patterns for into the 'wildignore' option.
 " Files and directories with names matching any of these patterns won't be
 " presented as options for tab completion on the command line.
 "
+" It's tempting to put the list of patterns here into a separate file, or at
+" least into a more readily editable intermediate list variable, rather than
+" the minor maintenance hassle it presently constitutes in this compact form.
+" I'm not sure whether I'll do that just yet.
+"
 " To make this list, I went right through my home directory with
 " a `find`-toothed comb, counted the lowercased occurrences of every
 " extension, and then manually selected the ones that I was confident would
-" seldom contain plain text.  This does the trick, giving you patterns for the
-" top 50 extensions:
+" seldom contain plain text.
+"
+" This does the trick with POSIX-compatible shell tools, giving you patterns
+" for the top 50 extensions:
 "
 "     $ find ~ -type f -name '*.*' |
 "           awk -F. '{exts[tolower($NF)]++}
@@ -760,11 +779,6 @@ set visualbell t_vb=
 "           sed 50q
 "
 " Turns out I have a lot of .html files.
-"
-" It's tempting to put the list of patterns here into a separate file, or at
-" least into a more readily editable intermediate list variable, rather than
-" the minor maintenance hassle it presently constitutes in this compact form.
-" I'm not sure whether I'll do that just yet.
 "
 set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
@@ -779,36 +793,15 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
 " appropriate case, like the Readline setting completion-ignore-case can be
 " used for GNU Bash.
 "
-" As far as I can tell, this option doesn't have anything to do with the
-" 'wildignore' settings, and so files that would match any of those patterns
-" only with case insensitivity implied will still be candidates for
-" completion.  It also wasn't added until v7.3.72, so we need to check it
+" As far as I can tell, despite its name, this option doesn't have anything to
+" do with the 'wildignore' settings, and so files that would match any of
+" those patterns only with case insensitivity implied will still be candidates
+" for completion.  It also wasn't added until v7.3.72, so we need to check it
 " exists before we try to set it.
 "
 if exists('+wildignorecase')
   set wildignorecase
 endif
-
-" When Ex command line completion is started with Tab, list valid completions
-" and complete the command line to the longest common substring, just as Bash
-" does, with just the one keypress.  The default value of 'full' puts the full
-" completion onto the line immediately, which I tolerate for insert mode
-" completion but don't really like on the Ex command line.
-"
-set wildmode=list:longest
-
-" You might be wondering why we got through the options with 'wild...' as
-" a prefix to their names without setting 'wildmenu'.  The answer is that
-" I don't actually want the popup navigable completion menu.  I just want
-" tab-completion to work in a shell-like fashion.  I've never used the former,
-" nor have I messed with 'wildchar' or 'wildcharm'; I've just never needed to,
-" and so 'wildmenu' stays as the default.
-"
-" I used to have 'wildmenu' set, and I didn't realise for years that this did
-" nothing at all, because the 'full' flag on which its appearance hinges
-" didn't appear in my 'wildmode' setting.  I hadn't read the documentation
-" properly.
-"
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the 'k' flag, this specifies the path to the system dictionary to
