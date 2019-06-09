@@ -23,11 +23,26 @@
 " > --Tennyson
 "
 
+" The first thing we'll do is set an environment variable MYVIM for the user
+" runtime directory, if such a variable does not already exist in the
+" environment, and there's a value in 'runtimepath' from which to glean
+" a useable path.  We'll use the path nominated in the MYVIM variable as the
+" root of our 'backupdir', 'directory', 'undodir', and 'viminfofile' caches,
+" and anywhere else we need a sensible writeable location for Vim-related
+" files.
+"
+" I think the absence of a variable like this is a glaring omission from Vim.
+" We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
+" variable for the user's Vim runtime directory?  It is a mystery.
+"
+" We'll use the first path specified in 'runtimepath' as a default value.
+" This is similar to what Vim does internally for the location of the spelling
+" database files in the absence of a setting for 'spellfile'.
+"
 " Splitting the values of a comma-separated option like 'runtimepath'
-" correctly, which we'll need to do a few times throughout this file, is a bit
-" more complicated than it seems.  The list separator is more accurately
-" defined as a comma that is not preceded by a backslash, and which is
-" followed by any number of spaces and/or further commas.
+" correctly, is a bit more complicated than it seems.  Its list separator is
+" more accurately defined as a comma that is not preceded by a backslash, and
+" which is followed by any number of spaces and/or further commas.
 "
 " The pattern required for the split breaks down like this:
 "
@@ -38,40 +53,13 @@
 "   ,      Literal comma
 "   [, ]*  Any number of commas and spaces
 "
-" Vim, I love you, but you are weird.
-"
 " We don't have to deal with escaped backslashes; read the source of
 " copy_option_part() in vim/src/misc2.c to see why.
 "
-function! s:SplitOption(string) abort
-  let string = a:string
-  let pattern
-        \ = '\\'
-        \ . '\@<!'
-        \ . ','
-        \ . '[, ]*'
-  let parts = split(string, pattern)
-  return parts
-endfunction
-
-" With 'runtimepath' cleaned up, the next thing we'll do is set an environment
-" variable MYVIM for the user runtime directory, if such a variable does not
-" already exist in the environment, and there's a value in 'runtimepath' from
-" which to glean a useable path.  We'll use the path nominated in the MYVIM
-" variable as the root of our 'backupdir', 'directory', 'undodir', and
-" 'viminfofile' caches, and anywhere else we need a sensible writeable
-" location for Vim-related files.
-"
-" I think the absence of a variable like this is a glaring omission from Vim.
-" We have $VIM, $VIMRUNTIME, and $MYVIMRC, so why is there not an environment
-" variable for the user's Vim runtime directory?  It is a mystery.
-"
-" We'll use the first path specified in 'runtimepath' as a default value.
-" This is similar to what Vim does internally for the location of the spelling
-" database files in the absence of a setting for 'spellfile'.
+" Vim, I love you, but you are so weird.
 "
 if !exists('$MYVIM') && &runtimepath !=# ''
-  let $MYVIM = s:SplitOption(&runtimepath)[0]
+  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
 endif
 
 " We need to check the MYVIM environment variable's value to ensure it's not
