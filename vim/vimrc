@@ -935,7 +935,23 @@ endtry
 " many of these.
 "
 
-" Space bar scrolls down a page, :next at buffer's end if plugin available
+" I like the space bar to scroll down a page, so I can lazily tap it to read
+" documents, and I find its default behaviour of moving right one character to
+" be useless.
+"
+" I also have a custom plugin named scroll_next.vim that issues :next to have
+" it move to the next file in the arglist if the bottom line of the buffer is
+" visible, for reading multiple buffers.
+"
+" However, I only want that plugin mapped if the plugin is actually going to
+" load, so I check that it's available and that the 'loadplugin' option is set
+" before using its provided map target, otherwise it kills the space key.  If
+" the plugin doesn't look like it's going to load, I just bind Space to do the
+" same thing as PageDown.
+"
+" Either way, the downside of this arrangement is it's an easy key to hit
+" accidentally.  I'm keeping it for the moment, though.
+"
 if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
       \ && &loadplugins
   nmap <Space> <Plug>(ScrollNext)
