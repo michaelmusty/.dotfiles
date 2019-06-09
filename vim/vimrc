@@ -1179,6 +1179,11 @@ command PutDate
 " in this case, for my date-printing mappings.  Is there a nicer way to do
 " this?  I couldn't find one.
 "
+" This presently seems to be broken in v8.1.1487; the timezone first chosen
+" seems to 'stick' permanently.  I haven't worked out why yet.  Using the new
+" getenv() and setenv() functions does not seem to fix it.  It works fine in
+" Debian GNU/Linux's packaged v8.0.x.
+"
 function! UTC(command) abort
   let tz = expand('$TZ')
   let $TZ = 'UTC'
