@@ -991,7 +991,32 @@ if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
 
-" Map double Ctrl-K in insert mode to search digraph names
+" I often don't remember or can't guess digraph codes very well, and want to
+" look up how to compose a specific character that I can at least in part
+" name.  The table in `:help digraph-table` is what to use for that situation,
+" and it works great, but the overhead of repeated lookups therein was just
+" a little bit high.  Steve Losh had a solution I rather liked where
+" a double-tap of CTRL-K in insert mode brought up a help window with the
+" table, which could then be searched as normal.
+"
+" I took it one step further with a custom plugin digraph_search.vim that
+" parses the digraph table and runs a plaintext search of its names using
+" a string provided by the user, e.g. searching for ACUTE yields:
+"
+" > Digraphs matching ACUTE:
+" > ´  ''  ACUTE ACCENT
+" > Á  A'  LATIN CAPITAL LETTER A WITH ACUTE
+" > É  E'  LATIN CAPITAL LETTER E WITH ACUTE
+" > Í  I'  LATIN CAPITAL LETTER I WITH ACUTE
+" > ... etc ...
+"
+" This leaves you in insert mode, ready to hit CTRL-K one more time and then
+" type the digraph that you've hopefully found.
+"
+" Since a double-tap of CTRL-K does nothing in default Vim, we don't bother
+" checking that the plugin's available before we map to it; it'll just quietly
+" do nothing.
+"
 imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " Stack Ctrl-L to clear search highlight, make it work in insert mode too
