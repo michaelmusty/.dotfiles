@@ -651,13 +651,37 @@ set noruler
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
-" Don't show startup splash screen (I donated)
+" This flag prevents the display of the Vim startup screen with version
+" information, :help hints, and donation suggestion.  After I registered Vim
+" and donated to Uganda per the screen's plea, I didn't feel bad about turning
+" this off anymore.
+"
+" Even with this setting in place, I wouldn't normally see it too often, as
+" I seldom start Vim with no file arguments.
+"
+" I haven't felt the need to mess with the other flags in this option.
+" I don't have any problems with spurious Enter prompts, which seems to be
+" one of the main reasons people abuse this option.
+"
 set shortmess+=I
 
-" Don't try to syntax highlight run-on lines
+" Limit the number of characters per line that syntax highlighting will
+" attempt to highlight.  This is as much an effort to encourage me to break
+" long lines and do hard wrapping correctly as it is for efficiency.
+"
 set synmaxcol=500
 
-" Add thesaurus; install with `make install-vim-thesaurus`
+" Add the expected path to the thesaurus, for completion with CTRL-X CTRL-T in
+" insert mode, or with 't' added to 'completeopt.  This isn't installed as
+" part of the default `install-vim` target in tejr's dotfiles; it can be
+" installed with `install-vim-thesaurus`.
+"
+" I got the thesaurus itself from the link in the :help for 'thesaurus' in
+" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" website that the Makefile recipe attempts to retrieve.  I had to remove the
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpet
+" them as part of the body data.
+"
 if $MYVIM !=# ''
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
@@ -667,9 +691,12 @@ if &term =~# '^putty'
   set ttyfast
 endif
 
-" We don't want a mouse.  Don't use terminal mouse support, even if it would
-" work. The manual suggests this should be done by clearing 't_RV', but that
-" doesn't seem to work.
+" We really don't want a mouse; it just gets in the way.  Mouse events should
+" be exclusively handled by the terminal emulator application, so Vim
+" shouldn't try to give me terminal mouse support, even if it would work.
+"
+" The manual suggests that disabling this should be done by clearing 't_RV',
+" but that didn't actually seem to work when I tried it.
 "
 " We have to check for the existence of the option first, as it doesn't exist
 " in Neovim.
@@ -678,22 +705,75 @@ if exists('+ttymouse')
   set ttymouse=
 endif
 
-" Keep persistent undo files in dedicated directory, named with full path
-if has('persistent_undo')  " v7.2.438
+" Keep tracked undo history for files permanently, in a dedicated cache
+" directory.
+"
+" Support for persistent undo file caches was not added until v7.2.438, so we
+" need to check for the feature's presence before we enable it.
+"
+if has('persistent_undo')
+
+  " This has the same structure as 'backupdir' and 'directory'; if we have
+  " a user runtime directory, create a sub-subdirectory within it dedicated to
+  " the undo files cache.
+  "
   if $MYVIM !=# ''
     EnsureDir $MYVIM/cache/undo
     set undodir^=$MYVIM/cache/undo//
   endif
+
+  " Turn the persistent undo features on, regardless of whether we have
+  " a cache directory for them.  It's better than losing the history
+  " completely.
+  "
   set undofile
+
 endif
 
-" Let me move beyond buffer text in visual block mode
+" While using virtual block mode, allow me to navigate to any column of the
+" buffer window; don't confine the boundaries of the block to actually present
+" characters.
+"
 set virtualedit+=block
 
-" Never beep at me
+" I can't recall a time that Vim's error beeping or flashing was actually
+" useful to me, so turn it off in the manner that the manual suggests in
+" `:help 'visualbell'`, enabling visual rather than audio error bells, but
+" blanking the terminal attribute that would be used for the screen blinking
+" at the same time, effectively silencing it.
+"
+" I thought at first that the newer 'belloff' and/or 'errorbells' options
+" would be a nicer way to keep Vim quiet, but they don't actually appear to
+" work as comprehensively as this older method, last time I checked that.
+"
+" Interestingly, the :help says that this setting has to be reinstated in the
+" gvimrc file for GUI Vim.
+"
 set visualbell t_vb=
 
-" Tab completion settings
+" Define a list of wildignore patterns for into the 'wildignore' option.
+" Files and directories with names matching any of these patterns won't be
+" presented as options for tab completion on the command line.
+"
+" To make this list, I went right through my home directory with
+" a `find`-toothed comb, counted the lowercased occurrences of every
+" extension, and then manually selected the ones that I was confident would
+" seldom contain plain text.  This does the trick, giving you patterns for the
+" top 50 extensions:
+"
+"     $ find ~ -type f -name '*.*' |
+"           awk -F. '{exts[tolower($NF)]++}
+"           END {for(ext in exts)print exts[ext], "*." ext}' |
+"           sort -k1,1nr |
+"           sed 50q
+"
+" Turns out I have a lot of .html files.
+"
+" It's tempting to put the list of patterns here into a separate file, or at
+" least into a more readily editable intermediate list variable, rather than
+" the minor maintenance hassle it presently constitutes in this compact form.
+" I'm not sure whether I'll do that just yet.
+"
 set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
       \,*.filepart,*.flac,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz,*.hdf,*.ico
@@ -701,21 +781,90 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
       \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
       \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
-if exists('+wildignorecase')  " v7.3.072
-  set wildignorecase  " Case insensitive tab completion
-endif
-set wildmode=list:longest  " Tab press completes and lists
 
-" Load filetype settings, plugins, and maps
+" Allow me to be lazy and type a path to complete on the Ex command line in
+" all-lowercase, and transform the consequent completion to match the
+" appropriate case, like the Readline setting completion-ignore-case can be
+" used for GNU Bash.
+"
+" As far as I can tell, this option doesn't have anything to do with the
+" 'wildignore' settings, and so files that would match any of those patterns
+" only with case insensitivity implied will still be candidates for
+" completion.  It also wasn't added until v7.3.72, so we need to check it
+" exists before we try to set it.
+"
+if exists('+wildignorecase')
+  set wildignorecase
+endif
+
+" When Ex command line completion is started with Tab, list valid completions
+" and complete the command line to the longest common substring, just as Bash
+" does, with just the one keypress.  The default value of 'full' puts the full
+" completion onto the line immediately, which I tolerate for insert mode
+" completion but don't really like on the Ex command line.
+"
+set wildmode=list:longest
+
+" You might be wondering why we got through the options with 'wild...' as
+" a prefix to their names without setting 'wildmenu'.  The answer is that
+" I don't actually want the popup navigable completion menu.  I just want
+" tab-completion to work in a shell-like fashion.  I've never used the former,
+" nor have I messed with 'wildchar' or 'wildcharm'; I've just never needed to,
+" and so 'wildmenu' stays as the default.
+"
+" I used to have 'wildmenu' set, and I didn't realise for years that this did
+" nothing at all, because the 'full' flag on which its appearance hinges
+" didn't appear in my 'wildmode' setting.  I hadn't read the documentation
+" properly.
+"
+
+" Use all of the filetype detection, plugin, and indent support available.
+" I define my own filetype.vim and scripts.vim files for filetype detection,
+" in a similar but not identical form to the stock runtime files.  I also
+" define my own ftplugin and indent files for some types, sometimes replacing
+" and sometimes supplenting the runtime files.
+"
 filetype plugin indent on
 
-" Use syntax highlighting
+" Enable syntax highlighting, but only if it's not already on, to save
+" reloading the syntax files unnecessarily.
+"
+" <https://sanctum.geek.nz/blinkenlights/syntax-on.jpg>
+"
+" For several months in 2018, as an experiment, I tried using terminals with
+" no colour at all, imitating a phenomenally productive BSD purist co-worker
+" who abhorred colour in any form on his terminals.  He only drank black
+" coffee, too.  If you're reading this: Hello, bdh!
+"
+" That experiment was instructive and interesting, and I found I had been
+" leaning on colour information in some surprising ways.  However, some months
+" later, I found I still missed my colours, and so I went back to my
+" Kodachrome roots, and didn't pine for my old monochrome world.
+"
+" The thing I most like about syntax highlighting is detecting unterminated
+" strings, which generally works in even the most threadbare language syntax
+" highlighting definitions.  I kept missing such errors when I didn't have the
+" colours.
+"
 if !exists('syntax_on')
   syntax enable
 endif
 
-" Try to use sahara color scheme with 'cursorline' set; otherwise, use the
-" default color scheme with a dark background
+" Try to use my 'sahara' fork of the 'desert256' colour scheme, and if
+" successful, turn on the 'cursorline' feature, since the scheme configures it
+" and 'cursorcolumn' to be a very dark grey that doesn't stand out too much
+" against a black background.  Aside from the aforementioned experiment with
+" monochrome terminals, I exclusively use dark backgrounds.
+"
+" If we fail to load the colour scheme, for whatever reason, suppress the
+" error, and reset the syntax highlighting, 'background', and 'cursorline' for
+" dark-background default syntax highlighting.  I used it for years; it looks
+" and works just fine.
+"
+" There's also a very simple grayscale colorscheme I occasionally use instead
+" called 'juvenile', which is included as a submodule with this dotfiles
+" distribution.
+"
 try
   colorscheme sahara
   set cursorline
