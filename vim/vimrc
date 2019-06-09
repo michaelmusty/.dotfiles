@@ -69,25 +69,27 @@ if !exists('$MYVIM') && &runtimepath !=# ''
   let $MYVIM = split(&runtimepath, s:option_split_pattern)[0]
 endif
 
-" The MYVIM user runtime directory can't be blank.
+" We need to check the MYVIM environment variable's value to ensure it's not
+" going to cause problems for the rest of this file.
 "
-" The 'dictionary' and 'thesaurus' options have a blacklist of characters that
-" they don't allow.  None of them are a particularly good idea for use in
-" a filename, so don't allow their use in this vimrc at all, even though
-" options like 'backupdir' will accept them.
+" First of all, it can't be blank.
 "
-" The comma character isn't actually part of that blacklist, but it has its
-" own problems; if the path specified in the MYVIM environment variable
-" contains a comma, its use in comma-separated option values will confuse Vim
-" into thinking more than one directory is being specified, per normal :set
-" semantics.
+" Secondlly, if the path specified in the MYVIM environment variable contains
+" a comma, its use in comma-separated option values will confuse Vim into
+" thinking more than one directory is being specified, per normal :set
+" semantics.  It's possible to work around this with some careful escaping,
+" either at :set time with an :execute abstraction or with a separate
+" environment variable for that particular context, but it's not really worth
+" the extra complexity for such a niche situation.
 "
-" It's possible to work around this with some careful escaping, either at :set
-" time with an :execute abstraction or with a separate environment variable
-" for that particular context, but it's not really worth the extra complexity
-" for such a niche situation.
+" Thirdly and finally, some versions of Vim prior to v7.2.0 exhibit bizarre
+" behaviour with escaping with the backslash character, so on these older
+" versions of Vim, forbid that character.  I haven't found the exact
+" patchlevel that this was fixed yet.
 "
-if $MYVIM ==# '' || $MYVIM =~# '[*?[|;&<>\r\n,]'
+if $MYVIM ==# ''
+      \ || $MYVIM =~# ','
+      \ || v:version < 702 && $MYVIM =~# '\'
   echoerr 'Illegal user runtime path, halting user init'
   finish
 endif
