@@ -616,8 +616,21 @@ set listchars+=nbsp:+   " Non-breaking spaces
 " These two are actually somewhat misplaced, in that they don't represent
 " characters, but the line wrap state.  They're useful, though.
 "
-set listchars+=extends:>   " Unwrapped text to screen right
-set listchars+=precedes:<  " Unwrapped text to screen left
+" If the current encoding supports it, use these characters for the markers,
+" as they're visually distinctive:
+"
+" extends: Signals presence of unwrapped text to screen right
+"     »  U+00BB  RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+" precedes: Signals presence of unwrapped text to screen left
+"     «  U+00BB  LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+"
+" Failing that, '<' and '>' will do fine.
+"
+if has('multi_byte_encoding')
+  set listchars+=extends:» listchars+=precedes:«
+else
+  set listchars+=extends:> listchars+=precedes:<
+endif
 
 " Don't let your editor's options be configured by content in arbitrary files!
 " Down with modelines!  Purge them from your files!
