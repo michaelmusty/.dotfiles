@@ -93,7 +93,7 @@ endif
 " Secondly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour
 " with escaping with the backslash character on the command line, so on these
 " older versions of Vim, forbid that character.  I haven't found the exact
-" patchlevel that this was fixed yet, nor the true reason for the bug.
+" patch level that this was fixed yet, nor the true reason for the bug.
 "
 if $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
@@ -181,10 +181,10 @@ command! FileTypeReload
 " Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
 " check it exists first.
 "
-" If there's stuff in any of your ftplugins that doesn't cope well with being
-" reloaded, and just assumes a single BufRead event, it might be necessary to
-" rewrite those parts to be idempotent, or to add load guards around them so
-" that they only run once.
+" If there's stuff in any of your filetype plugins that doesn't cope well with
+" being reloaded, and just assumes a single BufRead event, it might be
+" necessary to rewrite those parts to be idempotent, or to add load guards
+" around them so that they only run once.
 "
 " Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
 " this main file is saved, using :doautocmd abstraction.
@@ -474,7 +474,7 @@ set formatoptions+=1
 
 " If the filetype plugins have correctly described what the comment syntax for
 " the buffer's language looks like, it makes sense to use that to figure out
-" how to join lines within comments without redunant comment leaders cropping
+" how to join lines within comments without redundant comment leaders cropping
 " up.  For example, with this set, in Vim, joining lines in this very comment
 " with 'J' would remove the leading '"' characters that denote a comment.
 "
@@ -552,12 +552,11 @@ nohlsearch
 " Show search matches as I type my pattern, including scrolling the screen if
 " necessary.  This is somewhat jarring sometimes, particularly when the cursor
 " runs so far away from home, but I think the benefits of being able to see
-" instances of what I'm trying to match as I try to match it do outweight
-" that.
+" instances of what I'm trying to match as I try to match it do outweigh that.
 "
 set incsearch
 
-" If there's only one window, I don't need a statusline to appear beneath it.
+" If there's only one window, I don't need a status line to appear beneath it.
 " I very often edit only one file, and just open a :help buffer or two.  This
 " is the Vim default, but Neovim changed it, so we'll explicitly set it to the
 " default here in case we're using Neovim.
@@ -567,7 +566,7 @@ set laststatus=1
 " Don't waste cycles and bandwidth redrawing the screen during batch execution
 " of macros.  I think this does amount to the occasional :redraw needing to be
 " in a script, but it's not too bad, and last I checked it really does speed
-" things up, especially for linewise operations on really big data sets.
+" things up, especially for operations on really big data sets.
 "
 set lazyredraw
 
