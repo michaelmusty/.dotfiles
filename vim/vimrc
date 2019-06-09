@@ -1186,9 +1186,7 @@ command PutDate
 "
 function! UTC(command) abort
   let tz = expand('$TZ')
-  let $TZ = 'UTC'
-  execute a:command
-  let $TZ = tz
+  let $TZ = 'UTC' | execute a:command | let $TZ = tz
 endfunction
 command -complete=command -nargs=1 UTC
       \ call UTC(<q-args>)
