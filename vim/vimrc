@@ -439,7 +439,7 @@ set cpoptions+=J
 " it doesn't.
 "
 set dictionary^=/usr/share/dict/words
-if $MYVIM !=# ''
+if $MYVIM !=# '' && $MYVIM !=~ '[*?[|;&<>\r\n]'
   set dictionary^=$MYVIM/ref/dictionary.txt
 endif
 
@@ -697,7 +697,7 @@ set synmaxcol=500
 " first two metadata lines from thesaurus.txt, as Vim appeared to interpet
 " them as part of the body data.
 "
-if $MYVIM !=# ''
+if $MYVIM !=# '' && $MYVIM !=~ '[*?[|;&<>\r\n]'
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
 
