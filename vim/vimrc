@@ -152,29 +152,26 @@ autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
 " loading.  This is chiefly so that any global options set in this file don't
 " trample over needed buffer-local settings.
 "
+" We'll abstract this away a bit behind a new user command named
+" FileTypeReload, which just re-runs BufRead events for filetype detection if
+" they've been loaded.
+"
+command! FileTypeReload
+      \ if exists('did_load_filetypes')
+      \|  doautocmd filetypedetect BufRead
+      \|endif
+
+" Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
+" check it exists first.
+"
 " If there's stuff in any of your ftplugins that doesn't cope well with being
 " reloaded, and just assumes a single BufRead event, it might be necessary to
 " rewrite those parts to be idempotent, or to add load guards around them so
 " that they only run once.
 "
-" Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need to
-" check it exists first.
-"
 if exists('##SourceCmd')
-
-  " We can't wrap this in a script-local function like I normally would,
-  " because without a load guard around it, Vim will get upset that we're
-  " trying to redefine that function the next time this script loads.
-  "
-  " So, we just inline the whole thing into the hook.  It's only four
-  " commands, anyway, and I'd rather most if not all of the vimrc was reloaded
-  " when we source it.
-  "
   autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
-        \ source <afile>
-        \|if exists('#filetypedetect#BufRead')
-        \|  doautocmd filetypedetect BufRead
-        \|endif
+        \ source <afile> | FileTypeReload
 endif
 
 " Keep the viminfo file in a cache subdirectory of $MYVIM, creating that
@@ -764,7 +761,7 @@ nnoremap <Leader>e :<C-U>setlocal modifiable noreadonly<CR>
 nnoremap <Leader>f :<C-U>setlocal formatoptions?<CR>
 
 " \F reloads filetype plugins
-nnoremap <Leader>F :<C-U>doautocmd filetypedetect BufRead<CR>
+nnoremap <Leader>F :<C-U>FileTypeReload<CR>
 
 " \g shows the current file's fully expanded path
 nnoremap <Leader>g :<C-U>echo expand('%:p')<CR>
