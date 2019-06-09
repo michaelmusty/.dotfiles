@@ -595,14 +595,27 @@ set laststatus=1
 "
 set lazyredraw
 
+" Define meta-characters to show in place of otherwise difficult to detect
+" characters, or line wrapping attributes when the 'list' option is enabled.
+"
+" We reset the option to its default value first, because at the time of
+" writing at least, Neovim v0.3.5 doesn't check these for uniqueness,
+" resulting in duplicates if this file is reloaded.
+"
+set listchars&vi
 
-" Define extra 'list' display characters
-set listchars&vi  " Neovim adds duplicates otherwise
-set listchars+=tab:>-      " Tab characters, preserve width
-set listchars+=trail:-     " Trailing spaces
+" These ones all correspond to otherwise invisible or indistinguishable
+" characters.  We leave the default eol:$ in place to show newlines, too.
+"
+set listchars+=tab:>-   " Tab characters, preserve width with hyphens
+set listchars+=trail:-  " Trailing spaces
+set listchars+=nbsp:+   " Non-breaking spaces
+
+" These two are actually somewhat misplaced, in that they don't represent
+" characters, but the line wrap state.  They're useful, though.
+"
 set listchars+=extends:>   " Unwrapped text to screen right
 set listchars+=precedes:<  " Unwrapped text to screen left
-set listchars+=nbsp:+      " Non-breaking spaces
 
 " Don't let your editor's options be configured by content in arbitrary files!
 " Down with modelines!  Purge them from your files!
