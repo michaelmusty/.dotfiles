@@ -282,15 +282,6 @@ else
   let &softtabstop = &shiftwidth
 endif
 
-" Relax traditional vi's harsh standards over what regions of the buffer can
-" be removed with backspace in insert mode.  While this admittedly allows bad
-" habits to continue, since insert mode by definition is not really intended
-" for deleting text, I feel the convenience outweighs that in this case.
-"
-set backspace+=eol     " Line breaks
-set backspace+=indent  " Leading whitespace characters created by 'autoindent'
-set backspace+=start   " Text before the start of the current insertion
-
 " Enable automatic backups of most file buffers.  In practice, I don't need
 " these backups very much if I'm using version control sensibly, but they have
 " still saved my bacon a few times.
@@ -353,6 +344,15 @@ if has('unix')
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 
 endif
+
+" Relax traditional vi's harsh standards over what regions of the buffer can
+" be removed with backspace in insert mode.  While this admittedly allows bad
+" habits to continue, since insert mode by definition is not really intended
+" for deleting text, I feel the convenience outweighs that in this case.
+"
+set backspace+=eol     " Line breaks
+set backspace+=indent  " Leading whitespace characters created by 'autoindent'
+set backspace+=start   " Text before the start of the current insertion
 
 " The visual structure of code provided by indents breaks down if a lot of the
 " lines wrap.  Ideally, most if not all lines would be kept below 80
