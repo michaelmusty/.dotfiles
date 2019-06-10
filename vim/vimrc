@@ -175,10 +175,13 @@ endif
 " FileTypeReload, which just re-runs BufRead events for filetype detection if
 " they've been loaded.
 "
+function! s:FileTypeReload() abort
+  if exists('did_load_filetypes')
+    doautocmd filetypedetect BufRead
+  endif
+endfunction
 command! FileTypeReload
-      \ if exists('did_load_filetypes')
-      \|  doautocmd filetypedetect BufRead
-      \|endif
+      \ call s:FileTypeReload()
 
 " Create a 'vimrc' automatic command hook group, if it doesn't already exist,
 " and clear away any automatic command hooks already defined within it if it
