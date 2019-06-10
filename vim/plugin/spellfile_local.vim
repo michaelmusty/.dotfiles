@@ -23,7 +23,11 @@ function! AddLocalSpellfile() abort
   execute 'setlocal spellfile+=$MYVIM/cache/spell/local/'.spellfile
   nnoremap <buffer> zG 2zg
 endfunction
-autocmd vimrc BufRead *
 
 command! AddLocalSpellFile
       \ call AddLocalSpellFile()
+
+augroup spellfile_local
+  autocmd BufRead *
+        \ AddLocalSpellfile
+augroup END
