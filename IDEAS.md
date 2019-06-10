@@ -33,7 +33,3 @@ Ideas
   some point
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
   tag named `vX.Y.Z`.
-* I'd like to make the zG command in Vim a bit more useful by maintaining
-  a per-file cache of added words, indexed by path, mapping it to 2zg or 3zg
-  rather like Steve Losh does.  I wouldn't think it would be too hard;
-  'spellfile' is a buffer-local option.
