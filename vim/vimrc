@@ -175,23 +175,11 @@ augroup vimrc
   autocmd!
 augroup END
 
-" If this file or the vimrc stub that calls it is written to by Vim, we'd like
-" to reload the stub vimrc and thereby the main vimrc, so that our changes
-" apply immediately in the current editing session.  This often makes broken
-" changes immediately apparent.
-"
-autocmd vimrc BufWritePost $MYVIMRC
-      \ source $MYVIMRC
-if $MYVIMRC !=# ''
-  autocmd vimrc BufWritePost $MYVIM/vimrc
-        \ doautocmd vimrc BufWritePost $MYVIMRC
-endif
-
-" Similarly, if this file or the vimrc stub that calls it is sourced, whether
-" because of the above hook, or the <Leader>R mapping prescribed later in this
-" file, add a hook that re-runs filetype detection and thereby ftplugin
-" loading.  This is chiefly so that any global options set in this file don't
-" trample over needed buffer-local settings.
+" If this file or the vimrc stub that calls it is sourced, whether because of
+" the above hook, or the <Leader>R mapping prescribed later in this file, add
+" a hook that re-runs filetype detection and thereby ftplugin loading.  This
+" is chiefly so that any global options set in this file don't trample over
+" needed buffer-local settings.
 "
 " We'll abstract this away a bit behind a new user command named
 " FileTypeReload, which just re-runs BufRead events for filetype detection if
@@ -216,12 +204,21 @@ command! FileTypeReload
 " exists first.
 "
 if exists('##SourceCmd')
-  autocmd vimrc SourceCmd $MYVIMRC
-        \ source <afile> | FileTypeReload
-  if $MYVIM !=# ''
-    autocmd vimrc SourceCmd $MYVIM/vimrc
-          \ doautocmd vimrc SourceCmd $MYVIMRC
-  endif
+  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+        \ source <sfile> | FileTypeReload
+endif
+
+" If this file or the vimrc stub that calls it is written to by Vim, we'd like
+" to reload the stub vimrc and thereby the main vimrc, so that our changes
+" apply immediately in the current editing session.  This often makes broken
+" changes immediately apparent.  We can lean on the SourceCmd hook we just
+" established to do this; in fact, we'll only establish this hook if we can do
+" so, because otherwise filetype plugins won't reload, and options like
+" 'shiftwidth' might be set incorrectly.
+"
+if exists('#vimrc#SourceCmd')
+  autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+        \ doautocmd vimrc SourceCmd
 endif
 
 " Keep the viminfo file in a cache subdirectory of the user runtime directory,
@@ -955,7 +952,7 @@ try
   colorscheme sahara
   set cursorline
 catch
-  syntax reset
+  colorscheme default
   set background=dark
   set nocursorline
 endtry
