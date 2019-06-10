@@ -165,16 +165,6 @@ if $MYVIM !=# ''
   EnsureDir $MYVIM
 endif
 
-" Create a 'vimrc' automatic command hook group, if it doesn't already exist,
-" and clear away any automatic command hooks already defined within it if it
-" does.  This way, we don't end up collecting multiple copies of the hooks
-" configured in the rest of this file if it's reloaded.  I don't want to make
-" the :augroup span the entire file, though.
-"
-augroup vimrc
-  autocmd!
-augroup END
-
 " If this file or the vimrc stub that calls it is sourced, whether because of
 " the above hook, or the <Leader>R mapping prescribed later in this file, add
 " a hook that re-runs filetype detection and thereby ftplugin loading.  This
@@ -189,6 +179,16 @@ command! FileTypeReload
       \ if exists('did_load_filetypes')
       \|  doautocmd filetypedetect BufRead
       \|endif
+
+" Create a 'vimrc' automatic command hook group, if it doesn't already exist,
+" and clear away any automatic command hooks already defined within it if it
+" does.  This way, we don't end up collecting multiple copies of the hooks
+" configured in the rest of this file if it's reloaded.  I don't want to make
+" the :augroup span the entire file, though.
+"
+augroup vimrc
+  autocmd!
+augroup END
 
 " Now we'll use that new :FileTypeReload command as part of an automatic
 " command hook that runs whenever this vimrc is sourced.
