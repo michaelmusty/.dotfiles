@@ -1012,13 +1012,10 @@ endtry
 "
 " I always wanted you to go into space, man.
 "
-if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
-      \ && &loadplugins
-  nmap <Space>
-        \ <Plug>(ScrollNext)
+if &loadplugins && globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
+  nmap <Space> <Plug>(ScrollNext)
 else
-  nnoremap <Space>
-        \ <PageDown>
+  nnoremap <Space> <PageDown>
 endif
 
 " I hate CTRL-C in insert mode, which ends the insert session without firing
@@ -1058,10 +1055,8 @@ endif
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
-      \ && &loadplugins
-  imap <C-C>
-        \ <Plug>(InsertCancel)
+if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
+  imap <C-C> <Plug>(InsertCancel)
 endif
 
 " I often don't remember or can't guess digraph codes very well, and want to
@@ -1096,8 +1091,7 @@ endif
 " checking that the plugin's available before we map to it; it'll just quietly
 " do nothing.
 "
-imap <C-K><C-K>
-      \ <Plug>(DigraphSearch)
+imap <C-K><C-K> <Plug>(DigraphSearch)
 
 " I end up hitting CTRL-L to clear or redraw the screen in interactive shells
 " and tools like Mutt and Vim pretty often.  It feels natural to me to stack
@@ -1143,8 +1137,7 @@ xnoremap &
 " didn't seem to be an analogue for a motion to filter text through an
 " internal command like :sort, so I wrote one.
 "
-nmap g:
-      \ <Plug>(ColonOperator)
+nmap g: <Plug>(ColonOperator)
 
 " I used Tim Pope's unimpaired.vim plugin for ages, and I liked some of these
 " bracket pair mappings, so I've carried a few of the simpler ones over.  All
@@ -1179,10 +1172,8 @@ nnoremap ]l
 " put_blank_lines.vim.  These use operator functions so that they're
 " repeatable without repeat.vim.  They accept count prefixes, too.
 "
-nmap [<Space>
-      \ <Plug>(PutBlankLinesAbove)
-nmap ]<Space>
-      \ <Plug>(PutBlankLinesBelow)
+nmap [<Space> <Plug>(PutBlankLinesAbove)
+nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
 " We're on to the leader maps, now.  It's difficult to know what order to put
 " these in; I originally had them in alphabetical order, but it seems more
@@ -1232,33 +1223,27 @@ nnoremap <Leader>s
 "" Leader,C toggles highlighted cursor column; works in visual mode
 nnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-xmap <Leader>C
-      \ <Esc><Leader>Cgv
+xmap <Leader>C <Esc><Leader>Cgv
 "" Leader,l toggles showing tab, end-of-line, and trailing white space
 nnoremap <Leader>l
       \ :<C-U>setlocal list! list?<CR>
-xmap <Leader>l
-      \ <Esc><Leader>lgv
+xmap <Leader>l <Esc><Leader>lgv
 "" Leader,n toggles line number display
 nnoremap <Leader>n
       \ :<C-U>setlocal number! number?<CR>
-xmap <Leader>n
-      \ <Esc><Leader>ngv
+xmap <Leader>n <Esc><Leader>ngv
 "" Leader,N toggles position display in bottom right
 nnoremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
-xmap <Leader>N
-      \ <Esc><Leader>Ngv
+xmap <Leader>N <Esc><Leader>Ngv
 "" Leader,p toggles paste mode
 nnoremap <Leader>p
       \ :<C-U>set paste! paste?<CR>
-xmap <Leader>p
-      \ <Esc><Leader>pgv
+xmap <Leader>p <Esc><Leader>pgv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
       \ :<C-U>setlocal wrap! wrap?<CR>
-xmap <Leader>w
-      \ <Esc><Leader>wgv
+xmap <Leader>w <Esc><Leader>wgv
 
 " This next one just shows option state of the 'formatoptions' affecting how
 " text is automatically formatted; it doesn't change its value.
@@ -1295,8 +1280,7 @@ nnoremap <Leader>z
 "
 
 "" Leader,b toggles settings friendly to copying and pasting
-nmap <Leader>b
-      \ <Plug>(CopyLinebreakToggle)
+nmap <Leader>b <Plug>(CopyLinebreakToggle)
 
 " The above mappings show that mappings for toggling boolean options are
 " simple, but there isn't a way to toggle single flags within option strings,
@@ -1310,8 +1294,7 @@ nnoremap <Leader>a
 "" Leader,L toggles 'colorcolumn' showing the first column beyond 'textwidth'
 nnoremap <Leader>L
       \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
-xmap <Leader>L
-      \ <Esc><Leader>Lgv
+xmap <Leader>L <Esc><Leader>Lgv
 
 " These mappings are for managing filetypes.  The first one uses the
 " :FileTypeReload command that was defined much earlier in this file.for
@@ -1385,9 +1368,9 @@ nnoremap <Leader>g
 "" Leader,G changes directory to the current file's location
 nnoremap <Leader>G
       \ :<C-U>cd %:h<Bar>pwd<CR>
-"" Leader,P creates the path to the current file
+"" Leader,P creates the path to the current file if it doesn't exist
 nnoremap <Leader>P
-      \ :<C-U>call mkdir(expand('%:h'), 'p')<CR>
+      \ :<C-U>EnsureDir %:h<CR>
 
 " This group contains mappings that show information about Vim's internals:
 " marks, registers, variables, and the like.
@@ -1472,17 +1455,13 @@ onoremap <Leader>%
 " This group defines some useful motions.
 
 "" Leader,{ and Leader,} move to lines with non-space chars before current column
-map <Leader>{
-      \ <Plug>(VerticalRegionUp)
+map <Leader>{ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
-map <Leader>}
-      \ <Plug>(VerticalRegionDown)
+map <Leader>} <Plug>(VerticalRegionDown)
 sunmap <Leader>}
 "" Leader,\ jumps to the last edit position mark: think "Now, where was I?"
-nnoremap <Leader>\
-      \ `"
-xnoremap <Leader>\
-      \ `"
+nnoremap <Leader>\ `"
+xnoremap <Leader>\ `"
 
 " This group does both: useful motions on defined text objects.
 
@@ -1509,24 +1488,17 @@ nnoremap <Leader>?
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
 "" Leader,o opens a line below in paste mode
-nmap <Leader>o
-      \ <Plug>(PasteOpenBelow)
+nmap <Leader>o <Plug>(PasteOpenBelow)
 "" Leader,O opens a line above in paste mode
-nmap <Leader>O
-      \ <Plug>(PasteOpenAbove)
+nmap <Leader>O <Plug>(PasteOpenAbove)
 "" Leader,q formats the current paragraph
-nnoremap <Leader>q
-      \ gqap
+nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator
-nmap <Leader>r
-      \ <Plug>(ReplaceOperator)
-xmap <Leader>r
-      \ <Plug>(ReplaceOperator)
+nmap <Leader>r <Plug>(ReplaceOperator)
+xmap <Leader>r <Plug>(ReplaceOperator)
 "" Leader,* escapes regex metacharacters
-nmap <Leader>*
-      \ <Plug>(RegexEscape)
-xmap <Leader>*
-      \ <Plug>(RegexEscape)
+nmap <Leader>* <Plug>(RegexEscape)
+xmap <Leader>* <Plug>(RegexEscape)
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  Doing this triggers
@@ -1543,24 +1515,17 @@ nnoremap <Leader>R
 " pretty useful.  First, some 'deliberate' abbreviations for stuff I type
 " a lot:
 "
-inoreabbrev tr@
-      \ tom@sanctum.geek.nz
-inoreabbrev tr/
-      \ <https://sanctum.geek.nz/>
+inoreabbrev tr@ tom@sanctum.geek.nz
+inoreabbrev tr/ <https://sanctum.geek.nz/>
 
 " And then, just fix some typographical and spelling errors for me
 " automatically.
 "
-inoreabbrev almsot
-      \ almost
-inoreabbrev wrnog
-      \ wrong
-inoreabbrev Fielding
-      \ Feilding
-inoreabbrev THe
-      \ The
-inoreabbrev THere
-      \ There
+inoreabbrev almsot almost
+inoreabbrev wrnog wrong
+inoreabbrev Fielding Feilding
+inoreabbrev THe The
+inoreabbrev THere There
 
 " Here endeth the literate vimrc.
 "
