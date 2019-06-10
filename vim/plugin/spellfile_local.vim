@@ -24,4 +24,6 @@ function! AddLocalSpellfile() abort
   nnoremap <buffer> zG 2zg
 endfunction
 autocmd vimrc BufRead *
+
+command! AddLocalSpellFile
       \ call AddLocalSpellFile()
