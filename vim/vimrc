@@ -658,7 +658,7 @@ else
 endif
 
 " Don't let your editor's options be configured by content in arbitrary files!
-" Down with modelines!  Purge them from your files!
+" Down with modelines!  Purge them from your files!  Écrasez l'infâme!
 "
 " I think that modelines are Vim's worst misfeature, and that 'nomodeline'
 " should be the default.  It's enabled pretty bad security vulnerabilities
@@ -1169,9 +1169,9 @@ nnoremap <Leader>C
 xnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
-" Print an RFC2822-compliant date string
-command! PutDate
-      \ put =strftime('%a, %d %b %Y %T %z')
+" Insert an RFC2822-compliant date string into the buffer
+command! -range PutDate
+      \ <line1>put =strftime('%a, %d %b %Y %T %z')
 
 " Set up a quick command-function pair to run a command with the UTC timezone,
 " in this case, for my date-printing mappings.  Is there a nicer way to do

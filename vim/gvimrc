@@ -1,3 +1,8 @@
+" On Windows, use a nicer font that supports Unicode
+if has('win32') || has('win64')
+  set guifont=Consolas:h10
+endif
+
 " Reset GUI options
 set guioptions=
 set guioptions+=a  " Use the system GUI clipboard
