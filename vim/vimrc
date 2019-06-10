@@ -142,7 +142,7 @@ function! s:ReloadFileType() abort
     doautocmd filetypedetect BufRead
   endif
 endfunction
-command! ReloadFileType
+command! -bar ReloadFileType
       \ call s:ReloadFileType()
 
 " We'll also define a :ReloadVimrc command.  This may seem like overkill at
@@ -162,7 +162,7 @@ command! ReloadFileType
 " from running the :source command with a :noautocmd wrapper.  This is
 " a defensive measure to avoid infinite recursion.
 "
-command! ReloadVimrc
+command! -bar ReloadVimrc
       \ noautocmd source $MYVIMRC | ReloadFileType
 
 " Reset and define a group of automatic command hooks specific to matters
@@ -222,7 +222,7 @@ endfunction
 " names as candidates, and specify that there must be only one argument, which
 " we'll provide as a quoted parameter to the function.
 "
-command! -complete=dir -nargs=1 Establish
+command! -bar -complete=dir -nargs=1 Establish
       \ call s:Establish(<q-args>)
 
 " Now that we have a clean means to create directories if they don't already
