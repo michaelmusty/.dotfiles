@@ -1170,8 +1170,8 @@ xnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
 " Insert an RFC2822-compliant date string into the buffer
-command! PutDate
-      \ put =strftime('%a, %d %b %Y %T %z')
+command! -range PutDate
+      \ <line1>put =strftime('%a, %d %b %Y %T %z')
 
 " Set up a quick command-function pair to run a command with the UTC timezone,
 " in this case, for my date-printing mappings.  Is there a nicer way to do
