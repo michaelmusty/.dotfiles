@@ -169,7 +169,7 @@ endif
 " and clear away any automatic command hooks already defined within it if it
 " does.  This way, we don't end up collecting multiple copies of the hooks
 " configured in the rest of this file if it's reloaded.  I don't want to make
-" the augroup span the entire file, though.
+" the :augroup span the entire file, though.
 "
 augroup vimrc
   autocmd!
