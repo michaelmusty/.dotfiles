@@ -1343,10 +1343,10 @@ nnoremap <Leader>k
       \ :<C-U>marks<CR>
 "" Leader,m shows normal maps
 nnoremap <Leader>m
-      \ :<C-U>map<CR>
+      \ :<C-U>nmap<CR>
 "" Leader,M shows buffer-local normal maps
 nnoremap <Leader>M
-      \ :<C-U>map <buffer><CR>
+      \ :<C-U>nmap <buffer><CR>
 "" Leader,S shows loaded scripts
 nnoremap <Leader>S
       \ :<C-U>scriptnames<CR>
