@@ -170,49 +170,58 @@ function! s:FileTypeReload() abort
     doautocmd filetypedetect BufRead
   endif
 endfunction
+
+" The command accepts no arguments, and has no range.  It just calls the
+" function; that's all.  It's also used by the <Leader>F mapping defined later
+" in this file.
+"
 command! FileTypeReload
       \ call s:FileTypeReload()
 
-" Create a 'vimrc' automatic command hook group, if it doesn't already exist,
-" and clear away any automatic command hooks already defined within it if it
-" does.  This way, we don't end up collecting multiple copies of the hooks
-" configured in the rest of this file if it's reloaded.  I don't want to make
-" the :augroup span the entire file, though.
+" Create a 'vimrc' automatic command hook group, if it doesn't already exist;
+" this group should only be used for command hooks related to this vimrc
+" itself.
 "
 augroup vimrc
+
+  " Clear away any automatic command hooks already defined within it if it
+  " does.  This way, we don't end up collecting multiple copies of the hooks
+  " configured in the rest of this file if it's reloaded.
+  "
   autocmd!
+
+  " Now we'll use that new :FileTypeReload command as part of an automatic
+  " command hook that runs whenever this vimrc is sourced.
+  "
+  " If there's stuff in any of your filetype plugins that doesn't cope well with
+  " being reloaded, and just assumes a single BufRead event, it might be
+  " necessary to rewrite those parts to be idempotent, or to add load guards
+  " around them so that they only run once.
+  "
+  " Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
+  " this main file is saved, using :doautocmd abstraction.  Note also that the
+  " SourceCmd event wasn't added until Vim 7.0.187, so we need to check it
+  " exists first.
+  "
+  if exists('##SourceCmd')
+    autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
+          \ source <sfile> | FileTypeReload
+  endif
+
+  " If this file or the vimrc stub that calls it is written to by Vim, we'd like
+  " to reload the stub vimrc and thereby the main vimrc, so that our changes
+  " apply immediately in the current editing session.  This often makes broken
+  " changes immediately apparent.  We can lean on the SourceCmd hook we just
+  " established to do this; in fact, we'll only establish this hook if we can do
+  " so, because otherwise filetype plugins won't reload, and options like
+  " 'shiftwidth' might be set incorrectly.
+  "
+  if exists('#vimrc#SourceCmd')
+    autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
+          \ doautocmd vimrc SourceCmd
+  endif
+
 augroup END
-
-" Now we'll use that new :FileTypeReload command as part of an automatic
-" command hook that runs whenever this vimrc is sourced.
-"
-" If there's stuff in any of your filetype plugins that doesn't cope well with
-" being reloaded, and just assumes a single BufRead event, it might be
-" necessary to rewrite those parts to be idempotent, or to add load guards
-" around them so that they only run once.
-"
-" Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
-" this main file is saved, using :doautocmd abstraction.  Note also that the
-" SourceCmd event wasn't added until Vim 7.0.187, so we need to check it
-" exists first.
-"
-if exists('##SourceCmd')
-  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
-        \ source <sfile> | FileTypeReload
-endif
-
-" If this file or the vimrc stub that calls it is written to by Vim, we'd like
-" to reload the stub vimrc and thereby the main vimrc, so that our changes
-" apply immediately in the current editing session.  This often makes broken
-" changes immediately apparent.  We can lean on the SourceCmd hook we just
-" established to do this; in fact, we'll only establish this hook if we can do
-" so, because otherwise filetype plugins won't reload, and options like
-" 'shiftwidth' might be set incorrectly.
-"
-if exists('#vimrc#SourceCmd')
-  autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ doautocmd vimrc SourceCmd
-endif
 
 " Keep the viminfo file in a cache subdirectory of the user runtime directory,
 " creating that subdirectory first if necessary.
