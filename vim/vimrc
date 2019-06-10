@@ -169,7 +169,7 @@ endif
 " and clear away any automatic command hooks already defined within it if it
 " does.  This way, we don't end up collecting multiple copies of the hooks
 " configured in the rest of this file if it's reloaded.  I don't want to make
-" the augroup span the entire file, though.
+" the :augroup span the entire file, though.
 "
 augroup vimrc
   autocmd!
@@ -460,7 +460,7 @@ endif
 
 " By default, I prefer that figuring out where a region of text to fold away
 " should be done by the indent level of its lines, since I tend to be careful
-" about my indentation even in languages where it has no structure
+" about my indentation even in languages where it has no structural
 " significance.
 "
 set foldmethod=indent
@@ -1009,9 +1009,8 @@ endtry
 " However, I only want that functionality mapped if the required plugin is
 " actually going to load, so I check that it's available and that the
 " 'loadplugin' option is set before using its provided map target, because if
-" it doesn't it will kill the space key.  it kills the space key.  If the
-" plugin doesn't look like it's going to load, I just bind Space to do the
-" same thing as PageDown.
+" it doesn't it will kill the space key.  If the plugin doesn't look like it's
+" going to load, I just bind Space to do the same thing as PageDown.
 "
 " Either way, the downside of this arrangement is it's an easy key to hit
 " accidentally.  I'm keeping it for the moment, though.
@@ -1031,7 +1030,9 @@ endif
 " the InsertLeave event for automatic command hooks.  It seems worse than
 " useless; why would you want that?  It breaks plugins that hinge on mirrored
 " functionality between the InsertEnter and InsertLeave automatic command
-" events, and doesn't otherwise do anything different from Escape.  Terrible!
+" events, and doesn't otherwise do anything different from Escape.  Even
+" worse, people think it's a *synonym* for Escape, and use it because it's
+" easier to reach than the Escape key or CTRL-[.  It's terrible!
 "
 " Instead, I apply a custom plugin named insert_cancel.vim to make it cancel
 " the current insert operation; that is, if the buffer has changed at all
