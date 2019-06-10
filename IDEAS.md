@@ -33,3 +33,5 @@ Ideas
   some point
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
   tag named `vX.Y.Z`.
+* Per-filetype spelling dictionaries might be a good idea, e.g. writing all the
+  valid :commands and 'options' for Vim script into a file for ft=vim.
