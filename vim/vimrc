@@ -51,7 +51,7 @@ scriptencoding utf-8
 " variable MYVIM for the user runtime directory, if such a variable does not
 " already exist in the environment, and there's a value in 'runtimepath' from
 " which to glean a useable path.  We'll use the path nominated in the MYVIM
-" variable as the root of our 'backupdir', 'directory', 'undodir', and
+" variable as the root of our 'nackupdir', 'directory', 'undodir', and
 " 'viminfofile' caches, and anywhere else we need a sensible writeable
 " location for Vim-related files.  Having it available as an environment
 " variable makes assignments with :set more convenient, without requiring
@@ -265,66 +265,6 @@ set viminfo+=n$MYVIM/cache/viminfo
 "
 set history=10000
 
-" Next, we'll modernise a little in adjusting some options with old
-" language-specific defaults.
-"
-" Traditional vi was often used for development in the C programming language.
-" The default values for a lot of Vim's options still reflect this common use
-" pattern.  In this case, the 'comments' and 'commentstring' options reflect
-" the C syntax for comments:
-"
-"     /*
-"      * This is an ANSI C comment.
-"      */
-"
-" Similarly, the 'define' and 'include' options default to C preprocessor
-" directives:
-"
-"     #define FOO "bar"
-"
-"     #include "baz.h"
-"
-" Times change, however, and I don't get to work with C nearly as much as I'd
-" like.  The defaults for these options no longer make sense, and so we blank
-" them, compelling filetype plugins to set them as they need instead.
-"
-set comments= commentstring= define= include=
-
-" The default value for the 'path' option is similar, in that it has an aged
-" default; this option specifies directories in which project files and
-" includes can be unearthed by navigation commands like 'gf'.  Specifically,
-" its default value comprises /usr/include, which is another C default.  Let's
-" get rid of that, too.
-"
-set path-=/usr/include
-
-" Next, we'll adjust the global indentation settings.  In general and as
-" a default, I prefer spaces to tabs, and I like to use four of them, for
-" a more distinct visual structure.  Should you happen to disagree with this,
-" I cordially invite you to fite me irl.
-"
-" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
-"
-" Filetype indent plugins will often refine these settings for individual
-" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
-" the Go programming language.  For another, two-space indents are more
-" traditional for Vim script.
-"
-set autoindent    " Use indent of previous line on new lines
-set expandtab     " Insert spaces when tab key is pressed in insert mode
-set shiftwidth=4  " Indent command like < and > use four-space indents
-
-" Apply 'softtabstop' option to make a tab key press in insert mode insert the
-" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
-" Vim is new enough to support it (v7.3.693), apply a negative value to do
-" this dynamically if 'shiftwidth' changes.
-"
-if v:version > 730 || v:version == 730 && has('patch693')
-  set softtabstop=-1
-else
-  let &softtabstop = &shiftwidth
-endif
-
 " Enable automatic backups of most file buffers.  In practice, I don't need
 " these backups very much if I'm using version control sensibly, but they have
 " still saved my bacon a few times.  We're not done here yet, though; it
@@ -386,6 +326,143 @@ if has('unix')
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 endif
 
+" Keep swap files for file buffers in a dedicated directory, rather than the
+" default of writing them to the same directory as the buffer file.  Add two
+" trailing slashes to the path to prompt Vim to use the full escaped path in
+" its name, in order to avoid filename collisions.  Create that path if
+" needed, too.
+"
+Establish $MYVIM/cache/swap
+set directory^=$MYVIM/cache/swap//
+
+" Keep tracked undo history for files permanently, in a dedicated cache
+" directory, so that the u/:undo and CTRL-R/:redo commands will work between
+" Vim invocations.
+"
+" Support for persistent undo file caches was not added until v7.2.438, so we
+" need to check for the feature's presence before we enable it.
+"
+if has('persistent_undo')
+
+  " This has the same structure as 'backupdir' and 'directory'; if we have
+  " a user runtime directory, create a sub-subdirectory within it dedicated to
+  " the undo files cache.  Note also the trailing double-slash as a signal to
+  " Vim to use the full path of the original file in its undo file cache's
+  " name.
+  "
+  Establish $MYVIM/cache/undo
+  set undodir^=$MYVIM/cache/undo//
+
+  " Turn the persistent undo features on, regardless of whether we have
+  " a cache directory for them as a result of the logic above.  The files
+  " might sprinkle around the filesystem annoyingly, but that's still better
+  " than losing the history completely.
+  "
+  set undofile
+
+endif
+
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, the 'dictionary' option specifies the path to the
+" system word list.  This makes the dictionary completion work consistently,
+" even if 'spell' isn't set at the time to coax it into using 'spellfile'.
+"
+" It's not an error if the system directory file added first doesn't exist;
+" it's just a common location that often yields a workable word list, and does
+" so on all of my main machines.
+"
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently, and with reference to the same resources.  For the
+" moment, I've just added another entry referring to a directory in the user
+" runtime directory, but I don't have anything distinct to put there yet.
+"
+" In much the same way, we add an expected path to a thesaurus, for completion
+" with CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
+" thesaurus data isn't installed as part of the default `install-vim` target
+" in tejr's dotfiles, but it can be retrieved and installed with
+" `install-vim-thesaurus`.
+"
+" I got the thesaurus itself from the link in the :help for 'thesaurus' in
+" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" website that the Makefile recipe attempts to retrieve.  I had to remove the
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpret
+" them as part of the body data.
+"
+" Extra checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
+" need to be made, because the P_NDNAME property is assigned to them, which
+" enforces a character blacklist in the option value.  We check for the same
+" set of blacklist characters here, and if the MYVIM path offends, we just
+" skip the setting entirely, rather than throwing cryptic errors at the user.
+" None of them are particularly wise characters to have in paths, anyway,
+" legal though they may be on Unix filesystems.
+"
+set dictionary^=/usr/share/dict/words
+if $MYVIM !~# '[*?[|;&<>\r\n]'
+  set dictionary^=$MYVIM/ref/dictionary.txt
+  set thesaurus^=$MYVIM/ref/thesaurus.txt
+endif
+
+" Next, we'll modernise a little in adjusting some options with old
+" language-specific defaults.
+"
+" Traditional vi was often used for development in the C programming language.
+" The default values for a lot of Vim's options still reflect this common use
+" pattern.  In this case, the 'comments' and 'commentstring' options reflect
+" the C syntax for comments:
+"
+"     /*
+"      * This is an ANSI C comment.
+"      */
+"
+" Similarly, the 'define' and 'include' options default to C preprocessor
+" directives:
+"
+"     #define FOO "bar"
+"
+"     #include "baz.h"
+"
+" Times change, however, and I don't get to work with C nearly as much as I'd
+" like.  The defaults for these options no longer make sense, and so we blank
+" them, compelling filetype plugins to set them as they need instead.
+"
+set comments= commentstring= define= include=
+
+" The default value for the 'path' option is similar, in that it has an aged
+" default; this option specifies directories in which project files and
+" includes can be unearthed by navigation commands like 'gf'.  Specifically,
+" its default value comprises /usr/include, which is another C default.  Let's
+" get rid of that, too.
+"
+set path-=/usr/include
+
+" Next, we'll adjust the global indentation settings.  In general and as
+" a default, I prefer spaces to tabs, and I like to use four of them, for
+" a more distinct visual structure.  Should you happen to disagree with this,
+" I cordially invite you to fite me irl.
+"
+" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
+"
+" Filetype indent plugins will often refine these settings for individual
+" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
+" the Go programming language.  For another, two-space indents are more
+" traditional for Vim script.
+"
+set autoindent    " Use indent of previous line on new lines
+set expandtab     " Insert spaces when tab key is pressed in insert mode
+set shiftwidth=4  " Indent command like < and > use four-space indents
+
+" Apply 'softtabstop' option to make a tab key press in insert mode insert the
+" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
+" Vim is new enough to support it (v7.3.693), apply a negative value to do
+" this dynamically if 'shiftwidth' changes.
+"
+if v:version > 730 || v:version == 730 && has('patch693')
+  set softtabstop=-1
+else
+  let &softtabstop = &shiftwidth
+endif
+
 " Relax traditional vi's harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
 " habits to continue, since insert mode by definition is not really intended
@@ -435,15 +512,6 @@ endif
 " what I'm doing.
 "
 set confirm
-
-" Keep swap files for file buffers in a dedicated directory, rather than the
-" default of writing them to the same directory as the buffer file.  Add two
-" trailing slashes to the path to prompt Vim to use the full escaped path in
-" its name, in order to avoid filename collisions.  Create that path if
-" needed, too.
-"
-Establish $MYVIM/cache/swap
-set directory^=$MYVIM/cache/swap//
 
 " If Vim receives an Escape key code in insert mode, it shouldn't wait to see
 " if it's going to be followed by another key code, despite this being how the
@@ -748,33 +816,6 @@ if exists('+ttymouse')
   set ttymouse=
 endif
 
-" Keep tracked undo history for files permanently, in a dedicated cache
-" directory, so that the u/:undo and CTRL-R/:redo commands will work between
-" Vim invocations.
-"
-" Support for persistent undo file caches was not added until v7.2.438, so we
-" need to check for the feature's presence before we enable it.
-"
-if has('persistent_undo')
-
-  " This has the same structure as 'backupdir' and 'directory'; if we have
-  " a user runtime directory, create a sub-subdirectory within it dedicated to
-  " the undo files cache.  Note also the trailing double-slash as a signal to
-  " Vim to use the full path of the original file in its undo file cache's
-  " name.
-  "
-  Establish $MYVIM/cache/undo
-  set undodir^=$MYVIM/cache/undo//
-
-  " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them as a result of the logic above.  The files
-  " might sprinkle around the filesystem annoyingly, but that's still better
-  " than losing the history completely.
-  "
-  set undofile
-
-endif
-
 " While using virtual block mode, allow me to navigate to any column of the
 " buffer window; don't confine the boundaries of the block to the coordinates
 " of characters that actually exist in the buffer text.  While working with
@@ -861,47 +902,6 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
 "
 if exists('+wildignorecase')
   set wildignorecase
-endif
-
-" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, the 'dictionary' option specifies the path to the
-" system word list.  This makes the dictionary completion work consistently,
-" even if 'spell' isn't set at the time to coax it into using 'spellfile'.
-"
-" It's not an error if the system directory file added first doesn't exist;
-" it's just a common location that often yields a workable word list, and does
-" so on all of my main machines.
-"
-" At some point, I may end up having to set this option along with 'spellfile'
-" a bit more intelligently to ensure that spell checking and dictionary
-" function consistently, and with reference to the same resources.  For the
-" moment, I've just added another entry referring to a directory in the user
-" runtime directory, but I don't have anything distinct to put there yet.
-"
-" In much the same way, we add an expected path to a thesaurus, for completion
-" with CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
-" thesaurus data isn't installed as part of the default `install-vim` target
-" in tejr's dotfiles, but it can be retrieved and installed with
-" `install-vim-thesaurus`.
-"
-" I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
-" website that the Makefile recipe attempts to retrieve.  I had to remove the
-" first two metadata lines from thesaurus.txt, as Vim appeared to interpret
-" them as part of the body data.
-"
-" Extra checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
-" need to be made, because the P_NDNAME property is assigned to them, which
-" enforces a character blacklist in the option value.  We check for the same
-" set of blacklist characters here, and if the MYVIM path offends, we just
-" skip the setting entirely, rather than throwing cryptic errors at the user.
-" None of them are particularly wise characters to have in paths, anyway,
-" legal though they may be on Unix filesystems.
-"
-set dictionary^=/usr/share/dict/words
-if $MYVIM !~# '[*?[|;&<>\r\n]'
-  set dictionary^=$MYVIM/ref/dictionary.txt
-  set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
 
 " Enable syntax highlighting, but only if it's not already on, to save
