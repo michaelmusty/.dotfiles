@@ -11,9 +11,9 @@ let spellfile = join([
       \ ], '.') . '.add'
 execute 'set spellfile=$MYVIM/cache/spell/'.spellfile
 
-EnsureDir $MYVIM/cache/spell/local
+Establish $MYVIM/cache/spell/local
 
-function! AddLocalSpellfile() abort
+function! AddLocalSpellFile() abort
   let spellfile = join([
         \ substitute(expand('%:p'), '[^0-9A-Za-z_.-]', '%', 'g'),
         \ substitute(v:lang, '_.*', '', ''),
@@ -29,5 +29,5 @@ command! AddLocalSpellFile
 
 augroup spellfile_local
   autocmd BufRead *
-        \ AddLocalSpellfile
+        \ AddLocalSpellFile
 augroup END
