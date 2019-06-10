@@ -1185,12 +1185,12 @@ command PutDate
 " getenv() and setenv() functions does not seem to fix it.  It works fine in
 " Debian GNU/Linux's packaged v8.0.x.
 "
-function! UTC(command) abort
+function! s:UTC(command) abort
   let tz = expand('$TZ')
   let $TZ = 'UTC' | execute a:command | let $TZ = tz
 endfunction
 command -complete=command -nargs=1 UTC
-      \ call UTC(<q-args>)
+      \ call s:UTC(<q-args>)
 
 " Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
