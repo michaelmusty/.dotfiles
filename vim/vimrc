@@ -1169,7 +1169,7 @@ nnoremap <Leader>C
 xnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
 
-" Print an RFC2822-compliant date string
+" Insert an RFC2822-compliant date string into the buffer
 command! PutDate
       \ put =strftime('%a, %d %b %Y %T %z')
 
