@@ -1009,9 +1009,8 @@ endtry
 " However, I only want that functionality mapped if the required plugin is
 " actually going to load, so I check that it's available and that the
 " 'loadplugin' option is set before using its provided map target, because if
-" it doesn't it will kill the space key.  it kills the space key.  If the
-" plugin doesn't look like it's going to load, I just bind Space to do the
-" same thing as PageDown.
+" it doesn't it will kill the space key.  If the plugin doesn't look like it's
+" going to load, I just bind Space to do the same thing as PageDown.
 "
 " Either way, the downside of this arrangement is it's an easy key to hit
 " accidentally.  I'm keeping it for the moment, though.
