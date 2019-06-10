@@ -1174,7 +1174,7 @@ xnoremap <Leader>C
 
 " Print an RFC2822-compliant date string
 command PutDate
-      \ put=strftime('%a, %d %b %Y %T %z')
+      \ put =strftime('%a, %d %b %Y %T %z')
 
 " Set up a quick command-function pair to run a command with the UTC timezone,
 " in this case, for my date-printing mappings.  Is there a nicer way to do
