@@ -82,9 +82,8 @@ scriptencoding utf-8
 "
 " Vim, I love you, but you are so weird.
 "
-let runtimepath = split(&runtimepath, '\\\@<!,[, ]*')
-if !exists('$MYVIM') && len(runtimepath) > 0
-  let $MYVIM = runtimepath[0]
+if !exists('$MYVIM')
+  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
 endif
 
 " We need to check the MYVIM environment variable's value to ensure it's not
@@ -103,25 +102,18 @@ endif
 " older versions of Vim, forbid that character.  I haven't found the exact
 " patch level that this was fixed yet, nor the true reason for the bug.
 "
-" If either of these conditions are meant, throw an error and blank the MYVIM
-" variable so that nothing uses it.
+" If either of these conditions are meant, throw an explanatory error and stop
+" reading this file.
 "
-if $MYVIM =~# ','
+if $MYVIM ==# ''
+  echoerr 'Blank user runtime path'
+  finish
+elseif $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
-  let $MYVIM = ''
+  finish
 elseif $MYVIM =~# '\\' && v:version < 702
   echoerr 'Illegal backslash in user runtime path on Vim < v7.2'
-  let $MYVIM = ''
-endif
-
-" If the MYVIM environment variable was set outside Vim, it may not correspond
-" to the first element of the default &runtimepath.  If this is the case,
-" we'll slot it in, having already checked it for troublesome characters.
-"
-if $MYVIM !=# ''
-      \ && len(runtimepath) > 0
-      \ && $MYVIM !=# runtimepath[0]
-  set runtimepath^=$MYVIM
+  finish
 endif
 
 " We're going to be creating a few directories, and the code to do so in
@@ -161,9 +153,7 @@ command! -complete=dir -nargs=1 EnsureDir
 " exist, let's apply it for the first time, in making sure that the MYVIM
 " directory exists, if it's been set.
 "
-if $MYVIM !=# ''
-  EnsureDir $MYVIM
-endif
+EnsureDir $MYVIM
 
 " If this file or the vimrc stub that calls it is sourced, whether because of
 " the above hook, or the <Leader>R mapping prescribed later in this file, add
@@ -239,10 +229,8 @@ endif
 " a nicer way to set it with a 'viminfofile' option, but there's no particular
 " reason to use it until it's in a few more stable versions.
 "
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache
-  set viminfo+=n$MYVIM/cache/viminfo
-endif
+EnsureDir $MYVIM/cache
+set viminfo+=n$MYVIM/cache/viminfo
 
 " Speaking of recorded data in viminfo files, the command and search history
 " count default limit of 50 is pretty restrictive.  Because I don't think I'm
@@ -345,13 +333,11 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache/backup
-  if has('patch-8.1.251')
-    set backupdir^=$MYVIM/cache/backup//
-  else
-    set backupdir^=$MYVIM/cache/backup
-  endif
+EnsureDir $MYVIM/cache/backup
+if has('patch-8.1.251')
+  set backupdir^=$MYVIM/cache/backup//
+else
+  set backupdir^=$MYVIM/cache/backup
 endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
@@ -435,10 +421,8 @@ set confirm
 " its name, in order to avoid filename collisions.  Create that path if
 " needed, too.
 "
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache/swap
-  set directory^=$MYVIM/cache/swap//
-endif
+EnsureDir $MYVIM/cache/swap
+set directory^=$MYVIM/cache/swap//
 
 " If Vim receives an Escape key code in insert mode, it shouldn't wait to see
 " if it's going to be followed by another key code, despite this being how the
@@ -758,10 +742,8 @@ if has('persistent_undo')
   " Vim to use the full path of the original file in its undo file cache's
   " name.
   "
-  if $MYVIM !=# ''
-    EnsureDir $MYVIM/cache/undo
-    set undodir^=$MYVIM/cache/undo//
-  endif
+  EnsureDir $MYVIM/cache/undo
+  set undodir^=$MYVIM/cache/undo//
 
   " Turn the persistent undo features on, regardless of whether we have
   " a cache directory for them as a result of the logic above.  The files
@@ -887,17 +869,16 @@ endif
 " first two metadata lines from thesaurus.txt, as Vim appeared to interpret
 " them as part of the body data.
 "
-" The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
-" need to be stricter than the ones for 'backupdir', because the P_NDNAME
-" property is assigned to them, which enforces a character blacklist in the
-" option value.  We check for the same set of blacklist characters here, and
-" if the MYVIM path offends, we just skip the setting entirely, rather than
-" throwing cryptic errors at the user.  None of them are particularly wise
-" characters to have in paths, anyway, legal though they may be on Unix
-" filesystems.
+" Extra checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
+" need to be made, because the P_NDNAME property is assigned to them, which
+" enforces a character blacklist in the option value.  We check for the same
+" set of blacklist characters here, and if the MYVIM path offends, we just
+" skip the setting entirely, rather than throwing cryptic errors at the user.
+" None of them are particularly wise characters to have in paths, anyway,
+" legal though they may be on Unix filesystems.
 "
 set dictionary^=/usr/share/dict/words
-if $MYVIM !=# '' && $MYVIM !~# '[*?[|;&<>\r\n]'
+if $MYVIM !~# '[*?[|;&<>\r\n]'
   set dictionary^=$MYVIM/ref/dictionary.txt
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
