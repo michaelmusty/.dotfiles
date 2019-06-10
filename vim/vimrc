@@ -143,7 +143,7 @@ endif
 " final one, since every directory we want to create in this file should be
 " locked down in this way.
 "
-function s:EnsureDir(path) abort
+function! s:EnsureDir(path) abort
   let path = expand(a:path)
   return isdirectory(path)
         \ || exists('*mkdir') && mkdir(path, 'p', 0700)
