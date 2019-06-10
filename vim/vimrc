@@ -53,7 +53,9 @@ scriptencoding utf-8
 " which to glean a useable path.  We'll use the path nominated in the MYVIM
 " variable as the root of our 'backupdir', 'directory', 'undodir', and
 " 'viminfofile' caches, and anywhere else we need a sensible writeable
-" location for Vim-related files.
+" location for Vim-related files.  Having it available as an environment
+" variable makes assignments with :set more convenient, without requiring
+" :execute wrappers.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
 " We have VIM, VIMRUNTIME, and MYVIMRC, so why is there not an environment
@@ -78,7 +80,10 @@ scriptencoding utf-8
 "   [, ]*  Any number of commas and spaces
 "
 " We don't have to deal with escaped backslashes; read the source of
-" copy_option_part() in vim/src/misc2.c to see why.
+" copy_option_part() in vim/src/misc2.c to see why.  As an edge case, if
+" &runtimepath is blank, $MYVIM will be set to the empty string, which will
+" throw an error in the next block, due to the way that split() works by
+" default.
 "
 " Vim, I love you, but you are so weird.
 "
@@ -89,7 +94,9 @@ endif
 " We need to check the MYVIM environment variable's value to ensure it's not
 " going to cause problems for the rest of this file.
 "
-" Firstly, if the path specified in the MYVIM environment variable contains
+" Firstly, it can't be empty.
+"
+" Secondly, if the path specified in the MYVIM environment variable contains
 " a comma, its use in comma-separated option values will confuse Vim into
 " thinking more than one directory is being specified, per normal :set
 " semantics.  It's possible to work around this with some careful escaping,
@@ -97,13 +104,14 @@ endif
 " environment variable for that particular context, but it's not really worth
 " the extra complexity for such a niche situation.
 "
-" Secondly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour
-" with escaping with the backslash character on the command line, so on these
-" older versions of Vim, forbid that character.  I haven't found the exact
-" patch level that this was fixed yet, nor the true reason for the bug.
+" Thirdly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour with
+" escaping with the backslash character on the command line, so on these older
+" versions of Vim, forbid that character.  I haven't found the exact patch
+" level that this was fixed yet, nor the true reason for the bug.
 "
-" If either of these conditions are meant, throw an explanatory error and stop
-" reading this file.
+" If any of those conditions are meant, throw an explanatory error and stop
+" reading this file.  Most of the file doesn't depend on $MYVIM, but there's
+" no point catering to these edge cases.
 "
 if $MYVIM ==# ''
   echoerr 'Blank user runtime path'
@@ -116,44 +124,13 @@ elseif $MYVIM =~# '\\' && v:version < 702
   finish
 endif
 
-" We're going to be creating a few directories, and the code to do so in
-" a compatible way is surprisingly verbose, because we need to check the
-" mkdir() function is actually available, and also whether the directory
-" concerned already exists, even if we specify the special 'p' value for its
-" optional {path} argument.
+" Use all of the filetype detection, plugin, and indent support available.
+" I define my own filetype.vim and scripts.vim files for filetype detection,
+" in a similar but not identical form to the stock runtime files.  I also
+" define my own ftplugin and indent files for some types, sometimes replacing
+" and sometimes supplementing the runtime files.
 "
-" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
-" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
-" Even with the magic 'p' sauce, these versions throw errors if the directory
-" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
-" shell script might expect.
-"
-" So, let's wrap all that nonsense in a script-local function, and then
-" abstract that away too with a user command, to keep the semantics of the
-" :set operations nice and clean.  We'll make all the directories we create
-" have restrictive permissions, too, with a {prot} argument of 0700 for the
-" final one, since every directory we want to create in this file should be
-" locked down in this way.
-"
-function! s:Establish(path) abort
-  let path = expand(a:path)
-  return isdirectory(path)
-        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
-endfunction
-
-" Now we define the :Establish command for user-level access to the
-" s:Establish() function.  We set the tab completion to provide directory
-" names as candidates, and specify that there must be only one argument, which
-" we'll provide as a quoted parameter to the function.
-"
-command! -complete=dir -nargs=1 Establish
-      \ call s:Establish(<q-args>)
-
-" Now that we have a clean means to create directories if they don't already
-" exist, let's apply it for the first time, in making sure that the MYVIM
-" directory exists, if it's been set.
-"
-Establish $MYVIM
+filetype plugin indent on
 
 " If this file or the vimrc stub that calls it is sourced, whether because of
 " the above hook, or the <Leader>R mapping prescribed later in this file, add
@@ -193,15 +170,13 @@ augroup vimrc
   " Now we'll use that new :FileTypeReload command as part of an automatic
   " command hook that runs whenever this vimrc is sourced.
   "
-  " If there's stuff in any of your filetype plugins that doesn't cope well with
-  " being reloaded, and just assumes a single BufRead event, it might be
+  " If there's stuff in any of the filetype plugins that doesn't cope well
+  " with being reloaded, and just assumes a single BufRead event, it might be
   " necessary to rewrite those parts to be idempotent, or to add load guards
   " around them so that they only run once.
   "
-  " Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
-  " this main file is saved, using :doautocmd abstraction.  Note also that the
-  " SourceCmd event wasn't added until Vim 7.0.187, so we need to check it
-  " exists first.
+  " Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need
+  " to check it exists first.
   "
   if exists('##SourceCmd')
     autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
@@ -222,6 +197,45 @@ augroup vimrc
   endif
 
 augroup END
+
+" We're going to be creating a few directories now, and the code to do so in
+" a compatible way is surprisingly verbose, because as well as expanding what
+" we were provided as an argument, we need to check the mkdir() function is
+" actually available.
+"
+" We also need to check whether the directory concerned already exists, even
+" if we specify the special 'p' value for its optional {path} argument.  This
+" is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p` in
+" shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function, and then
+" abstract that away too with a user command, to keep the semantics of the
+" :set operations nice and clean.  We'll make all the directories we create
+" have restrictive permissions, too, with a {prot} argument of 0700 for the
+" final one, since every directory we want to create in this file should be
+" locked down in this way.
+"
+function! s:Establish(path) abort
+  let path = expand(a:path)
+  return isdirectory(path)
+        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
+endfunction
+
+" Now we define the :Establish command for user-level access to the
+" s:Establish() function.  We set the tab completion to provide directory
+" names as candidates, and specify that there must be only one argument, which
+" we'll provide as a quoted parameter to the function.
+"
+command! -complete=dir -nargs=1 Establish
+      \ call s:Establish(<q-args>)
+
+" Now that we have a clean means to create directories if they don't already
+" exist, let's apply it for the first time to the user runtime directory.
+"
+Establish $MYVIM
 
 " Keep the viminfo file in a cache subdirectory of the user runtime directory,
 " creating that subdirectory first if necessary.
@@ -889,14 +903,6 @@ if $MYVIM !~# '[*?[|;&<>\r\n]'
   set dictionary^=$MYVIM/ref/dictionary.txt
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
-
-" Use all of the filetype detection, plugin, and indent support available.
-" I define my own filetype.vim and scripts.vim files for filetype detection,
-" in a similar but not identical form to the stock runtime files.  I also
-" define my own ftplugin and indent files for some types, sometimes replacing
-" and sometimes supplementing the runtime files.
-"
-filetype plugin indent on
 
 " Enable syntax highlighting, but only if it's not already on, to save
 " reloading the syntax files unnecessarily.
