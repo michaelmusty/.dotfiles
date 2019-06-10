@@ -1304,10 +1304,10 @@ nnoremap <Leader>T
 
 "" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
-      \ :<C-U>PutDate<CR>
+      \ :PutDate<CR>
 "" Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :<C-U>UTC PutDate<CR>
+      \ :<Home>UTC<End> PutDate<CR>
 
 " This group contains mappings that are to do with file and path management
 " relative to the current buffer.
