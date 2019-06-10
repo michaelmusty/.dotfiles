@@ -3,7 +3,7 @@ if exists('loaded_spellfile_local')
 endif
 let loaded_spellfile_local = 1
 
-EnsureDir $MYVIM/cache/spell
+Establish $MYVIM/cache/spell
 
 let spellfile = join([
       \ substitute(v:lang, '_.*', '', ''),

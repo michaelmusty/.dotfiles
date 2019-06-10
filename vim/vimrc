@@ -135,25 +135,25 @@ endif
 " final one, since every directory we want to create in this file should be
 " locked down in this way.
 "
-function! s:EnsureDir(path) abort
+function! s:Establish(path) abort
   let path = expand(a:path)
   return isdirectory(path)
         \ || exists('*mkdir') && mkdir(path, 'p', 0700)
 endfunction
 
-" Now we define the :EnsureDir command for user-level access to the
-" s:EnsureDir() function.  We set the tab completion to provide directory
+" Now we define the :Establish command for user-level access to the
+" s:Establish() function.  We set the tab completion to provide directory
 " names as candidates, and specify that there must be only one argument, which
 " we'll provide as a quoted parameter to the function.
 "
-command! -complete=dir -nargs=1 EnsureDir
-      \ call s:EnsureDir(<q-args>)
+command! -complete=dir -nargs=1 Establish
+      \ call s:Establish(<q-args>)
 
 " Now that we have a clean means to create directories if they don't already
 " exist, let's apply it for the first time, in making sure that the MYVIM
 " directory exists, if it's been set.
 "
-EnsureDir $MYVIM
+Establish $MYVIM
 
 " If this file or the vimrc stub that calls it is sourced, whether because of
 " the above hook, or the <Leader>R mapping prescribed later in this file, add
@@ -238,7 +238,7 @@ augroup END
 " a nicer way to set it with a 'viminfofile' option, but there's no particular
 " reason to use it until it's in a few more stable versions.
 "
-EnsureDir $MYVIM/cache
+Establish $MYVIM/cache
 set viminfo+=n$MYVIM/cache/viminfo
 
 " Speaking of recorded data in viminfo files, the command and search history
@@ -342,7 +342,7 @@ set backup
 " It's all so awkward.  Surely options named something like 'backupfullpath',
 " 'swapfilefullpath', and 'undofullpath' would have been clearer.
 "
-EnsureDir $MYVIM/cache/backup
+Establish $MYVIM/cache/backup
 if has('patch-8.1.251')
   set backupdir^=$MYVIM/cache/backup//
 else
@@ -428,7 +428,7 @@ set confirm
 " its name, in order to avoid filename collisions.  Create that path if
 " needed, too.
 "
-EnsureDir $MYVIM/cache/swap
+Establish $MYVIM/cache/swap
 set directory^=$MYVIM/cache/swap//
 
 " If Vim receives an Escape key code in insert mode, it shouldn't wait to see
@@ -749,7 +749,7 @@ if has('persistent_undo')
   " Vim to use the full path of the original file in its undo file cache's
   " name.
   "
-  EnsureDir $MYVIM/cache/undo
+  Establish $MYVIM/cache/undo
   set undodir^=$MYVIM/cache/undo//
 
   " Turn the persistent undo features on, regardless of whether we have
@@ -1321,7 +1321,7 @@ nnoremap <Leader>G
       \ :<C-U>cd %:h<Bar>pwd<CR>
 "" Leader,P creates the path to the current file if it doesn't exist
 nnoremap <Leader>P
-      \ :<C-U>EnsureDir %:h<CR>
+      \ :<C-U>Establish %:h<CR>
 
 " This group contains mappings that show information about Vim's internals:
 " marks, registers, variables, and the like.
