@@ -1310,47 +1310,8 @@ nnoremap <Leader>t
 nnoremap <Leader>T
       \ :<C-U>setlocal filetype=<CR>
 
-" Set up a quick command-function pair to run a command with the UTC timezone,
-" in this case, for my date-printing mappings.  To do this, we define two new
-" commands, one of which uses a script-local function.
-"
-" While this is a tidy way to abstract the operation for the map, I don't like
-" the function implementation much at all.  It works OK in stable versions of
-" Vim, but changing an environment variable just long enough to affect the
-" outcome of a command as a side effect seems a bit gross.
-"
-" Worse, the whole thing presently seems to be broken in v8.1.1487; the
-" timezone first chosen seems to 'stick' permanently, and the mapping each
-" produce timestamps in that zone.  I haven't worked out why this happens yet.
-" Using the new getenv() and setenv() functions does not seem to fix it.  It
-" works fine in Debian GNU/Linux's packaged v8.0.x.
-
-" First, of all, we define a :PutDate command that inserts a line into the buffer with
-" an RFC-2822 date string, using the system strftime() implementation.  This
-" might be useful outside of the vimrc, too; we allow it to accept a range
-" which defaults to the current line.
-"
-command! -range PutDate
-      \ <line1>put =strftime('%a, %d %b %Y %T %z')
-
-" Next, we define a :UTC command wrapper, implemented with a script-local
-" function of the same name.  We use expand('$TZ') to ensure we're getting the
-" value of the current timezone from the environment, and cache that in
-" a local variable just long enough to manipulate the environment into using
-" UTC for a command, in our case, the newly-defined :PutDate command.
-"
-function! s:UTC(command) abort
-  let tz = expand('$TZ')
-  let $TZ = 'UTC' | execute a:command | let $TZ = tz
-endfunction
-
-" The :UTC command itself completes another command name, and accepts one
-" required argument, which it passes in quoted form to the helper function.
-"
-command! -complete=command -nargs=1 UTC
-      \ call s:UTC(<q-args>)
-
-" And finally, we define the maps that actually use the commands.
+" These mappings use my put_date.vim and utc.vim plugins for date insertion
+" into the buffer.
 
 "" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
