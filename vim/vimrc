@@ -1377,7 +1377,7 @@ nnoremap <Leader><Insert>
 nnoremap <Leader>e
       \ :<C-U>setlocal modifiable noreadonly<CR>
 "" Leader,E locks a buffer, reversible with <Leader>e
-nnoremap <Leader>e
+nnoremap <Leader>E
       \ :<C-U>setlocal nomodifiable readonly<CR>
 "" Leader,j jumps to buffers ("jetpack")
 nnoremap <Leader>j
