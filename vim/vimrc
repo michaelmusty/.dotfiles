@@ -349,6 +349,14 @@ else
   set backupdir^=$MYVIM/cache/backup
 endif
 
+" Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
+" so adding them repeatedly if this file is reloaded results in duplicates,
+" due to the absence of the P_NODUP flag for its definition in src/option.c.
+" This is likely a bug in Vim.  For the moment, to work around the problem,
+" we reset the path back to its default first.
+"
+set backupskip&
+
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up for reasons of privacy, or an intentional ephemerality, or both.
 " This is particularly important if editing temporary files created by
@@ -356,22 +364,12 @@ endif
 " value of 'backupskip' in order to prevent the creation of such undesired
 " backup files.
 "
+" * /dev/shm: RAM disk, default path for password-store's temporary files
+" * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
+" * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
+"
 if has('unix')
-
-  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
-  " so adding them repeatedly if this file is reloaded results in duplicates,
-  " due to the absence of the P_NODUP flag for its definition in src/option.c.
-  " This is likely a bug in Vim.  For the moment, to work around the problem,
-  " we reset the path back to its default first.
-  "
-  set backupskip&
-
-  " * /dev/shm: RAM disk, default path for password-store's temporary files
-  " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
-  " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
-  "
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
-
 endif
 
 " Relax traditional vi's harsh standards over what regions of the buffer can
