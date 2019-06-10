@@ -132,68 +132,61 @@ endif
 "
 filetype plugin indent on
 
-" If this file or the vimrc stub that calls it is sourced, whether because of
-" the above hook, or the <Leader>R mapping prescribed later in this file, add
-" a hook that re-runs filetype detection and thereby ftplugin loading.  This
-" is chiefly so that any global options set in this file don't trample over
-" needed buffer-local settings.
+" There are a couple of contexts in which it's useful to reload filetypes for
+" the current buffer, quietly doing nothing if filetypes aren't enabled.
+" We'll set up a script-local function to do this, just to be tidy, which is
+" abstracted behind a simple user command of the same name.
 "
-" We'll abstract this away a bit behind a new user command named
-" FileTypeReload, which just re-runs BufRead events for filetype detection if
-" they've been loaded.
-"
-function! s:FileTypeReload() abort
-  if exists('did_load_filetypes')
+function! s:ReloadFileType() abort
+  if exists('g:did_load_filetypes')
     doautocmd filetypedetect BufRead
   endif
 endfunction
+command! -bar ReloadFileType
+      \ call s:ReloadFileType()
 
-" The command accepts no arguments, and has no range.  It just calls the
-" function; that's all.  It's also used by the <Leader>F mapping defined later
-" in this file.
+" We'll also define a :ReloadVimrc command.  This may seem like overkill at
+" first; surely just :source $MYVIMRC is good enough?
 "
-command! FileTypeReload
-      \ call s:FileTypeReload()
+" We're defining the command because of an edge case: if the vimrc stub or
+" main file is re-sourced, the global settings for options like 'expandtab'
+" and 'shiftwidth' may trample over different buffer-local settings that were
+" specified by filetype and indent plugins.  To handle this, we'll define the
+" command to run :ReloadFileType after the vimrc file is sourced.
+"
+" We can't put these two commands in a script-local function in the vimrc, in
+" order to be tidy like we did for :ReloadFileType above, because Vim would
+" get upset that we're trying to redefine a function as it executes!
+"
+" Just to be on the safe side, we also suppress any further ##SourceCmd hooks
+" from running the :source command with a :noautocmd wrapper.  This is
+" a defensive measure to avoid infinite recursion.
+"
+command! -bar ReloadVimrc
+      \ noautocmd source $MYVIMRC | ReloadFileType
 
-" Create a 'vimrc' automatic command hook group, if it doesn't already exist;
-" this group should only be used for command hooks related to this vimrc
-" itself.
+" Reset and define a group of automatic command hooks specific to matters
+" related to reloading the vimrc itself.
 "
 augroup vimrc
-
-  " Clear away any automatic command hooks already defined within it if it
-  " does.  This way, we don't end up collecting multiple copies of the hooks
-  " configured in the rest of this file if it's reloaded.
-  "
   autocmd!
 
-  " Now we'll use that new :FileTypeReload command as part of an automatic
-  " command hook that runs whenever this vimrc is sourced.
+  " Reload the vimrc each time the stub vimrc or this vimrc are saved.  This
+  " often makes errors in the file immediately apparent, and saves restarting
+  " Vim or running the :source command manually, which I almost always want to
+  " do, anyway.
   "
-  " If there's stuff in any of the filetype plugins that doesn't cope well
-  " with being reloaded, and just assumes a single BufRead event, it might be
-  " necessary to rewrite those parts to be idempotent, or to add load guards
-  " around them so that they only run once.
-  "
-  " Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need
-  " to check it exists first.
+  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
+        \ ReloadVimrc
+
+  " If Vim is new enough (v7.0.187) to support the ##SourceCmd event for
+  " automatic command hooks, we'll also apply that to catch invocations of
+  " :source of either the stub or main vimrc, and translate that into sourcing
+  " the stub vimrc and reloading the filetype using our new command.
   "
   if exists('##SourceCmd')
     autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
-          \ source <sfile> | FileTypeReload
-  endif
-
-  " If this file or the vimrc stub that calls it is written to by Vim, we'd like
-  " to reload the stub vimrc and thereby the main vimrc, so that our changes
-  " apply immediately in the current editing session.  This often makes broken
-  " changes immediately apparent.  We can lean on the SourceCmd hook we just
-  " established to do this; in fact, we'll only establish this hook if we can do
-  " so, because otherwise filetype plugins won't reload, and options like
-  " 'shiftwidth' might be set incorrectly.
-  "
-  if exists('#vimrc#SourceCmd')
-    autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
-          \ doautocmd vimrc SourceCmd
+          \ ReloadVimrc
   endif
 
 augroup END
@@ -229,7 +222,7 @@ endfunction
 " names as candidates, and specify that there must be only one argument, which
 " we'll provide as a quoted parameter to the function.
 "
-command! -complete=dir -nargs=1 Establish
+command! -bar -complete=dir -nargs=1 Establish
       \ call s:Establish(<q-args>)
 
 " Now that we have a clean means to create directories if they don't already
@@ -1293,12 +1286,12 @@ nnoremap <Leader>L
 xmap <Leader>L <Esc><Leader>Lgv
 
 " These mappings are for managing filetypes.  The first one uses the
-" :FileTypeReload command that was defined much earlier in this file.for
-" a vimrc reload hook.
+" :ReloadFileType command that was defined much earlier in this file for
+" application in the vimrc reload command.
 
-"" Leader,F reloads filetype plugins
+"" Leader,F reloads filetype settings
 nnoremap <Leader>F
-      \ :<C-U>FileTypeReload<CR>
+      \ :<C-U>ReloadFileType<CR>
 "" Leader,t shows current filetype
 nnoremap <Leader>t
       \ :<C-U>setlocal filetype?<CR>
@@ -1311,13 +1304,14 @@ nnoremap <Leader>T
 
 "" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
-      \ :<C-U>PutDate<CR>
+      \ :PutDate<CR>
 "" Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :<C-U>UTC PutDate<CR>
+      \ :<Home>UTC<End> PutDate<CR>
 
 " This group contains mappings that are to do with file and path management
-" relative to the current buffer.
+" relative to the current buffer.  The Leader,P mapping that creates
+" directory hierarchies uses the :Establish command created earlier.
 
 "" Leader,g shows the current file's fully expanded path
 nnoremap <Leader>g
@@ -1379,7 +1373,16 @@ nnoremap <Leader>E
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
 
-" Filtering and batch operations to clean up buffer text
+" This ground defines mappings for filtering and batch operations to clean up
+" buffer text.  All of these mappings use commands from my custom plugins:
+"
+" strip_trailing_whitespace.vim:
+"   :StripTrailingWhitespace
+" squeeze_repeat_blanks.vim:
+"   :SqueezeRepeatBlanks
+" keep_position.vim
+"   :KeepPosition
+"
 
 "" Leader,x strips trailing whitespace via a custom plugin
 nnoremap <Leader>x
@@ -1458,14 +1461,14 @@ nmap <Leader>* <Plug>(RegexEscape)
 xmap <Leader>* <Plug>(RegexEscape)
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
-" include a mapping that reloads my whole configuration.  Doing this triggers
-" the #vimrc#SourceCmd hooks defined much earlier in the file so that
-" filetypes get reloaded afterwards, so I don't need to follow <Leader>R with
-" a <Leader>F.
+" include a mapping that reloads my whole configuration.  This uses the
+" command wrapper defined much earlier in the file, so that filetypes also get
+" reloaded afterwards, meaning I don't need to follow <Leader>R with
+" a <Leader>F to fix up broken global settings.
 
 "" Leader,R reloads ~/.vimrc
 nnoremap <Leader>R
-      \ :<C-U>source $MYVIMRC<CR>
+      \ :<C-U>ReloadVimrc<CR>
 
 " I'll close this file with a few abbreviations.  Perhaps of everything in
 " here, I'm least confident that these should be in here, but they've proven

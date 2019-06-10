@@ -27,5 +27,5 @@ endfunction
 " The :UTC command itself completes another command name, and accepts one
 " required argument, which it passes in quoted form to the helper function.
 "
-command! -complete=command -nargs=1 UTC
+command! -bar -complete=command -nargs=1 UTC
       \ call s:UTC(<q-args>)
