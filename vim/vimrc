@@ -51,9 +51,11 @@ scriptencoding utf-8
 " variable MYVIM for the user runtime directory, if such a variable does not
 " already exist in the environment, and there's a value in 'runtimepath' from
 " which to glean a useable path.  We'll use the path nominated in the MYVIM
-" variable as the root of our 'backupdir', 'directory', 'undodir', and
+" variable as the root of our 'nackupdir', 'directory', 'undodir', and
 " 'viminfofile' caches, and anywhere else we need a sensible writeable
-" location for Vim-related files.
+" location for Vim-related files.  Having it available as an environment
+" variable makes assignments with :set more convenient, without requiring
+" :execute wrappers.
 "
 " I think the absence of a variable like this is a glaring omission from Vim.
 " We have VIM, VIMRUNTIME, and MYVIMRC, so why is there not an environment
@@ -78,19 +80,23 @@ scriptencoding utf-8
 "   [, ]*  Any number of commas and spaces
 "
 " We don't have to deal with escaped backslashes; read the source of
-" copy_option_part() in vim/src/misc2.c to see why.
+" copy_option_part() in vim/src/misc2.c to see why.  As an edge case, if
+" &runtimepath is blank, $MYVIM will be set to the empty string, which will
+" throw an error in the next block, due to the way that split() works by
+" default.
 "
 " Vim, I love you, but you are so weird.
 "
-let runtimepath = split(&runtimepath, '\\\@<!,[, ]*')
-if !exists('$MYVIM') && len(runtimepath) > 0
-  let $MYVIM = runtimepath[0]
+if !exists('$MYVIM')
+  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
 endif
 
 " We need to check the MYVIM environment variable's value to ensure it's not
 " going to cause problems for the rest of this file.
 "
-" Firstly, if the path specified in the MYVIM environment variable contains
+" Firstly, it can't be empty.
+"
+" Secondly, if the path specified in the MYVIM environment variable contains
 " a comma, its use in comma-separated option values will confuse Vim into
 " thinking more than one directory is being specified, per normal :set
 " semantics.  It's possible to work around this with some careful escaping,
@@ -98,82 +104,33 @@ endif
 " environment variable for that particular context, but it's not really worth
 " the extra complexity for such a niche situation.
 "
-" Secondly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour
-" with escaping with the backslash character on the command line, so on these
-" older versions of Vim, forbid that character.  I haven't found the exact
-" patch level that this was fixed yet, nor the true reason for the bug.
+" Thirdly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour with
+" escaping with the backslash character on the command line, so on these older
+" versions of Vim, forbid that character.  I haven't found the exact patch
+" level that this was fixed yet, nor the true reason for the bug.
 "
-" If either of these conditions are meant, throw an error and blank the MYVIM
-" variable so that nothing uses it.
+" If any of those conditions are meant, throw an explanatory error and stop
+" reading this file.  Most of the file doesn't depend on $MYVIM, but there's
+" no point catering to these edge cases.
 "
-if $MYVIM =~# ','
+if $MYVIM ==# ''
+  echoerr 'Blank user runtime path'
+  finish
+elseif $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
-  let $MYVIM = ''
+  finish
 elseif $MYVIM =~# '\\' && v:version < 702
   echoerr 'Illegal backslash in user runtime path on Vim < v7.2'
-  let $MYVIM = ''
+  finish
 endif
 
-" If the MYVIM environment variable was set outside Vim, it may not correspond
-" to the first element of the default &runtimepath.  If this is the case,
-" we'll slot it in, having already checked it for troublesome characters.
+" Use all of the filetype detection, plugin, and indent support available.
+" I define my own filetype.vim and scripts.vim files for filetype detection,
+" in a similar but not identical form to the stock runtime files.  I also
+" define my own ftplugin and indent files for some types, sometimes replacing
+" and sometimes supplementing the runtime files.
 "
-if $MYVIM !=# ''
-      \ && len(runtimepath) > 0
-      \ && $MYVIM !=# runtimepath[0]
-  set runtimepath^=$MYVIM
-endif
-
-" We're going to be creating a few directories, and the code to do so in
-" a compatible way is surprisingly verbose, because we need to check the
-" mkdir() function is actually available, and also whether the directory
-" concerned already exists, even if we specify the special 'p' value for its
-" optional {path} argument.
-"
-" This is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p`
-" in shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
-" Even with the magic 'p' sauce, these versions throw errors if the directory
-" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
-" shell script might expect.
-"
-" So, let's wrap all that nonsense in a script-local function, and then
-" abstract that away too with a user command, to keep the semantics of the
-" :set operations nice and clean.  We'll make all the directories we create
-" have restrictive permissions, too, with a {prot} argument of 0700 for the
-" final one, since every directory we want to create in this file should be
-" locked down in this way.
-"
-function! s:EnsureDir(path) abort
-  let path = expand(a:path)
-  return isdirectory(path)
-        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
-endfunction
-
-" Now we define the :EnsureDir command for user-level access to the
-" s:EnsureDir() function.  We set the tab completion to provide directory
-" names as candidates, and specify that there must be only one argument, which
-" we'll provide as a quoted parameter to the function.
-"
-command! -complete=dir -nargs=1 EnsureDir
-      \ call s:EnsureDir(<q-args>)
-
-" Now that we have a clean means to create directories if they don't already
-" exist, let's apply it for the first time, in making sure that the MYVIM
-" directory exists, if it's been set.
-"
-if $MYVIM !=# ''
-  EnsureDir $MYVIM
-endif
-
-" Create a 'vimrc' automatic command hook group, if it doesn't already exist,
-" and clear away any automatic command hooks already defined within it if it
-" does.  This way, we don't end up collecting multiple copies of the hooks
-" configured in the rest of this file if it's reloaded.  I don't want to make
-" the :augroup span the entire file, though.
-"
-augroup vimrc
-  autocmd!
-augroup END
+filetype plugin indent on
 
 " If this file or the vimrc stub that calls it is sourced, whether because of
 " the above hook, or the <Leader>R mapping prescribed later in this file, add
@@ -185,41 +142,100 @@ augroup END
 " FileTypeReload, which just re-runs BufRead events for filetype detection if
 " they've been loaded.
 "
+function! s:FileTypeReload() abort
+  if exists('did_load_filetypes')
+    doautocmd filetypedetect BufRead
+  endif
+endfunction
+
+" The command accepts no arguments, and has no range.  It just calls the
+" function; that's all.  It's also used by the <Leader>F mapping defined later
+" in this file.
+"
 command! FileTypeReload
-      \ if exists('did_load_filetypes')
-      \|  doautocmd filetypedetect BufRead
-      \|endif
+      \ call s:FileTypeReload()
 
-" Now we'll use that new :FileTypeReload command as part of an automatic
-" command hook that runs whenever this vimrc is sourced.
+" Create a 'vimrc' automatic command hook group, if it doesn't already exist;
+" this group should only be used for command hooks related to this vimrc
+" itself.
 "
-" If there's stuff in any of your filetype plugins that doesn't cope well with
-" being reloaded, and just assumes a single BufRead event, it might be
-" necessary to rewrite those parts to be idempotent, or to add load guards
-" around them so that they only run once.
-"
-" Note that we reload the stub ~/.vimrc or ~/_vimrc file when either it or
-" this main file is saved, using :doautocmd abstraction.  Note also that the
-" SourceCmd event wasn't added until Vim 7.0.187, so we need to check it
-" exists first.
-"
-if exists('##SourceCmd')
-  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
-        \ source <sfile> | FileTypeReload
-endif
+augroup vimrc
 
-" If this file or the vimrc stub that calls it is written to by Vim, we'd like
-" to reload the stub vimrc and thereby the main vimrc, so that our changes
-" apply immediately in the current editing session.  This often makes broken
-" changes immediately apparent.  We can lean on the SourceCmd hook we just
-" established to do this; in fact, we'll only establish this hook if we can do
-" so, because otherwise filetype plugins won't reload, and options like
-" 'shiftwidth' might be set incorrectly.
+  " Clear away any automatic command hooks already defined within it if it
+  " does.  This way, we don't end up collecting multiple copies of the hooks
+  " configured in the rest of this file if it's reloaded.
+  "
+  autocmd!
+
+  " Now we'll use that new :FileTypeReload command as part of an automatic
+  " command hook that runs whenever this vimrc is sourced.
+  "
+  " If there's stuff in any of the filetype plugins that doesn't cope well
+  " with being reloaded, and just assumes a single BufRead event, it might be
+  " necessary to rewrite those parts to be idempotent, or to add load guards
+  " around them so that they only run once.
+  "
+  " Note that the SourceCmd event wasn't added until Vim 7.0.187, so we need
+  " to check it exists first.
+  "
+  if exists('##SourceCmd')
+    autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
+          \ source <sfile> | FileTypeReload
+  endif
+
+  " If this file or the vimrc stub that calls it is written to by Vim, we'd like
+  " to reload the stub vimrc and thereby the main vimrc, so that our changes
+  " apply immediately in the current editing session.  This often makes broken
+  " changes immediately apparent.  We can lean on the SourceCmd hook we just
+  " established to do this; in fact, we'll only establish this hook if we can do
+  " so, because otherwise filetype plugins won't reload, and options like
+  " 'shiftwidth' might be set incorrectly.
+  "
+  if exists('#vimrc#SourceCmd')
+    autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
+          \ doautocmd vimrc SourceCmd
+  endif
+
+augroup END
+
+" We're going to be creating a few directories now, and the code to do so in
+" a compatible way is surprisingly verbose, because as well as expanding what
+" we were provided as an argument, we need to check the mkdir() function is
+" actually available.
 "
-if exists('#vimrc#SourceCmd')
-  autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ doautocmd vimrc SourceCmd
-endif
+" We also need to check whether the directory concerned already exists, even
+" if we specify the special 'p' value for its optional {path} argument.  This
+" is because the meaning of mkdir(..., 'p') is not the same as `mkdir -p` in
+" shell script, or at least, it isn't in versions of Vim  before v8.0.1708.
+" Even with the magic 'p' sauce, these versions throw errors if the directory
+" already exists, despite what someone familiar with `mkdir -p`'s behaviour in
+" shell script might expect.
+"
+" So, let's wrap all that nonsense in a script-local function, and then
+" abstract that away too with a user command, to keep the semantics of the
+" :set operations nice and clean.  We'll make all the directories we create
+" have restrictive permissions, too, with a {prot} argument of 0700 for the
+" final one, since every directory we want to create in this file should be
+" locked down in this way.
+"
+function! s:Establish(path) abort
+  let path = expand(a:path)
+  return isdirectory(path)
+        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
+endfunction
+
+" Now we define the :Establish command for user-level access to the
+" s:Establish() function.  We set the tab completion to provide directory
+" names as candidates, and specify that there must be only one argument, which
+" we'll provide as a quoted parameter to the function.
+"
+command! -complete=dir -nargs=1 Establish
+      \ call s:Establish(<q-args>)
+
+" Now that we have a clean means to create directories if they don't already
+" exist, let's apply it for the first time to the user runtime directory.
+"
+Establish $MYVIM
 
 " Keep the viminfo file in a cache subdirectory of the user runtime directory,
 " creating that subdirectory first if necessary.
@@ -236,10 +252,8 @@ endif
 " a nicer way to set it with a 'viminfofile' option, but there's no particular
 " reason to use it until it's in a few more stable versions.
 "
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache
-  set viminfo+=n$MYVIM/cache/viminfo
-endif
+Establish $MYVIM/cache
+set viminfo+=n$MYVIM/cache/viminfo
 
 " Speaking of recorded data in viminfo files, the command and search history
 " count default limit of 50 is pretty restrictive.  Because I don't think I'm
@@ -250,6 +264,144 @@ endif
 " documented as 10000, so let's just use that and see if anything breaks.
 "
 set history=10000
+
+" Enable automatic backups of most file buffers.  In practice, I don't need
+" these backups very much if I'm using version control sensibly, but they have
+" still saved my bacon a few times.  We're not done here yet, though; it
+" requires some fine-tuning.
+"
+set backup
+
+" Try to keep the aforementioned backup files in a dedicated cache directory,
+" to stop them proliferating next to their prime locations and getting
+" committed to version control repositories.  Create said directory if needed,
+" too, with restrictive permissions.
+"
+" If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
+" inserting, which prompts Vim to incorporate the full escaped path in the
+" backup filename, avoiding collisions.
+"
+" As a historical note, other similar directory path list options supported
+" this trailing slashes hint for a long time before 'backupdir' caught up to
+" them.  The 'directory' option for swap files has supported it at least as
+" far back as v5.8.0 (2001), and 'undodir' appears to have supported it since
+" its creation in v7.2.438.  Even though the :help for 'backupdir' didn't say
+" so, people assumed it would work the same way, when in fact Vim simply
+" ignored it until v8.1.251.
+"
+" I don't want to add the slashes to the option value in older versions of Vim
+" where they don't do anything, so I check the version to see if there's any
+" point adding them.
+"
+" It's all so awkward.  Surely options named something like 'backupfullpath',
+" 'swapfilefullpath', and 'undofullpath' would have been clearer.
+"
+Establish $MYVIM/cache/backup
+if has('patch-8.1.251')
+  set backupdir^=$MYVIM/cache/backup//
+else
+  set backupdir^=$MYVIM/cache/backup
+endif
+
+" Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
+" so adding them repeatedly if this file is reloaded results in duplicates,
+" due to the absence of the P_NODUP flag for its definition in src/option.c.
+" This is likely a bug in Vim.  For the moment, to work around the problem,
+" we reset the path back to its default first.
+"
+set backupskip&
+
+" Files in certain directories on Unix-compatible filesystems should not be
+" backed up for reasons of privacy, or an intentional ephemerality, or both.
+" This is particularly important if editing temporary files created by
+" sudoedit(8).  On Unix-like systems, we here add a few paths to the default
+" value of 'backupskip' in order to prevent the creation of such undesired
+" backup files.
+"
+" * /dev/shm: RAM disk, default path for password-store's temporary files
+" * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
+" * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
+"
+if has('unix')
+  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
+endif
+
+" Keep swap files for file buffers in a dedicated directory, rather than the
+" default of writing them to the same directory as the buffer file.  Add two
+" trailing slashes to the path to prompt Vim to use the full escaped path in
+" its name, in order to avoid filename collisions.  Create that path if
+" needed, too.
+"
+Establish $MYVIM/cache/swap
+set directory^=$MYVIM/cache/swap//
+
+" Keep tracked undo history for files permanently, in a dedicated cache
+" directory, so that the u/:undo and CTRL-R/:redo commands will work between
+" Vim invocations.
+"
+" Support for persistent undo file caches was not added until v7.2.438, so we
+" need to check for the feature's presence before we enable it.
+"
+if has('persistent_undo')
+
+  " This has the same structure as 'backupdir' and 'directory'; if we have
+  " a user runtime directory, create a sub-subdirectory within it dedicated to
+  " the undo files cache.  Note also the trailing double-slash as a signal to
+  " Vim to use the full path of the original file in its undo file cache's
+  " name.
+  "
+  Establish $MYVIM/cache/undo
+  set undodir^=$MYVIM/cache/undo//
+
+  " Turn the persistent undo features on, regardless of whether we have
+  " a cache directory for them as a result of the logic above.  The files
+  " might sprinkle around the filesystem annoyingly, but that's still better
+  " than losing the history completely.
+  "
+  set undofile
+
+endif
+
+" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
+" includes the 'k' flag, the 'dictionary' option specifies the path to the
+" system word list.  This makes the dictionary completion work consistently,
+" even if 'spell' isn't set at the time to coax it into using 'spellfile'.
+"
+" It's not an error if the system directory file added first doesn't exist;
+" it's just a common location that often yields a workable word list, and does
+" so on all of my main machines.
+"
+" At some point, I may end up having to set this option along with 'spellfile'
+" a bit more intelligently to ensure that spell checking and dictionary
+" function consistently, and with reference to the same resources.  For the
+" moment, I've just added another entry referring to a directory in the user
+" runtime directory, but I don't have anything distinct to put there yet.
+"
+" In much the same way, we add an expected path to a thesaurus, for completion
+" with CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
+" thesaurus data isn't installed as part of the default `install-vim` target
+" in tejr's dotfiles, but it can be retrieved and installed with
+" `install-vim-thesaurus`.
+"
+" I got the thesaurus itself from the link in the :help for 'thesaurus' in
+" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" website that the Makefile recipe attempts to retrieve.  I had to remove the
+" first two metadata lines from thesaurus.txt, as Vim appeared to interpret
+" them as part of the body data.
+"
+" Extra checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
+" need to be made, because the P_NDNAME property is assigned to them, which
+" enforces a character blacklist in the option value.  We check for the same
+" set of blacklist characters here, and if the MYVIM path offends, we just
+" skip the setting entirely, rather than throwing cryptic errors at the user.
+" None of them are particularly wise characters to have in paths, anyway,
+" legal though they may be on Unix filesystems.
+"
+set dictionary^=/usr/share/dict/words
+if $MYVIM !~# '[*?[|;&<>\r\n]'
+  set dictionary^=$MYVIM/ref/dictionary.txt
+  set thesaurus^=$MYVIM/ref/thesaurus.txt
+endif
 
 " Next, we'll modernise a little in adjusting some options with old
 " language-specific defaults.
@@ -311,71 +463,6 @@ else
   let &softtabstop = &shiftwidth
 endif
 
-" Enable automatic backups of most file buffers.  In practice, I don't need
-" these backups very much if I'm using version control sensibly, but they have
-" still saved my bacon a few times.  We're not done here yet, though; it
-" requires some fine-tuning.
-"
-set backup
-
-" Try to keep the aforementioned backup files in a dedicated cache directory,
-" to stop them proliferating next to their prime locations and getting
-" committed to version control repositories.  Create said directory if needed,
-" too, with restrictive permissions.
-"
-" If Vim is new enough (v8.1.251), add two trailing slashes to the path we're
-" inserting, which prompts Vim to incorporate the full escaped path in the
-" backup filename, avoiding collisions.
-"
-" As a historical note, other similar directory path list options supported
-" this trailing slashes hint for a long time before 'backupdir' caught up to
-" them.  The 'directory' option for swap files has supported it at least as
-" far back as v5.8.0 (2001), and 'undodir' appears to have supported it since
-" its creation in v7.2.438.  Even though the :help for 'backupdir' didn't say
-" so, people assumed it would work the same way, when in fact Vim simply
-" ignored it until v8.1.251.
-"
-" I don't want to add the slashes to the option value in older versions of Vim
-" where they don't do anything, so I check the version to see if there's any
-" point adding them.
-"
-" It's all so awkward.  Surely options named something like 'backupfullpath',
-" 'swapfilefullpath', and 'undofullpath' would have been clearer.
-"
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache/backup
-  if has('patch-8.1.251')
-    set backupdir^=$MYVIM/cache/backup//
-  else
-    set backupdir^=$MYVIM/cache/backup
-  endif
-endif
-
-" Files in certain directories on Unix-compatible filesystems should not be
-" backed up for reasons of privacy, or an intentional ephemerality, or both.
-" This is particularly important if editing temporary files created by
-" sudoedit(8).  On Unix-like systems, we here add a few paths to the default
-" value of 'backupskip' in order to prevent the creation of such undesired
-" backup files.
-"
-if has('unix')
-
-  " Vim doesn't seem to check patterns added to 'backupskip' for uniqueness,
-  " so adding them repeatedly if this file is reloaded results in duplicates,
-  " due to the absence of the P_NODUP flag for its definition in src/option.c.
-  " This is likely a bug in Vim.  For the moment, to work around the problem,
-  " we reset the path back to its default first.
-  "
-  set backupskip&
-
-  " * /dev/shm: RAM disk, default path for password-store's temporary files
-  " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
-  " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
-  "
-  set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
-
-endif
-
 " Relax traditional vi's harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
 " habits to continue, since insert mode by definition is not really intended
@@ -425,17 +512,6 @@ endif
 " what I'm doing.
 "
 set confirm
-
-" Keep swap files for file buffers in a dedicated directory, rather than the
-" default of writing them to the same directory as the buffer file.  Add two
-" trailing slashes to the path to prompt Vim to use the full escaped path in
-" its name, in order to avoid filename collisions.  Create that path if
-" needed, too.
-"
-if $MYVIM !=# ''
-  EnsureDir $MYVIM/cache/swap
-  set directory^=$MYVIM/cache/swap//
-endif
 
 " If Vim receives an Escape key code in insert mode, it shouldn't wait to see
 " if it's going to be followed by another key code, despite this being how the
@@ -740,35 +816,6 @@ if exists('+ttymouse')
   set ttymouse=
 endif
 
-" Keep tracked undo history for files permanently, in a dedicated cache
-" directory, so that the u/:undo and CTRL-R/:redo commands will work between
-" Vim invocations.
-"
-" Support for persistent undo file caches was not added until v7.2.438, so we
-" need to check for the feature's presence before we enable it.
-"
-if has('persistent_undo')
-
-  " This has the same structure as 'backupdir' and 'directory'; if we have
-  " a user runtime directory, create a sub-subdirectory within it dedicated to
-  " the undo files cache.  Note also the trailing double-slash as a signal to
-  " Vim to use the full path of the original file in its undo file cache's
-  " name.
-  "
-  if $MYVIM !=# ''
-    EnsureDir $MYVIM/cache/undo
-    set undodir^=$MYVIM/cache/undo//
-  endif
-
-  " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them as a result of the logic above.  The files
-  " might sprinkle around the filesystem annoyingly, but that's still better
-  " than losing the history completely.
-  "
-  set undofile
-
-endif
-
 " While using virtual block mode, allow me to navigate to any column of the
 " buffer window; don't confine the boundaries of the block to the coordinates
 " of characters that actually exist in the buffer text.  While working with
@@ -857,56 +904,6 @@ if exists('+wildignorecase')
   set wildignorecase
 endif
 
-" For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
-" includes the 'k' flag, the 'dictionary' option specifies the path to the
-" system word list.  This makes the dictionary completion work consistently,
-" even if 'spell' isn't set at the time to coax it into using 'spellfile'.
-"
-" It's not an error if the system directory file added first doesn't exist;
-" it's just a common location that often yields a workable word list, and does
-" so on all of my main machines.
-"
-" At some point, I may end up having to set this option along with 'spellfile'
-" a bit more intelligently to ensure that spell checking and dictionary
-" function consistently, and with reference to the same resources.  For the
-" moment, I've just added another entry referring to a directory in the user
-" runtime directory, but I don't have anything distinct to put there yet.
-"
-" In much the same way, we add an expected path to a thesaurus, for completion
-" with CTRL-X CTRL-T in insert mode, or with 't' added to 'completeopt'.  The
-" thesaurus data isn't installed as part of the default `install-vim` target
-" in tejr's dotfiles, but it can be retrieved and installed with
-" `install-vim-thesaurus`.
-"
-" I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
-" website that the Makefile recipe attempts to retrieve.  I had to remove the
-" first two metadata lines from thesaurus.txt, as Vim appeared to interpret
-" them as part of the body data.
-"
-" The checks for appending the 'dictionary' and 'thesaurus' paths in MYVIM
-" need to be stricter than the ones for 'backupdir', because the P_NDNAME
-" property is assigned to them, which enforces a character blacklist in the
-" option value.  We check for the same set of blacklist characters here, and
-" if the MYVIM path offends, we just skip the setting entirely, rather than
-" throwing cryptic errors at the user.  None of them are particularly wise
-" characters to have in paths, anyway, legal though they may be on Unix
-" filesystems.
-"
-set dictionary^=/usr/share/dict/words
-if $MYVIM !=# '' && $MYVIM !~# '[*?[|;&<>\r\n]'
-  set dictionary^=$MYVIM/ref/dictionary.txt
-  set thesaurus^=$MYVIM/ref/thesaurus.txt
-endif
-
-" Use all of the filetype detection, plugin, and indent support available.
-" I define my own filetype.vim and scripts.vim files for filetype detection,
-" in a similar but not identical form to the stock runtime files.  I also
-" define my own ftplugin and indent files for some types, sometimes replacing
-" and sometimes supplementing the runtime files.
-"
-filetype plugin indent on
-
 " Enable syntax highlighting, but only if it's not already on, to save
 " reloading the syntax files unnecessarily.
 "
@@ -988,11 +985,9 @@ endtry
 " * Avoid shadowing any of Vim's existing functionality.  If possible, extend
 "   or supplement what Vim does, rather than replacing it.
 "
-
-" We'll start with the non-leader mappings.  Ideally there shouldn't be too
+" We'll start with the non-leader mappings.  Ideally, there shouldn't be too
 " many of these.
 "
-
 " I like using the space bar to scroll down a page, so I can lazily tap it to
 " read documents, and I find its default behaviour of moving right one
 " character to be useless.
@@ -1014,13 +1009,10 @@ endtry
 "
 " I always wanted you to go into space, man.
 "
-if globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
-      \ && &loadplugins
-  nmap <Space>
-        \ <Plug>(ScrollNext)
+if &loadplugins && globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
+  nmap <Space> <Plug>(ScrollNext)
 else
-  nnoremap <Space>
-        \ <PageDown>
+  nnoremap <Space> <PageDown>
 endif
 
 " I hate CTRL-C in insert mode, which ends the insert session without firing
@@ -1060,10 +1052,8 @@ endif
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
-      \ && &loadplugins
-  imap <C-C>
-        \ <Plug>(InsertCancel)
+if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
+  imap <C-C> <Plug>(InsertCancel)
 endif
 
 " I often don't remember or can't guess digraph codes very well, and want to
@@ -1098,325 +1088,407 @@ endif
 " checking that the plugin's available before we map to it; it'll just quietly
 " do nothing.
 "
-imap <C-K><C-K>
-      \ <Plug>(DigraphSearch)
+imap <C-K><C-K> <Plug>(DigraphSearch)
 
-" Stack Ctrl-L to clear search highlight, make it work in insert mode too
+" I end up hitting CTRL-L to clear or redraw the screen in interactive shells
+" and tools like Mutt and Vim pretty often.  It feels natural to me to stack
+" issuing a :nohlsearch command to stop highlighting searches on top of this.
+"
+" This gets by far the most use in normal mode, but I'd like it to work in
+" visual and insert mode, too, where it's occasionally useful, especially on
+" things like mobile phone terminal emulators that can be choppy and require
+" a lot of redrawing.
+"
+" For each of these, we end the mapping with a CTRL-L in normal mode, thereby
+" extending rather than replacing Vim's normal behaviour.
+"
 nnoremap <C-L>
       \ :<C-U>nohlsearch<CR><C-L>
+
+" We use :vnoremap rather than :xnoremap and thereby make the mapping apply to
+" select mode as well, because CTRL-L doesn't reflect a printable character,
+" and so we may as well, even though I never use select mode directly.
+"
 vnoremap <C-L>
       \ :<C-U>nohlsearch<CR>gv<C-L>
+
+" The insert mode mapping uses CTRL-O to issue a single normal normal-mode
+" command, but twice: once to issue the :nohlsearch command, and then once to
+" issue an unmapped normal-mode CTRL-L.
+"
 inoremap <C-L>
       \ <C-O>:<C-U>nohlsearch<CR><C-O><C-L>
 
-" Remap normal/visual & and g& to preserve substitution flags
+" By default, the very-useful normal mode command '&' that repeats the
+" previous :substitute command doesn't preserve the flags from that
+" substitution.  I'd prefer it to do so, like the :&& command does, and it's
+" easily remapped for both normal and visual mode, so let's just do it.
+"
 nnoremap &
       \ :&&<CR>
 xnoremap &
       \ :&&<CR>
-nnoremap g&
-      \ :<C-U>%&&<CR>
 
-" Map g: as a 'colon operator'
-nmap g:
-      \ <Plug>(ColonOperator)
+" I really like using the '!' command in normal mode as an operator to filter
+" text through a shell command.  It always bugged me a little that there
+" didn't seem to be an analogue for a motion to filter text through an
+" internal command like :sort, so I wrote one.
+"
+nmap g: <Plug>(ColonOperator)
 
-" Cycle through argument list
+" I used Tim Pope's unimpaired.vim plugin for ages, and I liked some of these
+" bracket pair mappings, so I've carried a few of the simpler ones over.  All
+" of these can be prefixed with a count if needed, too.  I use all of them
+" pretty regularly, even though cycling through lists to look for something
+" can be a bit wasteful.
+
+" Argument list
 nnoremap [a
       \ :previous<CR>
 nnoremap ]a
       \ :next<CR>
-" Cycle through buffers
+" Buffers
 nnoremap [b
       \ :bprevious<CR>
 nnoremap ]b
       \ :bnext<CR>
-" Cycle through quickfix list items
+" Quickfix list
 nnoremap [c
       \ :cprevious<CR>
 nnoremap ]c
       \ :cnext<CR>
-" Cycle through location list items
+" Location list
 nnoremap [l
       \ :lprevious<CR>
 nnoremap ]l
       \ :lnext<CR>
 
-" Insert blank lines around current line
-nmap [<Space>
-      \ <Plug>(PutBlankLinesAbove)
-nmap ]<Space>
-      \ <Plug>(PutBlankLinesBelow)
+" Here's another mapping I particularly liked from unimpaired.vim here; insert
+" blank lines from normal mode, using a custom plugin of mine called
+" put_blank_lines.vim.  These use operator functions so that they're
+" repeatable without repeat.vim.  They accept count prefixes, too.
+"
+nmap [<Space> <Plug>(PutBlankLinesAbove)
+nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
-" Set leader keys
+" We're on to the leader maps, now.  It's difficult to know what order to put
+" these in; I originally had them in alphabetical order, but it seems more
+" useful now to group the by the category of their function, albeit roughly.
+"
+" First of all, let's set the leader keys; backslash happens to be the
+" default, but I like to make my choice explicit here.
+"
+" As of 2019, I'm still not certain that comma is the best choice for my local
+" leader.  I use it all the time for this purpose, and it works well, but
+" I don't much like that it shadows a useful function in the fFtT;, group, and
+" wonder if I would use it more if I hadn't shadowed it.
+"
 let mapleader = '\'
 let maplocalleader = ','
 
-" Leader,a toggles 'formatoptions' 'a' flag using a plugin
-nnoremap <Leader>a
-      \ :<C-U>ToggleFlagLocal formatoptions a<CR>
+" Let's start with some simple ones; these ones all just toggle a boolean
+" option, and print its new value.  They're dirt simple to specify, and don't
+" require any plugins.
+"
+" These are sometimes applicable in visual mode, and sometimes not.  We'll
+" start with the ones that only make sense as normal mode maps.  Interesting,
+" a visual mode mapping for 'cursorline' toggling doesn't work at all;
+" 'cursorline' is always off when in any visual mode, including block mode,
+" where it actually might have been really handy.
 
-" Leader,b toggles settings friendly to copying and pasting
-nmap <Leader>b
-      \ <Plug>(CopyLinebreakToggle)
-
-" Leader,c toggles 'cursorline'; no visual mode map as it doesn't work
+"" Leader,TAB toggles automatic indentation based on the previous line
+nnoremap <Leader><Tab>
+      \ :<C-U>setlocal autoindent! autoindent?<CR>
+"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
 nnoremap <Leader>c
       \ :<C-U>setlocal cursorline! cursorline?<CR>
-" Leader,C toggles 'cursorcolumn'; works in visual mode
-nnoremap <Leader>C
-      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-xnoremap <Leader>C
-      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>gv
-
-" Insert an RFC2822-compliant date string into the buffer
-command! -range PutDate
-      \ <line1>put =strftime('%a, %d %b %Y %T %z')
-
-" Set up a quick command-function pair to run a command with the UTC timezone,
-" in this case, for my date-printing mappings.  Is there a nicer way to do
-" this?  I couldn't find one.
-"
-" This presently seems to be broken in v8.1.1487; the timezone first chosen
-" seems to 'stick' permanently.  I haven't worked out why yet.  Using the new
-" getenv() and setenv() functions does not seem to fix it.  It works fine in
-" Debian GNU/Linux's packaged v8.0.x.
-"
-function! s:UTC(command) abort
-  let tz = expand('$TZ')
-  let $TZ = 'UTC' | execute a:command | let $TZ = tz
-endfunction
-command! -complete=command -nargs=1 UTC
-      \ call s:UTC(<q-args>)
-
-" Leader,d inserts the local date (RFC 2822)
-nnoremap <Leader>d
-      \ :<C-U>PutDate<CR>
-" Leader,D inserts the UTC date (RFC 2822)
-nnoremap <Leader>D
-      \ :<C-U>UTC PutDate<CR>
-
-" Leader,e forces a buffer to be editable
-nnoremap <Leader>e
-      \ :<C-U>setlocal modifiable noreadonly<CR>
-
-" Leader,f shows the current 'formatoptions' at a glance
-nnoremap <Leader>f
-      \ :<C-U>setlocal formatoptions?<CR>
-
-" Leader,F reloads filetype plugins
-nnoremap <Leader>F
-      \ :<C-U>FileTypeReload<CR>
-
-" Leader,g shows the current file's fully expanded path
-nnoremap <Leader>g
-      \ :<C-U>echo expand('%:p')<CR>
-" Leader,G changes directory to the current file's location
-nnoremap <Leader>G
-      \ :<C-U>cd %:h<Bar>pwd<CR>
-
-" Leader,h toggles highlighting search results
+"" Leader,h toggles highlighting search results
 nnoremap <Leader>h
       \ :<C-U>set hlsearch! hlsearch?<CR>
-
-" Leader,H shows command history
-nnoremap <Leader>H
-      \ :<C-U>history :<CR>
-
-" Leader,i toggles showing matches as I enter my pattern
+"" Leader,i toggles showing matches as I enter my pattern
 nnoremap <Leader>i
       \ :<C-U>set incsearch! incsearch?<CR>
-
-" Leader,j jumps to buffers ("jetpack")
-nnoremap <Leader>j
-      \ :<C-U>buffers<CR>:buffer<Space>
-
-" Leader,k shows my marks
-nnoremap <Leader>k
-      \ :<C-U>marks<CR>
-
-" Leader,l toggles showing tab, end-of-line, and trailing white space
-nnoremap <Leader>l
-      \ :<C-U>setlocal list! list?<CR>
-xnoremap <Leader>l
-      \ :<C-U>setlocal list! list?<CR>gv
-
-" Leader,L toggles 'colorcolumn' showing 'textwidth'
-nnoremap <Leader>L
-      \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
-xnoremap <Leader>L
-      \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>gv
-
-" Leader,m shows normal maps
-nnoremap <Leader>m
-      \ :<C-U>map<CR>
-" Leader,M shows buffer-local normal maps
-nnoremap <Leader>M
-      \ :<C-U>map <buffer><CR>
-
-" Leader,n toggles line number display
-nnoremap <Leader>n
-      \ :<C-U>setlocal number! number?<CR>
-xnoremap <Leader>n
-      \ :<C-U>setlocal number! number?<CR>gv
-" Leader,N toggles position display in bottom right
-nnoremap <Leader>N
-      \ :<C-U>set ruler! ruler?<CR>
-xnoremap <Leader>N
-      \ :<C-U>set ruler! ruler?<CR>gv
-
-" Leader,o opens a line below in paste mode
-nmap <Leader>o
-      \ <Plug>(PasteOpenBelow)
-" Leader,O opens a line above in paste mode
-nmap <Leader>O
-      \ <Plug>(PasteOpenAbove)
-
-" Leader,p toggles paste mode
-nnoremap <Leader>p
-      \ :<C-U>set paste! paste?<CR>
-
-" Leader,P creates the path to the current file
-nnoremap <Leader>P
-      \ :<C-U>call mkdir(expand('%:h'), 'p')<CR>
-
-" Leader,q formats the current paragraph
-nnoremap <Leader>q
-      \ gqap
-
-" Leader,r acts as a replacement operator
-nmap <Leader>r
-      \ <Plug>(ReplaceOperator)
-xmap <Leader>r
-      \ <Plug>(ReplaceOperator)
-
-" Leader,R reloads ~/.vimrc
-nnoremap <Leader>R
-      \ :<C-U>source $MYVIMRC<CR>
-
-" Leader,s toggles spell checking
+"" Leader,s toggles spell checking
 nnoremap <Leader>s
       \ :<C-U>setlocal spell! spell?<CR>
 
-" Leader,S shows loaded scripts
-nnoremap <Leader>S
-      \ :<C-U>scriptnames<CR>
+" The next group of option-toggling maps are much the same as the previous
+" group, except they also include analogous maps for visual mode, defined as
+" recursive maps into normal mode that conclude with re-selecting the text.
 
-" Leader,t shows current filetype
+"" Leader,C toggles highlighted cursor column; works in visual mode
+nnoremap <Leader>C
+      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
+xmap <Leader>C <Esc><Leader>Cgv
+"" Leader,l toggles showing tab, end-of-line, and trailing white space
+nnoremap <Leader>l
+      \ :<C-U>setlocal list! list?<CR>
+xmap <Leader>l <Esc><Leader>lgv
+"" Leader,n toggles line number display
+nnoremap <Leader>n
+      \ :<C-U>setlocal number! number?<CR>
+xmap <Leader>n <Esc><Leader>ngv
+"" Leader,N toggles position display in bottom right
+nnoremap <Leader>N
+      \ :<C-U>set ruler! ruler?<CR>
+xmap <Leader>N <Esc><Leader>Ngv
+"" Leader,p toggles paste mode
+nnoremap <Leader>p
+      \ :<C-U>set paste! paste?<CR>
+xmap <Leader>p <Esc><Leader>pgv
+"" Leader,w toggles soft wrapping
+nnoremap <Leader>w
+      \ :<C-U>setlocal wrap! wrap?<CR>
+xmap <Leader>w <Esc><Leader>wgv
+
+" This next one just shows option state of the 'formatoptions' affecting how
+" text is automatically formatted; it doesn't change its value.
+
+"" Leader,f shows the current 'formatoptions' at a glance
+nnoremap <Leader>f
+      \ :<C-U>setlocal formatoptions?<CR>
+
+" I often have to switch between US English and NZ English.  The latter is
+" almost exactly the same as UK English in most locales, although we use
+" dollars rather than pounds.  This is mostly so I remember things like
+" excluding or including the 'u' in words like 'favourite', depending on the
+" target audience.  I generally use US English for international audiences.
+
+"" Leader,u sets US English spelling language
+nnoremap <Leader>u
+      \ :<C-U>setlocal spelllang=en_us<CR>
+"" Leader,z sets NZ English spelling language
+nnoremap <Leader>z
+      \ :<C-U>setlocal spelllang=en_nz<CR>
+
+" The next mapping is another option toggler, but it's more complicated; it
+" uses a simple plugin of mine called copy_linebreak.vim to manage several
+" options at once, related to the 'wrap' option that soft-wraps text.
+"
+" It's designed for usage in terminal emulators and multiplexers to
+" temporarily make the buffer text suitable for copying in such a way that the
+" wrapping and any associated soft formatting won't pervert the text,
+" including 'breakindent', 'linebreak', and 'showbreak' artifacts.
+"
+" This is really handy for quick selections of small regions of text.  For
+" larger blocks of text or for programatically manipulating the text as it
+" leaves the buffer, it makes more sense to use :! commands.
+"
+
+"" Leader,b toggles settings friendly to copying and pasting
+nmap <Leader>b <Plug>(CopyLinebreakToggle)
+
+" The above mappings show that mappings for toggling boolean options are
+" simple, but there isn't a way to toggle single flags within option strings,
+" so I wrote a plugin called toggle_flags.vim to provide :ToggleFlag and
+" :ToggleFlagLocal commands.  The first argument is the name of an option, and
+" the second is the flag within it that should be toggled on or off.
+
+"" Leader,a toggles 'formatoptions' 'a' auto-flowing flag
+nnoremap <Leader>a
+      \ :<C-U>ToggleFlagLocal formatoptions a<CR>
+"" Leader,L toggles 'colorcolumn' showing the first column beyond 'textwidth'
+nnoremap <Leader>L
+      \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
+xmap <Leader>L <Esc><Leader>Lgv
+
+" These mappings are for managing filetypes.  The first one uses the
+" :FileTypeReload command that was defined much earlier in this file.for
+" a vimrc reload hook.
+
+"" Leader,F reloads filetype plugins
+nnoremap <Leader>F
+      \ :<C-U>FileTypeReload<CR>
+"" Leader,t shows current filetype
 nnoremap <Leader>t
       \ :<C-U>setlocal filetype?<CR>
-" Leader,T clears filetype
+"" Leader,T clears filetype
 nnoremap <Leader>T
       \ :<C-U>setlocal filetype=<CR>
 
-" Leader,u sets US English spelling (compare Leader,z)
-nnoremap <Leader>u
-      \ :<C-U>setlocal spelllang=en_us<CR>
+" These mappings use my put_date.vim and utc.vim plugins for date insertion
+" into the buffer.
 
-" Leader,v shows all global variables
+"" Leader,d inserts the local date (RFC 2822)
+nnoremap <Leader>d
+      \ :<C-U>PutDate<CR>
+"" Leader,D inserts the UTC date (RFC 2822)
+nnoremap <Leader>D
+      \ :<C-U>UTC PutDate<CR>
+
+" This group contains mappings that are to do with file and path management
+" relative to the current buffer.
+
+"" Leader,g shows the current file's fully expanded path
+nnoremap <Leader>g
+      \ :<C-U>echo expand('%:p')<CR>
+"" Leader,G changes directory to the current file's location
+nnoremap <Leader>G
+      \ :<C-U>cd %:h<Bar>pwd<CR>
+"" Leader,P creates the path to the current file if it doesn't exist
+nnoremap <Leader>P
+      \ :<C-U>Establish %:h<CR>
+
+" This group contains mappings that show information about Vim's internals:
+" marks, registers, variables, and the like.
+
+"" Leader,H shows command history
+nnoremap <Leader>H
+      \ :<C-U>history :<CR>
+"" Leader,k shows my marks
+nnoremap <Leader>k
+      \ :<C-U>marks<CR>
+"" Leader,m shows normal maps
+nnoremap <Leader>m
+      \ :<C-U>nmap<CR>
+"" Leader,M shows buffer-local normal maps
+nnoremap <Leader>M
+      \ :<C-U>nmap <buffer><CR>
+"" Leader,S shows loaded scripts
+nnoremap <Leader>S
+      \ :<C-U>scriptnames<CR>
+"" Leader,v shows all global variables
 nnoremap <Leader>v
       \ :<C-U>let g: v:<CR>
-" Leader,V shows all local variables
+"" Leader,V shows all local variables
 nnoremap <Leader>V
       \ :<C-U>let b: t: w:<CR>
+"" Leader,y shows all registers
+nnoremap <Leader>y
+      \ :<C-U>registers<CR>
 
-" Leader,w toggles wrapping
-nnoremap <Leader>w
-      \ :<C-U>setlocal wrap! wrap?<CR>
-xnoremap <Leader>w
-      \ :<C-U>setlocal wrap! wrap?<CR>gv
+" This group contains mappings concerned with buffer navigation and
+" management.  I use the "jetpack" buffer jumper one like crazy; I really like
+" it.  I got it from one of bairui's "Vim and Vigor" comics:
+"
+" <http://of-vim-and-vigor.blogspot.com/p/vim-vigor-comic.html>
 
-" Leader,x strips trailing whitespace via a custom plugin
+"" Leader,DEL deletes the current buffer
+nnoremap <Leader><Delete>
+      \ :bdelete<CR>
+"" Leader,INS edits a new buffer
+nnoremap <Leader><Insert>
+      \ :<C-U>enew<CR>
+"" Leader,e forces a buffer to be editable, even a :help one
+nnoremap <Leader>e
+      \ :<C-U>setlocal modifiable noreadonly<CR>
+"" Leader,E locks a buffer, reversible with <Leader>e
+nnoremap <Leader>E
+      \ :<C-U>setlocal nomodifiable readonly<CR>
+"" Leader,j jumps to buffers ("jetpack")
+nnoremap <Leader>j
+      \ :<C-U>buffers<CR>:buffer<Space>
+
+" Filtering and batch operations to clean up buffer text
+
+"" Leader,x strips trailing whitespace via a custom plugin
 nnoremap <Leader>x
       \ :StripTrailingWhitespace<CR>
 xnoremap <Leader>x
       \ :StripTrailingWhitespace<CR>
-
-" Leader,X squeezes repeated blank lines via a custom plugin
+"" Leader,X squeezes repeated blank lines via a custom plugin
 nnoremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
 xnoremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
-
-" Leader,y shows all registers
-nnoremap <Leader>y
-      \ :<C-U>registers<CR>
-
-" Leader,z sets NZ English spelling (compare Leader,u)
-nnoremap <Leader>z
-      \ :<C-U>setlocal spelllang=en_nz<CR>
-
-" Leader,= runs the whole buffer through =, preserving position
+"" Leader,= runs the whole buffer through =, preserving position
 nnoremap <Leader>=
       \ :<C-U>KeepPosition normal! 1G=G<CR>
-" Leader,+ runs the whole buffer through gq, preserving position
+"" Leader,+ runs the whole buffer through gq, preserving position
 nnoremap <Leader>+
       \ :<C-U>KeepPosition normal! 1GgqG<CR>
 
-" Leader,. runs the configured make program into the location list
-nnoremap <Leader>.
-      \ :<C-U>lmake!<CR>
+" This group defines a few :onoremap commands to make my own text objects.
+" I should probably make some more of these, as they've proven to be
+" terrifically handy.
 
-" Leader,< and Leader,> adjust indent of last edit; good for pasting
+"" Leader,_ uses last changed or yanked text as an object
+onoremap <Leader>_
+      \ :<C-U>normal! `[v`]<CR>
+"" Leader,% uses entire buffer as an object
+onoremap <Leader>%
+      \ :<C-U>normal! 1GVG<CR>
+
+" This group defines some useful motions.
+
+"" Leader,{ and Leader,} move to lines with non-space chars before current column
+map <Leader>{ <Plug>(VerticalRegionUp)
+sunmap <Leader>{
+map <Leader>} <Plug>(VerticalRegionDown)
+sunmap <Leader>}
+"" Leader,\ jumps to the last edit position mark: think "Now, where was I?"
+nnoremap <Leader>\ `"
+xnoremap <Leader>\ `"
+
+" This group does both: useful motions on defined text objects.
+
+"" Leader,< and Leader,> adjust indent of last edit; good for pasting
 nnoremap <Leader><lt>
       \ :<C-U>'[,']<lt><CR>
 nnoremap <Leader>>
       \ :<C-U>'[,']><CR>
 
-" Leader,_ uses last changed or yanked text as an object
-onoremap <Leader>_
-      \ :<C-U>normal! `[v`]<CR>
+" This group is for directory tree or help search convenience mappings.
 
-" Leader,% uses entire buffer as an object
-onoremap <Leader>%
-      \ :<C-U>normal! 1GVG<CR>
-
-" Leader,{ and Leader,} move to lines with non-space chars before current column
-map <Leader>{
-      \ <Plug>(VerticalRegionUp)
-sunmap <Leader>{
-map <Leader>}
-      \ <Plug>(VerticalRegionDown)
-sunmap <Leader>}
-
-" Leader,/ types :vimgrep for me ready to enter a search pattern
+"" Leader,/ types :vimgrep for me ready to enter a search pattern
 nnoremap <Leader>/
       \ :<C-U>vimgrep /\c/j **<S-Left><S-Left><Right>
-" Leader,? types :lhelpgrep for me ready to enter a search pattern
+"" Leader,? types :lhelpgrep for me ready to enter a search pattern
 nnoremap <Leader>?
       \ :<C-U>lhelpgrep \c<S-Left>
 
-" Leader,* escapes regex metacharacters
-nmap <Leader>*
-      \ <Plug>(RegexEscape)
-xmap <Leader>*
-      \ <Plug>(RegexEscape)
+" This group contains miscellaneous mappings for which I couldn't find any
+" other place.  The plugin mappings probably require their own documentation
+" comment block, but my hands are getting tired from all this typing.
 
-" Leader,\ jumps to the last edit position mark, like g;, but works as a motion
-" "Now, where was I?" (tap-tap)
-nnoremap <Leader>\
-      \ `"
-xnoremap <Leader>\
-      \ `"
+"" Leader,. runs the configured make program into the location list
+nnoremap <Leader>.
+      \ :<C-U>lmake!<CR>
+"" Leader,o opens a line below in paste mode
+nmap <Leader>o <Plug>(PasteOpenBelow)
+"" Leader,O opens a line above in paste mode
+nmap <Leader>O <Plug>(PasteOpenAbove)
+"" Leader,q formats the current paragraph
+nnoremap <Leader>q gqap
+"" Leader,r acts as a replacement operator
+nmap <Leader>r <Plug>(ReplaceOperator)
+xmap <Leader>r <Plug>(ReplaceOperator)
+"" Leader,* escapes regex metacharacters
+nmap <Leader>* <Plug>(RegexEscape)
+xmap <Leader>* <Plug>(RegexEscape)
 
-" Leader,DEL deletes the current buffer
-nnoremap <Leader><Delete>
-      \ :bdelete<CR>
-" Leader,INS edits a new buffer
-nnoremap <Leader><Insert>
-      \ :<C-U>enew<CR>
+" And last, but definitely not least, I'm required by Vim fanatic law to
+" include a mapping that reloads my whole configuration.  Doing this triggers
+" the #vimrc#SourceCmd hooks defined much earlier in the file so that
+" filetypes get reloaded afterwards, so I don't need to follow <Leader>R with
+" a <Leader>F.
 
-" Leader,TAB toggles 'autoindent'
-nnoremap <Leader><Tab>
-      \ :<C-U>setlocal autoindent! autoindent?<CR>
+"" Leader,R reloads ~/.vimrc
+nnoremap <Leader>R
+      \ :<C-U>source $MYVIMRC<CR>
 
-" Some useful abbreviations
-inoreabbrev  tr@  tom@sanctum.geek.nz
-inoreabbrev  tr/  <https://sanctum.geek.nz/>
+" I'll close this file with a few abbreviations.  Perhaps of everything in
+" here, I'm least confident that these should be in here, but they've proven
+" pretty useful.  First, some 'deliberate' abbreviations for stuff I type
+" a lot:
+"
+inoreabbrev tr@ tom@sanctum.geek.nz
+inoreabbrev tr/ <https://sanctum.geek.nz/>
 
-" THe things I almsot always type wrnog
-inoreabbrev  almsot    almost
-inoreabbrev  wrnog     wrong
-inoreabbrev  Fielding  Feilding
-inoreabbrev  THe       The
-inoreabbrev  THere     There
+" And then, just fix some typographical and spelling errors for me
+" automatically.
+"
+inoreabbrev almsot almost
+inoreabbrev wrnog wrong
+inoreabbrev Fielding Feilding
+inoreabbrev THe The
+inoreabbrev THere There
+
+" Here endeth the literate vimrc.
+"
+" > Consequently, it is soon recognised that they write for the sake of
+" > filling up the paper, and this is the case sometimes with the best
+" > authors... as soon as this is perceived the book should be thrown away,
+" > for time is precious.
+" > -- Schopenhauer
+"
