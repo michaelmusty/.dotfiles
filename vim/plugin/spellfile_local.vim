@@ -1,4 +1,4 @@
-if exists('loaded_spellfile_local')
+if exists('loaded_spellfile_local') || $MYVIM ==# ''
   finish
 endif
 let loaded_spellfile_local = 1
