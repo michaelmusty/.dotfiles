@@ -1144,7 +1144,6 @@ nmap g: <Plug>(ColonOperator)
 " of these can be prefixed with a count if needed, too.  I use all of them
 " pretty regularly, even though cycling through lists to look for something
 " can be a bit wasteful.
-"
 
 " Argument list
 nnoremap [a
