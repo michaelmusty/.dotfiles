@@ -658,7 +658,7 @@ else
 endif
 
 " Don't let your editor's options be configured by content in arbitrary files!
-" Down with modelines!  Purge them from your files!
+" Down with modelines!  Purge them from your files!  Écrasez l'infâme!
 "
 " I think that modelines are Vim's worst misfeature, and that 'nomodeline'
 " should be the default.  It's enabled pretty bad security vulnerabilities
