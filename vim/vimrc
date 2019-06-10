@@ -143,7 +143,7 @@ filetype plugin indent on
 " they've been loaded.
 "
 function! s:FileTypeReload() abort
-  if exists('did_load_filetypes')
+  if exists('g:did_load_filetypes')
     doautocmd filetypedetect BufRead
   endif
 endfunction
