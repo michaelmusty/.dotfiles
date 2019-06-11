@@ -145,7 +145,7 @@ command! -bar ReloadFileType
       \ call s:ReloadFileType()
 
 " We'll also define a :ReloadVimrc command.  This may seem like overkill at
-" first; surely just :source $MYVIMRC is good enough?
+" first; surely just `:source $MYVIMRC` would be good enough?
 "
 " We're defining the command because of an edge case: if the vimrc stub or
 " main file is re-sourced, the global settings for options like 'expandtab'
