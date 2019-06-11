@@ -1391,7 +1391,6 @@ nnoremap <Leader>j
 "   :SqueezeRepeatBlanks
 " keep_position.vim
 "   :KeepPosition
-"
 
 "" Leader,x strips trailing whitespace via a custom plugin
 nnoremap <Leader>x
