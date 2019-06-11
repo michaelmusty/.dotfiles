@@ -652,8 +652,8 @@ endif
 set hidden
 
 " Do highlight matches for completed searches in the text, but clear that
-" highlighting away when this vimrc is reload.  Later on in this file, CTRL-L
-" in normal mode is remapped to tack on a :nohlsearch as well.
+" highlighting away when this vimrc is reloaded.  Later on in this file,
+" CTRL-L in normal mode is remapped to tack on a :nohlsearch as well.
 "
 set hlsearch
 nohlsearch
@@ -707,8 +707,8 @@ set listchars+=nbsp:+   " Non-breaking spaces
 
 " The next pair of 'list' characters are arguably somewhat misplaced, in that
 " they don't really represent invisible characters in the same way as the
-" others, but are hints for the presence of other characters unwrapped lines
-" that are wider than the screen.  They're very useful, though.
+" others, but are hints for the presence of other characters on unwrapped
+" lines that are wider than the screen.  They're very useful, though.
 "
 " If the current encoding supports it, use these non-ASCII characters for the
 " markers, as they're visually distinctive:
@@ -852,12 +852,12 @@ set wildmode=list:longest,full
 " candidates for tab completion on the command line.
 "
 " To make this list, I went right through my home directory with
-" a `find`-toothed comb, counted the occurrences of every extension, forced
+" a `find`-toothed comb; counted the occurrences of every extension, forced
 " down to lowercase; and then manually selected the ones that I was confident
 " would seldom contain plain text.
 "
-" This does the trick with POSIX-compatible shell tools, giving you patterns
-" for the top 50 extensions:
+" The following incantation does the trick with POSIX-compatible shell tools,
+" giving you patterns for the top 50 extensions:
 "
 "     $ find ~ -type f -name '*.*' |
 "           awk -F. '{exts[tolower($NF)]++}
@@ -958,9 +958,9 @@ endtry
 "   &filetype and set up by ftplugin files.
 "
 " * If a normal mode map would make sense in visual mode, take the time to
-"   configure that too.  Use :xmap and its analogues rather :vmap to avoid
-"   defining unusable select-mode mappings, even though I never actually use
-"   selection mode directly.
+"   configure that too.  Use :xmap and its analogues rather than :vmap to
+"   avoid defining unusable select-mode mappings, even though I never actually
+"   use selection mode directly.
 "
 " * Avoid mapping in insert mode; let characters be literal to the greatest
 "   extent possible, and avoid "doing more" in insert mode besides merely
@@ -1100,7 +1100,8 @@ nnoremap <C-L>
 
 " We use :vnoremap rather than :xnoremap and thereby make the mapping apply to
 " select mode as well, because CTRL-L doesn't reflect a printable character,
-" and so we may as well, even though I never use select mode directly.
+" and so we may as well make it work, even though I don't actually use select
+" mode directly.
 "
 vnoremap <C-L>
       \ :<C-U>nohlsearch<CR>gv<C-L>
@@ -1376,12 +1377,12 @@ nnoremap <Leader>j
 " This ground defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
 "
-" keep_position.vim:
-"   :KeepPosition
-" squeeze_repeat_blanks.vim:
-"   :SqueezeRepeatBlanks
 " strip_trailing_whitespace.vim:
 "   :StripTrailingWhitespace
+" squeeze_repeat_blanks.vim:
+"   :SqueezeRepeatBlanks
+" keep_position.vim
+"   :KeepPosition
 "
 
 "" Leader,x strips trailing whitespace via a custom plugin
