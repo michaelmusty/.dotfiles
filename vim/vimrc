@@ -777,6 +777,14 @@ set sessionoptions-=options       " No global options or mappings
 "
 set shortmess+=I
 
+" I find the defaults of new windows opening above or to the left of the
+" previous window too jarring, because I'm used to both the i3 window manager
+" and the tmux terminal multiplexer doing it the other way around, in reading
+" order.  I prefer the visual effect of the previous text staying where it is,
+" and the new window occupying previously blank space.
+"
+set splitbelow splitright
+
 " Limit the number of characters per line that syntax highlighting will
 " attempt to match.  This is as much an effort to encourage me to break long
 " lines and do hard wrapping correctly as it is for efficiency.
