@@ -592,21 +592,21 @@ set formatoptions+=l
 " at the end of it.  Typographically, as far as I can tell, this seems to be
 " a stylistic preference rather than a rule, rather like avoiding "widow" and
 " "orphan" lines in typesetting.  I think it generally looks better to have the
-" shortk word start the line, so we'll switch it on.
+" short word start the line, so we'll switch it on.
 "
 set formatoptions+=1
 
 " If the filetype plugins have correctly described what the comment syntax for
 " the buffer's language looks like, it makes sense to use that to figure out
-" how to join lines within comments without redundant comment leaders cropping
-" up.  For example, with this set, in Vim, joining lines in this very comment
-" with 'J' would remove the leading '"' characters that denote a comment.
+" how to join lines within comments without redundant comment syntax cropping
+" up.  For example, with this set, joining lines in this very comment with 'J'
+" would remove the leading '"' characters.
 "
-" This option flag wasn't added until v7.3.541.  Because we can't test for the
-" availability of option flags directly, we resort to a version number check
-" before attempting to add the flag.  I don't like using :silent! to suppress
-" errors for this sort of thing when I can reasonably avoid it, even if the
-" tests are somewhat more verbose.
+" This 'formatoptions' flag wasn't added until v7.3.541.  Because we can't
+" test for the availability of option flags directly, we resort to a version
+" number check before attempting to set it.  I don't like using :silent! to
+" suppress errors for this sort of thing when I can reasonably avoid it, even
+" if the tests are somewhat more verbose.
 "
 if v:version > 730 || v:version == 730 && has('patch541')
   set formatoptions+=j
@@ -708,8 +708,8 @@ set incsearch
 " really lose anything.
 "
 " This value reflects the Vim default, but Neovim changed its default to '2'
-" for an 'always-on' status line, so we'll explicitly set it to the default
-" here in case we're using Neovim.
+" for an 'always-on' status line, so we'll explicitly set it to the original
+" Vim default here in case we're using Neovim.
 "
 set laststatus=1
 
