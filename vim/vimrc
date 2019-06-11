@@ -1111,7 +1111,7 @@ nnoremap <C-L>
 " directly for this, but it didn't work; maybe i_CTRL-O doesn't respect
 " mappings, but I couldn't find any documentation about this.
 "
-inoremap <C-L> <C-O>:normal "\<C-L>"<CR>
+inoremap <C-L> <C-O>:execute "normal \<C-L>"<CR>
 
 " We use :vnoremap here rather than :xnoremap and thereby make the mapping
 " apply to select mode as well, because CTRL-L doesn't reflect a printable
@@ -1403,10 +1403,10 @@ xnoremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
 "" Leader,= runs the whole buffer through =, preserving position
 nnoremap <Leader>=
-      \ :<C-U>KeepPosition normal! 1G=G<CR>
+      \ :<C-U>KeepPosition execute 'normal! 1G=G'<CR>
 "" Leader,+ runs the whole buffer through gq, preserving position
 nnoremap <Leader>+
-      \ :<C-U>KeepPosition normal! 1GgqG<CR>
+      \ :<C-U>KeepPosition execute 'normal! 1GgqG'<CR>
 
 " This group defines a few :onoremap commands to make my own text objects.
 " I should probably make some more of these, as they've proven to be
@@ -1414,10 +1414,10 @@ nnoremap <Leader>+
 
 "" Leader,_ uses last changed or yanked text as an object
 onoremap <Leader>_
-      \ :<C-U>normal! `[v`]<CR>
+      \ :<C-U>execute 'normal! `[v`]'<CR>
 "" Leader,% uses entire buffer as an object
 onoremap <Leader>%
-      \ :<C-U>normal! 1GVG<CR>
+      \ :<C-U>execute 'normal! 1GVG'<CR>
 
 " This group defines some useful motions.
 
