@@ -108,9 +108,9 @@ endif
 " versions of Vim, forbid that character.  I haven't found the exact patch
 " level that this was fixed yet, nor the true reason for the bug.
 "
-" If any of those conditions are meant, throw an explanatory error and stop
-" reading this file.  Most of the file doesn't depend on MYVIM, but there's
-" no point catering to these edge cases.
+" If any of those conditions are met, throw an explanatory error and stop
+" reading this file.  Most of the file doesn't depend on MYVIM, but there's no
+" point catering to these edge cases.
 "
 if $MYVIM ==# ''
   echoerr 'Blank user runtime path'
