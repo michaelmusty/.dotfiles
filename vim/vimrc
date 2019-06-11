@@ -721,9 +721,9 @@ set listchars+=nbsp:+   " Non-breaking spaces
 " Failing that, '<' and '>' will still do the trick.
 "
 if has('multi_byte_encoding')
-  set listchars+=extends:» listchars+=precedes:«
+  set listchars+=extends:»,precedes:«
 else
-  set listchars+=extends:> listchars+=precedes:<
+  set listchars+=extends:>,precedes:<
 endif
 
 " Don't let your editor's options be configured by content in arbitrary files!
