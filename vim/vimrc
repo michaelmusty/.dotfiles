@@ -51,7 +51,7 @@ scriptencoding utf-8
 " variable MYVIM for the user runtime directory, if such a variable does not
 " already exist in the environment, and there's a value in 'runtimepath' from
 " which to glean a useable path.  We'll use the path nominated in the MYVIM
-" variable as the root of our 'nackupdir', 'directory', 'undodir', and
+" variable as the root of our 'backupdir', 'directory', 'undodir', and
 " 'viminfofile' caches, and anywhere else we need a sensible writeable
 " location for Vim-related files.  Having it available as an environment
 " variable makes assignments with :set more convenient, without requiring
@@ -81,7 +81,7 @@ scriptencoding utf-8
 "
 " We don't have to deal with escaped backslashes; read the source of
 " copy_option_part() in vim/src/misc2.c to see why.  As an edge case, if
-" &runtimepath is blank, $MYVIM will be set to the empty string, which will
+" &runtimepath is blank, MYVIM will be set to the empty string, which will
 " throw an error in the next block, due to the way that split() works by
 " default.
 "
@@ -96,13 +96,12 @@ endif
 "
 " Firstly, it can't be empty.
 "
-" Secondly, if the path specified in the MYVIM environment variable contains
-" a comma, its use in comma-separated option values will confuse Vim into
-" thinking more than one directory is being specified, per normal :set
-" semantics.  It's possible to work around this with some careful escaping,
-" either at :set time with an :execute abstraction or with a separate
-" environment variable for that particular context, but it's not really worth
-" the extra complexity for such a niche situation.
+" Secondly, if it contains a comma, its use in comma-separated option values
+" will confuse Vim into thinking more than one directory is being specified,
+" per normal :set semantics.  It's possible to work around this with some
+" careful escaping, either at :set time with an :execute abstraction or with
+" a separate environment variable for that particular context, but it's not
+" really worth the extra complexity for such a niche situation.
 "
 " Thirdly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour with
 " escaping with the backslash character on the command line, so on these older
@@ -110,7 +109,7 @@ endif
 " level that this was fixed yet, nor the true reason for the bug.
 "
 " If any of those conditions are meant, throw an explanatory error and stop
-" reading this file.  Most of the file doesn't depend on $MYVIM, but there's
+" reading this file.  Most of the file doesn't depend on MYVIM, but there's
 " no point catering to these edge cases.
 "
 if $MYVIM ==# ''
@@ -645,9 +644,9 @@ endif
 "
 " However, the option really is required for batch operations performed with
 " commands like :argdo or :bufdo, because Vim won't otherwise tolerate unsaved
-" changes to a litany of undisplayed buffers.  After I started using such
-" command maps a bit more often, I realised I finally had a reason to turn
-" this on permanently.
+" changes to a litany of buffers that are not displayed in any window.  After
+" I started using such command maps a bit more often, I realised I finally had
+" a reason to turn this on permanently.
 "
 set hidden
 
@@ -844,12 +843,12 @@ set visualbell t_vb=
 
 " When Ex command line completion is started with Tab, list valid completions
 " and complete the command line to the longest common substring, just as Bash
-" does, with just the one keypress.
+" does, with just the one key press.
 "
 " The default value of 'full' for the 'wildmode' option puts the full
 " completion onto the line immediately, which I tolerate for insert mode
 " completion but don't really like on the Ex command line.  Instead, I arrange
-" for that with a second keypress if I ever want it, which isn't often.  I did
+" for that with a second key press if I ever want it, which isn't often.  I did
 " without using it at all for years.
 "
 set wildmenu
@@ -1078,7 +1077,7 @@ endif
 " > Á  A'  LATIN CAPITAL LETTER A WITH ACUTE
 " > É  E'  LATIN CAPITAL LETTER E WITH ACUTE
 " > Í  I'  LATIN CAPITAL LETTER I WITH ACUTE
-" > ... etc ...
+" > ...etc...
 "
 " <https://sanctum.geek.nz/cgit/vim-digraph-search.git/about/>
 "
@@ -1112,7 +1111,7 @@ nnoremap <C-L>
 " directly for this, but it didn't work; maybe i_CTRL-O doesn't respect
 " mappings, but I couldn't find any documentation about this.
 "
-inoremap <C-L> <C-O>:normal "\<C-L>"<CR>
+inoremap <C-L> <C-O>:execute "normal \<C-L>"<CR>
 
 " We use :vnoremap here rather than :xnoremap and thereby make the mapping
 " apply to select mode as well, because CTRL-L doesn't reflect a printable
@@ -1165,7 +1164,7 @@ nnoremap [l
 nnoremap ]l
       \ :lnext<CR>
 
-" Here's another mapping I particularly liked from unimpaired.vim here; insert
+" Here's another mapping I particularly liked from unimpaired.vim; insert
 " blank lines from normal mode, using a custom plugin of mine called
 " put_blank_lines.vim.  These use operator functions so that they're
 " repeatable without repeat.vim.  They accept count prefixes, too.
@@ -1263,8 +1262,8 @@ nnoremap <Leader>u
 nnoremap <Leader>z
       \ :<C-U>setlocal spelllang=en_nz<CR>
 
-" The next mapping is another option toggler, but it's more complicated; it
-" uses a simple plugin of mine called copy_linebreak.vim to manage several
+" The next mapping is also for toggling an option, but it's more complicated;
+" it uses a simple plugin of mine called copy_linebreak.vim to manage several
 " options at once, related to the 'wrap' option that soft-wraps text.
 "
 " It's designed for usage in terminal emulators and multiplexers to
@@ -1273,8 +1272,8 @@ nnoremap <Leader>z
 " including 'breakindent', 'linebreak', and 'showbreak' artifacts.
 "
 " This is really handy for quick selections of small regions of text.  For
-" larger blocks of text or for programatically manipulating the text as it
-" leaves the buffer, it makes more sense to use :! commands.
+" larger blocks of text or for manipulating the text as it leaves the buffer,
+" it makes more sense to use :! commands.
 "
 
 "" Leader,b toggles settings friendly to copying and pasting
@@ -1404,10 +1403,10 @@ xnoremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
 "" Leader,= runs the whole buffer through =, preserving position
 nnoremap <Leader>=
-      \ :<C-U>KeepPosition normal! 1G=G<CR>
+      \ :<C-U>KeepPosition execute 'normal! 1G=G'<CR>
 "" Leader,+ runs the whole buffer through gq, preserving position
 nnoremap <Leader>+
-      \ :<C-U>KeepPosition normal! 1GgqG<CR>
+      \ :<C-U>KeepPosition execute 'normal! 1GgqG'<CR>
 
 " This group defines a few :onoremap commands to make my own text objects.
 " I should probably make some more of these, as they've proven to be
@@ -1415,10 +1414,10 @@ nnoremap <Leader>+
 
 "" Leader,_ uses last changed or yanked text as an object
 onoremap <Leader>_
-      \ :<C-U>normal! `[v`]<CR>
+      \ :<C-U>execute 'normal! `[v`]'<CR>
 "" Leader,% uses entire buffer as an object
 onoremap <Leader>%
-      \ :<C-U>normal! 1GVG<CR>
+      \ :<C-U>execute 'normal! 1GVG'<CR>
 
 " This group defines some useful motions.
 
@@ -1499,7 +1498,7 @@ inoreabbrev THere There
 "
 " > Consequently, it is soon recognised that they write for the sake of
 " > filling up the paper, and this is the case sometimes with the best
-" > authors... as soon as this is perceived the book should be thrown away,
+" > authors...as soon as this is perceived the book should be thrown away,
 " > for time is precious.
 " > -- Schopenhauer
 "
