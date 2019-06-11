@@ -81,7 +81,7 @@ scriptencoding utf-8
 "
 " We don't have to deal with escaped backslashes; read the source of
 " copy_option_part() in vim/src/misc2.c to see why.  As an edge case, if
-" &runtimepath is blank, $MYVIM will be set to the empty string, which will
+" &runtimepath is blank, MYVIM will be set to the empty string, which will
 " throw an error in the next block, due to the way that split() works by
 " default.
 "
@@ -96,13 +96,12 @@ endif
 "
 " Firstly, it can't be empty.
 "
-" Secondly, if the path specified in the MYVIM environment variable contains
-" a comma, its use in comma-separated option values will confuse Vim into
-" thinking more than one directory is being specified, per normal :set
-" semantics.  It's possible to work around this with some careful escaping,
-" either at :set time with an :execute abstraction or with a separate
-" environment variable for that particular context, but it's not really worth
-" the extra complexity for such a niche situation.
+" Secondly, if it contains a comma, its use in comma-separated option values
+" will confuse Vim into thinking more than one directory is being specified,
+" per normal :set semantics.  It's possible to work around this with some
+" careful escaping, either at :set time with an :execute abstraction or with
+" a separate environment variable for that particular context, but it's not
+" really worth the extra complexity for such a niche situation.
 "
 " Thirdly, some versions of Vim prior to v7.2.0 exhibit bizarre behaviour with
 " escaping with the backslash character on the command line, so on these older
@@ -110,7 +109,7 @@ endif
 " level that this was fixed yet, nor the true reason for the bug.
 "
 " If any of those conditions are meant, throw an explanatory error and stop
-" reading this file.  Most of the file doesn't depend on $MYVIM, but there's
+" reading this file.  Most of the file doesn't depend on MYVIM, but there's
 " no point catering to these edge cases.
 "
 if $MYVIM ==# ''
@@ -1165,7 +1164,7 @@ nnoremap [l
 nnoremap ]l
       \ :lnext<CR>
 
-" Here's another mapping I particularly liked from unimpaired.vim here; insert
+" Here's another mapping I particularly liked from unimpaired.vim; insert
 " blank lines from normal mode, using a custom plugin of mine called
 " put_blank_lines.vim.  These use operator functions so that they're
 " repeatable without repeat.vim.  They accept count prefixes, too.
