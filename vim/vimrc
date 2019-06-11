@@ -997,32 +997,16 @@ endtry
 " We'll start with the non-leader mappings.  Ideally, there shouldn't be too
 " many of these.
 "
-" I like using the space bar to scroll down a page, so I can lazily tap it to
-" read documents, and I find its default behaviour of moving right one
-" character to be useless.
-"
-" I also have a custom plugin named scroll_next.vim that issues :next to have
-" it move to the next file in the arglist if the bottom line of the buffer is
-" visible, for reading multiple buffers.
-"
-" <https://sanctum.geek.nz/cgit/vim-scroll-next.git/about/>
-"
-" However, I only want that functionality mapped if the required plugin is
-" actually going to load, so I check that it's available and that the
-" 'loadplugin' option is set before using its provided map target, because if
-" it doesn't it will kill the space key.  If the plugin doesn't look like it's
-" going to load, I just bind Space to do the same thing as PageDown.
-"
-" Either way, the downside of this arrangement is it's an easy key to hit
-" accidentally.  I'm keeping it for the moment, though.
+
+" I find the space bar's default behaviour in normal mode of moving right one
+" character to be useless.  Instead, I remap it to be a lazy way of paging
+" through the argument list buffers, scrolling a page until the last line of
+" the buffer is visible, and then moving to the :next buffer.
 "
 " I always wanted you to go into space, man.
 "
-if &loadplugins && globpath(&runtimepath, 'plugin/scroll_next.vim') !=# ''
-  nmap <Space> <Plug>(ScrollNext)
-else
-  nnoremap <Space> <PageDown>
-endif
+nnoremap <expr> <Space>
+      \ line('w$') < line('$') ? "\<PageDown>" : ":\<C-U>next\<CR>"
 
 " I hate CTRL-C in insert mode, which ends the insert session without firing
 " the InsertLeave event for automatic command hooks.  It seems worse than
@@ -1053,10 +1037,9 @@ endif
 " of the simple mapping above is not too much more complicated, but it was not
 " easy to figure out.
 "
-" At any rate, as with the space bar's leverage of the scroll_next.vim plugin
-" above, we only want to establish the mapping if we can expect the plugin to
-" load, so test that it exists with the expected name and that 'loadplugins'
-" is set.
+" At any rate, we only want to establish the mapping if we can expect the
+" plugin to load, so test that 'loadplugins' is set and that the plugin file
+" exists with the expected filename.
 "
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
