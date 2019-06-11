@@ -354,10 +354,8 @@ if has('persistent_undo')
   Establish $MYVIM/cache/undo
   set undodir^=$MYVIM/cache/undo//
 
-  " Turn the persistent undo features on, regardless of whether we have
-  " a cache directory for them as a result of the logic above.  The files
-  " might sprinkle around the filesystem annoyingly, but that's still better
-  " than losing the history completely.
+  " Turn the persistent undo features on, now that we hopefully have a cache
+  " directory configured to collect them.
   "
   set undofile
 
