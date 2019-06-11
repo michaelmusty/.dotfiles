@@ -1376,12 +1376,12 @@ nnoremap <Leader>j
 " This ground defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
 "
-" strip_trailing_whitespace.vim:
-"   :StripTrailingWhitespace
+" keep_position.vim:
+"   :KeepPosition
 " squeeze_repeat_blanks.vim:
 "   :SqueezeRepeatBlanks
-" keep_position.vim
-"   :KeepPosition
+" strip_trailing_whitespace.vim:
+"   :StripTrailingWhitespace
 "
 
 "" Leader,x strips trailing whitespace via a custom plugin
