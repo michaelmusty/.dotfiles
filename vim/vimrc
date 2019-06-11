@@ -221,8 +221,9 @@ augroup END
 "
 function! s:Establish(path) abort
   let path = expand(a:path)
-  return isdirectory(path)
-        \ || exists('*mkdir') && mkdir(path, 'p', 0700)
+  if !isdirectory(path) && exists('*mkdir')
+    call mkdir(path, 'p', 0700)
+  endif
 endfunction
 
 " Now we define the :Establish command for user-level access to the
