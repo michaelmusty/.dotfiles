@@ -30,5 +30,3 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names. Can it be made to?
-* Normal usage of write-mkpath.vim raises swap file warnings on Windows for
-  some reason.
