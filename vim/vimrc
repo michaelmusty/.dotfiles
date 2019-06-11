@@ -153,16 +153,25 @@ command! -bar ReloadFileType
 " specified by filetype and indent plugins.  To handle this, we'll define the
 " command to run :ReloadFileType after the vimrc file is sourced.
 "
-" We can't put these two commands in a script-local function in the vimrc, in
-" order to be tidy like we did for :ReloadFileType above, because Vim would
-" get upset that we're trying to redefine a function as it executes!
+" We can't put the actual :source command into the script-local function,
+" because Vim would get upset that we're trying to redefine a function as it
+" executes!
 "
 " Just to be on the safe side, we also suppress any further ##SourceCmd hooks
 " from running the :source command with a :noautocmd wrapper.  This is
 " a defensive measure to avoid infinite recursion.
 "
+" We emit a faked display of the command, as well, just to make it clear that
+" something has happened.  The :redraw just before that message seems to be
+" necessary, but I'm not sure why.
+"
+function! s:ReloadVimrc() abort
+  ReloadFileType
+  redraw
+  echo ':ReloadVimrc'
+endfunction
 command! -bar ReloadVimrc
-      \ noautocmd source $MYVIMRC | ReloadFileType
+      \ noautocmd source $MYVIMRC | call s:ReloadVimrc()
 
 " Reset and define a group of automatic command hooks specific to matters
 " related to reloading the vimrc itself.
