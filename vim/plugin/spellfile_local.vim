@@ -22,6 +22,7 @@ function! AddLocalSpellFile() abort
   setlocal spellfile<
   execute 'setlocal spellfile+=$MYVIM/cache/spell/local/'.spellfile
   nnoremap <buffer> zG 2zg
+  xnoremap <buffer> zG 2zg
 endfunction
 
 command! AddLocalSpellFile
