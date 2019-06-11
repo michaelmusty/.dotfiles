@@ -3,32 +3,17 @@ if exists('loaded_spellfile_local')
 endif
 let loaded_spellfile_local = 1
 
-Establish $MYVIM/cache/spell
-
-let spellfile = join([
+let s:spellfile = join([
       \ substitute(v:lang, '_.*', '', ''),
       \ &encoding
       \ ], '.') . '.add'
-execute 'set spellfile=$MYVIM/cache/spell/'.spellfile
-
-Establish $MYVIM/cache/spell/local
-
-function! AddLocalSpellFile() abort
-  let spellfile = join([
-        \ substitute(expand('%:p'), '[^0-9A-Za-z_.-]', '%', 'g'),
-        \ substitute(v:lang, '_.*', '', ''),
-        \ &encoding
-        \ ], '.') . '.add'
-  setlocal spellfile<
-  execute 'setlocal spellfile+=$MYVIM/cache/spell/local/'.spellfile
-  nnoremap <buffer> zG 2zg
-  xnoremap <buffer> zG 2zg
-endfunction
+Establish $MYVIM/cache/spell
+execute 'set spellfile=$MYVIM/cache/spell/'.s:spellfile
 
 command! AddLocalSpellFile
-      \ call AddLocalSpellFile()
+      \ call spellfile_local#()
 
 augroup spellfile_local
-  autocmd BufRead *
+  autocmd BufNew,BufRead *
         \ AddLocalSpellFile
 augroup END
