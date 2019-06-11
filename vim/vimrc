@@ -13,7 +13,7 @@
 " something like this to strip out all the blank lines and lines with only
 " comments:
 "
-"   :v/^\s*[^"]/d
+"   :g/\m^$\|^\s*"/d
 "
 " This file should be saved as "vimrc" in the user runtime directory. On
 " Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
