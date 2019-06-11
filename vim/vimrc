@@ -1183,7 +1183,7 @@ let maplocalleader = ','
 " require any plugins.
 "
 " These are sometimes applicable in visual mode, and sometimes not.  We'll
-" start with the ones that only make sense as normal mode maps.  Interesting,
+" start with the ones that only make sense as normal mode maps.  Annoyingly,
 " a visual mode mapping for 'cursorline' toggling doesn't work at all;
 " 'cursorline' is always off when in any visual mode, including block mode,
 " where it actually might have been really handy.
