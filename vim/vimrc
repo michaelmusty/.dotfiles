@@ -162,13 +162,12 @@ command! -bar ReloadFileType
 " We'll also define a :ReloadVimrc command.  This may seem like overkill, at
 " first.  Surely just `:source $MYVIMRC` would be good enough?
 "
-" We're defining the command because of the effect of reloading the vimrc on
-" the current buffer at the time.  If the vimrc stub or main file is
-" re-sourced, the global settings for options like 'expandtab' and
+" The problem is there are potential side effects to the current buffer when
+" the vimrc is reloaded.  The :set commands for options like 'expandtab' and
 " 'shiftwidth' may trample over different buffer-local settings that were
 " specified by filetype and indent plugins.  To ensure these local values are
-" reinstated, we'll define the command to include issuing :ReloadFileType
-" after the vimrc file is sourced.
+" reinstated, we'll define the new command wrapper to issue a :ReloadFileType
+" command after the vimrc file is sourced.
 "
 " We can't put the actual :source command into the script-local function we
 " define here, because Vim would get upset that we're trying to redefine
