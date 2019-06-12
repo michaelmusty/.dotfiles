@@ -1191,17 +1191,16 @@ nnoremap ]l
 nmap [<Space> <Plug>(PutBlankLinesAbove)
 nmap ]<Space> <Plug>(PutBlankLinesBelow)
 
-" We're on to the leader maps, now.  It's difficult to know what order to put
-" these in; I originally had them in alphabetical order, but it seems more
-" useful now to group the by the category of their function, albeit roughly.
+" We're on to the leader maps, now.  It's difficult to know in what order to
+" describe and specify these.  I used to have them in alphabetical order, but
+" it seems much more useful to group them by the type of action they take.
 "
 " First of all, let's set the leader keys; backslash happens to be the
-" default, but I like to make my choice explicit here.
-"
-" As of 2019, I'm still not certain that comma is the best choice for my local
-" leader.  I use it all the time for this purpose, and it works well, but
-" I don't much like that it shadows a useful function in the fFtT;, group, and
-" wonder if I would use it more if I hadn't shadowed it.
+" default, but I like to make my choice explicit here.  As of 2019, I'm still
+" not certain that comma is the best choice for my local leader.  I use it all
+" the time for this purpose, and it works well, but I don't much like that it
+" shadows a useful function in the fFtT;, group, and I sometimes wonder if
+" I would use the key for its original function more, had I not shadowed it.
 "
 let mapleader = '\'
 let maplocalleader = ','
