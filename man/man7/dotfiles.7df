@@ -170,10 +170,6 @@ tmux (https://tmux.github.io/) \[en] Terminal multiplexer similar to GNU
 Screen
 .IP \[bu] 2
 Vim (https://www.vim.org/) \[en] Vi IMproved, a text editor
-.RS 2
-.IP \[bu] 2
-Neovim (https://neovim.io/) \[en] An \[lq]emphatic fork\[rq] of Vim
-.RE
 .IP \[bu] 2
 X11 (https://www.x.org/wiki/) \[en] Windowing system with network
 transparency for Unix
@@ -494,17 +490,14 @@ The majority of the Vim configuration is just setting options, with a
 fair few mappings and remappings, both global and buffer\-local.
 I try not to deviate too much from the Vim defaults behavior in terms of
 interactive behavior and keybindings.
-It's extensively commented, mostly because I was reading through it one
-day and realized I'd forgotten what half of it did.
-System\-specific configuration files go in \f[C]~/.vim/config\f[].
+It's extensively commented.
 .SS Filetypes
 .PP
 I define my own \f[C]filetype.vim\f[] and \f[C]scripts.vim\f[], so that
 filetype detection works in a way I like, and loads quickly.
-They are very unlikely to suit you as they are, but you might be able to
-extend them with your favourite filetypes.
-If you delete both of them from \f[C]~/.vim\f[], you'll get the stock
-filetype detection back.
+They are unlikely to suit you as they are, but if you want to use it,
+you can extend them with your favourite filetypes in custom
+\f[C]ftdetect\f[] rules.
 .SS Plugins
 .PP
 If the logic for doing something involves more than a few lines or any
@@ -512,43 +505,32 @@ structures like functions, I like to implement it as a plugin in
 \f[C]~/.vim/plugin\f[] and/or \f[C]~/.vim/autoload\f[], with
 documentation for each in \f[C]~/.vim/doc\f[].
 .PP
-They eventually get either discarded or spun off into their own
-repositories, added to this repository as submodules under
-\f[C]vim/bundle\f[] instead, and uploaded to
+They eventually get either discarded if I stop using them, or spun off
+into their own repositories if I don't, and added to this repository as
+submodules under \f[C]vim/bundle\f[] instead.
+Some of them I upload to
 vim.org (https://www.vim.org/account/profile.php?user_id=73687).
 .SS Filetype plugins
 .PP
-I also define a few rules specific to file types I often edit in
-\f[C]~/.vim/after/ftplugin\f[], including some buffer\-local mapping
-targets for checking, linting, and tidying, and a few more in
-\f[C]~/.vim/after/indent\f[].
-There are also a few tweaks to core syntax files in
-\f[C]~/.vim/after/syntax\f[], especially for shell script
-(\f[C]sh.vim\f[]).
-Some of these filetype plugins are also due to be separately distributed
-and installed via submodules instead.
+I apply some replacement or supplementary configuration specific to file
+types I often edit in \f[C]~/.vim\f[] and \f[C]~/.vim/after\f[], in the
+\f[C]ftplugin\f[], \f[C]indent\f[], and \f[C]syntax\f[] subdirectories.
+Some of these filetype plugins or extensions will also eventually be
+removed to be separately distributed, and installed via submodules
+instead.
 .SS Compilers
 .PP
 I define a few of my own \f[C]:compiler\f[] scripts for
-\f[C]~/.vim/compiler\f[], for use for checking and linting of
-appropriate filetypes.
-Because checking (does it compile?) and linting (is it correct and
-well\-written?) are separate processes for me, I bind them separately
-with local leader maps; for example, for \f[C]perl\f[] filetypes,
-\f[C],c\f[] switches \f[C]makprg\f[] to \f[C]perl\ \-c\f[], and
-\f[C],l\f[] to \f[C]perlcritic\f[].
-.SS Neovim
+\f[C]~/.vim/compiler\f[] to check and lint appropriate filetypes.
+I bind checking\[en]\[lq]does it run?\[rq]\[en]and linting\[en]\[lq]is
+it good?\[rq]\[en]with separate local leader maps; for example, for
+\f[C]perl\f[] filetypes, \f[C]<LocalLeader>c\f[] switches
+\f[C]makeprg\f[] to \f[C]perl\ \-c\f[] for checking, and
+\f[C]<LocalLeader>l\f[] to \f[C]perlcritic\f[] for linting.
+.SS No Neovim support
 .PP
-I test my configuration every now and then with the Neovim
-fork (https://neovim.io/).
-There's an \f[C]install\-neovim\f[] target to run \f[C]install\-vim\f[]
-with the appropriate paths changed.
-.PP
-Its godless
-arrogance (https://twitter.com/tpope/status/437019518444240896)
-notwithstanding, I do rather like Neovim overall, but I'm not presently
-using it as my daily driver, and so it might balk at recent addenda to
-my configuration.
+The configuration doesn't explicitly support Neovim, although most of it
+will probably work.
 .SS Scripts
 .PP
 Where practical, I make short scripts into POSIX (but not Bourne)

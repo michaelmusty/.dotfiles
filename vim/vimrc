@@ -324,14 +324,19 @@ else
   set backupdir^=$MYVIM/cache/backup
 endif
 
-" Vim doesn't seem to check patterns added to 'backupskip' for uniqueness, so
-" adding them repeatedly if this file is reloaded results in duplicate strings
-" in the value, due to the absence of the P_NODUP flag for the option's
-" definition in src/option.c in the Vim source code.  This is likely a bug in
-" Vim.  For the moment, to work around the problem, we reset the path back to
-" its default first.
+" Prior to v8.1.1519, Vim didn't check patterns added to 'backupskip' for
+" uniqueness, so adding the same path repeatedly resulted in duplicate strings
+" in the value.  This was due to the absence of the P_NODUP flag for the
+" option's definition in src/option.c in the Vim source code.  If we're using
+" a version older than v8.1.1519, we'll need to explicitly reset 'backupskip'
+" to its default value, so that reloading this file doesn't stack up multiple
+" copies of any added paths.
 "
-set backupskip&
+" <https://github.com/vim/vim/releases/tag/v8.1.1519>
+"
+if !has('patch-8.1.1519')
+  set backupskip&
+endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up, for security reasons.  This is particularly important if editing
@@ -351,7 +356,7 @@ endif
 " default of writing them to the same directory as the buffer file.  Add two
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions, since the 'directory'
-" option has supported that hint for much longer than 'backupdir has.  We
+" option has supported that hint for much longer than 'backupdir' has.  We
 " apply :Establish to attempt to create the path first, if needed.
 "
 Establish $MYVIM/cache/swap
@@ -548,13 +553,7 @@ set confirm
 " most or maybe all of the terminals I use, but I don't want those keys in
 " insert mode, anyway.  All of this works fine in the GUI, of course.
 "
-" There's no such option as 'esckeys' in Neovim.  I gather that the fork has
-" completely overhauled its method of keyboard event handling, so we need to
-" check whether the option exists before we try to unset it.
-"
-if exists('+esckeys')
-  set noesckeys
-endif
+set noesckeys
 
 " By default, I prefer that figuring out where a region of text to fold away
 " should be done by the indent level of its lines, since I tend to be careful
@@ -699,19 +698,6 @@ nohlsearch
 "
 set incsearch
 
-" If there's only one window, I don't need a status line to appear beneath it.
-" I very often edit only a few files in one window in a Vim session.  I like the
-" initial screen for a call to Vim with no arguments to be empty, save for the
-" trademark tildes.  It gives me an extra screen line, too.  It's a reflex for
-" me to press CTRL-G in normal mode if I need to see the buffer name, so I don't
-" really lose anything.
-"
-" This value reflects the Vim default, but Neovim changed its default to '2'
-" for an 'always-on' status line, so we'll explicitly set it to the original
-" Vim default here in case we're using Neovim.
-"
-set laststatus=1
-
 " Don't waste cycles and bandwidth redrawing the screen during execution of
 " aggregate commands in e.g. macros.  I think this does amount to the
 " occasional :redraw needing to be in a script, but it's not too bad, and last
@@ -723,13 +709,6 @@ set lazyredraw
 " Define meta-characters to show in place of characters that are otherwise
 " invisible, or line wrapping attributes when the 'list' option is enabled.
 "
-" We need to reset the option to its default value first, because the current
-" Neovim version at the time of writing (v0.3.5) doesn't check these for
-" uniqueness, resulting in duplicates if this file is reloaded.  'backupskip'
-" has similar problems in the original Vim v8.1.1487 and earlier.
-"
-set listchars&vi
-
 " These 'list' characters all correspond to invisible or indistinguishable
 " characters.  We leave the default eol:$ in place to show newlines, and add
 " a few more.
@@ -781,8 +760,8 @@ set nrformats-=octal
 " the Vim default of 'noruler'.  CTRL-G shows me everything I need to know,
 " and is near-instinctive now.
 "
-" Rude system vimrc files tend to switch this back on, though, and Neovim has
-" it on by default, and so we force it off here.
+" Rude system vimrc files tend to switch this back on, though, so we force it
+" off here.
 "
 set noruler
 
@@ -843,12 +822,7 @@ endif
 " The manual suggests that disabling this should be done by clearing 't_RV',
 " but that didn't actually seem to work when I tried it.
 "
-" We have to check for the existence of the option first, as it doesn't exist
-" in Neovim.
-"
-if exists('+ttymouse')
-  set ttymouse=
-endif
+set ttymouse=
 
 " While using virtual block mode, allow me to navigate to any column of the
 " buffer window; don't confine the boundaries of the block to the coordinates
@@ -902,7 +876,7 @@ set wildmode=list:longest,full
 "           sh -c 'for fn ; do
 "              ext=${fn##*.}
 "              case $ext in
-"                  *[^[:alnum:]]*) continue ;;
+"                  *[![:alnum:]]*) continue ;;
 "                  ?*) printf "%s\n" "$ext" ;;
 "              esac
 "           done' _ {} + |
@@ -1403,12 +1377,13 @@ nnoremap <Leader>j
 " This ground defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
 "
-" <https://sanctum.geek.nz/cgit/vim-strip-trailing-whitespace.git/about/>
-"   :StripTrailingWhitespace
-" <https://sanctum.geek.nz/cgit/vim-squeeze-repeat-blanks.git/about/>
-"   :SqueezeRepeatBlanks
-" <https://sanctum.geek.nz/cgit/vim-keep-position.git/about/>
-"   :KeepPosition
+" :KeepPosition
+"   <https://sanctum.geek.nz/cgit/vim-keep-position.git/about/>
+" :SqueezeRepeatBlanks
+"   <https://sanctum.geek.nz/cgit/vim-squeeze-repeat-blanks.git/about/>
+" :StripTrailingWhitespace
+"   <https://sanctum.geek.nz/cgit/vim-strip-trailing-whitespace.git/about/>
+"
 
 "" Leader,x strips trailing whitespace
 nnoremap <Leader>x

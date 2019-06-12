@@ -112,7 +112,6 @@ Configuration is included for:
 * [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
 * [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
-    * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
 * [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
   for Unix
 
@@ -344,17 +343,14 @@ key combination to detach.
 The majority of the Vim configuration is just setting options, with a fair few
 mappings and remappings, both global and buffer-local.  I try not to deviate
 too much from the Vim defaults behavior in terms of interactive behavior and
-keybindings.  It's extensively commented, mostly because I was reading through
-it one day and realized I'd forgotten what half of it did.  System-specific
-configuration files go in `~/.vim/config`.
+keybindings.  It's extensively commented.
 
 #### Filetypes
 
 I define my own `filetype.vim` and `scripts.vim`, so that filetype detection
-works in a way I like, and loads quickly.  They are very unlikely to suit you
-as they are, but you might be able to extend them with your favourite
-filetypes.  If you delete both of them from `~/.vim`, you'll get the stock
-filetype detection back.
+works in a way I like, and loads quickly.  They are unlikely to suit you as
+they are, but if you want to use it, you can extend them with your favourite
+filetypes in custom `ftdetect` rules.
 
 #### Plugins
 
@@ -363,37 +359,31 @@ structures like functions, I like to implement it as a plugin in
 `~/.vim/plugin` and/or `~/.vim/autoload`, with documentation for each in
 `~/.vim/doc`.
 
-They eventually get either discarded or spun off into their own repositories,
-added to this repository as submodules under `vim/bundle` instead, and uploaded
-to [vim.org](https://www.vim.org/account/profile.php?user_id=73687).
+They eventually get either discarded if I stop using them, or spun off into
+their own repositories if I don't, and added to this repository as submodules
+under `vim/bundle` instead.  Some of them I upload to
+[vim.org](https://www.vim.org/account/profile.php?user_id=73687).
 
 #### Filetype plugins
 
-I also define a few rules specific to file types I often edit in
-`~/.vim/after/ftplugin`, including some buffer-local mapping targets for
-checking, linting, and tidying, and a few more in `~/.vim/after/indent`.  There
-are also a few tweaks to core syntax files in `~/.vim/after/syntax`, especially
-for shell script (`sh.vim`).  Some of these filetype plugins are also due to be
-separately distributed and installed via submodules instead.
+I apply some replacement or supplementary configuration specific to file types
+I often edit in `~/.vim` and `~/.vim/after`, in the `ftplugin`, `indent`, and
+`syntax` subdirectories.  Some of these filetype plugins or extensions will
+also eventually be removed to be separately distributed, and installed via
+submodules instead.
 
 #### Compilers
 
-I define a few of my own `:compiler` scripts for `~/.vim/compiler`, for use for
-checking and linting of appropriate filetypes.  Because checking (does it
-compile?) and linting (is it correct and well-written?) are separate processes
-for me, I bind them separately with local leader maps; for example, for `perl`
-filetypes, `,c` switches `makprg` to `perl -c`, and `,l` to `perlcritic`.
+I define a few of my own `:compiler` scripts for `~/.vim/compiler` to check and
+lint appropriate filetypes.  I bind checking--"does it run?"--and linting--"is
+it good?"--with separate local leader maps; for example, for `perl` filetypes,
+`<LocalLeader>c` switches `makeprg` to `perl -c` for checking, and
+`<LocalLeader>l` to `perlcritic` for linting.
 
-#### Neovim
+#### No Neovim support
 
-I test my configuration every now and then with the [Neovim
-fork](https://neovim.io/).  There's an `install-neovim` target to run
-`install-vim` with the appropriate paths changed.
-
-Its [godless arrogance](https://twitter.com/tpope/status/437019518444240896)
-notwithstanding, I do rather like Neovim overall, but I'm not presently using
-it as my daily driver, and so it might balk at recent addenda to my
-configuration.
+The configuration doesn't explicitly support Neovim, although most of it will
+probably work.
 
 Scripts
 -------

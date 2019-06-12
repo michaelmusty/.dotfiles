@@ -550,12 +550,6 @@ install-vim: install-vim-after \
 	install-vim-plugin \
 	install-vim-syntax
 
-install-neovim:
-	make install-vim \
-		VIM=nvim \
-		VIMDIR="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim" \
-		VIMRC="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim/init.vim"
-
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
 	install-vim-after-plugin \
@@ -592,7 +586,9 @@ install-vim-bundle: install-vim-config
 
 install-vim-cache:
 	mkdir -p -- \
+		$(VIMDIR)/cache \
 		$(VIMDIR)/cache/backup \
+		$(VIMDIR)/cache/spell \
 		$(VIMDIR)/cache/swap \
 		$(VIMDIR)/cache/undo
 
