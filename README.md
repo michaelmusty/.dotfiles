@@ -637,10 +637,15 @@ available to run them:
 * [Vint](https://github.com/Kuniwak/vint):
     * `lint-vim`
 
+Future development
+------------------
+
+See IDEAS.md.
+
 Known issues
 ------------
 
-See ISSUES.markdown.
+See ISSUES.md.
 
 License
 -------

@@ -1011,9 +1011,12 @@ Vint (https://github.com/Kuniwak/vint):
 .IP \[bu] 2
 \f[C]lint\-vim\f[]
 .RE
+.SS Future development
+.PP
+See IDEAS.md.
 .SS Known issues
 .PP
-See ISSUES.markdown.
+See ISSUES.md.
 .SS License
 .PP
 Public domain; see the included \f[C]UNLICENSE\f[] file.
