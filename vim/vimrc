@@ -761,9 +761,9 @@ set nrformats-=octal
 " and is near-instinctive now.
 "
 " Rude system vimrc files tend to switch this back on, though, so we force it
-" back to the default here.
+" off here.
 "
-set ruler&
+set noruler
 
 " Sessions preserve window, tab, and buffer layout, and are thereby great for
 " more complex and longer-term projects like books, but they don't play
