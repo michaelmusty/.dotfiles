@@ -593,6 +593,7 @@ install-vim-bundle: install-vim-config
 install-vim-cache:
 	mkdir -p -- \
 		$(VIMDIR)/cache/backup \
+		$(VIMDIR)/cache/spell \
 		$(VIMDIR)/cache/swap \
 		$(VIMDIR)/cache/undo
 
