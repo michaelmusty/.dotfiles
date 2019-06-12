@@ -1077,21 +1077,20 @@ if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
 
-" I often don't remember or can't guess digraph codes very well, and want to
-" look up how to compose a specific character that I can name, at least in
-" part.  The table in `:help digraph-table` is what to use for that situation,
-" and it solves the problem, but the overhead of repeated lookups therein was
-" just a little bit high.
+" I often can't remember (or guess) digraph codes, and want to look up how to
+" compose a specific character that I can name, at least in part.  The table
+" in `:help digraph-table` is what to use for that situation, and it solves
+" the problem, but I didn't like the overhead of repeated lookups therein.
 "
 " Steve Losh has a solution I liked where a double-tap of CTRL-K in insert
-" mode brought up a help window with the table, which could then be searched
-" as normal:
+" mode brought up the applicable :help window:
 "
 " <https://bitbucket.org/sjl/dotfiles/src/2559256/vim/vimrc#lines-309:310>
 "
-" I took it one step further with a custom plugin digraph_search.vim that
-" parses the digraph table and runs a simple text search of its names using
-" a string provided by the user.  For example, searching for ACUTE yields:
+" I took that one step further with a custom plugin named digraph_search.vim.
+" It parses the digraph table from :help and runs a simple text search of its
+" names using a string provided by the user.  For example, searching for ACUTE
+" yields:
 "
 " > Digraphs matching ACUTE:
 " > ´  ''  ACUTE ACCENT
@@ -1126,11 +1125,11 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 nnoremap <C-L>
       \ :<C-U>nohlsearch<CR><C-L>
 
-" The insert mode wrapper for normal CTRL-L uses CTRL-O to issue a single
+" The insert mode wrapper for normal CTRL-L uses i_CTRL-O to issue a single
 " normal mode command.  We intentionally use `:normal` rather than `:normal!`
-" so that the normal mode mapping applies.  I tried using just <C-O><C-L>
-" directly for this, but it didn't work; maybe i_CTRL-O doesn't respect
-" mappings, but I couldn't find any documentation about this.
+" so that the mapping works recursively.  I tried using <C-O><C-L> with :imap
+" for this, but it didn't work.  Maybe i_CTRL-O doesn't respect mappings.
+" I couldn't find any documentation about it.
 "
 inoremap <C-L> <C-O>:execute "normal \<C-L>"<CR>
 
@@ -1301,10 +1300,11 @@ nnoremap <Leader>z
 nmap <Leader>b <Plug>(CopyLinebreakToggle)
 
 " The above mappings show that mappings for toggling boolean options are
-" simple, but there isn't a way to toggle single flags within option strings,
-" so I wrote a plugin called toggle_flags.vim to provide :ToggleFlag and
-" :ToggleFlagLocal commands.  The first argument is the name of an option, and
-" the second is the flag within it that should be toggled on or off.
+" simple, but there isn't a way to toggle single flags within option strings
+" with just the :set command, so I wrote a plugin called toggle_flags.vim to
+" provide :ToggleFlag and :ToggleFlagLocal commands.  The first argument is
+" the name of an option, and the second is the flag within it that should be
+" toggled on or off.
 
 "" Leader,a toggles 'formatoptions' 'a' auto-flowing flag
 nnoremap <Leader>a
@@ -1370,10 +1370,10 @@ nnoremap <Leader>M
 "" Leader,S shows loaded scripts
 nnoremap <Leader>S
       \ :<C-U>scriptnames<CR>
-"" Leader,v shows all global variables
+"" Leader,v shows all global and internal variables
 nnoremap <Leader>v
       \ :<C-U>let g: v:<CR>
-"" Leader,V shows all local variables
+"" Leader,V shows all buffer, tab, and window local variables
 nnoremap <Leader>V
       \ :<C-U>let b: t: w:<CR>
 "" Leader,y shows all registers
@@ -1405,19 +1405,19 @@ nnoremap <Leader>j
 " This ground defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
 "
-" strip_trailing_whitespace.vim:
+" <https://sanctum.geek.nz/cgit/vim-strip-trailing-whitespace.git/about/>
 "   :StripTrailingWhitespace
-" squeeze_repeat_blanks.vim:
+" <https://sanctum.geek.nz/cgit/vim-squeeze-repeat-blanks.git/about/>
 "   :SqueezeRepeatBlanks
-" keep_position.vim
+" <https://sanctum.geek.nz/cgit/vim-keep-position.git/about/>
 "   :KeepPosition
 
-"" Leader,x strips trailing whitespace via a custom plugin
+"" Leader,x strips trailing whitespace
 nnoremap <Leader>x
       \ :StripTrailingWhitespace<CR>
 xnoremap <Leader>x
       \ :StripTrailingWhitespace<CR>
-"" Leader,X squeezes repeated blank lines via a custom plugin
+"" Leader,X squeezes repeated blank lines
 nnoremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
 xnoremap <Leader>X
@@ -1506,8 +1506,8 @@ nnoremap <Leader>R
 inoreabbrev tr@ tom@sanctum.geek.nz
 inoreabbrev tr/ <https://sanctum.geek.nz/>
 
-" And then, just fix some typographical and spelling errors for me
-" automatically.
+" And then, just automatically fix some things I almsot always spell or type
+" wrnog.
 "
 inoreabbrev almsot almost
 inoreabbrev wrnog wrong
