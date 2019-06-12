@@ -640,7 +640,7 @@ available to run them:
 Known issues
 ------------
 
-See ISSUES.markdown.
+See ISSUES.md.
 
 License
 -------
