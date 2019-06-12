@@ -550,12 +550,6 @@ install-vim: install-vim-after \
 	install-vim-plugin \
 	install-vim-syntax
 
-install-neovim:
-	make install-vim \
-		VIM=nvim \
-		VIMDIR="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim" \
-		VIMRC="$${XDG_CONFIG_HOME:-"$$HOME"/.config}/nvim/init.vim"
-
 install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-indent \
 	install-vim-after-plugin \

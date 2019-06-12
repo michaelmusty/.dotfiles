@@ -553,13 +553,7 @@ set confirm
 " most or maybe all of the terminals I use, but I don't want those keys in
 " insert mode, anyway.  All of this works fine in the GUI, of course.
 "
-" There's no such option as 'esckeys' in Neovim.  I gather that the fork has
-" completely overhauled its method of keyboard event handling, so we need to
-" check whether the option exists before we try to unset it.
-"
-if exists('+esckeys')
-  set noesckeys
-endif
+set noesckeys
 
 " By default, I prefer that figuring out where a region of text to fold away
 " should be done by the indent level of its lines, since I tend to be careful
@@ -704,19 +698,6 @@ nohlsearch
 "
 set incsearch
 
-" If there's only one window, I don't need a status line to appear beneath it.
-" I very often edit only a few files in one window in a Vim session.  I like the
-" initial screen for a call to Vim with no arguments to be empty, save for the
-" trademark tildes.  It gives me an extra screen line, too.  It's a reflex for
-" me to press CTRL-G in normal mode if I need to see the buffer name, so I don't
-" really lose anything.
-"
-" This value reflects the Vim default, but Neovim changed its default to '2'
-" for an 'always-on' status line, so we'll explicitly set it to the original
-" Vim default here in case we're using Neovim.
-"
-set laststatus=1
-
 " Don't waste cycles and bandwidth redrawing the screen during execution of
 " aggregate commands in e.g. macros.  I think this does amount to the
 " occasional :redraw needing to be in a script, but it's not too bad, and last
@@ -728,13 +709,6 @@ set lazyredraw
 " Define meta-characters to show in place of characters that are otherwise
 " invisible, or line wrapping attributes when the 'list' option is enabled.
 "
-" We need to reset the option to its default value first, because the current
-" Neovim version at the time of writing (v0.3.5) doesn't check these for
-" uniqueness, resulting in duplicates if this file is reloaded.  'backupskip'
-" has similar problems in the original Vim v8.1.1487 and earlier.
-"
-set listchars&vi
-
 " These 'list' characters all correspond to invisible or indistinguishable
 " characters.  We leave the default eol:$ in place to show newlines, and add
 " a few more.
@@ -786,10 +760,10 @@ set nrformats-=octal
 " the Vim default of 'noruler'.  CTRL-G shows me everything I need to know,
 " and is near-instinctive now.
 "
-" Rude system vimrc files tend to switch this back on, though, and Neovim has
-" it on by default, and so we force it off here.
+" Rude system vimrc files tend to switch this back on, though, so we force it
+" back to the default here.
 "
-set noruler
+set ruler&
 
 " Sessions preserve window, tab, and buffer layout, and are thereby great for
 " more complex and longer-term projects like books, but they don't play
@@ -848,12 +822,7 @@ endif
 " The manual suggests that disabling this should be done by clearing 't_RV',
 " but that didn't actually seem to work when I tried it.
 "
-" We have to check for the existence of the option first, as it doesn't exist
-" in Neovim.
-"
-if exists('+ttymouse')
-  set ttymouse=
-endif
+set ttymouse=
 
 " While using virtual block mode, allow me to navigate to any column of the
 " buffer window; don't confine the boundaries of the block to the coordinates

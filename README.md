@@ -112,7 +112,6 @@ Configuration is included for:
 * [tidy](http://www.html-tidy.org/) -- HTML/XHTML linter and tidier
 * [tmux](https://tmux.github.io/) -- Terminal multiplexer similar to GNU Screen
 * [Vim](https://www.vim.org/) -- Vi IMproved, a text editor
-    * [Neovim](https://neovim.io/) -- An "emphatic fork" of Vim
 * [X11](https://www.x.org/wiki/) -- Windowing system with network transparency
   for Unix
 
@@ -384,16 +383,10 @@ compile?) and linting (is it correct and well-written?) are separate processes
 for me, I bind them separately with local leader maps; for example, for `perl`
 filetypes, `,c` switches `makprg` to `perl -c`, and `,l` to `perlcritic`.
 
-#### Neovim
+#### No Neovim support
 
-I test my configuration every now and then with the [Neovim
-fork](https://neovim.io/).  There's an `install-neovim` target to run
-`install-vim` with the appropriate paths changed.
-
-Its [godless arrogance](https://twitter.com/tpope/status/437019518444240896)
-notwithstanding, I do rather like Neovim overall, but I'm not presently using
-it as my daily driver, and so it might balk at recent addenda to my
-configuration.
+The configuration doesn't explicitly support Neovim, although most of it will
+probably work.
 
 Scripts
 -------
