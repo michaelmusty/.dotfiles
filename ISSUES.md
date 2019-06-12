@@ -32,5 +32,3 @@ Known issues
   newlines in their names. Can it be made to?
 * Something in the mail ftplugin is butchering the headers, probably something
   that strips whitespace or quotes
-* Might be able to work out what's up with the TZ environment variable
-  "sticking" for the date insertion commands in bleeding-edge Vim
