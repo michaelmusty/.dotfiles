@@ -75,13 +75,13 @@ scriptencoding utf-8
 "
 " The pattern required for the split breaks down like this:
 "
-"   \\     -- Literal backslash
-"   \@<!   -- Negative lookbehind assertion; means that whatever occurred
+"   \\     <- Literal backslash
+"   \@<!   <- Negative lookbehind assertion; means that whatever occurred
 "             before this pattern, here a backslash, cannot precede what
 "             follows, but anything that does precede it is not removed from
 "             the data as part of the split delimiter
-"   ,      -- Literal comma
-"   [, ]*  -- Any number of commas and spaces
+"   ,      <- Literal comma
+"   [, ]*  <- Any number of commas and spaces
 "
 " We don't have to deal with escaped backslashes.  You can read the source
 " code for the ad-hoc tokenizer in copy_option_part() in src/misc2.c in Vim's
