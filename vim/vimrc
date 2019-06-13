@@ -370,25 +370,19 @@ set directory^=$MYVIM/cache/swap//
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
 " Vim invocations.
 "
+" The 'undodir' option has the same structure as 'backupdir' and 'directory';
+" if we have a user runtime directory, create a sub-subdirectory within it
+" dedicated to the undo files cache.  Note also the trailing double-slash as
+" a signal to Vim to use the full path of the original file in its undo file
+" cache's name.
+"
 " Support for these persistent undo file caches was not released until v7.3.0,
 " so we need to check for the feature's presence before we enable it.
 "
 if has('persistent_undo')
-
-  " This has the same structure as 'backupdir' and 'directory'; if we have
-  " a user runtime directory, create a sub-subdirectory within it dedicated to
-  " the undo files cache.  Note also the trailing double-slash as a signal to
-  " Vim to use the full path of the original file in its undo file cache's
-  " name.
-  "
   Establish $MYVIM/cache/undo
-  set undodir^=$MYVIM/cache/undo//
-
-  " Turn the persistent undo features on, now that we hopefully have a cache
-  " directory configured to collect them.
-  "
   set undofile
-
+  set undodir^=$MYVIM/cache/undo//
 endif
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
