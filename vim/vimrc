@@ -1,4 +1,3 @@
-"
 " Tom Ryder (tejr)'s Literate Vimrc
 " =================================
 "
@@ -55,7 +54,7 @@ scriptencoding utf-8
 "
 " We'll use the path nominated in the MYVIM variable as the root of our
 " 'backupdir', 'directory', 'undodir', and 'viminfofile' caches, and anywhere
-" else we need a sensible writeable location for Vim-related files.  Having it
+" else we need a sensible writable location for Vim-related files.  Having it
 " available as an environment variable makes assignments with :set and
 " escaping much more convenient, without requiring awkward :execute wrappers.
 "
@@ -76,14 +75,15 @@ scriptencoding utf-8
 "
 " The pattern required for the split breaks down like this:
 "
-"   \\     -- Literal backslash
-"   \@<!   -- Negative lookbehind assertion; means that whatever occurred before
-"             this pattern, i.e. a backslash, cannot precede what follows, but
-"             is not included as part of the split delimiter itself
-"   ,      -- Literal comma
-"   [, ]*  -- Any number of commas and spaces
+"   \\     <- Literal backslash
+"   \@<!   <- Negative lookbehind assertion; means that whatever occurred
+"             before this pattern, here a backslash, cannot precede what
+"             follows, but anything that does precede it is not removed from
+"             the data as part of the split delimiter
+"   ,      <- Literal comma
+"   [, ]*  <- Any number of commas and spaces
 "
-" We don't have to deal with escaped backslashes.  Tou can read the source
+" We don't have to deal with escaped backslashes.  You can read the source
 " code for the ad-hoc tokenizer in copy_option_part() in src/misc2.c in Vim's
 " source code and test it with some values of your own if you want to
 " understand why.
@@ -115,7 +115,7 @@ endif
 " Secondly, if MYVIM's value contains a comma, its use in comma-separated
 " option values will confuse Vim into thinking more than one directory is
 " being specified, splitting our value into parts.  This is normal :set
-" behaviour.  It's possible to work around this with some careful escaping or
+" behavior.  It's possible to work around this with some careful escaping or
 " :execute abstraction, but it's not really worth the extra complexity for
 " such a niche situation.
 "
@@ -222,15 +222,12 @@ augroup vimrc
 augroup END
 
 " We're going to be creating a few directories now.  The code to do so in
-" a compatible way is surprisingly verbose, because as well as expanding what
-" we were provided as an argument, the :help for mkdir() indicates we need to
-" check the function is actually available before using it.
-"
-" We also need to check whether the directory already exists, even if we
-" specify the special 'p' value for its optional {path} argument.  This is
-" because until v8.0.1708, mkdir() raises an error if the directory to be
-" created already exists, even with a {path} of 'p', where the analogous
-" `mkdir` shell command does not do so with its -p option included.
+" a compatible way is verbose, mostly because we need to check whether the
+" directory already exists, even though we're specifying the special 'p' value
+" for its optional {path} argument.  This is because until v8.0.1708, mkdir()
+" raises an error if the directory to be created already exists, even with
+" a {path} of 'p', where the analogous `mkdir` shell command does not do so
+" with its -p option included.
 "
 " <https://github.com/vim/vim/releases/tag/v8.0.1708>
 "
@@ -238,19 +235,21 @@ augroup END
 " hide it behind a user command :Establish.  We'll lock down all the
 " directories that we create with restrictive permissions, too.  Who knows
 " what secrets are in your file buffers?
-
+"
 " We set the command's tab completion to provide directory names as
 " candidates, and specify that there must be only one argument, which we'll
 " provide as a quoted parameter to the function.
 "
-function! s:Establish(path) abort
-  let path = expand(a:path)
-  if !isdirectory(path) && exists('*mkdir')
-    call mkdir(path, 'p', 0700)
+function! s:Establish(name) abort
+  let name = expand(a:name)
+  let path = 'p'
+  let prot = 0700
+  if !isdirectory(name) && exists('*mkdir')
+    call mkdir(name, path, prot)
   endif
 endfunction
 command! -bar -complete=dir -nargs=1 Establish
-      \ call s:Establish(<q-args>)
+      \ call s:Establish(<f-args>)
 
 " Now that we have a clean means to create directories if they don't already
 " exist, let's apply it for the first time to the user runtime directory.
@@ -295,14 +294,11 @@ set history=10000
 
 " Enable automatic backups of most file buffers.  In practice, I don't need
 " these backups very much if I'm using version control sensibly, but they have
-" still saved my bacon a few times.  We're not done here yet, though; there's
-" the important matter of where to *put* those backups.
+" still saved my bacon a few times.
 "
-set backup
-
-" We'll try to keep the aforementioned backup files in a dedicated cache
-" directory, to stop them popping up next to the file to which they
-" correspond, and getting committed to version control.
+" We'll try to keep the backup files in a dedicated cache directory, to stop
+" them popping up next to the file to which they correspond, and getting
+" committed to version control.
 "
 " If Vim is new enough, we'll add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path of the
@@ -323,25 +319,12 @@ set backup
 " It's all so awkward.  Surely separate options named something like
 " 'backupfullname', 'swapfilefullname' would have been clearer.
 "
+set backup
 Establish $MYVIM/cache/backup
 if has('patch-8.1.251')
   set backupdir^=$MYVIM/cache/backup//
 else
   set backupdir^=$MYVIM/cache/backup
-endif
-
-" Prior to v8.1.1519, Vim didn't check patterns added to 'backupskip' for
-" uniqueness, so adding the same path repeatedly resulted in duplicate strings
-" in the value.  This was due to the absence of the P_NODUP flag for the
-" option's definition in src/option.c in the Vim source code.  If we're using
-" a version older than v8.1.1519, we'll need to explicitly reset 'backupskip'
-" to its default value, so that reloading this file doesn't stack up multiple
-" copies of any added paths.
-"
-" <https://github.com/vim/vim/releases/tag/v8.1.1519>
-"
-if !has('patch-8.1.1519')
-  set backupskip&
 endif
 
 " Files in certain directories on Unix-compatible filesystems should not be
@@ -354,7 +337,20 @@ endif
 " * /usr/tmp: Hard-coded path for sudoedit(8) [1/2]
 " * /var/tmp: Hard-coded path for sudoedit(8) [2/2]
 "
+" Prior to v8.1.1519, Vim didn't check patterns added to 'backupskip' for
+" uniqueness, so adding the same path repeatedly resulted in duplicate strings
+" in the value.  This was due to the absence of the P_NODUP flag for the
+" option's definition in src/option.c in the Vim source code.  If we're using
+" a version older than v8.1.1519, we'll need to explicitly reset 'backupskip'
+" to its default value before adding patterns to it, so that reloading this
+" file doesn't stack up multiple copies of any added paths.
+"
+" <https://github.com/vim/vim/releases/tag/v8.1.1519>
+"
 if has('unix')
+  if !has('patch-8.1.1519')
+    set backupskip&
+  endif
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 endif
 
@@ -372,25 +368,19 @@ set directory^=$MYVIM/cache/swap//
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
 " Vim invocations.
 "
+" The 'undodir' option has the same structure as 'backupdir' and 'directory';
+" if we have a user runtime directory, create a sub-subdirectory within it
+" dedicated to the undo files cache.  Note also the trailing double-slash as
+" a signal to Vim to use the full path of the original file in its undo file
+" cache's name.
+"
 " Support for these persistent undo file caches was not released until v7.3.0,
 " so we need to check for the feature's presence before we enable it.
 "
 if has('persistent_undo')
-
-  " This has the same structure as 'backupdir' and 'directory'; if we have
-  " a user runtime directory, create a sub-subdirectory within it dedicated to
-  " the undo files cache.  Note also the trailing double-slash as a signal to
-  " Vim to use the full path of the original file in its undo file cache's
-  " name.
-  "
   Establish $MYVIM/cache/undo
-  set undodir^=$MYVIM/cache/undo//
-
-  " Turn the persistent undo features on, now that we hopefully have a cache
-  " directory configured to collect them.
-  "
   set undofile
-
+  set undodir^=$MYVIM/cache/undo//
 endif
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
@@ -434,7 +424,7 @@ if $MYVIM !~# '[*?[|;&<>\r\n]'
   set thesaurus^=$MYVIM/ref/thesaurus.txt
 endif
 
-" Next, we'll modernise a little in adjusting some options with old
+" Next, we'll modernize a little in adjusting some options with old
 " language-specific defaults.
 "
 " Traditional vi was often used for development in the C programming language.
@@ -457,14 +447,13 @@ endif
 " like.  The defaults for these options no longer make sense, and so we blank
 " them, compelling filetype plugins to set them as they need instead.
 "
-set comments= commentstring= define= include=
-
 " The default value for the 'path' option is similar, in that it has an aged
 " default; this option specifies directories in which project files and
 " includes can be unearthed by navigation commands like 'gf'.  Specifically,
 " its default value comprises /usr/include, which is another C default.  Let's
 " get rid of that, too.
 "
+set comments= commentstring= define= include=
 set path-=/usr/include
 
 " Next, we'll adjust the global indentation settings.  In general and as
@@ -592,17 +581,17 @@ set foldlevelstart=99
 " either of those flags here.
 
 " If a line is already longer than 'textwidth' would otherwise limit when
-" editing of that line begins in insert mode, don't suddenly automatically wrap
-" it; I'll break it apart myself with a command like 'gq'.  This doesn't seem to
-" stop paragraph reformatting with 'a', if that's set.
+" editing of that line begins in insert mode, don't suddenly automatically
+" wrap it; I'll break it apart myself with a command like 'gq'.  This doesn't
+" seem to stop paragraph reformatting with 'a', if that's set.
 "
 set formatoptions+=l
 
 " Don't wrap a line in such a way that a single-letter word like "I" or "a" is
 " at the end of it.  Typographically, as far as I can tell, this seems to be
 " a stylistic preference rather than a rule, rather like avoiding "widow" and
-" "orphan" lines in typesetting.  I think it generally looks better to have the
-" short word start the line, so we'll switch it on.
+" "orphan" lines in typesetting.  I think it generally looks better to have
+" the short word start the line, so we'll switch it on.
 "
 set formatoptions+=1
 
@@ -652,7 +641,7 @@ set cpoptions+=J
 " two words in "Mr. Moolenaar" should never be split apart, preventing
 " confusion on the reader's part lest the word "Mr." look too much like the
 " end of a sentence, and also preserving the semantics of that same period for
-" subsequent reformats; its single-space won't get lost.
+" subsequent reformatting; its single-space won't get lost.
 "
 " So, getting back to our 'formatoptions' settings, that is what the 'p' flag
 " does.  I wrote the patch that added it, after becoming envious of an
@@ -690,7 +679,7 @@ endif
 " However, the option really is required for batch operations performed with
 " commands like :argdo or :bufdo, because Vim won't otherwise tolerate unsaved
 " changes to a litany of buffers that are not displayed in any window.  After
-" I started using such command maps a bit more often, I realised I finally had
+" I started using such command maps a bit more often, I realized I finally had
 " a reason to turn this on permanently.
 "
 set hidden
@@ -707,16 +696,13 @@ nohlsearch
 " including scrolling the screen to show the first such match if necessary.
 " This can be somewhat jarring, particularly when the cursor ends up scrolling
 " a long way from home in a large file, but I think the benefits of being able
-" to see instances of what I'm trying to match as I type the pattern do outweigh
-" that discomfort.
+" to see instances of what I'm trying to match as I type the pattern do
+" outweigh that discomfort.
 "
 set incsearch
 
 " Don't waste cycles and bandwidth redrawing the screen during execution of
-" aggregate commands in e.g. macros.  I think this does amount to the
-" occasional :redraw needing to be in a script, but it's not too bad, and last
-" I checked it really does speed things up, especially for operations on
-" really big data sets.
+" macro recordings and scripts.
 "
 set lazyredraw
 
@@ -757,9 +743,9 @@ endif
 "
 " I think that modelines are Vim's worst misfeature, and that 'nomodeline'
 " should be the default.  It's enabled pretty bad security vulnerabilities
-" over the years, and it's a lot more effective to use filetype detection, other
-" automatic command hooks, or methods like .editorconfig to set variables
-" specifically for a buffer or project.
+" over the years, and it's a lot more effective to use filetype detection,
+" other automatic command hooks, or methods like .editorconfig to set
+" variables specifically for a buffer or project.
 "
 set nomodeline
 
@@ -783,8 +769,8 @@ set noruler
 " more complex and longer-term projects like books, but they don't play
 " together well with plugins and filetype plugins.  Restoring the same
 " settings from both reloaded plugins and from the session causes screeds of
-" errors.  Adjusting session behaviour to stop it trying to restore the sorts
-" of settings that plugins manage makes them useable again.
+" errors.  Adjusting session behavior to stop it trying to restore the sorts
+" of settings that plugins manage makes them usable again.
 "
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
@@ -903,7 +889,7 @@ set wildmode=list:longest,full
 " please do so, and send it to me at <tom@sanctum.geek.nz> to have yours put
 " in here instead, with appropriate credit.  Don't forget to handle more than
 " ARG_MAX files, include filenames with newlines, and that the -z or -0 null
-" separator extensions are not standardised in POSIX.
+" separator extensions are not standardized in POSIX.
 "
 " <https://mywiki.wooledge.org/UsingFind#Complex_actions>
 "
@@ -945,38 +931,38 @@ endif
 " <https://sanctum.geek.nz/blinkenlights/syntax-on.jpg>
 "
 " For several months in 2018, as an experiment, I tried using terminals with
-" no colour at all, imitating a phenomenally productive BSD purist co-worker
-" who abhorred colour in any form on his terminals.  He only drank black
+" no color at all, imitating a phenomenally productive BSD purist co-worker
+" who abhorred color in any form on his terminals.  He only drank black
 " coffee, too.  If you're reading this: Hello, bdh!
 "
 " That experiment was instructive and interesting, and I found I had been
-" leaning on colour information in some surprising ways.  However, some months
-" later, I found I still missed my colours, and so I went back to my
+" leaning on color information in some surprising ways.  However, some months
+" later, I found I still missed my colors, and so I went back to my
 " Kodachrome roots, and didn't pine at all for that monochrome world.
 "
 " The thing I most like about syntax highlighting is detecting runaway
 " strings, which generally works in even the most threadbare language syntax
 " highlighting definitions.  I kept missing such errors when I didn't have the
-" colours.  I don't have high standards for it otherwise, except maybe for
+" colors.  I don't have high standards for it otherwise, except maybe for
 " shell script.
 "
 if !exists('syntax_on')
   syntax enable
 endif
 
-" We'll have Vim try to use my 'sahara' fork of the 'desert256' colour scheme,
+" We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme,
 " and if it manages to do so without errors, turn on the 'cursorline' feature,
-" since the scheme configures it and 'cursorcolumn' to be a very dark grey
+" since the scheme configures it and 'cursorcolumn' to be a very dark gray
 " that doesn't stand out too much against a black background.  Aside from the
 " aforementioned experiment with monochrome terminals, I exclusively use dark
 " backgrounds.
 "
-" If we fail to load the colour scheme, for whatever reason, suppress the
+" If we fail to load the color scheme, for whatever reason, suppress the
 " error, and reset the syntax highlighting, 'background', and 'cursorline' for
-" dark-background default colours.  I used it for years; it looks and works
+" dark-background default colors.  I used it for years; it looks and works
 " just fine.
 "
-" There's also a very simple grayscale colour scheme I occasionally use
+" There's also a very simple grayscale color scheme I occasionally use
 " instead called 'juvenile', which is included as a Git submodule with this
 " dotfiles distribution.
 "
@@ -1008,9 +994,9 @@ endtry
 "   extent possible, and avoid "doing more" in insert mode besides merely
 "   inserting text as it's typed.
 "
-" * Avoid chording with Ctrl in favour of leader keys.
+" * Avoid key chords with Ctrl in favor of leader keys.
 "
-" * Never use Alt/Meta chording; the terminal support for them is just too
+" * Never use Alt/Meta key chords; the terminal support for them is just too
 "   confusing and flaky.
 "
 " * Don't suppress display of mapped commands for no reason; it's OK to show
@@ -1024,7 +1010,7 @@ endtry
 " many of these.
 "
 
-" I find the space bar's default behaviour in normal mode of moving right one
+" I find the space bar's default behavior in normal mode of moving right one
 " character to be useless.  Instead, I remap it to be a lazy way of paging
 " through the argument list buffers, scrolling a page until the last line of
 " the buffer is visible, and then moving to the :next buffer.
@@ -1034,7 +1020,7 @@ endtry
 nnoremap <expr> <Space>
       \ line('w$') < line('$') ? "\<PageDown>" : ":\<C-U>next\<CR>"
 
-" I hate CTRL-C's default insert mode behaviour.  It ends the insert session
+" I hate CTRL-C's default insert mode behavior.  It ends the insert session
 " without firing the InsertLeave event for automatic command hooks.  Why would
 " anyone want that?  It breaks plugins that hinge on mirrored functionality
 " between the InsertEnter and InsertLeave events, and doesn't otherwise differ
@@ -1117,7 +1103,7 @@ imap <C-K><C-K> <Plug>(DigraphSearch)
 " a lot of redrawing.
 "
 " For each of these, we end the mapping with a CTRL-L in normal mode, thereby
-" extending rather than replacing Vim's normal behaviour.
+" extending rather than replacing Vim's normal behavior.
 "
 nnoremap <C-L>
       \ :<C-U>nohlsearch<CR><C-L>
@@ -1514,9 +1500,8 @@ inoreabbrev THere There
 
 " Here endeth the literate vimrc.
 "
-" > Consequently, it is soon recognised that they write for the sake of
+" > Consequently, it is soon recognized that they write for the sake of
 " > filling up the paper, and this is the case sometimes with the best
 " > authors...as soon as this is perceived the book should be thrown away,
 " > for time is precious.
 " > -- Schopenhauer
-"
