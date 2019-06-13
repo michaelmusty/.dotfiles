@@ -18,8 +18,8 @@
 " This file should be saved as "vimrc" in the user runtime directory. On
 " Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
 " It requires Vim 7.0 or newer with +eval, with 'nocompatible'.  The vimrc
-" stub at ~/.vimrc on Unix or ~/_vimrc on Windows checks that these conditions
-" are met before loading this file.
+" stub at ~/.vimrc on Unix or ~/_vimrc on Windows should checks that these
+" conditions are met before loading this file with `:runtime vimrc`.
 "
 " > And I was lifted up in heart, and thought
 " > Of all my late-shown prowess in the lists,
@@ -88,8 +88,8 @@ scriptencoding utf-8
 " source code and test it with some values of your own if you want to
 " understand why.
 "
-" For the edge case of a blank &runtimepath, MYVIM will here be set to the
-" empty string, due to the way that split() works by default without its third
+" For the edge case of a blank 'runtimepath', MYVIM will be set to the empty
+" string, due to the way that split() works by default without its third
 " parameter {keepempty} set to false.
 "
 " Vim, I love you, but you are really weird.
@@ -100,9 +100,9 @@ endif
 
 " Having either imported or defined a value for the MYVIM environment
 " variable, we now need to ensure it's not going to cause problems for the
-" rest of this file.  If any of those conditions are met, throw an explanatory
-" error and stop reading this file.  Most of the file doesn't depend on MYVIM,
-" but there's no point catering to these edge cases.
+" rest of this file.  If any of those conditions are met, we'll throw an
+" explanatory error and stop reading this file.  Most of the file doesn't
+" depend on MYVIM, but there's not much point accommodating these edge cases.
 "
 
 " Firstly, MYVIM can't be an empty string.  We need a real path.
@@ -114,19 +114,20 @@ endif
 
 " Secondly, if MYVIM's value contains a comma, its use in comma-separated
 " option values will confuse Vim into thinking more than one directory is
-" being specified, per normal :set semantics.  It's possible to work around
-" this with some careful escaping or :execute abstraction, but it's not really
-" worth the extra complexity for such a niche situation.
+" being specified, splitting our value into parts.  This is normal :set
+" behaviour.  It's possible to work around this with some careful escaping or
+" :execute abstraction, but it's not really worth the extra complexity for
+" such a niche situation.
 "
 if $MYVIM =~# ','
   echoerr 'Illegal comma in user runtime path'
   finish
 endif
 
-" Thirdly, Vim v7 prior to v7.1.055 had a nasty bug with escaping with the
-" backslash character on the command line, and so on these older versions of
-" Vim, we'll need to forbid that character in the value of MYVIM in order to
-" be confident that we're stashing files in the correct path.
+" Thirdly, Vim v7 prior to v7.1.055 had a nasty bug with escaping with
+" multiple backslash characters on the command line, and so on these older
+" versions of Vim, we'll need to forbid that character in the value of MYVIM
+" in order to be confident that we're stashing files in the correct path.
 "
 " To reproduce this bug on these older versions, try this command:
 "
@@ -227,19 +228,20 @@ augroup END
 "
 " We also need to check whether the directory already exists, even if we
 " specify the special 'p' value for its optional {path} argument.  This is
-" because the meaning of mkdir(..., 'p') is not the same as `mkdir -p` in
-" shell script, or at least, it isn't in versions of Vim before v8.0.1708.
-" These versions throw errors if the directory already exists, even with 'p',
-" contrary to what someone familiar with `mkdir -p`'s behaviour in shell
-" script might expect.
-"
-" So, let's wrap all that in a script-local function, and then hide it behind
-" a user command, to keep the commands required to establishing a path is in
-" place nice and simple.  We'll lock down all the directories that we create
-" with restrictive permissions, too.  Who knows what secrets are in your file
-" buffers?
+" because until v8.0.1708, mkdir() raises an error if the directory to be
+" created already exists, even with a {path} of 'p', where the analogous
+" `mkdir` shell command does not do so with its -p option included.
 "
 " <https://github.com/vim/vim/releases/tag/v8.0.1708>
+"
+" So, let's wrap that logic in a script-local function s:Establish(), and then
+" hide it behind a user command :Establish.  We'll lock down all the
+" directories that we create with restrictive permissions, too.  Who knows
+" what secrets are in your file buffers?
+
+" We set the command's tab completion to provide directory names as
+" candidates, and specify that there must be only one argument, which we'll
+" provide as a quoted parameter to the function.
 "
 function! s:Establish(path) abort
   let path = expand(a:path)
@@ -247,12 +249,6 @@ function! s:Establish(path) abort
     call mkdir(path, 'p', 0700)
   endif
 endfunction
-
-" Now we define the :Establish command for user-level access to the
-" s:Establish() function.  We set the tab completion to provide directory
-" names as candidates, and specify that there must be only one argument, which
-" we'll provide as a quoted parameter to the function.
-"
 command! -bar -complete=dir -nargs=1 Establish
       \ call s:Establish(<q-args>)
 
@@ -264,16 +260,16 @@ command! -bar -complete=dir -nargs=1 Establish
 "
 Establish $MYVIM
 
-" Our next application of the :Establish command is to configure the path for
-" the viminfo metadata file, putting it in a cache subdirectory of the user
-" runtime directory.
+" Our next application of our new :Establish command is to configure the path
+" for the viminfo metadata file, putting it in a cache subdirectory of the
+" user runtime directory set in MYVIM.
 "
 " Using this non-default location for viminfo has the nice benefit of
 " preventing command and search history from getting clobbered when something
 " runs Vim without using this vimrc, because such an instance will safely
 " write its history to the default viminfo path instead.  It also contributes
-" to our aim of having everything related to the Vim runtime process somewhere
-" within the MYVIM directory.
+" to our aim of having everything related to the Vim runtime process in one
+" dedicated directory tree.
 "
 " The normal method of specifying the path to the viminfo file, as applied
 " here, is an addendum of the path to the 'viminfo' option with an "n" prefix.
@@ -285,15 +281,15 @@ Establish $MYVIM
 Establish $MYVIM/cache
 set viminfo+=n$MYVIM/cache/viminfo
 
-" Speaking of recorded data in viminfo files, the command and search history
-" count default limit of 50 is pretty restrictive.  Because I don't think I'm
-" ever likely to be in a situation where remembering several thousand Vim
-" commands and search patterns is going to severely tax memory, let alone disk
-" space, I'd rather this limit were much higher; it's sometimes really handy
-" to dig up commands from many days ago.
+" Speaking of recorded data in viminfo files, the default Vim limit of a mere
+" 50 entries for command and search history is pretty mean.  Because I don't
+" think I'm ever likely to be in a situation where remembering several
+" thousand Vim commands and search patterns is going to severely tax memory,
+" let alone disk space, I'd rather this limit were much higher.  It's
+" sometimes really handy to dig up commands from many days ago.
 "
-" The maximum value for the 'history' option is documented in :help as 10000,
-" so let's just use that, and see if anything breaks.
+" The maximum value for the 'history' option is documented in `:help
+" 'history'` as 10000, so let's just use that, and see if anything breaks.
 "
 set history=10000
 
@@ -308,9 +304,9 @@ set backup
 " directory, to stop them popping up next to the file to which they
 " correspond, and getting committed to version control.
 "
-" If Vim is new enough (v8.1.251), we'll add two trailing slashes to the path
-" we're inserting, which prompts Vim to incorporate the full escaped path of
-" the relevant buffer in the backup filename, avoiding collisions.
+" If Vim is new enough, we'll add two trailing slashes to the path we're
+" inserting, which prompts Vim to incorporate the full escaped path of the
+" relevant buffer in the backup filename, avoiding collisions.
 "
 " As a historical note, other similar directory path list options supported
 " this trailing slashes hint for a long time before 'backupdir' caught up to
@@ -318,7 +314,7 @@ set backup
 " far back as v5.8.0 (2001), and 'undodir' appears to have supported it since
 " its creation in v7.2.438.  Even though the :help for 'backupdir' didn't say
 " so, people assumed it would work the same way, when in fact Vim simply
-" ignored it until v8.1.251.  I don't want to add the slashes to the option
+" ignored it until v8.1.0251.  I don't want to add the slashes to the option
 " value in older versions of Vim where they don't do anything, so we'll check
 " the version ourselves to see if there's any point in including them.
 "
@@ -376,8 +372,8 @@ set directory^=$MYVIM/cache/swap//
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
 " Vim invocations.
 "
-" Support for persistent undo file caches was not added until v7.2.438, so we
-" need to check for the feature's presence before we enable it.
+" Support for these persistent undo file caches was not released until v7.3.0,
+" so we need to check for the feature's presence before we enable it.
 "
 if has('persistent_undo')
 
@@ -419,7 +415,7 @@ endif
 " `install-vim-thesaurus`.
 "
 " I got the thesaurus itself from the link in the :help for 'thesaurus' in
-" v8.1.1487.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
+" v8.1.  It's from WordNet and MyThes-1.  I maintain a mirror on my own
 " website that the Makefile recipe attempts to retrieve.  I had to remove the
 " first two metadata lines from thesaurus.txt, as Vim appeared to interpret
 " them as part of the body data.
@@ -516,13 +512,16 @@ set backspace+=start   " Text before the start of the current insertion
 set linebreak
 
 " Similarly, show that the screen line is a trailing part of a wrapped line by
-" prefixing it with an ellipsis.  If we have a multi-byte encoding, use U+2026
-" HORIZONTAL ELLIPSIS to save a couple of columns, but otherwise three periods
-" will do just fine.
+" prefixing it with an ellipsis.  If we have a multi-byte encoding, use
+" a proper ellipsis character to save a couple of columns, but otherwise three
+" periods will do just fine.
+"
+"     …  U+2026  HORIZONTAL ELLIPSIS
 "
 " Note that we test for the presence of a multi-byte encoding with a special
-" feature from `:help feature-list`, as recommended by `:help encoding`;
-" checking that `&encoding ==# 'utf-8'` is not quite the same thing.
+" feature from `:help feature-list`, as recommended by `:help encoding`.
+" Checking that `&encoding ==# 'utf-8'` is not quite the same thing, though
+" it's unlikely I'll ever use a different Unicode encoding by choice.
 "
 if has('multi_byte_encoding')
   set showbreak=…
@@ -551,9 +550,8 @@ if exists('+breakindent')
 endif
 
 " Rather than rejecting operations like :write or :saveas when 'readonly' is
-" set, and other situations in which data might be lost or I'm acting against
-" an option, Vim should give me a prompt to allow me to confirm that I know
-" what I'm doing.
+" set or in other situations in which data might be lost, Vim should give me
+" a prompt to allow me to confirm that I know what I'm doing.
 "
 set confirm
 
