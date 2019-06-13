@@ -242,10 +242,12 @@ augroup END
 " candidates, and specify that there must be only one argument, which we'll
 " provide as a quoted parameter to the function.
 "
-function! s:Establish(path) abort
-  let path = expand(a:path)
-  if !isdirectory(path) && exists('*mkdir')
-    call mkdir(path, 'p', 0700)
+function! s:Establish(name) abort
+  let name = expand(a:name)
+  let path = 'p'
+  let prot = 0700
+  if !isdirectory(name) && exists('*mkdir')
+    call mkdir(name, path, prot)
   endif
 endfunction
 command! -bar -complete=dir -nargs=1 Establish
