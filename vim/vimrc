@@ -1138,6 +1138,8 @@ xnoremap &
 " didn't seem to be an analogue for a motion to filter text through an
 " internal command like :sort, so I wrote one.
 "
+" <https://sanctum.geek.nz/cgit/vim-colon-operator.git/about/>
+"
 nmap g: <Plug>(ColonOperator)
 
 " I used Tim Pope's unimpaired.vim plugin for ages, and I liked some of these
@@ -1171,6 +1173,8 @@ nnoremap ]l
 " blank lines from normal mode, using a custom plugin of mine called
 " put_blank_lines.vim.  These use operator functions so that they're
 " repeatable without repeat.vim.  They accept count prefixes, too.
+"
+" <https://sanctum.geek.nz/cgit/vim-put-blank-lines.git/about/>
 "
 nmap [<Space> <Plug>(PutBlankLinesAbove)
 nmap ]<Space> <Plug>(PutBlankLinesBelow)
@@ -1276,6 +1280,8 @@ nnoremap <Leader>z
 " This is really handy for quick selections of small regions of text.  For
 " larger blocks of text or for manipulating the text as it leaves the buffer,
 " it makes more sense to use :! commands.
+"
+" <https://sanctum.geek.nz/cgit/vim-copy-linebreak.git/about/>
 "
 
 "" Leader,b toggles settings friendly to copying and pasting
@@ -1423,9 +1429,13 @@ onoremap <Leader>_
 onoremap <Leader>%
       \ :<C-U>execute 'normal! 1GVG'<CR>
 
-" This group defines some useful motions.
+" This group defines some useful motions, including navigating by indent
+" block using a custom plugin:
+"
+" <https://sanctum.geek.nz/cgit/vim-vertical-region.git/about/>
+"
 
-" Leader,{ and Leader,} move to top and bottom of indent region
+"" Leader,{ and Leader,} move to top and bottom of indent region
 map <Leader>{ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
 map <Leader>} <Plug>(VerticalRegionDown)
@@ -1454,6 +1464,11 @@ nnoremap <Leader>?
 " This group contains miscellaneous mappings for which I couldn't find any
 " other place.  The plugin mappings probably require their own documentation
 " comment block, but my hands are getting tired from all this typing.
+"
+" * <https://sanctum.geek.nz/cgit/vim-paste-open.git/about/>
+" * <https://sanctum.geek.nz/cgit/vim-replace-operator.git/about/>
+" * <https://sanctum.geek.nz/cgit/vim-regex-escape.git/about/>
+"
 
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
