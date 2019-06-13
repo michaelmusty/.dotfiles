@@ -221,15 +221,12 @@ augroup vimrc
 augroup END
 
 " We're going to be creating a few directories now.  The code to do so in
-" a compatible way is surprisingly verbose, because as well as expanding what
-" we were provided as an argument, the :help for mkdir() indicates we need to
-" check the function is actually available before using it.
-"
-" We also need to check whether the directory already exists, even if we
-" specify the special 'p' value for its optional {path} argument.  This is
-" because until v8.0.1708, mkdir() raises an error if the directory to be
-" created already exists, even with a {path} of 'p', where the analogous
-" `mkdir` shell command does not do so with its -p option included.
+" a compatible way is verbose, mostly because we need to check whether the
+" directory already exists, even though we're specifying the special 'p' value
+" for its optional {path} argument.  This is because until v8.0.1708, mkdir()
+" raises an error if the directory to be created already exists, even with
+" a {path} of 'p', where the analogous `mkdir` shell command does not do so
+" with its -p option included.
 "
 " <https://github.com/vim/vim/releases/tag/v8.0.1708>
 "
@@ -237,7 +234,7 @@ augroup END
 " hide it behind a user command :Establish.  We'll lock down all the
 " directories that we create with restrictive permissions, too.  Who knows
 " what secrets are in your file buffers?
-
+"
 " We set the command's tab completion to provide directory names as
 " candidates, and specify that there must be only one argument, which we'll
 " provide as a quoted parameter to the function.
