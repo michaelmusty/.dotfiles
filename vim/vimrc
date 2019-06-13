@@ -888,18 +888,26 @@ set wildmode=list:longest,full
 " giving patterns for the top 100 alphanumeric extensions for files from the
 " running user's home directory:
 "
-"     $ find "$HOME" ! -type d -name '*.?*' -exec \
+"     $ (LC_ALL=C find "$HOME" ! -type d -name '*.?*' -exec \
 "           sh -c 'for fn ; do
 "              ext=${fn##*.}
 "              case $ext in
-"                  *[![:alnum:]]*) continue ;;
-"                  ?*) printf "%s\n" "$ext" ;;
+"                  (*[![:alnum:]]*) continue ;;
+"                  (?*) printf "%s\n" "$ext" ;;
 "              esac
 "           done' _ {} + |
-"           tr '[:upper:]' '[:lower:]' | sort | uniq -c |
-"           sort -k1,1nr | awk 'NR <= 100 {print "*." $2}'
+"           tr '[[:upper:]]' '[[:lower:]]' | sort | uniq -c |
+"           sort -k1,1nr | awk 'NR <= 100 {print "*." $2}')
 "
 " I turned out to have rather a lot of .html and .vim files.
+"
+" If you're scoffing at that and thinking "I could write a much simpler one",
+" please do so, and send it to me at <tom@sanctum.geek.nz> to have yours put
+" in here instead, with appropriate credit.  Don't forget to handle more than
+" ARG_MAX files, include filenames with newlines, and that the -z or -0 null
+" separator extensions are not standardised in POSIX.
+"
+" <https://mywiki.wooledge.org/UsingFind#Complex_actions>
 "
 " It's tempting to put the list of patterns here into a separate file--or at
 " least into a more readily editable intermediate list variable--rather than
