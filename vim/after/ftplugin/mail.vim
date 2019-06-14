@@ -1,6 +1,7 @@
 " Don't append spaces after quote chars, for strict compliance with
 " format=flowed
 let b:quote_space = 0
+let b:undo_ftplugin .= '|unlet b:quote_space'
 
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
@@ -44,6 +45,7 @@ function! s:SuggestStart() abort
 endfunction
 command! -bar -buffer SuggestStart
       \ call s:SuggestStart()
+let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
@@ -77,6 +79,7 @@ function! s:StrictQuote() abort
 endfunction
 command -bar -buffer StrictQuote
       \ call s:StrictQuote()
+let b:undo_ftplugin .= '|delcommand StrictQuote'
 StrictQuote
 
 " Add a space to the end of wrapped lines for format-flowed mail
