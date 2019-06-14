@@ -6,6 +6,12 @@ let b:quote_space = 0
 " to start writing
 function! s:SuggestStart() abort
 
+  " Move to top of buffer
+  call setpos('.', [0, 1, 1, 0])
+
+  " Move to body text
+  call search('\m^$', 'c') | +
+
   " Start by trying to move to the first quoted line; this may fail if there's
   " no quote, which is fine
   call search('\m^>', 'c')
