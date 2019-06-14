@@ -1,6 +1,9 @@
 [commit]
     status = false
 
+[diff]
+    algorithm = patience
+
 [fetch]
     output = compact
 
