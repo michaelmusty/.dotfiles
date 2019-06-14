@@ -29,9 +29,6 @@
 [submodule "vim/bundle/insert_timeout"]
     path = vim/bundle/insert_timeout
     url = https://sanctum.geek.nz/code/vim-insert-timeout.git
-[submodule "vim/bundle/paste_open"]
-    path = vim/bundle/paste_open
-    url = https://sanctum.geek.nz/code/vim-paste-open.git
 [submodule "vim/bundle/put_blank_lines"]
     path = vim/bundle/put_blank_lines
     url = https://sanctum.geek.nz/code/vim-put-blank-lines.git

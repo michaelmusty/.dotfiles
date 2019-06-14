@@ -1254,10 +1254,6 @@ xmap <Leader>n <Esc><Leader>ngv
 nnoremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
 xmap <Leader>N <Esc><Leader>Ngv
-"" Leader,p toggles paste mode
-nnoremap <Leader>p
-      \ :<C-U>set paste! paste?<CR>
-xmap <Leader>p <Esc><Leader>pgv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
       \ :<C-U>setlocal wrap! wrap?<CR>
@@ -1316,6 +1312,15 @@ nnoremap <Leader>a
 nnoremap <Leader>L
       \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
 xmap <Leader>L <Esc><Leader>Lgv
+
+" This mapping uses my paste_insert.vim plugin to queue up automatic commands
+" for the next insert operation.  It's still pretty new.  It replaces my old
+" paste_open.vim plugin which did this only for opening new lines, and which
+" kept confusing me.  I'm hoping this will be better.
+
+"" Leader,p prepares the next insert for paste mode
+nnoremap <Leader>p
+      \ :<C-U>PasteInsert<CR>
 
 " These mappings are for managing filetypes.  The first one uses the
 " :ReloadFileType command that was defined much earlier in this file for
@@ -1494,10 +1499,6 @@ nnoremap <Leader>?
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
-"" Leader,o opens a line below in paste mode
-nmap <Leader>o <Plug>(PasteOpenBelow)
-"" Leader,O opens a line above in paste mode
-nmap <Leader>O <Plug>(PasteOpenAbove)
 "" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator
