@@ -204,33 +204,33 @@ endfunction
 command! -bar ReloadVimrc
       \ noautocmd source $MYVIMRC | call s:ReloadVimrc()
 
-" We'll now reset and define a group of automatic command hooks specific to
-" matters related to reloading the vimrc itself.
+" We'll now create or reset a group of automatic command hooks specific to
+" matters related to reloading the vimrc itself, or maintaining and managing
+" options set within it.
 "
 augroup vimrc
   autocmd!
-
-  " Reload the stub vimrc, and thereby this main one, each time either of them
-  " is saved.  This often makes errors in the file immediately apparent, and
-  " saves restarting Vim or running the :source command manually, which
-  " I almost always want to do after changing my vimrc file anyway.
-  "
-  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ ReloadVimrc
-
-  " If Vim is new enough (v7.0.187) to support the ##SourceCmd event for
-  " automatic command hooks, we'll also apply a hook for that event to catch
-  " invocations of :source of either vimrc file, and translate that into
-  " reloading the stub vimrc.
-  "
-  " <https://github.com/vim/vim/releases/tag/v7.0.187>
-  "
-  if exists('##SourceCmd')
-    autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
-          \ ReloadVimrc
-  endif
-
 augroup END
+
+" Reload the stub vimrc, and thereby this main one, each time either of them
+" is saved.  This often makes errors in the file immediately apparent, and
+" saves restarting Vim or running the :source command manually, which
+" I almost always want to do after changing my vimrc file anyway.
+"
+autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+      \ ReloadVimrc
+
+" If Vim is new enough (v7.0.187) to support the ##SourceCmd event for
+" automatic command hooks, we'll also apply a hook for that event to catch
+" invocations of :source of either vimrc file, and translate that into
+" reloading the stub vimrc.
+"
+" <https://github.com/vim/vim/releases/tag/v7.0.187>
+"
+if exists('##SourceCmd')
+  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+        \ ReloadVimrc
+endif
 
 " We're going to be creating a few directories now.  The code to do so in
 " a compatible way is verbose, mostly because we need to check whether the
@@ -962,29 +962,32 @@ if !exists('syntax_on')
   syntax enable
 endif
 
-" We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme,
-" and if it manages to do so without errors, turn on the 'cursorline' feature,
-" since the scheme configures it and 'cursorcolumn' to be a very dark gray
-" that doesn't stand out too much against a black background.  Aside from the
-" aforementioned experiment with monochrome terminals, I exclusively use dark
-" backgrounds.
+" Before we attempt to pick a syntax highlighting color scheme, we'll set up
+" a couple of hooks for colorscheme loading.  In this case, we turn
+" 'cursorline' on if my 'sahara' colorscheme is loaded, since I've configured
+" it to be a very dark gray that doesn't stand out too much against a black
+" background.  For any other colorscheme, turn the option off, because it
+" almost always stands out too much for my liking.
 "
+autocmd vimrc ColorScheme *
+      \ set nocursorline
+autocmd vimrc ColorScheme sahara
+      \ set cursorline
+
+" We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
 " If we fail to load the color scheme, for whatever reason, suppress the
-" error, and reset the syntax highlighting, 'background', and 'cursorline' for
-" dark-background default colors.  I used it for years; it looks and works
-" just fine.
+" error, and ensure a dark background for the default colorscheme.
 "
-" There's also a very simple grayscale color scheme I occasionally use
-" instead called 'juvenile', which is included as a Git submodule with this
-" dotfiles distribution.
+" There's also a very simple grayscale color scheme I occasionally use instead
+" called 'juvenile', which is included as a Git submodule with this dotfiles
+" distribution.
 "
 try
   colorscheme sahara
-  set cursorline
 catch
-  colorscheme default
-  set background=dark
-  set nocursorline
+  if &background !=# 'dark'
+    set background=dark
+  endif
 endtry
 
 " My mapping definitions begin here.  I have some general personal rules for
@@ -1251,10 +1254,6 @@ xmap <Leader>n <Esc><Leader>ngv
 nnoremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
 xmap <Leader>N <Esc><Leader>Ngv
-"" Leader,p toggles paste mode
-nnoremap <Leader>p
-      \ :<C-U>set paste! paste?<CR>
-xmap <Leader>p <Esc><Leader>pgv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
       \ :<C-U>setlocal wrap! wrap?<CR>
@@ -1314,6 +1313,15 @@ nnoremap <Leader>L
       \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
 xmap <Leader>L <Esc><Leader>Lgv
 
+" This mapping uses my paste_insert.vim plugin to queue up automatic commands
+" for the next insert operation.  It's still pretty new.  It replaces my old
+" paste_open.vim plugin which did this only for opening new lines, and which
+" kept confusing me.  I'm hoping this will be better.
+
+"" Leader,p prepares the next insert for paste mode
+nnoremap <Leader>p
+      \ :<C-U>PasteInsert<CR>
+
 " These mappings are for managing filetypes.  The first one uses the
 " :ReloadFileType command that was defined much earlier in this file for
 " application in the vimrc reload command.
@@ -1361,6 +1369,9 @@ nnoremap <Leader>H
 "" Leader,k shows my marks
 nnoremap <Leader>k
       \ :<C-U>marks<CR>
+"" Leader,K shows functions
+nnoremap <Leader>K
+      \ :<C-U>function<CR>
 "" Leader,m shows normal maps
 nnoremap <Leader>m
       \ :<C-U>nmap<CR>
@@ -1370,6 +1381,9 @@ nnoremap <Leader>M
 "" Leader,S shows loaded scripts
 nnoremap <Leader>S
       \ :<C-U>scriptnames<CR>
+"" Leader,U shows user commands
+nnoremap <Leader>U
+      \ :<C-U>command<CR>
 "" Leader,v shows all global and internal variables
 nnoremap <Leader>v
       \ :<C-U>let g: v:<CR>
@@ -1381,8 +1395,8 @@ nnoremap <Leader>y
       \ :<C-U>registers<CR>
 
 " This group contains mappings concerned with buffer navigation and
-" management.  I use the "jetpack" buffer jumper one like crazy; I really like
-" it.  I got it from one of bairui's "Vim and Vigor" comics:
+" management.  I use the "jetpack" buffer jumper one a lot.  I got it from one
+" of bairui's "Vim and Vigor" comics:
 "
 " <http://of-vim-and-vigor.blogspot.com/p/vim-vigor-comic.html>
 
@@ -1485,10 +1499,6 @@ nnoremap <Leader>?
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
-"" Leader,o opens a line below in paste mode
-nmap <Leader>o <Plug>(PasteOpenBelow)
-"" Leader,O opens a line above in paste mode
-nmap <Leader>O <Plug>(PasteOpenAbove)
 "" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator

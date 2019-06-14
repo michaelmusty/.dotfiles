@@ -1,10 +1,17 @@
 " Don't append spaces after quote chars, for strict compliance with
 " format=flowed
 let b:quote_space = 0
+let b:undo_ftplugin .= '|unlet b:quote_space'
 
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
-if line('.') == 1 && col('.') == 1
+function! s:SuggestStart() abort
+
+  " Move to top of buffer
+  call setpos('.', [0, 1, 1, 0])
+
+  " Move to body text
+  call search('\m^$', 'c') | +
 
   " Start by trying to move to the first quoted line; this may fail if there's
   " no quote, which is fine
@@ -35,29 +42,45 @@ if line('.') == 1 && col('.') == 1
 
   " Now move to the first quoted or unquoted blank line
   call search('\m^>\= *$', 'c')
-
-endif
+endfunction
+command! -bar -buffer SuggestStart
+      \ call s:SuggestStart()
+let b:undo_ftplugin .= '|delcommand SuggestStart'
+SuggestStart
 
 " Normalise quoting
-for lnum in range(1, line('$'))
+function! s:StrictQuote() abort
+  let body = 0
+  for lnum in range(1, line('$'))
 
-  " Get current line
-  let line = getline(lnum)
+    " Get current line
+    let line = getline(lnum)
 
-  " Get the leading quote string, if any; stop if there isn't one
-  let quote = matchstr(line, '^[> ]\+')
-  if strlen(quote) == 0
-    continue
-  endif
+    " Skip lines until we hit a blank line, meaning body text
+    let body = body || !strlen(line)
+    if !body
+      continue
+    endif
 
-  " Normalise the quote with no spaces
-  let quote = substitute(quote, '[^>]', '', 'g')
+    " Get the leading quote string, if any; skip if there isn't one
+    let quote = matchstr(line, '^>[> ]*')
+    if !strlen(quote)
+      continue
+    endif
 
-  " Re-set the line
-  let line = substitute(line, '^[> ]\+', quote, '')
-  call setline(lnum, line)
+    " Normalise the quote with no spaces
+    let quote = substitute(quote, '[^>]', '', 'g')
 
-endfor
+    " Re-set the line
+    let line = substitute(line, '^[> ]\+', quote, '')
+    call setline(lnum, line)
+
+  endfor
+endfunction
+command -bar -buffer StrictQuote
+      \ call s:StrictQuote()
+let b:undo_ftplugin .= '|delcommand StrictQuote'
+StrictQuote
 
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w

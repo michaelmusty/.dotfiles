@@ -1,34 +1,37 @@
 [commit]
-    status = false
+	status = false
+
+[diff]
+	algorithm = patience
 
 [fetch]
-    output = compact
+	output = compact
 
 [init]
-    templateDir = ~/.git-template
+	templateDir = ~/.git-template
 
 [log]
-    date = local
-    decorate = short
+	date = local
+	decorate = short
 
 [merge]
-    ff = false
-    log = 1024
+	ff = false
+	log = 1024
 
 [pull]
-    ff = only
+	ff = only
 
 [push]
-    default = current
+	default = current
 
 [sendemail]
-    confirm = compose
-    smtpServer = <% SENDMAIL %>
+	confirm = compose
+	smtpServer = <% SENDMAIL %>
 
 [status]
-    short = true
+	short = true
 
 [user]
-    name = <% NAME %>
-    email = <% EMAIL %>
-    signingKey = <% KEY %>
+	name = <% NAME %>
+	email = <% EMAIL %>
+	signingKey = <% KEY %>

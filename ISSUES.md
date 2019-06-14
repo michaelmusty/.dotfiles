@@ -30,6 +30,3 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names.  Can it be made to?
-* Something in the mail ftplugin is butchering the headers, probably something
-  that strips whitespace or quotes.  It would probably be better to make the
-  cleanup it does an explicit action with a buffer-local map.
