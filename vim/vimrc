@@ -199,7 +199,7 @@ command! -bar ReloadFileType
 function! s:ReloadVimrc() abort
   ReloadFileType
   redraw
-  echo ':ReloadVimrc'
+  echomsg fnamemodify($MYVIMRC, ':p:~').' reloaded'
 endfunction
 command! -bar ReloadVimrc
       \ noautocmd source $MYVIMRC | call s:ReloadVimrc()
