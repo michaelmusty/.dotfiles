@@ -1387,8 +1387,8 @@ nnoremap <Leader>y
       \ :<C-U>registers<CR>
 
 " This group contains mappings concerned with buffer navigation and
-" management.  I use the "jetpack" buffer jumper one like crazy; I really like
-" it.  I got it from one of bairui's "Vim and Vigor" comics:
+" management.  I use the "jetpack" buffer jumper one a lot.  I got it from one
+" of bairui's "Vim and Vigor" comics:
 "
 " <http://of-vim-and-vigor.blogspot.com/p/vim-vigor-comic.html>
 
