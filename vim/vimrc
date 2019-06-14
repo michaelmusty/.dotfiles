@@ -204,33 +204,33 @@ endfunction
 command! -bar ReloadVimrc
       \ noautocmd source $MYVIMRC | call s:ReloadVimrc()
 
-" We'll now reset and define a group of automatic command hooks specific to
-" matters related to reloading the vimrc itself.
+" We'll now create or reset a group of automatic command hooks specific to
+" matters related to reloading the vimrc itself, or maintaining and managing
+" options set within it.
 "
 augroup vimrc
   autocmd!
-
-  " Reload the stub vimrc, and thereby this main one, each time either of them
-  " is saved.  This often makes errors in the file immediately apparent, and
-  " saves restarting Vim or running the :source command manually, which
-  " I almost always want to do after changing my vimrc file anyway.
-  "
-  autocmd BufWritePost $MYVIMRC,$MYVIM/vimrc
-        \ ReloadVimrc
-
-  " If Vim is new enough (v7.0.187) to support the ##SourceCmd event for
-  " automatic command hooks, we'll also apply a hook for that event to catch
-  " invocations of :source of either vimrc file, and translate that into
-  " reloading the stub vimrc.
-  "
-  " <https://github.com/vim/vim/releases/tag/v7.0.187>
-  "
-  if exists('##SourceCmd')
-    autocmd SourceCmd $MYVIMRC,$MYVIM/vimrc
-          \ ReloadVimrc
-  endif
-
 augroup END
+
+" Reload the stub vimrc, and thereby this main one, each time either of them
+" is saved.  This often makes errors in the file immediately apparent, and
+" saves restarting Vim or running the :source command manually, which
+" I almost always want to do after changing my vimrc file anyway.
+"
+autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
+      \ ReloadVimrc
+
+" If Vim is new enough (v7.0.187) to support the ##SourceCmd event for
+" automatic command hooks, we'll also apply a hook for that event to catch
+" invocations of :source of either vimrc file, and translate that into
+" reloading the stub vimrc.
+"
+" <https://github.com/vim/vim/releases/tag/v7.0.187>
+"
+if exists('##SourceCmd')
+  autocmd vimrc SourceCmd $MYVIMRC,$MYVIM/vimrc
+        \ ReloadVimrc
+endif
 
 " We're going to be creating a few directories now.  The code to do so in
 " a compatible way is verbose, mostly because we need to check whether the
