@@ -53,7 +53,7 @@ for lnum in range(1, line('$'))
 
   " Get the leading quote string, if any; skip if there isn't one
   let quote = matchstr(line, '^>[> ]*')
-  if strlen(quote) == 0
+  if !strlen(quote)
     continue
   endif
 
