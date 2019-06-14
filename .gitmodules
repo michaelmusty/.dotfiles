@@ -29,6 +29,9 @@
 [submodule "vim/bundle/insert_timeout"]
     path = vim/bundle/insert_timeout
     url = https://sanctum.geek.nz/code/vim-insert-timeout.git
+[submodule "vim/bundle/keep_position"]
+    path = vim/bundle/keep_position
+    url = https://sanctum.geek.nz/code/vim-keep-position.git
 [submodule "vim/bundle/put_blank_lines"]
     path = vim/bundle/put_blank_lines
     url = https://sanctum.geek.nz/code/vim-put-blank-lines.git
@@ -87,6 +90,3 @@
 [submodule "vim/bundle/sahara"]
     path = vim/bundle/sahara
     url = https://sanctum.geek.nz/code/vim-sahara.git
-[submodule "vim/bundle/keep_position"]
-	path = vim/bundle/keep_position
-	url = https://sanctum.geek.nz/code/vim-keep-position.git
