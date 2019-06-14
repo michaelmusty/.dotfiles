@@ -39,10 +39,17 @@ if line('.') == 1 && col('.') == 1
 endif
 
 " Normalise quoting
+let body = 0
 for lnum in range(1, line('$'))
 
   " Get current line
   let line = getline(lnum)
+
+  " Skip lines until we hit a blank line, meaning body text
+  let body = body || !strlen(line)
+  if !body
+    continue
+  endif
 
   " Get the leading quote string, if any; skip if there isn't one
   let quote = matchstr(line, '^>[> ]*')
