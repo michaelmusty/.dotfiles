@@ -87,20 +87,26 @@ scriptencoding utf-8
 " string, due to the way that split() works by default without its third
 " parameter {keepempty} set to false.
 "
-" Once we have the path element, we have to remove the escaping for periods,
-" specifically remove up to one backslash before all periods.  We don't,
-" however, have to deal with escaped backslashes, or any other character; you
-" can read the source code for the ad-hoc tokenizer in copy_option_part() in
-" src/misc2.c in Vim's source code and test it with some values of your own if
-" you want to understand why.
+" Once we have the path elements, we have to remove the escaping for periods,
+" specifically remove up to one backslash before all periods.  We do that with
+" a map() over substitute(), string-eval style to accommodate older Vim before
+" Funcref variables were added.
+"
+" We don't, however, have to deal with escaped backslashes, or any other
+" character; you can read the source code for the ad-hoc tokenizer in
+" copy_option_part() in src/misc2.c in Vim's source code and test it with some
+" values of your own if you want to understand why.
+"
+" I'll factor this out into a global function if I ever need it anywhere else.
 "
 " Vim, I love you, but you are really weird.
 "
+let runtimepath = map(
+      \ split(&runtimepath, '\\\@<!,[, ]*'),
+      \ "substitute(v:val, '\\\\,', '', 'g')"
+      \ )
 if !exists('$MYVIM')
-  let $MYVIM = substitute(
-        \ split(&runtimepath, '\\\@<!,[, ]*')[0],
-        \ '\\,', '', 'g'
-        \ )
+  let $MYVIM = runtimepath[0]
 endif
 
 " Having either imported or defined a value for the MYVIM environment
