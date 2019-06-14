@@ -83,19 +83,24 @@ scriptencoding utf-8
 "   ,      <- Literal comma
 "   [, ]*  <- Any number of commas and spaces
 "
-" We don't have to deal with escaped backslashes.  You can read the source
-" code for the ad-hoc tokenizer in copy_option_part() in src/misc2.c in Vim's
-" source code and test it with some values of your own if you want to
-" understand why.
-"
 " For the edge case of a blank 'runtimepath', MYVIM will be set to the empty
 " string, due to the way that split() works by default without its third
 " parameter {keepempty} set to false.
 "
+" Once we have the path element, we have to remove the escaping for periods,
+" specifically remove up to one backslash before all periods.  We don't,
+" however, have to deal with escaped backslashes, or any other character; you
+" can read the source code for the ad-hoc tokenizer in copy_option_part() in
+" src/misc2.c in Vim's source code and test it with some values of your own if
+" you want to understand why.
+"
 " Vim, I love you, but you are really weird.
 "
 if !exists('$MYVIM')
-  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
+  let $MYVIM = substitute(
+        \ split(&runtimepath, '\\\@<!,[, ]*')[0],
+        \ '\\,', '', 'g'
+        \ )
 endif
 
 " Having either imported or defined a value for the MYVIM environment
