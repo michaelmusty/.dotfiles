@@ -44,13 +44,13 @@ function! filetype#SudoRepeat() abort
   let fn = expand('<afile>')
 
   " myfileXXQGS16A.conf: strip eight chars before final period
-  if fn =~# '/[^./]\+\w\{8}\.[^./]\+$'
+  if fn =~# '/[^/]\+\w\{8}\.[^./]\+$'
     let fr = expand('<afile>:r')
     let fe = expand('<afile>:e')
     let fn = strpart(fr, -8, strlen(fr)) . '.' . fe
 
   " myfile.XXQGS16A: strip extension
-  elseif fn =~# '/[^./]\+\.\w\{8}$'
+  elseif fn =~# '/[^/]\+\.\w\{8}$'
     let fn = expand('<afile>:r')
 
   " Unrecognised pattern; return, don't repeat
