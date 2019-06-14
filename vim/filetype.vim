@@ -239,12 +239,6 @@ augroup filetypedetect
         \,/etc/shadow-
         \,/etc/shadow.edit
         \ setfiletype passwd
-  " pass(1) password files
-  autocmd BufNewFile,BufRead
-        \ /dev/shm/pass.?*/?*.txt
-        \,$TMPDIR/pass.?*/?*.txt
-        \,/tmp/pass.?*/?*.txt
-        \ setfiletype password
   " Perl 5 files
   autocmd BufNewFile,BufRead
         \ ?*.pl
