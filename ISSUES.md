@@ -24,11 +24,12 @@ Known issues
 * The custom shell functions really should be documented, but it's not clear to
   me exactly where this should happen, because the commands' availability
   depends on which shell you're using; the `sd` function isn't available when
-  you're not using Bash. Maybe I should try to extend `help` without breaking
+  you're not using Bash.  Maybe I should try to extend `help` without breaking
   it?
 * The `b:undo\_indent` definition for the `perl` filetype can probably be
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
-  newlines in their names. Can it be made to?
+  newlines in their names.  Can it be made to?
 * Something in the mail ftplugin is butchering the headers, probably something
-  that strips whitespace or quotes
+  that strips whitespace or quotes.  It would probably be better to make the
+  cleanup it does an explicit action with a buffer-local map.

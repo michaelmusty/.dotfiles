@@ -83,19 +83,30 @@ scriptencoding utf-8
 "   ,      <- Literal comma
 "   [, ]*  <- Any number of commas and spaces
 "
-" We don't have to deal with escaped backslashes.  You can read the source
-" code for the ad-hoc tokenizer in copy_option_part() in src/misc2.c in Vim's
-" source code and test it with some values of your own if you want to
-" understand why.
-"
 " For the edge case of a blank 'runtimepath', MYVIM will be set to the empty
 " string, due to the way that split() works by default without its third
 " parameter {keepempty} set to false.
 "
+" Once we have the path elements, we have to remove the escaping for periods,
+" specifically remove up to one backslash before all periods.  We do that with
+" a map() over substitute(), string-eval style to accommodate older Vim before
+" Funcref variables were added.
+"
+" We don't, however, have to deal with escaped backslashes, or any other
+" character; you can read the source code for the ad-hoc tokenizer in
+" copy_option_part() in src/misc2.c in Vim's source code and test it with some
+" values of your own if you want to understand why.
+"
+" I'll factor this out into a global function if I ever need it anywhere else.
+"
 " Vim, I love you, but you are really weird.
 "
+let s:runtimepath = map(
+      \ split(&runtimepath, '\\\@<!,[, ]*'),
+      \ "substitute(v:val, '\\\\,', '', 'g')"
+      \ )
 if !exists('$MYVIM')
-  let $MYVIM = split(&runtimepath, '\\\@<!,[, ]*')[0]
+  let $MYVIM = s:runtimepath[0]
 endif
 
 " Having either imported or defined a value for the MYVIM environment
@@ -292,13 +303,14 @@ set viminfo+=n$MYVIM/cache/viminfo
 "
 set history=10000
 
-" Enable automatic backups of most file buffers.  In practice, I don't need
-" these backups very much if I'm using version control sensibly, but they have
-" still saved my bacon a few times.
+" We'll now enable automatic backups of most file buffers, since that's off by
+" default.  In practice, I don't need these backups very much, at least if I'm
+" using version control sensibly, but they have still saved my bacon a few
+" times.
 "
 " We'll try to keep the backup files in a dedicated cache directory, to stop
 " them popping up next to the file to which they correspond, and getting
-" committed to version control.
+" accidentally committed to version control.
 "
 " If Vim is new enough, we'll add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path of the
@@ -1138,6 +1150,8 @@ xnoremap &
 " didn't seem to be an analogue for a motion to filter text through an
 " internal command like :sort, so I wrote one.
 "
+" <https://sanctum.geek.nz/cgit/vim-colon-operator.git/about/>
+"
 nmap g: <Plug>(ColonOperator)
 
 " I used Tim Pope's unimpaired.vim plugin for ages, and I liked some of these
@@ -1171,6 +1185,8 @@ nnoremap ]l
 " blank lines from normal mode, using a custom plugin of mine called
 " put_blank_lines.vim.  These use operator functions so that they're
 " repeatable without repeat.vim.  They accept count prefixes, too.
+"
+" <https://sanctum.geek.nz/cgit/vim-put-blank-lines.git/about/>
 "
 nmap [<Space> <Plug>(PutBlankLinesAbove)
 nmap ]<Space> <Plug>(PutBlankLinesBelow)
@@ -1276,6 +1292,8 @@ nnoremap <Leader>z
 " This is really handy for quick selections of small regions of text.  For
 " larger blocks of text or for manipulating the text as it leaves the buffer,
 " it makes more sense to use :! commands.
+"
+" <https://sanctum.geek.nz/cgit/vim-copy-linebreak.git/about/>
 "
 
 "" Leader,b toggles settings friendly to copying and pasting
@@ -1423,9 +1441,13 @@ onoremap <Leader>_
 onoremap <Leader>%
       \ :<C-U>execute 'normal! 1GVG'<CR>
 
-" This group defines some useful motions.
+" This group defines some useful motions, including navigating by indent
+" block using a custom plugin:
+"
+" <https://sanctum.geek.nz/cgit/vim-vertical-region.git/about/>
+"
 
-" Leader,{ and Leader,} move to top and bottom of indent region
+"" Leader,{ and Leader,} move to top and bottom of indent region
 map <Leader>{ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
 map <Leader>} <Plug>(VerticalRegionDown)
@@ -1454,6 +1476,11 @@ nnoremap <Leader>?
 " This group contains miscellaneous mappings for which I couldn't find any
 " other place.  The plugin mappings probably require their own documentation
 " comment block, but my hands are getting tired from all this typing.
+"
+" * <https://sanctum.geek.nz/cgit/vim-paste-open.git/about/>
+" * <https://sanctum.geek.nz/cgit/vim-replace-operator.git/about/>
+" * <https://sanctum.geek.nz/cgit/vim-regex-escape.git/about/>
+"
 
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
