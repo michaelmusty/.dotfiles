@@ -10,7 +10,7 @@ let s:spellfile = join([
 Establish $MYVIM/cache/spell
 execute 'set spellfile=$MYVIM/cache/spell/'.s:spellfile
 
-command! AddLocalSpellFile
+command! -bar AddLocalSpellFile
       \ call spellfile_local#()
 
 augroup spellfile_local
