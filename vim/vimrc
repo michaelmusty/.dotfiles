@@ -297,13 +297,14 @@ set viminfo+=n$MYVIM/cache/viminfo
 "
 set history=10000
 
-" Enable automatic backups of most file buffers.  In practice, I don't need
-" these backups very much if I'm using version control sensibly, but they have
-" still saved my bacon a few times.
+" We'll now enable automatic backups of most file buffers, since that's off by
+" default.  In practice, I don't need these backups very much, at least if I'm
+" using version control sensibly, but they have still saved my bacon a few
+" times.
 "
 " We'll try to keep the backup files in a dedicated cache directory, to stop
 " them popping up next to the file to which they correspond, and getting
-" committed to version control.
+" accidentally committed to version control.
 "
 " If Vim is new enough, we'll add two trailing slashes to the path we're
 " inserting, which prompts Vim to incorporate the full escaped path of the
