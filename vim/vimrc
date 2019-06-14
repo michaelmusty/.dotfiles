@@ -1361,6 +1361,9 @@ nnoremap <Leader>H
 "" Leader,k shows my marks
 nnoremap <Leader>k
       \ :<C-U>marks<CR>
+"" Leader,K shows functions
+nnoremap <Leader>K
+      \ :<C-U>function<CR>
 "" Leader,m shows normal maps
 nnoremap <Leader>m
       \ :<C-U>nmap<CR>
@@ -1370,6 +1373,9 @@ nnoremap <Leader>M
 "" Leader,S shows loaded scripts
 nnoremap <Leader>S
       \ :<C-U>scriptnames<CR>
+"" Leader,U shows user commands
+nnoremap <Leader>U
+      \ :<C-U>command<CR>
 "" Leader,v shows all global and internal variables
 nnoremap <Leader>v
       \ :<C-U>let g: v:<CR>
