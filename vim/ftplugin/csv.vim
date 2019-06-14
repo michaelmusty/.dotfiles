@@ -4,8 +4,6 @@ if exists('b:did_ftplugin')
 endif
 let b:did_ftplugin = 1
 
-" No autoformatting, literal tabs
-setlocal noautoindent
-setlocal noexpandtab
+" No autoformatting
 setlocal formatoptions=
-let b:undo_ftplugin = 'setlocal autoindent< expandtab< formatoptions<'
+let b:undo_ftplugin = 'formatoptions<'

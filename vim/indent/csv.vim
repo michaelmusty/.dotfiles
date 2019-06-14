@@ -4,8 +4,12 @@ if exists('b:did_indent')
 endif
 let b:did_indent = 1
 
-" Manual indenting and literal tabs for CSVs
+" Manual indenting
 setlocal noautoindent
+let b:undo_indent = 'setlocal autoindent<'
+
+" Literal tabs
 setlocal noexpandtab
 setlocal softtabstop=0
-let b:undo_indent = 'setlocal autoindent< expandtab< softtabstop<'
+let &shiftwidth = &tabstop
+let b:undo_indent = 'setlocal expandtab< softtabstop< shiftwidth<'
