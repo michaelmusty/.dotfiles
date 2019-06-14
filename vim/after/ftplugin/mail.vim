@@ -47,32 +47,37 @@ command! -bar -buffer SuggestStart
 SuggestStart
 
 " Normalise quoting
-let body = 0
-for lnum in range(1, line('$'))
+function! s:StrictQuote() abort
+  let body = 0
+  for lnum in range(1, line('$'))
 
-  " Get current line
-  let line = getline(lnum)
+    " Get current line
+    let line = getline(lnum)
 
-  " Skip lines until we hit a blank line, meaning body text
-  let body = body || !strlen(line)
-  if !body
-    continue
-  endif
+    " Skip lines until we hit a blank line, meaning body text
+    let body = body || !strlen(line)
+    if !body
+      continue
+    endif
 
-  " Get the leading quote string, if any; skip if there isn't one
-  let quote = matchstr(line, '^>[> ]*')
-  if !strlen(quote)
-    continue
-  endif
+    " Get the leading quote string, if any; skip if there isn't one
+    let quote = matchstr(line, '^>[> ]*')
+    if !strlen(quote)
+      continue
+    endif
 
-  " Normalise the quote with no spaces
-  let quote = substitute(quote, '[^>]', '', 'g')
+    " Normalise the quote with no spaces
+    let quote = substitute(quote, '[^>]', '', 'g')
 
-  " Re-set the line
-  let line = substitute(line, '^[> ]\+', quote, '')
-  call setline(lnum, line)
+    " Re-set the line
+    let line = substitute(line, '^[> ]\+', quote, '')
+    call setline(lnum, line)
 
-endfor
+  endfor
+endfunction
+command -bar -buffer StrictQuote
+      \ call s:StrictQuote()
+StrictQuote
 
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
