@@ -4,7 +4,7 @@ let b:quote_space = 0
 
 " If something hasn't already moved the cursor, we'll move to an optimal point
 " to start writing
-if line('.') == 1 && col('.') == 1
+function! s:SuggestStart() abort
 
   " Start by trying to move to the first quoted line; this may fail if there's
   " no quote, which is fine
@@ -35,8 +35,10 @@ if line('.') == 1 && col('.') == 1
 
   " Now move to the first quoted or unquoted blank line
   call search('\m^>\= *$', 'c')
-
-endif
+endfunction
+command! -bar -buffer SuggestStart
+      \ call s:SuggestStart()
+SuggestStart
 
 " Normalise quoting
 let body = 0
