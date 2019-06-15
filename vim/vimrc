@@ -1034,7 +1034,9 @@ endtry
 " I always wanted you to go into space, man.
 "
 nnoremap <expr> <Space>
-      \ line('w$') < line('$') ? "\<PageDown>" : ":\<C-U>next\<CR>"
+      \ line('w$') < line('$')
+      \ ? "\<PageDown>"
+      \ : ":\<C-U>next\<CR>"
 
 " I hate CTRL-C's default insert mode behavior.  It ends the insert session
 " without firing the InsertLeave event for automatic command hooks.  Why would
