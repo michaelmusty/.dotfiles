@@ -194,6 +194,7 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ Makefile
         \,makefile
+        \,GNUmakefile
         \ setfiletype make
   " Markdown files
   autocmd BufNewFile,BufRead

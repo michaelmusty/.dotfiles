@@ -1467,8 +1467,8 @@ sunmap <Leader>{
 map <Leader>} <Plug>(VerticalRegionDown)
 sunmap <Leader>}
 "" Leader,\ jumps to the last edit position mark: think "Now, where was I?"
-nnoremap <Leader>\ `"
-xnoremap <Leader>\ `"
+noremap <Leader>\ `"
+sunmap <Leader>\
 
 " This group does both: useful motions on defined text objects.
 
@@ -1491,7 +1491,6 @@ nnoremap <Leader>?
 " other place.  The plugin mappings probably require their own documentation
 " comment block, but my hands are getting tired from all this typing.
 "
-" * <https://sanctum.geek.nz/cgit/vim-paste-open.git/about/>
 " * <https://sanctum.geek.nz/cgit/vim-replace-operator.git/about/>
 " * <https://sanctum.geek.nz/cgit/vim-regex-escape.git/about/>
 "
