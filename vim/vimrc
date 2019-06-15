@@ -963,10 +963,10 @@ if !exists('syntax_on')
 endif
 
 " Before we attempt to pick a syntax highlighting color scheme, we'll set up
-" a couple of hooks for colorscheme loading.  In this case, we turn
-" 'cursorline' on if my 'sahara' colorscheme is loaded, since I've configured
+" a couple of hooks for color scheme loading.  In this case, we turn
+" 'cursorline' on if my 'sahara' color scheme is loaded, since I've configured
 " it to be a very dark gray that doesn't stand out too much against a black
-" background.  For any other colorscheme, turn the option off, because it
+" background.  For any other color scheme, turn the option off, because it
 " almost always stands out too much for my liking.
 "
 autocmd vimrc ColorScheme *
@@ -976,7 +976,7 @@ autocmd vimrc ColorScheme sahara
 
 " We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
 " If we fail to load the color scheme, for whatever reason, suppress the
-" error, and ensure a dark background for the default colorscheme.
+" error, and ensure a dark background for the default color scheme.
 "
 " There's also a very simple grayscale color scheme I occasionally use instead
 " called 'juvenile', which is included as a Git submodule with this dotfiles
