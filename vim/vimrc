@@ -560,7 +560,7 @@ set confirm
 " if it's going to be followed by another key code, despite this being how the
 " function keys and Meta/Alt modifier are implemented for many terminal types.
 " Otherwise, if I press Escape, there's an annoying delay before 'showmode'
-" stops showing "--INSERT--".
+" stops showing '--INSERT--'.
 "
 " This breaks the function keys and the Meta/Alt modifier in insert mode in
 " most or maybe all of the terminals I use, but I don't want those keys in
