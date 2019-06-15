@@ -1221,18 +1221,18 @@ let maplocalleader = ','
 " 'cursorline' is always off when in any visual mode, including block mode,
 " where it actually might have been really handy.
 
-"" Leader,TAB toggles automatic indentation based on the previous line
-nnoremap <Leader><Tab>
-      \ :<C-U>setlocal autoindent! autoindent?<CR>
-"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
-nnoremap <Leader>c
-      \ :<C-U>setlocal cursorline! cursorline?<CR>
 "" Leader,h toggles highlighting search results
 nnoremap <Leader>h
       \ :<C-U>set hlsearch! hlsearch?<CR>
 "" Leader,i toggles showing matches as I enter my pattern
 nnoremap <Leader>i
       \ :<C-U>set incsearch! incsearch?<CR>
+"" Leader,TAB toggles automatic indentation based on the previous line
+nnoremap <Leader><Tab>
+      \ :<C-U>setlocal autoindent! autoindent?<CR>
+"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
+nnoremap <Leader>c
+      \ :<C-U>setlocal cursorline! cursorline?<CR>
 "" Leader,s toggles spell checking
 nnoremap <Leader>s
       \ :<C-U>setlocal spell! spell?<CR>
@@ -1241,6 +1241,10 @@ nnoremap <Leader>s
 " group, except they also include analogous maps for visual mode, defined as
 " recursive maps into normal mode that conclude with re-selecting the text.
 
+"" Leader,N toggles position display in bottom right
+nnoremap <Leader>N
+      \ :<C-U>set ruler! ruler?<CR>
+xmap <Leader>N <Esc><Leader>Ngv
 "" Leader,C toggles highlighted cursor column; works in visual mode
 nnoremap <Leader>C
       \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
@@ -1253,10 +1257,6 @@ xmap <Leader>l <Esc><Leader>lgv
 nnoremap <Leader>n
       \ :<C-U>setlocal number! number?<CR>
 xmap <Leader>n <Esc><Leader>ngv
-"" Leader,N toggles position display in bottom right
-nnoremap <Leader>N
-      \ :<C-U>set ruler! ruler?<CR>
-xmap <Leader>N <Esc><Leader>Ngv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
       \ :<C-U>setlocal wrap! wrap?<CR>
