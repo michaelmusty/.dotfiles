@@ -1491,7 +1491,6 @@ nnoremap <Leader>?
 " other place.  The plugin mappings probably require their own documentation
 " comment block, but my hands are getting tired from all this typing.
 "
-" * <https://sanctum.geek.nz/cgit/vim-paste-open.git/about/>
 " * <https://sanctum.geek.nz/cgit/vim-replace-operator.git/about/>
 " * <https://sanctum.geek.nz/cgit/vim-regex-escape.git/about/>
 "
