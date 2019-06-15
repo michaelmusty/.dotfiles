@@ -1320,8 +1320,7 @@ xmap <Leader>L <Esc><Leader>Lgv
 " kept confusing me.  I'm hoping this will be better.
 
 "" Leader,p prepares the next insert for paste mode
-nnoremap <Leader>p
-      \ :<C-U>PasteInsert<CR>
+nmap <Leader>p <Plug>PasteInsert
 
 " These mappings are for managing filetypes.  The first one uses the
 " :ReloadFileType command that was defined much earlier in this file for
