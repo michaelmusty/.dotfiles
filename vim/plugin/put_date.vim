@@ -1,4 +1,4 @@
-if exists('loaded_put_date') || &compatible || !has('*strftime')
+if exists('loaded_put_date') || &compatible || !exists('*strftime')
   finish
 endif
 let loaded_put_date = 1
