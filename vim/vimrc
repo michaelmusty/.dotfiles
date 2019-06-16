@@ -1237,6 +1237,16 @@ nmap ]<Space> <Plug>(PutBlankLinesBelow)
 let mapleader = '\'
 let maplocalleader = ','
 
+
+" If the local leader is a comma, map double-tap comma to its original
+" function in the relevant modes so that I can still use it quickly without
+" relying on mapping 'timeout'.
+"
+if maplocalleader ==# ','
+  noremap ,, ,
+  sunmap ,,
+endif
+
 " Let's start with some simple ones; these ones all just toggle a boolean
 " option, and print its new value.  They're dirt simple to specify, and don't
 " require any plugins.
