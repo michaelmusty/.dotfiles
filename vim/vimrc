@@ -195,9 +195,9 @@ command! -bar ReloadFileType
 " a defensive measure to avoid infinite recursion.  It may not actually be
 " necessary.
 "
-" We emit a faked display of the command, as well, just to make it clear that
-" something has happened.  The :redraw just before that message seems to be
-" necessary for this message to display correctly.  I'm not sure why.
+" We emit a message afterwards, just to make it clear that something has
+" happened.  The :redraw just before that message seems to be necessary for
+" this message to display correctly.  I'm not sure why.
 "
 function! s:ReloadVimrc() abort
   ReloadFileType
