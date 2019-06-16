@@ -103,9 +103,9 @@ scriptencoding utf-8
 " Vim, I love you, but you are really weird.
 "
 let s:runtimepath = map(
-      \ split(&runtimepath, '\\\@<!,[, ]*'),
-      \ "substitute(v:val, '\\\\,', '', 'g')"
-      \ )
+      \ split(&runtimepath, '\\\@<!,[, ]*')
+      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \)
 if !exists('$MYVIM')
   let $MYVIM = s:runtimepath[0]
 endif
