@@ -1443,11 +1443,17 @@ nnoremap <Leader>E
 "" Leader,j jumps to buffers ("jetpack")
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
-"" Leader,o opens a screenful of :browse :oldfiles, ready for a selection
+
+" Leader,o hacks up the list of old files from viminfo just long enough to
+" ensure that :browse :oldfiles fits in a screen, avoiding an Enter or 'q'
+" keypress before entering the number.  This one is handy followed by
+" <Leader>,\ to jump back to the last remembered position in that file, since
+" by definition viminfo remembers that mark, too.
+"
 nnoremap <Leader>o
       \ :<C-U>SelectOldFiles<CR>
 
-" This ground defines mappings for filtering and batch operations to clean up
+" This group defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
 "
 " :KeepPosition
@@ -1543,8 +1549,7 @@ xmap <Leader>* <Plug>(RegexEscape)
 " command wrapper defined much earlier in the file, so that filetypes also get
 " reloaded afterwards, meaning I don't need to follow <Leader>R with
 " a <Leader>F to fix up broken global settings.
-
-"" Leader,R reloads ~/.vimrc
+"
 nnoremap <Leader>R
       \ :<C-U>ReloadVimrc<CR>
 
