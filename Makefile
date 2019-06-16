@@ -563,7 +563,7 @@ install-vim-after-indent:
 	mkdir -p $(VIMDIR)/after/indent
 	cp -p -- vim/after/indent/*.vim $(VIMDIR)/after/indent
 
-install-vim-after-plugin:
+install-vim-after-plugin: install-vim-autoload
 	mkdir -p $(VIMDIR)/after/plugin
 	cp -p -- vim/after/plugin/*.vim $(VIMDIR)/after/plugin
 
@@ -603,7 +603,7 @@ install-vim-config: install-vim-cache
 install-vim-filetype:
 	cp -p -- vim/filetype.vim vim/scripts.vim $(VIMDIR)
 
-install-vim-ftplugin:
+install-vim-ftplugin: install-vim-autoload
 	mkdir -p -- $(VIMDIR)/ftplugin
 	cp -p -- vim/ftplugin/*.vim $(VIMDIR)/ftplugin
 
@@ -619,7 +619,7 @@ install-vim-indent:
 	mkdir -p -- $(VIMDIR)/indent
 	cp -p -- vim/indent/*.vim $(VIMDIR)/indent
 
-install-vim-plugin:
+install-vim-plugin: install-vim-autoload
 	mkdir -p -- $(VIMDIR)/plugin
 	cp -p -- vim/plugin/*.vim $(VIMDIR)/plugin
 
