@@ -150,8 +150,10 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if $MYVIM =~# '\\'
-      \ && (v:version < 701 || v:version == 701 && !has('patch55'))
+if $MYVIM =~# '\\' && (
+      \ v:version < 701
+      \ || v:version == 701 && !has('patch55')
+      \ )
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
 endif
@@ -492,7 +494,8 @@ set shiftwidth=4  " Indent command like < and > use four-space indents
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if v:version > 730 || v:version == 730 && has('patch693')
+if v:version > 730
+      \ || v:version == 730 && has('patch693')
   set softtabstop=-1
 else
   let &softtabstop = &shiftwidth
@@ -622,7 +625,8 @@ set formatoptions+=1
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.541>
 "
-if v:version > 730 || v:version == 730 && has('patch541')
+if v:version > 730
+      \ || v:version == 730 && has('patch541')
   set formatoptions+=j
 endif
 
@@ -1074,7 +1078,8 @@ nnoremap <expr> <Space>
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
+if &loadplugins 
+      \ && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
 
