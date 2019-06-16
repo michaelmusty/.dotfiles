@@ -17,7 +17,7 @@
 " This file should be saved as "vimrc" in the user runtime directory. On
 " Unix-like operating systems, this is ~/.vim; on Windows, it's ~/vimfiles.
 " It requires Vim 7.0 or newer with +eval, with 'nocompatible'.  The vimrc
-" stub at ~/.vimrc on Unix or ~/_vimrc on Windows should checks that these
+" stub at ~/.vimrc on Unix or ~/_vimrc on Windows should check that these
 " conditions are met before loading this file with `:runtime vimrc`.
 "
 " > And I was lifted up in heart, and thought
