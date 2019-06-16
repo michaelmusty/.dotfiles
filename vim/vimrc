@@ -216,9 +216,9 @@ augroup vimrc
 augroup END
 
 " Reload the stub vimrc, and thereby this main one, each time either of them
-" is saved.  This often makes errors in the file immediately apparent, and
-" saves restarting Vim or running the :source command manually, which
-" I almost always want to do after changing my vimrc file anyway.
+" is written.  This often makes errors in the file immediately apparent, and
+" saves restarting Vim or running the :source command manually, which I almost
+" always want to do after changing my vimrc file anyway.
 "
 autocmd vimrc BufWritePost $MYVIMRC,$MYVIM/vimrc
       \ ReloadVimrc
@@ -682,22 +682,22 @@ if has('gui_running')
   set guioptions+=M
 endif
 
-" By default, Vim doesn't allow a file buffer to have unsaved changes if it's
-" not displayed in a window.  Setting this option removes that restriction so
-" that buffers can remain in a modified state while not actually displayed
-" anywhere.
+" By default, Vim doesn't allow a file buffer to have unwritten changes if
+" it's not displayed in a window.  Setting this option removes that
+" restriction so that buffers can remain in a modified state while not
+" actually displayed anywhere.
 "
 " This option is set in almost every vimrc I read; it's so pervasive that
 " I sometimes see comments expressing astonishment or annoyance that it isn't
 " set by default.  However, I didn't actually need this option for several
 " years of Vim usage, because I instinctively close windows onto buffers only
-" after the buffers within them were saved anyway.
+" after the buffers within them have been written anyway.
 "
 " However, the option really is required for batch operations performed with
-" commands like :argdo or :bufdo, because Vim won't otherwise tolerate unsaved
-" changes to a litany of buffers that are not displayed in any window.  After
-" I started using such command maps a bit more often, I realized I finally had
-" a reason to turn this on permanently.
+" commands like :argdo or :bufdo, because Vim won't otherwise tolerate
+" unwritten changes to a litany of buffers that are not displayed in any
+" window.  After I started using such command maps a bit more often,
+" I realized I finally had a reason to turn this on permanently.
 "
 set hidden
 
