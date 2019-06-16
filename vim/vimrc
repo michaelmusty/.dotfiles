@@ -1005,18 +1005,6 @@ autocmd vimrc ColorScheme *
 autocmd vimrc ColorScheme sahara
       \ set cursorline
 
-" We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
-" If we fail to load the color scheme, for whatever reason, suppress the
-" error, and default to a dark background (if not already) for the default
-" color scheme in the absence of guidance otherwise from a COLORFGBG
-" environment variable or a t_RB terminal response.  Vim otherwise defaults to
-" 'light', which is less likely in my case.
-"
-" There's also a very simple grayscale color scheme I occasionally use instead
-" called 'juvenile', which is included as a Git submodule with this dotfiles
-" distribution.
-"
-
 " Use 'dark' as my default value for 'background', in the absence of an
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
 " it specifically.
