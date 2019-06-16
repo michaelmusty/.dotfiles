@@ -1,6 +1,6 @@
-if exists('loaded_put_date')
+if exists('loaded_put_date') || &compatible || !has('*strftime')
   finish
 endif
 let loaded_put_date = 1
-command! -bar -range PutDate
-      \ <line1>put =strftime('%a, %d %b %Y %T %z')
+command! -bang -bar -nargs=* -range PutDate
+      \ call put_date#(<q-line1>, <q-bang> ==# '!', <q-args>)

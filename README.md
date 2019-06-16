@@ -349,7 +349,7 @@ keybindings.  It's extensively commented.
 
 I define my own `filetype.vim` and `scripts.vim`, so that filetype detection
 works in a way I like, and loads quickly.  They are unlikely to suit you as
-they are, but if you want to use it, you can extend them with your favourite
+they are, but if you want to use it, you can extend them with your favorite
 filetypes in custom `ftdetect` rules.
 
 #### Plugins
@@ -485,7 +485,7 @@ Installed by the `install-bin` target:
 * `apf(1df)` inserts arguments to a command with ones read from a file,
   intended as a framework for shell wrappers or functions.
 * `ax(1df)` evaluates an AWK expression given on the command line; this is
-  intended as a quick way to test how Awk would interpret a given expression.
+  intended as a quick way to test how AWK would interpret a given expression.
 * `bcq(1df)` runs `bc(1)`, quieting it down if need be.
 * `bel(1df)` prints a terminal bell character.
 * `bl(1df)` generates a given number of blank lines.
@@ -536,7 +536,7 @@ Installed by the `install-bin` target:
 * `mex(1df)` makes given filenames in `$PATH` executable.
 * `mi5(1df)` is a crude preprocessor for `m4`.
 * `mim(1df)` starts an interactive Mutt message with its input.
-* `mftl(1df)` finds usable-looking targets in makefiles.
+* `mftl(1df)` finds usable-looking targets in Makefiles.
 * `mkcp(1df)` creates a directory and copies preceding arguments into it.
 * `mkmv(1df)` creates a directory and moves preceding arguments into it.
 * `motd(1df)` shows the system MOTD.
@@ -545,7 +545,7 @@ Installed by the `install-bin` target:
 * `oii(1df)` runs a command on input only if there is any.
 * `onl(1df)` crunches input down to one printable line.
 * `osc(1df)` implements a `netcat(1)`-like wrapper for `openssl(1)`'s
-  `s_client` subcommand.
+  `s_client` sub-command.
 * `p(1df)` prints concatenated standard input; `cat(1)` as it should always
   have been.
 * `pa(1df)` prints its arguments, one per line.

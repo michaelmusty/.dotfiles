@@ -103,9 +103,9 @@ scriptencoding utf-8
 " Vim, I love you, but you are really weird.
 "
 let s:runtimepath = map(
-      \ split(&runtimepath, '\\\@<!,[, ]*'),
-      \ "substitute(v:val, '\\\\,', '', 'g')"
-      \ )
+      \ split(&runtimepath, '\\\@<!,[, ]*')
+      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \)
 if !exists('$MYVIM')
   let $MYVIM = s:runtimepath[0]
 endif
@@ -397,6 +397,22 @@ if has('persistent_undo')
   set undofile
   set undodir^=$MYVIM/cache/undo//
 endif
+
+" For spelling, use New Zealand English by default, but later on we'll
+" configure a leader mapping to switch to United States English, since I so
+" often have to write for Yankees.  We'll set the 'spellfile' option too, to
+" place it in the cache directory into which we've been putting everything.
+" We'll follow Vim's standard naming convention for the file itself, though.
+" If available, my plugin spellfile_local.vim will extend this later to add
+" more spelling word lists per filetype and per file.
+"
+set spelllang=en_nz
+Establish $MYVIM/cache/spell
+let &spellfile = $MYVIM.'/cache/spell/'.join([
+      \ substitute(&spelllang, '_.*', '', '')
+      \,&encoding
+      \,'add'
+      \], '.')
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the 'k' flag, the 'dictionary' option specifies the path to the
@@ -991,7 +1007,7 @@ autocmd vimrc ColorScheme sahara
 
 " We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
 " If we fail to load the color scheme, for whatever reason, suppress the
-" error, and default to a dark background (if not already) for the the default
+" error, and default to a dark background (if not already) for the default
 " color scheme in the absence of guidance otherwise from a COLORFGBG
 " environment variable or a t_RB terminal response.  Vim otherwise defaults to
 " 'light', which is less likely in my case.
@@ -1384,15 +1400,15 @@ nnoremap <Leader>t
 nnoremap <Leader>T
       \ :<C-U>setlocal filetype=<CR>
 
-" These mappings use my put_date.vim and utc.vim plugins for date insertion
-" into the buffer.
+" These mappings use my put_date.vim plugin for date insertion into the
+" buffer.
 
 "" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
       \ :PutDate<CR>
 "" Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :<Home>UTC<End> PutDate<CR>
+      \ :PutDate!<CR>
 
 " This group contains mappings that are to do with file and path management
 " relative to the current buffer.  The Leader,P mapping that creates
@@ -1466,12 +1482,11 @@ nnoremap <Leader>j
 
 " Leader,o hacks up the list of old files from viminfo just long enough to
 " ensure that :browse :oldfiles fits in a screen, avoiding an Enter or 'q'
-" keypress before entering the number.  This one is handy followed by
+" keystroke before entering the number.  This one is handy followed by
 " <Leader>,\ to jump back to the last remembered position in that file, since
 " by definition viminfo remembers that mark, too.
 "
-nnoremap <Leader>o
-      \ :<C-U>SelectOldFiles<CR>
+nmap <Leader>o <Plug>SelectOldFiles
 
 " This group defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
@@ -1555,6 +1570,9 @@ nnoremap <Leader>?
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
+"" Leader,! repeats the last command, adding a bang
+nnoremap <Leader>!
+      \ :<Up><Home><S-Right>!<CR>
 "" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator

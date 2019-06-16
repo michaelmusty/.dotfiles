@@ -496,7 +496,7 @@ It's extensively commented.
 I define my own \f[C]filetype.vim\f[] and \f[C]scripts.vim\f[], so that
 filetype detection works in a way I like, and loads quickly.
 They are unlikely to suit you as they are, but if you want to use it,
-you can extend them with your favourite filetypes in custom
+you can extend them with your favorite filetypes in custom
 \f[C]ftdetect\f[] rules.
 .SS Plugins
 .PP
@@ -736,7 +736,7 @@ input, prompting if appropriate.
 file, intended as a framework for shell wrappers or functions.
 .IP \[bu] 2
 \f[C]ax(1df)\f[] evaluates an AWK expression given on the command line;
-this is intended as a quick way to test how Awk would interpret a given
+this is intended as a quick way to test how AWK would interpret a given
 expression.
 .IP \[bu] 2
 \f[C]bcq(1df)\f[] runs \f[C]bc(1)\f[], quieting it down if need be.
@@ -834,7 +834,7 @@ Good for quick tests.
 .IP \[bu] 2
 \f[C]mim(1df)\f[] starts an interactive Mutt message with its input.
 .IP \[bu] 2
-\f[C]mftl(1df)\f[] finds usable\-looking targets in makefiles.
+\f[C]mftl(1df)\f[] finds usable\-looking targets in Makefiles.
 .IP \[bu] 2
 \f[C]mkcp(1df)\f[] creates a directory and copies preceding arguments
 into it.
@@ -852,7 +852,7 @@ one per line.
 \f[C]onl(1df)\f[] crunches input down to one printable line.
 .IP \[bu] 2
 \f[C]osc(1df)\f[] implements a \f[C]netcat(1)\f[]\-like wrapper for
-\f[C]openssl(1)\f[]'s \f[C]s_client\f[] subcommand.
+\f[C]openssl(1)\f[]'s \f[C]s_client\f[] sub\-command.
 .IP \[bu] 2
 \f[C]p(1df)\f[] prints concatenated standard input; \f[C]cat(1)\f[] as
 it should always have been.
