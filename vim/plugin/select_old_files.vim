@@ -1,4 +1,4 @@
-if exists('loaded_select_old_files')
+if exists('loaded_select_old_files') || &compatible || !exists(':oldfiles')
   finish
 endif
 let loaded_select_old_files = 1
