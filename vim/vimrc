@@ -1564,6 +1564,15 @@ xmap <Leader>r <Plug>(ReplaceOperator)
 nmap <Leader>* <Plug>(RegexEscape)
 xmap <Leader>* <Plug>(RegexEscape)
 
+" I don't have anything for which I'm using the numbers just yet, so let's set
+" them to apply an explicit 'foldlevel' for now, which is occasionally useful,
+" though I suspect I'm more likely to keep using zM, zm, and zr.
+"
+for s:key in range(0,9)
+  execute 'nnoremap <Leader>'.s:key.' :<C-U>set foldlevel='.s:key.'<CR>'
+  execute 'xmap <Leader>'.s:key.' <Esc><Leader>'.s:key.'gv'
+endfor
+
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the
 " command wrapper defined much earlier in the file, so that filetypes also get
