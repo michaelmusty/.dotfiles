@@ -1384,15 +1384,15 @@ nnoremap <Leader>t
 nnoremap <Leader>T
       \ :<C-U>setlocal filetype=<CR>
 
-" These mappings use my put_date.vim and utc.vim plugins for date insertion
-" into the buffer.
+" These mappings use my put_date.vim plugin for date insertion into the
+" buffer.
 
 "" Leader,d inserts the local date (RFC 2822)
 nnoremap <Leader>d
       \ :PutDate<CR>
 "" Leader,D inserts the UTC date (RFC 2822)
 nnoremap <Leader>D
-      \ :<Home>UTC<End> PutDate<CR>
+      \ :PutDate!<CR>
 
 " This group contains mappings that are to do with file and path management
 " relative to the current buffer.  The Leader,P mapping that creates
