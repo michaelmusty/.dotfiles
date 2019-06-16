@@ -1555,6 +1555,9 @@ nnoremap <Leader>?
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
+"" Leader,! repeats the last command, adding a bang
+nnoremap <Leader>!
+      \ :<Up><Home><S-Right>!<CR>
 "" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator
