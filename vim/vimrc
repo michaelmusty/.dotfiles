@@ -1109,7 +1109,7 @@ nnoremap <expr> <Space>
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if &loadplugins 
+if &loadplugins
       \ && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
