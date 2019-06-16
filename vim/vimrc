@@ -1045,6 +1045,12 @@ endif
 " many of these.
 "
 
+" Use backspace as an even quicker way to switch to the current buffer's
+" alternate buffer.  User nickspoons of #vim was incredulous that I had never
+" used CTRL-^ and indeed did not know about it.  I have since repented.
+"
+nnoremap <Backspace> <C-^>
+
 " I find the space bar's default behavior in normal mode of moving right one
 " character to be useless.  Instead, I remap it to be a lazy way of paging
 " through the argument list buffers, scrolling a page until the last line of
