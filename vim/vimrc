@@ -1445,7 +1445,7 @@ nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
 "" Leader,o opens a screenful of :browse :oldfiles, ready for a selection
 nnoremap <Leader>o
-      \ :<C-U>browse :oldfiles<CR>q
+      \ :<C-U>SelectOldFiles<CR>
 
 " This ground defines mappings for filtering and batch operations to clean up
 " buffer text.  All of these mappings use commands from my custom plugins:
