@@ -1,4 +1,4 @@
-if exists('loaded_paste_insert')
+if exists('loaded_paste_insert') || &compatible
   finish
 endif
 let loaded_paste_insert = 1
