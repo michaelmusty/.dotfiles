@@ -991,7 +991,7 @@ autocmd vimrc ColorScheme sahara
 
 " We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
 " If we fail to load the color scheme, for whatever reason, suppress the
-" error, and default to a dark background (if not already) for the the default
+" error, and default to a dark background (if not already) for the default
 " color scheme in the absence of guidance otherwise from a COLORFGBG
 " environment variable or a t_RB terminal response.  Vim otherwise defaults to
 " 'light', which is less likely in my case.
@@ -1466,7 +1466,7 @@ nnoremap <Leader>j
 
 " Leader,o hacks up the list of old files from viminfo just long enough to
 " ensure that :browse :oldfiles fits in a screen, avoiding an Enter or 'q'
-" keypress before entering the number.  This one is handy followed by
+" keystroke before entering the number.  This one is handy followed by
 " <Leader>,\ to jump back to the last remembered position in that file, since
 " by definition viminfo remembers that mark, too.
 "
