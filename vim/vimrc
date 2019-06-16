@@ -398,6 +398,22 @@ if has('persistent_undo')
   set undodir^=$MYVIM/cache/undo//
 endif
 
+" For spelling, use New Zealand English by default, but later on we'll
+" configure a leader mapping to switch to United States English, since I so
+" often have to write for Yankees.  We'll set the 'spellfile' option too, to
+" place it in the cache directory into which we've been putting everything.
+" We'll follow Vim's standard naming convention for the file itself, though.
+" If available, my plugin spellfile_local.vim will extend this later to add
+" more spelling word lists per filetype and per file.
+"
+set spelllang=en_nz
+Establish $MYVIM/cache/spell
+let &spellfile = $MYVIM.'/cache/spell/'.join([
+      \ substitute(&spelllang, '_.*', '', '')
+      \,&encoding
+      \,'add'
+      \], '.')
+
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the 'k' flag, the 'dictionary' option specifies the path to the
 " system word list.  This makes the dictionary completion work consistently,
