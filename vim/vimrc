@@ -805,6 +805,16 @@ set sessionoptions-=options       " No global options or mappings
 "
 set shortmess+=I
 
+" We'll only use the old 'showmatch' method of a brief jump to the matching
+" bracket under the cursor if the much-preferred matchparen.vim standard
+" plugin doesn't look like it's going to load, whether because plugins have
+" been disabled, or it's not in any of the plugin directories.
+"
+if !&loadplugins
+      \ && globpath(&runtimepath, 'plugin/matchparen.vim') !=# ''
+  set showmatch matchtime=3
+endif
+
 " I find the defaults of new windows opening above or to the left of the
 " previous window too jarring, because I'm used to both the i3 window manager
 " and the tmux terminal multiplexer doing it the other way around, in reading
