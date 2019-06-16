@@ -981,19 +981,34 @@ autocmd vimrc ColorScheme sahara
 
 " We'll have Vim try to use my 'sahara' fork of the 'desert256' color scheme.
 " If we fail to load the color scheme, for whatever reason, suppress the
-" error, and ensure a dark background for the default color scheme.
+" error, and default to a dark background (if not already) for the the default
+" color scheme in the absence of guidance otherwise from a COLORFGBG
+" environment variable or a t_RB terminal response.  Vim otherwise defaults to
+" 'light', which is less likely in my case.
 "
 " There's also a very simple grayscale color scheme I occasionally use instead
 " called 'juvenile', which is included as a Git submodule with this dotfiles
 " distribution.
 "
-try
+
+" Use 'dark' as my default value for 'background', in the absence of an
+" environment variable COLORFGBG or a response in v:termrbgresp that would set
+" it specifically.
+"
+if !exists('$COLORFGBG') && (
+      \ !exists('v:termrbgresp')
+      \ || v:termrbgresp ==# ''
+      \ )
+  set background=dark
+endif
+
+" If the background seems to be dark, and my custom sahara.vim color scheme
+" looks to be available, load it.
+"
+if &background ==# 'dark'
+      \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
   colorscheme sahara
-catch
-  if &background !=# 'dark'
-    set background=dark
-  endif
-endtry
+endif
 
 " My mapping definitions begin here.  I have some general personal rules for
 " approaches to mappings:
