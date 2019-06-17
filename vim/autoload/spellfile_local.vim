@@ -22,7 +22,7 @@ function! spellfile_local#() abort
   set spellfile<
 
   let spelllangs = s:SplitOption(&spelllang)
-  if !len(spelllangs) || &spelllang[0] ==# ''
+  if !len(spelllangs) || spelllangs[0] ==# ''
     echoerr 'Blank ''spelllang'''
   endif
   let spelllang = substitute(spelllangs[0], '_.*', '', '')
