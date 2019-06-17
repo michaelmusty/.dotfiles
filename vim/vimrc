@@ -1012,10 +1012,12 @@ if !exists('$COLORFGBG') && get(v:, 'termrbgresp', '') ==# ''
   set background=dark
 endif
 
-" If the background seems to be dark, and my custom sahara.vim color scheme
-" looks to be available, load it.
+" If the background seems to be dark, and I have either the GUI or a 256 color
+" terminal, and my custom sahara.vim color scheme looks to be available, load
+" it.
 "
 if &background ==# 'dark'
+      \ && (has('gui_running') || &t_Co >= 256)
       \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
   colorscheme sahara
 endif
