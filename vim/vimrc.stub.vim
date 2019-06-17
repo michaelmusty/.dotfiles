@@ -1,3 +1,9 @@
+" If POSIXLY_CORRECT is defined in the environment, we'll start compatible if
+" we're not already planning to do so.
+if exists('$POSIXLY_CORRECT') && !&compatible
+  set compatible
+endif
+
 " If we have non-tiny Vim version >=7, source real vimrc; this works because
 " tiny and/or ancient builds of Vim quietly ignore all code in :if blocks
 if v:version >= 700 && !&compatible
