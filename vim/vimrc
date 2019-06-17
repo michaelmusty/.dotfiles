@@ -1009,10 +1009,7 @@ autocmd vimrc ColorScheme sahara
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
 " it specifically.
 "
-if !exists('$COLORFGBG') && (
-      \ !exists('v:termrbgresp')
-      \ || v:termrbgresp ==# ''
-      \ )
+if !exists('$COLORFGBG') && get(v:, 'termrbgresp', '') ==# ''
   set background=dark
 endif
 
