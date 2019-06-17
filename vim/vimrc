@@ -104,7 +104,7 @@ scriptencoding utf-8
 "
 let s:runtimepath = map(
       \ split(&runtimepath, '\\\@<!,[, ]*')
-      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \,'substitute(v:val, ''\\,'', '''', ''g'')'
       \)
 if !exists('$MYVIM')
   let $MYVIM = s:runtimepath[0]

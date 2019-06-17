@@ -1,14 +1,14 @@
 function! s:SplitOption(string) abort
   return map(
       \ split(a:string, '\\\@<!,[, ]*')
-      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \,'substitute(v:val, ''\\,'', '''', ''g'')'
       \)
 endfunction
 
 function! s:JoinOption(list) abort
   return join(map(
         \ a:list
-        \,"substitute(v:val, '\\\\\\@<!,', '\\\\,', 'g')"
+        \,'substitute(v:val, ''\\\@<!,'', ''\\,'', ''g'')'
         \), ',')
 endfunction
 
