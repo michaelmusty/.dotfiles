@@ -1,5 +1,5 @@
-" If POSIXLY_CORRECT is defined in the environment, we'll start compatible if
-" we're not already planning to do so.
+" If POSIXLY_CORRECT is defined in the environment, we'll start with
+" 'compatible' enabled if we're not already doing so
 if exists('$POSIXLY_CORRECT') && !&compatible
   set compatible
 endif
