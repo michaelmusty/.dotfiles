@@ -102,12 +102,11 @@ scriptencoding utf-8
 " I'll factor all of this mess out into a global function if I ever need it
 " anywhere else.  Vim, I love you, but you are really weird.
 "
-let s:runtimepath = map(
-      \ split(&runtimepath, '\\\@<!,[, ]*')
-      \,'substitute(v:val, ''\\,'', '''', ''g'')'
-      \)
 if !exists('$MYVIM')
-  let $MYVIM = s:runtimepath[0]
+  let $MYVIM = map(
+        \ split(&runtimepath, '\\\@<!,[, ]*')
+        \,'substitute(v:val, ''\\,'', '''', ''g'')'
+        \)[0]
 endif
 
 " Having either imported or defined a value for the MYVIM environment
