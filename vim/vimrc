@@ -93,18 +93,17 @@ scriptencoding utf-8
 " a map() over substitute(), string-eval style to accommodate older Vim before
 " Funcref variables were added.
 "
-" We don't, however, have to deal with escaped backslashes, or any other
-" character; you can read the source code for the ad-hoc tokenizer in
-" copy_option_part() in src/misc2.c in Vim's source code and test it with some
-" values of your own if you want to understand why.
+" We don't, however, have to deal with backslashes before other backslashes,
+" nor before any other character.  You can read the source code for the ad-hoc
+" tokenizer in copy_option_part() in src/misc2.c in Vim's source code, and
+" test it with some values of your own, if you want to understand why.
 "
-" I'll factor this out into a global function if I ever need it anywhere else.
-"
-" Vim, I love you, but you are really weird.
+" I'll factor all of this mess out into a global function if I ever need it
+" anywhere else.  Vim, I love you, but you are really weird.
 "
 let s:runtimepath = map(
       \ split(&runtimepath, '\\\@<!,[, ]*')
-      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \,'substitute(v:val, ''\\,'', '''', ''g'')'
       \)
 if !exists('$MYVIM')
   let $MYVIM = s:runtimepath[0]
@@ -119,7 +118,7 @@ endif
 
 " Firstly, MYVIM can't be an empty string.  We need a real path.
 "
-if $MYVIM ==# ''
+if !strlen($MYVIM)
   echoerr 'Blank user runtime path'
   finish
 endif
@@ -131,7 +130,7 @@ endif
 " :execute abstraction, but it's not really worth the extra complexity for
 " such a niche situation.
 "
-if $MYVIM =~# ','
+if stridx($MYVIM, ',') != -1
   echoerr 'Illegal comma in user runtime path'
   finish
 endif
@@ -150,10 +149,8 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if $MYVIM =~# '\\' && (
-      \ v:version < 701
-      \ || v:version == 701 && !has('patch55')
-      \ )
+if stridx($MYVIM, '\') != -1
+      \ && (v:version < 701 || v:version == 701 && !has('patch55'))
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
 endif
@@ -826,8 +823,7 @@ set shortmess+=I
 " plugin doesn't look like it's going to load, whether because plugins have
 " been disabled, or it's not in any of the plugin directories.
 "
-if !&loadplugins
-      \ && globpath(&runtimepath, 'plugin/matchparen.vim') !=# ''
+if !&loadplugins || !strlen(globpath(&runtimepath, 'plugin/matchparen.vim'))
   set showmatch matchtime=3
 endif
 
@@ -1009,18 +1005,17 @@ autocmd vimrc ColorScheme sahara
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
 " it specifically.
 "
-if !exists('$COLORFGBG') && (
-      \ !exists('v:termrbgresp')
-      \ || v:termrbgresp ==# ''
-      \ )
+if !exists('$COLORFGBG') && !strlen(get(v:, 'termrbgresp', ''))
   set background=dark
 endif
 
-" If the background seems to be dark, and my custom sahara.vim color scheme
-" looks to be available, load it.
+" If the background seems to be dark, and I have either the GUI or a 256 color
+" terminal, and my custom sahara.vim color scheme looks to be available, load
+" it.
 "
 if &background ==# 'dark'
-      \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
+      \ && (has('gui_running') || &t_Co >= 256)
+      \ && strlen(globpath(&runtimepath, 'colors/sahara.vim'))
   colorscheme sahara
 endif
 
@@ -1113,8 +1108,7 @@ nnoremap <expr> <Space>
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if &loadplugins
-      \ && globpath(&runtimepath, 'plugin/insert_cancel.vim') !=# ''
+if &loadplugins && strlen(globpath(&runtimepath, 'plugin/insert_cancel.vim'))
   imap <C-C> <Plug>(InsertCancel)
 endif
 

@@ -1,0 +1,11 @@
+.TH VIC 1df "June 2019" "Manual page for vic"
+.SH NAME
+.B vic
+\- run a compatible vi
+.SH DESCRIPTION
+.B vic
+checks the system implementation of vi(1) to see whether it's Vim.  If it is,
+it starts it with `vim -C` to turn the 'compatible' option on.  If it isn't, it
+just runs `vi`.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>

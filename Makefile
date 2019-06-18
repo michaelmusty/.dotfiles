@@ -220,6 +220,7 @@ BINS = bin/ap \
 	bin/uts \
 	bin/vest \
 	bin/vex \
+	bin/vic \
 	bin/wro \
 	bin/xgo \
 	bin/xgoc \

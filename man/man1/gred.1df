@@ -8,7 +8,7 @@ PATTERN [FILE...]
 .br
 .SH DESCRIPTION
 .B gred
-is the same as grep(1) when run with a a -v option, because the name always
+is the same as grep(1) when run with its -v option, because the name always
 bugged me a bit--"g/re/p, except don't print it, delete it"?
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

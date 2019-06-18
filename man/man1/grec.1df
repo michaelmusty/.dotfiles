@@ -8,7 +8,7 @@ PATTERN [FILE...]
 .br
 .SH DESCRIPTION
 .B grec
-is the same as grep(1) when run with a a -c option, because the name always
+is the same as grep(1) when run with its -c option, because the name always
 bugged me a bit--"g/re/p, except don't print it, count it"?
 .SH AUTHOR
 Tom Ryder <tom@sanctum.geek.nz>

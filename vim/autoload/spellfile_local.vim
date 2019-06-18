@@ -1,14 +1,14 @@
 function! s:SplitOption(string) abort
   return map(
       \ split(a:string, '\\\@<!,[, ]*')
-      \,"substitute(v:val, '\\\\,', '', 'g')"
+      \,'substitute(v:val, ''\\,'', '''', ''g'')'
       \)
 endfunction
 
 function! s:JoinOption(list) abort
   return join(map(
         \ a:list
-        \,"substitute(v:val, '\\\\\\@<!,', '\\\\,', 'g')"
+        \,'substitute(v:val, ''\\\@<!,'', ''\\,'', ''g'')'
         \), ',')
 endfunction
 
@@ -22,7 +22,7 @@ function! spellfile_local#() abort
   set spellfile<
 
   let spelllangs = s:SplitOption(&spelllang)
-  if !len(spelllangs) || &spelllang[0] ==# ''
+  if !len(spelllangs) || spelllangs[0] ==# ''
     echoerr 'Blank ''spelllang'''
   endif
   let spelllang = substitute(spelllangs[0], '_.*', '', '')
