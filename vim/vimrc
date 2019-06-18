@@ -932,18 +932,77 @@ set wildmode=list:longest,full
 "
 " <https://mywiki.wooledge.org/UsingFind#Complex_actions>
 "
-" It's tempting to put the list of patterns here into a separate file--or at
-" least into a more readily editable intermediate list variable--rather than
-" the minor maintenance hassle it presently constitutes in this compact form.
-" I'm not sure whether I'll do that just yet.
-"
-set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
-      \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
-      \,*.filepart,*.flac,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz,*.hdf,*.ico
-      \,*.iso,*.jar,*.jpeg,*.jpg,*.m4a,*.mid,*.mp3,*.mp4,*.o,*.odp,*.ods,*.odt
-      \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
-      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
-      \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
+set wildignore=*~,#*#
+      \,*.7z
+      \,.DS_Store
+      \,.git
+      \,.hg
+      \,.svn
+      \,*.a
+      \,*.adf
+      \,*.asc
+      \,*.au
+      \,*.aup
+      \,*.avi
+      \,*.bin
+      \,*.bmp
+      \,*.bz2
+      \,*.class
+      \,*.db
+      \,*.dbm
+      \,*.djvu
+      \,*.docx
+      \,*.exe
+      \,*.filepart
+      \,*.flac
+      \,*.gd2
+      \,*.gif
+      \,*.gifv
+      \,*.gmo
+      \,*.gpg
+      \,*.gz
+      \,*.hdf
+      \,*.ico
+      \,*.iso
+      \,*.jar
+      \,*.jpeg
+      \,*.jpg
+      \,*.m4a
+      \,*.mid
+      \,*.mp3
+      \,*.mp4
+      \,*.o
+      \,*.odp
+      \,*.ods
+      \,*.odt
+      \,*.ogg
+      \,*.ogv
+      \,*.opus
+      \,*.pbm
+      \,*.pdf
+      \,*.png
+      \,*.ppt
+      \,*.psd
+      \,*.pyc
+      \,*.rar
+      \,*.rm
+      \,*.s3m
+      \,*.sdbm
+      \,*.sqlite
+      \,*.swf
+      \,*.swp
+      \,*.tar
+      \,*.tga
+      \,*.ttf
+      \,*.wav
+      \,*.webm
+      \,*.xbm
+      \,*.xcf
+      \,*.xls
+      \,*.xlsx
+      \,*.xpm
+      \,*.xz
+      \,*.zip
 
 " Allow me to be lazy and type a path to complete on the Ex command line in
 " all-lowercase, and transform the consequent completion to match the
