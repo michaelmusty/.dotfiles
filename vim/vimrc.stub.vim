@@ -1,17 +1,18 @@
-" If POSIXLY_CORRECT is defined in the environment, we'll start with
-" 'compatible' enabled if we're not already doing so
-if exists('$POSIXLY_CORRECT') && !&compatible
-  set compatible
-endif
-
-" If we have non-tiny Vim version >=7, source real vimrc; this works because
-" tiny and/or ancient builds of Vim quietly ignore all code in :if blocks
-if v:version >= 700 && !&compatible
+" Check that we're not running in 'compatible' mode, nor that the environment
+" calls for the same, and that we're running Vim v7.0.0 or newer.  If it's all
+" clear, we can load the main vimrc file from ~/.vim/vimrc, and then stop
+" sourcing the rest of this file.
+"
+if !&compatible && !exists('$POSIXLY_CORRECT') && v:version >= 700
   runtime vimrc
   finish
 endif
 
-" Otherwise, prevent an old and/or tiny Vim from using any part of our
-" configuration, because parts of it will break
+" If we get this far, it means we're running a tiny, 'compatible', and/or
+" ancient version of Vim.  Force 'compatible' on, remove our user runtime
+" directory, and start vi v3.7 from July 1985.  Don't grizzle, just use it.
+" It's good for you, like raisin bran.
+"
+set compatible
 set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
