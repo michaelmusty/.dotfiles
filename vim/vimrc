@@ -102,12 +102,11 @@ scriptencoding utf-8
 " I'll factor all of this mess out into a global function if I ever need it
 " anywhere else.  Vim, I love you, but you are really weird.
 "
-let s:runtimepath = map(
-      \ split(&runtimepath, '\\\@<!,[, ]*')
-      \,'substitute(v:val, ''\\,'', '''', ''g'')'
-      \)
 if !exists('$MYVIM')
-  let $MYVIM = s:runtimepath[0]
+  let $MYVIM = map(
+        \ split(&runtimepath, '\\\@<!,[, ]*')
+        \,'substitute(v:val, ''\\,'', '''', ''g'')'
+        \)[0]
 endif
 
 " Having either imported or defined a value for the MYVIM environment
@@ -131,7 +130,7 @@ endif
 " :execute abstraction, but it's not really worth the extra complexity for
 " such a niche situation.
 "
-if stridx($MYVIM, ',') != -1
+if stridx($MYVIM, ',') >= 0
   echoerr 'Illegal comma in user runtime path'
   finish
 endif
@@ -150,7 +149,7 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if stridx($MYVIM, '\') != -1
+if stridx($MYVIM, '\') >= 0
       \ && (v:version < 701 || v:version == 701 && !has('patch55'))
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
@@ -508,8 +507,7 @@ set shiftwidth=4  " Indent command like < and > use four-space indents
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if v:version > 730
-      \ || v:version == 730 && has('patch693')
+if v:version > 730 || v:version == 730 && has('patch693')
   set softtabstop=-1
 else
   let &softtabstop = &shiftwidth
@@ -639,8 +637,7 @@ set formatoptions+=1
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.541>
 "
-if v:version > 730
-      \ || v:version == 730 && has('patch541')
+if v:version > 730 || v:version == 730 && has('patch541')
   set formatoptions+=j
 endif
 
@@ -933,18 +930,77 @@ set wildmode=list:longest,full
 "
 " <https://mywiki.wooledge.org/UsingFind#Complex_actions>
 "
-" It's tempting to put the list of patterns here into a separate file--or at
-" least into a more readily editable intermediate list variable--rather than
-" the minor maintenance hassle it presently constitutes in this compact form.
-" I'm not sure whether I'll do that just yet.
-"
-set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
-      \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
-      \,*.filepart,*.flac,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz,*.hdf,*.ico
-      \,*.iso,*.jar,*.jpeg,*.jpg,*.m4a,*.mid,*.mp3,*.mp4,*.o,*.odp,*.ods,*.odt
-      \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
-      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
-      \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
+set wildignore=*~,#*#
+      \,*.7z
+      \,.DS_Store
+      \,.git
+      \,.hg
+      \,.svn
+      \,*.a
+      \,*.adf
+      \,*.asc
+      \,*.au
+      \,*.aup
+      \,*.avi
+      \,*.bin
+      \,*.bmp
+      \,*.bz2
+      \,*.class
+      \,*.db
+      \,*.dbm
+      \,*.djvu
+      \,*.docx
+      \,*.exe
+      \,*.filepart
+      \,*.flac
+      \,*.gd2
+      \,*.gif
+      \,*.gifv
+      \,*.gmo
+      \,*.gpg
+      \,*.gz
+      \,*.hdf
+      \,*.ico
+      \,*.iso
+      \,*.jar
+      \,*.jpeg
+      \,*.jpg
+      \,*.m4a
+      \,*.mid
+      \,*.mp3
+      \,*.mp4
+      \,*.o
+      \,*.odp
+      \,*.ods
+      \,*.odt
+      \,*.ogg
+      \,*.ogv
+      \,*.opus
+      \,*.pbm
+      \,*.pdf
+      \,*.png
+      \,*.ppt
+      \,*.psd
+      \,*.pyc
+      \,*.rar
+      \,*.rm
+      \,*.s3m
+      \,*.sdbm
+      \,*.sqlite
+      \,*.swf
+      \,*.swp
+      \,*.tar
+      \,*.tga
+      \,*.ttf
+      \,*.wav
+      \,*.webm
+      \,*.xbm
+      \,*.xcf
+      \,*.xls
+      \,*.xlsx
+      \,*.xpm
+      \,*.xz
+      \,*.zip
 
 " Allow me to be lazy and type a path to complete on the Ex command line in
 " all-lowercase, and transform the consequent completion to match the
@@ -997,10 +1053,15 @@ endif
 " background.  For any other color scheme, turn the option off, because it
 " almost always stands out too much for my liking.
 "
+" You'd think the autocommand pattern here could be used to match the colour
+" scheme name, and it can be...after patch v7.4.108, when Christian Brabandt
+" fixed it.  Until that version, it matched against the current buffer name,
+" so we're forced to have an explicit test in the command instead.
+"
+" <https://github.com/vim/vim/releases/tag/v7.4.108>
+"
 autocmd vimrc ColorScheme *
-      \ set nocursorline
-autocmd vimrc ColorScheme sahara
-      \ set cursorline
+      \ let &cursorline = g:colors_name ==# 'sahara'
 
 " Use 'dark' as my default value for 'background', in the absence of an
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
