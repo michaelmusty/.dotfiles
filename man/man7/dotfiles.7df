@@ -927,6 +927,8 @@ via \f[C]vex(1df)\f[].
 \f[C]vex(1df)\f[] runs a command and prints \f[C]true\f[] or
 \f[C]false\f[] explicitly to \f[C]stdout\f[] based on the exit value.
 .IP \[bu] 2
+\f[C]vic(1df)\f[] tries to run a POSIX\-compliant \f[C]vi(1)\f[].
+.IP \[bu] 2
 \f[C]xrbg(1df)\f[] applies the same randomly\-selected background to
 each X screen.
 .IP \[bu] 2
