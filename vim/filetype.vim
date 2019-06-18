@@ -72,9 +72,11 @@ augroup filetypedetect
         \,?*.patch
         \,?*.rej
         \ setfiletype diff
-  " INI files
+  " INI format files
   autocmd BufNewFile,BufRead
         \ ?*.ini
+        \,perlcriticrc
+        \,.perlcriticrc
         \ setfiletype dosini
   " DOT graphs
   autocmd BufNewFile,BufRead
