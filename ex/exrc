@@ -1,5 +1,5 @@
 " POSIX ex/vi settings
 set autoindent
 set report=0
-set shiftwidth=4
+set showmatch
 set showmode
