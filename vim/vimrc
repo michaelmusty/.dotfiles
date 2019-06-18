@@ -507,8 +507,7 @@ set shiftwidth=4  " Indent command like < and > use four-space indents
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if v:version > 730
-      \ || v:version == 730 && has('patch693')
+if v:version > 730 || v:version == 730 && has('patch693')
   set softtabstop=-1
 else
   let &softtabstop = &shiftwidth
@@ -638,8 +637,7 @@ set formatoptions+=1
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.541>
 "
-if v:version > 730
-      \ || v:version == 730 && has('patch541')
+if v:version > 730 || v:version == 730 && has('patch541')
   set formatoptions+=j
 endif
 
