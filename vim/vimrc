@@ -41,9 +41,10 @@
 " to a multibyte (UTF-8) locale.  This informs Vim's choice of internal
 " character encoding, but the default for the 'encoding' option in LANG's
 " absence is "latin1".  Nowadays, this is never what I want, so we'll manually
-" choose "utf-8" as an encoding instead if LANG is not defined.
+" choose "utf-8" as an encoding instead if the encoding is the default
+" 'latin1', and LANG is not defined.
 "
-if !exists('$LANG')
+if !exists('$LANG') && &encoding ==# 'latin1'
   set encoding=utf-8
 endif
 scriptencoding utf-8
