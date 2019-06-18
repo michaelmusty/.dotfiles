@@ -9,10 +9,12 @@ if !&compatible && !exists('$POSIXLY_CORRECT') && v:version >= 700
 endif
 
 " If we get this far, it means we're running a tiny, 'compatible', and/or
-" ancient version of Vim.  Force 'compatible' on, remove our user runtime
-" directory, and start vi v3.7 from July 1985.  Don't grizzle, just use it.
-" It's good for you, like raisin bran.
+" ancient version of Vim.  Strip out our user runtime directories from
+" 'runtimepath', force 'compatible' on, and fire up Sun OS 4.x vi v3.7, from
+" July 1985.  Don't grizzle, just use it.  It's good for you, like raisin
+" bran.
 "
-set compatible
 set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
+set compatible
+silent! source ~/.exrc
