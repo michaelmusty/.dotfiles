@@ -130,7 +130,7 @@ endif
 " :execute abstraction, but it's not really worth the extra complexity for
 " such a niche situation.
 "
-if stridx($MYVIM, ',') != -1
+if stridx($MYVIM, ',') >= 0
   echoerr 'Illegal comma in user runtime path'
   finish
 endif
@@ -149,7 +149,7 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if stridx($MYVIM, '\') != -1
+if stridx($MYVIM, '\') >= 0
       \ && (v:version < 701 || v:version == 701 && !has('patch55'))
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
