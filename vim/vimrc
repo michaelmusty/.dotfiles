@@ -44,7 +44,7 @@
 " choose "utf-8" as an encoding instead if the encoding is the default
 " 'latin1', and LANG is not defined.
 "
-if &encoding ==# 'latin1' && !exists('$LANG')
+if !exists('$LANG') && &encoding ==# 'latin1'
   set encoding=utf-8
 endif
 scriptencoding utf-8
