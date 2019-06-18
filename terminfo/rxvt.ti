@@ -319,8 +319,3 @@ rxvt-unicode| rxvt-unicode,
     vpa=\E[%i%p1%dd,
     xenl,
     xon,
-
-rxvt-unicode-256color| rxvt-unicode with 256 colors,
-    use=rxvt-unicode,
-    colors#256,
-    pairs#32767,
