@@ -5,8 +5,8 @@ function! paste_insert#() abort
           \ set nopaste paste?
           \|autocmd! paste_insert
     autocmd InsertEnter *
-          \ set paste paste?
-          \|autocmd paste_insert InsertLeave *
+          \ autocmd paste_insert InsertLeave *
                 \ doautocmd paste_insert User
   augroup END
+  set paste paste?
 endfunction
