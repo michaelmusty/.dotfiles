@@ -1053,10 +1053,15 @@ endif
 " background.  For any other color scheme, turn the option off, because it
 " almost always stands out too much for my liking.
 "
+" You'd think the autocommand pattern here could be used to match the colour
+" scheme name, and it can be...after patch v7.4.108, when Christian Brabandt
+" fixed it.  Until that version, it matched against the current buffer name,
+" so we're forced to have an explicit test in the command instead.
+"
+" <https://github.com/vim/vim/releases/tag/v7.4.108>
+"
 autocmd vimrc ColorScheme *
-      \ set nocursorline
-autocmd vimrc ColorScheme sahara
-      \ set cursorline
+      \ let &cursorline = g:colors_name ==# 'sahara'
 
 " Use 'dark' as my default value for 'background', in the absence of an
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
