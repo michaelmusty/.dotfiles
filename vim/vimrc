@@ -149,8 +149,8 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if stridx($MYVIM, '\') >= 0
-      \ && (v:version < 701 || v:version == 701 && !has('patch55'))
+if (v:version < 701 || v:version == 701 && !has('patch55'))
+      \ && stridx($MYVIM, '\') >= 0
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
 endif
