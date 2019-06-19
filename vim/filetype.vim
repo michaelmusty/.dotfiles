@@ -44,6 +44,7 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead
         \ ?*.c
         \,?*.h
+        \,*/proto/?*.pro
         \ setfiletype c
   " C++ files
   autocmd BufNewFile,BufRead
