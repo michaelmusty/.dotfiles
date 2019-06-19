@@ -499,6 +499,7 @@ set path-=/usr/include
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Insert spaces when tab key is pressed in insert mode
 set shiftwidth=4  " Indent command like < and > use four-space indents
+set smarttab      " Tab at start of line means indent, otherwise means tab
 
 " Apply 'softtabstop' option to make a tab key press in insert mode insert the
 " same number of spaces as defined by the indent depth in 'shiftwidth'.  If
