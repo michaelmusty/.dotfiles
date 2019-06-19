@@ -8,6 +8,10 @@ setlocal comments=s1:/*,m:*,ex:*/,://,:#
 setlocal formatoptions+=or
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
+" Fold based on indent level
+setlocal foldmethod=indent
+let b:undo_ftplugin .= '|setlocal foldmethod<'
+
 " Use pman as 'keywordprg'
 setlocal keywordprg=pman
 let b:undo_ftplugin .= '|setlocal keywordprg<'

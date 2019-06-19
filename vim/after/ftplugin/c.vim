@@ -6,6 +6,10 @@ let b:undo_ftplugin .= '|setlocal commentstring< define< include<'
 setlocal complete+=d
 let b:undo_ftplugin .= '|setlocal complete<'
 
+" Fold based on indent level
+setlocal foldmethod=indent
+let b:undo_ftplugin .= '|setlocal foldmethod<'
+
 " Include system headers on UNIX
 if has('unix')
   setlocal path+=/usr/include

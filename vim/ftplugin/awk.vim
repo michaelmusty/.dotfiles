@@ -9,6 +9,10 @@ setlocal comments=:#
 setlocal formatoptions+=or
 let b:undo_ftplugin = 'setlocal comments< formatoptions<'
 
+" Fold based on indent level
+setlocal foldmethod=indent
+let b:undo_ftplugin .= '|setlocal foldmethod<'
+
 " Specify ERE flavor for regex_escape.vim
 let b:regex_escape_flavor = 'ere'
 let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'

@@ -584,24 +584,6 @@ set confirm
 "
 set noesckeys
 
-" By default, I prefer that figuring out where a region of text to fold away
-" should be done by the indent level of its lines, since I tend to be careful
-" about my indentation even in languages where it has no semantic meaning.
-"
-set foldmethod=indent
-
-" That said, I don't want any of these indent-based folds to start off closed.
-" Therefore, we set the depth level at which folds should automatically start
-" as closed to a rather high number, per the documentation's recommendations.
-"
-" I think of a Vim window with a file buffer loaded into it as
-" a two-dimensional, planar view of the file, so that moving down one screen
-" line means moving down one buffer line, at least when 'wrap' is unset.
-" Folds break that mental model, and so I usually enable them explicitly only
-" when I'm struggling to grasp some code with very long functions or loops.
-"
-set foldlevelstart=99
-
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I rely on the filetype plugins to set the 't' and 'c' flags for
 " this option to configure whether text or comments should be wrapped, as

@@ -8,3 +8,7 @@ let b:did_ftplugin = 1
 setlocal comments=:#
 setlocal formatoptions+=or
 let b:undo_ftplugin = 'setlocal comments< formatoptions<'
+
+" Fold based on indent level
+setlocal foldmethod=indent
+let b:undo_ftplugin .= '|setlocal foldmethod<'
