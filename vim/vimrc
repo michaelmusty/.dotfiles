@@ -118,7 +118,7 @@ endif
 
 " Firstly, MYVIM can't be an empty string.  We need a real path.
 "
-if !strlen($MYVIM)
+if $MYVIM ==# ''
   echoerr 'Blank user runtime path'
   finish
 endif
@@ -804,7 +804,7 @@ set shortmess+=I
 " plugin doesn't look like it's going to load, whether because plugins have
 " been disabled, or it's not in any of the plugin directories.
 "
-if !&loadplugins || !strlen(globpath(&runtimepath, 'plugin/matchparen.vim'))
+if !&loadplugins || globpath(&runtimepath, 'plugin/matchparen.vim') ==# ''
   set showmatch matchtime=3
 endif
 
@@ -1050,7 +1050,7 @@ autocmd vimrc ColorScheme *
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
 " it specifically.
 "
-if !exists('$COLORFGBG') && !strlen(get(v:, 'termrbgresp', ''))
+if !exists('$COLORFGBG') && get(v:, 'termrbgresp', '') ==# ''
   set background=dark
 endif
 
@@ -1060,7 +1060,7 @@ endif
 "
 if &background ==# 'dark'
       \ && (has('gui_running') || &t_Co >= 256)
-      \ && strlen(globpath(&runtimepath, 'colors/sahara.vim'))
+      \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
   colorscheme sahara
 endif
 
@@ -1153,7 +1153,7 @@ nnoremap <expr> <Space>
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if &loadplugins && strlen(globpath(&runtimepath, 'plugin/insert_cancel.vim'))
+if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') ==# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
 
