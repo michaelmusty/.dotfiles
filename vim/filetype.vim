@@ -397,15 +397,9 @@ augroup filetypedetect
   " VimL files
   autocmd BufNewFile,BufRead
         \ ?*.vim
-        \,*.exrc
-        \,*.gvimrc
-        \,*.vimrc
-        \,_exrc
-        \,_gvimrc
-        \,_vimrc
-        \,exrc
-        \,gvimrc
-        \,vimrc
+        \,.exrc
+        \,vimrc,[._]vimrc
+        \,gvimrc,[._]gvimrc
         \ setfiletype vim
   " .viminfo files
   autocmd BufNewFile,BufRead
