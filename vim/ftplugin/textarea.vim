@@ -8,3 +8,6 @@ endif
 nnoremap <buffer> <LocalLeader>f
       \ :<C-U>setlocal filetype=mail<CR>
 let b:undo_ftplugin = 'nunmap <buffer> <LocalLeader>f'
+
+" #s expands to the #signature tag used in Cerb
+inoreabbrev #s #signature
