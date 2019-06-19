@@ -1,5 +1,6 @@
-" Set 'commentstring' and 'include' back to their default C-friendly values
+" Set 'commentstring', 'define', and 'include' back to their default C-friendly values
 setlocal commentstring&vim
+setlocal define&vim include&vim
 setlocal include&vim
 
 " Include macros in completion
