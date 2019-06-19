@@ -1,4 +1,4 @@
-" Use tabs for C
+" Use hard tabs for C
 setlocal noexpandtab shiftwidth=0 tabstop=8
 if &softtabstop != -1
   let &softtabstop = &shiftwidth
