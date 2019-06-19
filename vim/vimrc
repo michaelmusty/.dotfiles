@@ -4,12 +4,12 @@
 " <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
 " This is an attempt at something like a 'literate vimrc', in the tradition of
-" Donald Knuth's "literate programming".
+" Donald Knuth's "literate programming":
 "
 " <http://www.literateprogramming.com/>
 "
-" It's a long file, and comments abound.  If this bothers you, you can do
-" something like this to strip out all the blank lines and lines with only
+" It's a long file, and comments abound.  If this bothers you, you can execute
+" this command in Vim to strip out all the blank lines and lines with only
 " comments:
 "
 "   :g/\m^$\|^\s*"/d
@@ -118,7 +118,7 @@ endif
 
 " Firstly, MYVIM can't be an empty string.  We need a real path.
 "
-if !strlen($MYVIM)
+if $MYVIM ==# ''
   echoerr 'Blank user runtime path'
   finish
 endif
@@ -149,8 +149,8 @@ endif
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.055>
 "
-if stridx($MYVIM, '\') >= 0
-      \ && (v:version < 701 || v:version == 701 && !has('patch55'))
+if (v:version < 701 || v:version == 701 && !has('patch55'))
+      \ && stridx($MYVIM, '\') >= 0
   echoerr 'Illegal backslash in user runtime path on Vim < v7.1.055'
   finish
 endif
@@ -252,7 +252,7 @@ endif
 " provide as a quoted parameter to the function.
 "
 function! s:Establish(name) abort
-  let name = expand(a:name)
+  let name = a:name
   let path = 'p'
   let prot = 0700
   if !isdirectory(name) && exists('*mkdir')
@@ -499,6 +499,7 @@ set path-=/usr/include
 set autoindent    " Use indent of previous line on new lines
 set expandtab     " Insert spaces when tab key is pressed in insert mode
 set shiftwidth=4  " Indent command like < and > use four-space indents
+set smarttab      " Tab at start of line means indent, otherwise means tab
 
 " Apply 'softtabstop' option to make a tab key press in insert mode insert the
 " same number of spaces as defined by the indent depth in 'shiftwidth'.  If
@@ -583,24 +584,6 @@ set confirm
 " insert mode, anyway.  All of this works fine in the GUI, of course.
 "
 set noesckeys
-
-" By default, I prefer that figuring out where a region of text to fold away
-" should be done by the indent level of its lines, since I tend to be careful
-" about my indentation even in languages where it has no semantic meaning.
-"
-set foldmethod=indent
-
-" That said, I don't want any of these indent-based folds to start off closed.
-" Therefore, we set the depth level at which folds should automatically start
-" as closed to a rather high number, per the documentation's recommendations.
-"
-" I think of a Vim window with a file buffer loaded into it as
-" a two-dimensional, planar view of the file, so that moving down one screen
-" line means moving down one buffer line, at least when 'wrap' is unset.
-" Folds break that mental model, and so I usually enable them explicitly only
-" when I'm struggling to grasp some code with very long functions or loops.
-"
-set foldlevelstart=99
 
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I rely on the filetype plugins to set the 't' and 'c' flags for
@@ -821,7 +804,7 @@ set shortmess+=I
 " plugin doesn't look like it's going to load, whether because plugins have
 " been disabled, or it's not in any of the plugin directories.
 "
-if !&loadplugins || !strlen(globpath(&runtimepath, 'plugin/matchparen.vim'))
+if !&loadplugins || globpath(&runtimepath, 'plugin/matchparen.vim') ==# ''
   set showmatch matchtime=3
 endif
 
@@ -846,7 +829,7 @@ set synmaxcol=500
 " windows terminal emulator PuTTY, and the terminal multiplexer tmux, both of
 " which I use heavily.
 "
-if &term =~# '^\%(putty\|tmux\)'
+if &term =~# '^putty\|^tmux'
   set ttyfast
 endif
 
@@ -1054,7 +1037,7 @@ endif
 " almost always stands out too much for my liking.
 "
 " You'd think the autocommand pattern here could be used to match the colour
-" scheme name, and it can be...after patch v7.4.108, when Christian Brabandt
+" scheme name, and it can be ... after patch v7.4.108, when Christian Brabandt
 " fixed it.  Until that version, it matched against the current buffer name,
 " so we're forced to have an explicit test in the command instead.
 "
@@ -1067,7 +1050,7 @@ autocmd vimrc ColorScheme *
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
 " it specifically.
 "
-if !exists('$COLORFGBG') && !strlen(get(v:, 'termrbgresp', ''))
+if !exists('$COLORFGBG') && get(v:, 'termrbgresp', '') ==# ''
   set background=dark
 endif
 
@@ -1077,7 +1060,7 @@ endif
 "
 if &background ==# 'dark'
       \ && (has('gui_running') || &t_Co >= 256)
-      \ && strlen(globpath(&runtimepath, 'colors/sahara.vim'))
+      \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
   colorscheme sahara
 endif
 
@@ -1170,7 +1153,7 @@ nnoremap <expr> <Space>
 " If the plugin isn't available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if &loadplugins && strlen(globpath(&runtimepath, 'plugin/insert_cancel.vim'))
+if &loadplugins && globpath(&runtimepath, 'plugin/insert_cancel.vim') ==# ''
   imap <C-C> <Plug>(InsertCancel)
 endif
 
@@ -1326,45 +1309,45 @@ endif
 " 'cursorline' is always off when in any visual mode, including block mode,
 " where it actually might have been really handy.
 
+"" Leader,TAB toggles automatic indentation based on the previous line
+nnoremap <Leader><Tab>
+      \ :<C-U>set autoindent! autoindent?<CR>
+"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
+nnoremap <Leader>c
+      \ :<C-U>set cursorline! cursorline?<CR>
 "" Leader,h toggles highlighting search results
 nnoremap <Leader>h
       \ :<C-U>set hlsearch! hlsearch?<CR>
 "" Leader,i toggles showing matches as I enter my pattern
 nnoremap <Leader>i
       \ :<C-U>set incsearch! incsearch?<CR>
-"" Leader,TAB toggles automatic indentation based on the previous line
-nnoremap <Leader><Tab>
-      \ :<C-U>setlocal autoindent! autoindent?<CR>
-"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
-nnoremap <Leader>c
-      \ :<C-U>setlocal cursorline! cursorline?<CR>
 "" Leader,s toggles spell checking
 nnoremap <Leader>s
-      \ :<C-U>setlocal spell! spell?<CR>
+      \ :<C-U>set spell! spell?<CR>
 
 " The next group of option-toggling maps are much the same as the previous
 " group, except they also include analogous maps for visual mode, defined as
 " recursive maps into normal mode that conclude with re-selecting the text.
 
+"" Leader,C toggles highlighted cursor column; works in visual mode
+nnoremap <Leader>C
+      \ :<C-U>set cursorcolumn! cursorcolumn?<CR>
+xmap <Leader>C <Esc><Leader>Cgv
+"" Leader,l toggles showing tab, end-of-line, and trailing white space
+nnoremap <Leader>l
+      \ :<C-U>set list! list?<CR>
+xmap <Leader>l <Esc><Leader>lgv
+"" Leader,n toggles line number display
+nnoremap <Leader>n
+      \ :<C-U>set number! number?<CR>
+xmap <Leader>n <Esc><Leader>ngv
 "" Leader,N toggles position display in bottom right
 nnoremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
 xmap <Leader>N <Esc><Leader>Ngv
-"" Leader,C toggles highlighted cursor column; works in visual mode
-nnoremap <Leader>C
-      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-xmap <Leader>C <Esc><Leader>Cgv
-"" Leader,l toggles showing tab, end-of-line, and trailing white space
-nnoremap <Leader>l
-      \ :<C-U>setlocal list! list?<CR>
-xmap <Leader>l <Esc><Leader>lgv
-"" Leader,n toggles line number display
-nnoremap <Leader>n
-      \ :<C-U>setlocal number! number?<CR>
-xmap <Leader>n <Esc><Leader>ngv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
-      \ :<C-U>setlocal wrap! wrap?<CR>
+      \ :<C-U>set wrap! wrap?<CR>
 xmap <Leader>w <Esc><Leader>wgv
 
 " This next one just shows option state of the 'formatoptions' affecting how
@@ -1372,7 +1355,7 @@ xmap <Leader>w <Esc><Leader>wgv
 
 "" Leader,f shows the current 'formatoptions' at a glance
 nnoremap <Leader>f
-      \ :<C-U>setlocal formatoptions?<CR>
+      \ :<C-U>set formatoptions?<CR>
 
 " I often have to switch between US English and NZ English.  The latter is
 " almost exactly the same as UK English in most locales, although we use
@@ -1382,10 +1365,10 @@ nnoremap <Leader>f
 
 "" Leader,u sets US English spelling language
 nnoremap <Leader>u
-      \ :<C-U>setlocal spelllang=en_us<CR>
+      \ :<C-U>set spelllang=en_us<CR>
 "" Leader,z sets NZ English spelling language
 nnoremap <Leader>z
-      \ :<C-U>setlocal spelllang=en_nz<CR>
+      \ :<C-U>set spelllang=en_nz<CR>
 
 " The next mapping is also for toggling an option, but it's more complicated;
 " it uses a simple plugin of mine called copy_linebreak.vim to manage several
@@ -1438,10 +1421,10 @@ nnoremap <Leader>F
       \ :<C-U>ReloadFileType<CR>
 "" Leader,t shows current filetype
 nnoremap <Leader>t
-      \ :<C-U>setlocal filetype?<CR>
+      \ :<C-U>set filetype?<CR>
 "" Leader,T clears filetype
 nnoremap <Leader>T
-      \ :<C-U>setlocal filetype=<CR>
+      \ :<C-U>set filetype=<CR>
 
 " These mappings use my put_date.vim plugin for date insertion into the
 " buffer.
@@ -1515,10 +1498,10 @@ nnoremap <Leader><Insert>
       \ :<C-U>enew<CR>
 "" Leader,e forces a buffer to be editable, even a :help one
 nnoremap <Leader>e
-      \ :<C-U>setlocal modifiable noreadonly<CR>
+      \ :<C-U>set modifiable noreadonly<CR>
 "" Leader,E locks a buffer, reversible with <Leader>e
 nnoremap <Leader>E
-      \ :<C-U>setlocal nomodifiable readonly<CR>
+      \ :<C-U>set nomodifiable readonly<CR>
 "" Leader,j jumps to buffers ("jetpack")
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
@@ -1624,15 +1607,6 @@ xmap <Leader>r <Plug>(ReplaceOperator)
 "" Leader,* escapes regex metacharacters
 nmap <Leader>* <Plug>(RegexEscape)
 xmap <Leader>* <Plug>(RegexEscape)
-
-" I don't have anything for which I'm using the numbers just yet, so let's set
-" them to apply an explicit 'foldlevel' for now, which is occasionally useful,
-" though I suspect I'm more likely to keep using zM, zm, and zr.
-"
-for s:key in range(0,9)
-  execute 'nnoremap <Leader>'.s:key.' :<C-U>set foldlevel='.s:key.'<CR>'
-  execute 'xmap <Leader>'.s:key.' <Esc><Leader>'.s:key.'gv'
-endfor
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the

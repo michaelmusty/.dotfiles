@@ -32,6 +32,9 @@
 [submodule "vim/bundle/keep_position"]
 	path = vim/bundle/keep_position
 	url = https://sanctum.geek.nz/code/vim-keep-position.git
+[submodule "vim/bundle/paste_insert"]
+	path = vim/bundle/paste_insert
+	url = https://sanctum.geek.nz/code/vim-paste-insert.git
 [submodule "vim/bundle/put_blank_lines"]
 	path = vim/bundle/put_blank_lines
 	url = https://sanctum.geek.nz/code/vim-put-blank-lines.git

@@ -4,6 +4,11 @@ setlocal equalprg=perltidy
 let b:undo_ftplugin .= '|unlet b:current_compiler'
       \ . '|setlocal equalprg< errorformat< makeprg<'
 
+" Fold based on indent level, but start with all folds open
+setlocal foldmethod=indent
+setlocal foldlevel=99
+let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+
 " Add angle brackets to pairs of matched characters for q<...>
 setlocal matchpairs+=<:>
 let b:undo_ftplugin .= '|setlocal matchpairs<'
