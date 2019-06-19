@@ -829,7 +829,7 @@ set synmaxcol=500
 " windows terminal emulator PuTTY, and the terminal multiplexer tmux, both of
 " which I use heavily.
 "
-if &term =~# '^\%(putty\|tmux\)'
+if &term =~# '^putty\|^tmux'
   set ttyfast
 endif
 
