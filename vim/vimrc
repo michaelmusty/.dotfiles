@@ -1326,45 +1326,45 @@ endif
 " 'cursorline' is always off when in any visual mode, including block mode,
 " where it actually might have been really handy.
 
+"" Leader,TAB toggles automatic indentation based on the previous line
+nnoremap <Leader><Tab>
+      \ :<C-U>set autoindent! autoindent?<CR>
+"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
+nnoremap <Leader>c
+      \ :<C-U>set cursorline! cursorline?<CR>
 "" Leader,h toggles highlighting search results
 nnoremap <Leader>h
       \ :<C-U>set hlsearch! hlsearch?<CR>
 "" Leader,i toggles showing matches as I enter my pattern
 nnoremap <Leader>i
       \ :<C-U>set incsearch! incsearch?<CR>
-"" Leader,TAB toggles automatic indentation based on the previous line
-nnoremap <Leader><Tab>
-      \ :<C-U>setlocal autoindent! autoindent?<CR>
-"" Leader,c toggles highlighted cursor row; doesn't work in visual mode
-nnoremap <Leader>c
-      \ :<C-U>setlocal cursorline! cursorline?<CR>
 "" Leader,s toggles spell checking
 nnoremap <Leader>s
-      \ :<C-U>setlocal spell! spell?<CR>
+      \ :<C-U>set spell! spell?<CR>
 
 " The next group of option-toggling maps are much the same as the previous
 " group, except they also include analogous maps for visual mode, defined as
 " recursive maps into normal mode that conclude with re-selecting the text.
 
+"" Leader,C toggles highlighted cursor column; works in visual mode
+nnoremap <Leader>C
+      \ :<C-U>set cursorcolumn! cursorcolumn?<CR>
+xmap <Leader>C <Esc><Leader>Cgv
+"" Leader,l toggles showing tab, end-of-line, and trailing white space
+nnoremap <Leader>l
+      \ :<C-U>set list! list?<CR>
+xmap <Leader>l <Esc><Leader>lgv
+"" Leader,n toggles line number display
+nnoremap <Leader>n
+      \ :<C-U>set number! number?<CR>
+xmap <Leader>n <Esc><Leader>ngv
 "" Leader,N toggles position display in bottom right
 nnoremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
 xmap <Leader>N <Esc><Leader>Ngv
-"" Leader,C toggles highlighted cursor column; works in visual mode
-nnoremap <Leader>C
-      \ :<C-U>setlocal cursorcolumn! cursorcolumn?<CR>
-xmap <Leader>C <Esc><Leader>Cgv
-"" Leader,l toggles showing tab, end-of-line, and trailing white space
-nnoremap <Leader>l
-      \ :<C-U>setlocal list! list?<CR>
-xmap <Leader>l <Esc><Leader>lgv
-"" Leader,n toggles line number display
-nnoremap <Leader>n
-      \ :<C-U>setlocal number! number?<CR>
-xmap <Leader>n <Esc><Leader>ngv
 "" Leader,w toggles soft wrapping
 nnoremap <Leader>w
-      \ :<C-U>setlocal wrap! wrap?<CR>
+      \ :<C-U>set wrap! wrap?<CR>
 xmap <Leader>w <Esc><Leader>wgv
 
 " This next one just shows option state of the 'formatoptions' affecting how
@@ -1372,7 +1372,7 @@ xmap <Leader>w <Esc><Leader>wgv
 
 "" Leader,f shows the current 'formatoptions' at a glance
 nnoremap <Leader>f
-      \ :<C-U>setlocal formatoptions?<CR>
+      \ :<C-U>set formatoptions?<CR>
 
 " I often have to switch between US English and NZ English.  The latter is
 " almost exactly the same as UK English in most locales, although we use
@@ -1382,10 +1382,10 @@ nnoremap <Leader>f
 
 "" Leader,u sets US English spelling language
 nnoremap <Leader>u
-      \ :<C-U>setlocal spelllang=en_us<CR>
+      \ :<C-U>set spelllang=en_us<CR>
 "" Leader,z sets NZ English spelling language
 nnoremap <Leader>z
-      \ :<C-U>setlocal spelllang=en_nz<CR>
+      \ :<C-U>set spelllang=en_nz<CR>
 
 " The next mapping is also for toggling an option, but it's more complicated;
 " it uses a simple plugin of mine called copy_linebreak.vim to manage several
@@ -1438,10 +1438,10 @@ nnoremap <Leader>F
       \ :<C-U>ReloadFileType<CR>
 "" Leader,t shows current filetype
 nnoremap <Leader>t
-      \ :<C-U>setlocal filetype?<CR>
+      \ :<C-U>set filetype?<CR>
 "" Leader,T clears filetype
 nnoremap <Leader>T
-      \ :<C-U>setlocal filetype=<CR>
+      \ :<C-U>set filetype=<CR>
 
 " These mappings use my put_date.vim plugin for date insertion into the
 " buffer.
@@ -1515,10 +1515,10 @@ nnoremap <Leader><Insert>
       \ :<C-U>enew<CR>
 "" Leader,e forces a buffer to be editable, even a :help one
 nnoremap <Leader>e
-      \ :<C-U>setlocal modifiable noreadonly<CR>
+      \ :<C-U>set modifiable noreadonly<CR>
 "" Leader,E locks a buffer, reversible with <Leader>e
 nnoremap <Leader>E
-      \ :<C-U>setlocal nomodifiable readonly<CR>
+      \ :<C-U>set nomodifiable readonly<CR>
 "" Leader,j jumps to buffers ("jetpack")
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
