@@ -3,9 +3,10 @@ setlocal comments=:#
 setlocal formatoptions+=or
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
-" Fold based on indent level
+" Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-let b:undo_ftplugin .= '|setlocal foldmethod<'
+setlocal foldlevel=99
+let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
 
 " If subtype is Bash, set 'keywordprg' to han(1df)
 if exists('b:is_bash')

@@ -9,9 +9,10 @@ endif
 let b:regex_escape_flavor = 'vim'
 let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
 
-" Fold based on indent level
+" Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-let b:undo_ftplugin .= '|setlocal foldmethod<'
+setlocal foldlevel=99
+let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
 
 " Use :help as 'keywordprg' if not already set; this is the default since Vim
 " v8.1.1290

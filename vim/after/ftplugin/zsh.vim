@@ -3,6 +3,7 @@ compiler zsh
 let b:undo_ftplugin .= '|unlet b:current_compiler'
       \ . '|setlocal errorformat< makeprg<'
 
-" Fold based on indent level
+" Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-let b:undo_ftplugin .= '|setlocal foldmethod<'
+setlocal foldlevel=99
+let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
