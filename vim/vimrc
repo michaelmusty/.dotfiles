@@ -4,12 +4,12 @@
 " <https://sanctum.geek.nz/cgit/dotfiles.git>
 "
 " This is an attempt at something like a 'literate vimrc', in the tradition of
-" Donald Knuth's "literate programming".
+" Donald Knuth's "literate programming":
 "
 " <http://www.literateprogramming.com/>
 "
-" It's a long file, and comments abound.  If this bothers you, you can do
-" something like this to strip out all the blank lines and lines with only
+" It's a long file, and comments abound.  If this bothers you, you can execute
+" this command in Vim to strip out all the blank lines and lines with only
 " comments:
 "
 "   :g/\m^$\|^\s*"/d
@@ -1037,7 +1037,7 @@ endif
 " almost always stands out too much for my liking.
 "
 " You'd think the autocommand pattern here could be used to match the colour
-" scheme name, and it can be...after patch v7.4.108, when Christian Brabandt
+" scheme name, and it can be ... after patch v7.4.108, when Christian Brabandt
 " fixed it.  Until that version, it matched against the current buffer name,
 " so we're forced to have an explicit test in the command instead.
 "
