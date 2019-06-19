@@ -252,7 +252,7 @@ endif
 " provide as a quoted parameter to the function.
 "
 function! s:Establish(name) abort
-  let name = expand(a:name)
+  let name = a:name
   let path = 'p'
   let prot = 0700
   if !isdirectory(name) && exists('*mkdir')
