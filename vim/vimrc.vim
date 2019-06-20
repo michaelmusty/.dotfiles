@@ -508,7 +508,7 @@ set smarttab      " Tab at start of line means indent, otherwise means tab
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if v:version > 730 || v:version == 730 && has('patch693')
+if v:version > 703 || v:version == 703 && has('patch693')
   set softtabstop=-1
 else
   let &softtabstop = &shiftwidth
@@ -620,7 +620,7 @@ set formatoptions+=1
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.541>
 "
-if v:version > 730 || v:version == 730 && has('patch541')
+if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
