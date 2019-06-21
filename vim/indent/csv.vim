@@ -10,6 +10,9 @@ let b:undo_indent = 'setlocal autoindent<'
 
 " Literal tabs
 setlocal noexpandtab
-setlocal softtabstop=0
-let &shiftwidth = &tabstop
-let b:undo_indent = 'setlocal expandtab< softtabstop< shiftwidth<'
+setlocal shiftwidth=0
+let b:undo_indent = 'setlocal expandtab< shiftwidth<'
+if &softtabstop != -1
+  let &l:softtabstop = &l:shiftwidth
+  let b:undo_indent .= '|setlocal softtabstop<'
+endif
