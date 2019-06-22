@@ -10,5 +10,4 @@ function! alternate_filetypes#() abort
       unlet b:alternate_filetypes
     endif
   endif
-  set filetype?
 endfunction
