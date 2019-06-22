@@ -73,6 +73,10 @@ function! s:StrictQuote(start, end) abort
 endfunction
 command -buffer -bar -range=% StrictQuote
       \ call s:StrictQuote(<q-line1>, <q-line2>)
+nnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
+xnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
 let b:undo_ftplugin .= '|delcommand StrictQuote'
 
 " Add a space to the end of wrapped lines for format-flowed mail
