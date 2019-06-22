@@ -21,12 +21,7 @@ let b:undo_ftplugin .= '|setlocal keywordprg<'
 let b:regex_escape_flavor = 'ere'
 let b:undo_ftplugin .= '|unlet b:regex_escape_flavor'
 
-" Stop here if the user doesn't want ftplugin mappings
-if exists('no_plugin_maps') || exists('no_php_maps')
-  finish
+" Set HTML as an alternative filetype
+if !exists('b:alternate_filetypes')
+  let b:alternate_filetypes = [&filetype, 'html']
 endif
-
-" Switch to HTML filetype for templated PHP
-nnoremap <buffer> <LocalLeader>f
-      \ :<C-U>setlocal filetype=html<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>f'

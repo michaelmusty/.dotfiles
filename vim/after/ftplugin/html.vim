@@ -41,8 +41,3 @@ endif
 nnoremap <buffer> <LocalLeader>r
       \ :<C-U>call html#UrlLink()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>r'
-
-" Switch to PHP filetype for templated PHP
-nnoremap <buffer> <LocalLeader>f
-      \ :<C-U>setlocal filetype=php<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>f'

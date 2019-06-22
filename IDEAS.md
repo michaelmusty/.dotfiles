@@ -24,8 +24,6 @@ Ideas
 * Ideally, the AWK and/or sed scripts in the bin and games directories should
   be syntax-checked or linted.  I could at least add some patient application
   of appropriate `gawk --lint` calls for each of the .awk scripts.
-* Alternate buffer type switching would probably work rather well as a simple
-  plugin.
 * Write a ftplugin for Perl to switch between punctuation variable names and
   English variable names., i.e. \e on `$?` would change to `$CHILD_ERROR`, and
   vice-versa.

@@ -1611,6 +1611,9 @@ xmap <Leader>r <Plug>(ReplaceOperator)
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
+"" Leader,#/3 gives me my fortune
+nmap <Leader># <Plug>(AlternateFileType)
+nmap <Leader>3 <Leader>#
 "" Leader,$/4 gives me my fortune
 nnoremap <Leader>$
       \ :<C-U>Fortune<CR>
