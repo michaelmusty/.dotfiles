@@ -786,10 +786,10 @@ set noruler
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
-" Show keystrokes as I type them; this mostly helps me manage when I confuse
-" my mappings, and one of them involves operator-pending mode.
+" Turn 'showcmd' off if a system vimrc has been rude enough to set it; I don't
+" like how it can interfere with the display of longer lines.
 "
-set showcmd
+set noshowcmd
 
 " The 'I' flag for the 'shortmess' option prevents the display of the Vim
 " startup screen with version information, :help hints, and donation
