@@ -1,6 +1,11 @@
-" Spellcheck documents we're actually editing (not just viewing), as long as
-" they're actually HTML buffers and not just dotting this in
-if &modifiable && !&readonly && &filetype ==# 'html'
+" None of this is appropriate for other filetypes that are just sourcing this
+" filetype's scripts in, e.g. Markdown, PHP, so cut that off here
+if &filetype !=# 'html'
+  finish
+endif
+
+" Spellcheck documents we're actually editing (not just viewing)
+if &modifiable && !&readonly
   setlocal spell
   let b:undo_ftplugin .= '|setlocal spell<'
 endif
@@ -36,8 +41,3 @@ endif
 nnoremap <buffer> <LocalLeader>r
       \ :<C-U>call html#UrlLink()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>r'
-
-" Switch to PHP filetype for templated PHP
-nnoremap <buffer> <LocalLeader>f
-      \ :<C-U>setlocal filetype=php<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>f'

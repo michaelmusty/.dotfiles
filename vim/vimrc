@@ -786,6 +786,11 @@ set noruler
 set sessionoptions-=localoptions  " No buffer options or mappings
 set sessionoptions-=options       " No global options or mappings
 
+" Turn 'showcmd' off if a system vimrc has been rude enough to set it; I don't
+" like how it can interfere with the display of longer lines.
+"
+set noshowcmd
+
 " The 'I' flag for the 'shortmess' option prevents the display of the Vim
 " startup screen with version information, :help hints, and donation
 " suggestion.  After I registered Vim and donated to Uganda per the screen's
@@ -1549,9 +1554,10 @@ nnoremap <Leader>+
 "" Leader,_ uses last changed or yanked text as an object
 onoremap <Leader>_
       \ :<C-U>execute 'normal! `[v`]'<CR>
-"" Leader,% uses entire buffer as an object
+"" Leader,% or Leader,5 uses entire buffer as an object
 onoremap <Leader>%
       \ :<C-U>execute 'normal! 1GVG'<CR>
+omap <Leader>5 <Leader>%
 
 " This group defines some useful motions, including navigating by indent
 " block using a custom plugin:
@@ -1596,17 +1602,29 @@ nnoremap <Leader>?
 "" Leader,. runs the configured make program into the location list
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
-"" Leader,! repeats the last command, adding a bang
-nnoremap <Leader>!
-      \ :<Up><Home><S-Right>!<CR>
 "" Leader,q formats the current paragraph
 nnoremap <Leader>q gqap
 "" Leader,r acts as a replacement operator
 nmap <Leader>r <Plug>(ReplaceOperator)
 xmap <Leader>r <Plug>(ReplaceOperator)
-"" Leader,* escapes regex metacharacters
-nmap <Leader>* <Plug>(RegexEscape)
-xmap <Leader>* <Plug>(RegexEscape)
+"" Leader,!/1 repeats the last command, adding a bang
+nnoremap <Leader>!
+      \ :<Up><Home><S-Right>!<CR>
+nmap <Leader>1 <Leader>!
+"" Leader,#/3 gives me my fortune
+nmap <Leader># <Plug>(AlternateFileType)
+nmap <Leader>3 <Leader>#
+"" Leader,$/4 gives me my fortune
+nmap <Leader>$ <Plug>(Fortune)
+nmap <Leader>4 <Leader>$
+"" Leader,&/7 escapes regex metacharacters
+nmap <Leader>& <Plug>(RegexEscape)
+nmap <Leader>7 <Leader>&
+xmap <Leader>& <Plug>(RegexEscape)
+xmap <Leader>7 <Leader>&
+"" Leader,*/8 is sticky-star: search, highlight, but don't move
+nnoremap <silent> <Leader>* *N
+nmap <Leader>8 <Leader>*
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the

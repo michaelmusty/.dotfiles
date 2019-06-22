@@ -50,6 +50,9 @@
 [submodule "vim/bundle/replace_operator"]
 	path = vim/bundle/replace_operator
 	url = https://sanctum.geek.nz/code/vim-replace-operator.git
+[submodule "vim/bundle/select_old_files"]
+	path = vim/bundle/select_old_files
+	url = https://sanctum.geek.nz/code/vim-select-old-files.git
 [submodule "vim/bundle/shebang_change_filetype"]
 	path = vim/bundle/shebang_change_filetype
 	url = https://sanctum.geek.nz/code/vim-shebang-change-filetype.git
