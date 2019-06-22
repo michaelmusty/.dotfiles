@@ -28,11 +28,11 @@ function! html#TimestampUpdate() abort
   endif
   let cv = winsaveview()
   call cursor(1,1)
-  let li = search('\C^\s*<em>Last updated: .\+</em>$', 'n')
+  let li = search('\m\C^\s*<em>Last updated: .\+</em>$', 'n')
   if li
-    let date = substitute(system('date -u'), '\C\n$', '', '')
+    let date = substitute(system('date -u'), '\n$', '', '')
     let line = getline(li)
-    call setline(li, substitute(line, '\C\S.*',
+    call setline(li, substitute(line, '\S.*',
           \ '<em>Last updated: '.date.'</em>', ''))
   endif
   call winrestview(cv)
