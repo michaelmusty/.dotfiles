@@ -3,8 +3,7 @@
 let b:quote_space = 0
 let b:undo_ftplugin .= '|unlet b:quote_space'
 
-" If something hasn't already moved the cursor, we'll move to an optimal point
-" to start writing
+" Attempt to move to a good spot to start writing
 function! s:SuggestStart() abort
 
   " Move to top of buffer
@@ -49,38 +48,13 @@ let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
-function! s:StrictQuote() abort
-  let body = 0
-  for lnum in range(1, line('$'))
-
-    " Get current line
-    let line = getline(lnum)
-
-    " Skip lines until we hit a blank line, meaning body text
-    let body = body || !strlen(line)
-    if !body
-      continue
-    endif
-
-    " Get the leading quote string, if any; skip if there isn't one
-    let quote = matchstr(line, '^>[> ]*')
-    if !strlen(quote)
-      continue
-    endif
-
-    " Normalise the quote with no spaces
-    let quote = substitute(quote, '[^>]', '', 'g')
-
-    " Re-set the line
-    let line = substitute(line, '^[> ]\+', quote, '')
-    call setline(lnum, line)
-
-  endfor
-endfunction
-command -bar -buffer StrictQuote
-      \ call s:StrictQuote()
+command -buffer -bar -range=% StrictQuote
+      \ call mail#StrictQuote(<q-line1>, <q-line2>)
+nnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
+xnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
 let b:undo_ftplugin .= '|delcommand StrictQuote'
-StrictQuote
 
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
@@ -88,17 +62,8 @@ let b:undo_ftplugin .= '|setlocal formatoptions<'
 
 " Mail-specific handling for custom vim-squeeze-repeat-blanks plugin
 if exists('loaded_squeeze_repeat_blanks')
-
-  " Set the blank line pattern
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
-
-  " If there is anything quoted in this message (i.e. it looks like a reply),
-  " squeeze blanks, but don't report lines deleted
-  if search('\m^>', 'cnw')
-    silent SqueezeRepeatBlanks
-  endif
-
 endif
 
 " Spellcheck documents we're actually editing (not just viewing)

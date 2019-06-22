@@ -42,7 +42,7 @@ function! spellfile_local#() abort
   endif
 
   try
-    let path = substitute(expand('%:p'), '/', '%', 'g')
+    let path = tr(expand('%:p'), '/', '%')
     if path ==# ''
       echoerr 'Blank path'
     endif

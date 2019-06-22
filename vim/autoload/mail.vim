@@ -79,3 +79,26 @@ function! mail#NewBlank(count, up, visual) abort
   endif
 
 endfunction
+
+function! mail#StrictQuote(start, end) abort
+  let body = 0
+  for lnum in range(a:start, a:end)
+
+    " Get current line
+    let line = getline(lnum)
+
+    " Get the leading quote string, if any; skip if there isn't one
+    let quote = matchstr(line, '^>[> ]*')
+    if !strlen(quote)
+      continue
+    endif
+
+    " Normalise the quote with no spaces
+    let quote = substitute(quote, '[^>]', '', 'g')
+
+    " Re-set the line
+    let line = substitute(line, '^[> ]\+', quote, '')
+    call setline(lnum, line)
+
+  endfor
+endfunction
