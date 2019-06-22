@@ -6,7 +6,11 @@ nnoremap <silent> <Plug>(Fortune)
 
 function! s:FortuneVimEnter() abort
   if !argc() && line2byte('$') == -1
-    try | Fortune | catch | endtry
+    try
+      Fortune
+    catch
+      " Do nothing
+    endtry
   endif
 endfunction
 
