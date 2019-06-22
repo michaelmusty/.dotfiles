@@ -1615,8 +1615,7 @@ nmap <Leader>1 <Leader>!
 nmap <Leader># <Plug>(AlternateFileType)
 nmap <Leader>3 <Leader>#
 "" Leader,$/4 gives me my fortune
-nnoremap <Leader>$
-      \ :<C-U>Fortune<CR>
+nmap <Leader>$ <Plug>(Fortune)
 nmap <Leader>4 <Leader>$
 "" Leader,&/7 escapes regex metacharacters
 nmap <Leader>& <Plug>(RegexEscape)
