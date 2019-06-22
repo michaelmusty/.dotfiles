@@ -1611,10 +1611,13 @@ xmap <Leader>r <Plug>(ReplaceOperator)
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
-nmap <Leader>* <Plug>(RegexEscape)
+nmap <Leader>& <Plug>(RegexEscape)
+nmap <Leader>7 <Leader>&
+xmap <Leader>& <Plug>(RegexEscape)
+xmap <Leader>7 <Leader>&
+"" Leader,*/8 is sticky-star: search, highlight, but don't move
+nnoremap <silent> <Leader>* *N
 nmap <Leader>8 <Leader>*
-xmap <Leader>* <Plug>(RegexEscape)
-xmap <Leader>8 <Leader>*
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the
