@@ -49,18 +49,12 @@ let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
-function! s:StrictQuote() abort
+function! s:StrictQuote(start, end) abort
   let body = 0
-  for lnum in range(1, line('$'))
+  for lnum in range(a:start, a:end)
 
     " Get current line
     let line = getline(lnum)
-
-    " Skip lines until we hit a blank line, meaning body text
-    let body = body || !strlen(line)
-    if !body
-      continue
-    endif
 
     " Get the leading quote string, if any; skip if there isn't one
     let quote = matchstr(line, '^>[> ]*')
@@ -77,8 +71,8 @@ function! s:StrictQuote() abort
 
   endfor
 endfunction
-command -bar -buffer StrictQuote
-      \ call s:StrictQuote()
+command -buffer -bar -range=% StrictQuote
+      \ call s:StrictQuote(<q-line1>, <q-line2>)
 let b:undo_ftplugin .= '|delcommand StrictQuote'
 StrictQuote
 
