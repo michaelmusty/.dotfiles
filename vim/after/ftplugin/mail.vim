@@ -49,30 +49,8 @@ let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
-function! s:StrictQuote(start, end) abort
-  let body = 0
-  for lnum in range(a:start, a:end)
-
-    " Get current line
-    let line = getline(lnum)
-
-    " Get the leading quote string, if any; skip if there isn't one
-    let quote = matchstr(line, '^>[> ]*')
-    if !strlen(quote)
-      continue
-    endif
-
-    " Normalise the quote with no spaces
-    let quote = substitute(quote, '[^>]', '', 'g')
-
-    " Re-set the line
-    let line = substitute(line, '^[> ]\+', quote, '')
-    call setline(lnum, line)
-
-  endfor
-endfunction
 command -buffer -bar -range=% StrictQuote
-      \ call s:StrictQuote(<q-line1>, <q-line2>)
+      \ call mail#StrictQuote(<q-line1>, <q-line2>)
 nnoremap <LocalLeader>s
       \ :StrictQuote<CR>
 xnoremap <LocalLeader>s
