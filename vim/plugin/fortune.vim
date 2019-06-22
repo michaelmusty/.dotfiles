@@ -1,5 +1,6 @@
 command! -bar Fortune
       \ call fortune#()
+
 augroup fortune
   autocmd!
   autocmd VimEnter *
