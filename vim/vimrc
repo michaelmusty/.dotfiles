@@ -1611,6 +1611,11 @@ xmap <Leader>r <Plug>(ReplaceOperator)
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
+"" Leader,$/4 gives me my fortune
+nnoremap <Leader>$
+      \ :<C-U>Fortune<CR>
+nmap <Leader>4 <Leader>$
+"" Leader,&/7 escapes regex metacharacters
 nmap <Leader>& <Plug>(RegexEscape)
 nmap <Leader>7 <Leader>&
 xmap <Leader>& <Plug>(RegexEscape)
