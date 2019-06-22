@@ -11,7 +11,7 @@ let s:executables = [
 function! s:Highlight() abort
   highlight Fortune
         \ term=NONE
-        \ cterm=NONE ctermfg=248 ctermbg=NONE
+        \ cterm=NONE ctermfg=244 ctermbg=NONE
         \ gui=NONE guifg=#585858 guibg=NONE
 endfunction
 augroup fortune
