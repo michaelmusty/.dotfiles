@@ -62,17 +62,8 @@ let b:undo_ftplugin .= '|setlocal formatoptions<'
 
 " Mail-specific handling for custom vim-squeeze-repeat-blanks plugin
 if exists('loaded_squeeze_repeat_blanks')
-
-  " Set the blank line pattern
   let b:squeeze_repeat_blanks_blank = '^[ >]*$'
   let b:undo_ftplugin .= '|unlet b:squeeze_repeat_blanks_blank'
-
-  " If there is anything quoted in this message (i.e. it looks like a reply),
-  " squeeze blanks, but don't report lines deleted
-  if search('\m^>', 'cnw')
-    silent SqueezeRepeatBlanks
-  endif
-
 endif
 
 " Spellcheck documents we're actually editing (not just viewing)
