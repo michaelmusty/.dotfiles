@@ -3,8 +3,7 @@
 let b:quote_space = 0
 let b:undo_ftplugin .= '|unlet b:quote_space'
 
-" If something hasn't already moved the cursor, we'll move to an optimal point
-" to start writing
+" Attempt to move to a good spot to start writing
 function! s:SuggestStart() abort
 
   " Move to top of buffer
