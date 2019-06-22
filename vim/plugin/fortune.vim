@@ -1,8 +1,14 @@
 command! -bar Fortune
       \ call fortune#()
 
+function! s:FortuneVimEnter() abort
+  if !argc() && line2byte('$') == -1
+    try | Fortune | catch | endtry
+  endif
+endfunction
+
 augroup fortune
   autocmd!
   autocmd VimEnter *
-        \ if !argc() && line2byte('$') == -1 | Fortune | endif
+        \ call s:FortuneVimEnter()
 augroup END
