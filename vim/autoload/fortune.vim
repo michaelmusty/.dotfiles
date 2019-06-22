@@ -8,19 +8,6 @@ let s:executables = [
       \ 'timeout',
       \]
 
-function! s:Highlight() abort
-  highlight Fortune
-        \ term=NONE
-        \ cterm=NONE ctermfg=244 ctermbg=NONE
-        \ gui=NONE guifg=#585858 guibg=NONE
-endfunction
-augroup fortune
-  autocmd!
-  autocmd ColorScheme *
-        \ call s:Highlight()
-augroup END
-doautocmd fortune ColorScheme
-
 function! fortune#() abort
 
   for executable in s:executables
@@ -54,8 +41,6 @@ function! fortune#() abort
         \ 'g',
         \)
 
-  echohl Fortune
-  echo fortune
-  echohl None
+  echomsg fortune
 
 endfunction
