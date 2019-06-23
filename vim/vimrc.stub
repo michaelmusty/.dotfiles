@@ -13,14 +13,15 @@ endif
 " If we got this far, it means we're running a tiny, 'compatible', and/or
 " ancient version of Vim.
 "
-" So, strip out our user runtime directories from 'runtimepath', force
+" So, strip out our the runtime directories from 'runtimepath', force
 " 'compatible' on, source your trusty ~/.exrc, put on your dubbed cassette
-" copy of Kraftwerk's 'Computerwelt', and start using Sun OS 4.x vi v3.7, from
-" July 1985.
-"
-" Don't grizzle, just use it.  It's good for you, like raisin bran.
+" copy of Kraftwerk's 'Computerwelt', and start using vi v3.7 on your
+" engineering department's Sun OS 4.x server via your VT220 terminal.  It's
+" July 1985, you grok ANSI C, and it's good for you, like raisin bran.
 "
 set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
 set compatible
+set shortmess+=I
+set t_Co=0
 silent! source ~/.exrc
