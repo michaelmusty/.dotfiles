@@ -1625,6 +1625,12 @@ xmap <Leader>7 <Leader>&
 "" Leader,*/8 is sticky-star: search, highlight, but don't move
 nnoremap <silent> <Leader>* *N
 nmap <Leader>8 <Leader>*
+"" Leader,` opens a scratch buffer, horizontally split
+nnoremap <silent> <Leader>`
+      \ :<C-U>Scratch<CR>
+"" Leader,~ opens a scratch buffer, vertically split
+nnoremap <silent> <Leader>~
+      \ :<C-U>vertical Scratch<CR>
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the
