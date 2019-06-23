@@ -423,7 +423,7 @@ let &spellfile = $MYVIM.'/cache/spell/'.join([
 " We use :let syntax rather than :set here, just to avoid a whole bunch of
 " annoying escaping for the value.
 "
-let &spellcapcheck = '[.?!]\%(  \|[\n\r\t])'
+let &spellcapcheck = '[.?!]\%(  \|[\n\r\t]\)'
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the 'k' flag, the 'dictionary' option specifies the path to the
