@@ -21,7 +21,5 @@ endif
 "
 set runtimepath-=~/.vim
 set runtimepath-=~/.vim/after
-set compatible
-set shortmess+=I
-set t_Co=0
+set compatible shortmess+=I t_Co=0
 silent! source ~/.exrc
