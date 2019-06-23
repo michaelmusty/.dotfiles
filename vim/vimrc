@@ -1627,10 +1627,10 @@ nnoremap <silent> <Leader>* *N
 nmap <Leader>8 <Leader>*
 "" Leader,` opens a scratch buffer, horizontally split
 nnoremap <silent> <Leader>`
-      \ :<C-U>Scratch<CR>
+      \ :<C-U>ScratchBuffer<CR>
 "" Leader,~ opens a scratch buffer, vertically split
 nnoremap <silent> <Leader>~
-      \ :<C-U>vertical Scratch<CR>
+      \ :<C-U>vertical ScratchBuffer<CR>
 
 " And last, but definitely not least, I'm required by Vim fanatic law to
 " include a mapping that reloads my whole configuration.  This uses the

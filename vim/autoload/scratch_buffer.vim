@@ -1,4 +1,4 @@
-function! scratch#(mods, count, ...) abort
+function! scratch_buffer#(mods, count, ...) abort
   let command = []
   call add(command, a:mods)
   if a:count
