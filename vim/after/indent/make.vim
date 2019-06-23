@@ -1,6 +1,6 @@
 " Use plain old tabs for Makefiles (of course)
 setlocal noexpandtab
-let b:undo_indent .= '|setlocal expandtab<'
+let b:undo_indent = 'setlocal expandtab<'
 if v:version > 703
       \ || v:version == 703 && has('patch629')
   setlocal shiftwidth=0
