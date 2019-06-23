@@ -11,8 +11,13 @@ function! markdown#Heading(char) abort
   " heading text
   let underline = repeat(a:char, strlen(heading))
 
-  " Append the heading text to the buffer on a new line after the heading
-  call append(pos[1], underline)
+  " If the line after this one looks like it's already an underline, replace
+  " it; otherwise, create a new underline
+  if getline(pos[1] + 1) =~# '^[-=]\{2,}$'
+    call setline(pos[1] + 1, underline)
+  else
+    call append(pos[1], underline)
+  endif
 
   " Move to the first column of the underline we just inserted
   let pos[1] += 1
