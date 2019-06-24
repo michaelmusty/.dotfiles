@@ -104,8 +104,8 @@ scriptencoding utf-8
 "
 if !exists('$MYVIM')
   let $MYVIM = map(
-        \ split(&runtimepath, '\\\@<!,[, ]*')
-        \,'substitute(v:val, ''\\,'', '','', ''g'')'
+        \ split(&runtimepath, '\\\@<!,[, ]*'),
+        \ 'substitute(v:val, ''\\,'', '','', ''g'')',
         \)[0]
 endif
 
@@ -406,9 +406,9 @@ endif
 set spelllang=en_nz
 Establish $MYVIM/cache/spell
 let &spellfile = $MYVIM.'/cache/spell/'.join([
-      \ split(&spelllang, '_')[0]
-      \,&encoding
-      \,'add'
+      \ split(&spelllang, '_')[0],
+      \ &encoding,
+      \ 'add',
       \], '.')
 
 " Spell checking includes optional support for catching lower case letters at
