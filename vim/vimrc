@@ -105,7 +105,7 @@ scriptencoding utf-8
 if !exists('$MYVIM')
   let $MYVIM = map(
         \ split(&runtimepath, '\\\@<!,[, ]*')
-        \,'substitute(v:val, ''\\,'', '''', ''g'')'
+        \,'substitute(v:val, ''\\,'', '','', ''g'')'
         \)[0]
 endif
 
