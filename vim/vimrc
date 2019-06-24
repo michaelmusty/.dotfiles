@@ -411,11 +411,11 @@ let &spellfile = $MYVIM.'/cache/spell/'.join([
       \,'add'
       \], '.')
 
-" Spell checking includes optional support for catching lowercase letters at
+" Spell checking includes optional support for catching lower case letters at
 " the start of sentences, and defines a pattern in 'spellcapcheck' for the end
 " of a sentence.  The default is pretty good, but with two-spacing with
 " 'cpoptions' including 'J' and 'formatoptions' including 'p' as set later in
-" this file, we can be less ambiguous in this pattern.  We requre two
+" this file, we can be less ambiguous in this pattern.  We require two
 " consecutive spaces, a newline, a carriage return, or a tab to mark the end
 " of a sentence.  This means that we could make abbreviations like "i.e.
 " something" without flagging "something" as a spelling error.
