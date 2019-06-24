@@ -406,7 +406,7 @@ endif
 set spelllang=en_nz
 Establish $MYVIM/cache/spell
 let &spellfile = $MYVIM.'/cache/spell/'.join([
-      \ substitute(&spelllang, '_.*', '', '')
+      \ split(&spelllang, '_')[0]
       \,&encoding
       \,'add'
       \], '.')
