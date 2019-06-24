@@ -418,7 +418,7 @@ let &spellfile = $MYVIM.'/cache/spell/'.join([
 " this file, we can be less ambiguous in this pattern.  We requre two
 " consecutive spaces, a newline, a carriage return, or a tab to mark the end
 " of a sentence.  This means that we could make abbreviations like "i.e.
-" something" without flatting "something" as a spelling error.
+" something" without flagging "something" as a spelling error.
 "
 " We use :let syntax rather than :set here, just to avoid a whole bunch of
 " annoying escaping for the value.
