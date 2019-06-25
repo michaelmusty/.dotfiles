@@ -5,10 +5,6 @@
 " clear, we can load the main vimrc file from ~/.vim/vimrc to use Vim in all
 " of its incompatible glory, and then stop sourcing the rest of this file.
 "
-" We have to set 'compatible' back to its default because system vimrcs
-" sometimes set it.
-"
-set compatible&
 if !&compatible && !exists('$POSIXLY_CORRECT') && v:version >= 700
   runtime vimrc
   finish
