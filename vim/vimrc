@@ -9,9 +9,7 @@ function! s:OptionSplit(string) abort
         \)
 endfunction
 function! s:EscItemExec(string) abort
-  return escape(escape(
-        \ a:string,
-        \ ','), '\ %#|"')
+  return escape(escape(a:string, ','), '\ %#|"')
 endfunction
 if exists('$MYVIM')
   execute 'set runtimepath^='.s:EscItemExec($MYVIM)
