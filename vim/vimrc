@@ -2,15 +2,17 @@ if !exists('$LANG') && &encoding ==# 'latin1'
   set encoding=utf-8
 endif
 scriptencoding utf-8
-if exists('$MYVIM')
-  execute 'set runtimepath^='.escape(escape(
-        \ $MYVIM,
-        \ ','), '\ %#|"')
-else
-  let $MYVIM = map(
+function! s:OptionSplit(string) abort
+  return map(
         \ split(&runtimepath, '\\\@<!,[, ]*'),
         \ 'substitute(v:val, ''\\,'', '','', ''g'')',
-        \)[0]
+        \)
+endfunction
+if exists('$MYVIM')
+  execute 'set runtimepath^='.s:EscItemExec($MYVIM)
+else
+  let s:runtimepath = s:OptionSplit(&runtimepath)
+  let $MYVIM = s:runtimepath[0]
 endif
 let s:cache = $MYVIM.'/cache'
 if !isdirectory(s:cache)
