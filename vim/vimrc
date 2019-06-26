@@ -8,6 +8,11 @@ function! s:OptionSplit(string) abort
         \ 'substitute(v:val, ''\\,'', '','', ''g'')',
         \)
 endfunction
+function! s:EscItemExec(string) abort
+  return escape(escape(
+        \ a:string,
+        \ ','), '\ %#|"')
+endfunction
 if exists('$MYVIM')
   execute 'set runtimepath^='.s:EscItemExec($MYVIM)
 else
@@ -24,9 +29,9 @@ let s:backupdir = s:cache.'/backup'
 if !isdirectory(s:backupdir)
   call mkdir(s:backupdir, 'p', 0700)
 endif
-execute 'set backupdir^='.escape(escape(
+execute 'set backupdir^='.s:EscItemExec(
       \ s:backupdir.(has('patch-8.1.251') ? '//' : ''),
-      \ ','), '\ %#|"')
+      \)
 if has('unix')
   if !has('patch-8.1.1519')
     set backupskip&
@@ -37,18 +42,14 @@ let s:directory = s:cache.'/swap'
 if !isdirectory(s:directory)
   call mkdir(s:directory, 'p', 0700)
 endif
-execute 'set directory^='.escape(escape(
-      \ s:directory,
-      \ ','), '\ %#|"')
+execute 'set directory^='.s:EscItemExec(s:directory)
 if has('persistent_undo')
   set undofile
   let s:undodir = s:cache.'/undo'
   if !isdirectory(s:undodir)
     call mkdir(s:undodir, 'p', 0700)
   endif
-  execute 'set undodir^='.escape(escape(
-        \ s:undodir,
-        \ ','), '\ %#|"')
+  execute 'set undodir^='.s:EscItemExec(s:undodir)
 endif
 filetype plugin indent on
 function! s:ReloadFileType() abort
@@ -81,20 +82,14 @@ let s:spellfile = s:cache.'/spell/'.join([
       \ &encoding,
       \ 'add',
       \], '.')
-execute 'set spellfile='.escape(escape(
-      \ s:spellfile,
-      \ ','), '\ %#|"')
+execute 'set spellfile='.s:EscItemExec(s:spellfile)
 let &spellcapcheck = '[.?!]\%(  \|[\n\r\t]\)'
 set dictionary^=/usr/share/dict/words
 let s:ref = $MYVIM.'/ref'
 let s:dictionary = s:ref.'/dictionary.txt'
-execute 'set dictionary^='.escape(escape(
-      \ s:dictionary,
-      \ ','), '\ %#|"')
+execute 'set dictionary^='.s:EscItemExec(s:dictionary)
 let s:thesaurus = s:ref.'/thesaurus.txt'
-execute 'set thesaurus^='.escape(escape(
-      \ s:thesaurus,
-      \ ','), '\ %#|"')
+execute 'set thesaurus^='.s:EscItemExec(s:thesaurus)
 set comments= commentstring= define= include=
 set path-=/usr/include
 set autoindent
