@@ -2,6 +2,10 @@ if !exists('$LANG') && &encoding ==# 'latin1'
   set encoding=utf-8
 endif
 scriptencoding utf-8
+function! s:Mkpath(path) abort
+  return isdirectory(a:path)
+        \ || exists('*mkdir') && mkdir(a:path)
+endfunction
 function! s:OptionSplit(string) abort
   return map(
         \ split(&runtimepath, '\\\@<!,[, ]*'),
@@ -18,15 +22,11 @@ else
   let $MYVIM = s:runtimepath[0]
 endif
 let s:cache = $MYVIM.'/cache'
-if !isdirectory(s:cache)
-  call mkdir(s:cache, 'p', 0700)
-endif
+call s:Mkpath(s:cache)
 let &viminfo .= ',n'.s:cache.'/viminfo'
 set backup
 let s:backupdir = s:cache.'/backup'
-if !isdirectory(s:backupdir)
-  call mkdir(s:backupdir, 'p', 0700)
-endif
+call s:Mkpath(s:backupdir)
 execute 'set backupdir^='.s:EscItemExec(
       \ s:backupdir.(has('patch-8.1.251') ? '//' : ''),
       \)
@@ -37,16 +37,12 @@ if has('unix')
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
 endif
 let s:directory = s:cache.'/swap'
-if !isdirectory(s:directory)
-  call mkdir(s:directory, 'p', 0700)
-endif
+call s:Mkpath(s:directory)
 execute 'set directory^='.s:EscItemExec(s:directory)
 if has('persistent_undo')
   set undofile
   let s:undodir = s:cache.'/undo'
-  if !isdirectory(s:undodir)
-    call mkdir(s:undodir, 'p', 0700)
-  endif
+  call s:Mkpath(s:undodir)
   execute 'set undodir^='.s:EscItemExec(s:undodir)
 endif
 filetype plugin indent on
