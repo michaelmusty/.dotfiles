@@ -254,10 +254,10 @@ nnoremap <C-L>
       \ :<C-U>nohlsearch<CR><C-L>
 inoremap <C-L> <C-O>:execute "normal \<C-L>"<CR>
 vmap <C-L> <Esc><C-L>gv
-nnoremap &
+noremap &
       \ :&&<CR>
-xnoremap &
-      \ :&&<CR>
+ounmap &
+sunmap &
 nmap g: <Plug>(ColonOperator)
 nnoremap [a
       \ :previous<CR>
@@ -293,21 +293,26 @@ nnoremap <Leader>i
       \ :<C-U>set incsearch! incsearch?<CR>
 nnoremap <Leader>s
       \ :<C-U>set spell! spell?<CR>
-nnoremap <Leader>C
+noremap <Leader>C
       \ :<C-U>set cursorcolumn! cursorcolumn?<CR>
-xmap <Leader>C <Esc><Leader>Cgv
-nnoremap <Leader>l
+ounmap <Leader>C
+sunmap <Leader>C
+noremap <Leader>l
       \ :<C-U>set list! list?<CR>
-xmap <Leader>l <Esc><Leader>lgv
-nnoremap <Leader>n
+ounmap <Leader>l
+sunmap <Leader>l
+noremap <Leader>n
       \ :<C-U>set number! number?<CR>
-xmap <Leader>n <Esc><Leader>ngv
-nnoremap <Leader>N
+ounmap <Leader>n
+sunmap <Leader>n
+noremap <Leader>N
       \ :<C-U>set ruler! ruler?<CR>
-xmap <Leader>N <Esc><Leader>Ngv
-nnoremap <Leader>w
+ounmap <Leader>N
+sunmap <Leader>N
+noremap <Leader>w
       \ :<C-U>set wrap! wrap?<CR>
-xmap <Leader>w <Esc><Leader>wgv
+ounmap <Leader>w
+sunmap <Leader>w
 nnoremap <Leader>f
       \ :<C-U>set formatoptions?<CR>
 nnoremap <Leader>u
@@ -317,9 +322,10 @@ nnoremap <Leader>z
 nmap <Leader>b <Plug>(CopyLinebreakToggle)
 nnoremap <Leader>a
       \ :<C-U>ToggleFlagLocal formatoptions a<CR>
-nnoremap <Leader>L
+noremap <Leader>L
       \ :<C-U>ToggleFlagLocal colorcolumn +1<CR>
-xmap <Leader>L <Esc><Leader>Lgv
+ounmap <Leader>L
+sunmap <Leader>L
 nmap <Leader>p <Plug>PasteInsert
 nnoremap <Leader>F
       \ :<C-U>ReloadFileType<CR>
@@ -368,14 +374,14 @@ nnoremap <Leader>E
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
 nmap <Leader>o <Plug>(SelectOldFiles)
-nnoremap <Leader>x
+noremap <Leader>x
       \ :StripTrailingWhitespace<CR>
-xnoremap <Leader>x
-      \ :StripTrailingWhitespace<CR>
-nnoremap <Leader>X
+ounmap <Leader>x
+sunmap <Leader>x
+noremap <Leader>X
       \ :SqueezeRepeatBlanks<CR>
-xnoremap <Leader>X
-      \ :SqueezeRepeatBlanks<CR>
+ounmap <Leader>X
+sunmap <Leader>X
 nnoremap <Leader>=
       \ :<C-U>KeepPosition execute 'normal! 1G=G'<CR>
 nnoremap <Leader>+
@@ -402,8 +408,9 @@ nnoremap <Leader>?
 nnoremap <Leader>.
       \ :<C-U>lmake!<CR>
 nnoremap <Leader>q gqap
-nmap <Leader>r <Plug>(ReplaceOperator)
-xmap <Leader>r <Plug>(ReplaceOperator)
+map <Leader>r <Plug>(ReplaceOperator)
+sunmap <Leader>r
+ounmap <Leader>r
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
