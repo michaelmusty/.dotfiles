@@ -1,26 +1,130 @@
+" Tom Ryder (tejr)’s Literate Vimrc
+" =================================
+"
+" Last updated: Thu, 27 Jun 2019 00:23:17 +0000
+"
+" > And I was lifted up in heart, and thought
+" > Of all my late-shown prowess in the lists,
+" > How my strong lance had beaten down the knights,
+" > So many and famous names; and never yet
+" > Had heaven appeared so blue, nor earth so green,
+" > For all my blood danced in me, and I knew
+" > That I should light upon the Holy Grail.
+" >
+" >     —Tennyson
+"
+" This is an attempt at something like a “literate vimrc”, in the tradition of
+" Donald Knuth’s “literate programming”: <http://www.literateprogramming.com/>
+"
+" The dotfiles project containing this file is maintained here:
+" <https://sanctum.geek.nz/cgit/dotfiles.git>
+"
+" This is a long file, and comments abound within.  Should this be bothersome,
+" one could execute this command in Vim itself to strip out all lines either
+" blank or comprising solely comments:
+"
+"     :g/\m^$\|^\s*"/d
+"
+" This file should be saved as `vimrc`—no leading period—in the user runtime
+" directory. On Unix-like operating systems, hereinafter referred to as
+" “*nix”, that directory is `~/.vim`; on Windows, it’s `~/vimfiles`.
+" Fortunately, those are the only two kinds of operating systems that exist,
+" anywhere in the world.
+"
+" It requires Vim 7.0 or newer, with the `+eval` feature, and the 'compatible'
+" option turned off, chiefly to allow line continuations.  The vimrc stub at
+" `~/.vimrc` on Unix or `~/_vimrc` on Windows should check that these
+" conditions are met before loading this file with `:runtime vimrc`.
+"
+" All of this should survive a pass of the Vim script linter Vint with no
+" errors, warnings, or style problems: <https://github.com/Kuniwak/vint>
+"
+
+" We’ll begin by making sure we’re all speaking the same language.  Since it’s
+" been the future for a few years now, this file has characters outside the
+" ASCII character set, which makes the Vim script linter vim-vint recommend
+" declaring the file encoding with a :scriptencoding command.  The :help for
+" this command specifies that this should be done after 'encoding' is set, so
+" we’ll do that here too.
+"
+" On *nix, I keep the primary locale environment variable `LANG` defined, and
+" it almost always specifies a multibyte locale.  This informs Vim’s choice of
+" internal character encoding, but the default for the 'encoding' option in
+" LANG’s absence is `latin1`.  This is almost never what I want, so if the
+" encoding looks like the default `latin1` and `LANG` is not defined, we’ll
+" manually choose the UTF-8 encoding for Unicode instead.
+"
 if !exists('$LANG') && &encoding ==# 'latin1'
   set encoding=utf-8
 endif
 scriptencoding utf-8
+
+" With encoding handled, we’ll turn our attention to the value of the
+" 'runtimepath' option, since any scripts loaded from the paths specified
+" therein control so much of the behaviour of Vim.
+"
+" Working with 'runtimepath' and other options set with comma-separated
+" strings is error-prone, whether the strings are paths or not.  In
+" particular, splitting the list is surprisingly complicated, as revealed by
+" the tokenizer function copy_option_part in src/misc2.c in Vim’s source code.
+" This awkwardness is largely because commas within each list item need to be
+" escaped with backslashes, but backslashes themselves are not.  To make it
+" even more complicated, each separating comma may be followed by any number
+" of spaces, or more commas, that will be ignored.  This means that you can
+" have a path starting with spaces or commas as the first value in the list,
+" but not any of the following values.  Worse, there’s no way to escape
+" leading whitespace characters to prevent them being skipped; backslashes
+" don’t work, because they only escape commas in this context.  Read the
+" source code if you don’t believe me.  Vim, I love you, but you are really
+" weird.
+"
+" In an effort to abstract this away a bit, we’ll define a script-local
+" function that can split such values into their constituent parts.  The
+" pattern required for the split() breaks down like this:
+"
+"   \\     <- Literal backslash
+"   \@<!   <- Negative lookbehind assertion; means that whatever occurred
+"             before this pattern—in this case, a backslash—cannot precede
+"             what follows, but anything that does precede it is not removed
+"             from the data as part of the split delimiter
+"   ,      <- Literal comma
+"   [, ]*  <- Any number of commas and spaces
+"
+" Once we have the individual elements, we have to remove the escaping for
+" periods, specifically remove up to one backslash before all periods.  We do
+" that with a map() over substitute(), string-eval style, to accommodate older
+" Vim before Funcref variables were added.  As explained above, we don’t need
+" to unescape backslashes themselves, as one might expect.
+"
+function! s:OptionSplit(expr, ...) abort
+  if a:0 > 1
+    echoerr 'Too many arguments'
+  endif
+  let expr = a:expr
+  let keepempty = a:0 ? a:1 : 0
+  return map(
+        \ split(expr, '\\\@<!,[, ]*', keepempty),
+        \ 'substitute(v:val, ''\\,'', '','', ''g'')',
+        \)
+endfunction
+
+" The next problem will be how we add values to the list correctly and safely.
+" We create a second script-local function that does the two rounds of
+" escaping necessary for a string that can be used in an :execute wrapper over
+" a :set command string.
+function! s:EscItemExec(item) abort
+  return escape(escape(a:item, ','), '\ %#|"')
+endfunction
+if exists('$MYVIM')
+  execute 'set runtimepath^='.s:EscItemExec($MYVIM)
+elseif strlen(&runtimepath) > 0
+  let s:runtimepath = s:OptionSplit(&runtimepath)
+  let $MYVIM = s:runtimepath[0]
+endif
 function! s:Mkpath(path) abort
   return isdirectory(a:path)
         \ || exists('*mkdir') && mkdir(a:path)
 endfunction
-function! s:OptionSplit(string) abort
-  return map(
-        \ split(&runtimepath, '\\\@<!,[, ]*'),
-        \ 'substitute(v:val, ''\\,'', '','', ''g'')',
-        \)
-endfunction
-function! s:EscItemExec(string) abort
-  return escape(escape(a:string, ','), '\ %#|"')
-endfunction
-if exists('$MYVIM')
-  execute 'set runtimepath^='.s:EscItemExec($MYVIM)
-else
-  let s:runtimepath = s:OptionSplit(&runtimepath)
-  let $MYVIM = s:runtimepath[0]
-endif
 let s:cache = $MYVIM.'/cache'
 call s:Mkpath(s:cache)
 let &viminfo .= ',n'.s:cache.'/viminfo'
@@ -437,3 +541,13 @@ inoreabbrev wrnog wrong
 inoreabbrev Fielding Feilding
 inoreabbrev THe The
 inoreabbrev THere There
+
+" Here endeth the literate vimrc.  Let us praise God.
+"
+" > Consequently, it is soon recognized that they write for the sake of
+" > filling up the paper, and this is the case sometimes with the best
+" > authors…as soon as this is perceived the book should be thrown away,
+" > for time is precious.
+" >
+" >     —Schopenhauer
+"
