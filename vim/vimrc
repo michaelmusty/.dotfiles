@@ -143,12 +143,12 @@ if has('unix')
 endif
 let s:directory = s:cache.'/swap'
 call s:Mkpath(s:directory)
-execute 'set directory^='.s:EscItemExec(s:directory)
+execute 'set directory^='.s:EscItemExec(s:directory).'//'
 if has('persistent_undo')
   set undofile
   let s:undodir = s:cache.'/undo'
   call s:Mkpath(s:undodir)
-  execute 'set undodir^='.s:EscItemExec(s:undodir)
+  execute 'set undodir^='.s:EscItemExec(s:undodir).'//'
 endif
 filetype plugin indent on
 function! s:ReloadFileType() abort
