@@ -100,8 +100,7 @@ function! s:OptionSplit(expr, ...) abort
   if a:0 > 1
     echoerr 'Too many arguments'
   endif
-  let expr = a:expr
-  let keepempty = a:0 ? a:1 : 0
+  let [expr, keepempty] = [a:expr, a:0 ? a:1 : 0]
   return map(
         \ split(expr, '\\\@<!,[, ]*', keepempty),
         \ 'substitute(v:val, ''\\,'', '','', ''g'')',
@@ -113,7 +112,8 @@ endfunction
 " escaping necessary for a string that can be used in an :execute wrapper over
 " a :set command string.
 function! s:EscItemExec(item) abort
-  return escape(escape(a:item, ','), '\ %#|"')
+  let [item] = [a:item]
+  return escape(escape(item, ','), '\ %#|"')
 endfunction
 if exists('$MYVIM')
   execute 'set runtimepath^='.s:EscItemExec($MYVIM)
@@ -122,8 +122,9 @@ elseif strlen(&runtimepath) > 0
   let $MYVIM = s:runtimepath[0]
 endif
 function! s:Mkpath(path) abort
-  return isdirectory(a:path)
-        \ || exists('*mkdir') && mkdir(a:path)
+  let [path] = [a:path]
+  return isdirectory(path)
+        \ || exists('*mkdir') && mkdir(path)
 endfunction
 let s:cache = $MYVIM.'/cache'
 call s:Mkpath(s:cache)
