@@ -3,15 +3,15 @@
 "
 " Last updated: Thu, 27 Jun 2019 00:23:17 +0000
 "
-" > And I was lifted up in heart, and thought
-" > Of all my late-shown prowess in the lists,
-" > How my strong lance had beaten down the knights,
-" > So many and famous names; and never yet
-" > Had heaven appeared so blue, nor earth so green,
-" > For all my blood danced in me, and I knew
-" > That I should light upon the Holy Grail.
-" >
-" >     —Tennyson
+" │ And I was lifted up in heart, and thought
+" │ Of all my late-shown prowess in the lists,
+" │ How my strong lance had beaten down the knights,
+" │ So many and famous names; and never yet
+" │ Had heaven appeared so blue, nor earth so green,
+" │ For all my blood danced in me, and I knew
+" │ That I should light upon the Holy Grail.
+" │
+" │     —Tennyson
 "
 " This is an attempt at something like a “literate vimrc”, in the tradition of
 " Donald Knuth’s “literate programming”: <http://www.literateprogramming.com/>
@@ -25,16 +25,16 @@
 "
 "     :g/\m^$\|^\s*"/d
 "
-" This file should be saved as `vimrc`—no leading period—in the user runtime
+" This file should be saved as ‘vimrc’—no leading period—in the user runtime
 " directory. On Unix-like operating systems, hereinafter referred to as
-" “*nix”, that directory is `~/.vim`; on Windows, it’s `~/vimfiles`.
+" “*nix”, that directory is ‘~/.vim’; on Windows, it’s ‘~/vimfiles’.
 " Fortunately, those are the only two kinds of operating systems that exist,
 " anywhere in the world.
 "
-" It requires Vim 7.0 or newer, with the `+eval` feature, and the 'compatible'
+" It requires Vim 7.0 or newer, with the +eval feature, and the 'compatible'
 " option turned off, chiefly to allow line continuations.  The vimrc stub at
-" `~/.vimrc` on Unix or `~/_vimrc` on Windows should check that these
-" conditions are met before loading this file with `:runtime vimrc`.
+" ~/.vimrc (Unix) or ~/_vimrc (Windows) should check that these conditions are
+" met before loading this file with ‘:runtime vimrc’.
 "
 " All of this should survive a pass of the Vim script linter Vint with no
 " errors, warnings, or style problems: <https://github.com/Kuniwak/vint>
@@ -42,19 +42,19 @@
 
 " We’ll begin by making sure we’re all speaking the same language.  Since it’s
 " been the future for a few years now, this file has characters outside the
-" ASCII character set, which makes the Vim script linter vim-vint recommend
-" declaring the file encoding with a :scriptencoding command.  The :help for
-" this command specifies that this should be done after 'encoding' is set, so
-" we’ll do that here too.
+" ASCII character set, which prompts Vint to suggest declaring the file
+" encoding with a :scriptencoding command.  The :help for that command
+" specifies that this should be done after 'encoding' is set, so we’ll do that
+" here, too.
 "
-" On *nix, I keep the primary locale environment variable `LANG` defined, and
+" On *nix, I keep the primary locale environment variable $LANG defined, and
 " it almost always specifies a multibyte locale.  This informs Vim’s choice of
 " internal character encoding, but the default for the 'encoding' option in
-" LANG’s absence is `latin1`.  This is almost never what I want, so if the
-" encoding looks like the default `latin1` and `LANG` is not defined, we’ll
-" manually choose the UTF-8 encoding for Unicode instead.
+" the absence of a valid $LANG is ‘latin1’.  Since this is almost never what
+" I want, we’ll manually choose the UTF-8 encoding for Unicode in the absence
+" of any other explicit specification.
 "
-if !exists('$LANG') && &encoding ==# 'latin1'
+if &encoding ==# 'latin1' && !exists('$LANG')
   set encoding=utf-8
 endif
 scriptencoding utf-8
@@ -82,13 +82,13 @@ scriptencoding utf-8
 " function that can split such values into their constituent parts.  The
 " pattern required for the split() breaks down like this:
 "
-"   \\     <- Literal backslash
-"   \@<!   <- Negative lookbehind assertion; means that whatever occurred
-"             before this pattern—in this case, a backslash—cannot precede
-"             what follows, but anything that does precede it is not removed
-"             from the data as part of the split delimiter
-"   ,      <- Literal comma
-"   [, ]*  <- Any number of commas and spaces
+"   \\     ← Literal backslash
+"   \@<!   ← Negative lookbehind assertion; means that whatever occurred
+"            before this pattern—in this case, a backslash—cannot precede what
+"            follows, but anything that does precede it is not removed from
+"            the data as part of the split delimiter
+"   ,      ← Literal comma
+"   [, ]*  ← Any number of commas and spaces
 "
 " Once we have the individual elements, we have to remove the escaping for
 " periods, specifically remove up to one backslash before all periods.  We do
@@ -544,10 +544,10 @@ inoreabbrev THere There
 
 " Here endeth the literate vimrc.  Let us praise God.
 "
-" > Consequently, it is soon recognized that they write for the sake of
-" > filling up the paper, and this is the case sometimes with the best
-" > authors…as soon as this is perceived the book should be thrown away,
-" > for time is precious.
-" >
-" >     —Schopenhauer
+" │ Consequently, it is soon recognized that they write for the sake of
+" │ filling up the paper, and this is the case sometimes with the best
+" │ authors…as soon as this is perceived the book should be thrown away,
+" │ for time is precious.
+" │
+" │     —Schopenhauer
 "
