@@ -63,9 +63,9 @@ scriptencoding utf-8
 
 " With encoding handled, we’ll turn our attention to the value of the
 " 'runtimepath' option, since any scripts loaded from the paths specified
-" therein control so much of the behaviour of Vim.  I’d like to do this as
-" accurately as possible, even with Vim’s unintuitive behavior around escaping
-" of these variables.  One of the first things we’ll need to be able to do is
+" therein control so much of the behavior of Vim.  I’d like to do this as
+" accurately as possible, even with Vim’s unusual behavior around escaping of
+" these variables.  One of the first things we’ll need to be able to do is
 " split the value of 'runtimepath' into its constituent path parts.
 "
 " Splitting the values of these comma-separated options correctly is
@@ -436,10 +436,7 @@ let &isfname = s:isfname
 " of a sentence.  This means that we could make abbreviations like "i.e.
 " something" without flagging "something" as a spelling error.
 "
-" We use :let syntax rather than :set here, just to avoid a whole bunch of
-" annoying escaping for the value.
-"
-let &spellcapcheck = '[.?!]\%(  \|[\n\r\t]\)'
+set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the ‘k’ flag, the 'dictionary' option specifies the path to the
@@ -475,7 +472,7 @@ let &spellcapcheck = '[.?!]\%(  \|[\n\r\t]\)'
 " the setting entirely, rather than throwing cryptic errors at the user.  None
 " of the blacklisted characters are particularly wise characters to have in
 " paths, anyway, legal though they may be on Unix filesystems.  We can’t work
-" around this one with 'isfname'; the blacklist is hardcoded.
+" around this one with 'isfname'; the blacklist is hard-coded.
 "
 set dictionary^=/usr/share/dict/words
 let s:ref = $MYVIM.'/ref'
