@@ -436,10 +436,7 @@ let &isfname = s:isfname
 " of a sentence.  This means that we could make abbreviations like "i.e.
 " something" without flagging "something" as a spelling error.
 "
-" We use :let syntax rather than :set here, just to avoid a whole bunch of
-" annoying escaping for the value.
-"
-let &spellcapcheck = '[.?!]\%(  \|[\n\r\t]\)'
+set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 
 " For word completion in insert mode with CTRL-X CTRL-K, or if 'complete'
 " includes the ‘k’ flag, the 'dictionary' option specifies the path to the
