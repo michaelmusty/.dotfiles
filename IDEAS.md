@@ -31,3 +31,4 @@ Ideas
   some point
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
   tag named `vX.Y.Z`.
+* There's no reason to limit `digraph_search.vim` to insert mode only
