@@ -107,11 +107,10 @@ endif
 " We need a command to reliably establish a full path, whether or not the
 " directories already exist.  We create a wrapper for the autolated function
 " path#Create() with similar calling conventions to mkdir(), but with the ‘p’
-" value for the second parameter {prot} forced on.  You can still optionally
-" provide alternative permissions in the second argument.
+" value for the second parameter {prot} forced on.
 "
-command! -bar -complete=dir -nargs=+ CreatePath
-      \ call path#Create(<f-args>)
+command! -bang -bar -complete=dir -nargs=1 CreatePath
+      \ call path#Create(expand(<q-args>), <q-bang> ==# '!')
 
 " Now that we have a way to create directories if they don’t already exist,
 " let’s apply it for the first time to the user runtime directory.  Note that
@@ -182,7 +181,7 @@ set backup
 execute 'set backupdir^='.escape#Arg(escape#Item(
       \ $MYVIM.'/backup'.(has('patch-8.1.251') ? '//' : ''),
       \))
-CreatePath $MYVIM/backup 0700
+CreatePath! $MYVIM/backup
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up, for security reasons.  This is particularly important if editing
@@ -216,10 +215,10 @@ endif
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions, since the 'directory'
 " option has supported that hint for much longer than 'backupdir' has.  We
-" apply CreatePath() to attempt to create the path, if needed.
+" apply path#Create() to attempt to create the path, if needed.
 "
 execute 'set directory^='.escape#Arg(escape#Item($MYVIM.'/swap//'))
-CreatePath $MYVIM/swap 0700
+CreatePath! $MYVIM/swap
 
 " Keep tracked undo history for files permanently, in a dedicated cache
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
@@ -237,7 +236,7 @@ CreatePath $MYVIM/swap 0700
 if has('persistent_undo')
   set undofile
   execute 'set undodir^='.escape#Arg(escape#Item($MYVIM.'/undo//'))
-  CreatePath $MYVIM/undo 0700
+  CreatePath! $MYVIM/undo
 endif
 
 " Now that we have a bit more confidence in our runtime environment, set up
