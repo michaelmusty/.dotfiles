@@ -179,7 +179,7 @@ set history=10000
 "
 set backup
 execute 'set backupdir^='.escape#Arg(escape#Item(
-      \ $MYVIM.'/backup'.(has('patch-8.1.251') ? '//' : ''),
+      \ $MYVIM.'/backup'.(has#('patch-8.1.251') ? '//' : ''),
       \))
 CreatePath! $MYVIM/backup
 
@@ -203,8 +203,8 @@ CreatePath! $MYVIM/backup
 "
 " <https://github.com/vim/vim/releases/tag/v8.1.1519>
 "
-if has('unix')
-  if !has('patch-8.1.1519')
+if has#('unix')
+  if !has#('patch-8.1.1519')
     set backupskip&
   endif
   set backupskip^=/dev/shm/*,/usr/tmp/*,/var/tmp/*
@@ -233,7 +233,7 @@ CreatePath! $MYVIM/swap
 " Support for these persistent undo file caches was not released until v7.3.0,
 " so we need to check for the feature’s presence before we enable it.
 "
-if has('persistent_undo')
+if has#('persistent_undo')
   set undofile
   execute 'set undodir^='.escape#Arg(escape#Item($MYVIM.'/undo//'))
   CreatePath! $MYVIM/undo
@@ -315,7 +315,7 @@ let s:spelllang = split#Option(&spelllang)
 let s:spellfile = $MYVIM.'/spell/'.join([
       \ split(s:spelllang[0], '_')[0], &encoding, 'add',
       \], '.')
-if has('unix')
+if has#('unix')
   let s:isfname = &isfname
   set isfname=1-255
 endif
@@ -438,7 +438,7 @@ set smarttab
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if v:version > 703 || v:version == 703 && has('patch693')
+if has#('patch-7.3.693')
   set softtabstop=-1
 else
   let &softtabstop = &shiftwidth
@@ -471,7 +471,7 @@ set linebreak
 " Checking that ‘&encoding ==# 'utf-8'’ is not quite the same thing, though
 " it’s unlikely I’ll ever use a different Unicode encoding by choice.
 "
-if has('multi_byte_encoding')
+if has#('multi_byte_encoding')
   set showbreak=…
 else
   set showbreak=...
@@ -550,7 +550,7 @@ set formatoptions+=1
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.541>
 "
-if v:version > 703 || v:version == 703 && has('patch541')
+if has#('patch-7.3.541')
   set formatoptions+=j
 endif
 
@@ -590,7 +590,7 @@ set cpoptions+=J
 "
 " <https://github.com/vim/vim/releases/tag/v8.1.1523>
 "
-if has('patch-8.1.728')
+if has#('patch-8.1.728')
   set formatoptions+=p
 endif
 
@@ -602,7 +602,7 @@ endif
 " flag should be set here, rather that in the GUI-specific gvimrc file, as one
 " might otherwise think.
 "
-if has('gui_running')
+if has#('gui_running')
   set guioptions+=M
 endif
 
@@ -673,7 +673,7 @@ set listchars+=nbsp:+   " Non-breaking spaces
 "
 " Failing that, ‘<’ and ‘>’ will do the trick.
 "
-if has('multi_byte_encoding')
+if has#('multi_byte_encoding')
   set listchars+=extends:»,precedes:«
 else
   set listchars+=extends:>,precedes:<
@@ -930,7 +930,7 @@ endif
 " it.
 "
 if &background ==# 'dark'
-      \ && (has('gui_running') || &t_Co >= 256)
+      \ && (has#('gui_running') || &t_Co >= 256)
       \ && globpath(&runtimepath, 'colors/sahara.vim') !=# ''
   colorscheme sahara
 endif
