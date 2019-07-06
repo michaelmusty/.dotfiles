@@ -123,11 +123,11 @@ scriptencoding utf-8
 " Otherwise, do it the other way around: the first path in the 'runtimepath'
 " list becomes MYVIM.
 "
-if exists('$MYVIM') && $MYVIM != ''
+if exists('$MYVIM') && $MYVIM !=# ''
   execute 'set runtimepath^='.escape#Arg(
         \ escape#Item(escape#Wild($MYVIM))
         \)
-elseif &runtimepath != ''
+elseif &runtimepath !=# ''
   let $MYVIM = split#Option(&runtimepath)[0]
 endif
 
