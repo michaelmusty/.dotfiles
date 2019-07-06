@@ -68,9 +68,9 @@ scriptencoding utf-8
 " these variables.  One of the first things we’ll need to be able to do is
 " split the value of 'runtimepath' into its constituent path parts.
 "
-" Splitting the values of these comma-separated options correctly is
-" surprisingly complicated.  The list separator for such options is more
-" accurately defined as follows:
+" Splitting the values of comma-separated options correctly is surprisingly
+" complicated.  The list separator for such options is more accurately defined
+" as follows:
 "
 " │ A comma not preceded by a backslash, and possibly followed by an arbitrary
 " │ number of spaces and commas.
@@ -88,36 +88,11 @@ scriptencoding utf-8
 " We don’t, however, have to deal with backslashes before other backslashes,
 " nor before any other character.  You can read the source code for the ad-hoc
 " tokenizer in copy_option_part() in src/misc2.c in Vim’s source code, and
-" test it with some values of your own, if you want to understand why.
+" test it with some values of your own, if you want to understand why.  Vim,
+" I love you, but you are really weird sometimes.
 "
-" Vim, I love you, but you are really weird.
+" We do all this with an autoloaded function split#Option().
 "
-" Note that we’re calling a script-local wrapper around map() named Map(), and
-" making a function reference to a script-local function UnEscItem(), both of
-" which we’ll define shortly.
-"
-
-" We declare a wrapper around map() to allow us always to call it with
-" a Funcref as the second function parameter, which isn’t directly supported
-" by map() until Vim v7.4.1989.  If the running version is older than that,
-" apply string() to the Funcref to use the older calling convention.
-"
-" <https://github.com/vim/vim/releases/tag/v7.4.1989>
-"
-
-" We will need a way to escape a string for general use in an :execute wrapper
-" to prevent it being interpreted as anything but a string.  The fnameescape()
-" function, while somewhat misnamed, is the correct way to do this, but it
-" wasn’t added until Vim v7.1.299, so we’ll have to do our best to backport it
-" here.
-"
-" <https://github.com/vim/vim/releases/tag/v7.1.299>
-"
-
-" For the particular case of 'runtimepath', we also need to escape glob
-" characters like * to prevent them from being expanded.
-"
-
 " If an environment variable MYVIM exists, and it isn’t blank, apply its value
 " as the first value of 'runtimepath', after escaping it appropriately.
 " Otherwise, do it the other way around: the first path in the 'runtimepath'
@@ -131,26 +106,20 @@ elseif &runtimepath !=# ''
   let $MYVIM = split#Option(&runtimepath)[0]
 endif
 
-" We need a function to reliably create a full path, whether or not the
-" directories already exist.  We create a wrapper with similar calling
-" conventions to mkdir(), but with the ‘p’ value for the second parameter
-" {prot} forced on.  You can still provide alternative permissions in the
-" second argument.
-"
-
-" That’s a useful function, too, so we make it available to the user with
-" a user command.  We’ll generally use the function form, as it requires less
-" escaping.  An optional second argument can be provided, corresponding to the
-" mkdir() permissions parameter.
+" We need a command to reliably establish a full path, whether or not the
+" directories already exist.  We create a wrapper for the autolated function
+" path#Create() with similar calling conventions to mkdir(), but with the ‘p’
+" value for the second parameter {prot} forced on.  You can still optionally
+" provide alternative permissions in the second argument.
 "
 command! -bar -complete=dir -nargs=+ CreatePath
       \ call path#Create(<f-args>)
 
-" Now that we have a clean means to create directories if they don’t already
-" exist, let’s apply it for the first time to the user runtime directory.
-" Note that we aren’t checking whether this actually succeeded.  We do want
-" errors raised if there were problems with the creation, but we’ll barrel on
-" ahead regardless after warning the user about our failure.
+" Now that we have a way to create directories if they don’t already exist,
+" let’s apply it for the first time to the user runtime directory.  Note that
+" we aren’t checking whether this actually succeeded.  We do want errors
+" raised if there were problems with the creation, but we’ll barrel on ahead
+" regardless after warning the user about our failure.
 "
 CreatePath $MYVIM
 
@@ -304,21 +273,13 @@ command! -bar ReloadFileType
 " the vimrc is reloaded.  The :set commands for options like 'expandtab' and
 " 'shiftwidth' may trample over different buffer-local settings that were
 " specified by filetype and indent plugins.  To ensure these local values are
-" reinstated, we'll define the new command wrapper to issue a :ReloadFileType
-" command after the vimrc file is sourced.
+" reinstated, we'll define the new command wrapper around an autoloaded
+" function that itself issues a :ReloadFileType command after the vimrc file
+" is sourced.
 "
 " We can't put the actual :source command into the script-local function we
 " define here, because Vim would get upset that we're trying to redefine
 " a function as it executes!
-"
-" Just to be on the safe side, we also suppress any further ##SourceCmd hooks
-" from running the :source command with a :noautocmd wrapper.  This is
-" a defensive measure to avoid infinite recursion.  It may not actually be
-" necessary.
-"
-" We emit a message afterwards, just to make it clear that something has
-" happened.  The :redraw just before that message seems to be necessary for
-" this message to display correctly.  I'm not sure why.
 "
 command! -bar ReloadVimrc
       \ call reload#Vimrc()
