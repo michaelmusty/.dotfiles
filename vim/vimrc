@@ -119,18 +119,12 @@ command! -bar -complete=dir -nargs=+ CreatePath
 " raised if there were problems with the creation, but we’ll barrel on ahead
 " regardless after warning the user about our failure.
 "
-CreatePath $MYVIM
-
-" Our next application of our new :CreatePath command is to configure the path
-" for the viminfo metadata file, putting it in a cache subdirectory of the
-" user runtime directory set in MYVIM.
-"
-" Using this non-default location for viminfo has the nice benefit of
+" Using a logical but non-default location for viminfo has the nice benefit of
 " preventing command and search history from getting clobbered when something
 " runs Vim without using this vimrc, because such an instance will safely
-" write its history to the default viminfo path instead.  It also contributes
-" to our aim of having everything related to the Vim runtime process in one
-" dedicated directory tree.
+" write its own history to the default viminfo path instead.  It also
+" contributes to our aim of having everything related to the Vim runtime
+" process in one dedicated directory tree.
 "
 " The normal method of specifying the path to the viminfo file, as applied
 " here, is an addendum of the path to the 'viminfo' option with an "n" prefix.
@@ -139,9 +133,8 @@ CreatePath $MYVIM
 "
 " <https://github.com/vim/vim/releases/tag/v8.1.0716>
 "
-execute 'set viminfo+='.escape#Arg(
-      \ 'n'.$MYVIM.'/viminfo'
-      \)
+execute 'set viminfo+='.escape#Arg('n'.$MYVIM.'/viminfo')
+CreatePath $MYVIM
 
 " Speaking of recorded data in viminfo files, the default Vim limit of a mere
 " 50 entries for command and search history is pretty stingy.  Because I don’t
@@ -186,10 +179,10 @@ set history=10000
 " 'backupfullname', 'swapfilefullname' would have been clearer.
 "
 set backup
-CreatePath $MYVIM/backup 0700
 execute 'set backupdir^='.escape#Arg(escape#Item(
       \ $MYVIM.'/backup'.(has('patch-8.1.251') ? '//' : ''),
       \))
+CreatePath $MYVIM/backup 0700
 
 " Files in certain directories on Unix-compatible filesystems should not be
 " backed up, for security reasons.  This is particularly important if editing
@@ -223,10 +216,10 @@ endif
 " trailing slashes to the path to prompt Vim to use the full escaped path in
 " its name, in order to avoid filename collisions, since the 'directory'
 " option has supported that hint for much longer than 'backupdir' has.  We
-" apply CreatePath() to attempt to create the path first, if needed.
+" apply CreatePath() to attempt to create the path, if needed.
 "
-CreatePath $MYVIM/swap 0700
 execute 'set directory^='.escape#Arg(escape#Item($MYVIM.'/swap//'))
+CreatePath $MYVIM/swap 0700
 
 " Keep tracked undo history for files permanently, in a dedicated cache
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
@@ -243,10 +236,8 @@ execute 'set directory^='.escape#Arg(escape#Item($MYVIM.'/swap//'))
 "
 if has('persistent_undo')
   set undofile
+  execute 'set undodir^='.escape#Arg(escape#Item($MYVIM.'/undo//'))
   CreatePath $MYVIM/undo 0700
-  execute 'set undodir^='.escape#Arg(escape#Item(
-        \ $MYVIM.'/undo//'
-        \))
 endif
 
 " Now that we have a bit more confidence in our runtime environment, set up
@@ -321,7 +312,6 @@ endif
 " the path is valid.  We put it back immediately afterwards.
 "
 set spelllang=en_nz
-CreatePath $MYVIM/spell
 let s:spelllang = split#Option(&spelllang)
 let s:spellfile = $MYVIM.'/spell/'.join([
       \ split(s:spelllang[0], '_')[0], &encoding, 'add',
@@ -331,8 +321,11 @@ if has('unix')
   set isfname=1-255
 endif
 execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
-let &isfname = s:isfname
-unlet s:isfname
+if exists('s:isfname')
+  let &isfname = s:isfname
+  unlet s:isfname
+endif
+CreatePath $MYVIM/spell
 
 " Spell checking includes optional support for catching lower case letters at
 " the start of sentences, and defines a pattern in 'spellcapcheck' for the end
