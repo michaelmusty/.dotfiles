@@ -96,11 +96,6 @@ scriptencoding utf-8
 " making a function reference to a script-local function UnEscItem(), both of
 " which we’ll define shortly.
 "
-function! s:SplitOption(expr, ...) abort
-  let keepempty = a:0 ? a:1 : 0
-  let parts = split(a:expr, '\\\@<!,[, ]*', keepempty)
-  return s:Map(parts, function('s:UnEscItem'))
-endfunction
 
 " We declare a wrapper around map() to allow us always to call it with
 " a Funcref as the second function parameter, which isn’t directly supported
@@ -109,22 +104,6 @@ endfunction
 "
 " <https://github.com/vim/vim/releases/tag/v7.4.1989>
 "
-function! s:Map(list, Func) abort
-  return has('patch-7.4.1989')
-        \ ? map(a:list, a:Func)
-        \ : map(a:list, string(a:Func).'(0, v:val)')
-endfunction
-
-" We will need to be able to escape and unescape commas within separated list
-" items.  As noted above, we do this by adding and removing a backslash before
-" each comma.
-"
-function! s:EscItem(item) abort
-  return escape(a:item, ',')
-endfunction
-function! s:UnEscItem(key, val) abort
-  return substitute(a:val, '\\,', ',', 'g')
-endfunction
 
 " We will need a way to escape a string for general use in an :execute wrapper
 " to prevent it being interpreted as anything but a string.  The fnameescape()
@@ -134,19 +113,10 @@ endfunction
 "
 " <https://github.com/vim/vim/releases/tag/v7.1.299>
 "
-function! s:EscArg(arg) abort
-  return exists('*fnameescape')
-        \ ? fnameescape(a:arg)
-        \ : escape(a:arg, "\n\r\t".' *?[{`$\%#''"|!<')
-endfunction
 
 " For the particular case of 'runtimepath', we also need to escape glob
 " characters like * to prevent them from being expanded.
 "
-function! s:EscWild(string) abort
-  let string = a:string
-  return escape(string, '\*?[{`''$~')
-endfunction
 
 " If an environment variable MYVIM exists, and it isn’t blank, apply its value
 " as the first value of 'runtimepath', after escaping it appropriately.
@@ -154,11 +124,11 @@ endfunction
 " list becomes MYVIM.
 "
 if exists('$MYVIM') && $MYVIM != ''
-  execute 'set runtimepath^='.s:EscArg(s:EscItem(s:EscWild(
-        \ $MYVIM
-        \)))
+  execute 'set runtimepath^='.escape#Arg(
+        \ escape#Item(escape#Wild($MYVIM))
+        \)
 elseif &runtimepath != ''
-  let $MYVIM = s:SplitOption(&runtimepath)[0]
+  let $MYVIM = split#Option(&runtimepath)[0]
 endif
 
 " We need a function to reliably create a full path, whether or not the
@@ -167,21 +137,14 @@ endif
 " {prot} forced on.  You can still provide alternative permissions in the
 " second argument.
 "
-function! s:CreatePath(name, ...) abort
-  if isdirectory(a:name)
-    return 1
-  endif
-  let prot = a:0 >= 1 ? a:1 : 0755
-  return mkdir(a:name, 'p', prot)
-endfunction
 
 " That’s a useful function, too, so we make it available to the user with
 " a user command.  We’ll generally use the function form, as it requires less
 " escaping.  An optional second argument can be provided, corresponding to the
 " mkdir() permissions parameter.
 "
-command! -bar -complete=dir -nargs=1 CreatePath
-      \ call s:CreatePath(<f-args>)
+command! -bar -complete=dir -nargs=+ CreatePath
+      \ call path#Create(<f-args>)
 
 " Now that we have a clean means to create directories if they don’t already
 " exist, let’s apply it for the first time to the user runtime directory.
@@ -189,7 +152,7 @@ command! -bar -complete=dir -nargs=1 CreatePath
 " errors raised if there were problems with the creation, but we’ll barrel on
 " ahead regardless after warning the user about our failure.
 "
-call s:CreatePath($MYVIM)
+CreatePath $MYVIM
 
 " Our next application of our new :CreatePath command is to configure the path
 " for the viminfo metadata file, putting it in a cache subdirectory of the
@@ -209,8 +172,9 @@ call s:CreatePath($MYVIM)
 "
 " <https://github.com/vim/vim/releases/tag/v8.1.0716>
 "
-let s:viminfo = $MYVIM.'/viminfo'
-execute 'set viminfo+='.s:EscArg('n'.s:viminfo)
+execute 'set viminfo+='.escape#Arg(
+      \ 'n'.$MYVIM.'/viminfo'
+      \)
 
 " Speaking of recorded data in viminfo files, the default Vim limit of a mere
 " 50 entries for command and search history is pretty stingy.  Because I don’t
@@ -255,10 +219,9 @@ set history=10000
 " 'backupfullname', 'swapfilefullname' would have been clearer.
 "
 set backup
-let s:backupdir = $MYVIM.'/backup'
-call s:CreatePath(s:backupdir, 0700)
-execute 'set backupdir^='.s:EscArg(s:EscItem(
-      \ s:backupdir.(has('patch-8.1.251') ? '//' : ''),
+CreatePath $MYVIM/backup 0700
+execute 'set backupdir^='.escape#Arg(escape#Item(
+      \ $MYVIM.'/backup'.(has('patch-8.1.251') ? '//' : ''),
       \))
 
 " Files in certain directories on Unix-compatible filesystems should not be
@@ -295,10 +258,9 @@ endif
 " option has supported that hint for much longer than 'backupdir' has.  We
 " apply CreatePath() to attempt to create the path first, if needed.
 "
-let s:directory = $MYVIM.'/swap'
-call s:CreatePath(s:directory, 0700)
-execute 'set directory^='.s:EscArg(s:EscItem(
-      \ s:directory.'//'
+CreatePath $MYVIM/swap 0700
+execute 'set directory^='.escape#Arg(escape#Item(
+      \ $MYVIM.'/swap//'
       \))
 
 " Keep tracked undo history for files permanently, in a dedicated cache
@@ -316,10 +278,9 @@ execute 'set directory^='.s:EscArg(s:EscItem(
 "
 if has('persistent_undo')
   set undofile
-  let s:undodir = $MYVIM.'/undo'
-  call s:CreatePath(s:undodir, 0700)
-  execute 'set undodir^='.s:EscArg(s:EscItem(
-        \ s:undodir.'//'
+  CreatePath $MYVIM/undo 0700
+  execute 'set undodir^='.escape#Arg(escape#Item(
+        \ $MYVIM.'/undo//'
         \))
 endif
 
@@ -333,13 +294,8 @@ filetype plugin indent on
 " We'll set up a user command named :ReloadFileType to do this, with
 " a script-local function backing it.
 "
-function! s:ReloadFileType() abort
-  if exists('g:did_load_filetypes')
-    doautocmd filetypedetect BufRead
-  endif
-endfunction
 command! -bar ReloadFileType
-      \ call s:ReloadFileType()
+      \ call reload#FileType()
 
 " We'll also define a :ReloadVimrc command.  This may seem like overkill, at
 " first.  Surely just `:source $MYVIMRC` would be good enough?
@@ -364,13 +320,8 @@ command! -bar ReloadFileType
 " happened.  The :redraw just before that message seems to be necessary for
 " this message to display correctly.  I'm not sure why.
 "
-function! s:ReloadVimrc() abort
-  ReloadFileType
-  redraw
-  echomsg fnamemodify($MYVIMRC, ':p:~').' reloaded'
-endfunction
 command! -bar ReloadVimrc
-      \ noautocmd source $MYVIMRC | call s:ReloadVimrc()
+      \ call reload#Vimrc()
 
 " We'll now create or reset a group of automatic command hooks specific to
 " matters related to reloading the vimrc itself, or maintaining and managing
@@ -413,9 +364,8 @@ endif
 " the path is valid.  We put it back immediately afterwards.
 "
 set spelllang=en_nz
-let s:spelldir = $MYVIM.'/spell'
-call s:CreatePath(s:spelldir)
-let s:spellfile = s:spelldir.'/'.join([
+CreatePath $MYVIM/spell
+let s:spellfile = $MYVIM.'/spell/'.join([
       \ split(&spelllang, '_')[0],
       \ &encoding,
       \ 'add',
@@ -424,7 +374,7 @@ if has('unix')
   let s:isfname = &isfname
   set isfname=1-255
 endif
-execute 'set spellfile^='.s:EscArg(s:EscItem(s:spellfile))
+execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
 let &isfname = s:isfname
 
 " Spell checking includes optional support for catching lower case letters at
@@ -477,10 +427,10 @@ set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 set dictionary^=/usr/share/dict/words
 let s:ref = $MYVIM.'/ref'
 try
-  execute 'set dictionary^='.s:EscArg(s:EscItem(
+  execute 'set dictionary^='.escape#Arg(escape#Item(
         \ s:ref.'/dictionary.txt'
         \))
-  execute 'set thesaurus^='.s:EscArg(s:EscItem(
+  execute 'set thesaurus^='.escape#Arg(escape#Item(
         \ s:ref.'/thesaurus.txt'
         \))
 catch /^Vim\%((\a\+)\)\=:E474:/
@@ -838,21 +788,12 @@ set noshowcmd
 "
 set shortmess+=I
 
-" We declare a function just to make a slightly more readable way to express
-" a check that plugins are going to be loaded and that a plugin of a given
-" name appears to be available somewhere in one of the runtime paths.
-"
-function! s:PluginReady(name) abort
-  return &loadplugins
-        \ && globpath(&runtimepath, 'plugin/'.a:name.'.vim') != ''
-endfunction
-
 " We’ll only use the old 'showmatch' method of a brief jump to the matching
 " bracket under the cursor if the much-preferred matchparen.vim standard
 " plugin doesn’t look like it’s going to load, whether because plugins have
 " been disabled, or it’s not in any of the plugin directories.
 "
-if !s:PluginReady('matchparen')
+if !plugin#Ready('matchparen')
   set showmatch matchtime=3
 endif
 
@@ -1201,7 +1142,7 @@ nnoremap <expr> <Space>
 " If the plugin isn’t available, I just abandon CTRL-C to continue its
 " uselessness.
 "
-if s:PluginReady('insert_cancel')
+if plugin#Ready('insert_cancel')
   imap <C-C> <Plug>(InsertCancel)
 endif
 
