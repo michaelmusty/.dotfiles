@@ -363,10 +363,10 @@ endif
 " since Vim uses it internally for 'spellfile' assignment to decide whether
 " the path is valid.  We put it back immediately afterwards.
 "
-set spelllang=en_nz
+set spelllang^=en_nz
 CreatePath $MYVIM/spell
 let s:spellfile = $MYVIM.'/spell/'.join([
-      \ split(&spelllang, '_')[0],
+      \ split(split#Option(&spelllang)[0], '_')[0],
       \ &encoding,
       \ 'add',
       \], '.')
@@ -1358,9 +1358,9 @@ nnoremap <Leader>f
 " target audience.  I generally use US English for international audiences.
 "
 nnoremap <Leader>u
-      \ :<C-U>set spelllang=en_us<CR>
+      \ :<C-U>set spelllang-=en_nz spelllang^=en_us spelllang?<CR>
 nnoremap <Leader>z
-      \ :<C-U>set spelllang=en_nz<CR>
+      \ :<C-U>set spelllang-=en_us spelllang^=en_nz spelllang?<CR>
 
 " The next mapping is also for toggling an option, but it’s more complicated;
 " it uses a simple plugin of mine called copy_linebreak.vim to manage several
