@@ -111,7 +111,7 @@ endif
 " provide alternative permissions in the second argument.
 "
 command! -bar -complete=dir -nargs=+ CreatePath
-      \ call path#Create(<f-args>)
+      \ call path#Create(expand(<f-args>))
 
 " Now that we have a way to create directories if they don’t already exist,
 " let’s apply it for the first time to the user runtime directory.  Note that
