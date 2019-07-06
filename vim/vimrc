@@ -99,9 +99,7 @@ scriptencoding utf-8
 " list becomes MYVIM.
 "
 if exists('$MYVIM') && $MYVIM !=# ''
-  execute 'set runtimepath^='.escape#Arg(
-        \ escape#Item(escape#Wild($MYVIM))
-        \)
+  execute 'set runtimepath^='.escape#Arg(escape#Item(escape#Wild($MYVIM)))
 elseif &runtimepath !=# ''
   let $MYVIM = split#Option(&runtimepath)[0]
 endif
@@ -228,9 +226,7 @@ endif
 " apply CreatePath() to attempt to create the path first, if needed.
 "
 CreatePath $MYVIM/swap 0700
-execute 'set directory^='.escape#Arg(escape#Item(
-      \ $MYVIM.'/swap//'
-      \))
+execute 'set directory^='.escape#Arg(escape#Item($MYVIM.'/swap//'))
 
 " Keep tracked undo history for files permanently, in a dedicated cache
 " directory, so that the u/:undo and CTRL-R/:redo commands will work between
@@ -328,9 +324,7 @@ set spelllang=en_nz
 CreatePath $MYVIM/spell
 let s:spelllang = split#Option(&spelllang)
 let s:spellfile = $MYVIM.'/spell/'.join([
-      \ split(s:spelllang[0], '_')[0],
-      \ &encoding,
-      \ 'add',
+      \ split(s:spelllang[0], '_')[0], &encoding, 'add',
       \], '.')
 if has('unix')
   let s:isfname = &isfname
@@ -390,12 +384,8 @@ set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 set dictionary^=/usr/share/dict/words
 let s:ref = $MYVIM.'/ref'
 try
-  execute 'set dictionary^='.escape#Arg(escape#Item(
-        \ s:ref.'/dictionary.txt'
-        \))
-  execute 'set thesaurus^='.escape#Arg(escape#Item(
-        \ s:ref.'/thesaurus.txt'
-        \))
+  execute 'set dictionary^='.escape#Arg(escape#Item(s:ref.'/dictionary.txt'))
+  execute 'set thesaurus^='.escape#Arg(escape#Item(s:ref.'/thesaurus.txt'))
 catch /^Vim\%((\a\+)\)\=:E474:/
 endtry
 
@@ -865,77 +855,13 @@ set wildmode=list:longest,full
 "
 " <https://mywiki.wooledge.org/UsingFind#Complex_actions>
 "
-set wildignore=*~,#*#
-      \,*.7z
-      \,.DS_Store
-      \,.git
-      \,.hg
-      \,.svn
-      \,*.a
-      \,*.adf
-      \,*.asc
-      \,*.au
-      \,*.aup
-      \,*.avi
-      \,*.bin
-      \,*.bmp
-      \,*.bz2
-      \,*.class
-      \,*.db
-      \,*.dbm
-      \,*.djvu
-      \,*.docx
-      \,*.exe
-      \,*.filepart
-      \,*.flac
-      \,*.gd2
-      \,*.gif
-      \,*.gifv
-      \,*.gmo
-      \,*.gpg
-      \,*.gz
-      \,*.hdf
-      \,*.ico
-      \,*.iso
-      \,*.jar
-      \,*.jpeg
-      \,*.jpg
-      \,*.m4a
-      \,*.mid
-      \,*.mp3
-      \,*.mp4
-      \,*.o
-      \,*.odp
-      \,*.ods
-      \,*.odt
-      \,*.ogg
-      \,*.ogv
-      \,*.opus
-      \,*.pbm
-      \,*.pdf
-      \,*.png
-      \,*.ppt
-      \,*.psd
-      \,*.pyc
-      \,*.rar
-      \,*.rm
-      \,*.s3m
-      \,*.sdbm
-      \,*.sqlite
-      \,*.swf
-      \,*.swp
-      \,*.tar
-      \,*.tga
-      \,*.ttf
-      \,*.wav
-      \,*.webm
-      \,*.xbm
-      \,*.xcf
-      \,*.xls
-      \,*.xlsx
-      \,*.xpm
-      \,*.xz
-      \,*.zip
+set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
+      \,*.avi,*.bin,*.bmp,*.bz2,*.class,*.db,*.dbm,*.djvu,*.docx,*.exe
+      \,*.filepart,*.flac,*.gd2,*.gif,*.gifv,*.gmo,*.gpg,*.gz,*.hdf,*.ico
+      \,*.iso,*.jar,*.jpeg,*.jpg,*.m4a,*.mid,*.mp3,*.mp4,*.o,*.odp,*.ods,*.odt
+      \,*.ogg,*.ogv,*.opus,*.pbm,*.pdf,*.png,*.ppt,*.psd,*.pyc,*.rar,*.rm
+      \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
+      \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
 
 " Allow me to be lazy and type a path to complete on the Ex command line in
 " all-lowercase, and transform the consequent completion to match the
