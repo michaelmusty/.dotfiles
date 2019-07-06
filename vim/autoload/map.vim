@@ -1,5 +1,5 @@
 " We declare a wrapper around map() to allow us always to call it with
-" a Funcref as the second function parameter, which isn’t directly supported
+" a Funcref as the second function parameter, which isn't directly supported
 " by map() until Vim v7.4.1989.  If the running version is older than that,
 " apply string() to the Funcref to use the older calling convention.
 "
