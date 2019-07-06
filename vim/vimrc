@@ -363,10 +363,11 @@ endif
 " since Vim uses it internally for 'spellfile' assignment to decide whether
 " the path is valid.  We put it back immediately afterwards.
 "
-set spelllang^=en_nz
+set spelllang=en_nz
 CreatePath $MYVIM/spell
+let s:spelllang = split#Option(&spelllang)
 let s:spellfile = $MYVIM.'/spell/'.join([
-      \ split(split#Option(&spelllang)[0], '_')[0],
+      \ split(s:spelllang[0], '_')[0],
       \ &encoding,
       \ 'add',
       \], '.')
@@ -376,6 +377,7 @@ if has('unix')
 endif
 execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
 let &isfname = s:isfname
+unlet s:isfname
 
 " Spell checking includes optional support for catching lower case letters at
 " the start of sentences, and defines a pattern in 'spellcapcheck' for the end
@@ -1357,10 +1359,10 @@ nnoremap <Leader>f
 " excluding or including the ‘u’ in words like 'favourite', depending on the
 " target audience.  I generally use US English for international audiences.
 "
-nnoremap <Leader>u
-      \ :<C-U>set spelllang-=en_nz spelllang^=en_us spelllang?<CR>
 nnoremap <Leader>z
-      \ :<C-U>set spelllang-=en_us spelllang^=en_nz spelllang?<CR>
+      \ :<C-U>set spelllang=en_nz
+nnoremap <Leader>u
+      \ :<C-U>set spelllang=en_us
 
 " The next mapping is also for toggling an option, but it’s more complicated;
 " it uses a simple plugin of mine called copy_linebreak.vim to manage several
