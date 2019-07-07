@@ -105,7 +105,7 @@ elseif &runtimepath !=# ''
 endif
 
 " We need a command to reliably establish a full path, whether or not the
-" directories already exist.  We create a wrapper for the autolated function
+" directories already exist.  We create a wrapper for the autoloaded function
 " path#Create() with similar calling conventions to mkdir(), but with the ‘p’
 " value for the second parameter {prot} forced on.
 "
