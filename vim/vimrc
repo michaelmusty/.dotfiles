@@ -107,7 +107,8 @@ endif
 " We need a command to reliably establish a full path, whether or not the
 " directories already exist.  We create a wrapper for the autoloaded function
 " path#Create() with similar calling conventions to mkdir(), but with the ‘p’
-" value for the second parameter {prot} forced on.
+" value for the second parameter {prot} forced on.  Calling it with a bang
+" like :CreatePath! creates a private directory (permissions 0700).
 "
 command! -bang -bar -complete=dir -nargs=1 CreatePath
       \ call path#Create(expand(<q-args>), <q-bang> ==# '!')
