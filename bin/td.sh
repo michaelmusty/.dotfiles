@@ -2,7 +2,6 @@
 
 # Specify the path and file
 dir=${TODO_DIR:-"$HOME"/Todo}
-file=${1:-"${TODO_NAME:-todo}"}
 
 # If the directory doesn't exist, create it
 [ -d "$dir" ] || mkdir -p -- "$dir" || exit
@@ -17,15 +16,16 @@ if ! command -v isgr >/dev/null 2>&1 ; then
 fi
 isgr || git init --quiet || exit
 
-# If the to-do file doesn't exist yet, create it
-[ -e "$file" ] || touch -- "$file" || exit
+if [ "$#" -eq 0 ] ; then
+    set -- "${TODO_NAME:-todo}"
+fi
 
-# Launch an appropriate editor to edit that file
-"${VISUAL:-"${EDITOR:-ed}"}" "$file"
+# Launch an appropriate editor to edit those files
+"${VISUAL:-"${EDITOR:-ed}"}" "$@"
 
-# Add the file to the changeset
-git add -- "$file"
+# Add those files to the changeset
+git add -- "$@"
 
-# If there are changes to commit, commit them
-git diff-index --quiet HEAD 2>/dev/null ||
+# If there are changes to those files to commit, commit them
+git diff-index --quiet HEAD "$@" 2>/dev/null ||
     git commit --message 'Changed by td(1df)' --quiet
