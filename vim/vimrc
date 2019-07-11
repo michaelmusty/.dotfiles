@@ -323,7 +323,7 @@ endif
 set spellfile&
 execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
 if exists('s:isfname')
-  let &isfname = s:isfname
+  execute 'set isfname='.escape#Arg(s:isfname)
   unlet s:isfname
 endif
 CreatePath $MYVIM/spell
@@ -439,11 +439,8 @@ set smarttab
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.693>
 "
-if has#('patch-7.3.693')
-  set softtabstop=-1
-else
-  let &softtabstop = &shiftwidth
-endif
+execute 'set softtabstop='
+      \ . escape#Arg(has#('patch-7.3.693') ? -1 : &shiftwidth)
 
 " Relax traditional vi’s harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
@@ -916,7 +913,7 @@ endif
 " <https://github.com/vim/vim/releases/tag/v7.4.108>
 "
 autocmd vimrc ColorScheme *
-      \ let &cursorline = g:colors_name ==# 'sahara'
+      \ call colorscheme#UpdateCursorline(g:colors_name, ['sahara'])
 
 " Use 'dark' as my default value for 'background', in the absence of an
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
