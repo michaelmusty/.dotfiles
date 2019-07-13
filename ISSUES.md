@@ -30,4 +30,3 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names.  Can it be made to?
-* A paste operation, maybe TextChanged, should probably end a pending paste

@@ -269,7 +269,7 @@ GIT_TEMPLATE_HOOKS = git/template/hooks/post-update \
     git/template/hooks/pre-commit \
     git/template/hooks/prepare-commit-msg
 
-all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS) gnupg/gpg.conf
+all: $(BINS) git/gitconfig $(GIT_TEMPLATE_HOOKS)
 
 clean distclean:
 	rm -f -- \
@@ -282,8 +282,6 @@ clean distclean:
 		dillo/dillorc.m4 \
 		git/gitconfig \
 		git/gitconfig.m4 \
-		gnupg/gpg.conf \
-		gnupg/gpg.conf.m4 \
 		include/mktd.m4 \
 		urxvt/ext/select \
 		vim/dist/*
@@ -337,15 +335,6 @@ git/gitconfig: git/gitconfig.m4
 		-D KEY=$(KEY) \
 		-D SENDMAIL=$(SENDMAIL) \
 		git/gitconfig.m4 > $@
-
-KEYSERVER = hkps://hkps.pool.sks-keyservers.net
-KEYID_FORMAT = none
-
-gnupg/gpg.conf: gnupg/gpg.conf.m4
-	m4 \
-		-D KEYSERVER=$(KEYSERVER) \
-		-D KEYID_FORMAT=$(KEYID_FORMAT) \
-		gnupg/gpg.conf.m4 > $@
 
 MAILDIR = $(HOME)/Mail
 
@@ -433,7 +422,7 @@ install-git: git/gitconfig $(GIT_TEMPLATE_HOOKS)
 			$(HOME)/.git-template"$${1#git/template}"' \
 		_ {} \;
 
-install-gnupg: gnupg/gpg.conf
+install-gnupg:
 	mkdir -m 0700 -p -- $(HOME)/.gnupg
 	cp -p -- gnupg/*.conf $(HOME)/.gnupg
 
