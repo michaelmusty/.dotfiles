@@ -32,3 +32,7 @@ Ideas
 * I'd like a Git hook that pre-fills out "Version X.Y.Z" if making an annotated
   tag named `vX.Y.Z`.
 * There's no reason to limit `digraph_search.vim` to insert mode only
+* alternate\_filetype.vim can be spun out into its own repository
+* fortune.vim can be spun out into its own repository
+* put\_date.vim can be spun out into its own repository
+* scratch\_buffer.vim can be spun out into its own repository
