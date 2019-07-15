@@ -1238,9 +1238,9 @@ nnoremap <Leader>f
 " target audience.  I generally use US English for international audiences.
 "
 nnoremap <Leader>z
-      \ :<C-U>set spelllang=en_nz
+      \ :<C-U>set spelllang=en_nz<CR>
 nnoremap <Leader>u
-      \ :<C-U>set spelllang=en_us
+      \ :<C-U>set spelllang=en_us<CR>
 
 " The next mapping is also for toggling an option, but it’s more complicated;
 " it uses a simple plugin of mine called copy_linebreak.vim to manage several
