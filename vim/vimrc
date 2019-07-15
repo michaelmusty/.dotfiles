@@ -127,7 +127,7 @@ command! -bang -bar -complete=dir -nargs=1 CreatePath
 " process in one dedicated directory tree.
 "
 " The normal method of specifying the path to the viminfo file, as applied
-" here, is an addendum of the path to the 'viminfo' option with an "n" prefix.
+" here, is an addendum of the path to the 'viminfo' option with an ‘n’ prefix.
 " Vim v8.1.716 introduced a nicer way to set this with an option named
 " 'viminfofile', but that’s still too new for us to use just yet.
 "
@@ -334,8 +334,8 @@ CreatePath $MYVIM/spell
 " 'cpoptions' including ‘J’ and 'formatoptions' including ‘p’ as set later in
 " this file, we can be less ambiguous in this pattern.  We require two
 " consecutive spaces, a newline, a carriage return, or a tab to mark the end
-" of a sentence.  This means that we could make abbreviations like "i.e.
-" something" without flagging "something" as a spelling error.
+" of a sentence.  This means that we could make abbreviations like “i.e.
+" something” without flagging “something” as a spelling error.
 "
 set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 
@@ -526,10 +526,10 @@ set noesckeys
 "
 set formatoptions+=l
 
-" Don’t wrap a line in such a way that a single-letter word like "I" or "a" is
+" Don’t wrap a line in such a way that a single-letter word like “I” or “a” is
 " at the end of it.  Typographically, as far as I can tell, this seems to be
-" a stylistic preference rather than a rule, rather like avoiding "widow" and
-" "orphan" lines in typesetting.  I think it generally looks better to have
+" a stylistic preference rather than a rule, rather like avoiding “widow” and
+" “orphan” lines in typesetting.  I think it generally looks better to have
 " the short word start the line, so we’ll switch it on.
 "
 set formatoptions+=1
@@ -577,10 +577,10 @@ set cpoptions+=J
 " If we’re using two-period spacing for sentences, Vim can interpret the
 " different spacing to distinguish between the two types, and can thereby
 " avoid breaking a line just after an abbreviating period.  For example, the
-" two words in “Mr. Moolenaar” should never be split apart, preventing
-" confusion on the reader’s part lest the word "Mr." look too much like the
-" end of a sentence, and also preserving the semantics of that same period for
-" subsequent reformatting; its single-space won’t get lost.
+" two words in “Mr. Moolenaar” should never be split apart, lest the
+" abbreviation “Mr.” look too much like the end of a sentence.  This also
+" preserves the semantics of that same period for subsequent reformatting; its
+" single-space won’t get lost.
 "
 " So, getting back to our 'formatoptions' settings, that is what the ‘p’ flag
 " does.  I wrote the patch that added it, after becoming envious of an
@@ -817,7 +817,7 @@ set wildmode=list:longest,full
 " won’t be presented as candidates for tab completion on the command line.
 "
 " To make this list, I went right through my home directory with
-" a ‘find’-toothed comb; counted the occurrences of every extension, forced
+" a `find`-toothed comb; counted the occurrences of every extension, forced
 " down to lowercase; and then manually selected the ones that I was confident
 " would seldom contain plain text.
 "
@@ -838,7 +838,7 @@ set wildmode=list:longest,full
 "
 " I turned out to have rather a lot of .html and .vim files.
 "
-" If you’re scoffing at that and thinking "I could write a much simpler one",
+" If you’re scoffing at that and thinking “I could write a much simpler one,”
 " please do so, and send it to me at <tom@sanctum.geek.nz> to have yours put
 " in here instead, with appropriate credit.  Don’t forget to handle more than
 " ARG_MAX files, include filenames with newlines, and that the -z or -0 null
@@ -949,7 +949,7 @@ endif
 "   use selection mode directly.
 "
 " * Avoid mapping in insert mode; let characters be literal to the greatest
-"   extent possible, and avoid "doing more" in insert mode besides merely
+"   extent possible, and avoid “doing more” in insert mode besides merely
 "   inserting text as it’s typed.
 "
 " * Avoid key chords with Ctrl in favor of leader keys.
@@ -1358,8 +1358,8 @@ nnoremap <Leader>y
       \ :<C-U>registers<CR>
 
 " This group contains mappings concerned with buffer navigation and
-" management.  I use the "jetpack" buffer jumper one a lot.  I got it from one
-" of bairui’s "Vim and Vigor" comics:
+" management.  I use the “jetpack” buffer jumper one a lot.  I got it from one
+" of bairui’s “Vim and Vigor” comics:
 "
 " <http://of-vim-and-vigor.blogspot.com/p/vim-vigor-comic.html>
 
@@ -1375,7 +1375,7 @@ nnoremap <Leader>e
 "" Leader,E locks a buffer, reversible with <Leader>e
 nnoremap <Leader>E
       \ :<C-U>set nomodifiable readonly<CR>
-"" Leader,j jumps to buffers ("jetpack")
+"" Leader,j jumps to buffers—the “jetpack”
 nnoremap <Leader>j
       \ :<C-U>buffers<CR>:buffer<Space>
 
@@ -1439,7 +1439,7 @@ map <Leader>{ <Plug>(VerticalRegionUp)
 sunmap <Leader>{
 map <Leader>} <Plug>(VerticalRegionDown)
 sunmap <Leader>}
-"" Leader,\ jumps to the last edit position mark: think "Now, where was I?"
+"" Leader,\ jumps to the last edit position mark; think “Now, where was I?”
 noremap <Leader>\ `"
 sunmap <Leader>\
 
