@@ -34,4 +34,3 @@ Ideas
 * There's no reason to limit `digraph_search.vim` to insert mode only
 * fortune.vim can be spun out into its own repository
 * put\_date.vim can be spun out into its own repository
-* scratch\_buffer.vim can be spun out into its own repository
