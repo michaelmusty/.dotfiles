@@ -443,7 +443,8 @@ augroup filetypedetect
         \ setfiletype yacc
   " YAML files
   autocmd BufNewFile,BufRead
-        \ ?*.yaml
+        \ ?*.yml
+        \,?*.yaml
         \ setfiletype yaml
   " Z shell files
   autocmd BufNewFile,BufRead
