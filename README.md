@@ -505,6 +505,7 @@ Installed by the `install-bin` target:
   input.
 * `dam(1df)` buffers all its input before emitting it as output.
 * `ddup(1df)` removes duplicate lines from unsorted input.
+* `defang(1df)` prevents dangerous URLs from being made into clickable links.
 * `dmp(1df)` copies a pass(1) entry selected by `dmenu(1)` to the X CLIPBOARD.
 * `dub(1df)` lists the biggest entries in a directory.
 * `edda(1df)` provides a means to run `ed(1)` over a set of files preserving

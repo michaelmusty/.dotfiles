@@ -114,6 +114,7 @@ BINS = bin/ap \
 	bin/dam \
 	bin/d2u \
 	bin/ddup \
+	bin/defang \
 	bin/dfv \
 	bin/dmp \
 	bin/dub \
