@@ -775,6 +775,9 @@ read from the input.
 .IP \[bu] 2
 \f[C]ddup(1df)\f[] removes duplicate lines from unsorted input.
 .IP \[bu] 2
+\f[C]defang(1df)\f[] prevents dangerous URLs from being made into
+clickable links.
+.IP \[bu] 2
 \f[C]dmp(1df)\f[] copies a pass(1) entry selected by \f[C]dmenu(1)\f[]
 to the X CLIPBOARD.
 .IP \[bu] 2
