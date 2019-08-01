@@ -1,0 +1,17 @@
+.TH DEFANG 1df "August 2019" "Manual page for defang"
+.SH NAME
+.B defang
+\- butcher dangerous URLs to stop them being made clickable
+.SH USAGE
+.B defang [FILE1 [FILE2 ...]]
+.br
+.B defang
+< FILE
+.br
+printf 'http://pwn3d.badguys.icu/h4ck/0x_ph1sh.html' |
+.B defang
+.SH DESCRIPTION
+Manipulates URLs on each line of input in such a way that they're unlikely to
+be made into clickable links by tools that try to make dynamic HTML links.
+.SH AUTHOR
+Tom Ryder <tom@sanctum.geek.nz>
