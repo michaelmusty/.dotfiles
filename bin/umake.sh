@@ -3,7 +3,8 @@
 while [ "$PWD" != / ] ; do
     for mf in makefile Makefile ; do
         [ -f "$mf" ] || continue
-        exec make "$@"
+        make "$@"
+        exit
     done
     cd .. || exit
 done
