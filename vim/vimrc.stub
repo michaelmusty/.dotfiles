@@ -15,7 +15,7 @@ endif
 "
 " So, strip out the user runtime directories from 'runtimepath', force
 " 'compatible' on, source your trusty ‘~/.exrc’, put on your dubbed cassette
-" copy of Kraftwerk's ‘Computerwelt’, and start using vi v3.7 on your
+" copy of Kraftwerk’s ‘Computerwelt’, and start using vi v3.7 on your
 " engineering department’s Sun OS 4.x server via your VT220 terminal.  It’s
 " July 1985, you write K&R C, and it’s good for you, like raisin bran.
 "
