@@ -1,0 +1,8 @@
+[Service]
+ExecStart=/home/tom/.local/bin/parcimonie
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target
