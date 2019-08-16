@@ -24,6 +24,7 @@
 	install-ksh \
 	install-less \
 	install-login-shell \
+	install-mail \
 	install-man \
 	install-mpd \
 	install-mpv \
@@ -444,6 +445,9 @@ install-less:
 	cp -p -- less/lesskey $(HOME)/.lesskey
 	lesskey
 
+install-mail:
+	cp -p -- mail/signature $(HOME)/.signature
+
 install-man:
 	mkdir -p -- $(HOME)/.local/share/man/man7
 	cp -p -- man/man7/dotfiles.7df $(HOME)/.local/share/man/man7
@@ -457,7 +461,7 @@ install-mpv:
 	mkdir -p -- $(HOME)/.config/mpv
 	cp -p -- mpv/* $(HOME)/.config/mpv
 
-install-mutt:
+install-mutt: install-mail
 	mkdir -p -- $(HOME)/.muttrc.d $(HOME)/.cache/mutt
 	cp -p -- mutt/muttrc $(HOME)/.muttrc
 	cp -p -- mutt/muttrc.d/src $(HOME)/.muttrc.d
