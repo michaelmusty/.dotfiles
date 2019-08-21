@@ -30,9 +30,3 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names.  Can it be made to?
-* First commit to a new repository fails with the Git template hooks because
-  the HEAD ref doesn't exist yet:
-
-    fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
-    Use '--' to separate paths from revisions, like this:
-    'git <command> [<revision>...] -- [<file>...]'
