@@ -1,15 +1,23 @@
 # Reject a commit directly to a branch named 'master' if a branch named
 # 'develop' exists
 
-# Allow commit if it's not to master
-[ "$(git rev-parse --abbrev-ref HEAD)" = master ] || exit 0
+# Allow commit if no HEAD ref (new repo), master branch, or develop branch
+if ! git show-ref --quiet --verify \
+        HEAD refs/heads/develop refs/heads/master ; then
+    exit 0
+fi
 
-# Allow commit if there's no develop branch
-git show-ref --quiet --verify refs/heads/develop || exit 0
+# Allow merge commit
+if git show-ref --quiet --verify MERGE_HEAD ; then
+    exit 0
+fi
 
-# Allow commit if it's a merge.  Is there a better way to test this?
-! git rev-parse --quiet --verify MERGE_HEAD >/dev/null || exit 0
+# Allow commit if not on master
+case $(git rev-parse --abbrev-ref --verify HEAD) in
+    master) ;;
+    *) exit 0 ;;
+esac
 
-# Throw toys
+# Refuse to commit
 printf >&2 'Branch develop exists, commits to master blocked\n'
 exit 1
