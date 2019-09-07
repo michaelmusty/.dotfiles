@@ -30,3 +30,4 @@ Known issues
   pushed upstream.
 * The `_text_filenames` completion handler for Bash won't work on files with
   newlines in their names.  Can it be made to?
+* Typing the normal mode mapping for `paste_open.vim` *twice* causes an error.
