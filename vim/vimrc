@@ -825,7 +825,7 @@ set wildmode=list:longest,full
 " giving patterns for the top 100 alphanumeric extensions for files from the
 " running user’s home directory:
 "
-"     $ (LC_ALL=C find "$HOME" ! -type d -name '*.?*' -exec \
+"     $ (LC_ALL=C ; find "$HOME" ! -type d -name '*.?*' -exec \
 "           sh -c 'for fn ; do
 "              ext=${fn##*.}
 "              case $ext in
