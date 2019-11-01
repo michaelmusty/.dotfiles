@@ -89,10 +89,8 @@
 .SUFFIXES:
 .SUFFIXES: .awk .bash .m4 .mi5 .pl .sed .sh
 
-NAME = 'Tom Ryder'
-EMAIL = tom@sanctum.geek.nz
-KEY = FA09C06E1B670CD0B2F5DE60C14286EA77BB8872
-SENDMAIL = msmtp
+NAME = 'Michael Musty'
+EMAIL = michaelmusty@gmail.com
 
 BINS = bin/ap \
 	bin/apf \
