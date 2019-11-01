@@ -1,7 +1,10 @@
 # musty fork
-to update the installation type
+to get the .dotfiles simply pull or type
 ```
 git clone git@github.com:michaelmusty/.dotfiles.git ~/.dotfiles
+```
+to update the installation type
+```
 cd ~/.dotfiles
 git submodule init
 git submodule update
