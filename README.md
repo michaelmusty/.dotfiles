@@ -1,4 +1,4 @@
-# Musty fork
+# musty fork
 to update the installation type
 ```
 git clone git@github.com:michaelmusty/.dotfiles.git ~/.dotfiles
@@ -15,7 +15,7 @@ git remote add musty_origin git@github.com:michaelmusty/.dotfiles.git
 ```
 to pull from Tom Ryder's remote type
 ```
-git pull
+git pull origin master
 ```
 to pull from this remote type
 ```
