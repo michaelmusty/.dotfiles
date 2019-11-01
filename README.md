@@ -25,6 +25,12 @@ make commits as usual and push to this remote using
 ```
 git push -u musty_origin master
 ```
+of course after setting this up should be able to
+```
+git pull
+git push
+```
+just on the musty fork
 
 Dotfiles (Tom Ryder)
 ====================
