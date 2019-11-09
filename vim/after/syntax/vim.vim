@@ -1,5 +1,7 @@
-" Remove special highlighting for double-quoted strings in comments
+" Remove special highlighting for double-quoted strings and colon labels in
+" comments
 syntax clear vimCommentString
+syntax clear vimCommentTitle
 
 " Highlight :CompilerSet commands like :set/:setlocal, but only in compiler
 " scripts in recognisable paths
