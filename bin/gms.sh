@@ -4,7 +4,7 @@
 lockdir=
 cleanup() {
     if [ -n "$lockdir" ] ; then
-        rm -fr -- "$lockdir"
+        rmdir -- "$lockdir"
     fi
     if [ "$1" != EXIT ] ; then
         trap - "$1"
@@ -25,7 +25,7 @@ for rcfile in "${GETMAIL:-"$HOME"/.getmail}"/getmailrc.* ; do (
     lockdir=${TMPDIR:-/tmp}/getmail.$uid.${rcfile##*/}.lock
     mkdir -m 0700 -- "$lockdir" 2>/dev/null || exit
     try -n 3 -s 15 getmail --rcfile "$rcfile" "$@"
-    rm -fr -- "$lockdir"
+    rmdir -- "$lockdir"
     lockdir=
 ) & done
 
