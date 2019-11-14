@@ -1,4 +1,4 @@
-pub   rsa4096 2013-03-12 [C] [expires: 2019-11-22]
+pub   rsa4096 2013-03-12 [C] [expires: 2020-01-18]
       FA09 C06E 1B67 0CD0 B2F5  DE60 C142 86EA 77BB 8872
 uid           [ultimate] Thomas Ryder (tyrmored, tejr) <tom@sanctum.geek.nz>
 uid           [ultimate] Thomas Ryder <tejr@echo-n.nz>
@@ -6,9 +6,9 @@ uid           [ultimate] Thomas Ryder <secretary@plug.org.nz>
 uid           [ultimate] Thomas Ryder (TEJR) <tejr@cpan.org>
 uid           [ultimate] Thomas Ryder <tyrmored@inspire.net.nz>
 uid           [ultimate] Thomas Ryder <tej.ryder@gmail.com>
-sub   rsa4096 2013-03-12 [E] [expires: 2019-11-22]
+sub   rsa4096 2013-03-12 [E] [expires: 2020-01-18]
       9DF1 A89F F8D9 70AF 3265  C882 96C2 CD91 E67A C61D
-sub   rsa4096 2013-03-12 [S] [expires: 2019-11-22]
+sub   rsa4096 2013-03-12 [S] [expires: 2020-01-18]
       3179 90A1 4597 A1FC F82D  953A B5AF 5F89 2592 6609
-sub   rsa4096 2019-08-06 [A] [expires: 2019-11-22]
+sub   rsa4096 2019-08-06 [A] [expires: 2020-01-18]
       42AE 569D 6162 7C52 03B0  74ED D58F F1F0 7E90 9B49
