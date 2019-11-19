@@ -1,3 +1,40 @@
+# musty fork
+to get the .dotfiles simply pull or type
+```
+git clone git@github.com:michaelmusty/.dotfiles.git ~/.dotfiles
+```
+to update the installation type
+```
+cd ~/.dotfiles
+git submodule init
+git submodule update
+make
+make -n install
+make install
+```
+this remote is set up as
+```
+git remote add musty_origin git@github.com:michaelmusty/.dotfiles.git
+```
+to pull from Tom Ryder's remote type
+```
+git pull origin master
+```
+to pull from this remote type
+```
+git pull musty_origin master
+```
+make commits as usual and push to this remote using
+```
+git push -u musty_origin master
+```
+of course after setting this up should be able to
+```
+git pull
+git push
+```
+just on the musty fork
+
 Dotfiles (Tom Ryder)
 ====================
 

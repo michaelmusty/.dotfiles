@@ -1,3 +1,6 @@
+call plug#begin('~/.vim/plugged')
+Plug 'JuliaEditorSupport/julia-vim'
+call plug#end()
 " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 "  Tom Ryder (tejr)’s Literate Vimrc
 " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -311,7 +314,8 @@ endif
 " since Vim uses it internally for 'spellfile' assignment to decide whether
 " the path is valid.  We put it back immediately afterwards.
 "
-set spelllang=en_nz
+" set spelllang=en_nz
+set spelllang=en_us
 let s:spelllang = split#Option(&spelllang)
 let s:spellfile = $MYVIM.'/spell/'.join([
       \ split(s:spelllang[0], '_')[0], &encoding, 'add',
@@ -1167,6 +1171,13 @@ if maplocalleader ==# ','
   noremap ,, ,
   sunmap ,,
 endif
+
+" MUSTY TeX
+nnoremap <Leader><Space>
+      \ :!arara %<CR><CR>
+nnoremap <Leader><Leader>
+      \ :!arara -v %<CR><CR>
+
 
 " Let’s start with some simple ones; these ones all just toggle a boolean
 " option, and print its new value.  They’re dirt simple to specify, and don’t

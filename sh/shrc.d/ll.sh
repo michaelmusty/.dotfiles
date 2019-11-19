@@ -1,5 +1,5 @@
 # Run ls -Al if we can (-A is not POSIX), ls -al otherwise
-ll() {
+l() {
     # Prefer -A/--almost-all (exclude "." and "..") if available
     if [ -e "$HOME"/.cache/sh/opt/ls/almost-all ] ; then
         set -- -Al "$@"

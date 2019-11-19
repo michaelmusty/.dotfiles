@@ -273,6 +273,7 @@ augroup filetypedetect
   " Python files
   autocmd BufNewFile,BufRead
         \ ?*.py
+        \,?*.sage
         \ setfiletype python
   " Readline configuration file
   autocmd BufNewFile,BufRead
