@@ -1496,8 +1496,12 @@ sunmap <Leader>&
 map <Leader>7 <Leader>&
 ounmap <Leader>7
 sunmap <Leader>7
-"" Leader,*/8 is sticky-star: search, highlight, but don’t move
-nnoremap <silent> <Leader>* *N
+"" Leader,*/8 is "sticky star":
+""    - Set search string to word under cursor
+""    - Show search highlighting if it's enabled
+""    - Don't move the cursor
+nnoremap <silent> <Leader>*
+      \ :<C-U>let @/ = expand('<cword>')<CR>:let &hlsearch = &hlsearch<CR>
 nmap <Leader>8 <Leader>*
 "" Leader,` opens a scratch buffer, horizontally split
 nnoremap <silent> <Leader>`
