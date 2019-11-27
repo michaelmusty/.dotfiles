@@ -6,9 +6,9 @@ let b:undo_ftplugin .= '|setlocal commentstring< define< include<'
 setlocal complete+=d
 let b:undo_ftplugin .= '|setlocal complete<'
 
-" Fold based on indent level, and start with all folds closed
+" Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-setlocal foldlevel=0
+setlocal foldlevel=99
 let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
 
 " Include system headers on UNIX
