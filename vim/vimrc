@@ -854,18 +854,20 @@ set wildignore=*~,#*#,*.7z,.DS_Store,.git,.hg,.svn,*.a,*.adf,*.asc,*.au,*.aup
       \,*.s3m,*.sdbm,*.sqlite,*.swf,*.swp,*.tar,*.tga,*.ttf,*.wav,*.webm,*.xbm
       \,*.xcf,*.xls,*.xlsx,*.xpm,*.xz,*.zip
 
-" Allow me to be lazy and type a path to complete on the Ex command line in
-" all-lowercase, and transform the consequent completion to match the
-" appropriate case, like the Readline setting completion-ignore-case can be
-" used for GNU Bash.
+" Allow me to type a path to complete on the Ex command line in all-lowercase,
+" and transform the consequent completion to match the appropriate case, like
+" the Readline setting ‘completion-ignore-case’ can be used for GNU Bash.
 "
-" As far as I can tell, despite its name, the 'wildignore' case option doesn’t
-" have anything to do with the 'wildignore' option, and so files that would
-" match any of those patterns only with case insensitivity implied will still
-" be candidates for completion.
+" When completing filenames on the command line, choose completions without
+" regard to case, allowing me the ease of typing a partial path in
+" all-lowercase.  This is very similar to the Readline setting
+" ‘completion-ignore-case’ used for Bash.
 "
-" The option wasn’t added until v7.3.72, so we need to check it exists before
-" we try to set it.
+" The 'wildignorecase' option is not related to the similarly-named
+" 'wildignore' option, nor to the +wildmenu feature.
+"
+" We need to check that the 'wildignorecase' option exists before we set it,
+" because it wasn't added to Vim until v7.3.72:
 "
 " <https://github.com/vim/vim/releases/tag/v7.3.072>
 "
