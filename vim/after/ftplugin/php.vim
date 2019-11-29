@@ -1,7 +1,8 @@
 " Use PHP itself for syntax checking
 compiler php
+setlocal equalprg=phpcsff
 let b:undo_ftplugin .= '|unlet b:current_compiler'
-      \ . '|setlocal errorformat< makeprg<'
+      \ . '|setlocal equalprg< errorformat< makeprg<'
 
 " Set comment formats
 setlocal comments=s1:/*,m:*,ex:*/,://,:#
