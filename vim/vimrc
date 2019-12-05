@@ -290,14 +290,14 @@ augroup END
 
 " vim-magma
 " this is pretty hacky... :P
-" autocmd BufRead,BufNewFile *.mag  set filetype=magma omnifunc=CompleteMagma
-" autocmd BufRead,BufNewFile *.mag let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
-" autocmd BufRead,BufNewFile *.mag cal SetSyn("matlab")
-" autocmd BufRead,BufNewFile *.mag cal SetSyn("magma")
-" autocmd BufRead,BufNewFile *.m  set filetype=magma omnifunc=CompleteMagma
-" autocmd BufRead,BufNewFile *.m let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
-" autocmd BufRead,BufNewFile *.m cal SetSyn("matlab")
-" autocmd BufRead,BufNewFile *.m cal SetSyn("magma")
+autocmd BufRead,BufNewFile *.mag  set filetype=magma omnifunc=CompleteMagma
+autocmd BufRead,BufNewFile *.mag let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
+autocmd BufRead,BufNewFile *.mag cal SetSyn("matlab")
+autocmd BufRead,BufNewFile *.mag cal SetSyn("magma")
+autocmd BufRead,BufNewFile *.m  set filetype=magma omnifunc=CompleteMagma
+autocmd BufRead,BufNewFile *.m let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
+autocmd BufRead,BufNewFile *.m cal SetSyn("matlab")
+autocmd BufRead,BufNewFile *.m cal SetSyn("magma")
 
 " Reload the stub vimrc, and thereby this main one, each time either of them
 " is written.  This often makes errors in the file immediately apparent, and
