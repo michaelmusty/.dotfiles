@@ -20,6 +20,11 @@ to pull from Tom Ryder's remote type
 ```
 git pull origin master
 ```
+to merge from Tom Ryder's remote type
+```
+git checkout master
+git merge origin/master
+```
 to pull from this remote type
 ```
 git pull musty_origin master
