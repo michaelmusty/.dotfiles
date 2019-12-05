@@ -507,4 +507,21 @@ augroup filetypedetect
         \|  runtime scripts.vim
         \|endif
 
+  " MUSTY filetype
+
+  " Magma filetype
+  autocmd BufNewFile,BufRead
+        \ *.mag  set filetype=magma omnifunc=CompleteMagma
+        " \*.mag let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
+        " \*.mag cal SetSyn("matlab")
+        " \*.mag cal SetSyn("magma")
+        \ *.m  set filetype=magma omnifunc=CompleteMagma
+        " \*.m let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
+        " \*.m cal SetSyn("matlab")
+        " \*.m cal SetSyn("magma")
+
+  " tex/latex filetype
+  autocmd BufNewFile,BufRead
+        \ *.tex set filetype=tex
+
 augroup END
