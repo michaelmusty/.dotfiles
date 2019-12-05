@@ -587,6 +587,9 @@ Installed by the `install-bin` target:
 * `p(1df)` prints concatenated standard input; `cat(1)` as it should always
   have been.
 * `pa(1df)` prints its arguments, one per line.
+* `phpcsff(1df)` wraps around
+  [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to make it
+  a source code filter suitable for use as an `equalprg` in Vim.
 * `pp(1df)` prints the full path of each argument using `$PWD`.
 * `pph(1df)` runs `pp(1df)` and includes a leading `$HOSTNAME:`.
 * `paz(1df)` print its arguments terminated by NULL chars.

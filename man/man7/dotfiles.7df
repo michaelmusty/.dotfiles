@@ -862,6 +862,10 @@ it should always have been.
 .IP \[bu] 2
 \f[C]pa(1df)\f[] prints its arguments, one per line.
 .IP \[bu] 2
+\f[C]phpcsff(1df)\f[] wraps around
+PHP\-CS\-Fixer (https://github.com/FriendsOfPHP/PHP-CS-Fixer) to make it
+a source code filter suitable for use as an \f[C]equalprg\f[] in Vim.
+.IP \[bu] 2
 \f[C]pp(1df)\f[] prints the full path of each argument using
 \f[C]$PWD\f[].
 .IP \[bu] 2

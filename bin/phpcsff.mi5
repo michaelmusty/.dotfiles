@@ -1,0 +1,15 @@
+# Use php-cs-fixer as a source filter.
+self=phpcsff
+
+<%
+include(`include/mktd.m4')
+%>
+
+# Duplicate stdin into a file
+if ! command -v php-cs-fixer >/dev/null 2>&1 ; then
+    printf >&2 'php-cs-fixer: command not found\n'
+    exit 1
+fi
+cat -- "${@:--}" > "$td"/src.php
+php-cs-fixer fix --quiet -- "$td"/src.php
+cat -- "$td"/src.php
