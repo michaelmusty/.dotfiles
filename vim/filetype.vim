@@ -520,6 +520,8 @@ augroup filetypedetect
   "       \,*.m let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax
   "       \,*.m cal SetSyn("matlab")
   "       \,*.m cal SetSyn("magma")
+  " Magma commenting
+  autocmd FileType magma setlocal commentstring=//\ %s
 
   " tex/latex filetype
   autocmd BufNewFile,BufRead
