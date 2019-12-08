@@ -257,12 +257,11 @@ command! -bar ReloadFileType
 " first.  Surely just `:source $MYVIMRC` would be good enough?
 "
 " The problem is there are potential side effects to the current buffer when
-" the vimrc is reloaded.  The :set commands for options like 'expandtab' and
-" 'shiftwidth' may trample over different buffer-local settings that were
-" specified by filetype and indent plugins.  To ensure these local values are
-" reinstated, we'll define the new command wrapper around an autoloaded
-" function that itself issues a :ReloadFileType command after the vimrc file
-" is sourced.
+" the vimrc is reloaded.  The global :set commands for some options may
+" trample over different buffer-local settings that were specified by filetype
+" and indent plugins.  To ensure these local values are reinstated, we'll
+" define the new command wrapper around an autoloaded function that itself
+" issues a :ReloadFileType command after the vimrc file is sourced.
 "
 " We can't put the actual :source command into the script-local function we
 " define here, because Vim would get upset that we're trying to redefine
@@ -414,33 +413,6 @@ endtry
 "
 set comments= commentstring= define= include=
 set path-=/usr/include
-
-" Next, we’ll adjust the global indentation settings.  In general and as
-" a default, I prefer spaces to tabs, and I like to use four of them, for
-" a more distinct visual structure.  Should you happen to disagree with this,
-" I cordially invite you to fite me irl.
-"
-" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
-"
-" Filetype indent plugins will often refine these settings for individual
-" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
-" the Go programming language.  For another, two-space indents are more
-" traditional for Vim script.
-"
-set autoindent
-set expandtab
-set shiftwidth=4
-set smarttab
-
-" Apply 'softtabstop' option to make a tab key press in insert mode insert the
-" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
-" Vim is new enough to support it (v7.3.693), apply a negative value to do
-" this dynamically if 'shiftwidth' changes.
-"
-" <https://github.com/vim/vim/releases/tag/v7.3.693>
-"
-execute 'set softtabstop='
-      \ . escape#Arg(has#('patch-7.3.693') ? -1 : &shiftwidth)
 
 " Relax traditional vi’s harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
