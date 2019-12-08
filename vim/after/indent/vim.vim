@@ -6,8 +6,9 @@ if !exists('b:undo_indent')
 endif
 
 " Observe VimL conventions for two-space indents
+setlocal expandtab
 setlocal shiftwidth=2
-let b:undo_indent .= '|setlocal shiftwidth<'
+let b:undo_indent .= '|setlocal expandtab< shiftwidth<'
 if &softtabstop != -1
   let &l:softtabstop = &l:shiftwidth
   let b:undo_indent .= '|setlocal softtabstop<'
