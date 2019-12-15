@@ -1,8 +1,11 @@
 " Use Perl itself for checking and Perl::Tidy for tidying
 compiler perl
-setlocal equalprg=perltidy
 let b:undo_ftplugin .= '|unlet b:current_compiler'
-      \ . '|setlocal equalprg< errorformat< makeprg<'
+      \ . '|setlocal errorformat< makeprg<'
+if executable('perltidy')
+  setlocal equalprg=perltidy
+  let b:undo_ftplugin .= '|setlocal equalprg<'
+endif
 
 " Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
@@ -37,6 +40,14 @@ nnoremap <buffer> <LocalLeader>l
       \ :<C-U>compiler perlcritic<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>c'
       \ . '|nunmap <buffer> <LocalLeader>l'
+
+" Mappings to choose 'equalprg'
+nnoremap <buffer> <LocalLeader>t
+      \ :<C-U>setlocal equalprg=perltidy<CR>
+nnoremap <buffer> <LocalLeader>i
+      \ :<C-U>setlocal equalprg<<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>t'
+      \ . '|nunmap <buffer> <LocalLeader>i'
 
 " Bump version numbers
 nmap <buffer> <LocalLeader>v
