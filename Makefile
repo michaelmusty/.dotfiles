@@ -577,7 +577,7 @@ install-vim-autoload:
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
-	-type d -exec sh -c \
+		-type d -exec sh -c \
 		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
