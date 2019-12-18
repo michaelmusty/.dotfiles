@@ -887,7 +887,7 @@ endif
 " <https://github.com/vim/vim/releases/tag/v7.4.108>
 "
 autocmd vimrc ColorScheme *
-      \ let &cursorline = g:colors_name ==# 'sahara'
+      \ call colorscheme#UpdateCursorline(g:colors_name, ['sahara'])
 
 " Use 'dark' as my default value for 'background', in the absence of an
 " environment variable COLORFGBG or a response in v:termrbgresp that would set
