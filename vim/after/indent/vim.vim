@@ -1,5 +1,5 @@
 " Use two (not four!) spaces for indentation, per convention
-runtime macros/indent/spaces/2.vim
+call indent#spaces(2)
 
 " Remove inapplicable defaults from 'indentkeys'; we should only need to undo
 " this if the stock plugin didn't already arrange that (before v7.3.539)
