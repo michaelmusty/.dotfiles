@@ -554,7 +554,7 @@ install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-plugin \
 	install-vim-after-syntax
 
-install-vim-after-ftplugin:
+install-vim-after-ftplugin: install-vim-compiler
 	mkdir -p $(VIMDIR)/after/ftplugin
 	cp -p -- vim/after/ftplugin/*.vim $(VIMDIR)/after/ftplugin
 
@@ -595,7 +595,7 @@ install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
-install-vim-config: install-vim-cache
+install-vim-config: install-vim-autoload install-vim-cache
 	cp -p -- vim/vimrc.stub $(HOME)/.vimrc
 	cp -p -- vim/vimrc $(VIMRC)
 
