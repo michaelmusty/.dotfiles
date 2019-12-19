@@ -265,6 +265,7 @@ GAMES = games/aaf \
 	games/pks \
 	games/rndn \
 	games/rot13 \
+	games/uuu \
 	games/squ \
 	games/strik \
 	games/xyzzy \
