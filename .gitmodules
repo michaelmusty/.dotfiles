@@ -65,6 +65,9 @@
 [submodule "vim/bundle/shebang_create_exec"]
 	path = vim/bundle/shebang_create_exec
 	url = https://sanctum.geek.nz/code/vim-shebang-create-exec.git
+[submodule "vim/bundle/spellfile_local"]
+	path = vim/bundle/spellfile_local
+	url = https://sanctum.geek.nz/code/vim-spellfile-local.git
 [submodule "vim/bundle/squeeze_repeat_blanks"]
 	path = vim/bundle/squeeze_repeat_blanks
 	url = https://sanctum.geek.nz/code/vim-squeeze-repeat-blanks.git
