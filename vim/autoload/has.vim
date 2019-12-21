@@ -16,7 +16,7 @@ function! has#(feature) abort
   " the native has() does
   "
   let feature = a:feature
-  let pattern = 'patch-\(\d\+\)\.\(\d\+\)\.\(\d\+\)'
+  let pattern = '^patch-\(\d\+\)\.\(\d\+\)\.\(\d\+\)$'
   let matchlist = matchlist(feature, pattern)
   if empty(matchlist)
     return has(a:feature)
