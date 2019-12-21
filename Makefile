@@ -576,12 +576,12 @@ install-vim-autoload:
 	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
 
 install-vim-bundle: install-vim-config
-	find vim/bundle/*/* \
+	cd vim/bundle && find */* \
 		-type d -exec sh -c \
-		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	find vim/bundle/*/*/* \
+		'mkdir -p -- $(VIMDIR)/"$${1#*/}"' _ {} \;
+	cd vim/bundle && find */*/* \
 		-type f -exec sh -c \
-		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
+		'cp -p -- "$$1" $(VIMDIR)/"$${1#*/}"' _ {} \;
 	$(VIM) -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
 
 install-vim-cache:
