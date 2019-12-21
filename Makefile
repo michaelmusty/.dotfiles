@@ -573,7 +573,12 @@ install-vim-after-syntax:
 
 install-vim-autoload:
 	mkdir -p $(VIMDIR)/autoload
-	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
+	cd vim && find autoload \
+               -type d -exec sh -c \
+               'mkdir -p -- $(VIMDIR)/"$$1"' _ {} \; \
+               -o \
+               -type f -exec sh -c \
+               'cp -p -- "$$1" $(VIMDIR)/"$$1"' _ {} \;
 
 install-vim-bundle: install-vim-config
 	cd vim/bundle && find */* \
