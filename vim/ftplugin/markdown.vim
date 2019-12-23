@@ -42,8 +42,7 @@ endfunction
 let b:undo_ftplugin .= '|delfunction MarkdownFold'
 setlocal foldexpr=MarkdownFold()
 setlocal foldmethod=expr
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldexpr< foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldexpr< foldmethod<'
 
 " Spellcheck documents we're actually editing (not just viewing)
 if &modifiable && !&readonly

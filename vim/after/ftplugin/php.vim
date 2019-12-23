@@ -12,10 +12,9 @@ setlocal comments=s1:/*,m:*,ex:*/,://,:#
 setlocal formatoptions+=or
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
-" Fold based on indent level, but start with all folds open
+" Fold based on indent level
 setlocal foldmethod=indent
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldmethod<'
 
 " Use pman as 'keywordprg'
 setlocal keywordprg=pman

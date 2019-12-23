@@ -466,6 +466,11 @@ set confirm
 "
 set noesckeys
 
+" Always start with 'foldlevel' set high enough to have all folds of any
+" practical depth open by default.
+"
+set foldlevel=256
+
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I rely on the filetype plugins to set the ‘t’ and ‘c’ flags for
 " this option to configure whether text or comments should be wrapped, as

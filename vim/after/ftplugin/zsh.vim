@@ -5,5 +5,4 @@ let b:undo_ftplugin .= '|unlet b:current_compiler'
 
 " Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldmethod<'

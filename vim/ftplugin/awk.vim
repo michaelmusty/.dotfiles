@@ -11,8 +11,7 @@ let b:undo_ftplugin = 'setlocal comments< formatoptions<'
 
 " Fold based on indent level, but start with all folds open
 setlocal foldmethod=indent
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldmethod<'
 
 " Specify ERE flavor for regex_escape.vim
 let b:regex_escape_flavor = 'ere'
