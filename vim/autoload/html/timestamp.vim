@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Keys and date formats for return value of s:Timestamp()
 let s:formats = {
       \ 'human': '%a, %d %b %Y %T %Z',
