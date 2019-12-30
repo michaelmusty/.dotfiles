@@ -552,11 +552,11 @@ install-vim-after: install-vim-after-ftplugin \
 	install-vim-after-plugin \
 	install-vim-after-syntax
 
-install-vim-after-ftplugin:
+install-vim-after-ftplugin: install-vim-compiler
 	mkdir -p $(VIMDIR)/after/ftplugin
 	cp -p -- vim/after/ftplugin/*.vim $(VIMDIR)/after/ftplugin
 
-install-vim-after-indent:
+install-vim-after-indent: install-vim-autoload
 	mkdir -p $(VIMDIR)/after/indent
 	cp -p -- vim/after/indent/*.vim $(VIMDIR)/after/indent
 
@@ -574,7 +574,7 @@ install-vim-autoload:
 
 install-vim-bundle: install-vim-config
 	find vim/bundle/*/* \
-	-type d -exec sh -c \
+		-type d -exec sh -c \
 		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
 	find vim/bundle/*/*/* \
 		-type f -exec sh -c \
@@ -593,7 +593,7 @@ install-vim-compiler:
 	mkdir -p -- $(VIMDIR)/compiler
 	cp -p -- vim/compiler/*.vim $(VIMDIR)/compiler
 
-install-vim-config: install-vim-cache
+install-vim-config: install-vim-autoload install-vim-cache
 	cp -p -- vim/vimrc.stub $(HOME)/.vimrc
 	cp -p -- vim/vimrc $(VIMRC)
 

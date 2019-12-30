@@ -492,7 +492,7 @@ augroup filetypedetect
         \,?*.conf
         \,?*.config
         \,/etc/*
-        \ setfiletype config
+        \ setfiletype conf
   autocmd BufNewFile,BufRead
         \ */log/*
         \,?*.log

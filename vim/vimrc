@@ -11,7 +11,7 @@ call plug#end()
 "  Tom Ryder (tejr)’s Literate Vimrc
 " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 "
-" Last updated: Tue, 09 Jul 2019 13:11:16 +1200
+" Last updated: Thu, 19 Dec 2019 17:07:46 +1300
 "
 " │ And I was lifted up in heart, and thought
 " │ Of all my late-shown prowess in the lists,
@@ -266,12 +266,11 @@ command! -bar ReloadFileType
 " first.  Surely just `:source $MYVIMRC` would be good enough?
 "
 " The problem is there are potential side effects to the current buffer when
-" the vimrc is reloaded.  The :set commands for options like 'expandtab' and
-" 'shiftwidth' may trample over different buffer-local settings that were
-" specified by filetype and indent plugins.  To ensure these local values are
-" reinstated, we'll define the new command wrapper around an autoloaded
-" function that itself issues a :ReloadFileType command after the vimrc file
-" is sourced.
+" the vimrc is reloaded.  The global :set commands for some options may
+" trample over different buffer-local settings that were specified by filetype
+" and indent plugins.  To ensure these local values are reinstated, we'll
+" define the new command wrapper around an autoloaded function that itself
+" issues a :ReloadFileType command after the vimrc file is sourced.
 "
 " We can't put the actual :source command into the script-local function we
 " define here, because Vim would get upset that we're trying to redefine
@@ -321,33 +320,29 @@ endif
 
 " For spelling, use New Zealand English by default, but later on we’ll
 " configure a leader mapping to switch to United States English, since I so
-" often have to write for Yankees.  We’ll set the 'spellfile' option too, to
-" place it in the cache directory into which we’ve been putting everything.
-" We’ll follow Vim’s standard naming convention for the file itself, though.
-" If available, my plugin spellfile_local.vim will extend this later to add
-" more spelling word lists per filetype and per file.
+" often have to write for Yankees.
 "
-" We briefly set 'isfname' to every character but NUL if we’re using Unix,
-" since Vim uses it internally for 'spellfile' assignment to decide whether
-" the path is valid.  We put it back immediately afterwards.
-"
+" 2019...
 " set spelllang=en_nz
-set spelllang=en_us
-let s:spelllang = split#Option(&spelllang)
-let s:spellfile = $MYVIM.'/spell/'.join([
-      \ split(s:spelllang[0], '_')[0], &encoding, 'add',
-      \], '.')
-if has#('unix')
-  let s:isfname = &isfname
-  set isfname=1-255
-endif
-set spellfile&
-execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
-if exists('s:isfname')
-  execute 'set isfname='.escape#Arg(s:isfname)
-  unlet s:isfname
-endif
-CreatePath $MYVIM/spell
+" set spelllang=en_us
+" let s:spelllang = split#Option(&spelllang)
+" let s:spellfile = $MYVIM.'/spell/'.join([
+"       \ split(s:spelllang[0], '_')[0], &encoding, 'add',
+"       \], '.')
+" if has#('unix')
+"   let s:isfname = &isfname
+"   set isfname=1-255
+" endif
+" set spellfile&
+" execute 'set spellfile^='.escape#Arg(escape#Item(s:spellfile))
+" if exists('s:isfname')
+"   execute 'set isfname='.escape#Arg(s:isfname)
+"   unlet s:isfname
+" endif
+" CreatePath $MYVIM/spell
+" 2020 forgets all this
+" set spelllang=en_nz
+" set spelllang=en_us
 
 " Spell checking includes optional support for catching lower case letters at
 " the start of sentences, and defines a pattern in 'spellcapcheck' for the end
@@ -435,33 +430,6 @@ endtry
 "
 set comments= commentstring= define= include=
 set path-=/usr/include
-
-" Next, we’ll adjust the global indentation settings.  In general and as
-" a default, I prefer spaces to tabs, and I like to use four of them, for
-" a more distinct visual structure.  Should you happen to disagree with this,
-" I cordially invite you to fite me irl.
-"
-" <https://sanctum.geek.nz/blinkenlights/spaces.webm>
-"
-" Filetype indent plugins will often refine these settings for individual
-" buffers.  For example, 'expandtab' is not appropriate for Makefiles, nor for
-" the Go programming language.  For another, two-space indents are more
-" traditional for Vim script.
-"
-set autoindent
-set expandtab
-set shiftwidth=4
-set smarttab
-
-" Apply 'softtabstop' option to make a tab key press in insert mode insert the
-" same number of spaces as defined by the indent depth in 'shiftwidth'.  If
-" Vim is new enough to support it (v7.3.693), apply a negative value to do
-" this dynamically if 'shiftwidth' changes.
-"
-" <https://github.com/vim/vim/releases/tag/v7.3.693>
-"
-execute 'set softtabstop='
-      \ . escape#Arg(has#('patch-7.3.693') ? -1 : &shiftwidth)
 
 " Relax traditional vi’s harsh standards over what regions of the buffer can
 " be removed with backspace in insert mode.  While this admittedly allows bad
