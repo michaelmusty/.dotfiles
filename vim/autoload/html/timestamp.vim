@@ -33,9 +33,12 @@ function! s:Timestamp(time) abort
 
 endfunction
 
+" Define timestamp prefix string
+let s:prefix = 'Last updated: '
+
 " Define pattern to match date timestamps; no Z̷͖̟̩͕̊̇̈ͬ̆̄Á̩̺͙̫͇͔̓͛ͭ̓̈́L̟͘G̤̣̳̊̌O̻̝̣̠͇̥̠͗ͤ͐͘ please
 let s:pattern = '\m\C'
-      \.'Last updated: '
+      \.s:prefix
       \.'<time datetime="[^"]\+">'
       \.'[^<]\+'
       \.'</time>'
@@ -58,7 +61,7 @@ function! html#timestamp#Update() abort
   let timestamp = s:Timestamp(localtime())
 
   " Fill out updated timestamp string with dictionary values
-  let update = 'Last updated: '
+  let update = s:prefix
         \.'<time datetime="'.timestamp['machine'].'">'
         \.timestamp['human']
         \.'</time>'
