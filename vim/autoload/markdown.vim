@@ -1,5 +1,5 @@
 " Let's try this heading-based fold method out (Tim Pope)
-function! markdown#Fold()
+function! markdown#Fold() abort
   let line = getline(v:lnum)
 
   " Regular headers
