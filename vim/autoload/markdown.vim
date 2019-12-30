@@ -1,3 +1,26 @@
+" Let's try this heading-based fold method out (Tim Pope)
+function! markdown#Fold()
+  let line = getline(v:lnum)
+
+  " Regular headers
+  let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
+  if depth > 0
+    return '>' . depth
+  endif
+
+  " Setext style headings
+  if line =~# '^.\+$'
+    let nextline = getline(v:lnum + 1)
+    if nextline =~# '^=\+$'
+      return '>1'
+    elseif nextline =~# '^-\+$'
+      return '>2'
+    endif
+  endif
+
+  return '='
+endfunction
+
 " Add an underline under a heading
 function! markdown#Heading(char) abort
 

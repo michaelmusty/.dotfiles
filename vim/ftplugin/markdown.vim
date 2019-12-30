@@ -18,29 +18,7 @@ let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 let b:undo_ftplugin .= '|setlocal formatoptions< formatlistpat<'
 
 " Let's try this heading-based fold method out (Tim Pope)
-function! MarkdownFold()
-  let line = getline(v:lnum)
-
-  " Regular headers
-  let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if depth > 0
-    return '>' . depth
-  endif
-
-  " Setext style headings
-  if line =~# '^.\+$'
-    let nextline = getline(v:lnum + 1)
-    if nextline =~# '^=\+$'
-      return '>1'
-    elseif nextline =~# '^-\+$'
-      return '>2'
-    endif
-  endif
-
-  return '='
-endfunction
-let b:undo_ftplugin .= '|delfunction MarkdownFold'
-setlocal foldexpr=MarkdownFold()
+setlocal foldexpr=markdown#Fold()
 setlocal foldmethod=expr
 let b:undo_ftplugin .= '|setlocal foldexpr< foldmethod<'
 
