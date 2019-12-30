@@ -63,6 +63,8 @@ nnoremap <LocalLeader>s
       \ :StrictQuote<CR>
 xnoremap <LocalLeader>s
       \ :StrictQuote<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>s'
+      \ . '|xunmap <buffer> <LocalLeader>s'
 
 " Maps using autoloaded function for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[
