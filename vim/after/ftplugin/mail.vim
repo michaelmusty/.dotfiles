@@ -11,10 +11,6 @@ SuggestStart
 " Normalise quoting
 command -buffer -bar -range=% StrictQuote
       \ call mail#StrictQuote(<q-line1>, <q-line2>)
-nnoremap <LocalLeader>s
-      \ :StrictQuote<CR>
-xnoremap <LocalLeader>s
-      \ :StrictQuote<CR>
 let b:undo_ftplugin .= '|delcommand StrictQuote'
 
 " Add a space to the end of wrapped lines for format-flowed mail
@@ -61,6 +57,12 @@ xnoremap <buffer> <expr> <LocalLeader>Q
       \ quote#QuoteReformat()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|xunmap <buffer> <LocalLeader>Q'
+
+" Mappings for enforcing strict quoting
+nnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
+xnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
 
 " Maps using autoloaded function for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[
