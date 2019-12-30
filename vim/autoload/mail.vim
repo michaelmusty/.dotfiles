@@ -18,7 +18,7 @@ endfunction
 function! mail#FlagImportant() abort
   call mail#AddHeaderFields({
         \ 'Importance': 'High',
-        \ 'X-Priority': 1
+        \ 'X-Priority': 1,
         \ })
 endfunction
 
@@ -26,7 +26,7 @@ endfunction
 function! mail#FlagUnimportant() abort
   call mail#AddHeaderFields({
         \ 'Importance': 'Low',
-        \ 'X-Priority': 5
+        \ 'X-Priority': 5,
         \ })
 endfunction
 
