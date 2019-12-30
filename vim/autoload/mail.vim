@@ -102,3 +102,43 @@ function! mail#StrictQuote(start, end) abort
 
   endfor
 endfunction
+
+" Attempt to move to a good spot to start writing
+function! mail#SuggestStart() abort
+
+  " Move to top of buffer
+  call setpos('.', [0, 1, 1, 0])
+
+  " Move to body text
+  call search('\m^$', 'c') | +
+
+  " Start by trying to move to the first quoted line; this may fail if there's
+  " no quote, which is fine
+  call search('\m^>', 'c')
+
+  " Delete quoted blank lines or quoted greetings until we get to something
+  " with substance.  Yes, I like Perl, how could you tell?
+  while getline('.') =~? '^> *'
+        \ . '\%('
+          \ . '\%('
+            \ . 'g[''\u2019]\=day'
+            \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
+            \ . '\|h[eu]\%(ll\|rr\)o\+'
+            \ . '\|hey\+'
+            \ . '\|hi\+'
+            \ . '\|sup'
+            \ . '\|what[''\u2019]\=s up'
+            \ . '\|yo'
+          \ . '\)'
+          \ . '[[:punct:] ]*'
+          \ . '\%('
+            \ . '\a\+'
+            \ . '[[:punct:] ]*'
+          \ . '\)\='
+        \ . '\)\=$'
+    delete
+  endwhile
+
+  " Now move to the first quoted or unquoted blank line
+  call search('\m^>\= *$', 'c')
+endfunction
