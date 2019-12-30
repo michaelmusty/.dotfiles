@@ -26,7 +26,7 @@ let b:undo_ftplugin .= '|nunmap <buffer> <Leader>='
 augroup html_timestamp
   autocmd BufWritePre <buffer>
         \ if exists('b:html_timestamp_check')
-        \|  call html#TimestampUpdate()
+        \|  call html#timestamp#Update()
         \|endif
 augroup END
 let b:undo_ftplugin .= '|execute ''autocmd! html_timestamp'''
