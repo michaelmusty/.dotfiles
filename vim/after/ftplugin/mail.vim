@@ -9,9 +9,13 @@ let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
-command -buffer -bar -range=% StrictQuote
+command -bar -buffer -range=% StrictQuote
       \ call mail#StrictQuote(<q-line1>, <q-line2>)
 let b:undo_ftplugin .= '|delcommand StrictQuote'
+
+command -bar -buffer -nargs=1 SetImportance
+      \ call mail#importance#Set(<f-args>)
+let b:undo_ftplugin .= '|delcommand SetImportance'
 
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
@@ -35,12 +39,15 @@ if exists('no_plugin_maps') || exists('no_mail_maps')
 endif
 
 " Flag messages as important/unimportant
-nnoremap <buffer> <LocalLeader>h
-      \ :<C-U>call mail#FlagImportant()<CR>
+nnoremap <buffer> <LocalLeader>ih
+      \ :<C-U>SetImportance high<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>h'
-nnoremap <buffer> <LocalLeader>l
-      \ :<C-U>call mail#FlagUnimportant()<CR>
+nnoremap <buffer> <LocalLeader>il
+      \ :<C-U>SetImportance low<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+nnoremap <buffer> <LocalLeader>in
+      \ :<C-U>SetImportance normal<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>n'
 
 " Quote operator
 nnoremap <buffer> <expr> <LocalLeader>q

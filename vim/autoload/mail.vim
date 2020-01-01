@@ -1,35 +1,3 @@
-" Add a header to a mail message
-function! mail#AddHeaderField(name, body) abort
-  let num = 0
-  while num < line('$') && getline(num + 1) !=# ''
-    let num += 1
-  endwhile
-  call append(num, a:name.': '.a:body)
-endfunction
-
-" Add a set of headers to a mail message
-function! mail#AddHeaderFields(fields) abort
-  for name in sort(keys(a:fields))
-    call mail#AddHeaderField(name, a:fields[name])
-  endfor
-endfunction
-
-" Flag a message as important
-function! mail#FlagImportant() abort
-  call mail#AddHeaderFields({
-        \ 'Importance': 'High',
-        \ 'X-Priority': 1,
-        \ })
-endfunction
-
-" Flag a message as unimportant
-function! mail#FlagUnimportant() abort
-  call mail#AddHeaderFields({
-        \ 'Importance': 'Low',
-        \ 'X-Priority': 5,
-        \ })
-endfunction
-
 " Move through quoted paragraphs like normal-mode `{` and `}`
 function! mail#NewBlank(count, up, visual) abort
 
