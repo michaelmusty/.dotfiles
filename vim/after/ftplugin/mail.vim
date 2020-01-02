@@ -3,7 +3,7 @@
 let b:quote_space = 0
 let b:undo_ftplugin .= '|unlet b:quote_space'
 
-command! -bar -buffer SuggestStart
+command -bar -buffer SuggestStart
       \ call mail#SuggestStart()
 let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart

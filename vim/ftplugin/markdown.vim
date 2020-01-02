@@ -57,7 +57,7 @@ let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|xunmap <buffer> <LocalLeader>Q'
 
 " Autoformat headings
-command! -buffer -nargs=1 MarkdownHeading
+command -buffer -nargs=1 MarkdownHeading
       \ call markdown#Heading(<f-args>)
 nnoremap <buffer> <LocalLeader>=
       \ :<C-U>MarkdownHeading =<CR>
