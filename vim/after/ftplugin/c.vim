@@ -1,4 +1,5 @@
-" Set 'commentstring', 'define', and 'include' back to their default C-friendly values
+" Set 'commentstring', 'define', and 'include' back to their default
+" C-friendly values
 setlocal commentstring&vim define&vim include&vim
 let b:undo_ftplugin .= '|setlocal commentstring< define< include<'
 
