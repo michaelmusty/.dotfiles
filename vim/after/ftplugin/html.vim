@@ -39,5 +39,5 @@ endif
 
 " Transform URLs to HTML anchors
 nnoremap <buffer> <LocalLeader>r
-      \ :<C-U>call html#UrlLink()<CR>
+      \ :<C-U>call html#url#Anchor()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>r'
