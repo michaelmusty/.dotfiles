@@ -5,7 +5,7 @@ function! option#item#Escape(item, ...) abort
   let item = a:item
   let wild = a:0 ? a:1 : 0
   if wild
-    let item = substitute(item, '\\,', ',', 'g')
+    let item = escape(item, '\*?[{`''$~')
   endif
   return escape(item, ',')
 endfunction
