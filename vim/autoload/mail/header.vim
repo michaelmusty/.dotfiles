@@ -1,3 +1,6 @@
+" Parse a mail header into a list of dictionaries with 'name' and 'body' keys;
+" preserve case of the name and whitespace in body, including leading space
+"
 function! mail#header#Read() abort
   let fields = []
   for lnum in range(1, line('$'))
@@ -26,6 +29,7 @@ function! mail#header#Read() abort
   return header
 endfunction
 
+" Flatten a header data structure into a string
 function! mail#header#String(header) abort
   let fields = copy(a:header['fields'])
   return join(
@@ -36,6 +40,7 @@ function! mail#header#String(header) abort
         \)
 endfunction
 
+" Replace existing mail header with the provided one
 function! mail#header#Write(header) abort
   let start = 1
   for lnum in range(1, line('$'))

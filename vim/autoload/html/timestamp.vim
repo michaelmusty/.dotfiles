@@ -1,5 +1,3 @@
-scriptencoding utf-8
-
 " Keys and date formats for return value of s:Timestamp()
 let s:formats = {
       \ 'human': '%a, %d %b %Y %T %Z',
@@ -38,7 +36,7 @@ endfunction
 " Define timestamp prefix string
 let s:prefix = 'Last updated: '
 
-" Define pattern to match date timestamps; no Z̷͖̟̩͕̊̇̈ͬ̆̄Á̩̺͙̫͇͔̓͛ͭ̓̈́L̟͘G̤̣̳̊̌O̻̝̣̠͇̥̠͗ͤ͐͘ please
+" Define pattern to match date timestamps; no ZALGO, please
 let s:pattern = '\m\C'
       \.s:prefix
       \.'<time datetime="[^"]\+">'

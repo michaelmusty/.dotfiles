@@ -1,3 +1,6 @@
+" Escape a single item for a comma-separated list, optionally escaping any
+" filename wildcards
+"
 function! option#item#Escape(item, ...) abort
   if a:0 > 1
     echoerr 'Too many arguments'

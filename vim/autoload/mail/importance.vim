@@ -1,3 +1,4 @@
+" Define header fields for high, low, and normal priorities
 let s:fields = {
       \ 'high': {
         \ 'Importance': 'High',
@@ -10,6 +11,7 @@ let s:fields = {
       \ 'normal': {},
       \}
 
+" Set the priority headers; pass in "high", "low", or "normal"
 function! mail#importance#Set(level) abort
   let header = mail#header#Read()
   let fields = s:fields[a:level]
