@@ -41,13 +41,13 @@ endif
 " Flag messages as important/unimportant
 nnoremap <buffer> <LocalLeader>ih
       \ :<C-U>SetImportance high<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>h'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>ih'
 nnoremap <buffer> <LocalLeader>il
       \ :<C-U>SetImportance low<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>il'
 nnoremap <buffer> <LocalLeader>in
       \ :<C-U>SetImportance normal<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>n'
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>in'
 
 " Quote operator
 nnoremap <buffer> <expr> <LocalLeader>q
