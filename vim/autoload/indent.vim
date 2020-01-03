@@ -1,5 +1,5 @@
 " Set the current buffer to space indent
-function! indent#spaces(...) abort
+function! indent#Spaces(...) abort
   setlocal expandtab
 
   " If an argument was provided, use that for the number of spaces; otherwise,
@@ -14,19 +14,19 @@ function! indent#spaces(...) abort
         \ ? -1
         \ : &l:shiftwidth
 
-  call indent#undo()
+  call indent#Undo()
 endfunction
 
 " Set the current buffer to tab indent
-function! indent#tabs() abort
+function! indent#Tabs() abort
   setlocal noexpandtab
   setlocal shiftwidth< softtabstop<
-  call indent#undo()
+  call indent#Undo()
 endfunction
 
 " Add commands to b:undo_indent to clean up buffer-local indentation changes
 " on a change of filetype
-function! indent#undo() abort
+function! indent#Undo() abort
 
   " Check and set a flag so that we only do this once per buffer
   if exists('b:undo_indent_type_set')

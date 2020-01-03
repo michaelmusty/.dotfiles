@@ -91,7 +91,7 @@ scriptencoding utf-8
 " test it with some values of your own, if you want to understand why.  Vim,
 " I love you, but you are really weird sometimes.
 "
-" We do all this with an autoloaded function split#Option().
+" We do all this with an autoloaded function option#Split().
 "
 " If an environment variable MYVIM exists, and it isn’t blank, apply its value
 " as the first value of 'runtimepath', after escaping it appropriately.
@@ -99,9 +99,9 @@ scriptencoding utf-8
 " list becomes MYVIM.
 "
 if exists('$MYVIM') && $MYVIM !=# ''
-  execute 'set runtimepath^='.escape#Arg(escape#Item(escape#Wild($MYVIM)))
+  execute 'set runtimepath^='.argument#Escape(option#item#Escape($MYVIM, 1))
 elseif &runtimepath !=# ''
-  let $MYVIM = split#Option(&runtimepath)[0]
+  let $MYVIM = option#Split(&runtimepath)[0]
 endif
 
 " We need a command to reliably establish a full path, whether or not the
@@ -133,7 +133,7 @@ command! -bang -bar -complete=dir -nargs=1 CreatePath
 "
 " <https://github.com/vim/vim/releases/tag/v8.1.0716>
 "
-execute 'set viminfo+='.escape#Arg('n'.$MYVIM.'/viminfo')
+execute 'set viminfo+='.argument#Escape('n'.$MYVIM.'/viminfo')
 CreatePath $MYVIM
 
 " Speaking of recorded data in viminfo files, the default Vim limit of a mere
@@ -179,7 +179,7 @@ set history=10000
 " 'backupfullname', 'swapfilefullname' would have been clearer.
 "
 set backup
-execute 'set backupdir^='.escape#Arg(escape#Item(
+execute 'set backupdir^='.argument#Escape(option#item#Escape(
       \ $MYVIM.'/backup'.(has#('patch-8.1.251') ? '//' : ''),
       \))
 CreatePath! $MYVIM/backup
@@ -218,7 +218,8 @@ endif
 " option has supported that hint for much longer than 'backupdir' has.  We
 " apply path#Create() to attempt to create the path, if needed.
 "
-execute 'set directory^='.escape#Arg(escape#Item($MYVIM.'/swap//'))
+execute 'set directory^='
+      \.argument#Escape(option#item#Escape($MYVIM.'/swap//'))
 CreatePath! $MYVIM/swap
 
 " Keep tracked undo history for files permanently, in a dedicated cache
@@ -236,7 +237,8 @@ CreatePath! $MYVIM/swap
 "
 if has#('persistent_undo')
   set undofile
-  execute 'set undodir^='.escape#Arg(escape#Item($MYVIM.'/undo//'))
+  execute 'set undodir^='
+        \.argument#Escape(option#item#Escape($MYVIM.'/undo//'))
   CreatePath! $MYVIM/undo
 endif
 
@@ -354,8 +356,10 @@ set spellcapcheck=[.?!]\\%(\ \ \\\|[\\n\\r\\t]\\)
 set dictionary^=/usr/share/dict/words
 let s:ref = $MYVIM.'/ref'
 try
-  execute 'set dictionary^='.escape#Arg(escape#Item(s:ref.'/dictionary.txt'))
-  execute 'set thesaurus^='.escape#Arg(escape#Item(s:ref.'/thesaurus.txt'))
+  execute 'set dictionary^='
+        \.argument#Escape(option#item#Escape(s:ref.'/dictionary.txt'))
+  execute 'set thesaurus^='
+        \.argument#Escape(option#item#Escape(s:ref.'/thesaurus.txt'))
 catch /^Vim\%((\a\+)\)\=:E474:/
 endtry
 
@@ -461,6 +465,11 @@ set confirm
 " insert mode, anyway.  All of this works fine in the GUI, of course.
 "
 set noesckeys
+
+" Always start with 'foldlevel' set high enough to have all folds of any
+" practical depth open by default.
+"
+set foldlevel=256
 
 " Automatic text wrapping options using flags in the 'formatoptions' option
 " begin here.  I rely on the filetype plugins to set the ‘t’ and ‘c’ flags for

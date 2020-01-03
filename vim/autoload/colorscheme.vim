@@ -9,6 +9,7 @@ function! colorscheme#UpdateCursorline(colors_name, list) abort
   " on if the current colorscheme is in the whitelist, and off otherwise; fire
   " the WinEnter and WinLeave events so any other 'cursorline' related hooks
   " can run too
+  "
   let l:cursorline = index(a:list, a:colors_name) >= 0
   tabdo windo let &g:cursorline = l:cursorline
         \| silent doautocmd WinEnter,WinLeave

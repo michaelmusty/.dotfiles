@@ -265,6 +265,7 @@ GAMES = games/aaf \
 	games/pks \
 	games/rndn \
 	games/rot13 \
+	games/uuu \
 	games/squ \
 	games/strik \
 	games/xyzzy \
@@ -572,15 +573,20 @@ install-vim-after-syntax:
 
 install-vim-autoload:
 	mkdir -p $(VIMDIR)/autoload
-	cp -p -- vim/autoload/*.vim $(VIMDIR)/autoload
+	cd vim && find autoload \
+               -type d -exec sh -c \
+               'mkdir -p -- $(VIMDIR)/"$$1"' _ {} \; \
+               -o \
+               -type f -exec sh -c \
+               'cp -p -- "$$1" $(VIMDIR)/"$$1"' _ {} \;
 
 install-vim-bundle: install-vim-config
-	find vim/bundle/*/* \
+	cd vim/bundle && find */* \
 		-type d -exec sh -c \
-		'mkdir -p -- $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
-	find vim/bundle/*/*/* \
+		'mkdir -p -- $(VIMDIR)/"$${1#*/}"' _ {} \;
+	cd vim/bundle && find */*/* \
 		-type f -exec sh -c \
-		'cp -p -- "$$1" $(VIMDIR)/"$${1#vim/bundle/*/}"' _ {} \;
+		'cp -p -- "$$1" $(VIMDIR)/"$${1#*/}"' _ {} \;
 	$(VIM) -e -u NONE -c 'helptags $(VIMDIR)/doc' -c quit
 
 install-vim-cache:

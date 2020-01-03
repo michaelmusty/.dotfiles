@@ -19,14 +19,14 @@ let b:undo_ftplugin .= '|unlet b:current_compiler'
 " it; we map \= to do the former, but don't actually set 'equalprg' for the
 " latter, instead falling back on the good-enough built-in Vim indentation
 " behavior
-nnoremap <buffer> <Leader>= :<C-U>call html#TidyBuffer()<CR>
+nnoremap <buffer> <Leader>= :<C-U>call html#Tidy()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <Leader>='
 
 " Set up hooks for timestamp updating
 augroup html_timestamp
   autocmd BufWritePre <buffer>
         \ if exists('b:html_timestamp_check')
-        \|  call html#TimestampUpdate()
+        \|  call html#timestamp#Update()
         \|endif
 augroup END
 let b:undo_ftplugin .= '|execute ''autocmd! html_timestamp'''
@@ -39,5 +39,5 @@ endif
 
 " Transform URLs to HTML anchors
 nnoremap <buffer> <LocalLeader>r
-      \ :<C-U>call html#UrlLink()<CR>
+      \ :<C-U>call html#url#Anchor()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>r'
