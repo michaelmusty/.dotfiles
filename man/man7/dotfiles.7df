@@ -971,6 +971,8 @@ algorithm.
 .IP \[bu] 2
 \f[C]rot13(6df)\f[] rotates the Latin letters in its input.
 .IP \[bu] 2
+\f[C]uuu(6df)\f[] uuuuu uuuu uu uuuuuu uuuuuuu u uuu uuuuu.
+.IP \[bu] 2
 \f[C]xyzzy(6df)\f[] teleports to a marked location on the filesystem.
 .IP \[bu] 2
 \f[C]zs(6df)\f[] prefixes \[lq]z\[rq] case\-appropriately to every
