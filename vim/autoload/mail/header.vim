@@ -15,7 +15,7 @@ function! mail#header#Read() abort
             \ 'body': matchlist[2],
             \}
       call add(fields, field)
-    elseif line =~ '^\s' && exists('field')
+    elseif line =~# '^\s' && exists('field')
       let field['body'] .= "\n" . line
     elseif line ==# ''
       break

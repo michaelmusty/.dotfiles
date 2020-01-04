@@ -16,7 +16,7 @@ augroup filetypedetect
         \,?*~
         \,?*.{bak,example,in,new,old,orig,sample,test}
         \,?*.dpkg-{bak,dist,new,old}
-        \ call filetype#StripRepeat()
+        \ call filetype#repeat#Strip()
 
   " Stuff Tom cares about enough and edits often enough to type based on
   " filename patterns follows.
@@ -474,7 +474,7 @@ augroup filetypedetect
         \ /var/tmp/?*????????.*
         \,/var/tmp/?*.????????
         \ if !did_filetype()
-        \|  call filetype#SudoRepeat()
+        \|  call filetype#repeat#Sudo()
         \|endif
 
   " Generic text, config, and log files, if no type assigned yet
