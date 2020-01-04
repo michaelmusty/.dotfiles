@@ -3,58 +3,19 @@
 let b:quote_space = 0
 let b:undo_ftplugin .= '|unlet b:quote_space'
 
-" Attempt to move to a good spot to start writing
-function! s:SuggestStart() abort
-
-  " Move to top of buffer
-  call setpos('.', [0, 1, 1, 0])
-
-  " Move to body text
-  call search('\m^$', 'c') | +
-
-  " Start by trying to move to the first quoted line; this may fail if there's
-  " no quote, which is fine
-  call search('\m^>', 'c')
-
-  " Delete quoted blank lines or quoted greetings until we get to something
-  " with substance.  Yes, I like Perl, how could you tell?
-  while getline('.') =~? '^> *'
-        \ . '\%('
-          \ . '\%('
-            \ . 'g[''\u2019]\=day'
-            \ . '\|\%(good \)\=\%(morning\|afternoon\|evening\)'
-            \ . '\|h[eu]\%(ll\|rr\)o\+'
-            \ . '\|hey\+'
-            \ . '\|hi\+'
-            \ . '\|sup'
-            \ . '\|what[''\u2019]\=s up'
-            \ . '\|yo'
-          \ . '\)'
-          \ . '[[:punct:] ]*'
-          \ . '\%('
-            \ . '\a\+'
-            \ . '[[:punct:] ]*'
-          \ . '\)\='
-        \ . '\)\=$'
-    delete
-  endwhile
-
-  " Now move to the first quoted or unquoted blank line
-  call search('\m^>\= *$', 'c')
-endfunction
-command! -bar -buffer SuggestStart
-      \ call s:SuggestStart()
+command -bar -buffer SuggestStart
+      \ call mail#SuggestStart()
 let b:undo_ftplugin .= '|delcommand SuggestStart'
 SuggestStart
 
 " Normalise quoting
-command -buffer -bar -range=% StrictQuote
+command -bar -buffer -range=% StrictQuote
       \ call mail#StrictQuote(<q-line1>, <q-line2>)
-nnoremap <LocalLeader>s
-      \ :StrictQuote<CR>
-xnoremap <LocalLeader>s
-      \ :StrictQuote<CR>
 let b:undo_ftplugin .= '|delcommand StrictQuote'
+
+command -bar -buffer -nargs=1 SetImportance
+      \ call mail#importance#Set(<f-args>)
+let b:undo_ftplugin .= '|delcommand SetImportance'
 
 " Add a space to the end of wrapped lines for format-flowed mail
 setlocal formatoptions+=w
@@ -78,12 +39,15 @@ if exists('no_plugin_maps') || exists('no_mail_maps')
 endif
 
 " Flag messages as important/unimportant
-nnoremap <buffer> <LocalLeader>h
-      \ :<C-U>call mail#FlagImportant()<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>h'
-nnoremap <buffer> <LocalLeader>l
-      \ :<C-U>call mail#FlagUnimportant()<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>l'
+nnoremap <buffer> <LocalLeader>ih
+      \ :<C-U>SetImportance high<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>ih'
+nnoremap <buffer> <LocalLeader>il
+      \ :<C-U>SetImportance low<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>il'
+nnoremap <buffer> <LocalLeader>in
+      \ :<C-U>SetImportance normal<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>in'
 
 " Quote operator
 nnoremap <buffer> <expr> <LocalLeader>q
@@ -100,6 +64,14 @@ xnoremap <buffer> <expr> <LocalLeader>Q
       \ quote#QuoteReformat()
 let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>Q'
       \ . '|xunmap <buffer> <LocalLeader>Q'
+
+" Mappings for enforcing strict quoting
+nnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
+xnoremap <LocalLeader>s
+      \ :StrictQuote<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> <LocalLeader>s'
+      \ . '|xunmap <buffer> <LocalLeader>s'
 
 " Maps using autoloaded function for quoted paragraph movement
 nnoremap <buffer> <silent> <LocalLeader>[

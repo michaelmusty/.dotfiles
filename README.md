@@ -649,6 +649,7 @@ There's some silly stuff in `install-games`:
 * `rndn(6df)` implements an esoteric random number generation algorithm.
 * `strik(6df)` outputs s̶t̶r̶i̶k̶e̶d̶ ̶o̶u̶t̶ struck out text.
 * `rot13(6df)` rotates the Latin letters in its input.
+* `uuu(6df)` uuuuu uuuu uu uuuuuu uuuuuuu u uuu uuuuu.
 * `xyzzy(6df)` teleports to a marked location on the filesystem.
 * `zs(6df)` prefixes "z" case-appropriately to every occurrence of "s" in the
     text on its standard input.

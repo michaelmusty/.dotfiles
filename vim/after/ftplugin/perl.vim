@@ -7,10 +7,9 @@ if executable('perltidy')
   let b:undo_ftplugin .= '|setlocal equalprg<'
 endif
 
-" Fold based on indent level, but start with all folds open
+" Fold based on indent level
 setlocal foldmethod=indent
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldmethod<'
 
 " Add angle brackets to pairs of matched characters for q<...>
 setlocal matchpairs+=<:>

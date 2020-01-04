@@ -1,6 +1,6 @@
 " Helper function to run the 'filetypedetect' group on a file with its
 " extension stripped off
-function! filetype#StripRepeat() abort
+function! filetype#repeat#Strip() abort
 
   " Check we have the fnameescape() function
   if !exists('*fnameescape')
@@ -33,7 +33,7 @@ endfunction
 " Helper function to run the 'filetypedetect' group on a file in a temporary
 " sudoedit(8) directory, modifying it with an attempt to reverse the temporary
 " filename change
-function! filetype#SudoRepeat() abort
+function! filetype#repeat#Sudo() abort
 
   " Check we have the fnameescape() function
   if !exists('*fnameescape')

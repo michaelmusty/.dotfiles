@@ -1,4 +1,5 @@
-" Set 'commentstring', 'define', and 'include' back to their default C-friendly values
+" Set 'commentstring', 'define', and 'include' back to their default
+" C-friendly values
 setlocal commentstring&vim define&vim include&vim
 let b:undo_ftplugin .= '|setlocal commentstring< define< include<'
 
@@ -6,10 +7,9 @@ let b:undo_ftplugin .= '|setlocal commentstring< define< include<'
 setlocal complete+=d
 let b:undo_ftplugin .= '|setlocal complete<'
 
-" Fold based on indent level, but start with all folds open
+" Fold based on indent level
 setlocal foldmethod=indent
-setlocal foldlevel=99
-let b:undo_ftplugin .= '|setlocal foldmethod< foldlevel<'
+let b:undo_ftplugin .= '|setlocal foldmethod<'
 
 " Include system headers on UNIX
 if has('unix')

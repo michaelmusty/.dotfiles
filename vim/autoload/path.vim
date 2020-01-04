@@ -1,3 +1,5 @@
+" Create all the directories needed for a path, with optional flag for
+" owner-only permissions
 function! path#Create(name, ...) abort
   if a:0 > 2
     echoerr 'Too many arguments'
