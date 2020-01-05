@@ -1437,7 +1437,7 @@ sunmap <Leader>r
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
-"" Leader,#/3 gives me my fortune
+"" Leader,#/3 switches the current buffer to the next altenate filetype
 nmap <Leader># <Plug>(AlternateFileType)
 nmap <Leader>3 <Leader>#
 "" Leader,$/4 gives me my fortune
