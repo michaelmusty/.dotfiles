@@ -5,6 +5,7 @@ Plug 'tpope/vim-commentary'
 Plug 'lervag/vimtex'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'maralla/completor.vim'
+Plug 'jalvesaq/Nvim-R'
 call plug#end()
 
 " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
