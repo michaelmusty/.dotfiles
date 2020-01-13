@@ -1,4 +1,4 @@
-pub   rsa4096 2013-03-12 [SC] [expires: 2020-04-03]
+pub   rsa4096 2013-03-12 [C] [expires: 2020-04-03]
       FA09 C06E 1B67 0CD0 B2F5  DE60 C142 86EA 77BB 8872
 uid           [ultimate] Thomas Ryder (tyrmored, tejr) <tom@sanctum.geek.nz>
 uid           [ultimate] Thomas Ryder <tejr@echo-n.nz>
