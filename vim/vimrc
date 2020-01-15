@@ -749,12 +749,6 @@ endif
 "
 set splitbelow splitright
 
-" Limit the number of characters per line that syntax highlighting will
-" attempt to match.  This is as much an effort to encourage me to break long
-" lines and do hard wrapping correctly as it is for efficiency.
-"
-set synmaxcol=500
-
 " Vim has an internal list of terminal types that support using smoother
 " terminal redrawing, and for which 'ttyfast' is normally set, described in
 " ‘:help 'ttyfast'’.  That list includes most of the terminals I use, but
@@ -1492,7 +1486,7 @@ sunmap <Leader>r
 nnoremap <Leader>!
       \ :<Up><Home><S-Right>!<CR>
 nmap <Leader>1 <Leader>!
-"" Leader,#/3 gives me my fortune
+"" Leader,#/3 switches the current buffer to the next altenate filetype
 nmap <Leader># <Plug>(AlternateFileType)
 nmap <Leader>3 <Leader>#
 "" Leader,$/4 gives me my fortune
