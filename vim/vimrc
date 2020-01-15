@@ -1554,3 +1554,7 @@ inoreabbrev THere There
 " │
 " │     —Schopenhauer
 "
+
+" MUSTY
+set shiftwidth=2
+set foldmethod=indent
