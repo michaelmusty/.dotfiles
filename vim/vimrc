@@ -1552,3 +1552,4 @@ inoreabbrev THere There
 " MUSTY
 set shiftwidth=2
 set foldmethod=indent
+set relativenumber
